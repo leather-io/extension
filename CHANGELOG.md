@@ -1,1286 +1,1286 @@
-## [6.42.1](https://github.com/leather-wallet/extension/compare/v6.42.0...v6.42.1) (2024-06-17)
+## [6.42.1](https://github.com/leather-io/extension/compare/v6.42.0...v6.42.1) (2024-06-17)
 
 
 ### Bug Fixes
 
-* add crypto pkg ([4136b4a](https://github.com/leather-wallet/extension/commit/4136b4a3be7dc8efe723220659f240b33d60cebd))
-* relocated stacks fee types ([d8be118](https://github.com/leather-wallet/extension/commit/d8be118165f6bcf3964282ca27fc28b6ec408682))
-* remove early test return ([e888a71](https://github.com/leather-wallet/extension/commit/e888a719186ea1a08eceb6d677a45a84ffe3b5c3))
-* sign out unknown wallet type error ([89ebaa3](https://github.com/leather-wallet/extension/commit/89ebaa3b9db9b10f81de6848081c94dbc401a085))
-* **ui:** disable pointer events on label ([22f727e](https://github.com/leather-wallet/extension/commit/22f727e6d5efb931dcd491b6e4bebe3cf22f7b4e))
+* add crypto pkg ([4136b4a](https://github.com/leather-io/extension/commit/4136b4a3be7dc8efe723220659f240b33d60cebd))
+* relocated stacks fee types ([d8be118](https://github.com/leather-io/extension/commit/d8be118165f6bcf3964282ca27fc28b6ec408682))
+* remove early test return ([e888a71](https://github.com/leather-io/extension/commit/e888a719186ea1a08eceb6d677a45a84ffe3b5c3))
+* sign out unknown wallet type error ([89ebaa3](https://github.com/leather-io/extension/commit/89ebaa3b9db9b10f81de6848081c94dbc401a085))
+* **ui:** disable pointer events on label ([22f727e](https://github.com/leather-io/extension/commit/22f727e6d5efb931dcd491b6e4bebe3cf22f7b4e))
 
 
 ### Internal
 
-* add constants package to extension ([5048be3](https://github.com/leather-wallet/extension/commit/5048be3be28c7b3dd5d3a2715a3d33385c913a70))
-* post-release merge back ([34134a0](https://github.com/leather-wallet/extension/commit/34134a07af9e5ca1f59f782cfa25d6c503b0f7a8))
-* post-release merge back ([3ef09f1](https://github.com/leather-wallet/extension/commit/3ef09f12305b8f3f405794e440f70c8e38a9bfc2))
-* remove stacks and bitcoin tx models out of extension ([8754ecc](https://github.com/leather-wallet/extension/commit/8754eccd5f3455d0ab4fd97f4308ff64bae483a9))
-* remove survey banner ([2c2aa5f](https://github.com/leather-wallet/extension/commit/2c2aa5fd7161be861c3c284e7af12c24c669dd30))
-* remove unused ecpair pkg ([52025c6](https://github.com/leather-wallet/extension/commit/52025c6826676ab07317ffee766fd4b74126ec87))
-* update cbpay ([6ed7969](https://github.com/leather-wallet/extension/commit/6ed7969dd8e4575155711c4efe877f29088ec23e))
-* use bitcoin methods from mono, closes leather-wallet[#47](https://github.com/leather-wallet/extension/issues/47) ([af77063](https://github.com/leather-wallet/extension/commit/af770631e3fa5289efd10173b689b8c7f602df64))
-* use stacks query pkg, closes [#68](https://github.com/leather-wallet/extension/issues/68) and [#5070](https://github.com/leather-wallet/extension/issues/5070) ([9c67eaf](https://github.com/leather-wallet/extension/commit/9c67eaf97bdbadfad42be7601379249b0ec50bc9))
+* add constants package to extension ([5048be3](https://github.com/leather-io/extension/commit/5048be3be28c7b3dd5d3a2715a3d33385c913a70))
+* post-release merge back ([34134a0](https://github.com/leather-io/extension/commit/34134a07af9e5ca1f59f782cfa25d6c503b0f7a8))
+* post-release merge back ([3ef09f1](https://github.com/leather-io/extension/commit/3ef09f12305b8f3f405794e440f70c8e38a9bfc2))
+* remove stacks and bitcoin tx models out of extension ([8754ecc](https://github.com/leather-io/extension/commit/8754eccd5f3455d0ab4fd97f4308ff64bae483a9))
+* remove survey banner ([2c2aa5f](https://github.com/leather-io/extension/commit/2c2aa5fd7161be861c3c284e7af12c24c669dd30))
+* remove unused ecpair pkg ([52025c6](https://github.com/leather-io/extension/commit/52025c6826676ab07317ffee766fd4b74126ec87))
+* update cbpay ([6ed7969](https://github.com/leather-io/extension/commit/6ed7969dd8e4575155711c4efe877f29088ec23e))
+* use bitcoin methods from mono, closes leather-wallet[#47](https://github.com/leather-io/extension/issues/47) ([af77063](https://github.com/leather-io/extension/commit/af770631e3fa5289efd10173b689b8c7f602df64))
+* use stacks query pkg, closes [#68](https://github.com/leather-io/extension/issues/68) and [#5070](https://github.com/leather-io/extension/issues/5070) ([9c67eaf](https://github.com/leather-io/extension/commit/9c67eaf97bdbadfad42be7601379249b0ec50bc9))
 
-## [6.42.0](https://github.com/leather-wallet/extension/compare/v6.41.1...v6.42.0) (2024-06-06)
+## [6.42.0](https://github.com/leather-io/extension/compare/v6.41.1...v6.42.0) (2024-06-06)
 
 
 ### Features
 
-* add query error analytics ([f46cc89](https://github.com/leather-wallet/extension/commit/f46cc89f2fb355dbb25f041d8f35517a17e7d2f4))
-* panda preset package, ref leather-wallet/issues[#62](https://github.com/leather-wallet/extension/issues/62) ([36e5238](https://github.com/leather-wallet/extension/commit/36e52388cbf4d765942d228e776d334fbf44984f))
-* update error page ([4fd1dbe](https://github.com/leather-wallet/extension/commit/4fd1dbed8da1a51715ebe1df01073745adf83a71))
-* use bitcoin queries from monorepo + inscriptions from monorepo ([2f113fc](https://github.com/leather-wallet/extension/commit/2f113fccf61457dff0f9c43b1c823e8e6fb32642))
+* add query error analytics ([f46cc89](https://github.com/leather-io/extension/commit/f46cc89f2fb355dbb25f041d8f35517a17e7d2f4))
+* panda preset package, ref leather-wallet/issues[#62](https://github.com/leather-io/extension/issues/62) ([36e5238](https://github.com/leather-io/extension/commit/36e52388cbf4d765942d228e776d334fbf44984f))
+* update error page ([4fd1dbe](https://github.com/leather-io/extension/commit/4fd1dbed8da1a51715ebe1df01073745adf83a71))
+* use bitcoin queries from monorepo + inscriptions from monorepo ([2f113fc](https://github.com/leather-io/extension/commit/2f113fccf61457dff0f9c43b1c823e8e6fb32642))
 
 
 ### Bug Fixes
 
-* align DialogHeader title on center, ref [#5419](https://github.com/leather-wallet/extension/issues/5419) ([2e7fd2d](https://github.com/leather-wallet/extension/commit/2e7fd2d87c2fd6f30b7e5e19d62b1b11119bc86e))
-* always set memo for SIP10, ref [#5436](https://github.com/leather-wallet/extension/issues/5436) ([40f6059](https://github.com/leather-wallet/extension/commit/40f605935d99d8fa375c3fb1937d99fcb1ecab96))
-* asset list formatted balance, closes [#5452](https://github.com/leather-wallet/extension/issues/5452) ([81f4fa8](https://github.com/leather-wallet/extension/commit/81f4fa861475b4a2eabb5f0a5039d1f476ced0eb))
-* asset models contractid inconsistencies ([d023622](https://github.com/leather-wallet/extension/commit/d02362221411e2d15538598b1679321644ab32a3))
-* close button still showing in breakpoint ([632a32d](https://github.com/leather-wallet/extension/commit/632a32d7247f10761993df3747a44bdbfe9b171b))
-* display runes balance, closes [#5434](https://github.com/leather-wallet/extension/issues/5434) ([aa50a08](https://github.com/leather-wallet/extension/commit/aa50a08b0250e1cb1748da8143995369f332f21a))
-* extension build workflow, ref leather-wallet/issues[#72](https://github.com/leather-wallet/extension/issues/72) ([a24c6de](https://github.com/leather-wallet/extension/commit/a24c6de2a3e8e9cf87cb924dd6c4c08c3ad03c02))
-* handle undefined memo type for SIP10, ref [#5436](https://github.com/leather-wallet/extension/issues/5436) ([b98a5e7](https://github.com/leather-wallet/extension/commit/b98a5e749abb34dc0b16b7283a4921e279c231d9))
-* inconsistent typing with txValue ([56d4fa2](https://github.com/leather-wallet/extension/commit/56d4fa238d71878c05561a2c5154f9e88a8a819e))
-* integration tests setup ([ea2d8ea](https://github.com/leather-wallet/extension/commit/ea2d8eacef89aad169633389cc338afd38e5d760))
-* **long-bns-names:** truncate BNS names ([a45024a](https://github.com/leather-wallet/extension/commit/a45024a4f2dac631a54713755d4531445573b35f))
-* merge main conflicts ([176b0d8](https://github.com/leather-wallet/extension/commit/176b0d8128de015685c2522445dd9bcd8b80fb29))
-* reenable compliance checks ([e9d7ed2](https://github.com/leather-wallet/extension/commit/e9d7ed206c90f7cb4f9501ae8e3b9b61d20e7f00))
-* remove hover style in sign out button, ref [#5406](https://github.com/leather-wallet/extension/issues/5406) ([3656acf](https://github.com/leather-wallet/extension/commit/3656acfb64ab77d698c835324fdcfc5a4c77c1ec))
-* scroll in settings menu popup ([348d688](https://github.com/leather-wallet/extension/commit/348d6883aa2f74f36ef2b42d897a85cc0f0d728a))
-* set pointer events to none in toast viewport ([093856e](https://github.com/leather-wallet/extension/commit/093856edc3c1c3fb58aebcb84227e3f60b3c0f1b))
-* tests using test app ([51e05fb](https://github.com/leather-wallet/extension/commit/51e05fb302bf649843f37dccba2ae841ae79cf0d))
-* warn users against using support tool for help ([755448f](https://github.com/leather-wallet/extension/commit/755448ff25eadc612880b305ab47940680df25c1))
+* align DialogHeader title on center, ref [#5419](https://github.com/leather-io/extension/issues/5419) ([2e7fd2d](https://github.com/leather-io/extension/commit/2e7fd2d87c2fd6f30b7e5e19d62b1b11119bc86e))
+* always set memo for SIP10, ref [#5436](https://github.com/leather-io/extension/issues/5436) ([40f6059](https://github.com/leather-io/extension/commit/40f605935d99d8fa375c3fb1937d99fcb1ecab96))
+* asset list formatted balance, closes [#5452](https://github.com/leather-io/extension/issues/5452) ([81f4fa8](https://github.com/leather-io/extension/commit/81f4fa861475b4a2eabb5f0a5039d1f476ced0eb))
+* asset models contractid inconsistencies ([d023622](https://github.com/leather-io/extension/commit/d02362221411e2d15538598b1679321644ab32a3))
+* close button still showing in breakpoint ([632a32d](https://github.com/leather-io/extension/commit/632a32d7247f10761993df3747a44bdbfe9b171b))
+* display runes balance, closes [#5434](https://github.com/leather-io/extension/issues/5434) ([aa50a08](https://github.com/leather-io/extension/commit/aa50a08b0250e1cb1748da8143995369f332f21a))
+* extension build workflow, ref leather-wallet/issues[#72](https://github.com/leather-io/extension/issues/72) ([a24c6de](https://github.com/leather-io/extension/commit/a24c6de2a3e8e9cf87cb924dd6c4c08c3ad03c02))
+* handle undefined memo type for SIP10, ref [#5436](https://github.com/leather-io/extension/issues/5436) ([b98a5e7](https://github.com/leather-io/extension/commit/b98a5e749abb34dc0b16b7283a4921e279c231d9))
+* inconsistent typing with txValue ([56d4fa2](https://github.com/leather-io/extension/commit/56d4fa238d71878c05561a2c5154f9e88a8a819e))
+* integration tests setup ([ea2d8ea](https://github.com/leather-io/extension/commit/ea2d8eacef89aad169633389cc338afd38e5d760))
+* **long-bns-names:** truncate BNS names ([a45024a](https://github.com/leather-io/extension/commit/a45024a4f2dac631a54713755d4531445573b35f))
+* merge main conflicts ([176b0d8](https://github.com/leather-io/extension/commit/176b0d8128de015685c2522445dd9bcd8b80fb29))
+* reenable compliance checks ([e9d7ed2](https://github.com/leather-io/extension/commit/e9d7ed206c90f7cb4f9501ae8e3b9b61d20e7f00))
+* remove hover style in sign out button, ref [#5406](https://github.com/leather-io/extension/issues/5406) ([3656acf](https://github.com/leather-io/extension/commit/3656acfb64ab77d698c835324fdcfc5a4c77c1ec))
+* scroll in settings menu popup ([348d688](https://github.com/leather-io/extension/commit/348d6883aa2f74f36ef2b42d897a85cc0f0d728a))
+* set pointer events to none in toast viewport ([093856e](https://github.com/leather-io/extension/commit/093856edc3c1c3fb58aebcb84227e3f60b3c0f1b))
+* tests using test app ([51e05fb](https://github.com/leather-io/extension/commit/51e05fb302bf649843f37dccba2ae841ae79cf0d))
+* warn users against using support tool for help ([755448f](https://github.com/leather-io/extension/commit/755448ff25eadc612880b305ab47940680df25c1))
 
 
 ### Internal
 
-* **deps:** bump @leather-wallet/tokens from 0.0.14 to 0.4.0 ([8b26fdd](https://github.com/leather-wallet/extension/commit/8b26fddd94d5566b32a4b615d6fcfa211e09fb1d))
-* move fees models out of extension ([a48ba01](https://github.com/leather-wallet/extension/commit/a48ba01b0ca1c9797ccef507acc7fd830ffd0d4d))
-* move money and market utils out of extension ([ab7fb16](https://github.com/leather-wallet/extension/commit/ab7fb16365a8be5be1eafa1dfb62e6f7411bf74b))
-* post-release merge back ([281e718](https://github.com/leather-wallet/extension/commit/281e71862f306e30bbb62abaf5918691acaf57d4))
-* update panda + panda-preset ([8489f69](https://github.com/leather-wallet/extension/commit/8489f69330dbdf74404a91b3ba1522e405d4dcc5))
-* update pnpm ([b3411dc](https://github.com/leather-wallet/extension/commit/b3411dc41ef468e20b24ab0a6a33e58ec5bf1a71))
-* upgade @stacks/* packages, closes [#5184](https://github.com/leather-wallet/extension/issues/5184) ([3f53051](https://github.com/leather-wallet/extension/commit/3f530515ffa014a88b5bd08b7b2140dff6478b4a))
-* upgrade @noble/* packages ([aea1c99](https://github.com/leather-wallet/extension/commit/aea1c99e196f8ddcda29ca98ccf6a3d89ecedb37))
-* upgrade leather packages ([b117fab](https://github.com/leather-wallet/extension/commit/b117fab0b1d5b63881557690e9044ebdf69ebc92))
-* upgrade various dependencies ([16b7567](https://github.com/leather-wallet/extension/commit/16b75672c9af7da6aed26942f2dbd1484cf78f19))
-* **utils:** migrate money utils out of extension ([43ad127](https://github.com/leather-wallet/extension/commit/43ad127197c64437f61810ffbca5e54bb4954d03))
-* **utils:** mirgrate more utils out of extension ([d8e0088](https://github.com/leather-wallet/extension/commit/d8e0088e97fbe8c195c6040c05764322c112faf4))
-* **utils:** use utils package, closes leather-wallet[#73](https://github.com/leather-wallet/extension/issues/73) ([53430a7](https://github.com/leather-wallet/extension/commit/53430a717d3108389ab0c8aeddbc04f0a1d05520))
+* **deps:** bump @leather-wallet/tokens from 0.0.14 to 0.4.0 ([8b26fdd](https://github.com/leather-io/extension/commit/8b26fddd94d5566b32a4b615d6fcfa211e09fb1d))
+* move fees models out of extension ([a48ba01](https://github.com/leather-io/extension/commit/a48ba01b0ca1c9797ccef507acc7fd830ffd0d4d))
+* move money and market utils out of extension ([ab7fb16](https://github.com/leather-io/extension/commit/ab7fb16365a8be5be1eafa1dfb62e6f7411bf74b))
+* post-release merge back ([281e718](https://github.com/leather-io/extension/commit/281e71862f306e30bbb62abaf5918691acaf57d4))
+* update panda + panda-preset ([8489f69](https://github.com/leather-io/extension/commit/8489f69330dbdf74404a91b3ba1522e405d4dcc5))
+* update pnpm ([b3411dc](https://github.com/leather-io/extension/commit/b3411dc41ef468e20b24ab0a6a33e58ec5bf1a71))
+* upgade @stacks/* packages, closes [#5184](https://github.com/leather-io/extension/issues/5184) ([3f53051](https://github.com/leather-io/extension/commit/3f530515ffa014a88b5bd08b7b2140dff6478b4a))
+* upgrade @noble/* packages ([aea1c99](https://github.com/leather-io/extension/commit/aea1c99e196f8ddcda29ca98ccf6a3d89ecedb37))
+* upgrade leather packages ([b117fab](https://github.com/leather-io/extension/commit/b117fab0b1d5b63881557690e9044ebdf69ebc92))
+* upgrade various dependencies ([16b7567](https://github.com/leather-io/extension/commit/16b75672c9af7da6aed26942f2dbd1484cf78f19))
+* **utils:** migrate money utils out of extension ([43ad127](https://github.com/leather-io/extension/commit/43ad127197c64437f61810ffbca5e54bb4954d03))
+* **utils:** mirgrate more utils out of extension ([d8e0088](https://github.com/leather-io/extension/commit/d8e0088e97fbe8c195c6040c05764322c112faf4))
+* **utils:** use utils package, closes leather-wallet[#73](https://github.com/leather-io/extension/issues/73) ([53430a7](https://github.com/leather-io/extension/commit/53430a717d3108389ab0c8aeddbc04f0a1d05520))
 
-## [6.41.1](https://github.com/leather-wallet/extension/compare/v6.41.0...v6.41.1) (2024-05-24)
+## [6.41.1](https://github.com/leather-io/extension/compare/v6.41.0...v6.41.1) (2024-05-24)
 
 
 ### Bug Fixes
 
-* always set memo for SIP10, ref [#5436](https://github.com/leather-wallet/extension/issues/5436) ([9a8d965](https://github.com/leather-wallet/extension/commit/9a8d965ffdeec6462cf58c314a788e26e44fa043))
-* display runes balance, closes [#5434](https://github.com/leather-wallet/extension/issues/5434) ([76ee219](https://github.com/leather-wallet/extension/commit/76ee21911182fdb9b1f06777972888bd19675d6c))
-* handle undefined memo type for SIP10, ref [#5436](https://github.com/leather-wallet/extension/issues/5436) ([613ab55](https://github.com/leather-wallet/extension/commit/613ab5525b0e5f316966b08990043236a08463ee))
+* always set memo for SIP10, ref [#5436](https://github.com/leather-io/extension/issues/5436) ([9a8d965](https://github.com/leather-io/extension/commit/9a8d965ffdeec6462cf58c314a788e26e44fa043))
+* display runes balance, closes [#5434](https://github.com/leather-io/extension/issues/5434) ([76ee219](https://github.com/leather-io/extension/commit/76ee21911182fdb9b1f06777972888bd19675d6c))
+* handle undefined memo type for SIP10, ref [#5436](https://github.com/leather-io/extension/issues/5436) ([613ab55](https://github.com/leather-io/extension/commit/613ab5525b0e5f316966b08990043236a08463ee))
 
-## [6.41.0](https://github.com/leather-wallet/extension/compare/v6.40.0...v6.41.0) (2024-05-22)
+## [6.41.0](https://github.com/leather-io/extension/compare/v6.40.0...v6.41.0) (2024-05-22)
 
 
 ### Features
 
-* remove increase fee summary page, closes [#5305](https://github.com/leather-wallet/extension/issues/5305) ([2db97bd](https://github.com/leather-wallet/extension/commit/2db97bd23547985a94d03104836c00b7bda562dc))
+* remove increase fee summary page, closes [#5305](https://github.com/leather-io/extension/issues/5305) ([2db97bd](https://github.com/leather-io/extension/commit/2db97bd23547985a94d03104836c00b7bda562dc))
 
 
 ### Bug Fixes
 
-* fix padding on back button, ref leather-wallet/issues[#25](https://github.com/leather-wallet/extension/issues/25) ([3a42fc9](https://github.com/leather-wallet/extension/commit/3a42fc9848c124e37035ce8d3a41b82eac998450))
-* investigate stx fee issues ([c5e04c1](https://github.com/leather-wallet/extension/commit/c5e04c144789d94bcdabcea767fa63ce09f98da8))
-* missing token color ([caa4c88](https://github.com/leather-wallet/extension/commit/caa4c88ae8fc5f1e71a7090c34565d3e93598c32))
-* regtest address generation, closes [#5401](https://github.com/leather-wallet/extension/issues/5401) ([0c6c4d1](https://github.com/leather-wallet/extension/commit/0c6c4d17f2dc12ac1c84a644f9a2586e3f44dded))
-* sip10 token send form fees bug ([5903a7b](https://github.com/leather-wallet/extension/commit/5903a7bd35d85328920085fbad0c7196ced39780))
-* stamp error reporting ([9b77421](https://github.com/leather-wallet/extension/commit/9b77421b2c920dd75de57323ceb5a4af09428df7))
-* tsconfig update for tokens pkg ([9699d76](https://github.com/leather-wallet/extension/commit/9699d761064bfaa451b30ffbcee68e15272bac2a))
+* fix padding on back button, ref leather-wallet/issues[#25](https://github.com/leather-io/extension/issues/25) ([3a42fc9](https://github.com/leather-io/extension/commit/3a42fc9848c124e37035ce8d3a41b82eac998450))
+* investigate stx fee issues ([c5e04c1](https://github.com/leather-io/extension/commit/c5e04c144789d94bcdabcea767fa63ce09f98da8))
+* missing token color ([caa4c88](https://github.com/leather-io/extension/commit/caa4c88ae8fc5f1e71a7090c34565d3e93598c32))
+* regtest address generation, closes [#5401](https://github.com/leather-io/extension/issues/5401) ([0c6c4d1](https://github.com/leather-io/extension/commit/0c6c4d17f2dc12ac1c84a644f9a2586e3f44dded))
+* sip10 token send form fees bug ([5903a7b](https://github.com/leather-io/extension/commit/5903a7bd35d85328920085fbad0c7196ced39780))
+* stamp error reporting ([9b77421](https://github.com/leather-io/extension/commit/9b77421b2c920dd75de57323ceb5a4af09428df7))
+* tsconfig update for tokens pkg ([9699d76](https://github.com/leather-io/extension/commit/9699d761064bfaa451b30ffbcee68e15272bac2a))
 
 
 ### Internal
 
-* add defensive code and better analytics for broadcast errors, ref [#5118](https://github.com/leather-wallet/extension/issues/5118) ([a36dae4](https://github.com/leather-wallet/extension/commit/a36dae45740d597b30e210d63744b14c247ae912))
-* post-release merge back ([ca9cf0b](https://github.com/leather-wallet/extension/commit/ca9cf0bd288fcdc60489d1b9d22a7d7087f2a217))
-* remove combined asset model, closes [#48](https://github.com/leather-wallet/extension/issues/48) ([a827b40](https://github.com/leather-wallet/extension/commit/a827b4033c80b95ecd1235c1a42b29e6acbd1760))
+* add defensive code and better analytics for broadcast errors, ref [#5118](https://github.com/leather-io/extension/issues/5118) ([a36dae4](https://github.com/leather-io/extension/commit/a36dae45740d597b30e210d63744b14c247ae912))
+* post-release merge back ([ca9cf0b](https://github.com/leather-io/extension/commit/ca9cf0bd288fcdc60489d1b9d22a7d7087f2a217))
+* remove combined asset model, closes [#48](https://github.com/leather-io/extension/issues/48) ([a827b40](https://github.com/leather-io/extension/commit/a827b4033c80b95ecd1235c1a42b29e6acbd1760))
 
-## [6.40.0](https://github.com/leather-wallet/extension/compare/v6.39.0...v6.40.0) (2024-05-17)
+## [6.40.0](https://github.com/leather-io/extension/compare/v6.39.0...v6.40.0) (2024-05-17)
 
 
 ### Features
 
-* add link in swaps disabled tooltip ([93f8964](https://github.com/leather-wallet/extension/commit/93f8964bf7d699335ea280e1b19739c069df8f12))
-* enable btc retrieval, closes [#5067](https://github.com/leather-wallet/extension/issues/5067) ([92d9603](https://github.com/leather-wallet/extension/commit/92d9603b109c4f98ebbaba423e2d03727a6c8ab4))
+* add link in swaps disabled tooltip ([93f8964](https://github.com/leather-io/extension/commit/93f8964bf7d699335ea280e1b19739c069df8f12))
+* enable btc retrieval, closes [#5067](https://github.com/leather-io/extension/issues/5067) ([92d9603](https://github.com/leather-io/extension/commit/92d9603b109c4f98ebbaba423e2d03727a6c8ab4))
 
 
 ### Bug Fixes
 
-* brc20 sends software only ([4983476](https://github.com/leather-wallet/extension/commit/4983476113062279d136eedd7a625728f293fcfd))
-* go back properly and don't allow user to close non cancellable ledger actions, closes [#5143](https://github.com/leather-wallet/extension/issues/5143) ([c28342b](https://github.com/leather-wallet/extension/commit/c28342bb165380848fb046ed1ea0ed3412f8fde5))
-* **ledger:** use correct key number ([56100bf](https://github.com/leather-wallet/extension/commit/56100bf787a1521f4f60b6423d00af6ae1facf02))
-* only decorate psbt inputs without an existing nonWitnessUtxo ([d47f87b](https://github.com/leather-wallet/extension/commit/d47f87b94e4b0e3699d793544ff88dd4a39b3396))
-* show correct amount for nonWitnessUtxo, ref [#5113](https://github.com/leather-wallet/extension/issues/5113) ([65a4f52](https://github.com/leather-wallet/extension/commit/65a4f526fd1a670b0df5fef357e6be221f7b1433))
-* show correct UI count for BTC addresses being pulled, ref [#4983](https://github.com/leather-wallet/extension/issues/4983) ([9f73b24](https://github.com/leather-wallet/extension/commit/9f73b24e6f16970f1d7355956dd918bec8bb5f85))
-* utxos and transaction request cancellation, closes [#5058](https://github.com/leather-wallet/extension/issues/5058) ([ae1b04b](https://github.com/leather-wallet/extension/commit/ae1b04bdac3b8fcdb708f24adea39f9ad59c0c83))
+* brc20 sends software only ([4983476](https://github.com/leather-io/extension/commit/4983476113062279d136eedd7a625728f293fcfd))
+* go back properly and don't allow user to close non cancellable ledger actions, closes [#5143](https://github.com/leather-io/extension/issues/5143) ([c28342b](https://github.com/leather-io/extension/commit/c28342bb165380848fb046ed1ea0ed3412f8fde5))
+* **ledger:** use correct key number ([56100bf](https://github.com/leather-io/extension/commit/56100bf787a1521f4f60b6423d00af6ae1facf02))
+* only decorate psbt inputs without an existing nonWitnessUtxo ([d47f87b](https://github.com/leather-io/extension/commit/d47f87b94e4b0e3699d793544ff88dd4a39b3396))
+* show correct amount for nonWitnessUtxo, ref [#5113](https://github.com/leather-io/extension/issues/5113) ([65a4f52](https://github.com/leather-io/extension/commit/65a4f526fd1a670b0df5fef357e6be221f7b1433))
+* show correct UI count for BTC addresses being pulled, ref [#4983](https://github.com/leather-io/extension/issues/4983) ([9f73b24](https://github.com/leather-io/extension/commit/9f73b24e6f16970f1d7355956dd918bec8bb5f85))
+* utxos and transaction request cancellation, closes [#5058](https://github.com/leather-io/extension/issues/5058) ([ae1b04b](https://github.com/leather-io/extension/commit/ae1b04bdac3b8fcdb708f24adea39f9ad59c0c83))
 
 
 ### Internal
 
-* add backgroundLocation for device busy step ([e288d41](https://github.com/leather-wallet/extension/commit/e288d412b890c1204a265e68aa527c82aa21ea6d))
-* assets and asset list ([88939cc](https://github.com/leather-wallet/extension/commit/88939cc160d1a10927b329d728e6133a7e521909))
-* btc balance ([bbc43d6](https://github.com/leather-wallet/extension/commit/bbc43d6e1f8a8e5c620d844e068832d863ade8b0))
-* post-release merge back ([61b8171](https://github.com/leather-wallet/extension/commit/61b81716112fc081afc7a80e45c6e3782ee6ede0))
-* refactor canclose ([d275ad7](https://github.com/leather-wallet/extension/commit/d275ad7f7fb1f1cd830068bd8faf726566d3fc21))
-* stx balance ([4e3190f](https://github.com/leather-wallet/extension/commit/4e3190f45debd32f461d388f9ef097ef5d289b7d))
-* temporarily disable swaps feature ([e34d5f3](https://github.com/leather-wallet/extension/commit/e34d5f33f9a0c4fcac09b9b2300d8063792a27e4))
-* update packages ([c685b10](https://github.com/leather-wallet/extension/commit/c685b10d618744609135feb90f84573b7f408c54))
+* add backgroundLocation for device busy step ([e288d41](https://github.com/leather-io/extension/commit/e288d412b890c1204a265e68aa527c82aa21ea6d))
+* assets and asset list ([88939cc](https://github.com/leather-io/extension/commit/88939cc160d1a10927b329d728e6133a7e521909))
+* btc balance ([bbc43d6](https://github.com/leather-io/extension/commit/bbc43d6e1f8a8e5c620d844e068832d863ade8b0))
+* post-release merge back ([61b8171](https://github.com/leather-io/extension/commit/61b81716112fc081afc7a80e45c6e3782ee6ede0))
+* refactor canclose ([d275ad7](https://github.com/leather-io/extension/commit/d275ad7f7fb1f1cd830068bd8faf726566d3fc21))
+* stx balance ([4e3190f](https://github.com/leather-io/extension/commit/4e3190f45debd32f461d388f9ef097ef5d289b7d))
+* temporarily disable swaps feature ([e34d5f3](https://github.com/leather-io/extension/commit/e34d5f33f9a0c4fcac09b9b2300d8063792a27e4))
+* update packages ([c685b10](https://github.com/leather-io/extension/commit/c685b10d618744609135feb90f84573b7f408c54))
 
-## [6.39.0](https://github.com/leather-wallet/extension/compare/v6.38.0...v6.39.0) (2024-05-14)
+## [6.39.0](https://github.com/leather-io/extension/compare/v6.38.0...v6.39.0) (2024-05-14)
 
 
 ### Features
 
-* hide asset list unsupported tokens in accordion, closes [#16](https://github.com/leather-wallet/extension/issues/16) ([f37bb1b](https://github.com/leather-wallet/extension/commit/f37bb1bf4c0714a1b51fd3b363665ae0b3a85649))
+* hide asset list unsupported tokens in accordion, closes [#16](https://github.com/leather-io/extension/issues/16) ([f37bb1b](https://github.com/leather-io/extension/commit/f37bb1bf4c0714a1b51fd3b363665ae0b3a85649))
 
 
 ### Bug Fixes
 
-* add schema validation for stamps ([7a89337](https://github.com/leather-wallet/extension/commit/7a8933765e0f5b479cfb83149e99223bb6ebfc1e))
-* change default to pulling 10 keys ([b5c9c79](https://github.com/leather-wallet/extension/commit/b5c9c79811d3f7e2b599abeb698b3acba26c7727))
-* compliance checks reenabled ([d0c17ec](https://github.com/leather-wallet/extension/commit/d0c17ec478fccdd4a1847906287006d52a41d8ba))
-* constant retrying of metadata ([540c349](https://github.com/leather-wallet/extension/commit/540c3495a6ca034f6623e97f977fc17324564343))
-* double stacks asset in ledger mode ([5d9895f](https://github.com/leather-wallet/extension/commit/5d9895f7beefdedf49c21e6c00b727ab4cbc6fcc))
-* remove ledger add more keys route, ref [#4786](https://github.com/leather-wallet/extension/issues/4786) ([45c9968](https://github.com/leather-wallet/extension/commit/45c99682d13397e420bb58dd785ce044cc262f5b))
-* use nakamoto testnet link when network is set to nakamoto testnet ([e522113](https://github.com/leather-wallet/extension/commit/e522113f590dd4636f2d9a3002c91488697a11dd))
+* add schema validation for stamps ([7a89337](https://github.com/leather-io/extension/commit/7a8933765e0f5b479cfb83149e99223bb6ebfc1e))
+* change default to pulling 10 keys ([b5c9c79](https://github.com/leather-io/extension/commit/b5c9c79811d3f7e2b599abeb698b3acba26c7727))
+* compliance checks reenabled ([d0c17ec](https://github.com/leather-io/extension/commit/d0c17ec478fccdd4a1847906287006d52a41d8ba))
+* constant retrying of metadata ([540c349](https://github.com/leather-io/extension/commit/540c3495a6ca034f6623e97f977fc17324564343))
+* double stacks asset in ledger mode ([5d9895f](https://github.com/leather-io/extension/commit/5d9895f7beefdedf49c21e6c00b727ab4cbc6fcc))
+* remove ledger add more keys route, ref [#4786](https://github.com/leather-io/extension/issues/4786) ([45c9968](https://github.com/leather-io/extension/commit/45c99682d13397e420bb58dd785ce044cc262f5b))
+* use nakamoto testnet link when network is set to nakamoto testnet ([e522113](https://github.com/leather-io/extension/commit/e522113f590dd4636f2d9a3002c91488697a11dd))
 
 
 ### Internal
 
-* input calc helper methods ([16a9e6e](https://github.com/leather-wallet/extension/commit/16a9e6e47306dada77843a5632c0400fe73f2a10))
-* post-release merge back ([9caef96](https://github.com/leather-wallet/extension/commit/9caef965f3e73dbe3c0c53d98d2b96ba26fb9c50))
-* remove multiple recipients components ([8f83bcc](https://github.com/leather-wallet/extension/commit/8f83bcc5438de77850f3bd064afd7bd2aeb946fa))
+* input calc helper methods ([16a9e6e](https://github.com/leather-io/extension/commit/16a9e6e47306dada77843a5632c0400fe73f2a10))
+* post-release merge back ([9caef96](https://github.com/leather-io/extension/commit/9caef965f3e73dbe3c0c53d98d2b96ba26fb9c50))
+* remove multiple recipients components ([8f83bcc](https://github.com/leather-io/extension/commit/8f83bcc5438de77850f3bd064afd7bd2aeb946fa))
 
-## [6.38.0](https://github.com/leather-wallet/extension/compare/v6.37.0...v6.38.0) (2024-05-02)
+## [6.38.0](https://github.com/leather-io/extension/compare/v6.37.0...v6.38.0) (2024-05-02)
 
 
 ### Features
 
-* stx-20 balances, closes [#5077](https://github.com/leather-wallet/extension/issues/5077) ([c5a32cf](https://github.com/leather-wallet/extension/commit/c5a32cfd69667982e9930af1ca8756d77ddbb49d))
+* stx-20 balances, closes [#5077](https://github.com/leather-io/extension/issues/5077) ([c5a32cf](https://github.com/leather-io/extension/commit/c5a32cfd69667982e9930af1ca8756d77ddbb49d))
 
 
 ### Bug Fixes
 
-* bitcoin fees underestimation, closes [#4777](https://github.com/leather-wallet/extension/issues/4777) ([df936ea](https://github.com/leather-wallet/extension/commit/df936ea708c7bdaa3631ce1ce165504f61bbd700))
-* colors.focus warning, closes [#5225](https://github.com/leather-wallet/extension/issues/5225) ([6b53a9a](https://github.com/leather-wallet/extension/commit/6b53a9a4ce8312de7b63a9c1f1a0c2b7ffbe33ed))
-* disable swap test ([d0457fb](https://github.com/leather-wallet/extension/commit/d0457fbf52a61b17b65005442885c94415cce6dd))
-* estimate higher tx size for inscription sends, closes [#5330](https://github.com/leather-wallet/extension/issues/5330) ([8ba6258](https://github.com/leather-wallet/extension/commit/8ba6258e254e61945b2c8e9c7ca12afb1ed59223))
-* swap test ([7db0d97](https://github.com/leather-wallet/extension/commit/7db0d9755e39269885472beb1e68c6479a4c7521))
+* bitcoin fees underestimation, closes [#4777](https://github.com/leather-io/extension/issues/4777) ([df936ea](https://github.com/leather-io/extension/commit/df936ea708c7bdaa3631ce1ce165504f61bbd700))
+* colors.focus warning, closes [#5225](https://github.com/leather-io/extension/issues/5225) ([6b53a9a](https://github.com/leather-io/extension/commit/6b53a9a4ce8312de7b63a9c1f1a0c2b7ffbe33ed))
+* disable swap test ([d0457fb](https://github.com/leather-io/extension/commit/d0457fbf52a61b17b65005442885c94415cce6dd))
+* estimate higher tx size for inscription sends, closes [#5330](https://github.com/leather-io/extension/issues/5330) ([8ba6258](https://github.com/leather-io/extension/commit/8ba6258e254e61945b2c8e9c7ca12afb1ed59223))
+* swap test ([7db0d97](https://github.com/leather-io/extension/commit/7db0d9755e39269885472beb1e68c6479a4c7521))
 
 
 ### Internal
 
-* post-release merge back ([4391226](https://github.com/leather-wallet/extension/commit/439122610668934f26e25fec0fd5918785f3b2a4))
-* prevent runtime error from lottie ([0722324](https://github.com/leather-wallet/extension/commit/0722324c34d8a1f431d4cde55cd3962f36ad87ba))
-* rename estimated fee ([d12bb82](https://github.com/leather-wallet/extension/commit/d12bb827e0a73a3f9bec6744540b88a970b0808b))
+* post-release merge back ([4391226](https://github.com/leather-io/extension/commit/439122610668934f26e25fec0fd5918785f3b2a4))
+* prevent runtime error from lottie ([0722324](https://github.com/leather-io/extension/commit/0722324c34d8a1f431d4cde55cd3962f36ad87ba))
+* rename estimated fee ([d12bb82](https://github.com/leather-io/extension/commit/d12bb827e0a73a3f9bec6744540b88a970b0808b))
 
-## [6.37.0](https://github.com/leather-wallet/extension/compare/v6.36.0...v6.37.0) (2024-04-29)
+## [6.37.0](https://github.com/leather-io/extension/compare/v6.36.0...v6.37.0) (2024-04-29)
 
 
 ### Features
 
-* cache time infinity for txs request ([2c36395](https://github.com/leather-wallet/extension/commit/2c363955a959b21e0f44d5e95916e49c26c255ee))
-* disable request diagnostics on install ([191dbd8](https://github.com/leather-wallet/extension/commit/191dbd8995ddf9bca8562c31ddaa0fef618b2dac))
+* cache time infinity for txs request ([2c36395](https://github.com/leather-io/extension/commit/2c363955a959b21e0f44d5e95916e49c26c255ee))
+* disable request diagnostics on install ([191dbd8](https://github.com/leather-io/extension/commit/191dbd8995ddf9bca8562c31ddaa0fef618b2dac))
 
 
 ### Bug Fixes
 
-* add query options to runes queries ([5510d47](https://github.com/leather-wallet/extension/commit/5510d471f1be88ba5bfac4411db88519e24caed4))
-* brc-20 fiat balance ([d25741b](https://github.com/leather-wallet/extension/commit/d25741bdf294a428a33d019a1ad44face73b0b1e))
-* reset to mainnet on signout, closes [#5239](https://github.com/leather-wallet/extension/issues/5239) ([1bf16e4](https://github.com/leather-wallet/extension/commit/1bf16e478eb5f5ab574b1595cf27ecd27fcf1b45))
-* runes formatted balance, closes [#5293](https://github.com/leather-wallet/extension/issues/5293) ([0830303](https://github.com/leather-wallet/extension/commit/0830303a14ae16be9fc71e2e405b553c75fd7a34))
+* add query options to runes queries ([5510d47](https://github.com/leather-io/extension/commit/5510d471f1be88ba5bfac4411db88519e24caed4))
+* brc-20 fiat balance ([d25741b](https://github.com/leather-io/extension/commit/d25741bdf294a428a33d019a1ad44face73b0b1e))
+* reset to mainnet on signout, closes [#5239](https://github.com/leather-io/extension/issues/5239) ([1bf16e4](https://github.com/leather-io/extension/commit/1bf16e478eb5f5ab574b1595cf27ecd27fcf1b45))
+* runes formatted balance, closes [#5293](https://github.com/leather-io/extension/issues/5293) ([0830303](https://github.com/leather-io/extension/commit/0830303a14ae16be9fc71e2e405b553c75fd7a34))
 
 
 ### Internal
 
-* post-release merge back ([549644e](https://github.com/leather-wallet/extension/commit/549644e702d28d0517566df6633859e98095d8c0))
-* remove superflous and erroneous analytics tracking ([12e229d](https://github.com/leather-wallet/extension/commit/12e229df45ccdd9f7874e85f9386a1567a936e03))
+* post-release merge back ([549644e](https://github.com/leather-io/extension/commit/549644e702d28d0517566df6633859e98095d8c0))
+* remove superflous and erroneous analytics tracking ([12e229d](https://github.com/leather-io/extension/commit/12e229df45ccdd9f7874e85f9386a1567a936e03))
 
-## [6.36.0](https://github.com/leather-wallet/extension/compare/v6.35.1...v6.36.0) (2024-04-24)
+## [6.36.0](https://github.com/leather-io/extension/compare/v6.35.1...v6.36.0) (2024-04-24)
 
 
 ### Features
 
-* brc-20 token balances as fiat, [#4408](https://github.com/leather-wallet/extension/issues/4408) ([0942131](https://github.com/leather-wallet/extension/commit/0942131c63c7869349e6a63dcb101e4518271f4d))
-* decrease num of addresses to fetch ([b0276ec](https://github.com/leather-wallet/extension/commit/b0276ec76e89af51b113a4ff320715874f88e789))
-* increase hiro rate limiter ([51cf2c0](https://github.com/leather-wallet/extension/commit/51cf2c000a01f5b82661c388260d482aaf4e9760))
+* brc-20 token balances as fiat, [#4408](https://github.com/leather-io/extension/issues/4408) ([0942131](https://github.com/leather-io/extension/commit/0942131c63c7869349e6a63dcb101e4518271f4d))
+* decrease num of addresses to fetch ([b0276ec](https://github.com/leather-io/extension/commit/b0276ec76e89af51b113a4ff320715874f88e789))
+* increase hiro rate limiter ([51cf2c0](https://github.com/leather-io/extension/commit/51cf2c000a01f5b82661c388260d482aaf4e9760))
 
 
 ### Bug Fixes
 
-* allow virtuoso to resize dynamically, ref [#5242](https://github.com/leather-wallet/extension/issues/5242) ([5d618aa](https://github.com/leather-wallet/extension/commit/5d618aab9bad8892976f132c869e296280e0cf2d))
-* prevent form submit on tooltip click, ref [#5258](https://github.com/leather-wallet/extension/issues/5258) ([8735380](https://github.com/leather-wallet/extension/commit/8735380b07adc5c5c502abe385ff0eca85af4efd))
-* problem with endless loading of balances and names ([15202f4](https://github.com/leather-wallet/extension/commit/15202f4c79133d991cfa0405f49802d2ee9f5ead))
-* rpc send transfer params network validation, closes [#5284](https://github.com/leather-wallet/extension/issues/5284) ([a6f774c](https://github.com/leather-wallet/extension/commit/a6f774c6950b8378942d5b196197c1eb22ba5e23))
-* rpc send transfer recipient default network ([4410185](https://github.com/leather-wallet/extension/commit/4410185f05b16b2bf5ddd4c4daf1bd7c5e09cc97))
-* show hash formatting, ref [#5261](https://github.com/leather-wallet/extension/issues/5261) ([5264a99](https://github.com/leather-wallet/extension/commit/5264a99bcb9f84057db7f186930fc8aeb42fad6e))
+* allow virtuoso to resize dynamically, ref [#5242](https://github.com/leather-io/extension/issues/5242) ([5d618aa](https://github.com/leather-io/extension/commit/5d618aab9bad8892976f132c869e296280e0cf2d))
+* prevent form submit on tooltip click, ref [#5258](https://github.com/leather-io/extension/issues/5258) ([8735380](https://github.com/leather-io/extension/commit/8735380b07adc5c5c502abe385ff0eca85af4efd))
+* problem with endless loading of balances and names ([15202f4](https://github.com/leather-io/extension/commit/15202f4c79133d991cfa0405f49802d2ee9f5ead))
+* rpc send transfer params network validation, closes [#5284](https://github.com/leather-io/extension/issues/5284) ([a6f774c](https://github.com/leather-io/extension/commit/a6f774c6950b8378942d5b196197c1eb22ba5e23))
+* rpc send transfer recipient default network ([4410185](https://github.com/leather-io/extension/commit/4410185f05b16b2bf5ddd4c4daf1bd7c5e09cc97))
+* show hash formatting, ref [#5261](https://github.com/leather-io/extension/issues/5261) ([5264a99](https://github.com/leather-io/extension/commit/5264a99bcb9f84057db7f186930fc8aeb42fad6e))
 
 
 ### Internal
 
-* post-release merge back ([6a53bff](https://github.com/leather-wallet/extension/commit/6a53bff45ce3742ea054da72badfbb1e732159ac))
-* price as market data ([773421b](https://github.com/leather-wallet/extension/commit/773421befe38e506d0d61a2cc6524dcd2c4f898b))
-* remove unneeded logger errors ([b4d73f8](https://github.com/leather-wallet/extension/commit/b4d73f83692129927e39df3c9a0f13020fcbbb21))
+* post-release merge back ([6a53bff](https://github.com/leather-io/extension/commit/6a53bff45ce3742ea054da72badfbb1e732159ac))
+* price as market data ([773421b](https://github.com/leather-io/extension/commit/773421befe38e506d0d61a2cc6524dcd2c4f898b))
+* remove unneeded logger errors ([b4d73f8](https://github.com/leather-io/extension/commit/b4d73f83692129927e39df3c9a0f13020fcbbb21))
 
-## [6.35.1](https://github.com/leather-wallet/extension/compare/v6.35.0...v6.35.1) (2024-04-20)
+## [6.35.1](https://github.com/leather-io/extension/compare/v6.35.0...v6.35.1) (2024-04-20)
 
 
 ### Bug Fixes
 
-* bitcoin fees missing isloading ([7fcb417](https://github.com/leather-wallet/extension/commit/7fcb4175a7ef3dc48f853ac6206bb0e4da20f46c))
-* default to custom fee when no fees ([6022122](https://github.com/leather-wallet/extension/commit/602212212a0ca6da02259572a9f1af55bd5ede96))
-* fix bug with sending ordinals from ledger, [#ref](https://github.com/leather-wallet/extension/issues/ref) 5253 ([06aef60](https://github.com/leather-wallet/extension/commit/06aef609614b775aec0e953a294230fa0065aabc))
-* multiple recipient fee calc ([4b34089](https://github.com/leather-wallet/extension/commit/4b34089d03cf3556b734937e1532bff16f70ccbf))
+* bitcoin fees missing isloading ([7fcb417](https://github.com/leather-io/extension/commit/7fcb4175a7ef3dc48f853ac6206bb0e4da20f46c))
+* default to custom fee when no fees ([6022122](https://github.com/leather-io/extension/commit/602212212a0ca6da02259572a9f1af55bd5ede96))
+* fix bug with sending ordinals from ledger, [#ref](https://github.com/leather-io/extension/issues/ref) 5253 ([06aef60](https://github.com/leather-io/extension/commit/06aef609614b775aec0e953a294230fa0065aabc))
+* multiple recipient fee calc ([4b34089](https://github.com/leather-io/extension/commit/4b34089d03cf3556b734937e1532bff16f70ccbf))
 
 
 ### Internal
 
-* add package installation instructions to readme ([f050237](https://github.com/leather-wallet/extension/commit/f0502371b9d8c31f902fa895e411ddee57e9c62d))
-* enable runes for mainnet ([fbf2062](https://github.com/leather-wallet/extension/commit/fbf2062a33cb21cca84e483c40743f5c740deede))
-* enable runes on mainnet ([0a17ad0](https://github.com/leather-wallet/extension/commit/0a17ad01e5e63ab0fbc51a267412721fe1b310ff))
-* fix alignment of PSBT copy, ref [#5260](https://github.com/leather-wallet/extension/issues/5260) ([b9d8c9c](https://github.com/leather-wallet/extension/commit/b9d8c9ce17ce748c3801d0db28058c0d6a5e3bfb))
-* post-release merge back ([3ad2b50](https://github.com/leather-wallet/extension/commit/3ad2b50b81420cf87fd14d0a7e4c28fcbc6dc39a))
-* post-release merge back ([448c4c0](https://github.com/leather-wallet/extension/commit/448c4c0596fe9708efd60eb850c9d8ce94bc6858))
-* update README ([f695261](https://github.com/leather-wallet/extension/commit/f695261b3a8847908dd5ce22eff5ae78e19bc01d))
+* add package installation instructions to readme ([f050237](https://github.com/leather-io/extension/commit/f0502371b9d8c31f902fa895e411ddee57e9c62d))
+* enable runes for mainnet ([fbf2062](https://github.com/leather-io/extension/commit/fbf2062a33cb21cca84e483c40743f5c740deede))
+* enable runes on mainnet ([0a17ad0](https://github.com/leather-io/extension/commit/0a17ad01e5e63ab0fbc51a267412721fe1b310ff))
+* fix alignment of PSBT copy, ref [#5260](https://github.com/leather-io/extension/issues/5260) ([b9d8c9c](https://github.com/leather-io/extension/commit/b9d8c9ce17ce748c3801d0db28058c0d6a5e3bfb))
+* post-release merge back ([3ad2b50](https://github.com/leather-io/extension/commit/3ad2b50b81420cf87fd14d0a7e4c28fcbc6dc39a))
+* post-release merge back ([448c4c0](https://github.com/leather-io/extension/commit/448c4c0596fe9708efd60eb850c9d8ce94bc6858))
+* update README ([f695261](https://github.com/leather-io/extension/commit/f695261b3a8847908dd5ce22eff5ae78e19bc01d))
 
-## [6.35.0](https://github.com/leather-wallet/extension/compare/v6.34.0...v6.35.0) (2024-04-18)
+## [6.35.0](https://github.com/leather-io/extension/compare/v6.34.0...v6.35.0) (2024-04-18)
 
 
 ### Features
 
-* filter out runes utxos, closes [#5207](https://github.com/leather-wallet/extension/issues/5207) ([1e02992](https://github.com/leather-wallet/extension/commit/1e02992a7175ac9bbad2b18d2a467c6207ce7cd2))
+* filter out runes utxos, closes [#5207](https://github.com/leather-io/extension/issues/5207) ([1e02992](https://github.com/leather-io/extension/commit/1e02992a7175ac9bbad2b18d2a467c6207ce7cd2))
 
 
 ### Bug Fixes
 
-* add default runes symbol ([b3109ed](https://github.com/leather-wallet/extension/commit/b3109edabe011e5db62edf25c879fe6b4f9ae1af))
-* check utxo fallback error, closes [#5250](https://github.com/leather-wallet/extension/issues/5250) ([321a00a](https://github.com/leather-wallet/extension/commit/321a00ad4635d75dec8572422bf509ae1806f547))
-* duplicated connect btn, closes [#5255](https://github.com/leather-wallet/extension/issues/5255) ([2655c0f](https://github.com/leather-wallet/extension/commit/2655c0f031f11538a8ebcf0449d4f7e7029d471d))
-* **ledger:** no signer breaking homepage ([7624c0a](https://github.com/leather-wallet/extension/commit/7624c0a2a01ca90fe2b0c11413418c628a2ebe1c))
-* rpc send transfer data, closes [#5243](https://github.com/leather-wallet/extension/issues/5243) ([1858348](https://github.com/leather-wallet/extension/commit/1858348e7117fa2c396975e009ff7de1fbce008c))
-* runes ui, closes [#5246](https://github.com/leather-wallet/extension/issues/5246) ([b4dcf87](https://github.com/leather-wallet/extension/commit/b4dcf874f074964f656a8c7e977fe4107dcd218a))
+* add default runes symbol ([b3109ed](https://github.com/leather-io/extension/commit/b3109edabe011e5db62edf25c879fe6b4f9ae1af))
+* check utxo fallback error, closes [#5250](https://github.com/leather-io/extension/issues/5250) ([321a00a](https://github.com/leather-io/extension/commit/321a00ad4635d75dec8572422bf509ae1806f547))
+* duplicated connect btn, closes [#5255](https://github.com/leather-io/extension/issues/5255) ([2655c0f](https://github.com/leather-io/extension/commit/2655c0f031f11538a8ebcf0449d4f7e7029d471d))
+* **ledger:** no signer breaking homepage ([7624c0a](https://github.com/leather-io/extension/commit/7624c0a2a01ca90fe2b0c11413418c628a2ebe1c))
+* rpc send transfer data, closes [#5243](https://github.com/leather-io/extension/issues/5243) ([1858348](https://github.com/leather-io/extension/commit/1858348e7117fa2c396975e009ff7de1fbce008c))
+* runes ui, closes [#5246](https://github.com/leather-io/extension/issues/5246) ([b4dcf87](https://github.com/leather-io/extension/commit/b4dcf874f074964f656a8c7e977fe4107dcd218a))
 
 
 ### Internal
 
-* post-release merge back ([75c4f5d](https://github.com/leather-wallet/extension/commit/75c4f5d95c102a29e87a6631f471742f83c4153a))
+* post-release merge back ([75c4f5d](https://github.com/leather-io/extension/commit/75c4f5d95c102a29e87a6631f471742f83c4153a))
 
-## [6.34.0](https://github.com/leather-wallet/extension/compare/v6.33.0...v6.34.0) (2024-04-17)
+## [6.34.0](https://github.com/leather-io/extension/compare/v6.33.0...v6.34.0) (2024-04-17)
 
 
 ### Features
 
-* rune balances ([4e1de2c](https://github.com/leather-wallet/extension/commit/4e1de2cf8eea0ca0f379986547a041b8514ce7da))
+* rune balances ([4e1de2c](https://github.com/leather-io/extension/commit/4e1de2cf8eea0ca0f379986547a041b8514ce7da))
 
 
 ### Bug Fixes
 
-* always show full text ([dc8c8e4](https://github.com/leather-wallet/extension/commit/dc8c8e4f505fdef00ce3bb9bec3666ef72729516))
-* change runes receive address to tr ([4c9c167](https://github.com/leather-wallet/extension/commit/4c9c16755b33eab8fde90b0eb3703a444932bcb2))
-* rpc send transfer recipient choose fee ([1a5fb85](https://github.com/leather-wallet/extension/commit/1a5fb85f77f4acc8fdf2b311428c00b8a74e1169))
-* wrong bns name while loading ([bc02c05](https://github.com/leather-wallet/extension/commit/bc02c05a577ef7b43e3b07275a2070ca73930e1e))
+* always show full text ([dc8c8e4](https://github.com/leather-io/extension/commit/dc8c8e4f505fdef00ce3bb9bec3666ef72729516))
+* change runes receive address to tr ([4c9c167](https://github.com/leather-io/extension/commit/4c9c16755b33eab8fde90b0eb3703a444932bcb2))
+* rpc send transfer recipient choose fee ([1a5fb85](https://github.com/leather-io/extension/commit/1a5fb85f77f4acc8fdf2b311428c00b8a74e1169))
+* wrong bns name while loading ([bc02c05](https://github.com/leather-io/extension/commit/bc02c05a577ef7b43e3b07275a2070ca73930e1e))
 
 
 ### Internal
 
-* add bestinslot testnet for runes setup ([5aa7a20](https://github.com/leather-wallet/extension/commit/5aa7a2061a0e2cde7234630eb384b76e82104383))
-* add BRC-20 and SRC-20 to collectibles ([3360f0c](https://github.com/leather-wallet/extension/commit/3360f0cd7a873266c63b021f612e9795e7593b07))
-* add ns addresses for runes balances ([e26e5ba](https://github.com/leather-wallet/extension/commit/e26e5bacb711db7a1b2ed33c8333f370ed5c8bfd))
-* post-release merge back ([250089e](https://github.com/leather-wallet/extension/commit/250089e761dcd4cfdc9f5383601788b50012677a))
-* stop increase fee being cutoff when long contract name ([2b57f48](https://github.com/leather-wallet/extension/commit/2b57f48b32b2205a7107b9e3b8fc7eea1766f4cd))
-* update packages ([212bff8](https://github.com/leather-wallet/extension/commit/212bff8abe0aa00d43938065b7b0a2fa59250bfe))
-* update runes avatar icon ([f665707](https://github.com/leather-wallet/extension/commit/f665707a78465358f3f91a3d1b1d4069e3b5f00e))
+* add bestinslot testnet for runes setup ([5aa7a20](https://github.com/leather-io/extension/commit/5aa7a2061a0e2cde7234630eb384b76e82104383))
+* add BRC-20 and SRC-20 to collectibles ([3360f0c](https://github.com/leather-io/extension/commit/3360f0cd7a873266c63b021f612e9795e7593b07))
+* add ns addresses for runes balances ([e26e5ba](https://github.com/leather-io/extension/commit/e26e5bacb711db7a1b2ed33c8333f370ed5c8bfd))
+* post-release merge back ([250089e](https://github.com/leather-io/extension/commit/250089e761dcd4cfdc9f5383601788b50012677a))
+* stop increase fee being cutoff when long contract name ([2b57f48](https://github.com/leather-io/extension/commit/2b57f48b32b2205a7107b9e3b8fc7eea1766f4cd))
+* update packages ([212bff8](https://github.com/leather-io/extension/commit/212bff8abe0aa00d43938065b7b0a2fa59250bfe))
+* update runes avatar icon ([f665707](https://github.com/leather-io/extension/commit/f665707a78465358f3f91a3d1b1d4069e3b5f00e))
 
-## [6.33.0](https://github.com/leather-wallet/extension/compare/v6.32.1...v6.33.0) (2024-04-10)
+## [6.33.0](https://github.com/leather-io/extension/compare/v6.32.1...v6.33.0) (2024-04-10)
 
 
 ### Features
 
-* add balances shimmer loader, closes [#5119](https://github.com/leather-wallet/extension/issues/5119) ([5c1c284](https://github.com/leather-wallet/extension/commit/5c1c284074c2211e75d1c2f2054de488918126e2))
-* add src-20 token balances, closes [#3751](https://github.com/leather-wallet/extension/issues/3751) ([fb859b6](https://github.com/leather-wallet/extension/commit/fb859b6ecb830af1455a344a22b3884dac9de82b))
-* add stacks balance loader ([20418ab](https://github.com/leather-wallet/extension/commit/20418ababa5e8db8a8c8b82f30c19eb10d2864b4))
-* change query persister to chrome storage, closes [#5153](https://github.com/leather-wallet/extension/issues/5153) ([1cd2625](https://github.com/leather-wallet/extension/commit/1cd26250dde7b46146e5da48fbe355e682b8c966))
-* compliance checks ([6df0869](https://github.com/leather-wallet/extension/commit/6df086937edabb6993ee5c16de9a85c198c79480))
-* stacks ft fiat values from alex-sdk, closes [#4653](https://github.com/leather-wallet/extension/issues/4653) ([0f7e44e](https://github.com/leather-wallet/extension/commit/0f7e44e730169a9de489f4a7e120106c87c3def4))
-* support multiple recipients in rpc send transfer method, closes [#5174](https://github.com/leather-wallet/extension/issues/5174) ([a470a57](https://github.com/leather-wallet/extension/commit/a470a5757c081f54f40cb7fc3c7f5ab2c375701e))
+* add balances shimmer loader, closes [#5119](https://github.com/leather-io/extension/issues/5119) ([5c1c284](https://github.com/leather-io/extension/commit/5c1c284074c2211e75d1c2f2054de488918126e2))
+* add src-20 token balances, closes [#3751](https://github.com/leather-io/extension/issues/3751) ([fb859b6](https://github.com/leather-io/extension/commit/fb859b6ecb830af1455a344a22b3884dac9de82b))
+* add stacks balance loader ([20418ab](https://github.com/leather-io/extension/commit/20418ababa5e8db8a8c8b82f30c19eb10d2864b4))
+* change query persister to chrome storage, closes [#5153](https://github.com/leather-io/extension/issues/5153) ([1cd2625](https://github.com/leather-io/extension/commit/1cd26250dde7b46146e5da48fbe355e682b8c966))
+* compliance checks ([6df0869](https://github.com/leather-io/extension/commit/6df086937edabb6993ee5c16de9a85c198c79480))
+* stacks ft fiat values from alex-sdk, closes [#4653](https://github.com/leather-io/extension/issues/4653) ([0f7e44e](https://github.com/leather-io/extension/commit/0f7e44e730169a9de489f4a7e120106c87c3def4))
+* support multiple recipients in rpc send transfer method, closes [#5174](https://github.com/leather-io/extension/issues/5174) ([a470a57](https://github.com/leather-io/extension/commit/a470a5757c081f54f40cb7fc3c7f5ab2c375701e))
 
 
 ### Bug Fixes
 
-* add border to onboarding form ([a6bda2d](https://github.com/leather-wallet/extension/commit/a6bda2dd12afa0be0fc7d8c448819d5414f12cc5))
-* container when resized ([909fa0c](https://github.com/leather-wallet/extension/commit/909fa0c724dfa847370a6f1aac1e586d219745dd))
-* dependabot ([d927ec0](https://github.com/leather-wallet/extension/commit/d927ec02d8833c9404809c28b7d8be35bfb743f9))
-* deprecate InfoCard to add border correctly ([b6864cd](https://github.com/leather-wallet/extension/commit/b6864cd774057cfe03ef7150855de7258456ebb8))
-* fix routing issues with send flow ([f32151d](https://github.com/leather-wallet/extension/commit/f32151d272a970b61ff83116e4edfeeb0706ab53))
-* only show messages on homepage ([8228c11](https://github.com/leather-wallet/extension/commit/8228c11c558ff31eca3df0e8319902b66a9d66fc))
-* refetch brc20 tokens on window focus ([a985e0f](https://github.com/leather-wallet/extension/commit/a985e0f4da50713587a84a6ab0f2bdffc1b72c4e))
-* shimmer styles import ([868ee71](https://github.com/leather-wallet/extension/commit/868ee717a6e33e3a266bc0e0fee3d8f8cb52c2d3))
-* swap test ([85eb975](https://github.com/leather-wallet/extension/commit/85eb97595d93b95346ecf1f4680f05afb6b8465d))
-* swap toggle with new routing ([f179f3e](https://github.com/leather-wallet/extension/commit/f179f3ef8e702bc5640de883e64964297ac695ad))
-* use signed stacks account in transaction [#4923](https://github.com/leather-wallet/extension/issues/4923) ([6dca269](https://github.com/leather-wallet/extension/commit/6dca269b31dcd2ce63e093ea0c004ffe611c5220))
+* add border to onboarding form ([a6bda2d](https://github.com/leather-io/extension/commit/a6bda2dd12afa0be0fc7d8c448819d5414f12cc5))
+* container when resized ([909fa0c](https://github.com/leather-io/extension/commit/909fa0c724dfa847370a6f1aac1e586d219745dd))
+* dependabot ([d927ec0](https://github.com/leather-io/extension/commit/d927ec02d8833c9404809c28b7d8be35bfb743f9))
+* deprecate InfoCard to add border correctly ([b6864cd](https://github.com/leather-io/extension/commit/b6864cd774057cfe03ef7150855de7258456ebb8))
+* fix routing issues with send flow ([f32151d](https://github.com/leather-io/extension/commit/f32151d272a970b61ff83116e4edfeeb0706ab53))
+* only show messages on homepage ([8228c11](https://github.com/leather-io/extension/commit/8228c11c558ff31eca3df0e8319902b66a9d66fc))
+* refetch brc20 tokens on window focus ([a985e0f](https://github.com/leather-io/extension/commit/a985e0f4da50713587a84a6ab0f2bdffc1b72c4e))
+* shimmer styles import ([868ee71](https://github.com/leather-io/extension/commit/868ee717a6e33e3a266bc0e0fee3d8f8cb52c2d3))
+* swap test ([85eb975](https://github.com/leather-io/extension/commit/85eb97595d93b95346ecf1f4680f05afb6b8465d))
+* swap toggle with new routing ([f179f3e](https://github.com/leather-io/extension/commit/f179f3ef8e702bc5640de883e64964297ac695ad))
+* use signed stacks account in transaction [#4923](https://github.com/leather-io/extension/issues/4923) ([6dca269](https://github.com/leather-io/extension/commit/6dca269b31dcd2ce63e093ea0c004ffe611c5220))
 
 
 ### Internal
 
-* Add wallet user survey, adjust styling ([3c242cf](https://github.com/leather-wallet/extension/commit/3c242cfc08cf18d441a5de448589ef685c5c7407))
-* disable compliance check ([b4b1d11](https://github.com/leather-wallet/extension/commit/b4b1d11be05f3c56c7f0adc3d9c97a33c282384c))
-* fmt ([a937795](https://github.com/leather-wallet/extension/commit/a9377954f7b7bf077944a8471be4adee120889a0))
-* implement fix to limit amount of accounts rendered ([629ef97](https://github.com/leather-wallet/extension/commit/629ef9788c4d54b98cd59bb38f9ac8d4208cb49e))
-* post-release merge back ([3c9c0f8](https://github.com/leather-wallet/extension/commit/3c9c0f8cb9418398198ee406210c7fe91d84b2f5))
-* replace drawer dialog, containers and global header footers, onboarding, settings, ref [#4371](https://github.com/leather-wallet/extension/issues/4371) ([6262267](https://github.com/leather-wallet/extension/commit/6262267ff11fdeaa3f0d995fb5f286debcbbfd17))
-* swaps routes, closes [#4317](https://github.com/leather-wallet/extension/issues/4317) ([70c51a1](https://github.com/leather-wallet/extension/commit/70c51a1ad112d3c37811ae7fb4e469d700c41107))
-* ugprade dev packages ([4ed8326](https://github.com/leather-wallet/extension/commit/4ed8326507156f30eb9c87495ae5ca8d9d1090ca))
-* update express, ref [#5130](https://github.com/leather-wallet/extension/issues/5130) ([264bf8d](https://github.com/leather-wallet/extension/commit/264bf8db38d487b26a6c71661e4c2dc9495f405f))
-* update prettier package ([e75990f](https://github.com/leather-wallet/extension/commit/e75990fc1670667ecd36912be2a14af3242b00b5))
-* update stx avatar ([03fe093](https://github.com/leather-wallet/extension/commit/03fe0936d0f2d7af663f406f42da941400c27dd2))
-* update undici, ref [#4956](https://github.com/leather-wallet/extension/issues/4956) ([8019e0d](https://github.com/leather-wallet/extension/commit/8019e0d106bd11c174b02513db42dd0990fca4a8))
-* update webpack + axios, ref [#5090](https://github.com/leather-wallet/extension/issues/5090) ([77803f5](https://github.com/leather-wallet/extension/commit/77803f56ce4fd39bc0c13f0ef0e23da9277957f1))
-* upgrade redux toolkit, redux ([2eb8090](https://github.com/leather-wallet/extension/commit/2eb8090cd88b32ae8b3d4eb3bbee2b3f7bb75bd5))
+* Add wallet user survey, adjust styling ([3c242cf](https://github.com/leather-io/extension/commit/3c242cfc08cf18d441a5de448589ef685c5c7407))
+* disable compliance check ([b4b1d11](https://github.com/leather-io/extension/commit/b4b1d11be05f3c56c7f0adc3d9c97a33c282384c))
+* fmt ([a937795](https://github.com/leather-io/extension/commit/a9377954f7b7bf077944a8471be4adee120889a0))
+* implement fix to limit amount of accounts rendered ([629ef97](https://github.com/leather-io/extension/commit/629ef9788c4d54b98cd59bb38f9ac8d4208cb49e))
+* post-release merge back ([3c9c0f8](https://github.com/leather-io/extension/commit/3c9c0f8cb9418398198ee406210c7fe91d84b2f5))
+* replace drawer dialog, containers and global header footers, onboarding, settings, ref [#4371](https://github.com/leather-io/extension/issues/4371) ([6262267](https://github.com/leather-io/extension/commit/6262267ff11fdeaa3f0d995fb5f286debcbbfd17))
+* swaps routes, closes [#4317](https://github.com/leather-io/extension/issues/4317) ([70c51a1](https://github.com/leather-io/extension/commit/70c51a1ad112d3c37811ae7fb4e469d700c41107))
+* ugprade dev packages ([4ed8326](https://github.com/leather-io/extension/commit/4ed8326507156f30eb9c87495ae5ca8d9d1090ca))
+* update express, ref [#5130](https://github.com/leather-io/extension/issues/5130) ([264bf8d](https://github.com/leather-io/extension/commit/264bf8db38d487b26a6c71661e4c2dc9495f405f))
+* update prettier package ([e75990f](https://github.com/leather-io/extension/commit/e75990fc1670667ecd36912be2a14af3242b00b5))
+* update stx avatar ([03fe093](https://github.com/leather-io/extension/commit/03fe0936d0f2d7af663f406f42da941400c27dd2))
+* update undici, ref [#4956](https://github.com/leather-io/extension/issues/4956) ([8019e0d](https://github.com/leather-io/extension/commit/8019e0d106bd11c174b02513db42dd0990fca4a8))
+* update webpack + axios, ref [#5090](https://github.com/leather-io/extension/issues/5090) ([77803f5](https://github.com/leather-io/extension/commit/77803f56ce4fd39bc0c13f0ef0e23da9277957f1))
+* upgrade redux toolkit, redux ([2eb8090](https://github.com/leather-io/extension/commit/2eb8090cd88b32ae8b3d4eb3bbee2b3f7bb75bd5))
 
-## [6.32.1](https://github.com/leather-wallet/extension/compare/v6.32.0...v6.32.1) (2024-03-27)
+## [6.32.1](https://github.com/leather-io/extension/compare/v6.32.0...v6.32.1) (2024-03-27)
 
 
 ### Bug Fixes
 
-* removes decimals from balances > $1,000 ([5db63de](https://github.com/leather-wallet/extension/commit/5db63de747f05af8f5e42bb0ba199a706e79c70f))
-* send form max amount ([caae144](https://github.com/leather-wallet/extension/commit/caae144892a3d3691b41caca0f33d25f8171013a))
-* wrong send stx validation msg ([926a90b](https://github.com/leather-wallet/extension/commit/926a90bac3507d0851068eaca816e0fe538e4b00))
+* removes decimals from balances > $1,000 ([5db63de](https://github.com/leather-io/extension/commit/5db63de747f05af8f5e42bb0ba199a706e79c70f))
+* send form max amount ([caae144](https://github.com/leather-io/extension/commit/caae144892a3d3691b41caca0f33d25f8171013a))
+* wrong send stx validation msg ([926a90b](https://github.com/leather-io/extension/commit/926a90bac3507d0851068eaca816e0fe538e4b00))
 
 
 ### Internal
 
-* post-release merge back ([541c27a](https://github.com/leather-wallet/extension/commit/541c27a30617b7f80d4a974fac3a60e2014d2cd3))
+* post-release merge back ([541c27a](https://github.com/leather-io/extension/commit/541c27a30617b7f80d4a974fac3a60e2014d2cd3))
 
-## [6.32.0](https://github.com/leather-wallet/extension/compare/v6.31.0...v6.32.0) (2024-03-26)
+## [6.32.0](https://github.com/leather-io/extension/compare/v6.31.0...v6.32.0) (2024-03-26)
 
 
 ### Features
 
-* add blockstream and hiro api rate limiters, closes [#4926](https://github.com/leather-wallet/extension/issues/4926) ([b1b2ec5](https://github.com/leather-wallet/extension/commit/b1b2ec5087023c598979bf7702a0a54c459214d8))
+* add blockstream and hiro api rate limiters, closes [#4926](https://github.com/leather-io/extension/issues/4926) ([b1b2ec5](https://github.com/leather-io/extension/commit/b1b2ec5087023c598979bf7702a0a54c459214d8))
 
 
 ### Bug Fixes
 
-* add new test for sign psbt ([d5d7cb7](https://github.com/leather-wallet/extension/commit/d5d7cb74226ad9beec5375b578c5da8020f326a1))
-* add test for psbt wrong index failure ([7ec9744](https://github.com/leather-wallet/extension/commit/7ec9744a0cf52708325dea86397cca8dca63c57c))
-* client side nested button error ([c800721](https://github.com/leather-wallet/extension/commit/c800721e1dc0046b25e81477eae7e181ee856bbb))
-* increase swap hardcoded fee, closes [#4984](https://github.com/leather-wallet/extension/issues/4984) ([1eb268e](https://github.com/leather-wallet/extension/commit/1eb268e9c3a9840965eaddd2eda113e81a3fc17e))
-* index bug and modify tests ([f9efae6](https://github.com/leather-wallet/extension/commit/f9efae6feba9462783035c790903219c9bd07ce8))
-* input payment type, closes [#5076](https://github.com/leather-wallet/extension/issues/5076) ([5f558da](https://github.com/leather-wallet/extension/commit/5f558da2ddb797397dca73db736968d18bfb4ae7))
-* missing regtest prefix in address check ([7e8549f](https://github.com/leather-wallet/extension/commit/7e8549f94597c21dc197663f62bb0cb80bfc48eb))
-* modify input payment type index for ledger also ([17f57f3](https://github.com/leather-wallet/extension/commit/17f57f3d56a4083fae2bc766ec195bf17e1dffdd))
-* swap arrow icon ([9dcd980](https://github.com/leather-wallet/extension/commit/9dcd9809fa00db12c398ef4701ec8d0caebf636f))
-* swap duplicate toast, closes [#5068](https://github.com/leather-wallet/extension/issues/5068) ([5f08a9c](https://github.com/leather-wallet/extension/commit/5f08a9c21a98f92ef31449972d5d43c198e64f46))
-* swapping welsh with alex sdk, closes [#5022](https://github.com/leather-wallet/extension/issues/5022) ([1f1216c](https://github.com/leather-wallet/extension/commit/1f1216cd91fa61a3b66a47d157a4b987de694f55))
-* validation regtest addresses ([462ab8c](https://github.com/leather-wallet/extension/commit/462ab8c339857026a468c75502ce1c726e171a88))
+* add new test for sign psbt ([d5d7cb7](https://github.com/leather-io/extension/commit/d5d7cb74226ad9beec5375b578c5da8020f326a1))
+* add test for psbt wrong index failure ([7ec9744](https://github.com/leather-io/extension/commit/7ec9744a0cf52708325dea86397cca8dca63c57c))
+* client side nested button error ([c800721](https://github.com/leather-io/extension/commit/c800721e1dc0046b25e81477eae7e181ee856bbb))
+* increase swap hardcoded fee, closes [#4984](https://github.com/leather-io/extension/issues/4984) ([1eb268e](https://github.com/leather-io/extension/commit/1eb268e9c3a9840965eaddd2eda113e81a3fc17e))
+* index bug and modify tests ([f9efae6](https://github.com/leather-io/extension/commit/f9efae6feba9462783035c790903219c9bd07ce8))
+* input payment type, closes [#5076](https://github.com/leather-io/extension/issues/5076) ([5f558da](https://github.com/leather-io/extension/commit/5f558da2ddb797397dca73db736968d18bfb4ae7))
+* missing regtest prefix in address check ([7e8549f](https://github.com/leather-io/extension/commit/7e8549f94597c21dc197663f62bb0cb80bfc48eb))
+* modify input payment type index for ledger also ([17f57f3](https://github.com/leather-io/extension/commit/17f57f3d56a4083fae2bc766ec195bf17e1dffdd))
+* swap arrow icon ([9dcd980](https://github.com/leather-io/extension/commit/9dcd9809fa00db12c398ef4701ec8d0caebf636f))
+* swap duplicate toast, closes [#5068](https://github.com/leather-io/extension/issues/5068) ([5f08a9c](https://github.com/leather-io/extension/commit/5f08a9c21a98f92ef31449972d5d43c198e64f46))
+* swapping welsh with alex sdk, closes [#5022](https://github.com/leather-io/extension/issues/5022) ([1f1216c](https://github.com/leather-io/extension/commit/1f1216cd91fa61a3b66a47d157a4b987de694f55))
+* validation regtest addresses ([462ab8c](https://github.com/leather-io/extension/commit/462ab8c339857026a468c75502ce1c726e171a88))
 
 
 ### Internal
 
-* add chromatic visual tests ([3ed207f](https://github.com/leather-wallet/extension/commit/3ed207f5443dfc87136d03b4a38059ad9da4cbbd))
-* fix audit vulnerability ([f577570](https://github.com/leather-wallet/extension/commit/f577570fc3bccf62072cf4b7641ef517df9d486d))
-* post-release merge back ([7ad58b1](https://github.com/leather-wallet/extension/commit/7ad58b1508ecbdd289daaf42f96e8dbd7ca2e0f2))
-* update link to fee info ([0d0dc34](https://github.com/leather-wallet/extension/commit/0d0dc3462c95263fba31cf70991e7f0dd0220e33))
-* update link to nonce info ([c79ddda](https://github.com/leather-wallet/extension/commit/c79ddda55411770b6aff8c4fcb5fab8e42ea11ad))
-* upgrade signer packages ([9ddea5f](https://github.com/leather-wallet/extension/commit/9ddea5f173994f866e33e273ca7a851903e9acdd))
-* upgrade storybook ([fb0ed2a](https://github.com/leather-wallet/extension/commit/fb0ed2a1c6631f20a1251dc37527ada50d03e1dc))
+* add chromatic visual tests ([3ed207f](https://github.com/leather-io/extension/commit/3ed207f5443dfc87136d03b4a38059ad9da4cbbd))
+* fix audit vulnerability ([f577570](https://github.com/leather-io/extension/commit/f577570fc3bccf62072cf4b7641ef517df9d486d))
+* post-release merge back ([7ad58b1](https://github.com/leather-io/extension/commit/7ad58b1508ecbdd289daaf42f96e8dbd7ca2e0f2))
+* update link to fee info ([0d0dc34](https://github.com/leather-io/extension/commit/0d0dc3462c95263fba31cf70991e7f0dd0220e33))
+* update link to nonce info ([c79ddda](https://github.com/leather-io/extension/commit/c79ddda55411770b6aff8c4fcb5fab8e42ea11ad))
+* upgrade signer packages ([9ddea5f](https://github.com/leather-io/extension/commit/9ddea5f173994f866e33e273ca7a851903e9acdd))
+* upgrade storybook ([fb0ed2a](https://github.com/leather-io/extension/commit/fb0ed2a1c6631f20a1251dc37527ada50d03e1dc))
 
-## [6.31.0](https://github.com/leather-wallet/extension/compare/v6.30.1...v6.31.0) (2024-03-19)
+## [6.31.0](https://github.com/leather-io/extension/compare/v6.30.1...v6.31.0) (2024-03-19)
 
 
 ### Features
 
-* add storybook preview to pr links ([0e0ca6f](https://github.com/leather-wallet/extension/commit/0e0ca6fbc0c9a6c6c4b1c10b533760818f2c2215))
-* address displayer ([7f72f15](https://github.com/leather-wallet/extension/commit/7f72f15055518a5d2a2090ef61fbd81da9ecbeff))
-* ord io inscription links, closes [#3980](https://github.com/leather-wallet/extension/issues/3980) ([0681c93](https://github.com/leather-wallet/extension/commit/0681c939ffe077a2c0da9015d598d2da534a1489))
-* support gltf inscription type, closes [#5091](https://github.com/leather-wallet/extension/issues/5091) ([a303de4](https://github.com/leather-wallet/extension/commit/a303de45b983783ae18f2e6508ce284f13db2968))
-* toast ([1284422](https://github.com/leather-wallet/extension/commit/12844220963336faf8a0829d66c4c9823a22d447))
+* add storybook preview to pr links ([0e0ca6f](https://github.com/leather-io/extension/commit/0e0ca6fbc0c9a6c6c4b1c10b533760818f2c2215))
+* address displayer ([7f72f15](https://github.com/leather-io/extension/commit/7f72f15055518a5d2a2090ef61fbd81da9ecbeff))
+* ord io inscription links, closes [#3980](https://github.com/leather-io/extension/issues/3980) ([0681c93](https://github.com/leather-io/extension/commit/0681c939ffe077a2c0da9015d598d2da534a1489))
+* support gltf inscription type, closes [#5091](https://github.com/leather-io/extension/issues/5091) ([a303de4](https://github.com/leather-io/extension/commit/a303de45b983783ae18f2e6508ce284f13db2968))
+* toast ([1284422](https://github.com/leather-io/extension/commit/12844220963336faf8a0829d66c4c9823a22d447))
 
 
 ### Bug Fixes
 
-* brc20 send status update, closes [#4939](https://github.com/leather-wallet/extension/issues/4939) ([e49e7ec](https://github.com/leather-wallet/extension/commit/e49e7ec79115edd174b62f0366475fd4a60bceb3))
-* gaia profile test ([1d87592](https://github.com/leather-wallet/extension/commit/1d87592570822f91dcf995f3f0644b7e0c6e3a8f))
-* gaia profile test ([db6a1aa](https://github.com/leather-wallet/extension/commit/db6a1aa763ebf655d4bdf1fbc54cc6f286bc214b))
-* send inputs in check utxos analytics event ([2190278](https://github.com/leather-wallet/extension/commit/219027881dc0ceca3d016a4dda820fe539ed18ef))
-* sentry api upgrade, routing ([2d7b07e](https://github.com/leather-wallet/extension/commit/2d7b07ef8c590ec77c7833826cd7120c52509c0f))
-* sip10 token default max length, closes [#4930](https://github.com/leather-wallet/extension/issues/4930) ([22b695e](https://github.com/leather-wallet/extension/commit/22b695e9bfea3e982153716318ab3989882d99a2))
-* try retry action ([5590cd4](https://github.com/leather-wallet/extension/commit/5590cd45c3ea9321e4bdb2bfbef561621dfe6153))
-* upgrade tokens package ([bdeb1c1](https://github.com/leather-wallet/extension/commit/bdeb1c18717ed487fedf5552f40e84f63032a5a3))
+* brc20 send status update, closes [#4939](https://github.com/leather-io/extension/issues/4939) ([e49e7ec](https://github.com/leather-io/extension/commit/e49e7ec79115edd174b62f0366475fd4a60bceb3))
+* gaia profile test ([1d87592](https://github.com/leather-io/extension/commit/1d87592570822f91dcf995f3f0644b7e0c6e3a8f))
+* gaia profile test ([db6a1aa](https://github.com/leather-io/extension/commit/db6a1aa763ebf655d4bdf1fbc54cc6f286bc214b))
+* send inputs in check utxos analytics event ([2190278](https://github.com/leather-io/extension/commit/219027881dc0ceca3d016a4dda820fe539ed18ef))
+* sentry api upgrade, routing ([2d7b07e](https://github.com/leather-io/extension/commit/2d7b07ef8c590ec77c7833826cd7120c52509c0f))
+* sip10 token default max length, closes [#4930](https://github.com/leather-io/extension/issues/4930) ([22b695e](https://github.com/leather-io/extension/commit/22b695e9bfea3e982153716318ab3989882d99a2))
+* try retry action ([5590cd4](https://github.com/leather-io/extension/commit/5590cd45c3ea9321e4bdb2bfbef561621dfe6153))
+* upgrade tokens package ([bdeb1c1](https://github.com/leather-io/extension/commit/bdeb1c18717ed487fedf5552f40e84f63032a5a3))
 
 
 ### Internal
 
-* fix uncaught account 429 restore errors ([863904e](https://github.com/leather-wallet/extension/commit/863904ec5f232e77d8e96da3f2a26700d68e7582))
-* fix uncaught gaia error ([456b8d0](https://github.com/leather-wallet/extension/commit/456b8d083cd03b30b0a73b336cf62f61d18d6800))
-* item interactive to pressable ([faa3a79](https://github.com/leather-wallet/extension/commit/faa3a794e75556315e746be06aadb0ff8560929f))
-* migrate to pnpm ([32de09b](https://github.com/leather-wallet/extension/commit/32de09b148a8fd9486da2012fe64bfbd6a5990b8))
-* post-release merge back ([951ce43](https://github.com/leather-wallet/extension/commit/951ce43114bd915bc972b335b54c3c8b7befbd47))
-* post-release merge back ([12c10da](https://github.com/leather-wallet/extension/commit/12c10da6e61ee2c245145b6013ebd34e8aa46269))
-* remove warning banner ([53beaf0](https://github.com/leather-wallet/extension/commit/53beaf0b4d8e9ab85ab0744430574b9d46f784e6))
-* temp skip profile test ([ea4b71a](https://github.com/leather-wallet/extension/commit/ea4b71a025e8d324d74975c680b13659de7b62c7))
-* update post condition allow copy ([b0eb524](https://github.com/leather-wallet/extension/commit/b0eb5248fb946bbdcb1e55b663218ecbd89e2d83))
+* fix uncaught account 429 restore errors ([863904e](https://github.com/leather-io/extension/commit/863904ec5f232e77d8e96da3f2a26700d68e7582))
+* fix uncaught gaia error ([456b8d0](https://github.com/leather-io/extension/commit/456b8d083cd03b30b0a73b336cf62f61d18d6800))
+* item interactive to pressable ([faa3a79](https://github.com/leather-io/extension/commit/faa3a794e75556315e746be06aadb0ff8560929f))
+* migrate to pnpm ([32de09b](https://github.com/leather-io/extension/commit/32de09b148a8fd9486da2012fe64bfbd6a5990b8))
+* post-release merge back ([951ce43](https://github.com/leather-io/extension/commit/951ce43114bd915bc972b335b54c3c8b7befbd47))
+* post-release merge back ([12c10da](https://github.com/leather-io/extension/commit/12c10da6e61ee2c245145b6013ebd34e8aa46269))
+* remove warning banner ([53beaf0](https://github.com/leather-io/extension/commit/53beaf0b4d8e9ab85ab0744430574b9d46f784e6))
+* temp skip profile test ([ea4b71a](https://github.com/leather-io/extension/commit/ea4b71a025e8d324d74975c680b13659de7b62c7))
+* update post condition allow copy ([b0eb524](https://github.com/leather-io/extension/commit/b0eb5248fb946bbdcb1e55b663218ecbd89e2d83))
 
-## [6.30.1](https://github.com/leather-wallet/extension/compare/v6.30.0...v6.30.1) (2024-03-08)
+## [6.30.1](https://github.com/leather-io/extension/compare/v6.30.0...v6.30.1) (2024-03-08)
 
 
 ### Bug Fixes
 
-* fetch brc20 balance from hiro ([69b13b6](https://github.com/leather-wallet/extension/commit/69b13b6a94530bac9ef41f961d69cfd148d5efff))
-* regression on stacking layout ([0193986](https://github.com/leather-wallet/extension/commit/019398651c934d1c3b9bdaf653f2cd6356fbd57b))
+* fetch brc20 balance from hiro ([69b13b6](https://github.com/leather-io/extension/commit/69b13b6a94530bac9ef41f961d69cfd148d5efff))
+* regression on stacking layout ([0193986](https://github.com/leather-io/extension/commit/019398651c934d1c3b9bdaf653f2cd6356fbd57b))
 
 
 ### Internal
 
-* fix page width issue ([c7edd05](https://github.com/leather-wallet/extension/commit/c7edd0554d7d54f0dc2cd02a9ad7f0b3d265de4d))
-* internal clear storage tool fix ([f20a14b](https://github.com/leather-wallet/extension/commit/f20a14ba11c41f9a7c08f17b23ad3bf7db30d70d))
-* post-release merge back ([d95baac](https://github.com/leather-wallet/extension/commit/d95baac8f936c2c5855c7813f3aa56a4465798ce))
-* post-release merge back ([6702100](https://github.com/leather-wallet/extension/commit/6702100bdd0da98d43c6b5f498e3c5f92005b701))
-* update wallet config ([1eb13bc](https://github.com/leather-wallet/extension/commit/1eb13bc537bcfe0f3c8632dd3781db13a9c10652))
+* fix page width issue ([c7edd05](https://github.com/leather-io/extension/commit/c7edd0554d7d54f0dc2cd02a9ad7f0b3d265de4d))
+* internal clear storage tool fix ([f20a14b](https://github.com/leather-io/extension/commit/f20a14ba11c41f9a7c08f17b23ad3bf7db30d70d))
+* post-release merge back ([d95baac](https://github.com/leather-io/extension/commit/d95baac8f936c2c5855c7813f3aa56a4465798ce))
+* post-release merge back ([6702100](https://github.com/leather-io/extension/commit/6702100bdd0da98d43c6b5f498e3c5f92005b701))
+* update wallet config ([1eb13bc](https://github.com/leather-io/extension/commit/1eb13bc537bcfe0f3c8632dd3781db13a9c10652))
 
-## [6.30.0](https://github.com/leather-wallet/extension/compare/v6.29.0...v6.30.0) (2024-03-07)
+## [6.30.0](https://github.com/leather-io/extension/compare/v6.29.0...v6.30.0) (2024-03-07)
 
 
 ### Features
 
-* tag ([5b37691](https://github.com/leather-wallet/extension/commit/5b376919f70dfa8c7f9082ebcf60ba4887db3386))
+* tag ([5b37691](https://github.com/leather-io/extension/commit/5b376919f70dfa8c7f9082ebcf60ba4887db3386))
 
 
 ### Bug Fixes
 
-* tx calc unhandled errors, closes [#4941](https://github.com/leather-wallet/extension/issues/4941) ([150e7de](https://github.com/leather-wallet/extension/commit/150e7deb48cad69d2ff1b4d29de7dbbc5909e580))
+* tx calc unhandled errors, closes [#4941](https://github.com/leather-io/extension/issues/4941) ([150e7de](https://github.com/leather-io/extension/commit/150e7deb48cad69d2ff1b4d29de7dbbc5909e580))
 
 
 ### Internal
 
-* add scam app warning ([caff01e](https://github.com/leather-wallet/extension/commit/caff01eab53f54427e3b8733ce4d8cbb965b7e1f))
-* post-release merge back ([cc74de2](https://github.com/leather-wallet/extension/commit/cc74de2f80697da824845cc094632c5ed4b17e8e))
-* post-release merge back ([769ac8f](https://github.com/leather-wallet/extension/commit/769ac8f441d703c4a22e28daba5d86a10220a0c6))
+* add scam app warning ([caff01e](https://github.com/leather-io/extension/commit/caff01eab53f54427e3b8733ce4d8cbb965b7e1f))
+* post-release merge back ([cc74de2](https://github.com/leather-io/extension/commit/cc74de2f80697da824845cc094632c5ed4b17e8e))
+* post-release merge back ([769ac8f](https://github.com/leather-io/extension/commit/769ac8f441d703c4a22e28daba5d86a10220a0c6))
 
-## [6.29.0](https://github.com/leather-wallet/extension/compare/v6.28.0...v6.29.0) (2024-03-05)
+## [6.29.0](https://github.com/leather-io/extension/compare/v6.28.0...v6.29.0) (2024-03-05)
 
 
 ### Features
 
-* add bestinslot api key ([105fedb](https://github.com/leather-wallet/extension/commit/105fedb4203b223713487a649575b42a1c15ac0a))
-* avatar ([4fdeea4](https://github.com/leather-wallet/extension/commit/4fdeea4de139ee2b671fd180ff2f269848b9ba73))
-* callout, closes [#4311](https://github.com/leather-wallet/extension/issues/4311) ([4214598](https://github.com/leather-wallet/extension/commit/4214598fce39f8859775eeefa7846733a6c756b0))
-* upgrade brc-20 api to bestinslot v3, closes [#4970](https://github.com/leather-wallet/extension/issues/4970) ([bf58f6d](https://github.com/leather-wallet/extension/commit/bf58f6d04f1d5a9b2b0d2e6380f90cfae9c63f02))
+* add bestinslot api key ([105fedb](https://github.com/leather-io/extension/commit/105fedb4203b223713487a649575b42a1c15ac0a))
+* avatar ([4fdeea4](https://github.com/leather-io/extension/commit/4fdeea4de139ee2b671fd180ff2f269848b9ba73))
+* callout, closes [#4311](https://github.com/leather-io/extension/issues/4311) ([4214598](https://github.com/leather-io/extension/commit/4214598fce39f8859775eeefa7846733a6c756b0))
+* upgrade brc-20 api to bestinslot v3, closes [#4970](https://github.com/leather-io/extension/issues/4970) ([bf58f6d](https://github.com/leather-io/extension/commit/bf58f6d04f1d5a9b2b0d2e6380f90cfae9c63f02))
 
 
 ### Bug Fixes
 
-* brc-20 pending transactions, closes [#4990](https://github.com/leather-wallet/extension/issues/4990) ([dbd33ba](https://github.com/leather-wallet/extension/commit/dbd33ba7a24db86b0d25546c01eb23aa1f5f9eac))
-* dropdown item padding ([f24f0a2](https://github.com/leather-wallet/extension/commit/f24f0a20308c1604dfe72e0e84fcde0bd11cb50e))
-* item interactive margins ([0b565dd](https://github.com/leather-wallet/extension/commit/0b565ddb0396a3ed448599bd68b4e854285d65b6))
-* **ledger:** stacks message signing, closes [#4945](https://github.com/leather-wallet/extension/issues/4945) ([cc19e40](https://github.com/leather-wallet/extension/commit/cc19e40e48589f632dcd29e768f20089fbe38121))
-* recipient account margins ([95278ac](https://github.com/leather-wallet/extension/commit/95278ace3ef9ee2dda53ab207ab33788eb2faa65))
-* settings btn ui ([b3146a2](https://github.com/leather-wallet/extension/commit/b3146a2333edaf1ce43c414f7840df79f6e1caee))
-* warning banner, add fake app warning ([41a47ec](https://github.com/leather-wallet/extension/commit/41a47ec2ac7482440bd2abd64b0d6887e64bc875))
+* brc-20 pending transactions, closes [#4990](https://github.com/leather-io/extension/issues/4990) ([dbd33ba](https://github.com/leather-io/extension/commit/dbd33ba7a24db86b0d25546c01eb23aa1f5f9eac))
+* dropdown item padding ([f24f0a2](https://github.com/leather-io/extension/commit/f24f0a20308c1604dfe72e0e84fcde0bd11cb50e))
+* item interactive margins ([0b565dd](https://github.com/leather-io/extension/commit/0b565ddb0396a3ed448599bd68b4e854285d65b6))
+* **ledger:** stacks message signing, closes [#4945](https://github.com/leather-io/extension/issues/4945) ([cc19e40](https://github.com/leather-io/extension/commit/cc19e40e48589f632dcd29e768f20089fbe38121))
+* recipient account margins ([95278ac](https://github.com/leather-io/extension/commit/95278ace3ef9ee2dda53ab207ab33788eb2faa65))
+* settings btn ui ([b3146a2](https://github.com/leather-io/extension/commit/b3146a2333edaf1ce43c414f7840df79f6e1caee))
+* warning banner, add fake app warning ([41a47ec](https://github.com/leather-io/extension/commit/41a47ec2ac7482440bd2abd64b0d6887e64bc875))
 
 
 ### Internal
 
-* **dropdown:** unstyled trigger, separate button ([38146b3](https://github.com/leather-wallet/extension/commit/38146b3ee5c5a02edbbf5b7f908c0bb163c7b345))
-* **dropdown:** update animations ([6656e05](https://github.com/leather-wallet/extension/commit/6656e059c3045434461226ad16372a84dd9f0d49))
-* item interactive ([758d65d](https://github.com/leather-wallet/extension/commit/758d65ddab8b1a9197a5419ab637699272062920))
-* post-release merge back ([a1fdbd2](https://github.com/leather-wallet/extension/commit/a1fdbd2d990406ccaec8ff369181bd150f9f951d))
-* **send-form:** remove custom dropdown type ([5b6bbfc](https://github.com/leather-wallet/extension/commit/5b6bbfc301cfe501bcf5dd49ac519a17e1f2754b))
+* **dropdown:** unstyled trigger, separate button ([38146b3](https://github.com/leather-io/extension/commit/38146b3ee5c5a02edbbf5b7f908c0bb163c7b345))
+* **dropdown:** update animations ([6656e05](https://github.com/leather-io/extension/commit/6656e059c3045434461226ad16372a84dd9f0d49))
+* item interactive ([758d65d](https://github.com/leather-io/extension/commit/758d65ddab8b1a9197a5419ab637699272062920))
+* post-release merge back ([a1fdbd2](https://github.com/leather-io/extension/commit/a1fdbd2d990406ccaec8ff369181bd150f9f951d))
+* **send-form:** remove custom dropdown type ([5b6bbfc](https://github.com/leather-io/extension/commit/5b6bbfc301cfe501bcf5dd49ac519a17e1f2754b))
 
-## [6.28.0](https://github.com/leather-wallet/extension/compare/v6.27.2...v6.28.0) (2024-02-26)
+## [6.28.0](https://github.com/leather-io/extension/compare/v6.27.2...v6.28.0) (2024-02-26)
 
 
 ### Features
 
-* add dark splash screen, ref [#4398](https://github.com/leather-wallet/extension/issues/4398) ([c4fb072](https://github.com/leather-wallet/extension/commit/c4fb0722c980ec67e51ca927930c6f0078c98318))
-* check utxo ids for inscriptions, ref [#4920](https://github.com/leather-wallet/extension/issues/4920) ([86dd00d](https://github.com/leather-wallet/extension/commit/86dd00d1dea594f21d70e0b4425154a7b354d8c7))
+* add dark splash screen, ref [#4398](https://github.com/leather-io/extension/issues/4398) ([c4fb072](https://github.com/leather-io/extension/commit/c4fb0722c980ec67e51ca927930c6f0078c98318))
+* check utxo ids for inscriptions, ref [#4920](https://github.com/leather-io/extension/issues/4920) ([86dd00d](https://github.com/leather-io/extension/commit/86dd00d1dea594f21d70e0b4425154a7b354d8c7))
 
 
 ### Bug Fixes
 
-* attempt to fix failing test ([0ff7701](https://github.com/leather-wallet/extension/commit/0ff77014da4cc831cf51a7c9492c88e4465a2a66))
-* broken color on welcome page ([384c947](https://github.com/leather-wallet/extension/commit/384c9471664fdd8de11399f35fb35ab8262c0b42))
-* memo using old input ([8829a2a](https://github.com/leather-wallet/extension/commit/8829a2a67af86fdf082532d055e87320365d00d7))
-* remove hiro ref in page ([c49f7e9](https://github.com/leather-wallet/extension/commit/c49f7e9f52cb491b6e68a86546b1cafb4d08cab1))
-* stamps api, closes [#4845](https://github.com/leather-wallet/extension/issues/4845) ([3230c49](https://github.com/leather-wallet/extension/commit/3230c490e3bd34e9dd289138aeaf06bcc422b54b))
+* attempt to fix failing test ([0ff7701](https://github.com/leather-io/extension/commit/0ff77014da4cc831cf51a7c9492c88e4465a2a66))
+* broken color on welcome page ([384c947](https://github.com/leather-io/extension/commit/384c9471664fdd8de11399f35fb35ab8262c0b42))
+* memo using old input ([8829a2a](https://github.com/leather-io/extension/commit/8829a2a67af86fdf082532d055e87320365d00d7))
+* remove hiro ref in page ([c49f7e9](https://github.com/leather-io/extension/commit/c49f7e9f52cb491b6e68a86546b1cafb4d08cab1))
+* stamps api, closes [#4845](https://github.com/leather-io/extension/issues/4845) ([3230c49](https://github.com/leather-io/extension/commit/3230c490e3bd34e9dd289138aeaf06bcc422b54b))
 
 
 ### Internal
 
-* additional checks before adding tapInternalKey, ref [#4125](https://github.com/leather-wallet/extension/issues/4125) ([09a17bf](https://github.com/leather-wallet/extension/commit/09a17bf1f4344101321c7cb0c039d5b1d7af2af1))
-* colors, closes [#4831](https://github.com/leather-wallet/extension/issues/4831) ([934cfd0](https://github.com/leather-wallet/extension/commit/934cfd0a64082e239f483759299616b7b5aeafca))
-* esm webpack ([3cc8878](https://github.com/leather-wallet/extension/commit/3cc8878d1815e4b70b6bb44f4799633ae4667bf4))
-* existing icons to use variants, closes [#4950](https://github.com/leather-wallet/extension/issues/4950) ([2ce7319](https://github.com/leather-wallet/extension/commit/2ce73195501e040a3f1464d6af478115bf25c5ca))
-* icon variants ([7a886c1](https://github.com/leather-wallet/extension/commit/7a886c112b264d451c7e9f266f03e4ed2f9de8a3))
-* **input:** remove InputTextField component ([3556390](https://github.com/leather-wallet/extension/commit/35563904d41445926f5140ea088fbfe631deea68))
-* new icons using icon gallery ([dc1bf28](https://github.com/leather-wallet/extension/commit/dc1bf2838f40e16fbbb91c27ff05163a2ce6e515))
-* post-release merge back ([5a87a5d](https://github.com/leather-wallet/extension/commit/5a87a5daf81f5b47174d102b86b14e42d27b2280))
-* upgrade packages ([dcc36d0](https://github.com/leather-wallet/extension/commit/dcc36d0b8c03302e986f91f4b31d4894cdddacf9))
+* additional checks before adding tapInternalKey, ref [#4125](https://github.com/leather-io/extension/issues/4125) ([09a17bf](https://github.com/leather-io/extension/commit/09a17bf1f4344101321c7cb0c039d5b1d7af2af1))
+* colors, closes [#4831](https://github.com/leather-io/extension/issues/4831) ([934cfd0](https://github.com/leather-io/extension/commit/934cfd0a64082e239f483759299616b7b5aeafca))
+* esm webpack ([3cc8878](https://github.com/leather-io/extension/commit/3cc8878d1815e4b70b6bb44f4799633ae4667bf4))
+* existing icons to use variants, closes [#4950](https://github.com/leather-io/extension/issues/4950) ([2ce7319](https://github.com/leather-io/extension/commit/2ce73195501e040a3f1464d6af478115bf25c5ca))
+* icon variants ([7a886c1](https://github.com/leather-io/extension/commit/7a886c112b264d451c7e9f266f03e4ed2f9de8a3))
+* **input:** remove InputTextField component ([3556390](https://github.com/leather-io/extension/commit/35563904d41445926f5140ea088fbfe631deea68))
+* new icons using icon gallery ([dc1bf28](https://github.com/leather-io/extension/commit/dc1bf2838f40e16fbbb91c27ff05163a2ce6e515))
+* post-release merge back ([5a87a5d](https://github.com/leather-io/extension/commit/5a87a5daf81f5b47174d102b86b14e42d27b2280))
+* upgrade packages ([dcc36d0](https://github.com/leather-io/extension/commit/dcc36d0b8c03302e986f91f4b31d4894cdddacf9))
 
-## [6.27.2](https://github.com/leather-wallet/extension/compare/v6.27.1...v6.27.2) (2024-02-14)
+## [6.27.2](https://github.com/leather-io/extension/compare/v6.27.1...v6.27.2) (2024-02-14)
 
 
 ### Bug Fixes
 
-* close settings dropdown on click ([3183b8b](https://github.com/leather-wallet/extension/commit/3183b8be2ba453d00891bf93902e766fa1f57410))
-* separate catch block ([52a849a](https://github.com/leather-wallet/extension/commit/52a849a0cacfdb0249f2a554e9adb48075418914))
-* svg inscriptions preview ([787c03a](https://github.com/leather-wallet/extension/commit/787c03a84918a859997a4b0a0d0a5b98e9237d26))
+* close settings dropdown on click ([3183b8b](https://github.com/leather-io/extension/commit/3183b8be2ba453d00891bf93902e766fa1f57410))
+* separate catch block ([52a849a](https://github.com/leather-io/extension/commit/52a849a0cacfdb0249f2a554e9adb48075418914))
+* svg inscriptions preview ([787c03a](https://github.com/leather-io/extension/commit/787c03a84918a859997a4b0a0d0a5b98e9237d26))
 
 
 ### Internal
 
-* deprecation warnings, closes [#4928](https://github.com/leather-wallet/extension/issues/4928) ([81fea0d](https://github.com/leather-wallet/extension/commit/81fea0d6b7bdc6ec12f8a62538d273e01219c6a0))
-* post-release merge back ([67809a2](https://github.com/leather-wallet/extension/commit/67809a2dad21bcb4e4a0af58b54895b6dcac3c32))
-* post-release merge back ([4a66d63](https://github.com/leather-wallet/extension/commit/4a66d63e66fdfd03b21a802cdcee663b07d449b7))
-* remove references of broadcastRawTransaction, use only broadcastTransaction ([f0f488a](https://github.com/leather-wallet/extension/commit/f0f488ac1a47b239264f1e75934e1ad552eb697d))
+* deprecation warnings, closes [#4928](https://github.com/leather-io/extension/issues/4928) ([81fea0d](https://github.com/leather-io/extension/commit/81fea0d6b7bdc6ec12f8a62538d273e01219c6a0))
+* post-release merge back ([67809a2](https://github.com/leather-io/extension/commit/67809a2dad21bcb4e4a0af58b54895b6dcac3c32))
+* post-release merge back ([4a66d63](https://github.com/leather-io/extension/commit/4a66d63e66fdfd03b21a802cdcee663b07d449b7))
+* remove references of broadcastRawTransaction, use only broadcastTransaction ([f0f488a](https://github.com/leather-io/extension/commit/f0f488ac1a47b239264f1e75934e1ad552eb697d))
 
-## [6.27.1](https://github.com/leather-wallet/extension/compare/v6.27.0...v6.27.1) (2024-02-12)
+## [6.27.1](https://github.com/leather-io/extension/compare/v6.27.0...v6.27.1) (2024-02-12)
 
 
 ### Bug Fixes
 
-* contend with other wallets ([fb70408](https://github.com/leather-wallet/extension/commit/fb704087ecedfc7e0baba9f26f8ef037a703032e))
+* contend with other wallets ([fb70408](https://github.com/leather-io/extension/commit/fb704087ecedfc7e0baba9f26f8ef037a703032e))
 
-## [6.27.0](https://github.com/leather-wallet/extension/compare/v6.26.1...v6.27.0) (2024-02-07)
+## [6.27.0](https://github.com/leather-io/extension/compare/v6.26.1...v6.27.0) (2024-02-07)
 
 
 ### Features
 
-* ui items, closes [#4314](https://github.com/leather-wallet/extension/issues/4314) ([4e6cd7d](https://github.com/leather-wallet/extension/commit/4e6cd7df05dcccb7552afd6148b34afc0d9415d5))
+* ui items, closes [#4314](https://github.com/leather-io/extension/issues/4314) ([4e6cd7d](https://github.com/leather-io/extension/commit/4e6cd7df05dcccb7552afd6148b34afc0d9415d5))
 
 
 ### Bug Fixes
 
-* activity list items ([c01626b](https://github.com/leather-wallet/extension/commit/c01626b630b9c347ca181ae097f28702df3bf234))
-* **analytics:** reporting empty error, closes [#4907](https://github.com/leather-wallet/extension/issues/4907) ([ad32854](https://github.com/leather-wallet/extension/commit/ad328542da55315199cd881aad25991bfede3233))
-* disabled button styles, closes [#4840](https://github.com/leather-wallet/extension/issues/4840) ([666fa37](https://github.com/leather-wallet/extension/commit/666fa37da8ea622c4e2651b54cfca5d487e76f05))
-* **input:** mnemonic value state ([5fa284a](https://github.com/leather-wallet/extension/commit/5fa284af7527b746520fd86ed02331c12d664e8a))
-* ledger no request keys context ([d57f005](https://github.com/leather-wallet/extension/commit/d57f0057311317cae0e2e6de208c34dfddd0ee5d))
-* select account overlay ([04e5d0e](https://github.com/leather-wallet/extension/commit/04e5d0ed476e74d7291f86a5a2f1af46dd0a3c92))
-* user should be able to increase fee for stacks with ledger, closes [#4503](https://github.com/leather-wallet/extension/issues/4503) ([47b03f6](https://github.com/leather-wallet/extension/commit/47b03f6f4922893a0e3153e193996937f361a378))
+* activity list items ([c01626b](https://github.com/leather-io/extension/commit/c01626b630b9c347ca181ae097f28702df3bf234))
+* **analytics:** reporting empty error, closes [#4907](https://github.com/leather-io/extension/issues/4907) ([ad32854](https://github.com/leather-io/extension/commit/ad328542da55315199cd881aad25991bfede3233))
+* disabled button styles, closes [#4840](https://github.com/leather-io/extension/issues/4840) ([666fa37](https://github.com/leather-io/extension/commit/666fa37da8ea622c4e2651b54cfca5d487e76f05))
+* **input:** mnemonic value state ([5fa284a](https://github.com/leather-io/extension/commit/5fa284af7527b746520fd86ed02331c12d664e8a))
+* ledger no request keys context ([d57f005](https://github.com/leather-io/extension/commit/d57f0057311317cae0e2e6de208c34dfddd0ee5d))
+* select account overlay ([04e5d0e](https://github.com/leather-io/extension/commit/04e5d0ed476e74d7291f86a5a2f1af46dd0a3c92))
+* user should be able to increase fee for stacks with ledger, closes [#4503](https://github.com/leather-io/extension/issues/4503) ([47b03f6](https://github.com/leather-io/extension/commit/47b03f6f4922893a0e3153e193996937f361a378))
 
 
 ### Internal
 
-* error helper ([a6a33a0](https://github.com/leather-wallet/extension/commit/a6a33a09e0c11a4fd669c3afc7716015a32525af))
-* flag layout stories ([a2230a6](https://github.com/leather-wallet/extension/commit/a2230a606a4e98c18c412ca494ef6258a1428e7c))
-* post-release merge back ([7743f90](https://github.com/leather-wallet/extension/commit/7743f905fe03a7545c9e2aba2fab5743510a6485))
-* remove unanchored microblocks, closes [#4812](https://github.com/leather-wallet/extension/issues/4812) ([b21decb](https://github.com/leather-wallet/extension/commit/b21decb9d6f05200055f5f8735f4fd5fda881759))
-* **stories:** add stories for flags ([7b0ffab](https://github.com/leather-wallet/extension/commit/7b0ffab2bf61621eedbe6a8aceb1f62668375152))
-* update monorepo tokens ([32d0caf](https://github.com/leather-wallet/extension/commit/32d0caf9812dc6958d5c22448518860422287bee))
+* error helper ([a6a33a0](https://github.com/leather-io/extension/commit/a6a33a09e0c11a4fd669c3afc7716015a32525af))
+* flag layout stories ([a2230a6](https://github.com/leather-io/extension/commit/a2230a606a4e98c18c412ca494ef6258a1428e7c))
+* post-release merge back ([7743f90](https://github.com/leather-io/extension/commit/7743f905fe03a7545c9e2aba2fab5743510a6485))
+* remove unanchored microblocks, closes [#4812](https://github.com/leather-io/extension/issues/4812) ([b21decb](https://github.com/leather-io/extension/commit/b21decb9d6f05200055f5f8735f4fd5fda881759))
+* **stories:** add stories for flags ([7b0ffab](https://github.com/leather-io/extension/commit/7b0ffab2bf61621eedbe6a8aceb1f62668375152))
+* update monorepo tokens ([32d0caf](https://github.com/leather-io/extension/commit/32d0caf9812dc6958d5c22448518860422287bee))
 
-## [6.26.1](https://github.com/leather-wallet/extension/compare/v6.26.0...v6.26.1) (2024-01-29)
+## [6.26.1](https://github.com/leather-io/extension/compare/v6.26.0...v6.26.1) (2024-01-29)
 
 
 ### Bug Fixes
 
-* make coinbase global ([625bfe5](https://github.com/leather-wallet/extension/commit/625bfe52ef83a1842bf2206ccd709c9253dcc25d))
-* no btc signer in  ledger mode, ref [#4873](https://github.com/leather-wallet/extension/issues/4873) ([d13a678](https://github.com/leather-wallet/extension/commit/d13a678c490fd4e556277d5ac003c3b72aa0132e))
+* make coinbase global ([625bfe5](https://github.com/leather-io/extension/commit/625bfe52ef83a1842bf2206ccd709c9253dcc25d))
+* no btc signer in  ledger mode, ref [#4873](https://github.com/leather-io/extension/issues/4873) ([d13a678](https://github.com/leather-io/extension/commit/d13a678c490fd4e556277d5ac003c3b72aa0132e))
 
 
 ### Internal
 
-* limit query opts, add hiro header ([68c557f](https://github.com/leather-wallet/extension/commit/68c557f7dbb9a309d3587910b7680ff1e8105fda))
-* post-release merge back ([c7ba7b7](https://github.com/leather-wallet/extension/commit/c7ba7b79a557f498898978708c92398b29a7d1b9))
-* remove use spendable utxos hook ([0c36db3](https://github.com/leather-wallet/extension/commit/0c36db342707eedb257a6d0ea306f00e459cdba2))
+* limit query opts, add hiro header ([68c557f](https://github.com/leather-io/extension/commit/68c557f7dbb9a309d3587910b7680ff1e8105fda))
+* post-release merge back ([c7ba7b7](https://github.com/leather-io/extension/commit/c7ba7b79a557f498898978708c92398b29a7d1b9))
+* remove use spendable utxos hook ([0c36db3](https://github.com/leather-io/extension/commit/0c36db342707eedb257a6d0ea306f00e459cdba2))
 
-## [6.26.0](https://github.com/leather-wallet/extension/compare/v6.25.0...v6.26.0) (2024-01-26)
+## [6.26.0](https://github.com/leather-io/extension/compare/v6.25.0...v6.26.0) (2024-01-26)
 
 
 ### Features
 
-* **ui:** adds input element, ref [#4810](https://github.com/leather-wallet/extension/issues/4810) ([e223b0a](https://github.com/leather-wallet/extension/commit/e223b0a9fa4d9821237dfcbc707f943b25a33a7c))
+* **ui:** adds input element, ref [#4810](https://github.com/leather-io/extension/issues/4810) ([e223b0a](https://github.com/leather-io/extension/commit/e223b0a9fa4d9821237dfcbc707f943b25a33a7c))
 
 
 ### Bug Fixes
 
-* filter out uneconomical utxos, closes [#4505](https://github.com/leather-wallet/extension/issues/4505) ([a6e116c](https://github.com/leather-wallet/extension/commit/a6e116c981e21e27dc895d713d1d6aa213142d1a))
-* layout issue when stacking, ref [#4851](https://github.com/leather-wallet/extension/issues/4851) ([ce6c52a](https://github.com/leather-wallet/extension/commit/ce6c52a9227071562a2b5c8820113b882cb119e4))
-* nested button tooltip error, closes [#4835](https://github.com/leather-wallet/extension/issues/4835) ([5b87e3d](https://github.com/leather-wallet/extension/commit/5b87e3d9c767a6fc1afde8a7fa43d077130d7b70))
-* onboarding gate in ledger mode ([07729b5](https://github.com/leather-wallet/extension/commit/07729b5275d1e2790f94f15ab2234d8fbeeb8278))
-* sign out of the wallet before proceeding with ledger sign in ([aa214c8](https://github.com/leather-wallet/extension/commit/aa214c8450fcef7e9a86fa2648f389e68a741120))
-* update psbt warning copy ([988e23f](https://github.com/leather-wallet/extension/commit/988e23f0d6e57796983912d337451eed5cc193a3))
+* filter out uneconomical utxos, closes [#4505](https://github.com/leather-io/extension/issues/4505) ([a6e116c](https://github.com/leather-io/extension/commit/a6e116c981e21e27dc895d713d1d6aa213142d1a))
+* layout issue when stacking, ref [#4851](https://github.com/leather-io/extension/issues/4851) ([ce6c52a](https://github.com/leather-io/extension/commit/ce6c52a9227071562a2b5c8820113b882cb119e4))
+* nested button tooltip error, closes [#4835](https://github.com/leather-io/extension/issues/4835) ([5b87e3d](https://github.com/leather-io/extension/commit/5b87e3d9c767a6fc1afde8a7fa43d077130d7b70))
+* onboarding gate in ledger mode ([07729b5](https://github.com/leather-io/extension/commit/07729b5275d1e2790f94f15ab2234d8fbeeb8278))
+* sign out of the wallet before proceeding with ledger sign in ([aa214c8](https://github.com/leather-io/extension/commit/aa214c8450fcef7e9a86fa2648f389e68a741120))
+* update psbt warning copy ([988e23f](https://github.com/leather-io/extension/commit/988e23f0d6e57796983912d337451eed5cc193a3))
 
 
 ### Internal
 
-* add BulletSeparator story ([863a128](https://github.com/leather-wallet/extension/commit/863a1287e3cc0ca9ae7abc8dcc7ae9fbbafcf38d))
-* **deps:** bump vite from 5.0.11 to 5.0.12 ([4ec0cd9](https://github.com/leather-wallet/extension/commit/4ec0cd97c55442ce25b9bd210428da934ba294bf))
-* fix ledger, ref [#4861](https://github.com/leather-wallet/extension/issues/4861) ([62bf0ec](https://github.com/leather-wallet/extension/commit/62bf0ecac7994dc4b434db4df5ffcf4dfb911085))
-* improve styles, try mnemonic ([f6bad6a](https://github.com/leather-wallet/extension/commit/f6bad6af32342b764aca85f18f609e4c8b1986a0))
-* post-release merge back ([be0d9a7](https://github.com/leather-wallet/extension/commit/be0d9a74b1ab188ce34f81be110b9a44801172c7))
-* remove dupe imports, lint ([b05f731](https://github.com/leather-wallet/extension/commit/b05f731e0e339c2b02b5059bb2417c184a21e243))
+* add BulletSeparator story ([863a128](https://github.com/leather-io/extension/commit/863a1287e3cc0ca9ae7abc8dcc7ae9fbbafcf38d))
+* **deps:** bump vite from 5.0.11 to 5.0.12 ([4ec0cd9](https://github.com/leather-io/extension/commit/4ec0cd97c55442ce25b9bd210428da934ba294bf))
+* fix ledger, ref [#4861](https://github.com/leather-io/extension/issues/4861) ([62bf0ec](https://github.com/leather-io/extension/commit/62bf0ecac7994dc4b434db4df5ffcf4dfb911085))
+* improve styles, try mnemonic ([f6bad6a](https://github.com/leather-io/extension/commit/f6bad6af32342b764aca85f18f609e4c8b1986a0))
+* post-release merge back ([be0d9a7](https://github.com/leather-io/extension/commit/be0d9a74b1ab188ce34f81be110b9a44801172c7))
+* remove dupe imports, lint ([b05f731](https://github.com/leather-io/extension/commit/b05f731e0e339c2b02b5059bb2417c184a21e243))
 
-## [6.25.0](https://github.com/leather-wallet/extension/compare/v6.24.0...v6.25.0) (2024-01-23)
+## [6.25.0](https://github.com/leather-io/extension/compare/v6.24.0...v6.25.0) (2024-01-23)
 
 
 ### Features
 
-* remove unused url in brc20 request, ref [#4833](https://github.com/leather-wallet/extension/issues/4833) ([95b722c](https://github.com/leather-wallet/extension/commit/95b722cfcf03329c221d12fc29ad1141e6e2af80))
+* remove unused url in brc20 request, ref [#4833](https://github.com/leather-io/extension/issues/4833) ([95b722c](https://github.com/leather-io/extension/commit/95b722cfcf03329c221d12fc29ad1141e6e2af80))
 
 
 ### Internal
 
-* post-release merge back ([d80459f](https://github.com/leather-wallet/extension/commit/d80459f556909c9c9e65ae48c58580710200a313))
-* rename taproot utxo ([0dacac6](https://github.com/leather-wallet/extension/commit/0dacac604f5d11a616e9decfa1bb06c7c87862b2))
+* post-release merge back ([d80459f](https://github.com/leather-io/extension/commit/d80459f556909c9c9e65ae48c58580710200a313))
+* rename taproot utxo ([0dacac6](https://github.com/leather-io/extension/commit/0dacac604f5d11a616e9decfa1bb06c7c87862b2))
 
-## [6.24.0](https://github.com/leather-wallet/extension/compare/v6.23.0...v6.24.0) (2024-01-22)
+## [6.24.0](https://github.com/leather-io/extension/compare/v6.23.0...v6.24.0) (2024-01-22)
 
 
 ### Features
 
-* use radix tooltip ([aa8a530](https://github.com/leather-wallet/extension/commit/aa8a530fe855735757828d3b09e67f1e8b0ede9e))
+* use radix tooltip ([aa8a530](https://github.com/leather-io/extension/commit/aa8a530fe855735757828d3b09e67f1e8b0ede9e))
 
 
 ### Bug Fixes
 
-* fee estimation error, ref [#4821](https://github.com/leather-wallet/extension/issues/4821) ([9b75521](https://github.com/leather-wallet/extension/commit/9b75521af8b4d019692d78163dc1a6748b12a4a4))
-* home action btns hover state ([c270868](https://github.com/leather-wallet/extension/commit/c270868ce03626104421a841b1cc763a54f457af))
-* send inscription form fee flow ([ee9728d](https://github.com/leather-wallet/extension/commit/ee9728d6aad15ae22bf711067a191e2d07a13765))
-* tooltip logic ([2ae8cf0](https://github.com/leather-wallet/extension/commit/2ae8cf0240760e2bfb32b6d6a4bc9773a9db0f60))
+* fee estimation error, ref [#4821](https://github.com/leather-io/extension/issues/4821) ([9b75521](https://github.com/leather-io/extension/commit/9b75521af8b4d019692d78163dc1a6748b12a4a4))
+* home action btns hover state ([c270868](https://github.com/leather-io/extension/commit/c270868ce03626104421a841b1cc763a54f457af))
+* send inscription form fee flow ([ee9728d](https://github.com/leather-io/extension/commit/ee9728d6aad15ae22bf711067a191e2d07a13765))
+* tooltip logic ([2ae8cf0](https://github.com/leather-io/extension/commit/2ae8cf0240760e2bfb32b6d6a4bc9773a9db0f60))
 
 
 ### Internal
 
-* audit colours, update token package, brown becomes ink ([c82c612](https://github.com/leather-wallet/extension/commit/c82c612d75246a94b3ca504ef1d814cbb74b7cbf))
-* button and link, ref [#4418](https://github.com/leather-wallet/extension/issues/4418) and [#4523](https://github.com/leather-wallet/extension/issues/4523) ([7d75f4a](https://github.com/leather-wallet/extension/commit/7d75f4a376f73368303a5a50b2c811c62aa06fc2))
-* fix icon padding, ref [#4693](https://github.com/leather-wallet/extension/issues/4693) ([fbd8c11](https://github.com/leather-wallet/extension/commit/fbd8c1199d2bd590b9158644ae94b3b355910b49))
-* fix validate custom network name field on form submission, closes [#4737](https://github.com/leather-wallet/extension/issues/4737) ([63e6a94](https://github.com/leather-wallet/extension/commit/63e6a9482f8bc1ad5a7a414699b07b1a1a4c188c))
-* post-release merge back ([0930968](https://github.com/leather-wallet/extension/commit/0930968439e320b2dc4d56641d39a70df518f354))
-* update network tests ([ab1fb5b](https://github.com/leather-wallet/extension/commit/ab1fb5b6ad408bdae1b044b043540bb99de70692))
+* audit colours, update token package, brown becomes ink ([c82c612](https://github.com/leather-io/extension/commit/c82c612d75246a94b3ca504ef1d814cbb74b7cbf))
+* button and link, ref [#4418](https://github.com/leather-io/extension/issues/4418) and [#4523](https://github.com/leather-io/extension/issues/4523) ([7d75f4a](https://github.com/leather-io/extension/commit/7d75f4a376f73368303a5a50b2c811c62aa06fc2))
+* fix icon padding, ref [#4693](https://github.com/leather-io/extension/issues/4693) ([fbd8c11](https://github.com/leather-io/extension/commit/fbd8c1199d2bd590b9158644ae94b3b355910b49))
+* fix validate custom network name field on form submission, closes [#4737](https://github.com/leather-io/extension/issues/4737) ([63e6a94](https://github.com/leather-io/extension/commit/63e6a9482f8bc1ad5a7a414699b07b1a1a4c188c))
+* post-release merge back ([0930968](https://github.com/leather-io/extension/commit/0930968439e320b2dc4d56641d39a70df518f354))
+* update network tests ([ab1fb5b](https://github.com/leather-io/extension/commit/ab1fb5b6ad408bdae1b044b043540bb99de70692))
 
-## [6.23.0](https://github.com/leather-wallet/extension/compare/v6.22.0...v6.23.0) (2024-01-16)
+## [6.23.0](https://github.com/leather-io/extension/compare/v6.22.0...v6.23.0) (2024-01-16)
 
 
 ### Features
 
-* improve error handling in ledger, surface incorrect app error ([5bff514](https://github.com/leather-wallet/extension/commit/5bff514db064ce145b52d72eadc8bbf6d24e519b))
-* prompt user to open the app ([f672bec](https://github.com/leather-wallet/extension/commit/f672becf668fe2f67b2a55c02e3d6dfdad55ccd4))
+* improve error handling in ledger, surface incorrect app error ([5bff514](https://github.com/leather-io/extension/commit/5bff514db064ce145b52d72eadc8bbf6d24e519b))
+* prompt user to open the app ([f672bec](https://github.com/leather-io/extension/commit/f672becf668fe2f67b2a55c02e3d6dfdad55ccd4))
 
 
 ### Bug Fixes
 
-* add remote config to recover feature ([84a10dc](https://github.com/leather-wallet/extension/commit/84a10dcc2d84fc3c1ac17c16dae7e2c67415f03c))
-* duplicate keys error ([77dc018](https://github.com/leather-wallet/extension/commit/77dc018286402c3f2ff7de369d92840d91bba602))
-* lint for deps ([42179de](https://github.com/leather-wallet/extension/commit/42179de5e4bf82cfe821bc0e1d080cad7a7e7eed))
-* remove fee title in increase fee form ([0de3900](https://github.com/leather-wallet/extension/commit/0de39009995aca8e6b809c759e9005f09b8ff970))
-* track error codes ([227f6ee](https://github.com/leather-wallet/extension/commit/227f6ee10b06f420e4061551a284202ff5c059fe))
-* **ui:** rebuild tabs with radix primitives, ref [#4309](https://github.com/leather-wallet/extension/issues/4309) ([3b0488e](https://github.com/leather-wallet/extension/commit/3b0488e7ba694216f92013c13e9d7a0cb7880e80))
-* unused exports ([3fff31d](https://github.com/leather-wallet/extension/commit/3fff31d783722aa96131897105d18307289b4127))
+* add remote config to recover feature ([84a10dc](https://github.com/leather-io/extension/commit/84a10dcc2d84fc3c1ac17c16dae7e2c67415f03c))
+* duplicate keys error ([77dc018](https://github.com/leather-io/extension/commit/77dc018286402c3f2ff7de369d92840d91bba602))
+* lint for deps ([42179de](https://github.com/leather-io/extension/commit/42179de5e4bf82cfe821bc0e1d080cad7a7e7eed))
+* remove fee title in increase fee form ([0de3900](https://github.com/leather-io/extension/commit/0de39009995aca8e6b809c759e9005f09b8ff970))
+* track error codes ([227f6ee](https://github.com/leather-io/extension/commit/227f6ee10b06f420e4061551a284202ff5c059fe))
+* **ui:** rebuild tabs with radix primitives, ref [#4309](https://github.com/leather-io/extension/issues/4309) ([3b0488e](https://github.com/leather-io/extension/commit/3b0488e7ba694216f92013c13e9d7a0cb7880e80))
+* unused exports ([3fff31d](https://github.com/leather-io/extension/commit/3fff31d783722aa96131897105d18307289b4127))
 
 
 ### Internal
 
-* add improved sentry perf tracking ([8b96e9a](https://github.com/leather-wallet/extension/commit/8b96e9a4fbc7262026bee545186694e2e2565733))
-* check instance of error before passing it to checkLockedDeviceError ([e342642](https://github.com/leather-wallet/extension/commit/e3426422e535601d5ae7d38d49b1e8c6f58cc4f5))
-* post-release merge back ([2eaa09f](https://github.com/leather-wallet/extension/commit/2eaa09f7797e01f358a78d96f7498851270f1199))
-* quit app ourselves instead of prompting user to do it ([35c2ff1](https://github.com/leather-wallet/extension/commit/35c2ff13a87c4b35037fdbadc5e9dd0b4a8cdb15))
-* remove unneeded radix styles ([6808536](https://github.com/leather-wallet/extension/commit/6808536ee67df8ba27a55539a00ab83e1548c998))
-* reuse getAppAndVersion from bitcoin app instance method ([e894808](https://github.com/leather-wallet/extension/commit/e8948085fa176dde7960212ce97d962604de2128))
-* select and dropdown, ref [#4798](https://github.com/leather-wallet/extension/issues/4798) ([a82457d](https://github.com/leather-wallet/extension/commit/a82457d8f04e94b696fe4b54edbd8981f311c353))
-* token radii and keyframe, ref [#4637](https://github.com/leather-wallet/extension/issues/4637) ([e67b61d](https://github.com/leather-wallet/extension/commit/e67b61d5c27cd4129415aa63e1fa49e30efdb5ae))
-* update panda ([2418a1c](https://github.com/leather-wallet/extension/commit/2418a1c9cb4a1310b588c673a76f7aa549ad35d2))
+* add improved sentry perf tracking ([8b96e9a](https://github.com/leather-io/extension/commit/8b96e9a4fbc7262026bee545186694e2e2565733))
+* check instance of error before passing it to checkLockedDeviceError ([e342642](https://github.com/leather-io/extension/commit/e3426422e535601d5ae7d38d49b1e8c6f58cc4f5))
+* post-release merge back ([2eaa09f](https://github.com/leather-io/extension/commit/2eaa09f7797e01f358a78d96f7498851270f1199))
+* quit app ourselves instead of prompting user to do it ([35c2ff1](https://github.com/leather-io/extension/commit/35c2ff13a87c4b35037fdbadc5e9dd0b4a8cdb15))
+* remove unneeded radix styles ([6808536](https://github.com/leather-io/extension/commit/6808536ee67df8ba27a55539a00ab83e1548c998))
+* reuse getAppAndVersion from bitcoin app instance method ([e894808](https://github.com/leather-io/extension/commit/e8948085fa176dde7960212ce97d962604de2128))
+* select and dropdown, ref [#4798](https://github.com/leather-io/extension/issues/4798) ([a82457d](https://github.com/leather-io/extension/commit/a82457d8f04e94b696fe4b54edbd8981f311c353))
+* token radii and keyframe, ref [#4637](https://github.com/leather-io/extension/issues/4637) ([e67b61d](https://github.com/leather-io/extension/commit/e67b61d5c27cd4129415aa63e1fa49e30efdb5ae))
+* update panda ([2418a1c](https://github.com/leather-io/extension/commit/2418a1c9cb4a1310b588c673a76f7aa549ad35d2))
 
-## [6.22.0](https://github.com/leather-wallet/extension/compare/v6.21.2...v6.22.0) (2024-01-09)
+## [6.22.0](https://github.com/leather-io/extension/compare/v6.21.2...v6.22.0) (2024-01-09)
 
 
 ### Features
 
-* add storybook, ref [#1230](https://github.com/leather-wallet/extension/issues/1230) ([958f177](https://github.com/leather-wallet/extension/commit/958f1776d8d9cca2510123952f9bc3f31a26574b))
-* deploy storybook with chromatic ([b22ee5d](https://github.com/leather-wallet/extension/commit/b22ee5d220133148511323cda59757b5f4c2c490))
-* ui dropdown and select, ref [#4312](https://github.com/leather-wallet/extension/issues/4312) and [#4417](https://github.com/leather-wallet/extension/issues/4417) ([3bd7ab4](https://github.com/leather-wallet/extension/commit/3bd7ab400cd30b485f447799785b9da80168032a))
+* add storybook, ref [#1230](https://github.com/leather-io/extension/issues/1230) ([958f177](https://github.com/leather-io/extension/commit/958f1776d8d9cca2510123952f9bc3f31a26574b))
+* deploy storybook with chromatic ([b22ee5d](https://github.com/leather-io/extension/commit/b22ee5d220133148511323cda59757b5f4c2c490))
+* ui dropdown and select, ref [#4312](https://github.com/leather-io/extension/issues/4312) and [#4417](https://github.com/leather-io/extension/issues/4417) ([3bd7ab4](https://github.com/leather-io/extension/commit/3bd7ab400cd30b485f447799785b9da80168032a))
 
 
 ### Bug Fixes
 
-* asset list ui bug, ref [#4603](https://github.com/leather-wallet/extension/issues/4603) ([9a2e8b4](https://github.com/leather-wallet/extension/commit/9a2e8b4bee19b812d1d62491aeca44ceafcfeb13))
-* delete unused import ([072cbd6](https://github.com/leather-wallet/extension/commit/072cbd67fe7805cca7c483739aa8ef61d69f8b5d))
-* fee value calc bug, ref [#4742](https://github.com/leather-wallet/extension/issues/4742) ([a59e0d2](https://github.com/leather-wallet/extension/commit/a59e0d2192988b91d2fd4c52c0220d5fc4cb8676))
-* infinite loader on buy screen if stacks account is not present ([1fb92aa](https://github.com/leather-wallet/extension/commit/1fb92aa101bfc4850f0a33883639fb77eb49736d))
-* nan total amount bug ([8c37393](https://github.com/leather-wallet/extension/commit/8c3739343542281345bf63e5d70b8d509c3e564e))
-* swap broadcasts, ref [#4750](https://github.com/leather-wallet/extension/issues/4750) ([54705e7](https://github.com/leather-wallet/extension/commit/54705e7ae34e8a59f1c95dbb04477a4866487a0b))
-* swaps UI bug ([d4c99d5](https://github.com/leather-wallet/extension/commit/d4c99d5e8979bf050beb68befabb629a691c0ef5))
-* user should be able to buy stacks for stacks account ([b2854c0](https://github.com/leather-wallet/extension/commit/b2854c0d2edf8ab92af3cf0cab1f7341fe079ff4))
+* asset list ui bug, ref [#4603](https://github.com/leather-io/extension/issues/4603) ([9a2e8b4](https://github.com/leather-io/extension/commit/9a2e8b4bee19b812d1d62491aeca44ceafcfeb13))
+* delete unused import ([072cbd6](https://github.com/leather-io/extension/commit/072cbd67fe7805cca7c483739aa8ef61d69f8b5d))
+* fee value calc bug, ref [#4742](https://github.com/leather-io/extension/issues/4742) ([a59e0d2](https://github.com/leather-io/extension/commit/a59e0d2192988b91d2fd4c52c0220d5fc4cb8676))
+* infinite loader on buy screen if stacks account is not present ([1fb92aa](https://github.com/leather-io/extension/commit/1fb92aa101bfc4850f0a33883639fb77eb49736d))
+* nan total amount bug ([8c37393](https://github.com/leather-io/extension/commit/8c3739343542281345bf63e5d70b8d509c3e564e))
+* swap broadcasts, ref [#4750](https://github.com/leather-io/extension/issues/4750) ([54705e7](https://github.com/leather-io/extension/commit/54705e7ae34e8a59f1c95dbb04477a4866487a0b))
+* swaps UI bug ([d4c99d5](https://github.com/leather-io/extension/commit/d4c99d5e8979bf050beb68befabb629a691c0ef5))
+* user should be able to buy stacks for stacks account ([b2854c0](https://github.com/leather-io/extension/commit/b2854c0d2edf8ab92af3cf0cab1f7341fe079ff4))
 
 
 ### Internal
 
-* move hooks to hooks folder ([336e12c](https://github.com/leather-wallet/extension/commit/336e12c475f10589be4012a35f7c627e7341fc95))
-* post-release merge back ([44ca1fd](https://github.com/leather-wallet/extension/commit/44ca1fd8ccafad8ce5fa17c623865fd394efd7c6))
-* update axios, radix, panda. remove unused radix primitives ([51320f9](https://github.com/leather-wallet/extension/commit/51320f999e24322225c8c45f5f4c0f0678a7b0a9))
-* use isDefined function in filter ([ca7b44c](https://github.com/leather-wallet/extension/commit/ca7b44cc4b53a5f12a56d8efab55d8345355a749))
+* move hooks to hooks folder ([336e12c](https://github.com/leather-io/extension/commit/336e12c475f10589be4012a35f7c627e7341fc95))
+* post-release merge back ([44ca1fd](https://github.com/leather-io/extension/commit/44ca1fd8ccafad8ce5fa17c623865fd394efd7c6))
+* update axios, radix, panda. remove unused radix primitives ([51320f9](https://github.com/leather-io/extension/commit/51320f999e24322225c8c45f5f4c0f0678a7b0a9))
+* use isDefined function in filter ([ca7b44c](https://github.com/leather-io/extension/commit/ca7b44cc4b53a5f12a56d8efab55d8345355a749))
 
-## [6.21.2](https://github.com/leather-wallet/extension/compare/v6.21.1...v6.21.2) (2023-12-21)
+## [6.21.2](https://github.com/leather-io/extension/compare/v6.21.1...v6.21.2) (2023-12-21)
 
 
 ### Bug Fixes
 
-* ledger locked stx, ref [#4539](https://github.com/leather-wallet/extension/issues/4539) ([5c89eea](https://github.com/leather-wallet/extension/commit/5c89eea58f491c2a81083568f1e30f274a4a6464))
-* remove hiro api key ([7c73d9e](https://github.com/leather-wallet/extension/commit/7c73d9ead0ed3fb8ed97bd29b487900807b3fdad))
+* ledger locked stx, ref [#4539](https://github.com/leather-io/extension/issues/4539) ([5c89eea](https://github.com/leather-io/extension/commit/5c89eea58f491c2a81083568f1e30f274a4a6464))
+* remove hiro api key ([7c73d9e](https://github.com/leather-io/extension/commit/7c73d9ead0ed3fb8ed97bd29b487900807b3fdad))
 
 
 ### Internal
 
-* post-release merge back ([1836adf](https://github.com/leather-wallet/extension/commit/1836adf724e48b366208af723f5c13270b65735d))
+* post-release merge back ([1836adf](https://github.com/leather-io/extension/commit/1836adf724e48b366208af723f5c13270b65735d))
 
-## [6.21.1](https://github.com/leather-wallet/extension/compare/v6.21.0...v6.21.1) (2023-12-19)
+## [6.21.1](https://github.com/leather-io/extension/compare/v6.21.0...v6.21.1) (2023-12-19)
 
 
 ### Bug Fixes
 
-* remove stx deposit analytics ([0b123eb](https://github.com/leather-wallet/extension/commit/0b123eb061db023d7154eb6ecc0d42e2f616315f))
+* remove stx deposit analytics ([0b123eb](https://github.com/leather-io/extension/commit/0b123eb061db023d7154eb6ecc0d42e2f616315f))
 
 
 ### Internal
 
-* improve display of lock screen, closes [#4606](https://github.com/leather-wallet/extension/issues/4606) ([d0977cb](https://github.com/leather-wallet/extension/commit/d0977cb5934e8c133f3abd16bf045cd021c25827))
-* post-release merge back ([8639a2e](https://github.com/leather-wallet/extension/commit/8639a2edcf26637664dda71645b05b7e05221fac))
+* improve display of lock screen, closes [#4606](https://github.com/leather-io/extension/issues/4606) ([d0977cb](https://github.com/leather-io/extension/commit/d0977cb5934e8c133f3abd16bf045cd021c25827))
+* post-release merge back ([8639a2e](https://github.com/leather-io/extension/commit/8639a2edcf26637664dda71645b05b7e05221fac))
 
-## [6.21.0](https://github.com/leather-wallet/extension/compare/v6.20.0...v6.21.0) (2023-12-19)
+## [6.21.0](https://github.com/leather-io/extension/compare/v6.20.0...v6.21.0) (2023-12-19)
 
 
 ### Features
 
-* html video and audio inscription types, closes [#4077](https://github.com/leather-wallet/extension/issues/4077) and [#3556](https://github.com/leather-wallet/extension/issues/3556) ([e19eea4](https://github.com/leather-wallet/extension/commit/e19eea4fb217d949351425e99c4370ed83b7ba98))
-* modified contracts and balance fetching ([63d29ba](https://github.com/leather-wallet/extension/commit/63d29ba39ed228a95da777f41a365fb8e91bf911))
-* updated dlc tools version ([8dc1d22](https://github.com/leather-wallet/extension/commit/8dc1d22f2157d5304a9119c9ea503ca0afd453ef))
+* html video and audio inscription types, closes [#4077](https://github.com/leather-io/extension/issues/4077) and [#3556](https://github.com/leather-io/extension/issues/3556) ([e19eea4](https://github.com/leather-io/extension/commit/e19eea4fb217d949351425e99c4370ed83b7ba98))
+* modified contracts and balance fetching ([63d29ba](https://github.com/leather-io/extension/commit/63d29ba39ed228a95da777f41a365fb8e91bf911))
+* updated dlc tools version ([8dc1d22](https://github.com/leather-io/extension/commit/8dc1d22f2157d5304a9119c9ea503ca0afd453ef))
 
 
 ### Bug Fixes
 
-* collectibles refetch, closes [#4413](https://github.com/leather-wallet/extension/issues/4413) ([13aa68f](https://github.com/leather-wallet/extension/commit/13aa68f5f592abe3d036d64bce306f72b45158d6))
-* deprecate legacy font sizes, closes [#4587](https://github.com/leather-wallet/extension/issues/4587) ([5f539ca](https://github.com/leather-wallet/extension/commit/5f539ca786fc39524a200f7c68fd7475b1fa7970))
-* handle inscription type svg, ref [#4727](https://github.com/leather-wallet/extension/issues/4727) ([b713c70](https://github.com/leather-wallet/extension/commit/b713c70cbcd83ddc27ada9a959434a413f501090))
-* only show swaps option on mainnet, closes [#4687](https://github.com/leather-wallet/extension/issues/4687) ([af6443c](https://github.com/leather-wallet/extension/commit/af6443c13d88bb9f073c3a13483e4a2fd0249361))
-* swaps test, ref [#4725](https://github.com/leather-wallet/extension/issues/4725) ([faae457](https://github.com/leather-wallet/extension/commit/faae457608c7ba21a791b07992816780e896d82d))
-* **wallet:** fees warning alignment fix ([d771bcc](https://github.com/leather-wallet/extension/commit/d771bccc687e4b0c593dcd64a83fc96eda84c357))
+* collectibles refetch, closes [#4413](https://github.com/leather-io/extension/issues/4413) ([13aa68f](https://github.com/leather-io/extension/commit/13aa68f5f592abe3d036d64bce306f72b45158d6))
+* deprecate legacy font sizes, closes [#4587](https://github.com/leather-io/extension/issues/4587) ([5f539ca](https://github.com/leather-io/extension/commit/5f539ca786fc39524a200f7c68fd7475b1fa7970))
+* handle inscription type svg, ref [#4727](https://github.com/leather-io/extension/issues/4727) ([b713c70](https://github.com/leather-io/extension/commit/b713c70cbcd83ddc27ada9a959434a413f501090))
+* only show swaps option on mainnet, closes [#4687](https://github.com/leather-io/extension/issues/4687) ([af6443c](https://github.com/leather-io/extension/commit/af6443c13d88bb9f073c3a13483e4a2fd0249361))
+* swaps test, ref [#4725](https://github.com/leather-io/extension/issues/4725) ([faae457](https://github.com/leather-io/extension/commit/faae457608c7ba21a791b07992816780e896d82d))
+* **wallet:** fees warning alignment fix ([d771bcc](https://github.com/leather-io/extension/commit/d771bccc687e4b0c593dcd64a83fc96eda84c357))
 
 
 ### Internal
 
-* post-release merge back ([75f4998](https://github.com/leather-wallet/extension/commit/75f4998b615fe3bc3ab1bdd55a83372c55e430fe))
+* post-release merge back ([75f4998](https://github.com/leather-io/extension/commit/75f4998b615fe3bc3ab1bdd55a83372c55e430fe))
 
-## [6.20.0](https://github.com/leather-wallet/extension/compare/v6.19.0...v6.20.0) (2023-12-14)
+## [6.20.0](https://github.com/leather-io/extension/compare/v6.19.0...v6.20.0) (2023-12-14)
 
 
 ### Features
 
-* add fund btc screen ([df77eb9](https://github.com/leather-wallet/extension/commit/df77eb9ebb327ddcb9351ced7d8074e47f590e1a))
-* added query for bitcoin contracts ([408ce03](https://github.com/leather-wallet/extension/commit/408ce0312b76ab9fb5ed8d5975f59a1518012158))
-* modified bitcoin contracts balance fetching ([bc909cf](https://github.com/leather-wallet/extension/commit/bc909cfa3102b18459984b83b6b62871402f43c3))
-* removed unnecessary useeffect, modfied btc entry point return if balance is undefined ([c858abb](https://github.com/leather-wallet/extension/commit/c858abb729a9c1a30f1793f5d8efb92554595ddc))
-* sentry feedback ([c4f6260](https://github.com/leather-wallet/extension/commit/c4f626067356e43c75003a100eedcef52e6c9f0c))
-* upgrade alex-sdk to 0.1.23 ([4a2b5d5](https://github.com/leather-wallet/extension/commit/4a2b5d5f3ed6e67ff381f8ca763a0869ae9c6ebb))
+* add fund btc screen ([df77eb9](https://github.com/leather-io/extension/commit/df77eb9ebb327ddcb9351ced7d8074e47f590e1a))
+* added query for bitcoin contracts ([408ce03](https://github.com/leather-io/extension/commit/408ce0312b76ab9fb5ed8d5975f59a1518012158))
+* modified bitcoin contracts balance fetching ([bc909cf](https://github.com/leather-io/extension/commit/bc909cfa3102b18459984b83b6b62871402f43c3))
+* removed unnecessary useeffect, modfied btc entry point return if balance is undefined ([c858abb](https://github.com/leather-io/extension/commit/c858abb729a9c1a30f1793f5d8efb92554595ddc))
+* sentry feedback ([c4f6260](https://github.com/leather-io/extension/commit/c4f626067356e43c75003a100eedcef52e6c9f0c))
+* upgrade alex-sdk to 0.1.23 ([4a2b5d5](https://github.com/leather-io/extension/commit/4a2b5d5f3ed6e67ff381f8ca763a0869ae9c6ebb))
 
 
 ### Bug Fixes
 
-* add CNAME to action ([e62c4b1](https://github.com/leather-wallet/extension/commit/e62c4b1e514869c2537db32d65a9782f0931cd06))
-* **ledger:** inscription sends, non-index 0, closes [#4680](https://github.com/leather-wallet/extension/issues/4680) ([aae3221](https://github.com/leather-wallet/extension/commit/aae32219433386376c17f7a6d6d52c10382670a8))
-* serialize sip10 form memo before displaying it ([6140a7c](https://github.com/leather-wallet/extension/commit/6140a7cadd25d4a1b4a4fdba5d73e3e47e84e034))
-* use light mode icons ([8d160b0](https://github.com/leather-wallet/extension/commit/8d160b0d5928083b2aec329a07a7d45ba59d05d1))
+* add CNAME to action ([e62c4b1](https://github.com/leather-io/extension/commit/e62c4b1e514869c2537db32d65a9782f0931cd06))
+* **ledger:** inscription sends, non-index 0, closes [#4680](https://github.com/leather-io/extension/issues/4680) ([aae3221](https://github.com/leather-io/extension/commit/aae32219433386376c17f7a6d6d52c10382670a8))
+* serialize sip10 form memo before displaying it ([6140a7c](https://github.com/leather-io/extension/commit/6140a7cadd25d4a1b4a4fdba5d73e3e47e84e034))
+* use light mode icons ([8d160b0](https://github.com/leather-io/extension/commit/8d160b0d5928083b2aec329a07a7d45ba59d05d1))
 
 
 ### Internal
 
-* post-release merge back ([11b48fc](https://github.com/leather-wallet/extension/commit/11b48fca8b85c16e94cf7e307bac5ad88aa0ab18))
+* post-release merge back ([11b48fc](https://github.com/leather-io/extension/commit/11b48fca8b85c16e94cf7e307bac5ad88aa0ab18))
 
-## [6.19.0](https://github.com/leather-wallet/extension/compare/v6.18.0...v6.19.0) (2023-12-12)
+## [6.19.0](https://github.com/leather-io/extension/compare/v6.18.0...v6.19.0) (2023-12-12)
 
 
 ### Features
 
-* add rpc method for signing stacks messages ([e77a8d8](https://github.com/leather-wallet/extension/commit/e77a8d8db6879325c11003d36ef2e3ab8ad8af16))
+* add rpc method for signing stacks messages ([e77a8d8](https://github.com/leather-io/extension/commit/e77a8d8db6879325c11003d36ef2e3ab8ad8af16))
 
 
 ### Bug Fixes
 
-* add background location to brc-20 modal and fix typo ([7483b9e](https://github.com/leather-wallet/extension/commit/7483b9e52e175431bbd02778e128f6de603da352))
-* broadcast ledger swap ([886309b](https://github.com/leather-wallet/extension/commit/886309b318dda5fa1c19f30b5a2772408e21acb6))
-* fix brc-20 sendby signing transaction before finalising then broadcasting, closes [#4635](https://github.com/leather-wallet/extension/issues/4635) ([5aa7c3c](https://github.com/leather-wallet/extension/commit/5aa7c3c3d6d5c383c78f6457ac6aa9dd4a73e8c5))
-* keep search params while doing background location redirect ([6b7ce6a](https://github.com/leather-wallet/extension/commit/6b7ce6a7946441e7b03864fc3a4a3313d28d61b7))
-* playwright error ([5bef424](https://github.com/leather-wallet/extension/commit/5bef424e0e457e850cea1e08a1befe9274c34b72))
-* revert signing logic to try both keys, closes [#4645](https://github.com/leather-wallet/extension/issues/4645) ([8b1be50](https://github.com/leather-wallet/extension/commit/8b1be500fa099bd09b1e9617d77c98be7843bab2))
-* selecting testnet in tests ([d275d8c](https://github.com/leather-wallet/extension/commit/d275d8c9bb6a1914ffd3b94e7e41e956c7fb2035))
-* swap test route path ([24d3677](https://github.com/leather-wallet/extension/commit/24d36773adfb2ab830fa0ab8d4063182c7656829))
+* add background location to brc-20 modal and fix typo ([7483b9e](https://github.com/leather-io/extension/commit/7483b9e52e175431bbd02778e128f6de603da352))
+* broadcast ledger swap ([886309b](https://github.com/leather-io/extension/commit/886309b318dda5fa1c19f30b5a2772408e21acb6))
+* fix brc-20 sendby signing transaction before finalising then broadcasting, closes [#4635](https://github.com/leather-io/extension/issues/4635) ([5aa7c3c](https://github.com/leather-io/extension/commit/5aa7c3c3d6d5c383c78f6457ac6aa9dd4a73e8c5))
+* keep search params while doing background location redirect ([6b7ce6a](https://github.com/leather-io/extension/commit/6b7ce6a7946441e7b03864fc3a4a3313d28d61b7))
+* playwright error ([5bef424](https://github.com/leather-io/extension/commit/5bef424e0e457e850cea1e08a1befe9274c34b72))
+* revert signing logic to try both keys, closes [#4645](https://github.com/leather-io/extension/issues/4645) ([8b1be50](https://github.com/leather-io/extension/commit/8b1be500fa099bd09b1e9617d77c98be7843bab2))
+* selecting testnet in tests ([d275d8c](https://github.com/leather-io/extension/commit/d275d8c9bb6a1914ffd3b94e7e41e956c7fb2035))
+* swap test route path ([24d3677](https://github.com/leather-io/extension/commit/24d36773adfb2ab830fa0ab8d4063182c7656829))
 
 
 ### Internal
 
-* add ledger signing routes to BRC-20 send ([42ee981](https://github.com/leather-wallet/extension/commit/42ee98101aacd61eacdde381b53209b738522518))
-* add swap tests ([bd6dc1a](https://github.com/leather-wallet/extension/commit/bd6dc1a6d946727859f5b4f1b89b7d7b0b199f99))
-* enable ledger swaps to test ([6539075](https://github.com/leather-wallet/extension/commit/6539075521f8250dcea08ff487b35267b7f94ac7))
-* post-release merge back ([9414a9b](https://github.com/leather-wallet/extension/commit/9414a9bc23966f1a33ff156a9ae80abdaab1cccf))
-* **signing:** support non-index zero input signing, closes [#4620](https://github.com/leather-wallet/extension/issues/4620), [#4628](https://github.com/leather-wallet/extension/issues/4628) ([d2edb18](https://github.com/leather-wallet/extension/commit/d2edb187e80bef233606a9a38d8b83dc83f4d91f))
+* add ledger signing routes to BRC-20 send ([42ee981](https://github.com/leather-io/extension/commit/42ee98101aacd61eacdde381b53209b738522518))
+* add swap tests ([bd6dc1a](https://github.com/leather-io/extension/commit/bd6dc1a6d946727859f5b4f1b89b7d7b0b199f99))
+* enable ledger swaps to test ([6539075](https://github.com/leather-io/extension/commit/6539075521f8250dcea08ff487b35267b7f94ac7))
+* post-release merge back ([9414a9b](https://github.com/leather-io/extension/commit/9414a9bc23966f1a33ff156a9ae80abdaab1cccf))
+* **signing:** support non-index zero input signing, closes [#4620](https://github.com/leather-io/extension/issues/4620), [#4628](https://github.com/leather-io/extension/issues/4628) ([d2edb18](https://github.com/leather-io/extension/commit/d2edb187e80bef233606a9a38d8b83dc83f4d91f))
 
-## [6.18.0](https://github.com/leather-wallet/extension/compare/v6.17.0...v6.18.0) (2023-12-05)
+## [6.18.0](https://github.com/leather-io/extension/compare/v6.17.0...v6.18.0) (2023-12-05)
 
 
 ### Features
 
-* add tests for psbt sigining ([c5ee6b7](https://github.com/leather-wallet/extension/commit/c5ee6b75776e9b21faa15a6d8cb933181a47801f))
-* modified explorer link maker function to have a regtest option ([4b158d2](https://github.com/leather-wallet/extension/commit/4b158d231ff8a5c2b8d9bba41b512230e817870f))
-* use-explorer-link got separated into bitcoin and stacks function variant ([89bd3c5](https://github.com/leather-wallet/extension/commit/89bd3c52834c5f332cd7f0ba7e6f87863cb54216))
+* add tests for psbt sigining ([c5ee6b7](https://github.com/leather-io/extension/commit/c5ee6b75776e9b21faa15a6d8cb933181a47801f))
+* modified explorer link maker function to have a regtest option ([4b158d2](https://github.com/leather-io/extension/commit/4b158d231ff8a5c2b8d9bba41b512230e817870f))
+* use-explorer-link got separated into bitcoin and stacks function variant ([89bd3c5](https://github.com/leather-io/extension/commit/89bd3c52834c5f332cd7f0ba7e6f87863cb54216))
 
 
 ### Bug Fixes
 
-* add color to warning background, closes [#4600](https://github.com/leather-wallet/extension/issues/4600) ([cdcc597](https://github.com/leather-wallet/extension/commit/cdcc59787fc74ebd98449a2314d2dfb72ef5f518))
-* adjust position of fee slot, closes [#4462](https://github.com/leather-wallet/extension/issues/4462) ([fc2e08a](https://github.com/leather-wallet/extension/commit/fc2e08a929768ef7bba41b736f81f7426cfd8a50))
-* change to hstack to align buttons, closes [#4592](https://github.com/leather-wallet/extension/issues/4592) ([d00d83f](https://github.com/leather-wallet/extension/commit/d00d83faf6952f0e658622102435827fe6c18aa1))
-* decouple choose crypto asset components and add a new lint rule ([7b11213](https://github.com/leather-wallet/extension/commit/7b112135201e6b86221d7868183177f7c23d0a29))
-* make sure pending transactions have the correct circle colour, closes [#4591](https://github.com/leather-wallet/extension/issues/4591) ([eb96ac2](https://github.com/leather-wallet/extension/commit/eb96ac2732a1ced897aa4c9c9dc01da8dd786613))
-* remove PSBT learn more link, closes [#4607](https://github.com/leather-wallet/extension/issues/4607) ([1d9fd60](https://github.com/leather-wallet/extension/commit/1d9fd6092cf0606c50080061fa2f1dff614ee5ee))
-* roll back move to async from PR 4490 to supress sentry error ([9ec8a0c](https://github.com/leather-wallet/extension/commit/9ec8a0cacd1f6cf54d057c1879857b249d56a089))
-* set backgroundLocation for send ordinal, closes [#4562](https://github.com/leather-wallet/extension/issues/4562) ([b104a48](https://github.com/leather-wallet/extension/commit/b104a482c07eb5099e50c7f0c08034037d9f811b))
-* underlaid button, closes [#4615](https://github.com/leather-wallet/extension/issues/4615) ([907f33c](https://github.com/leather-wallet/extension/commit/907f33ccd8c8e432bd30fe855596bdd35cf25688))
+* add color to warning background, closes [#4600](https://github.com/leather-io/extension/issues/4600) ([cdcc597](https://github.com/leather-io/extension/commit/cdcc59787fc74ebd98449a2314d2dfb72ef5f518))
+* adjust position of fee slot, closes [#4462](https://github.com/leather-io/extension/issues/4462) ([fc2e08a](https://github.com/leather-io/extension/commit/fc2e08a929768ef7bba41b736f81f7426cfd8a50))
+* change to hstack to align buttons, closes [#4592](https://github.com/leather-io/extension/issues/4592) ([d00d83f](https://github.com/leather-io/extension/commit/d00d83faf6952f0e658622102435827fe6c18aa1))
+* decouple choose crypto asset components and add a new lint rule ([7b11213](https://github.com/leather-io/extension/commit/7b112135201e6b86221d7868183177f7c23d0a29))
+* make sure pending transactions have the correct circle colour, closes [#4591](https://github.com/leather-io/extension/issues/4591) ([eb96ac2](https://github.com/leather-io/extension/commit/eb96ac2732a1ced897aa4c9c9dc01da8dd786613))
+* remove PSBT learn more link, closes [#4607](https://github.com/leather-io/extension/issues/4607) ([1d9fd60](https://github.com/leather-io/extension/commit/1d9fd6092cf0606c50080061fa2f1dff614ee5ee))
+* roll back move to async from PR 4490 to supress sentry error ([9ec8a0c](https://github.com/leather-io/extension/commit/9ec8a0cacd1f6cf54d057c1879857b249d56a089))
+* set backgroundLocation for send ordinal, closes [#4562](https://github.com/leather-io/extension/issues/4562) ([b104a48](https://github.com/leather-io/extension/commit/b104a482c07eb5099e50c7f0c08034037d9f811b))
+* underlaid button, closes [#4615](https://github.com/leather-io/extension/issues/4615) ([907f33c](https://github.com/leather-io/extension/commit/907f33ccd8c8e432bd30fe855596bdd35cf25688))
 
 
 ### Internal
 
-* consume design tokens from extension ([d476fa3](https://github.com/leather-wallet/extension/commit/d476fa31cd7061613b43d157c6b724edda9efd74))
-* consume design tokens from extension ([0e52e5f](https://github.com/leather-wallet/extension/commit/0e52e5fb28428202e99f4ac533741171be43f002))
-* improve icons ([fcbf0d7](https://github.com/leather-wallet/extension/commit/fcbf0d725c1557701bccd8224c60bc27441c2fe5))
-* post-release merge back ([34f5553](https://github.com/leather-wallet/extension/commit/34f5553a8e22dd50585fc8f02f6ef1711be3d847))
+* consume design tokens from extension ([d476fa3](https://github.com/leather-io/extension/commit/d476fa31cd7061613b43d157c6b724edda9efd74))
+* consume design tokens from extension ([0e52e5f](https://github.com/leather-io/extension/commit/0e52e5fb28428202e99f4ac533741171be43f002))
+* improve icons ([fcbf0d7](https://github.com/leather-io/extension/commit/fcbf0d725c1557701bccd8224c60bc27441c2fe5))
+* post-release merge back ([34f5553](https://github.com/leather-io/extension/commit/34f5553a8e22dd50585fc8f02f6ef1711be3d847))
 
-## [6.17.0](https://github.com/leather-wallet/extension/compare/v6.16.1...v6.17.0) (2023-11-28)
+## [6.17.0](https://github.com/leather-io/extension/compare/v6.16.1...v6.17.0) (2023-11-28)
 
 
 ### Features
 
-* extended add-network page with the option to add bitcoin network too ([870574a](https://github.com/leather-wallet/extension/commit/870574a724030fe2105d482bda6c0c93f44388ba))
-* support bitcoin ledger, closes [#2893](https://github.com/leather-wallet/extension/issues/2893) ([8a81f58](https://github.com/leather-wallet/extension/commit/8a81f58c6261a1c8ac430e7fe8a410e0c11af4bd))
-* updated dlc-tools package, modified accept bitcoin contract rpc params ([0742719](https://github.com/leather-wallet/extension/commit/0742719793d72bd182167d5b0c50cb8515953b23))
+* extended add-network page with the option to add bitcoin network too ([870574a](https://github.com/leather-io/extension/commit/870574a724030fe2105d482bda6c0c93f44388ba))
+* support bitcoin ledger, closes [#2893](https://github.com/leather-io/extension/issues/2893) ([8a81f58](https://github.com/leather-io/extension/commit/8a81f58c6261a1c8ac430e7fe8a410e0c11af4bd))
+* updated dlc-tools package, modified accept bitcoin contract rpc params ([0742719](https://github.com/leather-io/extension/commit/0742719793d72bd182167d5b0c50cb8515953b23))
 
 
 ### Bug Fixes
 
-* account circle numbers and delete unused code ([a6588dc](https://github.com/leather-wallet/extension/commit/a6588dc5a2000ecea6f13be47a54ba2dac6b7bbf))
-* add background state for ledger connect modal ([41fef37](https://github.com/leather-wallet/extension/commit/41fef37ff46630745b8c5372cd887e8e3436f913))
-* align heading text left, closes [#4423](https://github.com/leather-wallet/extension/issues/4423) ([31ddc89](https://github.com/leather-wallet/extension/commit/31ddc89ce0c13092aeba8435713741ef96ba3d2d))
-* allow users to click input when populated, closes [#4582](https://github.com/leather-wallet/extension/issues/4582) ([222a854](https://github.com/leather-wallet/extension/commit/222a854fc542df3e1087d95bfaa34f0e6c352b0b))
-* axios get request for config ([3ad4b06](https://github.com/leather-wallet/extension/commit/3ad4b06b337f3e32a88da90b174809a4081945a0))
-* bitcoin fees tx size calc ([3f5718c](https://github.com/leather-wallet/extension/commit/3f5718c300f5cb14619fb3a362868d8a2a6c4fe8))
-* filter network dust amounts when sending all ([b7a34a9](https://github.com/leather-wallet/extension/commit/b7a34a9bc64d7f5fca205886bdc8519c164754d6))
-* fixed previously saved network loading ([c8724b4](https://github.com/leather-wallet/extension/commit/c8724b426c377a258191ef10cdf7fd7beed1726e))
-* give more margin to Continue button in extension mode, closes [#4423](https://github.com/leather-wallet/extension/issues/4423) ([8d61e93](https://github.com/leather-wallet/extension/commit/8d61e933d4e6323833ea9ad2a3ed86d3b1661139))
-* mark ui bugs ([e9da651](https://github.com/leather-wallet/extension/commit/e9da65164273476ae4ba0c2de185dc07c7230d34))
-* minor ui bugs ([0095ebc](https://github.com/leather-wallet/extension/commit/0095ebc61344472757a9d64ac593b3526b2937a9))
-* **popup:** avatar circle on stacks transactions ([8dbfefe](https://github.com/leather-wallet/extension/commit/8dbfefe8fcf5de687c2a137bce5eb2ff7a94b794))
-* provider name in tests ([6b75267](https://github.com/leather-wallet/extension/commit/6b7526759bde7975e661569bba928717b38c91b3))
-* psbt bare utxo signing ([954e707](https://github.com/leather-wallet/extension/commit/954e70772625f4c62509a872ac9852b4b36dbe8a))
-* qr code ([b035f20](https://github.com/leather-wallet/extension/commit/b035f205c1209a983d5cdfb6ea0b3fce9025f407))
-* remove not working onFocusborder, to be fixed in [#4583](https://github.com/leather-wallet/extension/issues/4583) ([cddf09b](https://github.com/leather-wallet/extension/commit/cddf09b8fd4145a926b70fd200776cb351773c19))
-* sign out and close all tabs on create wallet, closes [#4517](https://github.com/leather-wallet/extension/issues/4517) ([0b47dea](https://github.com/leather-wallet/extension/commit/0b47dea4ea7359fb1c5e49aa99e390c52768bb1c))
-* skip bitcoin contract tests ([83c4d04](https://github.com/leather-wallet/extension/commit/83c4d045a87f35151eaf28eacaa4ada291fc4fc4))
+* account circle numbers and delete unused code ([a6588dc](https://github.com/leather-io/extension/commit/a6588dc5a2000ecea6f13be47a54ba2dac6b7bbf))
+* add background state for ledger connect modal ([41fef37](https://github.com/leather-io/extension/commit/41fef37ff46630745b8c5372cd887e8e3436f913))
+* align heading text left, closes [#4423](https://github.com/leather-io/extension/issues/4423) ([31ddc89](https://github.com/leather-io/extension/commit/31ddc89ce0c13092aeba8435713741ef96ba3d2d))
+* allow users to click input when populated, closes [#4582](https://github.com/leather-io/extension/issues/4582) ([222a854](https://github.com/leather-io/extension/commit/222a854fc542df3e1087d95bfaa34f0e6c352b0b))
+* axios get request for config ([3ad4b06](https://github.com/leather-io/extension/commit/3ad4b06b337f3e32a88da90b174809a4081945a0))
+* bitcoin fees tx size calc ([3f5718c](https://github.com/leather-io/extension/commit/3f5718c300f5cb14619fb3a362868d8a2a6c4fe8))
+* filter network dust amounts when sending all ([b7a34a9](https://github.com/leather-io/extension/commit/b7a34a9bc64d7f5fca205886bdc8519c164754d6))
+* fixed previously saved network loading ([c8724b4](https://github.com/leather-io/extension/commit/c8724b426c377a258191ef10cdf7fd7beed1726e))
+* give more margin to Continue button in extension mode, closes [#4423](https://github.com/leather-io/extension/issues/4423) ([8d61e93](https://github.com/leather-io/extension/commit/8d61e933d4e6323833ea9ad2a3ed86d3b1661139))
+* mark ui bugs ([e9da651](https://github.com/leather-io/extension/commit/e9da65164273476ae4ba0c2de185dc07c7230d34))
+* minor ui bugs ([0095ebc](https://github.com/leather-io/extension/commit/0095ebc61344472757a9d64ac593b3526b2937a9))
+* **popup:** avatar circle on stacks transactions ([8dbfefe](https://github.com/leather-io/extension/commit/8dbfefe8fcf5de687c2a137bce5eb2ff7a94b794))
+* provider name in tests ([6b75267](https://github.com/leather-io/extension/commit/6b7526759bde7975e661569bba928717b38c91b3))
+* psbt bare utxo signing ([954e707](https://github.com/leather-io/extension/commit/954e70772625f4c62509a872ac9852b4b36dbe8a))
+* qr code ([b035f20](https://github.com/leather-io/extension/commit/b035f205c1209a983d5cdfb6ea0b3fce9025f407))
+* remove not working onFocusborder, to be fixed in [#4583](https://github.com/leather-io/extension/issues/4583) ([cddf09b](https://github.com/leather-io/extension/commit/cddf09b8fd4145a926b70fd200776cb351773c19))
+* sign out and close all tabs on create wallet, closes [#4517](https://github.com/leather-io/extension/issues/4517) ([0b47dea](https://github.com/leather-io/extension/commit/0b47dea4ea7359fb1c5e49aa99e390c52768bb1c))
+* skip bitcoin contract tests ([83c4d04](https://github.com/leather-io/extension/commit/83c4d045a87f35151eaf28eacaa4ada291fc4fc4))
 
 
 ### Internal
 
-* fix type errors ([98f5ddf](https://github.com/leather-wallet/extension/commit/98f5ddfc7fa3978e3ded0b86258e3555b280b69d))
-* icon tokens ([91403d7](https://github.com/leather-wallet/extension/commit/91403d7d8885270637d453e7ae76dea419c4e0b7))
-* migrate icons ([fbc6580](https://github.com/leather-wallet/extension/commit/fbc6580936dd1527689e70d2b54528e31fa4e123))
-* post-release merge back ([c3c7bd1](https://github.com/leather-wallet/extension/commit/c3c7bd1ba5b8205040e0f9b98aeaa44d577c913f))
-* remove bitcoinjs-lib from inscription send ([97854b0](https://github.com/leather-wallet/extension/commit/97854b069c7bada08047b07aa39e56af9b7da6b2))
-* remove patch file ([be8b040](https://github.com/leather-wallet/extension/commit/be8b04035f41615dad11ada5c80b6fc994795fc5))
-* remove remaining old icon libraries ([1fa4e6c](https://github.com/leather-wallet/extension/commit/1fa4e6cec0b7fcc015bc6d7368def1be45eea217))
-* remove stacks ui ([99fb117](https://github.com/leather-wallet/extension/commit/99fb11727e62f796e4a303afa4845881222dbb66))
-* remove unneeded parent button, closes [#4550](https://github.com/leather-wallet/extension/issues/4550) ([c44a7bb](https://github.com/leather-wallet/extension/commit/c44a7bb7dd33e8f2722ee9996536d68e98f17bb6))
-* update font and color for receive asset ([800fa3e](https://github.com/leather-wallet/extension/commit/800fa3ed35c220166ee8693396209c0a23fc10e1))
-* update panda ([2807b50](https://github.com/leather-wallet/extension/commit/2807b5002dc860765ddc8769f1944ef9e59d8ebc))
-* update readme ([c86f2ab](https://github.com/leather-wallet/extension/commit/c86f2ab2d2449c6e3f66827b5c84a62efcbfd87c))
-* use tokens for border radius ([b387903](https://github.com/leather-wallet/extension/commit/b38790346a179447028b325becdfc58c1b11fa0a))
+* fix type errors ([98f5ddf](https://github.com/leather-io/extension/commit/98f5ddfc7fa3978e3ded0b86258e3555b280b69d))
+* icon tokens ([91403d7](https://github.com/leather-io/extension/commit/91403d7d8885270637d453e7ae76dea419c4e0b7))
+* migrate icons ([fbc6580](https://github.com/leather-io/extension/commit/fbc6580936dd1527689e70d2b54528e31fa4e123))
+* post-release merge back ([c3c7bd1](https://github.com/leather-io/extension/commit/c3c7bd1ba5b8205040e0f9b98aeaa44d577c913f))
+* remove bitcoinjs-lib from inscription send ([97854b0](https://github.com/leather-io/extension/commit/97854b069c7bada08047b07aa39e56af9b7da6b2))
+* remove patch file ([be8b040](https://github.com/leather-io/extension/commit/be8b04035f41615dad11ada5c80b6fc994795fc5))
+* remove remaining old icon libraries ([1fa4e6c](https://github.com/leather-io/extension/commit/1fa4e6cec0b7fcc015bc6d7368def1be45eea217))
+* remove stacks ui ([99fb117](https://github.com/leather-io/extension/commit/99fb11727e62f796e4a303afa4845881222dbb66))
+* remove unneeded parent button, closes [#4550](https://github.com/leather-io/extension/issues/4550) ([c44a7bb](https://github.com/leather-io/extension/commit/c44a7bb7dd33e8f2722ee9996536d68e98f17bb6))
+* update font and color for receive asset ([800fa3e](https://github.com/leather-io/extension/commit/800fa3ed35c220166ee8693396209c0a23fc10e1))
+* update panda ([2807b50](https://github.com/leather-io/extension/commit/2807b5002dc860765ddc8769f1944ef9e59d8ebc))
+* update readme ([c86f2ab](https://github.com/leather-io/extension/commit/c86f2ab2d2449c6e3f66827b5c84a62efcbfd87c))
+* use tokens for border radius ([b387903](https://github.com/leather-io/extension/commit/b38790346a179447028b325becdfc58c1b11fa0a))
 
-## [6.16.1](https://github.com/leather-wallet/extension/compare/v6.16.0...v6.16.1) (2023-11-17)
+## [6.16.1](https://github.com/leather-io/extension/compare/v6.16.0...v6.16.1) (2023-11-17)
 
 
 ### Bug Fixes
 
-* add hiro api key, closes [#4518](https://github.com/leather-wallet/extension/issues/4518) ([8c3f3d2](https://github.com/leather-wallet/extension/commit/8c3f3d2535fc1da5292eef04c2b922b9985d6f83))
-* **auth:** sign out from view secret key ([ad056f2](https://github.com/leather-wallet/extension/commit/ad056f2b3cb0712687498cab1f49d5fc38e6579c))
-* **auth:** wait for sign out to finish to navigate ([5630364](https://github.com/leather-wallet/extension/commit/56303645487220684fa83a2b8dd0c5f3a879588b))
-* **ui:** change locked screen ui to match the updated styles ([35493d5](https://github.com/leather-wallet/extension/commit/35493d5775d3d48111cdc9321d31bb47a4f92acc))
+* add hiro api key, closes [#4518](https://github.com/leather-io/extension/issues/4518) ([8c3f3d2](https://github.com/leather-io/extension/commit/8c3f3d2535fc1da5292eef04c2b922b9985d6f83))
+* **auth:** sign out from view secret key ([ad056f2](https://github.com/leather-io/extension/commit/ad056f2b3cb0712687498cab1f49d5fc38e6579c))
+* **auth:** wait for sign out to finish to navigate ([5630364](https://github.com/leather-io/extension/commit/56303645487220684fa83a2b8dd0c5f3a879588b))
+* **ui:** change locked screen ui to match the updated styles ([35493d5](https://github.com/leather-io/extension/commit/35493d5775d3d48111cdc9321d31bb47a4f92acc))
 
 
 ### Internal
 
-* post-release merge back ([831989d](https://github.com/leather-wallet/extension/commit/831989de0cd2749dfa5045c1109133ccb012365c))
+* post-release merge back ([831989d](https://github.com/leather-io/extension/commit/831989de0cd2749dfa5045c1109133ccb012365c))
 
-## [6.16.0](https://github.com/leather-wallet/extension/compare/v6.15.1...v6.16.0) (2023-11-08)
+## [6.16.0](https://github.com/leather-io/extension/compare/v6.15.1...v6.16.0) (2023-11-08)
 
 
 ### Features
 
-* change default test acc state ([9d00f06](https://github.com/leather-wallet/extension/commit/9d00f0671214c5a931e555277a689a7fdfbf19e7))
-* process stacks ledger keys ([7e71b91](https://github.com/leather-wallet/extension/commit/7e71b910303686caaa66f2baf20fe040207c1613))
+* change default test acc state ([9d00f06](https://github.com/leather-io/extension/commit/9d00f0671214c5a931e555277a689a7fdfbf19e7))
+* process stacks ledger keys ([7e71b91](https://github.com/leather-io/extension/commit/7e71b910303686caaa66f2baf20fe040207c1613))
 
 
 ### Bug Fixes
 
-* brc20 send form bug, closes [#4482](https://github.com/leather-wallet/extension/issues/4482) ([a578e08](https://github.com/leather-wallet/extension/commit/a578e08116b3e2fa2bf1306855acf67042e5df4f))
-* **ledger:** stacks contract call signing, closes [#4478](https://github.com/leather-wallet/extension/issues/4478) ([6b81c01](https://github.com/leather-wallet/extension/commit/6b81c0157cc7876195dc91161bb2b0d439b7962c))
-* map txid to txId to match new format of useExplorerLink, closes [#4446](https://github.com/leather-wallet/extension/issues/4446) ([cbf8814](https://github.com/leather-wallet/extension/commit/cbf88147f8b1b92c55e888382cd064b0cb81cdac))
-* migration redux persist ([bd77be5](https://github.com/leather-wallet/extension/commit/bd77be5407d932a67d75ef3004edceb1e580ecc7))
-* refactor error label to align icon and make text consistent size, closes [#4166](https://github.com/leather-wallet/extension/issues/4166) ([eb69ae9](https://github.com/leather-wallet/extension/commit/eb69ae92f2f14a73068637f4f387b60fe0ed4b82))
-* sip10 tokens ledger send form, closes [#4491](https://github.com/leather-wallet/extension/issues/4491) ([1bd7837](https://github.com/leather-wallet/extension/commit/1bd783737577958e7ae16ed2a93244fc9db0b6dd))
-* themify yellow, red, green, blue ([642e08a](https://github.com/leather-wallet/extension/commit/642e08a2ce0dd91bd4adad7e6cff5e68c419faa9))
+* brc20 send form bug, closes [#4482](https://github.com/leather-io/extension/issues/4482) ([a578e08](https://github.com/leather-io/extension/commit/a578e08116b3e2fa2bf1306855acf67042e5df4f))
+* **ledger:** stacks contract call signing, closes [#4478](https://github.com/leather-io/extension/issues/4478) ([6b81c01](https://github.com/leather-io/extension/commit/6b81c0157cc7876195dc91161bb2b0d439b7962c))
+* map txid to txId to match new format of useExplorerLink, closes [#4446](https://github.com/leather-io/extension/issues/4446) ([cbf8814](https://github.com/leather-io/extension/commit/cbf88147f8b1b92c55e888382cd064b0cb81cdac))
+* migration redux persist ([bd77be5](https://github.com/leather-io/extension/commit/bd77be5407d932a67d75ef3004edceb1e580ecc7))
+* refactor error label to align icon and make text consistent size, closes [#4166](https://github.com/leather-io/extension/issues/4166) ([eb69ae9](https://github.com/leather-io/extension/commit/eb69ae92f2f14a73068637f4f387b60fe0ed4b82))
+* sip10 tokens ledger send form, closes [#4491](https://github.com/leather-io/extension/issues/4491) ([1bd7837](https://github.com/leather-io/extension/commit/1bd783737577958e7ae16ed2a93244fc9db0b6dd))
+* themify yellow, red, green, blue ([642e08a](https://github.com/leather-io/extension/commit/642e08a2ce0dd91bd4adad7e6cff5e68c419faa9))
 
 
 ### Internal
 
-* init ledger store refactor ([19eee1c](https://github.com/leather-wallet/extension/commit/19eee1c21fa96031fb864513cda170c6aa77ace1))
-* ledger store ([d3d86cc](https://github.com/leather-wallet/extension/commit/d3d86cc9c598398820ed544cb5db6305cafa6627))
-* post-release merge back ([43750af](https://github.com/leather-wallet/extension/commit/43750aff804cb3d934aa9432c03ec771bf270917))
-* post-release merge back ([b9e726e](https://github.com/leather-wallet/extension/commit/b9e726e937fe35cb31efe8724cff5b585f27961b))
-* update icon, closes [#4166](https://github.com/leather-wallet/extension/issues/4166) ([b1e934e](https://github.com/leather-wallet/extension/commit/b1e934e229c336064edeaa59455893258dd48bee))
+* init ledger store refactor ([19eee1c](https://github.com/leather-io/extension/commit/19eee1c21fa96031fb864513cda170c6aa77ace1))
+* ledger store ([d3d86cc](https://github.com/leather-io/extension/commit/d3d86cc9c598398820ed544cb5db6305cafa6627))
+* post-release merge back ([43750af](https://github.com/leather-io/extension/commit/43750aff804cb3d934aa9432c03ec771bf270917))
+* post-release merge back ([b9e726e](https://github.com/leather-io/extension/commit/b9e726e937fe35cb31efe8724cff5b585f27961b))
+* update icon, closes [#4166](https://github.com/leather-io/extension/issues/4166) ([b1e934e](https://github.com/leather-io/extension/commit/b1e934e229c336064edeaa59455893258dd48bee))
 
-## [6.15.1](https://github.com/leather-wallet/extension/compare/v6.15.0...v6.15.1) (2023-11-04)
+## [6.15.1](https://github.com/leather-io/extension/compare/v6.15.0...v6.15.1) (2023-11-04)
 
 
 ### Bug Fixes
 
-* **ledger:** stacks contract call signing, closes [#4478](https://github.com/leather-wallet/extension/issues/4478) ([e7b2b6a](https://github.com/leather-wallet/extension/commit/e7b2b6a07e1f85280508a9269853b2c404d6dd83))
+* **ledger:** stacks contract call signing, closes [#4478](https://github.com/leather-io/extension/issues/4478) ([e7b2b6a](https://github.com/leather-io/extension/commit/e7b2b6a07e1f85280508a9269853b2c404d6dd83))
 
-## [6.15.0](https://github.com/leather-wallet/extension/compare/v6.14.0...v6.15.0) (2023-11-02)
+## [6.15.0](https://github.com/leather-io/extension/compare/v6.14.0...v6.15.0) (2023-11-02)
 
 
 ### Features
 
-* temporary fix for notification banners ([e349e0c](https://github.com/leather-wallet/extension/commit/e349e0c5ac19dfef2f083b57091004485cc4259b))
-* updated dlc-tools version, conditional bitcoin contracts entry point rendering ([194d102](https://github.com/leather-wallet/extension/commit/194d10259095d2cdad0492ed6089aceae0db48db))
+* temporary fix for notification banners ([e349e0c](https://github.com/leather-io/extension/commit/e349e0c5ac19dfef2f083b57091004485cc4259b))
+* updated dlc-tools version, conditional bitcoin contracts entry point rendering ([194d102](https://github.com/leather-io/extension/commit/194d10259095d2cdad0492ed6089aceae0db48db))
 
 
 ### Bug Fixes
 
-* bug with go back action in send flow, [#4355](https://github.com/leather-wallet/extension/issues/4355) ([92aa04c](https://github.com/leather-wallet/extension/commit/92aa04c223f2ee462e6db0c258ae45f9809386c1))
-* default icon stacks png ([eff18bf](https://github.com/leather-wallet/extension/commit/eff18bfee243a57d145bc4a6da7ae3a0396ed6e0))
-* fee calculation in for btc txs closes [#4455](https://github.com/leather-wallet/extension/issues/4455) ([cc5908b](https://github.com/leather-wallet/extension/commit/cc5908b3090801b1eebbe4d7b5c3a5ae8345c4d3))
-* fix typo in text, closes [#4461](https://github.com/leather-wallet/extension/issues/4461) ([6544d8e](https://github.com/leather-wallet/extension/commit/6544d8efdfbee7a88b2fb5189fd964a0c5f2e733))
-* improve styling of fund page in extension view ([ce31f2c](https://github.com/leather-wallet/extension/commit/ce31f2ce85234832d3641ad4401e1b2ca3a12423))
-* removed attestor checking and argument from the bitcoin contract interface, better error handling ([7a0a2e8](https://github.com/leather-wallet/extension/commit/7a0a2e80469930694d76aef79aec0eb847e3837c))
+* bug with go back action in send flow, [#4355](https://github.com/leather-io/extension/issues/4355) ([92aa04c](https://github.com/leather-io/extension/commit/92aa04c223f2ee462e6db0c258ae45f9809386c1))
+* default icon stacks png ([eff18bf](https://github.com/leather-io/extension/commit/eff18bfee243a57d145bc4a6da7ae3a0396ed6e0))
+* fee calculation in for btc txs closes [#4455](https://github.com/leather-io/extension/issues/4455) ([cc5908b](https://github.com/leather-io/extension/commit/cc5908b3090801b1eebbe4d7b5c3a5ae8345c4d3))
+* fix typo in text, closes [#4461](https://github.com/leather-io/extension/issues/4461) ([6544d8e](https://github.com/leather-io/extension/commit/6544d8efdfbee7a88b2fb5189fd964a0c5f2e733))
+* improve styling of fund page in extension view ([ce31f2c](https://github.com/leather-io/extension/commit/ce31f2ce85234832d3641ad4401e1b2ca3a12423))
+* removed attestor checking and argument from the bitcoin contract interface, better error handling ([7a0a2e8](https://github.com/leather-io/extension/commit/7a0a2e80469930694d76aef79aec0eb847e3837c))
 
 
 ### Internal
 
-* add ledger to swaps, disabled, ref [#4367](https://github.com/leather-wallet/extension/issues/4367) ([5273dd4](https://github.com/leather-wallet/extension/commit/5273dd487b3a836546477cedd0b018b3505e66b0))
-* **ledger:** stacks signing, closes [#4420](https://github.com/leather-wallet/extension/issues/4420) ([6b8919b](https://github.com/leather-wallet/extension/commit/6b8919b2adf1d16cdcda9c88ec4103ac9cd4f2da))
-* post-release merge back ([24a124c](https://github.com/leather-wallet/extension/commit/24a124c91c592522d1732432649f6aedb2220206))
-* swap asset list display name, closes [#4421](https://github.com/leather-wallet/extension/issues/4421) ([7c65fb3](https://github.com/leather-wallet/extension/commit/7c65fb35621a6988ea2d8c34f862640aad28f55e))
+* add ledger to swaps, disabled, ref [#4367](https://github.com/leather-io/extension/issues/4367) ([5273dd4](https://github.com/leather-io/extension/commit/5273dd487b3a836546477cedd0b018b3505e66b0))
+* **ledger:** stacks signing, closes [#4420](https://github.com/leather-io/extension/issues/4420) ([6b8919b](https://github.com/leather-io/extension/commit/6b8919b2adf1d16cdcda9c88ec4103ac9cd4f2da))
+* post-release merge back ([24a124c](https://github.com/leather-io/extension/commit/24a124c91c592522d1732432649f6aedb2220206))
+* swap asset list display name, closes [#4421](https://github.com/leather-io/extension/issues/4421) ([7c65fb3](https://github.com/leather-io/extension/commit/7c65fb35621a6988ea2d8c34f862640aad28f55e))
 
-## [6.14.0](https://github.com/leather-wallet/extension/compare/v6.13.0...v6.14.0) (2023-10-30)
+## [6.14.0](https://github.com/leather-io/extension/compare/v6.13.0...v6.14.0) (2023-10-30)
 
 
 ### Features
 
-* removed stacks/ui types and unnecessary data-testids ([5c85448](https://github.com/leather-wallet/extension/commit/5c85448cde2cf955efd1f841630ef0bc028c02a2))
+* removed stacks/ui types and unnecessary data-testids ([5c85448](https://github.com/leather-io/extension/commit/5c85448cde2cf955efd1f841630ef0bc028c02a2))
 
 
 ### Bug Fixes
 
-* add default type to button, closes [#4333](https://github.com/leather-wallet/extension/issues/4333) ([433216f](https://github.com/leather-wallet/extension/commit/433216f067c893eb46418fa908913e133ed4eb0c))
-* incorrect ui with psbt listing tx, closes [#4428](https://github.com/leather-wallet/extension/issues/4428) ([e83db28](https://github.com/leather-wallet/extension/commit/e83db28f97a9c98d9aedf928002bdad882ca2263))
-* remove query options from btc fees, closes [#4198](https://github.com/leather-wallet/extension/issues/4198) ([c7d80eb](https://github.com/leather-wallet/extension/commit/c7d80ebae1f385a93a1d4e30719835bd06b91d3b))
-* removed unnecessary forwardwithrefs ([fc69b0f](https://github.com/leather-wallet/extension/commit/fc69b0f07f8fbbf68124a56332cb8e38a5a715b2))
-* send ordinal routes, closes [#4444](https://github.com/leather-wallet/extension/issues/4444) ([dc209c2](https://github.com/leather-wallet/extension/commit/dc209c2d25f68abe832e581b49fd01c0fa03f2bc))
-* swap console logs, closes [#4438](https://github.com/leather-wallet/extension/issues/4438) ([e8fa72f](https://github.com/leather-wallet/extension/commit/e8fa72ffc441b390512e4fcd126e92a94dc2404c))
-* swaps min to receive format, closes [#4442](https://github.com/leather-wallet/extension/issues/4442) ([c5cf61c](https://github.com/leather-wallet/extension/commit/c5cf61c9e80018f75c35df8aa81ecfb908d071f5))
-* tx req fee error, closes [#4231](https://github.com/leather-wallet/extension/issues/4231) ([190868a](https://github.com/leather-wallet/extension/commit/190868a3f3e95ad22354188c18d92e7dc8f83076))
+* add default type to button, closes [#4333](https://github.com/leather-io/extension/issues/4333) ([433216f](https://github.com/leather-io/extension/commit/433216f067c893eb46418fa908913e133ed4eb0c))
+* incorrect ui with psbt listing tx, closes [#4428](https://github.com/leather-io/extension/issues/4428) ([e83db28](https://github.com/leather-io/extension/commit/e83db28f97a9c98d9aedf928002bdad882ca2263))
+* remove query options from btc fees, closes [#4198](https://github.com/leather-io/extension/issues/4198) ([c7d80eb](https://github.com/leather-io/extension/commit/c7d80ebae1f385a93a1d4e30719835bd06b91d3b))
+* removed unnecessary forwardwithrefs ([fc69b0f](https://github.com/leather-io/extension/commit/fc69b0f07f8fbbf68124a56332cb8e38a5a715b2))
+* send ordinal routes, closes [#4444](https://github.com/leather-io/extension/issues/4444) ([dc209c2](https://github.com/leather-io/extension/commit/dc209c2d25f68abe832e581b49fd01c0fa03f2bc))
+* swap console logs, closes [#4438](https://github.com/leather-io/extension/issues/4438) ([e8fa72f](https://github.com/leather-io/extension/commit/e8fa72ffc441b390512e4fcd126e92a94dc2404c))
+* swaps min to receive format, closes [#4442](https://github.com/leather-io/extension/issues/4442) ([c5cf61c](https://github.com/leather-io/extension/commit/c5cf61c9e80018f75c35df8aa81ecfb908d071f5))
+* tx req fee error, closes [#4231](https://github.com/leather-io/extension/issues/4231) ([190868a](https://github.com/leather-io/extension/commit/190868a3f3e95ad22354188c18d92e7dc8f83076))
 
 
 ### Internal
 
-* import prettier config from monorepo, closes [#4268](https://github.com/leather-wallet/extension/issues/4268) ([733e503](https://github.com/leather-wallet/extension/commit/733e503944a9b51c5f3f8798f59022c60c51c649))
-* post-release merge back ([efee04f](https://github.com/leather-wallet/extension/commit/efee04f2b6921f0bd34e73c3aaccf2c252a24282))
-* remove icon transition, closes [#4332](https://github.com/leather-wallet/extension/issues/4332) ([b75b20a](https://github.com/leather-wallet/extension/commit/b75b20a302539d8f66d998c2d4bc6c36cd5066d4))
+* import prettier config from monorepo, closes [#4268](https://github.com/leather-io/extension/issues/4268) ([733e503](https://github.com/leather-io/extension/commit/733e503944a9b51c5f3f8798f59022c60c51c649))
+* post-release merge back ([efee04f](https://github.com/leather-io/extension/commit/efee04f2b6921f0bd34e73c3aaccf2c252a24282))
+* remove icon transition, closes [#4332](https://github.com/leather-io/extension/issues/4332) ([b75b20a](https://github.com/leather-io/extension/commit/b75b20a302539d8f66d998c2d4bc6c36cd5066d4))
 
-## [6.13.0](https://github.com/leather-wallet/extension/compare/v6.12.0...v6.13.0) (2023-10-26)
+## [6.13.0](https://github.com/leather-io/extension/compare/v6.12.0...v6.13.0) (2023-10-26)
 
 
 ### Features
 
-* add alex-sdk and alex integreation ([6aabb24](https://github.com/leather-wallet/extension/commit/6aabb241779372dfb7ae656606acd10d733e502c))
-* broadcast swap tx ([d33c074](https://github.com/leather-wallet/extension/commit/d33c0742bf75b7e6d51501ad648ec997ba54214f))
-* implement alex sponsored txs ([2c790f8](https://github.com/leather-wallet/extension/commit/2c790f81fc1504a8f11e199829b5383204815c77))
+* add alex-sdk and alex integreation ([6aabb24](https://github.com/leather-io/extension/commit/6aabb241779372dfb7ae656606acd10d733e502c))
+* broadcast swap tx ([d33c074](https://github.com/leather-io/extension/commit/d33c0742bf75b7e6d51501ad648ec997ba54214f))
+* implement alex sponsored txs ([2c790f8](https://github.com/leather-io/extension/commit/2c790f81fc1504a8f11e199829b5383204815c77))
 
 
 ### Bug Fixes
 
-* add border tokens ([82f4cad](https://github.com/leather-wallet/extension/commit/82f4cad191545a96c116cce987bd68121e0af24b))
-* async fetch for exchange rate ([c7c5c3e](https://github.com/leather-wallet/extension/commit/c7c5c3e5a884e936ddda82a9d14b5005acc325bc))
-* temp hide swaps for ledger ([08b0e9c](https://github.com/leather-wallet/extension/commit/08b0e9c3f79b40e31ca3b27a06590df97a645ba5))
+* add border tokens ([82f4cad](https://github.com/leather-io/extension/commit/82f4cad191545a96c116cce987bd68121e0af24b))
+* async fetch for exchange rate ([c7c5c3e](https://github.com/leather-io/extension/commit/c7c5c3e5a884e936ddda82a9d14b5005acc325bc))
+* temp hide swaps for ledger ([08b0e9c](https://github.com/leather-io/extension/commit/08b0e9c3f79b40e31ca3b27a06590df97a645ba5))
 
 
 ### Internal
 
-* make getter fn for chrome.storage ([d9bd157](https://github.com/leather-wallet/extension/commit/d9bd15707a2d6c04ade9e58462cd2777069e1ca0))
-* more swap qa changes ([59cb91e](https://github.com/leather-wallet/extension/commit/59cb91e6e34a4b33170f23a45a784ab6dfa2953d))
-* post-release merge back ([7afc103](https://github.com/leather-wallet/extension/commit/7afc103fac240fb8404ad9807d39d9a5c91df304))
-* swap qa changes ([641df65](https://github.com/leather-wallet/extension/commit/641df65ff11ff6bfa1d735be290910661aa82270))
+* make getter fn for chrome.storage ([d9bd157](https://github.com/leather-io/extension/commit/d9bd15707a2d6c04ade9e58462cd2777069e1ca0))
+* more swap qa changes ([59cb91e](https://github.com/leather-io/extension/commit/59cb91e6e34a4b33170f23a45a784ab6dfa2953d))
+* post-release merge back ([7afc103](https://github.com/leather-io/extension/commit/7afc103fac240fb8404ad9807d39d9a5c91df304))
+* swap qa changes ([641df65](https://github.com/leather-io/extension/commit/641df65ff11ff6bfa1d735be290910661aa82270))
 
-## [6.12.0](https://github.com/leather-wallet/extension/compare/v6.11.0...v6.12.0) (2023-10-24)
+## [6.12.0](https://github.com/leather-io/extension/compare/v6.11.0...v6.12.0) (2023-10-24)
 
 
 ### Features
 
-* add connect btn ([3903ba1](https://github.com/leather-wallet/extension/commit/3903ba17f208cde8eeb1f13dd30c66eb7b2e3b64))
-* add unsupported browsers modal ([2febd49](https://github.com/leather-wallet/extension/commit/2febd494ce016dbbed1690105c7d019ed69d8fb7))
-* added bitcoin contract list page and entry point ([a28678d](https://github.com/leather-wallet/extension/commit/a28678d32b73de0444e9154b727d07c5d8d668c0))
-* added tests for bitcoin contract request ([157f97e](https://github.com/leather-wallet/extension/commit/157f97e9c5ff4ec0788adfc1076c4dd5745bf035))
-* return addresses of regtest and signet ([a0717e3](https://github.com/leather-wallet/extension/commit/a0717e38887e30ed32eb9d08f7be81a2dec105a9))
-* rework onboarding ledger flow, closes [#4281](https://github.com/leather-wallet/extension/issues/4281) ([47aa2e2](https://github.com/leather-wallet/extension/commit/47aa2e2598bbcdd8230f8ef6701bbe252a811bb4))
+* add connect btn ([3903ba1](https://github.com/leather-io/extension/commit/3903ba17f208cde8eeb1f13dd30c66eb7b2e3b64))
+* add unsupported browsers modal ([2febd49](https://github.com/leather-io/extension/commit/2febd494ce016dbbed1690105c7d019ed69d8fb7))
+* added bitcoin contract list page and entry point ([a28678d](https://github.com/leather-io/extension/commit/a28678d32b73de0444e9154b727d07c5d8d668c0))
+* added tests for bitcoin contract request ([157f97e](https://github.com/leather-io/extension/commit/157f97e9c5ff4ec0788adfc1076c4dd5745bf035))
+* return addresses of regtest and signet ([a0717e3](https://github.com/leather-io/extension/commit/a0717e38887e30ed32eb9d08f7be81a2dec105a9))
+* rework onboarding ledger flow, closes [#4281](https://github.com/leather-io/extension/issues/4281) ([47aa2e2](https://github.com/leather-io/extension/commit/47aa2e2598bbcdd8230f8ef6701bbe252a811bb4))
 
 
 ### Bug Fixes
 
-* align text and caption left so it appears correctly in extension view ([bd25751](https://github.com/leather-wallet/extension/commit/bd25751a97dbabbd6cf41a90680e519adbe91ef8))
-* allow direct access to /receive/stx ([e7c8d8d](https://github.com/leather-wallet/extension/commit/e7c8d8decf577e85d57abc2cb8de49a894b42690))
-* change acc bug ([ce13789](https://github.com/leather-wallet/extension/commit/ce1378926dd30d7b7ff92d539942830bfc1ec80f))
-* clean code ([77a4822](https://github.com/leather-wallet/extension/commit/77a4822075b66ac168952802dc4193c1dbd4d89b))
-* clean code, add note re ordinals modal ([a06aa39](https://github.com/leather-wallet/extension/commit/a06aa39eaca8312b7215055308892a307e82d194))
-* clean code, add note re ordinals modal ([993df34](https://github.com/leather-wallet/extension/commit/993df34892f2bbc5fc7d10ab2c47c49aff211c46))
-* close original recieve modal before opening qr code modal to prevent double modal ([10b7246](https://github.com/leather-wallet/extension/commit/10b72461f6af2958c0408d6265fc10aa68eb46ed))
-* code spanning past viewport width ([db35a49](https://github.com/leather-wallet/extension/commit/db35a4932e1034e28c2f54c97d88b5c7bdccffd0))
-* do not nest recieve sub routes to prevent double overlay of modal and maintain direct access ([1477c96](https://github.com/leather-wallet/extension/commit/1477c96270495898b90e6ef8c8c38075df66fa6e))
-* enable bg redirect to overlay modal in new tab ([36c969f](https://github.com/leather-wallet/extension/commit/36c969f2f009b785958866720567204fcd0b21c9))
-* get build passing ([5826143](https://github.com/leather-wallet/extension/commit/5826143c95a360c1696a1f6fd41c2023a7f67e5d))
-* improve type loading ([d79ee62](https://github.com/leather-wallet/extension/commit/d79ee626f994d05922427d066669529798be4ebf))
-* ledger tx sign error process ([618923f](https://github.com/leather-wallet/extension/commit/618923fc0cc964b5c9e0534e343a30ca0d58dbd1))
-* pass child routes as children to appease dep cruiser ([200907a](https://github.com/leather-wallet/extension/commit/200907abda5dcdbe3b51f69ebb9c7fcb10f320d0))
-* re-introduce bg location for hometabs so modals overlay on top of activity ([12571b0](https://github.com/leather-wallet/extension/commit/12571b020b35e2fd943c138fb0f10ad0df510a24))
-* refactor modals to overlay on top of backgroundLocation consistently, closes [#4028](https://github.com/leather-wallet/extension/issues/4028) ([c006894](https://github.com/leather-wallet/extension/commit/c006894e14f6ad26e9f3f4c978a73999fbc6b834))
-* revert drawer changes from brand audit, closes [#4249](https://github.com/leather-wallet/extension/issues/4249) ([e437710](https://github.com/leather-wallet/extension/commit/e437710d3dc6ab7bbe7dfae4eaadef25c33ba2a3))
-* update path to receive stx to fix test ([2c897ab](https://github.com/leather-wallet/extension/commit/2c897abaff7dd17c7b63b6daaf98acf32282086d))
-* use bg location to open in new tab. share modal bg logic ([07c5c98](https://github.com/leather-wallet/extension/commit/07c5c98100d6a81399d6b3f402f7d569b385a5b8))
-* use grid for asset rows to stop overflow while allowing width, closes [#4171](https://github.com/leather-wallet/extension/issues/4171) ([529c03d](https://github.com/leather-wallet/extension/commit/529c03d9b1c9cdf9473c5343c0593f615ac4b7f2))
-* use independant route for FundReceiveStx ([e4bfd24](https://github.com/leather-wallet/extension/commit/e4bfd24a61350d28d99a53864f2572ff74b9d934))
-* use network.chain.bitcoin.url in api hooks, closes [#4330](https://github.com/leather-wallet/extension/issues/4330) ([ceaf228](https://github.com/leather-wallet/extension/commit/ceaf228cf9052032e26d6deb107c3ec6f5ad7672))
-* wallet type definition ([ddc91e3](https://github.com/leather-wallet/extension/commit/ddc91e36669a44d60ea886acbf661063b09ef066))
-* welcome page header padding, closes [#4374](https://github.com/leather-wallet/extension/issues/4374) ([0817a5e](https://github.com/leather-wallet/extension/commit/0817a5ed4599d6b94663e38a603ff92470ffaf69))
+* align text and caption left so it appears correctly in extension view ([bd25751](https://github.com/leather-io/extension/commit/bd25751a97dbabbd6cf41a90680e519adbe91ef8))
+* allow direct access to /receive/stx ([e7c8d8d](https://github.com/leather-io/extension/commit/e7c8d8decf577e85d57abc2cb8de49a894b42690))
+* change acc bug ([ce13789](https://github.com/leather-io/extension/commit/ce1378926dd30d7b7ff92d539942830bfc1ec80f))
+* clean code ([77a4822](https://github.com/leather-io/extension/commit/77a4822075b66ac168952802dc4193c1dbd4d89b))
+* clean code, add note re ordinals modal ([a06aa39](https://github.com/leather-io/extension/commit/a06aa39eaca8312b7215055308892a307e82d194))
+* clean code, add note re ordinals modal ([993df34](https://github.com/leather-io/extension/commit/993df34892f2bbc5fc7d10ab2c47c49aff211c46))
+* close original recieve modal before opening qr code modal to prevent double modal ([10b7246](https://github.com/leather-io/extension/commit/10b72461f6af2958c0408d6265fc10aa68eb46ed))
+* code spanning past viewport width ([db35a49](https://github.com/leather-io/extension/commit/db35a4932e1034e28c2f54c97d88b5c7bdccffd0))
+* do not nest recieve sub routes to prevent double overlay of modal and maintain direct access ([1477c96](https://github.com/leather-io/extension/commit/1477c96270495898b90e6ef8c8c38075df66fa6e))
+* enable bg redirect to overlay modal in new tab ([36c969f](https://github.com/leather-io/extension/commit/36c969f2f009b785958866720567204fcd0b21c9))
+* get build passing ([5826143](https://github.com/leather-io/extension/commit/5826143c95a360c1696a1f6fd41c2023a7f67e5d))
+* improve type loading ([d79ee62](https://github.com/leather-io/extension/commit/d79ee626f994d05922427d066669529798be4ebf))
+* ledger tx sign error process ([618923f](https://github.com/leather-io/extension/commit/618923fc0cc964b5c9e0534e343a30ca0d58dbd1))
+* pass child routes as children to appease dep cruiser ([200907a](https://github.com/leather-io/extension/commit/200907abda5dcdbe3b51f69ebb9c7fcb10f320d0))
+* re-introduce bg location for hometabs so modals overlay on top of activity ([12571b0](https://github.com/leather-io/extension/commit/12571b020b35e2fd943c138fb0f10ad0df510a24))
+* refactor modals to overlay on top of backgroundLocation consistently, closes [#4028](https://github.com/leather-io/extension/issues/4028) ([c006894](https://github.com/leather-io/extension/commit/c006894e14f6ad26e9f3f4c978a73999fbc6b834))
+* revert drawer changes from brand audit, closes [#4249](https://github.com/leather-io/extension/issues/4249) ([e437710](https://github.com/leather-io/extension/commit/e437710d3dc6ab7bbe7dfae4eaadef25c33ba2a3))
+* update path to receive stx to fix test ([2c897ab](https://github.com/leather-io/extension/commit/2c897abaff7dd17c7b63b6daaf98acf32282086d))
+* use bg location to open in new tab. share modal bg logic ([07c5c98](https://github.com/leather-io/extension/commit/07c5c98100d6a81399d6b3f402f7d569b385a5b8))
+* use grid for asset rows to stop overflow while allowing width, closes [#4171](https://github.com/leather-io/extension/issues/4171) ([529c03d](https://github.com/leather-io/extension/commit/529c03d9b1c9cdf9473c5343c0593f615ac4b7f2))
+* use independant route for FundReceiveStx ([e4bfd24](https://github.com/leather-io/extension/commit/e4bfd24a61350d28d99a53864f2572ff74b9d934))
+* use network.chain.bitcoin.url in api hooks, closes [#4330](https://github.com/leather-io/extension/issues/4330) ([ceaf228](https://github.com/leather-io/extension/commit/ceaf228cf9052032e26d6deb107c3ec6f5ad7672))
+* wallet type definition ([ddc91e3](https://github.com/leather-io/extension/commit/ddc91e36669a44d60ea886acbf661063b09ef066))
+* welcome page header padding, closes [#4374](https://github.com/leather-io/extension/issues/4374) ([0817a5e](https://github.com/leather-io/extension/commit/0817a5ed4599d6b94663e38a603ff92470ffaf69))
 
 
 ### Internal
 
-* debug window close util ([77056e7](https://github.com/leather-wallet/extension/commit/77056e7fcc947ba15542f66f59fc4200187fb099))
-* deprecate unused routes ([a3710c5](https://github.com/leather-wallet/extension/commit/a3710c5d53e1fc7ec813810ad132fec5bd4b1f1b))
-* explore routing issues ([0dbbdcf](https://github.com/leather-wallet/extension/commit/0dbbdcf3d9029f5a02c74fa0dfcccaa813ea8139))
-* local copyToClipboard hook ([017fa3a](https://github.com/leather-wallet/extension/commit/017fa3a56b6374fcc9241f02ea06b142f989c14c))
-* psbt stackui layout ([e71e457](https://github.com/leather-wallet/extension/commit/e71e4576714abecfabdc4ea5f56ed15cebd743b6))
+* debug window close util ([77056e7](https://github.com/leather-io/extension/commit/77056e7fcc947ba15542f66f59fc4200187fb099))
+* deprecate unused routes ([a3710c5](https://github.com/leather-io/extension/commit/a3710c5d53e1fc7ec813810ad132fec5bd4b1f1b))
+* explore routing issues ([0dbbdcf](https://github.com/leather-io/extension/commit/0dbbdcf3d9029f5a02c74fa0dfcccaa813ea8139))
+* local copyToClipboard hook ([017fa3a](https://github.com/leather-io/extension/commit/017fa3a56b6374fcc9241f02ea06b142f989c14c))
+* psbt stackui layout ([e71e457](https://github.com/leather-io/extension/commit/e71e4576714abecfabdc4ea5f56ed15cebd743b6))
 
-## [6.11.0](https://github.com/leather-wallet/extension/compare/v6.10.0...v6.11.0) (2023-10-13)
+## [6.11.0](https://github.com/leather-io/extension/compare/v6.10.0...v6.11.0) (2023-10-13)
 
 
 ### Features
 
-* sBTC devenv network ([1eb34b8](https://github.com/leather-wallet/extension/commit/1eb34b8324cb09e73f4dabe0768c37301d5c7c2f))
+* sBTC devenv network ([1eb34b8](https://github.com/leather-io/extension/commit/1eb34b8324cb09e73f4dabe0768c37301d5c7c2f))
 
 
 ### Bug Fixes
 
-* alter position of receive modal in extension view,  [#4165](https://github.com/leather-wallet/extension/issues/4165) ([07989ae](https://github.com/leather-wallet/extension/commit/07989ae39e199000e0abf9cb420dc5eabea3e5eb))
-* change tab hover bg colour, closes [#4249](https://github.com/leather-wallet/extension/issues/4249) ([1f8e863](https://github.com/leather-wallet/extension/commit/1f8e8631d1c57df81895ae64df820a1dc066fd6c))
-* give activity screen a min height to stop it jumping when empty, closes [#4249](https://github.com/leather-wallet/extension/issues/4249) ([75466bd](https://github.com/leather-wallet/extension/commit/75466bdb20af9d5443b31ec3fa4708b75f707ff4))
-* improve display of select account in extension mode, [#4165](https://github.com/leather-wallet/extension/issues/4165) ([f09aec3](https://github.com/leather-wallet/extension/commit/f09aec34ab1e395f04424a8357f3ed3f0ab352a7))
-* make adjustments based on PR review feedback ([29c5d59](https://github.com/leather-wallet/extension/commit/29c5d59c34b562097478971fa5230bb13d5218d6))
-* name wrapper more specifically ([230fe46](https://github.com/leather-wallet/extension/commit/230fe46abafafd71e3434779bdb7c4b591736c0b))
-* properly switch between 12 and 24 word inputs, closes [#4250](https://github.com/leather-wallet/extension/issues/4250) ([1a86b85](https://github.com/leather-wallet/extension/commit/1a86b85a4bede129c2b880cdbbff1be2f6cce504))
-* stop create account button disappearing at smaller heights, [#4165](https://github.com/leather-wallet/extension/issues/4165) ([f166a31](https://github.com/leather-wallet/extension/commit/f166a31e50aed555c6a54495caf742e704c19461))
-* update address displayer to use text-subdued for odd, closes [#4249](https://github.com/leather-wallet/extension/issues/4249) ([a9562c6](https://github.com/leather-wallet/extension/commit/a9562c616166fa6e44760a587c798d21c125d593))
-* update collectible header font and align icon, closes [#4290](https://github.com/leather-wallet/extension/issues/4290) ([e88a18b](https://github.com/leather-wallet/extension/commit/e88a18bdf70ce719aa98f0a9e29da1dad5856082))
+* alter position of receive modal in extension view,  [#4165](https://github.com/leather-io/extension/issues/4165) ([07989ae](https://github.com/leather-io/extension/commit/07989ae39e199000e0abf9cb420dc5eabea3e5eb))
+* change tab hover bg colour, closes [#4249](https://github.com/leather-io/extension/issues/4249) ([1f8e863](https://github.com/leather-io/extension/commit/1f8e8631d1c57df81895ae64df820a1dc066fd6c))
+* give activity screen a min height to stop it jumping when empty, closes [#4249](https://github.com/leather-io/extension/issues/4249) ([75466bd](https://github.com/leather-io/extension/commit/75466bdb20af9d5443b31ec3fa4708b75f707ff4))
+* improve display of select account in extension mode, [#4165](https://github.com/leather-io/extension/issues/4165) ([f09aec3](https://github.com/leather-io/extension/commit/f09aec34ab1e395f04424a8357f3ed3f0ab352a7))
+* make adjustments based on PR review feedback ([29c5d59](https://github.com/leather-io/extension/commit/29c5d59c34b562097478971fa5230bb13d5218d6))
+* name wrapper more specifically ([230fe46](https://github.com/leather-io/extension/commit/230fe46abafafd71e3434779bdb7c4b591736c0b))
+* properly switch between 12 and 24 word inputs, closes [#4250](https://github.com/leather-io/extension/issues/4250) ([1a86b85](https://github.com/leather-io/extension/commit/1a86b85a4bede129c2b880cdbbff1be2f6cce504))
+* stop create account button disappearing at smaller heights, [#4165](https://github.com/leather-io/extension/issues/4165) ([f166a31](https://github.com/leather-io/extension/commit/f166a31e50aed555c6a54495caf742e704c19461))
+* update address displayer to use text-subdued for odd, closes [#4249](https://github.com/leather-io/extension/issues/4249) ([a9562c6](https://github.com/leather-io/extension/commit/a9562c616166fa6e44760a587c798d21c125d593))
+* update collectible header font and align icon, closes [#4290](https://github.com/leather-io/extension/issues/4290) ([e88a18b](https://github.com/leather-io/extension/commit/e88a18bdf70ce719aa98f0a9e29da1dad5856082))
 
 
 ### Internal
 
-* fix missing protocol ([ba1a712](https://github.com/leather-wallet/extension/commit/ba1a712cda14574ef0a24ee66fc4328d83fbc956))
+* fix missing protocol ([ba1a712](https://github.com/leather-io/extension/commit/ba1a712cda14574ef0a24ee66fc4328d83fbc956))
 
-## [6.10.0](https://github.com/leather-wallet/extension/compare/v6.9.2...v6.10.0) (2023-10-11)
+## [6.10.0](https://github.com/leather-io/extension/compare/v6.9.2...v6.10.0) (2023-10-11)
 
 
 ### Features
 
-* stacks multisig support, closes [#3889](https://github.com/leather-wallet/extension/issues/3889) ([9dabfc2](https://github.com/leather-wallet/extension/commit/9dabfc28f5c0273bfcee6130ad48209cb1621d36))
+* stacks multisig support, closes [#3889](https://github.com/leather-io/extension/issues/3889) ([9dabfc2](https://github.com/leather-io/extension/commit/9dabfc28f5c0273bfcee6130ad48209cb1621d36))
 
 
 ### Bug Fixes
 
-* outdated version warning ([d56b52c](https://github.com/leather-wallet/extension/commit/d56b52cd5df7f03c281b59ca0f84fad561a95ff2))
-* outdated version warning ([c0e859c](https://github.com/leather-wallet/extension/commit/c0e859c2d3bbf024766662890a9345fe1c24739d))
-* regtest addresses, closes [#4223](https://github.com/leather-wallet/extension/issues/4223) ([eedbed5](https://github.com/leather-wallet/extension/commit/eedbed51d723aa4f1cbcb9aef883e94a0a3c18b2))
+* outdated version warning ([d56b52c](https://github.com/leather-io/extension/commit/d56b52cd5df7f03c281b59ca0f84fad561a95ff2))
+* outdated version warning ([c0e859c](https://github.com/leather-io/extension/commit/c0e859c2d3bbf024766662890a9345fe1c24739d))
+* regtest addresses, closes [#4223](https://github.com/leather-io/extension/issues/4223) ([eedbed5](https://github.com/leather-io/extension/commit/eedbed51d723aa4f1cbcb9aef883e94a0a3c18b2))
 
 
 ### Internal
 
-* build job ([917a00b](https://github.com/leather-wallet/extension/commit/917a00b99127a166eb9d0a5e604a9ef00a723be7))
-* improve pr-time messaging ([f26c5fe](https://github.com/leather-wallet/extension/commit/f26c5fe336c67dfd9760274215d12861b70cdf9c))
+* build job ([917a00b](https://github.com/leather-io/extension/commit/917a00b99127a166eb9d0a5e604a9ef00a723be7))
+* improve pr-time messaging ([f26c5fe](https://github.com/leather-io/extension/commit/f26c5fe336c67dfd9760274215d12861b70cdf9c))
 
-## [6.9.2](https://github.com/leather-wallet/extension/compare/v6.9.1...v6.9.2) (2023-10-04)
+## [6.9.2](https://github.com/leather-io/extension/compare/v6.9.1...v6.9.2) (2023-10-04)
 
 
 ### Bug Fixes
 
-* add mnemonic field validation, closes [#4130](https://github.com/leather-wallet/extension/issues/4130) ([b7970d5](https://github.com/leather-wallet/extension/commit/b7970d5f9285388d03374ccdacf046945574b1ad))
-* adjust padding of numerical slot, closes [#4243](https://github.com/leather-wallet/extension/issues/4243) ([55019df](https://github.com/leather-wallet/extension/commit/55019dff89495dafce60d632c10ac4e2446851d0))
-* do not disable button using dirty flag ([1a31a7b](https://github.com/leather-wallet/extension/commit/1a31a7b6d134e04c8f59f5be9ac847aff0add57e))
-* filter spam transactions from activity, closes [#4017](https://github.com/leather-wallet/extension/issues/4017) ([b1bf006](https://github.com/leather-wallet/extension/commit/b1bf0061c993e09576fa1d0e12fcf846378a66d7))
-* fix prettier ([0775186](https://github.com/leather-wallet/extension/commit/0775186bda024388133f5fa278c0582575c2fbef))
-* fix responsive style of funding page, closes [#66](https://github.com/leather-wallet/extension/issues/66) ([361c970](https://github.com/leather-wallet/extension/commit/361c9709c93e7fb7f2402567af52f6a992019bfc))
-* fix spacing between content ([31850ba](https://github.com/leather-wallet/extension/commit/31850ba953820614dc36b51b503c790d0407bea0))
-* reduce zIndex so that onClick works consistently without needing to double click ([5f44d5a](https://github.com/leather-wallet/extension/commit/5f44d5a2de8dd0b0ac917766732d12fdb7862371))
-* remove legacy bip 39 library, closes [#4130](https://github.com/leather-wallet/extension/issues/4130) ([4a4185a](https://github.com/leather-wallet/extension/commit/4a4185a1eab0e550662d8f1cf93cb37fa5d98c49))
-* roll back use of useFocus as it prevents formik validation from properly indicating isTouched ([0f629b0](https://github.com/leather-wallet/extension/commit/0f629b0177d41ad326112b5957042e26af416c9d))
-* use psuedo-elements to specify borders ([586af95](https://github.com/leather-wallet/extension/commit/586af95683b45b860de2b298f02fe3696ab5f4d5))
+* add mnemonic field validation, closes [#4130](https://github.com/leather-io/extension/issues/4130) ([b7970d5](https://github.com/leather-io/extension/commit/b7970d5f9285388d03374ccdacf046945574b1ad))
+* adjust padding of numerical slot, closes [#4243](https://github.com/leather-io/extension/issues/4243) ([55019df](https://github.com/leather-io/extension/commit/55019dff89495dafce60d632c10ac4e2446851d0))
+* do not disable button using dirty flag ([1a31a7b](https://github.com/leather-io/extension/commit/1a31a7b6d134e04c8f59f5be9ac847aff0add57e))
+* filter spam transactions from activity, closes [#4017](https://github.com/leather-io/extension/issues/4017) ([b1bf006](https://github.com/leather-io/extension/commit/b1bf0061c993e09576fa1d0e12fcf846378a66d7))
+* fix prettier ([0775186](https://github.com/leather-io/extension/commit/0775186bda024388133f5fa278c0582575c2fbef))
+* fix responsive style of funding page, closes [#66](https://github.com/leather-io/extension/issues/66) ([361c970](https://github.com/leather-io/extension/commit/361c9709c93e7fb7f2402567af52f6a992019bfc))
+* fix spacing between content ([31850ba](https://github.com/leather-io/extension/commit/31850ba953820614dc36b51b503c790d0407bea0))
+* reduce zIndex so that onClick works consistently without needing to double click ([5f44d5a](https://github.com/leather-io/extension/commit/5f44d5a2de8dd0b0ac917766732d12fdb7862371))
+* remove legacy bip 39 library, closes [#4130](https://github.com/leather-io/extension/issues/4130) ([4a4185a](https://github.com/leather-io/extension/commit/4a4185a1eab0e550662d8f1cf93cb37fa5d98c49))
+* roll back use of useFocus as it prevents formik validation from properly indicating isTouched ([0f629b0](https://github.com/leather-io/extension/commit/0f629b0177d41ad326112b5957042e26af416c9d))
+* use psuedo-elements to specify borders ([586af95](https://github.com/leather-io/extension/commit/586af95683b45b860de2b298f02fe3696ab5f4d5))
 
 
 ### Internal
 
-* apply requested changes from pr feedback ([027025f](https://github.com/leather-wallet/extension/commit/027025f0630df440318a5be89a81151d99dacce6))
-* fix readme ([4d03eb5](https://github.com/leather-wallet/extension/commit/4d03eb5f4c7430372af3715d0a1155832a68437c))
-* ordinal aware utxo query, closes [#4163](https://github.com/leather-wallet/extension/issues/4163) ([9f8291f](https://github.com/leather-wallet/extension/commit/9f8291f78b98ac48d25267bc72a236252c818f51))
-* upgrade panda & other deps ([1489864](https://github.com/leather-wallet/extension/commit/148986456e3c75bb0f82a4f629ccd58a525dcb9e))
+* apply requested changes from pr feedback ([027025f](https://github.com/leather-io/extension/commit/027025f0630df440318a5be89a81151d99dacce6))
+* fix readme ([4d03eb5](https://github.com/leather-io/extension/commit/4d03eb5f4c7430372af3715d0a1155832a68437c))
+* ordinal aware utxo query, closes [#4163](https://github.com/leather-io/extension/issues/4163) ([9f8291f](https://github.com/leather-io/extension/commit/9f8291f78b98ac48d25267bc72a236252c818f51))
+* upgrade panda & other deps ([1489864](https://github.com/leather-io/extension/commit/148986456e3c75bb0f82a4f629ccd58a525dcb9e))
 
-## [6.9.1](https://github.com/leather-wallet/extension/compare/v6.9.0...v6.9.1) (2023-10-02)
+## [6.9.1](https://github.com/leather-io/extension/compare/v6.9.0...v6.9.1) (2023-10-02)
 
 
 ### Bug Fixes
 
-* add array notation lint ([481b28d](https://github.com/leather-wallet/extension/commit/481b28d7c1a6ddbf8c1619887b7b71390e64b425))
-* add spam filtering to fungible token assets, closes [#4252](https://github.com/leather-wallet/extension/issues/4252) ([b56c27b](https://github.com/leather-wallet/extension/commit/b56c27ba5e5f8da85a9582340671aef0ba1c584f))
-* reenable transak, closes [#4267](https://github.com/leather-wallet/extension/issues/4267) ([b2fd8c3](https://github.com/leather-wallet/extension/commit/b2fd8c3ce0b503b53bc10843d4d217741a133eba))
-* send inscription error processing, closes [#4286](https://github.com/leather-wallet/extension/issues/4286) ([f73f3a4](https://github.com/leather-wallet/extension/commit/f73f3a44979aa3147537806217a2954a38acedc9))
-* set background colour of dialog for dark mode, closes [#4282](https://github.com/leather-wallet/extension/issues/4282) ([b4e9b75](https://github.com/leather-wallet/extension/commit/b4e9b75cd2b75a072a4d6517d94175de21c03d5c))
-* stx transfer test ([da669d1](https://github.com/leather-wallet/extension/commit/da669d1761d56807760da8e32f5c0704011316c5))
-* temporarily disable test ([a149517](https://github.com/leather-wallet/extension/commit/a1495171ee7509e8e52cd9db70901460918eba5b))
+* add array notation lint ([481b28d](https://github.com/leather-io/extension/commit/481b28d7c1a6ddbf8c1619887b7b71390e64b425))
+* add spam filtering to fungible token assets, closes [#4252](https://github.com/leather-io/extension/issues/4252) ([b56c27b](https://github.com/leather-io/extension/commit/b56c27ba5e5f8da85a9582340671aef0ba1c584f))
+* reenable transak, closes [#4267](https://github.com/leather-io/extension/issues/4267) ([b2fd8c3](https://github.com/leather-io/extension/commit/b2fd8c3ce0b503b53bc10843d4d217741a133eba))
+* send inscription error processing, closes [#4286](https://github.com/leather-io/extension/issues/4286) ([f73f3a4](https://github.com/leather-io/extension/commit/f73f3a44979aa3147537806217a2954a38acedc9))
+* set background colour of dialog for dark mode, closes [#4282](https://github.com/leather-io/extension/issues/4282) ([b4e9b75](https://github.com/leather-io/extension/commit/b4e9b75cd2b75a072a4d6517d94175de21c03d5c))
+* stx transfer test ([da669d1](https://github.com/leather-io/extension/commit/da669d1761d56807760da8e32f5c0704011316c5))
+* temporarily disable test ([a149517](https://github.com/leather-io/extension/commit/a1495171ee7509e8e52cd9db70901460918eba5b))
 
 
 ### Internal
 
-* missing env var ([7f7c7c5](https://github.com/leather-wallet/extension/commit/7f7c7c526f0fa28a1c9cfb07db9f2e1a291a3316))
-* remove legacy integration tests ([6c507c2](https://github.com/leather-wallet/extension/commit/6c507c24013c7c920f4bcca36f6d824dc9e38768))
-* ugprade packages ([41ec75c](https://github.com/leather-wallet/extension/commit/41ec75c6d3ecedb694ff53eec6e907d6c4fd7fef))
-* upgrade scure/noble pkgs ([949311a](https://github.com/leather-wallet/extension/commit/949311aaaf0ab6f91e03eabbe8214ee305a0b4cb))
+* missing env var ([7f7c7c5](https://github.com/leather-io/extension/commit/7f7c7c526f0fa28a1c9cfb07db9f2e1a291a3316))
+* remove legacy integration tests ([6c507c2](https://github.com/leather-io/extension/commit/6c507c24013c7c920f4bcca36f6d824dc9e38768))
+* ugprade packages ([41ec75c](https://github.com/leather-io/extension/commit/41ec75c6d3ecedb694ff53eec6e907d6c4fd7fef))
+* upgrade scure/noble pkgs ([949311a](https://github.com/leather-io/extension/commit/949311aaaf0ab6f91e03eabbe8214ee305a0b4cb))
 
-## [6.9.0](https://github.com/leather-wallet/extension/compare/v6.8.2...v6.9.0) (2023-09-26)
+## [6.9.0](https://github.com/leather-io/extension/compare/v6.8.2...v6.9.0) (2023-09-26)
 
 
 ### Features
 
-* add address index for ns inscriptions ([6317dce](https://github.com/leather-wallet/extension/commit/6317dced546e0361e9fcce90f472f7b24a5ef088))
-* add ns inscription send, closes [#4019](https://github.com/leather-wallet/extension/issues/4019) ([92774e8](https://github.com/leather-wallet/extension/commit/92774e8cbb15cb8ca41f10606db3dde5fe273240))
-* display inscriptions from native segwit address, closes [#4018](https://github.com/leather-wallet/extension/issues/4018) ([4a01fae](https://github.com/leather-wallet/extension/commit/4a01fae8f30ade4add328fb1e7f842d9463e02df))
-* enable stx tests ([e99e88c](https://github.com/leather-wallet/extension/commit/e99e88c6868d5ee2489c0fead9cb26146b2fc38a))
-* remove ns address inscription warning ([ad1e940](https://github.com/leather-wallet/extension/commit/ad1e940d281f75c98650daadaf1443bebd9f34ad))
-* replaced dlc-wasm-wallet with @dlc-link/dlc-tools ([0364e26](https://github.com/leather-wallet/extension/commit/0364e26f92090c1179a68b0b77f52a6fed219f56))
+* add address index for ns inscriptions ([6317dce](https://github.com/leather-io/extension/commit/6317dced546e0361e9fcce90f472f7b24a5ef088))
+* add ns inscription send, closes [#4019](https://github.com/leather-io/extension/issues/4019) ([92774e8](https://github.com/leather-io/extension/commit/92774e8cbb15cb8ca41f10606db3dde5fe273240))
+* display inscriptions from native segwit address, closes [#4018](https://github.com/leather-io/extension/issues/4018) ([4a01fae](https://github.com/leather-io/extension/commit/4a01fae8f30ade4add328fb1e7f842d9463e02df))
+* enable stx tests ([e99e88c](https://github.com/leather-io/extension/commit/e99e88c6868d5ee2489c0fead9cb26146b2fc38a))
+* remove ns address inscription warning ([ad1e940](https://github.com/leather-io/extension/commit/ad1e940d281f75c98650daadaf1443bebd9f34ad))
+* replaced dlc-wasm-wallet with @dlc-link/dlc-tools ([0364e26](https://github.com/leather-io/extension/commit/0364e26f92090c1179a68b0b77f52a6fed219f56))
 
 
 ### Bug Fixes
 
-* minor css bugs ([a514265](https://github.com/leather-wallet/extension/commit/a5142655e318b0c4ed18cd70f11102e06173dd1a))
-* more explicit build instructions ([11fea38](https://github.com/leather-wallet/extension/commit/11fea384b1533979b357be4ab4937e4dc8448e08))
-* set onboarding modal background color to fix transparency in dark mode ([93a3a0f](https://github.com/leather-wallet/extension/commit/93a3a0f313efcc9f7e8bbb9b75150027fa767518))
-* styles of acc info card ([64bd214](https://github.com/leather-wallet/extension/commit/64bd21424b8422b3ca7c4e6747eedeafce43c728))
-* update leather contact email address ([5330d18](https://github.com/leather-wallet/extension/commit/5330d182f6ce4251ecadaeb66b97bfad0f2507de))
+* minor css bugs ([a514265](https://github.com/leather-io/extension/commit/a5142655e318b0c4ed18cd70f11102e06173dd1a))
+* more explicit build instructions ([11fea38](https://github.com/leather-io/extension/commit/11fea384b1533979b357be4ab4937e4dc8448e08))
+* set onboarding modal background color to fix transparency in dark mode ([93a3a0f](https://github.com/leather-io/extension/commit/93a3a0f313efcc9f7e8bbb9b75150027fa767518))
+* styles of acc info card ([64bd214](https://github.com/leather-io/extension/commit/64bd21424b8422b3ca7c4e6747eedeafce43c728))
+* update leather contact email address ([5330d18](https://github.com/leather-io/extension/commit/5330d182f6ce4251ecadaeb66b97bfad0f2507de))
 
 
 ### Internal
 
-* flag to use panda, closes [#4255](https://github.com/leather-wallet/extension/issues/4255) ([5f0306e](https://github.com/leather-wallet/extension/commit/5f0306e94a6c35ddadde2259b138c2f05d6bf889))
-* remove space between component ([2fe2b60](https://github.com/leather-wallet/extension/commit/2fe2b606add564e61f712cf1ed68f4dc7c13cb5c))
-* space between, closes [#4256](https://github.com/leather-wallet/extension/issues/4256) ([963faab](https://github.com/leather-wallet/extension/commit/963faabdffbe16317fcec9bbb519e73be665b3ff))
+* flag to use panda, closes [#4255](https://github.com/leather-io/extension/issues/4255) ([5f0306e](https://github.com/leather-io/extension/commit/5f0306e94a6c35ddadde2259b138c2f05d6bf889))
+* remove space between component ([2fe2b60](https://github.com/leather-io/extension/commit/2fe2b606add564e61f712cf1ed68f4dc7c13cb5c))
+* space between, closes [#4256](https://github.com/leather-io/extension/issues/4256) ([963faab](https://github.com/leather-io/extension/commit/963faabdffbe16317fcec9bbb519e73be665b3ff))
 
-## [6.8.2](https://github.com/leather-wallet/extension/compare/v6.8.1...v6.8.2) (2023-09-19)
-
-
-### Bug Fixes
-
-* enable ff code splitting ([4a4eb4a](https://github.com/leather-wallet/extension/commit/4a4eb4ad3f635e56fc921e407bdda9142960a292))
-* trigger release ([4b5ec7e](https://github.com/leather-wallet/extension/commit/4b5ec7edf380c7a0a88060e25ba143fb360a651b))
-
-## [6.8.1](https://github.com/leather-wallet/extension/compare/v6.8.0...v6.8.1) (2023-09-19)
+## [6.8.2](https://github.com/leather-io/extension/compare/v6.8.1...v6.8.2) (2023-09-19)
 
 
 ### Bug Fixes
 
-* leading the from Hiro Wallet days ([86df840](https://github.com/leather-wallet/extension/commit/86df840338f4639e6899c2b0202e18caa9c582fc))
-* trigger release ([44f981e](https://github.com/leather-wallet/extension/commit/44f981e789162a67d5ea196e1c350d03504ce43d))
+* enable ff code splitting ([4a4eb4a](https://github.com/leather-io/extension/commit/4a4eb4ad3f635e56fc921e407bdda9142960a292))
+* trigger release ([4b5ec7e](https://github.com/leather-io/extension/commit/4b5ec7edf380c7a0a88060e25ba143fb360a651b))
 
-## [6.8.0](https://github.com/leather-wallet/extension/compare/v6.7.0...v6.8.0) (2023-09-18)
+## [6.8.1](https://github.com/leather-io/extension/compare/v6.8.0...v6.8.1) (2023-09-19)
+
+
+### Bug Fixes
+
+* leading the from Hiro Wallet days ([86df840](https://github.com/leather-io/extension/commit/86df840338f4639e6899c2b0202e18caa9c582fc))
+* trigger release ([44f981e](https://github.com/leather-io/extension/commit/44f981e789162a67d5ea196e1c350d03504ce43d))
+
+## [6.8.0](https://github.com/leather-io/extension/compare/v6.7.0...v6.8.0) (2023-09-18)
 
 
 ### Features
 
-* trigger release ([eb35e12](https://github.com/leather-wallet/extension/commit/eb35e126f6f20b1e4a7600d259d6c5cb1edf8980))
+* trigger release ([eb35e12](https://github.com/leather-io/extension/commit/eb35e126f6f20b1e4a7600d259d6c5cb1edf8980))
 
-## [6.7.0](https://github.com/leather-wallet/extension/compare/v6.6.1...v6.7.0) (2023-09-18)
-
-
-### Features
-
-* trigger release ([5fc164a](https://github.com/leather-wallet/extension/commit/5fc164a30f2aad5ab836266025254471be6ea388))
-
-## [6.6.1](https://github.com/leather-wallet/extension/compare/v6.6.0...v6.6.1) (2023-09-18)
-
-
-### Bug Fixes
-
-* firefox ci build ([51a7390](https://github.com/leather-wallet/extension/commit/51a739028914e68fb779572575a8aa330cbc1cb2))
-
-## [6.6.0](https://github.com/leather-wallet/extension/compare/v6.5.1...v6.6.0) (2023-09-18)
+## [6.7.0](https://github.com/leather-io/extension/compare/v6.6.1...v6.7.0) (2023-09-18)
 
 
 ### Features
 
-* create new test acc ([f14e3f1](https://github.com/leather-wallet/extension/commit/f14e3f1a017170e235e73848cca1658f1c64fd33))
-* increase fee actions ([7a9298b](https://github.com/leather-wallet/extension/commit/7a9298b814d9f4e17cfdf8db327b2d01a2eba9d9))
-* ui changes in inscription flow ([23ab7f0](https://github.com/leather-wallet/extension/commit/23ab7f000bec6ccfaeec58a68cf79af535b91a55))
-* update panda, node ([ddde3b1](https://github.com/leather-wallet/extension/commit/ddde3b1462e3266f147618f669c118f2d9b25294))
+* trigger release ([5fc164a](https://github.com/leather-io/extension/commit/5fc164a30f2aad5ab836266025254471be6ea388))
+
+## [6.6.1](https://github.com/leather-io/extension/compare/v6.6.0...v6.6.1) (2023-09-18)
 
 
 ### Bug Fixes
 
-* add fill=currentColor to refresh icon for dark mode, closes [#4195](https://github.com/leather-wallet/extension/issues/4195) ([25476e7](https://github.com/leather-wallet/extension/commit/25476e7e548a997d13ffe8d86b673f41ee620fef))
-* adjust header background colour based on screen context, [#4164](https://github.com/leather-wallet/extension/issues/4164) ([015c4e1](https://github.com/leather-wallet/extension/commit/015c4e1741766db499fa36e5c768de99d4f8e725))
-* discord webhook, new org secret ([fbc1c57](https://github.com/leather-wallet/extension/commit/fbc1c57e27d7f9eebe38acb705fb6f384afbdf96))
-* firefox publish issue ([e143172](https://github.com/leather-wallet/extension/commit/e1431725f30fb57fc92c8ebb2f3c0addd7f631e3))
-* fix fund test try ([2a5d421](https://github.com/leather-wallet/extension/commit/2a5d421791bc09b6fecd99edc2886c8573fe33a2))
-* flaky settings test ([51c460e](https://github.com/leather-wallet/extension/commit/51c460ee24e6d310c5d3a575cad469947375185e))
-* global bg style ([d639c8f](https://github.com/leather-wallet/extension/commit/d639c8fa4bd9f4451fd5f01b86f91055f04429cd))
-* pr ext build link ([126b1e7](https://github.com/leather-wallet/extension/commit/126b1e79e37710da81afea3f5b296c56b9f4651d))
-* remove radix layout components ([029e6b9](https://github.com/leather-wallet/extension/commit/029e6b98bb58c3b218e09f7bf6cde288b922cccf))
-* remove undefined tokens ([e1b431f](https://github.com/leather-wallet/extension/commit/e1b431f3e3e6c900158956bcd0bf372e5593be54))
-* script type unknown ([2e344ec](https://github.com/leather-wallet/extension/commit/2e344ec8cd0836ceae65c2d44cae335cc94d3447))
-* stop sign in panel stretching too much, closes [#4212](https://github.com/leather-wallet/extension/issues/4212) ([1804f49](https://github.com/leather-wallet/extension/commit/1804f49daa88521391567ebe837670fc4dc79142))
-* triger release ([483f0ae](https://github.com/leather-wallet/extension/commit/483f0aef9dc59a347303f055351fbf7f9a531430))
-* triger release ([5cb9193](https://github.com/leather-wallet/extension/commit/5cb9193d685f875677c7c08a63b62838a330f115))
-* trigger release ([108e74e](https://github.com/leather-wallet/extension/commit/108e74e612760ee258fc5d4ff9d427bc7722d335))
-* trigger release ([cefd605](https://github.com/leather-wallet/extension/commit/cefd6059e296e81a710e59112a21479a10c88494))
-* trigger release ([8d596ae](https://github.com/leather-wallet/extension/commit/8d596ae72f9e111e12cf15ea3a2d45fffeeb32cc))
-* trigger release ([316c67a](https://github.com/leather-wallet/extension/commit/316c67ae2b7288085d403eaab1048e965567c365))
+* firefox ci build ([51a7390](https://github.com/leather-io/extension/commit/51a739028914e68fb779572575a8aa330cbc1cb2))
+
+## [6.6.0](https://github.com/leather-io/extension/compare/v6.5.1...v6.6.0) (2023-09-18)
+
+
+### Features
+
+* create new test acc ([f14e3f1](https://github.com/leather-io/extension/commit/f14e3f1a017170e235e73848cca1658f1c64fd33))
+* increase fee actions ([7a9298b](https://github.com/leather-io/extension/commit/7a9298b814d9f4e17cfdf8db327b2d01a2eba9d9))
+* ui changes in inscription flow ([23ab7f0](https://github.com/leather-io/extension/commit/23ab7f000bec6ccfaeec58a68cf79af535b91a55))
+* update panda, node ([ddde3b1](https://github.com/leather-io/extension/commit/ddde3b1462e3266f147618f669c118f2d9b25294))
+
+
+### Bug Fixes
+
+* add fill=currentColor to refresh icon for dark mode, closes [#4195](https://github.com/leather-io/extension/issues/4195) ([25476e7](https://github.com/leather-io/extension/commit/25476e7e548a997d13ffe8d86b673f41ee620fef))
+* adjust header background colour based on screen context, [#4164](https://github.com/leather-io/extension/issues/4164) ([015c4e1](https://github.com/leather-io/extension/commit/015c4e1741766db499fa36e5c768de99d4f8e725))
+* discord webhook, new org secret ([fbc1c57](https://github.com/leather-io/extension/commit/fbc1c57e27d7f9eebe38acb705fb6f384afbdf96))
+* firefox publish issue ([e143172](https://github.com/leather-io/extension/commit/e1431725f30fb57fc92c8ebb2f3c0addd7f631e3))
+* fix fund test try ([2a5d421](https://github.com/leather-io/extension/commit/2a5d421791bc09b6fecd99edc2886c8573fe33a2))
+* flaky settings test ([51c460e](https://github.com/leather-io/extension/commit/51c460ee24e6d310c5d3a575cad469947375185e))
+* global bg style ([d639c8f](https://github.com/leather-io/extension/commit/d639c8fa4bd9f4451fd5f01b86f91055f04429cd))
+* pr ext build link ([126b1e7](https://github.com/leather-io/extension/commit/126b1e79e37710da81afea3f5b296c56b9f4651d))
+* remove radix layout components ([029e6b9](https://github.com/leather-io/extension/commit/029e6b98bb58c3b218e09f7bf6cde288b922cccf))
+* remove undefined tokens ([e1b431f](https://github.com/leather-io/extension/commit/e1b431f3e3e6c900158956bcd0bf372e5593be54))
+* script type unknown ([2e344ec](https://github.com/leather-io/extension/commit/2e344ec8cd0836ceae65c2d44cae335cc94d3447))
+* stop sign in panel stretching too much, closes [#4212](https://github.com/leather-io/extension/issues/4212) ([1804f49](https://github.com/leather-io/extension/commit/1804f49daa88521391567ebe837670fc4dc79142))
+* triger release ([483f0ae](https://github.com/leather-io/extension/commit/483f0aef9dc59a347303f055351fbf7f9a531430))
+* triger release ([5cb9193](https://github.com/leather-io/extension/commit/5cb9193d685f875677c7c08a63b62838a330f115))
+* trigger release ([108e74e](https://github.com/leather-io/extension/commit/108e74e612760ee258fc5d4ff9d427bc7722d335))
+* trigger release ([cefd605](https://github.com/leather-io/extension/commit/cefd6059e296e81a710e59112a21479a10c88494))
+* trigger release ([8d596ae](https://github.com/leather-io/extension/commit/8d596ae72f9e111e12cf15ea3a2d45fffeeb32cc))
+* trigger release ([316c67a](https://github.com/leather-io/extension/commit/316c67ae2b7288085d403eaab1048e965567c365))
 
 
 ### Internal
 
-* fund test migrate, closes [#4187](https://github.com/leather-wallet/extension/issues/4187) ([1375cd5](https://github.com/leather-wallet/extension/commit/1375cd5337366a7508fdae62ec23e07add78dc5b))
-* migrate network tests, closes [#3707](https://github.com/leather-wallet/extension/issues/3707) ([8ed7553](https://github.com/leather-wallet/extension/commit/8ed75537a0864dc2796bbc059c51c8fb7abd6606))
-* migrate tx requests tests to playwright, closes [#4151](https://github.com/leather-wallet/extension/issues/4151) ([c15b223](https://github.com/leather-wallet/extension/commit/c15b223685d28f220eafc4b59ab4404853594b09))
-* pass all sighashTypes to signer ([fdb06cf](https://github.com/leather-wallet/extension/commit/fdb06cfe35a22b7bb5382fdcf61a05e1eef6b2a7))
-* remove emotion, configure panda to load css globally, ditch stacks-ui base, [#4164](https://github.com/leather-wallet/extension/issues/4164) ([d8655c1](https://github.com/leather-wallet/extension/commit/d8655c10bf1056957420e2ac9e85ea24b82e4e7e))
-* remove legacy fund selectors ([92a495c](https://github.com/leather-wallet/extension/commit/92a495cd9d6fd2e8c5a33a54ddf6b57926cef98d))
-* remove legacy settings selectors ([e6eecb6](https://github.com/leather-wallet/extension/commit/e6eecb6e60bbb113a0437f45925cca17e3a54230))
-* remove test env ([61634d4](https://github.com/leather-wallet/extension/commit/61634d44aa3b0f47274649051bba2eb8e420891e))
-* rename leaf to leather ([66d159e](https://github.com/leather-wallet/extension/commit/66d159eba66b84f474112bbeb6b0c98ebb847c6c))
-* request feature link ([4e6c09d](https://github.com/leather-wallet/extension/commit/4e6c09d68693112dedcf30b0a4d0e6e1649eae3d))
-* settings legacy test ([068d3cd](https://github.com/leather-wallet/extension/commit/068d3cd465e1a642a763fecfa0e3ce5e94b07286))
-* swaps ui with leather-styles ([4884fc5](https://github.com/leather-wallet/extension/commit/4884fc5ac5c806b2a227f9708940bb43b3f8783e))
-* update to leather url paths ([203fad5](https://github.com/leather-wallet/extension/commit/203fad511e855ed2f59fc8307f3ac45784bea20d))
+* fund test migrate, closes [#4187](https://github.com/leather-io/extension/issues/4187) ([1375cd5](https://github.com/leather-io/extension/commit/1375cd5337366a7508fdae62ec23e07add78dc5b))
+* migrate network tests, closes [#3707](https://github.com/leather-io/extension/issues/3707) ([8ed7553](https://github.com/leather-io/extension/commit/8ed75537a0864dc2796bbc059c51c8fb7abd6606))
+* migrate tx requests tests to playwright, closes [#4151](https://github.com/leather-io/extension/issues/4151) ([c15b223](https://github.com/leather-io/extension/commit/c15b223685d28f220eafc4b59ab4404853594b09))
+* pass all sighashTypes to signer ([fdb06cf](https://github.com/leather-io/extension/commit/fdb06cfe35a22b7bb5382fdcf61a05e1eef6b2a7))
+* remove emotion, configure panda to load css globally, ditch stacks-ui base, [#4164](https://github.com/leather-io/extension/issues/4164) ([d8655c1](https://github.com/leather-io/extension/commit/d8655c10bf1056957420e2ac9e85ea24b82e4e7e))
+* remove legacy fund selectors ([92a495c](https://github.com/leather-io/extension/commit/92a495cd9d6fd2e8c5a33a54ddf6b57926cef98d))
+* remove legacy settings selectors ([e6eecb6](https://github.com/leather-io/extension/commit/e6eecb6e60bbb113a0437f45925cca17e3a54230))
+* remove test env ([61634d4](https://github.com/leather-io/extension/commit/61634d44aa3b0f47274649051bba2eb8e420891e))
+* rename leaf to leather ([66d159e](https://github.com/leather-io/extension/commit/66d159eba66b84f474112bbeb6b0c98ebb847c6c))
+* request feature link ([4e6c09d](https://github.com/leather-io/extension/commit/4e6c09d68693112dedcf30b0a4d0e6e1649eae3d))
+* settings legacy test ([068d3cd](https://github.com/leather-io/extension/commit/068d3cd465e1a642a763fecfa0e3ce5e94b07286))
+* swaps ui with leather-styles ([4884fc5](https://github.com/leather-io/extension/commit/4884fc5ac5c806b2a227f9708940bb43b3f8783e))
+* update to leather url paths ([203fad5](https://github.com/leather-io/extension/commit/203fad511e855ed2f59fc8307f3ac45784bea20d))
 
 ## [6.5.1](https://github.com/hirosystems/wallet/compare/v6.5.0...v6.5.1) (2023-08-31)
 

@@ -48,7 +48,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/leather-wallet/extension.git"
+    "url": "git+ssh://git@github.com/leather-io/extension.git"
   },
   "webExt": {
     "sourceDir": "dist/"

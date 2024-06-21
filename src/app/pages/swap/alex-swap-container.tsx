@@ -48,7 +48,7 @@ function AlexSwapContainer() {
   const { whenWallet } = useWalletType();
 
   // Setting software to false until we revisit:
-  // https://github.com/leather-wallet/extension/issues/4750
+  // https://github.com/leather-io/extension/issues/4750
   const isSponsoredByAlex = whenWallet({
     ledger: false,
     software: false,
