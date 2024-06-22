@@ -1,40 +1,33 @@
+import type { ReactNode } from 'react';
+
 import { Stack } from 'leather-styles/jsx';
 
-import { BtcAvatarIcon, StxAvatarIcon } from '@leather.io/ui';
+import { BtcAvatarIcon } from '@leather.io/ui';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BitcoinContractEntryPoint } from '@app/components/bitcoin-contract-entry-point/bitcoin-contract-entry-point';
-import {
-  BitcoinNativeSegwitAccountLoader,
-  BitcoinTaprootAccountLoader,
-} from '@app/components/loaders/bitcoin-account-loader';
-import { Brc20TokensLoader } from '@app/components/loaders/brc20-tokens-loader';
+import { BitcoinNativeSegwitAccountLoader } from '@app/components/loaders/bitcoin-account-loader';
 import { BtcAssetItemBalanceLoader } from '@app/components/loaders/btc-balance-loader';
-import { RunesLoader } from '@app/components/loaders/runes-loader';
-import { Sip10TokensLoader } from '@app/components/loaders/sip10-tokens-loader';
-import { Src20TokensLoader } from '@app/components/loaders/src20-tokens-loader';
-import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
-import { Stx20TokensLoader } from '@app/components/loaders/stx20-tokens-loader';
-import { StxAssetItemBalanceLoader } from '@app/components/loaders/stx-balance-loader';
-import { Brc20TokenAssetList } from '@app/features/asset-list/bitcoin/brc20-token-asset-list/brc20-token-asset-list';
-import { RunesAssetList } from '@app/features/asset-list/bitcoin/runes-asset-list/runes-asset-list';
-import { Src20TokenAssetList } from '@app/features/asset-list/bitcoin/src20-token-asset-list/src20-token-asset-list';
-import { Stx20TokenAssetList } from '@app/features/asset-list/stacks/stx20-token-asset-list/stx20-token-asset-list';
-import { StxCryptoAssetItem } from '@app/features/asset-list/stacks/stx-crypo-asset-item/stx-crypto-asset-item';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { ConnectLedgerAssetItemFallback } from './_components/connect-ledger-asset-item-fallback';
+import { BitcoinStandardsList } from './bitcoin/bitcoin-standards-list/bitcoin-standards-list';
 import { BtcCryptoAssetItem } from './bitcoin/btc-crypto-asset-item/btc-crypto-asset-item';
-import { Sip10TokenAssetList } from './stacks/sip10-token-asset-list/sip10-token-asset-list';
-import { Sip10TokenAssetListUnsupported } from './stacks/sip10-token-asset-list/sip10-token-asset-list-unsupported';
+import { StacksAssetsList } from './stacks/stacks-assets-list/stacks-assets-list';
 
 export type AssetListVariant = 'interactive' | 'read-only';
 
 interface AssetListProps {
   onSelectAsset?(symbol: string, contractId?: string): void;
   variant?: AssetListVariant;
+  renderRightElement?(id: string): ReactNode;
+  showBalance?: boolean;
 }
-export function AssetList({ onSelectAsset, variant = 'read-only' }: AssetListProps) {
+export function AssetList({
+  onSelectAsset,
+  renderRightElement,
+  variant = 'read-only',
+}: AssetListProps) {
   const network = useCurrentNetwork();
   const { whenWallet } = useWalletType();
 
@@ -74,88 +67,19 @@ export function AssetList({ onSelectAsset, variant = 'read-only' }: AssetListPro
           ledger: null,
         })}
 
-      <CurrentStacksAccountLoader
-        fallback={
-          <ConnectLedgerAssetItemFallback
-            chain="stacks"
-            icon={<StxAvatarIcon />}
-            symbol="STX"
-            variant={variant}
-          />
-        }
-      >
-        {account => (
-          <>
-            <StxAssetItemBalanceLoader address={account.address}>
-              {(balance, isLoading) => (
-                <StxCryptoAssetItem
-                  balance={balance}
-                  isLoading={isLoading}
-                  onSelectAsset={onSelectAsset}
-                />
-              )}
-            </StxAssetItemBalanceLoader>
-            <Sip10TokensLoader
-              address={account.address}
-              filter={variant === 'interactive' ? 'all' : 'supported'}
-            >
-              {(isLoading, tokens) => (
-                <Sip10TokenAssetList
-                  isLoading={isLoading}
-                  tokens={tokens}
-                  onSelectAsset={onSelectAsset}
-                />
-              )}
-            </Sip10TokensLoader>
-            {isReadOnly && (
-              <Stx20TokensLoader address={account.address}>
-                {tokens => <Stx20TokenAssetList tokens={tokens} />}
-              </Stx20TokensLoader>
-            )}
-          </>
-        )}
-      </CurrentStacksAccountLoader>
+      <StacksAssetsList
+        isReadOnly={isReadOnly}
+        variant={variant}
+        onSelectAsset={onSelectAsset}
+        filter="supported"
+      />
 
-      <BitcoinNativeSegwitAccountLoader current>
-        {nativeSegwitAccount => (
-          <BitcoinTaprootAccountLoader current>
-            {taprootAccount => (
-              <>
-                {whenWallet({
-                  software: (
-                    <Brc20TokensLoader>
-                      {tokens => <Brc20TokenAssetList tokens={tokens} variant={variant} />}
-                    </Brc20TokensLoader>
-                  ),
-                  ledger: null,
-                })}
-                {isReadOnly && (
-                  <>
-                    <Src20TokensLoader address={nativeSegwitAccount.address}>
-                      {tokens => <Src20TokenAssetList tokens={tokens} />}
-                    </Src20TokensLoader>
-                    <RunesLoader addresses={[nativeSegwitAccount.address, taprootAccount.address]}>
-                      {runes => <RunesAssetList runes={runes} />}
-                    </RunesLoader>
-                  </>
-                )}
-              </>
-            )}
-          </BitcoinTaprootAccountLoader>
-        )}
-      </BitcoinNativeSegwitAccountLoader>
-
-      {isReadOnly && (
-        <CurrentStacksAccountLoader>
-          {account => (
-            <Sip10TokensLoader address={account.address} filter="unsupported">
-              {(isLoading, tokens) => (
-                <Sip10TokenAssetListUnsupported isLoading={isLoading} tokens={tokens} />
-              )}
-            </Sip10TokensLoader>
-          )}
-        </CurrentStacksAccountLoader>
-      )}
+      <BitcoinStandardsList
+        isReadOnly={isReadOnly}
+        variant={variant}
+        filter="enabled"
+        renderRightElement={renderRightElement}
+      />
     </Stack>
   );
 }

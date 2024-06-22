@@ -1,3 +1,4 @@
+import { type ReactNode, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
@@ -22,10 +23,25 @@ interface Brc20TokenAssetDetails {
 interface Brc20TokenAssetListProps {
   tokens: Brc20TokenAssetDetails[];
   variant?: AssetListVariant;
+  showBalance?: boolean;
+  hasTokenSetter?: React.Dispatch<React.SetStateAction<boolean>>;
+  renderRightElement?(id: string): ReactNode;
 }
-export function Brc20TokenAssetList({ tokens, variant }: Brc20TokenAssetListProps) {
+export function Brc20TokenAssetList({
+  tokens,
+  variant,
+  hasTokenSetter,
+  showBalance = true,
+  renderRightElement,
+}: Brc20TokenAssetListProps) {
   const navigate = useNavigate();
   const { balance, isLoading } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
+
+  useEffect(() => {
+    if (hasTokenSetter && tokens.length) hasTokenSetter(true);
+  }, [tokens.length, hasTokenSetter]);
+
+  if (!tokens.length) return null;
 
   const hasPositiveBtcBalanceForFees =
     variant === 'interactive' && balance.availableBalance.amount.isGreaterThan(0);
@@ -47,7 +63,7 @@ export function Brc20TokenAssetList({ tokens, variant }: Brc20TokenAssetListProp
     <Stack data-testid={CryptoAssetSelectors.CryptoAssetList}>
       {tokens.map(token => (
         <CryptoAssetItemLayout
-          availableBalance={token.balance.availableBalance}
+          availableBalance={showBalance ? token.balance.availableBalance : null}
           captionLeft={token.info.name.toUpperCase()}
           icon={<Brc20AvatarIcon />}
           isLoading={isLoading}
@@ -56,6 +72,7 @@ export function Brc20TokenAssetList({ tokens, variant }: Brc20TokenAssetListProp
             hasPositiveBtcBalanceForFees ? () => navigateToBrc20SendForm(token) : undefined
           }
           titleLeft={token.info.symbol}
+          renderRightElement={renderRightElement}
         />
       ))}
     </Stack>

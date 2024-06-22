@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react';
+
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import type { Money } from '@leather.io/models';
@@ -6,10 +8,10 @@ import { spamFilter } from '@leather.io/utils';
 
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
-import { parseCryptoAssetBalance } from './crypto-asset-item.layout.utils';
+import { getCryptoDataTestId, parseCryptoAssetBalance } from './crypto-asset-item.layout.utils';
 
 interface CryptoAssetItemLayoutProps {
-  availableBalance: Money;
+  availableBalance?: Money | null;
   balanceSuffix?: string;
   captionLeft: string;
   captionRightBulletInfo?: React.ReactNode;
@@ -20,7 +22,9 @@ interface CryptoAssetItemLayoutProps {
   onSelectAsset?(symbol: string, contractId?: string): void;
   titleLeft: string;
   titleRightBulletInfo?: React.ReactNode;
+  renderRightElement?(id: string): ReactNode;
 }
+
 export function CryptoAssetItemLayout({
   availableBalance,
   balanceSuffix,
@@ -33,30 +37,37 @@ export function CryptoAssetItemLayout({
   onSelectAsset,
   titleLeft,
   titleRightBulletInfo,
+  renderRightElement,
 }: CryptoAssetItemLayoutProps) {
-  const { availableBalanceString, dataTestId, formattedBalance } =
-    parseCryptoAssetBalance(availableBalance);
+  const symbol = availableBalance?.symbol ?? captionLeft;
+  const dataTestId = getCryptoDataTestId(symbol);
 
-  const titleRight = (
+  const { availableBalanceString, formattedBalance } = availableBalance? parseCryptoAssetBalance(availableBalance)
+  : { availableBalanceString: undefined, formattedBalance: undefined };
+
+
+  const titleRight: ReactNode | undefined = availableBalance ? (
     <SkeletonLoader width="126px" isLoading={isLoading}>
       <BasicTooltip
         asChild
-        label={formattedBalance.isAbbreviated ? availableBalanceString : undefined}
+        label={formattedBalance?.isAbbreviated ? availableBalanceString : undefined}
         side="left"
       >
         <Flex alignItems="center" gap="space.02" textStyle="label.02">
           <BulletSeparator>
             <styled.span>
-              {formattedBalance.value} {balanceSuffix}
+            {formattedBalance?.value} {balanceSuffix}
             </styled.span>
             {titleRightBulletInfo}
           </BulletSeparator>
         </Flex>
       </BasicTooltip>
     </SkeletonLoader>
-  );
+  ) : renderRightElement ? (
+    renderRightElement(contractId ?? titleLeft)
+  ) : undefined;
 
-  const captionRight = (
+  const captionRight: ReactNode | undefined = availableBalance ? (
     <SkeletonLoader width="78px" isLoading={isLoading}>
       <Flex alignItems="center" color="ink.text-subdued" gap="space.02">
         <BulletSeparator>
@@ -65,10 +76,9 @@ export function CryptoAssetItemLayout({
         </BulletSeparator>
       </Flex>
     </SkeletonLoader>
-  );
+  ) : undefined;
 
   const isInteractive = !!onSelectAsset;
-
   const content = (
     <ItemLayout
       flagImg={icon}
@@ -79,16 +89,15 @@ export function CryptoAssetItemLayout({
     />
   );
 
-  if (isInteractive)
-    return (
-      <Pressable
-        data-testid={dataTestId}
-        onClick={() => onSelectAsset(availableBalance.symbol, contractId)}
-        my="space.02"
-      >
-        {content}
-      </Pressable>
-    );
-
-  return <Box my="space.02">{content}</Box>;
+  return isInteractive ? (
+    <Pressable
+      data-testid={dataTestId}
+      onClick={() => onSelectAsset(symbol, contractId)}
+      my="space.02"
+    >
+      {content}
+    </Pressable>
+  ) : (
+    <Box my="space.02">{content}</Box>
+  );
 }
