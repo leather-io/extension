@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather.io/models';
 import { spamFilter } from '@leather.io/utils';
 
@@ -7,28 +9,32 @@ import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-
 import { StacksAssetAvatar } from '@app/components/stacks-asset-avatar';
 
 interface Sip10TokenAssetItemProps {
-  balance: CryptoAssetBalance;
+  balance?: CryptoAssetBalance | null;
   info: Sip10CryptoAssetInfo;
-  isLoading: boolean;
-  marketData: MarketData;
+  isLoading?: boolean;
+  marketData?: MarketData | null;
   onSelectAsset?(symbol: string, contractId?: string): void;
+  renderRightElement?(id: string): ReactNode;
 }
 export function Sip10TokenAssetItem({
   balance,
   info,
-  isLoading,
+  isLoading = false,
   marketData,
   onSelectAsset,
+  renderRightElement,
 }: Sip10TokenAssetItemProps) {
   const name = spamFilter(info.name);
-  const fiatBalance = convertAssetBalanceToFiat({
-    balance: balance.availableBalance,
-    marketData,
-  });
+  let fiatBalance = '';
+  if (balance && marketData)
+    fiatBalance = convertAssetBalanceToFiat({
+      balance: balance.availableBalance,
+      marketData,
+    });
 
   return (
     <CryptoAssetItemLayout
-      availableBalance={balance.availableBalance}
+      availableBalance={balance?.availableBalance}
       fiatBalance={fiatBalance}
       captionLeft={info.symbol}
       contractId={info.contractId}
@@ -44,6 +50,7 @@ export function Sip10TokenAssetItem({
       isLoading={isLoading}
       onSelectAsset={onSelectAsset}
       titleLeft={name}
+      renderRightElement={renderRightElement}
     />
   );
 }

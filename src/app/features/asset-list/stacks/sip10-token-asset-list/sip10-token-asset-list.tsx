@@ -1,3 +1,5 @@
+import { type ReactNode, useEffect } from 'react';
+
 import { Stack } from 'leather-styles/jsx';
 
 import { type Sip10TokenAssetDetails, useAlexCurrencyPriceAsMarketData } from '@leather.io/query';
@@ -10,29 +12,37 @@ interface Sip10TokenAssetListProps {
   isLoading: boolean;
   tokens: Sip10TokenAssetDetails[];
   onSelectAsset?(symbol: string, contractId?: string): void;
+  showBalance?: boolean;
+  renderRightElement?(id: string): ReactNode;
 }
 export function Sip10TokenAssetList({
   isLoading,
   tokens,
   onSelectAsset,
+  showBalance = true,
+  renderRightElement,
 }: Sip10TokenAssetListProps) {
   const priceAsMarketData = useAlexCurrencyPriceAsMarketData();
-
   if (!tokens.length) return null;
 
   return (
     <Stack>
       {tokens.map(token => (
         <Sip10TokenAssetItem
-          balance={token.balance}
+          balance={showBalance ? token.balance : null}
           key={token.info.name}
           info={token.info}
           isLoading={isLoading}
-          marketData={priceAsMarketData(
-            getPrincipalFromContractId(token.info.contractId),
-            token.balance.availableBalance.symbol
-          )}
+          marketData={
+            showBalance
+              ? priceAsMarketData(
+                  getPrincipalFromContractId(token.info.contractId),
+                  token.balance.availableBalance.symbol
+                )
+              : null
+          }
           onSelectAsset={onSelectAsset}
+          renderRightElement={renderRightElement}
         />
       ))}
     </Stack>
