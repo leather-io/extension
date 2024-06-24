@@ -37,7 +37,7 @@ export const globalCss = defineGlobalStyles({
     'html,body, #app, .radix-themes': {
       maxHeight: '100vh',
       minHeight: tokens.sizes.dialogHeight.value,
-      maxWidth: tokens.sizes.popupWidth.value,
+      width: tokens.sizes.popupWidth.value,
       margin: '0 auto',
 
       '::-webkit-scrollbar': {
