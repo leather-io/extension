@@ -10,11 +10,11 @@ import { StxAvatarIcon } from '@leather.io/ui';
 import { CryptoAssetItemError } from '../crypto-asset-item/crypto-asset-item-error';
 import { CryptoAssetItemPlaceholder } from '../crypto-asset-item/crypto-asset-item-placeholder';
 
-interface StxBalanceLoaderProps {
+interface StxAssetItemBalanceLoaderProps {
   address: string;
-  children(balance: StxCryptoAssetBalance, isInitialLoading: boolean): React.ReactNode;
+  children(balance: StxCryptoAssetBalance, isLoading: boolean): React.ReactNode;
 }
-export function StxBalanceLoader({ address, children }: StxBalanceLoaderProps) {
+export function StxAssetItemBalanceLoader({ address, children }: StxAssetItemBalanceLoaderProps) {
   const result = useStxCryptoAssetBalance(address);
   if (isInitializingData(result)) return <CryptoAssetItemPlaceholder />;
   if (isErrorTooManyRequests(result))
@@ -28,6 +28,6 @@ export function StxBalanceLoader({ address, children }: StxBalanceLoaderProps) {
     );
   if (!isFetchedWithSuccess(result))
     return <CryptoAssetItemError caption="STX" icon={<StxAvatarIcon />} title="Stacks" />;
-  const { data: balance, isInitialLoading } = result;
-  return children(balance, isInitialLoading);
+  const { data: balance, isLoading } = result;
+  return children(balance, isLoading);
 }

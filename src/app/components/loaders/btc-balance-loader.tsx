@@ -1,5 +1,4 @@
 import type { BtcCryptoAssetBalance } from '@leather.io/models';
-import { isFetchedWithSuccess, isInitializingData } from '@leather.io/query';
 import { BtcAvatarIcon } from '@leather.io/ui';
 
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
@@ -9,12 +8,21 @@ import { CryptoAssetItemPlaceholder } from '../crypto-asset-item/crypto-asset-it
 
 interface BtcBalanceLoaderProps {
   address: string;
-  children(balance: BtcCryptoAssetBalance, isInitialLoading: boolean): React.ReactNode;
+  children(balance: BtcCryptoAssetBalance): React.ReactNode;
 }
 export function BtcBalanceLoader({ address, children }: BtcBalanceLoaderProps) {
-  const { balance, query: result } = useBtcCryptoAssetBalanceNativeSegwit(address);
-  if (isInitializingData(result)) return <CryptoAssetItemPlaceholder />;
-  if (!isFetchedWithSuccess(result))
+  const { balance } = useBtcCryptoAssetBalanceNativeSegwit(address);
+  return children(balance);
+}
+
+interface BtcAssetItemBalanceLoaderProps {
+  address: string;
+  children(balance: BtcCryptoAssetBalance, isLoading: boolean): React.ReactNode;
+}
+export function BtcAssetItemBalanceLoader({ address, children }: BtcAssetItemBalanceLoaderProps) {
+  const { balance, isError, isLoading } = useBtcCryptoAssetBalanceNativeSegwit(address);
+  if (isLoading) return <CryptoAssetItemPlaceholder />;
+  if (isError)
     return <CryptoAssetItemError caption="BTC" icon={<BtcAvatarIcon />} title="Bitcoin" />;
-  return children(balance, result.isInitialLoading);
+  return children(balance, isLoading);
 }

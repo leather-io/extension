@@ -20,15 +20,19 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
   // get stx balance
   const {
     data: balance,
-    isFetching: isFetchingStacksBalance,
-    isLoading,
-    isPending,
+    isFetching: isFetchingStxBalance,
+    isLoading: isLoadingStxBalance,
+    isPending: isPendingStxBalance,
   } = useStxCryptoAssetBalance(stxAddress);
   const stxBalance = balance ? balance.totalBalance : createMoney(0, 'STX');
 
   // get btc balance
-  const { balance: btcBalance, query: btcQueryResult } =
-    useBtcCryptoAssetBalanceNativeSegwit(btcAddress);
+  const {
+    balance: btcBalance,
+    isFetching: isFetchingBtcBalance,
+    isLoading: isLoadingBtcBalance,
+    isPending: isPendingBtcBalance,
+  } = useBtcCryptoAssetBalanceNativeSegwit(btcAddress);
 
   return useMemo(() => {
     // calculate total balance
@@ -37,24 +41,24 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
 
     const totalBalance = { ...stxUsdAmount, amount: stxUsdAmount.amount.plus(btcUsdAmount.amount) };
     return {
+      isFetching: isFetchingStxBalance || isFetchingBtcBalance,
+      isLoading: isLoadingStxBalance || isLoadingBtcBalance,
+      isPending: isPendingStxBalance || isPendingBtcBalance,
       totalBalance,
       totalUsdBalance: i18nFormatCurrency(
         totalBalance,
         totalBalance.amount.isGreaterThanOrEqualTo(100_000) ? 0 : 2
       ),
-      isLoading: isLoading || btcQueryResult.isLoading,
-      isPending: isPending || btcQueryResult.isPending,
-      isFetching: isFetchingStacksBalance || btcQueryResult.isFetching,
     };
   }, [
     btcBalance.availableBalance,
     btcMarketData,
-    btcQueryResult.isFetching,
-    btcQueryResult.isLoading,
-    btcQueryResult.isPending,
-    isFetchingStacksBalance,
-    isLoading,
-    isPending,
+    isFetchingBtcBalance,
+    isFetchingStxBalance,
+    isLoadingBtcBalance,
+    isLoadingStxBalance,
+    isPendingBtcBalance,
+    isPendingStxBalance,
     stxBalance,
     stxMarketData,
   ]);

@@ -12,6 +12,7 @@ import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
 import { Assets } from '@app/pages/home/components/assets';
 import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
+import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { AccountCard } from '@app/ui/components/account/account.card';
@@ -26,10 +27,11 @@ export function Home() {
     useOutletContext<SwitchAccountOutletContext>();
   const navigate = useNavigate();
   const account = useCurrentStacksAccount();
+  const currentAccountIndex = useCurrentAccountIndex();
 
   const { data: name = '', isFetching: isFetchingBnsName } = useAccountDisplayName({
     address: account?.address || '',
-    index: account?.index || 0,
+    index: currentAccountIndex || 0,
   });
 
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();

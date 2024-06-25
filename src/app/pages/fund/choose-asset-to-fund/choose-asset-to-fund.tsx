@@ -6,9 +6,9 @@ import { Stack, styled } from 'leather-styles/jsx';
 import { RouteUrls } from '@shared/route-urls';
 
 import { BitcoinNativeSegwitAccountLoader } from '@app/components/loaders/bitcoin-account-loader';
-import { BtcBalanceLoader } from '@app/components/loaders/btc-balance-loader';
+import { BtcAssetItemBalanceLoader } from '@app/components/loaders/btc-balance-loader';
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
-import { StxBalanceLoader } from '@app/components/loaders/stx-balance-loader';
+import { StxAssetItemBalanceLoader } from '@app/components/loaders/stx-balance-loader';
 import { BtcCryptoAssetItem } from '@app/features/asset-list/bitcoin/btc-crypto-asset-item/btc-crypto-asset-item';
 import { StxCryptoAssetItem } from '@app/features/asset-list/stacks/stx-crypo-asset-item/stx-crypto-asset-item';
 import { Card } from '@app/ui/layout/card/card';
@@ -35,29 +35,29 @@ export function ChooseCryptoAssetToFund() {
           <Stack pb="space.04" px="space.05">
             <BitcoinNativeSegwitAccountLoader current>
               {signer => (
-                <BtcBalanceLoader address={signer.address}>
-                  {(balance, isInitialLoading) => (
+                <BtcAssetItemBalanceLoader address={signer.address}>
+                  {(balance, isLoading) => (
                     <BtcCryptoAssetItem
                       balance={balance}
-                      isLoading={isInitialLoading}
+                      isLoading={isLoading}
                       onSelectAsset={() => navigateToFund('BTC')}
                     />
                   )}
-                </BtcBalanceLoader>
+                </BtcAssetItemBalanceLoader>
               )}
             </BitcoinNativeSegwitAccountLoader>
 
             <CurrentStacksAccountLoader>
               {account => (
-                <StxBalanceLoader address={account.address}>
-                  {(balance, isInitialLoading) => (
+                <StxAssetItemBalanceLoader address={account.address}>
+                  {(balance, isLoading) => (
                     <StxCryptoAssetItem
                       balance={balance}
-                      isLoading={isInitialLoading}
+                      isLoading={isLoading}
                       onSelectAsset={() => navigateToFund('STX')}
                     />
                   )}
-                </StxBalanceLoader>
+                </StxAssetItemBalanceLoader>
               )}
             </CurrentStacksAccountLoader>
           </Stack>
