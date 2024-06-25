@@ -25,7 +25,7 @@ interface Brc20TokenAssetListProps {
 }
 export function Brc20TokenAssetList({ tokens, variant }: Brc20TokenAssetListProps) {
   const navigate = useNavigate();
-  const { balance, query: result } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
+  const { balance, isLoading } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
 
   const hasPositiveBtcBalanceForFees =
     variant === 'interactive' && balance.availableBalance.amount.isGreaterThan(0);
@@ -49,7 +49,7 @@ export function Brc20TokenAssetList({ tokens, variant }: Brc20TokenAssetListProp
           availableBalance={token.balance.availableBalance}
           captionLeft={token.info.name.toUpperCase()}
           icon={<Brc20AvatarIcon />}
-          isLoading={result.isInitialLoading}
+          isLoading={isLoading}
           key={token.info.symbol}
           onSelectAsset={
             hasPositiveBtcBalanceForFees ? () => navigateToBrc20SendForm(token) : undefined

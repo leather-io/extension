@@ -36,8 +36,8 @@ export function useBtcCryptoAssetBalanceNativeSegwit(address: string) {
   }, [query.data]);
 
   return {
+    ...query,
     balance,
-    query,
   };
 }
 

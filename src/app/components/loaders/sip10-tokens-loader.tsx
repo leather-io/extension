@@ -10,6 +10,6 @@ interface Sip10TokensLoaderProps {
   children(isLoading: boolean, tokens: Sip10TokenAssetDetails[]): React.ReactNode;
 }
 export function Sip10TokensLoader({ address, filter, children }: Sip10TokensLoaderProps) {
-  const { isInitialLoading, tokens = [] } = useFilteredSip10Tokens({ address, filter });
-  return children(isInitialLoading, tokens);
+  const { isLoading, tokens = [] } = useFilteredSip10Tokens({ address, filter });
+  return children(isLoading, tokens);
 }

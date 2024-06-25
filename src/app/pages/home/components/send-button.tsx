@@ -11,7 +11,6 @@ import { RouteUrls } from '@shared/route-urls';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
-import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
@@ -19,12 +18,11 @@ function SendButtonSuspense() {
   const navigate = useNavigate();
   const { whenWallet } = useWalletType();
   const btcAddress = useCurrentAccountNativeSegwitIndexZeroSignerNullable()?.address;
-  const { balance: btcBalance } = useBtcCryptoAssetBalanceNativeSegwit(btcAddress ?? '');
   const stxAddress = useCurrentStacksAccountAddress();
   const { data: stxBalance } = useStxCryptoAssetBalance(stxAddress);
   const stacksFtAssets = useTransferableSip10Tokens(stxAddress);
 
-  const isDisabled = !btcBalance && !stxBalance && stacksFtAssets?.length === 0;
+  const isDisabled = !btcAddress && !stxBalance && stacksFtAssets?.length === 0;
 
   return (
     <IconButton
