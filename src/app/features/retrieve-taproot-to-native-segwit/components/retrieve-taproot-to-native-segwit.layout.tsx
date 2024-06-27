@@ -1,5 +1,6 @@
-import { BtcAvatarIcon, Button, Callout, Dialog } from '@leather.io/ui';
 import { Flex, styled } from 'leather-styles/jsx';
+
+import { BtcAvatarIcon, Button, Callout, Dialog } from '@leather.io/ui';
 
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';

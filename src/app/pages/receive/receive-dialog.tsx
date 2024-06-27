@@ -1,9 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Dialog, Tabs } from '@leather.io/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box } from 'leather-styles/jsx';
 import get from 'lodash.get';
+
+import { Dialog, Tabs } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
