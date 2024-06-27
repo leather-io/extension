@@ -42,6 +42,7 @@ export function Brc20TokenAssetList({ tokens, variant }: Brc20TokenAssetListProp
     });
   }
 
+  if (!tokens.length) return null;
   return (
     <Stack data-testid={CryptoAssetSelectors.CryptoAssetList}>
       {tokens.map(token => (
