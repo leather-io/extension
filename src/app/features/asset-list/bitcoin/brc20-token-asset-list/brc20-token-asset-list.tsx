@@ -1,10 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
-import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
-import { Stack } from 'leather-styles/jsx';
-
 import type { Brc20CryptoAssetInfo, CryptoAssetBalance, MarketData } from '@leather.io/models';
 import { Brc20AvatarIcon } from '@leather.io/ui';
+import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
+import { Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -42,6 +41,7 @@ export function Brc20TokenAssetList({ tokens, variant }: Brc20TokenAssetListProp
     });
   }
 
+  if (!tokens.length) return null;
   return (
     <Stack data-testid={CryptoAssetSelectors.CryptoAssetList}>
       {tokens.map(token => (
