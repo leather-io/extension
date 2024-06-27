@@ -48,8 +48,8 @@ importers:
         specifier: 0.10.0
         version: 0.10.0
       '@leather.io/query':
-        specifier: 0.9.2
-        version: 0.9.2(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
+        specifier: 0.9.3
+        version: 0.9.3(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
       '@leather.io/tokens':
         specifier: 0.6.0
         version: 0.6.0
@@ -2901,8 +2901,8 @@ packages:
   '@leather.io/prettier-config@0.5.0':
     resolution: {integrity: sha512-Pul+4MAyBKnQvqgcKJLbZl4DHnS4kCJzSuaYFW6cfHdre7BFn/iY6Er/Dvm9F8g7VMtkdYu68jEYxQ1Xc7A0KQ==}
 
-  '@leather.io/query@0.9.2':
-    resolution: {integrity: sha512-PSrLRl89rOU/LL2mXT6RI5SVytWDDQx2XDthDD6d/McwBhz2NNhRTBnKjnTTlEA1/gaHGqL+VZrOWr86HZ9Wzg==}
+  '@leather.io/query@0.9.3':
+    resolution: {integrity: sha512-hGAcA4Au/lg2yz/bD006XHNieQ/FMCzFU6r8L+o7oipjG+lzR48r8enLNE/M1SgusgKXhcp577XXGBLNO7oB9w==}
     peerDependencies:
       react: '*'
 
@@ -17583,7 +17583,7 @@ snapshots:
       - '@vue/compiler-sfc'
       - supports-color
 
-  '@leather.io/query@0.9.2(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)':
+  '@leather.io/query@0.9.3(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)':
     dependencies:
       '@fungible-systems/zone-file': 2.0.0
       '@hirosystems/token-metadata-api-client': 1.2.0(encoding@0.1.13)

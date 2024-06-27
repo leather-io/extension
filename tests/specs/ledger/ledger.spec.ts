@@ -1,5 +1,7 @@
 import { TEST_ACCOUNT_1_STX_ADDRESS } from '@tests/mocks/constants';
+import type { HomePage } from '@tests/page-object-models/home.page';
 import { makeLedgerTestAccountWalletState } from '@tests/page-object-models/onboarding.page';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
 import { test } from '../../fixtures/fixtures';
 
@@ -8,6 +10,13 @@ const specs = {
   withStacksKeysOnly: makeLedgerTestAccountWalletState(['stacks']),
   withBitcoinKeysOnly: makeLedgerTestAccountWalletState(['bitcoin']),
 };
+
+async function interceptBitcoinRequests(homePage: HomePage) {
+  const requestPromise = homePage.page.waitForRequest(/bestinslot|blockstream|inscriptions/, {
+    timeout: 1000,
+  });
+  return requestPromise;
+}
 
 test.describe('App with Ledger', () => {
   for (const [testName, state] of Object.entries(specs)) {
@@ -32,6 +41,17 @@ test.describe('App with Ledger', () => {
         test('stacks address is shown by default', async ({ homePage }) => {
           const stacksAddress = await homePage.getReceiveStxAddress();
           test.expect(stacksAddress).toEqual(TEST_ACCOUNT_1_STX_ADDRESS);
+        });
+
+        test('there are no bitcoin requests', async ({ homePage }) => {
+          const requestPromise = interceptBitcoinRequests(homePage);
+
+          await homePage.page.getByTestId(SettingsSelectors.CurrentAccountDisplayName).click();
+
+          await test
+            .expect(async () => await test.expect(requestPromise).rejects.toThrowError())
+            .toPass()
+            .catch();
         });
       }
 
