@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import type { BtcFeeType } from '@leather.io/models';
+import { Dialog } from '@leather.io/ui';
 import { createMoney } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -13,7 +14,6 @@ import {
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { useSendInscriptionState } from './components/send-inscription-container';

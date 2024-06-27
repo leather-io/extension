@@ -1,7 +1,8 @@
 import { Outlet } from 'react-router-dom';
 
+import { Dialog } from '@leather.io/ui';
+
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { LedgerTxSigningContext, LedgerTxSigningProvider } from './ledger-sign-tx.context';

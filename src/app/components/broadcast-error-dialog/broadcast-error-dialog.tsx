@@ -4,9 +4,8 @@ import GenericError from '@assets/images/generic-error.png';
 import { Flex, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { Button } from '@leather.io/ui';
+import { Button, Dialog } from '@leather.io/ui';
 
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 

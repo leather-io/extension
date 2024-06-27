@@ -1,16 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 
+import { Button, Dialog, OrdinalAvatarIcon } from '@leather.io/ui';
 import { Form, Formik } from 'formik';
 import { Box, Flex } from 'leather-styles/jsx';
-
-import { Button, OrdinalAvatarIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { ErrorLabel } from '@app/components/error-label';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { InscriptionPreviewCard } from '@app/components/inscription-preview-card/inscription-preview-card';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
