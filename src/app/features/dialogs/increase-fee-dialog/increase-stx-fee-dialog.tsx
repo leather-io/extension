@@ -1,6 +1,12 @@
 import { Suspense, useCallback, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 
+import { type StacksTransaction } from '@stacks/transactions';
+import BigNumber from 'bignumber.js';
+import { Formik } from 'formik';
+import { Flex, Stack } from 'leather-styles/jsx';
+import * as yup from 'yup';
+
 import {
   useStacksRawTransaction,
   useStxAvailableUnlockedBalance,
@@ -8,11 +14,6 @@ import {
 } from '@leather.io/query';
 import { Caption, Dialog, Spinner } from '@leather.io/ui';
 import { microStxToStx, stxToMicroStx } from '@leather.io/utils';
-import { type StacksTransaction } from '@stacks/transactions';
-import BigNumber from 'bignumber.js';
-import { Formik } from 'formik';
-import { Flex, Stack } from 'leather-styles/jsx';
-import * as yup from 'yup';
 
 import { RouteUrls } from '@shared/route-urls';
 

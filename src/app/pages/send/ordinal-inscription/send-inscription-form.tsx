@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Button, Dialog, OrdinalAvatarIcon } from '@leather.io/ui';
 import { Form, Formik } from 'formik';
 import { Box, Flex } from 'leather-styles/jsx';
+
+import { Button, Dialog, OrdinalAvatarIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
