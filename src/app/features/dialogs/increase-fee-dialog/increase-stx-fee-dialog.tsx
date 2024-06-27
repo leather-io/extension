@@ -1,19 +1,18 @@
 import { Suspense, useCallback, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import { type StacksTransaction } from '@stacks/transactions';
-import BigNumber from 'bignumber.js';
-import { Formik } from 'formik';
-import { Flex, Stack } from 'leather-styles/jsx';
-import * as yup from 'yup';
-
 import {
   useStacksRawTransaction,
   useStxAvailableUnlockedBalance,
   useTransactionById,
 } from '@leather.io/query';
-import { Caption, Spinner } from '@leather.io/ui';
+import { Caption, Dialog, Spinner } from '@leather.io/ui';
 import { microStxToStx, stxToMicroStx } from '@leather.io/utils';
+import { type StacksTransaction } from '@stacks/transactions';
+import BigNumber from 'bignumber.js';
+import { Formik } from 'formik';
+import { Flex, Stack } from 'leather-styles/jsx';
+import * as yup from 'yup';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -27,7 +26,6 @@ import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-
 import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 

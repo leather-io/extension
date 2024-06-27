@@ -1,15 +1,13 @@
 import QRCode from 'react-qr-code';
 import { useNavigate } from 'react-router-dom';
 
+import { AddressDisplayer, Button, Dialog } from '@leather.io/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
-import { AddressDisplayer, Button } from '@leather.io/ui';
-
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Header } from '@app/ui/components/containers/headers/header';
 

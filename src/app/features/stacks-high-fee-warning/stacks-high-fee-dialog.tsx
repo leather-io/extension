@@ -1,13 +1,11 @@
+import { Button, Caption, Dialog, ErrorIcon, Link, Title } from '@leather.io/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useFormikContext } from 'formik';
 import { HStack, Stack } from 'leather-styles/jsx';
 
-import { Button, Caption, ErrorIcon, Link, Title } from '@leather.io/ui';
-
 import { StacksSendFormValues } from '@shared/models/form.model';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
