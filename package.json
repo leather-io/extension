@@ -135,7 +135,7 @@
     "@dlc-link/dlc-tools": "1.1.1",
     "@fungible-systems/zone-file": "2.0.0",
     "@hirosystems/token-metadata-api-client": "1.2.0",
-    "@leather.io/bitcoin": "0.8.0",
+    "@leather.io/bitcoin": "0.8.1",
     "@leather.io/constants": "0.8.0",
     "@leather.io/crypto": "1.0.2",
     "@leather.io/models": "0.10.0",
