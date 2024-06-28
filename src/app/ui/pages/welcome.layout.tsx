@@ -19,6 +19,7 @@ export function WelcomeLayout({
 }: WelcomeLayoutProps): React.JSX.Element {
   // On this page 'theme' is used to set specific colours and bypass automatic theming
   const { theme } = useThemeSwitcher();
+  const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
   // hardcoded specific instances of colour variables needed to bypass theme
   const inkBgSecondary = '#F5F1ED';
   const inkTextPrimary = '#12100F';
@@ -113,6 +114,7 @@ export function WelcomeLayout({
               onClick={onSelectConnectLedger}
               css={secondaryActionButton}
               fullWidth
+              disabled={isFirefox}
             >
               Use Ledger
             </Button>
