@@ -1,11 +1,8 @@
 import { ReactNode } from 'react';
 
-import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Flex, styled } from 'leather-styles/jsx';
 
-import { CloseIcon } from '@leather.io/ui';
-
-import { HeaderActionButton } from './components/header-action-button';
+import { CloseIcon, IconButton } from '@leather.io/ui';
 
 interface DialogHeaderProps {
   onClose?(): void;
@@ -28,13 +25,7 @@ export function DialogHeader({ onClose, title }: DialogHeaderProps) {
           {title}
         </styled.h2>
       )}
-      {onClose && (
-        <HeaderActionButton
-          icon={<CloseIcon />}
-          dataTestId={SharedComponentsSelectors.HeaderCloseBtn}
-          onAction={onClose}
-        />
-      )}
+      {onClose && <IconButton icon={<CloseIcon />} onClick={onClose} position="absolute" />}
     </Flex>
   );
 }
