@@ -1,3 +1,40 @@
+## [6.42.2](https://github.com/leather-io/extension/compare/v6.42.1...v6.42.2) (2024-07-02)
+
+
+### Bug Fixes
+
+* add ledger test for bitcoin api calls, close leather-io/issues[#114](https://github.com/leather-io/extension/issues/114) and [#5574](https://github.com/leather-io/extension/issues/5574) ([26b6b4f](https://github.com/leather-io/extension/commit/26b6b4f70b3c847f98bdd389ec5f8af2934b8089))
+* add network form bitcoin network selector ([2169065](https://github.com/leather-io/extension/commit/21690654c92d522e47753754c7016e193868cc12))
+* adjust collectible arrow hover transparancy, closes [#4971](https://github.com/leather-io/extension/issues/4971) ([4571ad7](https://github.com/leather-io/extension/commit/4571ad75089b0a81f504ed2b7a5b2cb8020327cb))
+* apply spamFilter to all crypto captions and titles, ref leather-wallet/issues[#5589](https://github.com/leather-io/extension/issues/5589) ([ed284b9](https://github.com/leather-io/extension/commit/ed284b937f217aa4f2b40ce385d908e4b8e07840))
+* asset row skeleton loader, closes [#5466](https://github.com/leather-io/extension/issues/5466) ([9b1c8c7](https://github.com/leather-io/extension/commit/9b1c8c755d9302d4d9a843c69af7d22445852060))
+* integrate tabs, toast, avatar, address  ref leather-wallet/issues[#64](https://github.com/leather-io/extension/issues/64) ([930c125](https://github.com/leather-io/extension/commit/930c1252582da270ef58ae29e30c2d40157bc8c3))
+* ledger bitcoin query ([a11f6a6](https://github.com/leather-io/extension/commit/a11f6a6919d173f129ff1f4dab78a1a958377851))
+* refactor dialog to use IconButton to fix title without affecting header, closes [#5470](https://github.com/leather-io/extension/issues/5470) ([a5011ec](https://github.com/leather-io/extension/commit/a5011ece72a27c399fbf2e0b0ae5f9082c7b495f))
+* remove extra div, ref leather-io/issues[#5469](https://github.com/leather-io/extension/issues/5469) ([abdaab5](https://github.com/leather-io/extension/commit/abdaab58f00fab948f56bbdaee211414b3e771b9))
+* responsive width for popup ([c61ced0](https://github.com/leather-io/extension/commit/c61ced083873444430700249b61aef1c28e08647))
+* roll back import of dropdown menu,  ref leather-wallet/issues[#64](https://github.com/leather-io/extension/issues/64) ([b03d6af](https://github.com/leather-io/extension/commit/b03d6afa5ee1054ab7fc9dba38e746fc0a5d95fc))
+* stx send form high fee warning, closes [#5362](https://github.com/leather-io/extension/issues/5362) ([0af3ae9](https://github.com/leather-io/extension/commit/0af3ae9e25473c66e3fe62979716babae74e70ff))
+* **ui:** center header, ref leather-io/issues[#5470](https://github.com/leather-io/extension/issues/5470) ([53d1e6c](https://github.com/leather-io/extension/commit/53d1e6ca7609fece3717bec6efbb9d3b7cfcaf9f))
+* use dialog from monorepo,  ref leather-wallet/issues[#108](https://github.com/leather-io/extension/issues/108) ([de2b5a0](https://github.com/leather-io/extension/commit/de2b5a094904f90b8896670c1061b3c8ce06076b))
+* use DropDown menu from monorepo for Settings,  ref leather-wallet/issues[#102](https://github.com/leather-io/extension/issues/102) ([65131b0](https://github.com/leather-io/extension/commit/65131b02c4e19eb04fa7f6a00fb28bc187a44d09))
+
+
+### Internal
+
+* **analytics:** use uniform api with middlewear, remove wrapper fns ([c82ed26](https://github.com/leather-io/extension/commit/c82ed263c09ba30834b5a4b30fc774ae90b93bcf))
+* install @leather-wallet/ui package, ref leather-wallet/issues[#64](https://github.com/leather-io/extension/issues/64) ([12dca36](https://github.com/leather-io/extension/commit/12dca36cdebd0a2ff9f9df35f56ce0e633a1056c))
+* post-release merge back ([834d399](https://github.com/leather-io/extension/commit/834d39938043dca81bf160606da919399cf6d849))
+* remove radix-ui base css styles, ref leather-wallet/issues[#104](https://github.com/leather-io/extension/issues/104) ([d5ebb6b](https://github.com/leather-io/extension/commit/d5ebb6b48d3d67a974a4606be866c215d2a09462))
+* rename github org ([5d42eeb](https://github.com/leather-io/extension/commit/5d42eebed0bb2763cd607293e83cd488a04f251e))
+* rename npm package scope ([7851c44](https://github.com/leather-io/extension/commit/7851c44d3ab19fe4acac566a2b062e088b009604))
+* specify resolution for ws ([ff74653](https://github.com/leather-io/extension/commit/ff74653717d10e87c1cf2a63d3310f347e204378))
+* undo width change ([d3595f4](https://github.com/leather-io/extension/commit/d3595f48baebb41b075c42244964a5f06308c436))
+* update dependancies ([62500b8](https://github.com/leather-io/extension/commit/62500b8626568c8b25d5fe0687f556ea7fd9252c))
+* update monorepo dependancies ([7ec537b](https://github.com/leather-io/extension/commit/7ec537bd2131185210a691e470541de3852ca971))
+* update monorepo packages ([263adcd](https://github.com/leather-io/extension/commit/263adcd6a722aa3ef85f985d0657141faafad7c9))
+* upgrade react query to v5 ([6184a3d](https://github.com/leather-io/extension/commit/6184a3da33aba1bb1957b43b45bc8504de20171e))
+
 ## [6.42.1](https://github.com/leather-wallet/extension/compare/v6.42.0...v6.42.1) (2024-06-17)
 
 
