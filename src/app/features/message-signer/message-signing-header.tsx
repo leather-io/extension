@@ -1,6 +1,5 @@
-import { Stack, styled } from 'leather-styles/jsx';
-
 import { Flag } from '@leather.io/ui';
+import { Stack, styled } from 'leather-styles/jsx';
 
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
 import { Favicon } from '@app/components/favicon';
@@ -17,7 +16,11 @@ export function MessageSigningHeader({
   additionalText = '',
 }: MessageSigningHeaderProps) {
   const { chain, isTestnet } = useCurrentNetworkState();
-
+  //  check this for hanks issue as when doing https://app.stackingdao.com/signer?pool=SP4SZE494VC2YC5JYG7AYFQ44F5Q4PYV7DVMDPBG.stacking-pool-v1
+  // I am seeing testnet in the header but it should be mainner. but the isTestnet flag is hitting
+  // It says pox-4-signer
+  // 1.0.0 Mainnet
+  //
   const originAddition = origin ? ` (${getUrlHostname(origin)})` : '';
   const testnetAddition = isTestnet
     ? ` using ${getUrlHostname(chain.stacks.url)}${addPortSuffix(chain.stacks.url)}`

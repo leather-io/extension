@@ -21,6 +21,7 @@ export function SignatureRequestStructuredDataContent({
   onCancelMessageSigning,
   payload,
 }: SignatureRequestStructuredDataContentProps) {
+  console.log('SignatureRequestStructuredDataContent payload', payload);
   return (
     <>
       <StructuredDataBox message={payload.message} domain={payload.domain} />

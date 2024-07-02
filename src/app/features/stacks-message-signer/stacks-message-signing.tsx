@@ -59,6 +59,7 @@ export function StacksMessageSigning({
   if (!tabId) return null;
   if (!isSignableMessageType(messageType)) return null;
   if (!origin) return null;
+  console.log('StacksMessageSigning payload', payload, origin);
 
   return (
     <MessageSigningRequestLayout>
