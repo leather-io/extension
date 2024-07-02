@@ -171,25 +171,7 @@
 <a name='L106'></a><a href='#L106'>106</a>
 <a name='L107'></a><a href='#L107'>107</a>
 <a name='L108'></a><a href='#L108'>108</a>
-<a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a>
-<a name='L111'></a><a href='#L111'>111</a>
-<a name='L112'></a><a href='#L112'>112</a>
-<a name='L113'></a><a href='#L113'>113</a>
-<a name='L114'></a><a href='#L114'>114</a>
-<a name='L115'></a><a href='#L115'>115</a>
-<a name='L116'></a><a href='#L116'>116</a>
-<a name='L117'></a><a href='#L117'>117</a>
-<a name='L118'></a><a href='#L118'>118</a>
-<a name='L119'></a><a href='#L119'>119</a>
-<a name='L120'></a><a href='#L120'>120</a>
-<a name='L121'></a><a href='#L121'>121</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L109'></a><a href='#L109'>109</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -282,12 +264,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -306,29 +282,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Outlet, useNavigate } from 'react-router-dom';
 &nbsp;
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
-import BigNumber from 'bignumber.js';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { Box } from 'leather-styles/jsx';
 import { ObjectSchema } from 'yup';
 &nbsp;
-import {
-  HIGH_FEE_AMOUNT_STX,
-  HIGH_FEE_WARNING_LEARN_MORE_URL_STX,
-} from '@leather-wallet/constants';
-import type { Fees, Money } from '@leather-wallet/models';
-import { formatMoney } from '@leather-wallet/utils';
+import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@leather.io/constants';
+import type { Fees, Money } from '@leather.io/models';
+import { Button, Link } from '@leather.io/ui';
+import { formatMoney } from '@leather.io/utils';
 &nbsp;
 import { StacksSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 import { FeesRow } from '@app/components/fees-row/fees-row';
 import { NonceSetter } from '@app/components/nonce-setter';
-import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
-import { Button } from '@app/ui/components/button/button';
+import { HighFeeDialog } from '@app/features/stacks-high-fee-warning/stacks-high-fee-dialog';
 import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Link } from '@app/ui/components/link/link';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
 &nbsp;
@@ -347,7 +318,6 @@ interface StacksCommonSendFormProps {
   selectedAssetField: React.JSX.Element;
   availableTokenBalance: Money;
   fees?: Fees;
-  fee?: number | string | BigNumber;
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >StacksCommonSendForm({</span>
@@ -357,7 +327,7 @@ export function <span class="fstat-no" title="function not covered" >StacksCommo
   amountField,
   selectedAssetField,
   fees,
-  fee,
+&nbsp;
   availableTokenBalance,
 }: StacksCommonSendFormProps) {
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
@@ -407,13 +377,7 @@ export function <span class="fstat-no" title="function not covered" >StacksCommo
                     &lt;/Link&gt;
                   &lt;/CardContent&gt;
                 &lt;/Card&gt;
-&nbsp;
-                &lt;HighFeeDialog
-                  isShowing={new BigNumber(fee as BigNumber.Value).isGreaterThan(
-                    HIGH_FEE_AMOUNT_STX
-                  )}
-                  learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX}
-                /&gt;
+                &lt;HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} /&gt;
                 &lt;Outlet /&gt;
               &lt;/Form&gt;
             &lt;/&gt;
@@ -430,7 +394,7 @@ export function <span class="fstat-no" title="function not covered" >StacksCommo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-17T15:17:36.076Z
+                at 2024-07-02T16:12:04.334Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

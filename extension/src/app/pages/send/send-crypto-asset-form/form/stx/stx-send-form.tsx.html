@@ -117,12 +117,7 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -137,24 +132,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -179,11 +156,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
-&nbsp;
-import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { CryptoCurrencies } from '@leather.io/models';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
+import { StxAvatarIcon } from '@leather.io/ui';
 &nbsp;
 import { AmountField } from '../../components/amount-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
@@ -192,7 +182,7 @@ import { SendMaxButton } from '../../components/send-max-button';
 import { StacksCommonSendForm } from '../stacks/stacks-common-send-form';
 import { useStxSendForm } from './use-stx-send-form';
 &nbsp;
-const symbol = <span class="cstat-no" title="statement not covered" >'STX';</span>
+const symbol = <span class="cstat-no" title="statement not covered" >'STX' satisfies CryptoCurrencies;</span>
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >StxSendForm() {</span>
   const stxMarketData = <span class="cstat-no" title="statement not covered" >useCryptoCurrencyMarketDataMeanAverage(symbol);</span>
@@ -204,7 +194,6 @@ export function <span class="fstat-no" title="function not covered" >StxSendForm
     sendMaxBalance,
     stxFees: fees,
     validationSchema,
-    fee,
   } = <span class="cstat-no" title="statement not covered" >useStxSendForm();</span>
 &nbsp;
   const amountField = (
@@ -217,7 +206,6 @@ export function <span class="fstat-no" title="function not covered" >StxSendForm
           sendMaxBalance={sendMaxBalance.toString()}
         /&gt;
       }
-      autoComplete="off"
     /&gt;
   );
 &nbsp;
@@ -233,9 +221,6 @@ export function <span class="fstat-no" title="function not covered" >StxSendForm
       amountField={amountField}
       selectedAssetField={selectedAssetField}
       fees={fees}
-      // FIXME 4370 - need to fix this as fee is actually  NumberSchema&lt;number | undefined, AnyObject&gt;; in FeeValidatorFactoryArgs
-      // this needs to be the STX fee so it can be validated against HIGH_FEE_AMOUNT_STX
-      fee={fee as unknown as string}
       availableTokenBalance={availableUnlockedBalance}
     /&gt;
   );
@@ -247,7 +232,7 @@ export function <span class="fstat-no" title="function not covered" >StxSendForm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-17T15:17:36.076Z
+                at 2024-07-02T16:12:04.334Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

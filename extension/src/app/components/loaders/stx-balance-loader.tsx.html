@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -78,7 +78,32 @@
 <a name='L13'></a><a href='#L13'>13</a>
 <a name='L14'></a><a href='#L14'>14</a>
 <a name='L15'></a><a href='#L15'>15</a>
-<a name='L16'></a><a href='#L16'>16</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -93,20 +118,49 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { StxCryptoAssetBalance } from '@leather-wallet/models';
-import { useStxCryptoAssetBalance } from '@leather-wallet/query';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { StxCryptoAssetBalance } from '@leather.io/models';
+import {
+  isErrorTooManyRequests,
+  isFetchedWithSuccess,
+  isInitializingData,
+  useStxCryptoAssetBalance,
+} from '@leather.io/query';
+import { StxAvatarIcon } from '@leather.io/ui';
 &nbsp;
-import { isFetchedWithSuccess } from '@app/query/query-config';
+import { CryptoAssetItemError } from '../crypto-asset-item/crypto-asset-item-error';
+import { CryptoAssetItemPlaceholder } from '../crypto-asset-item/crypto-asset-item-placeholder';
 &nbsp;
-interface StxBalanceLoaderProps {
+interface StxAssetItemBalanceLoaderProps {
   address: string;
-  children(balance: StxCryptoAssetBalance, isInitialLoading: boolean): React.ReactNode;
+  children(balance: StxCryptoAssetBalance, isLoading: boolean): React.ReactNode;
 }
-export function <span class="fstat-no" title="function not covered" >StxBalanceLoader({</span> address, children }: StxBalanceLoaderProps) {
+export function <span class="fstat-no" title="function not covered" >StxAssetItemBalanceLoader({</span> address, children }: StxAssetItemBalanceLoaderProps) {
   const result = <span class="cstat-no" title="statement not covered" >useStxCryptoAssetBalance(address);</span>
-<span class="cstat-no" title="statement not covered" >  if (!isFetchedWithSuccess(result)) <span class="cstat-no" title="statement not covered" >return null;</span></span>
-  const { data: balance, isInitialLoading } = <span class="cstat-no" title="statement not covered" >result;</span>
-<span class="cstat-no" title="statement not covered" >  return children(balance, isInitialLoading);</span>
+<span class="cstat-no" title="statement not covered" >  if (isInitializingData(result)) <span class="cstat-no" title="statement not covered" >return &lt;CryptoAssetItemPlaceholder /&gt;;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (isErrorTooManyRequests(result))</span>
+<span class="cstat-no" title="statement not covered" >    return (</span>
+      &lt;CryptoAssetItemError
+        caption="STX"
+        icon={&lt;StxAvatarIcon /&gt;}
+        onRefetch={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >r</span>esult.refetch()}</span>
+        title="Stacks"
+      /&gt;
+    );
+<span class="cstat-no" title="statement not covered" >  if (!isFetchedWithSuccess(result))</span>
+<span class="cstat-no" title="statement not covered" >    return &lt;CryptoAssetItemError caption="STX" icon={&lt;StxAvatarIcon /&gt;} title="Stacks" /&gt;;</span>
+  const { data: balance, isLoading } = <span class="cstat-no" title="statement not covered" >result;</span>
+<span class="cstat-no" title="statement not covered" >  return children(balance, isLoading);</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -115,7 +169,7 @@ export function <span class="fstat-no" title="function not covered" >StxBalanceL
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-17T15:17:36.076Z
+                at 2024-07-02T16:12:04.334Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

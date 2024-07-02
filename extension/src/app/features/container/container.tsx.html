@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/37</span>
+                <span class='fraction'>0/36</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/32</span>
+                <span class='fraction'>0/31</span>
             </div>
         
             
@@ -242,9 +242,7 @@
 <a name='L177'></a><a href='#L177'>177</a>
 <a name='L178'></a><a href='#L178'>178</a>
 <a name='L179'></a><a href='#L179'>179</a>
-<a name='L180'></a><a href='#L180'>180</a>
-<a name='L181'></a><a href='#L181'>181</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L180'></a><a href='#L180'>180</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -298,7 +296,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -431,10 +429,13 @@ import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box } from 'leather-styles/jsx';
 &nbsp;
+import { Flag, HamburgerIcon, Logo, NetworkModeBadge } from '@leather.io/ui';
+&nbsp;
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
+import { analytics } from '@shared/utils/analytics';
 &nbsp;
-import { useAnalytics, useInitalizeAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useInitalizeAnalytics } from '@app/common/app-analytics';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
@@ -445,11 +446,7 @@ import { useOnWalletLock } from '@app/routes/hooks/use-on-wallet-lock';
 import { useHasStateRehydrated } from '@app/store';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { ContainerLayout } from '@app/ui/components/containers/container.layout';
-import { NetworkModeBadge } from '@app/ui/components/containers/headers/components/network-mode-badge';
 import { Header } from '@app/ui/components/containers/headers/header';
-import { Flag } from '@app/ui/components/flag/flag';
-import { Logo } from '@app/ui/components/logo';
-import { HamburgerIcon } from '@app/ui/icons/';
 &nbsp;
 import { useRestoreFormState } from '../popup-send-form-restoration/use-restore-form-state';
 import { Settings } from '../settings/settings';
@@ -478,7 +475,7 @@ export function <span class="fstat-no" title="function not covered" >Container()
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
   const { pathname: locationPathname } = <span class="cstat-no" title="statement not covered" >useLocation();</span>
   const pathname = <span class="cstat-no" title="statement not covered" >locationPathname as RouteUrls;</span>
-  const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
+&nbsp;
   const hasStateRehydrated = <span class="cstat-no" title="statement not covered" >useHasStateRehydrated();</span>
   const { chain, name: chainName } = <span class="cstat-no" title="statement not covered" >useCurrentNetworkState();</span>
 &nbsp;
@@ -487,7 +484,7 @@ export function <span class="fstat-no" title="function not covered" >Container()
 <span class="cstat-no" title="statement not covered" >  useRestoreFormState();</span>
 <span class="cstat-no" title="statement not covered" >  useInitalizeAnalytics();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >v</span>oid analytics.page('view', `${pathname}`), [</span>analytics, pathname]);</span>
+<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >v</span>oid analytics.page('view', `${pathname}`), [</span>pathname]);</span>
 &nbsp;
   const variant = <span class="cstat-no" title="statement not covered" >getPageVariant(pathname);</span>
 &nbsp;
@@ -610,7 +607,7 @@ export function <span class="fstat-no" title="function not covered" >Container()
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-17T15:17:36.076Z
+                at 2024-07-02T16:12:04.334Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

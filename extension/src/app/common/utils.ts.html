@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25.23% </span>
+                <span class="strong">22% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/107</span>
+                <span class='fraction'>22/100</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.16% </span>
+                <span class="strong">13.97% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>16/99</span>
+                <span class='fraction'>13/93</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.47% </span>
+                <span class="strong">22.58% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>9/34</span>
+                <span class='fraction'>7/31</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.53% </span>
+                <span class="strong">23.07% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>26/98</span>
+                <span class='fraction'>21/91</span>
             </div>
         
             
@@ -357,26 +357,7 @@
 <a name='L292'></a><a href='#L292'>292</a>
 <a name='L293'></a><a href='#L293'>293</a>
 <a name='L294'></a><a href='#L294'>294</a>
-<a name='L295'></a><a href='#L295'>295</a>
-<a name='L296'></a><a href='#L296'>296</a>
-<a name='L297'></a><a href='#L297'>297</a>
-<a name='L298'></a><a href='#L298'>298</a>
-<a name='L299'></a><a href='#L299'>299</a>
-<a name='L300'></a><a href='#L300'>300</a>
-<a name='L301'></a><a href='#L301'>301</a>
-<a name='L302'></a><a href='#L302'>302</a>
-<a name='L303'></a><a href='#L303'>303</a>
-<a name='L304'></a><a href='#L304'>304</a>
-<a name='L305'></a><a href='#L305'>305</a>
-<a name='L306'></a><a href='#L306'>306</a>
-<a name='L307'></a><a href='#L307'>307</a>
-<a name='L308'></a><a href='#L308'>308</a>
-<a name='L309'></a><a href='#L309'>309</a>
-<a name='L310'></a><a href='#L310'>310</a>
-<a name='L311'></a><a href='#L311'>311</a>
-<a name='L312'></a><a href='#L312'>312</a>
-<a name='L313'></a><a href='#L313'>313</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L295'></a><a href='#L295'>295</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -391,19 +372,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">77x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -683,39 +651,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { hexToBytes } from '@stacks/common';
 import { BytesReader, PostCondition, deserializePostCondition } from '@stacks/transactions';
 import { toUnicode } from 'punycode';
 &nbsp;
-import { KEBAB_REGEX } from '@leather-wallet/constants';
+import { KEBAB_REGEX } from '@leather.io/constants';
 import {
   type BitcoinChainConfig,
   type BitcoinNetworkModes,
   HIRO_API_BASE_URL_NAKAMOTO_TESTNET,
-} from '@leather-wallet/models';
-import { isBoolean } from '@leather-wallet/utils';
+} from '@leather.io/models';
 &nbsp;
 import { HIRO_EXPLORER_URL } from '@shared/constants';
 &nbsp;
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, <span class="fstat-no" title="function not covered" >match =&gt; <span class="cstat-no" title="statement not covered" >'</span>-' + match.toLowerCase())</span>;
-}
-&nbsp;
-export function extractPhraseFromString(value: string) {
-  const clean = value.trim();
-  const words = clean.match(/\S+/g);
-  if (words?.length) {
-    return words
-      .map(word =&gt; (word.match(/[^0-9]+/g) ? word : null))
-      .filter(Boolean)
-      .join(' ');
-  } else <span class="missing-if-branch" title="else path not taken" >E</span>{
-<span class="cstat-no" title="statement not covered" >    return clean;</span>
-  }
 }
 &nbsp;
 interface MakeBitcoinTxExplorerLinkArgs {
@@ -995,10 +945,6 @@ export function <span class="fstat-no" title="function not covered" >removeTrail
 export function <span class="fstat-no" title="function not covered" >removeMinusSign(v</span>alue: string) {
 <span class="cstat-no" title="statement not covered" >  return value.replace('-', '');</span>
 }
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >propIfDefined(p</span>rop: string, value: any) {
-<span class="cstat-no" title="statement not covered" >  return isBoolean(value) ? { [prop]: value } : {};</span>
-}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -1006,7 +952,7 @@ export function <span class="fstat-no" title="function not covered" >propIfDefin
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-17T15:17:36.076Z
+                at 2024-07-02T16:12:04.334Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

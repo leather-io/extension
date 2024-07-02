@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -157,11 +157,7 @@
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -216,9 +212,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -240,21 +233,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -264,13 +256,13 @@
 import { FormikHelpers } from 'formik';
 import * as yup from 'yup';
 &nbsp;
-import { STX_DECIMALS } from '@leather-wallet/constants';
+import { STX_DECIMALS } from '@leather.io/constants';
 import {
   useCalculateStacksTxFees,
   useStacksValidateFeeByNonce,
   useStxAvailableUnlockedBalance,
-} from '@leather-wallet/query';
-import { convertAmountToBaseUnit } from '@leather-wallet/utils';
+} from '@leather.io/query';
+import { convertAmountToBaseUnit } from '@leather.io/utils';
 &nbsp;
 import { logger } from '@shared/logger';
 import { StacksSendFormValues } from '@shared/models/form.model';
@@ -287,8 +279,8 @@ import {
   useStxTokenTransferUnsignedTxState,
 } from '@app/store/transactions/token-transfer.hooks';
 &nbsp;
+import { useStacksCommonSendForm } from '../../family/stacks/use-stacks-common-send-form';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
-import { useStacksCommonSendForm } from '../stacks/use-stacks-common-send-form';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useStxSendForm() {</span>
   const unsignedTx = <span class="cstat-no" title="statement not covered" >useStxTokenTransferUnsignedTxState();</span>
@@ -314,16 +306,12 @@ export function <span class="fstat-no" title="function not covered" >useStxSendF
     availableTokenBalance: availableUnlockedBalance,
   });
 &nbsp;
-  // FIXME - I don't this this is the fee, should be value.fee or something from the form
-  const fee = <span class="cstat-no" title="statement not covered" >stxFeeValidator(availableUnlockedBalance);</span>
-&nbsp;
 <span class="cstat-no" title="statement not covered" >  return {</span>
     availableUnlockedBalance,
     initialValues,
     onFormStateChange,
     sendMaxBalance,
     stxFees,
-    fee,
 &nbsp;
     validationSchema: yup.object({
       amount: stxAmountValidator(availableUnlockedBalance).concat(
@@ -340,6 +328,7 @@ export function <span class="fstat-no" title="function not covered" >useStxSendF
       formikHelpers: FormikHelpers&lt;StacksSendFormValues&gt;
     ) {
       const isFormValid = <span class="cstat-no" title="statement not covered" >await checkFormValidation(values, formikHelpers);</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >      if (!isFormValid) <span class="cstat-no" title="statement not covered" >return;</span></span>
       const initialFee = <span class="cstat-no" title="statement not covered" >values.fee;</span>
 <span class="cstat-no" title="statement not covered" >      values.fee = changeFeeByNonce({</span>
@@ -352,7 +341,6 @@ export function <span class="fstat-no" title="function not covered" >useStxSendF
 &nbsp;
       const tx = <span class="cstat-no" title="statement not covered" >await generateTx(values);</span>
 <span class="cstat-no" title="statement not covered" >      if (!tx) <span class="cstat-no" title="statement not covered" >return logger.error('Attempted to generate unsigned tx, but tx is undefined');</span></span>
-&nbsp;
 <span class="cstat-no" title="statement not covered" >      sendFormNavigate.toConfirmAndSignStxTransaction(tx, showFeeChangeWarning);</span>
     },
   };
@@ -364,7 +352,7 @@ export function <span class="fstat-no" title="function not covered" >useStxSendF
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-17T15:17:36.076Z
+                at 2024-07-02T16:12:04.334Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

@@ -387,6 +387,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Stack } from 'leather-styles/jsx';
 &nbsp;
+import { BtcAvatarIcon, StxAvatarIcon } from '@leather.io/ui';
+&nbsp;
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BitcoinContractEntryPoint } from '@app/components/bitcoin-contract-entry-point/bitcoin-contract-entry-point';
 import {
@@ -394,21 +396,19 @@ import {
   BitcoinTaprootAccountLoader,
 } from '@app/components/loaders/bitcoin-account-loader';
 import { Brc20TokensLoader } from '@app/components/loaders/brc20-tokens-loader';
-import { BtcBalanceLoader } from '@app/components/loaders/btc-balance-loader';
+import { BtcAssetItemBalanceLoader } from '@app/components/loaders/btc-balance-loader';
 import { RunesLoader } from '@app/components/loaders/runes-loader';
 import { Sip10TokensLoader } from '@app/components/loaders/sip10-tokens-loader';
 import { Src20TokensLoader } from '@app/components/loaders/src20-tokens-loader';
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
 import { Stx20TokensLoader } from '@app/components/loaders/stx20-tokens-loader';
-import { StxBalanceLoader } from '@app/components/loaders/stx-balance-loader';
+import { StxAssetItemBalanceLoader } from '@app/components/loaders/stx-balance-loader';
 import { Brc20TokenAssetList } from '@app/features/asset-list/bitcoin/brc20-token-asset-list/brc20-token-asset-list';
 import { RunesAssetList } from '@app/features/asset-list/bitcoin/runes-asset-list/runes-asset-list';
 import { Src20TokenAssetList } from '@app/features/asset-list/bitcoin/src20-token-asset-list/src20-token-asset-list';
 import { Stx20TokenAssetList } from '@app/features/asset-list/stacks/stx20-token-asset-list/stx20-token-asset-list';
 import { StxCryptoAssetItem } from '@app/features/asset-list/stacks/stx-crypo-asset-item/stx-crypto-asset-item';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
-import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
-import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 &nbsp;
 import { ConnectLedgerAssetItemFallback } from './_components/connect-ledger-asset-item-fallback';
 import { BtcCryptoAssetItem } from './bitcoin/btc-crypto-asset-item/btc-crypto-asset-item';
@@ -441,15 +441,15 @@ export function <span class="fstat-no" title="function not covered" >AssetList({
         }
       &gt;
         {<span class="fstat-no" title="function not covered" >nativeSegwitAccount =&gt; (</span>
-<span class="cstat-no" title="statement not covered" >          &lt;BtcBalanceLoader address={nativeSegwitAccount.address}&gt;</span>
-            {<span class="fstat-no" title="function not covered" >(b</span>alance, isInitialLoading) =&gt; (
+<span class="cstat-no" title="statement not covered" >          &lt;BtcAssetItemBalanceLoader address={nativeSegwitAccount.address}&gt;</span>
+            {<span class="fstat-no" title="function not covered" >(b</span>alance, isLoading) =&gt; (
 <span class="cstat-no" title="statement not covered" >              &lt;BtcCryptoAssetItem</span>
                 balance={balance}
-                isLoading={isInitialLoading}
+                isLoading={isLoading}
                 onSelectAsset={onSelectAsset}
               /&gt;
             )}
-          &lt;/BtcBalanceLoader&gt;
+          &lt;/BtcAssetItemBalanceLoader&gt;
         )}
       &lt;/BitcoinNativeSegwitAccountLoader&gt;
 &nbsp;
@@ -473,22 +473,22 @@ export function <span class="fstat-no" title="function not covered" >AssetList({
       &gt;
         {<span class="fstat-no" title="function not covered" >account =&gt; (</span>
 <span class="cstat-no" title="statement not covered" >          &lt;&gt;</span>
-            &lt;StxBalanceLoader address={account.address}&gt;
-              {<span class="fstat-no" title="function not covered" >(b</span>alance, isInitialLoading) =&gt; (
+            &lt;StxAssetItemBalanceLoader address={account.address}&gt;
+              {<span class="fstat-no" title="function not covered" >(b</span>alance, isLoading) =&gt; (
 <span class="cstat-no" title="statement not covered" >                &lt;StxCryptoAssetItem</span>
                   balance={balance}
-                  isLoading={isInitialLoading}
+                  isLoading={isLoading}
                   onSelectAsset={onSelectAsset}
                 /&gt;
               )}
-            &lt;/StxBalanceLoader&gt;
+            &lt;/StxAssetItemBalanceLoader&gt;
             &lt;Sip10TokensLoader
               address={account.address}
               filter={variant === 'interactive' ? 'all' : 'supported'}
             &gt;
-              {<span class="fstat-no" title="function not covered" >(i</span>sInitialLoading, tokens) =&gt; (
+              {<span class="fstat-no" title="function not covered" >(i</span>sLoading, tokens) =&gt; (
 <span class="cstat-no" title="statement not covered" >                &lt;Sip10TokenAssetList</span>
-                  isLoading={isInitialLoading}
+                  isLoading={isLoading}
                   tokens={tokens}
                   onSelectAsset={onSelectAsset}
                 /&gt;
@@ -536,8 +536,8 @@ export function <span class="fstat-no" title="function not covered" >AssetList({
         &lt;CurrentStacksAccountLoader&gt;
           {<span class="fstat-no" title="function not covered" >account =&gt; (</span>
 <span class="cstat-no" title="statement not covered" >            &lt;Sip10TokensLoader address={account.address} filter="unsupported"&gt;</span>
-              {<span class="fstat-no" title="function not covered" >(i</span>sInitialLoading, tokens) =&gt; (
-<span class="cstat-no" title="statement not covered" >                &lt;Sip10TokenAssetListUnsupported isLoading={isInitialLoading} tokens={tokens} /&gt;</span>
+              {<span class="fstat-no" title="function not covered" >(i</span>sLoading, tokens) =&gt; (
+<span class="cstat-no" title="statement not covered" >                &lt;Sip10TokenAssetListUnsupported isLoading={isLoading} tokens={tokens} /&gt;</span>
               )}
             &lt;/Sip10TokensLoader&gt;
           )}
@@ -553,7 +553,7 @@ export function <span class="fstat-no" title="function not covered" >AssetList({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-17T15:17:36.076Z
+                at 2024-07-02T16:12:04.334Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

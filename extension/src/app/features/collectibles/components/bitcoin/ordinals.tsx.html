@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -132,9 +132,7 @@
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,17 +147,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -198,8 +196,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -210,9 +206,10 @@ import { useInView } from 'react-intersection-observer';
 &nbsp;
 import { Box } from 'leather-styles/jsx';
 &nbsp;
-import { useInscriptions } from '@leather-wallet/query';
+import { useInscriptions } from '@leather.io/query';
 &nbsp;
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
+&nbsp;
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 &nbsp;
@@ -225,22 +222,21 @@ export function <span class="fstat-no" title="function not covered" >Ordinals({<
   const account = <span class="cstat-no" title="statement not covered" >useCurrentTaprootAccount();</span>
   const nativeSegwitSigner = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitIndexZeroSigner();</span>
 &nbsp;
-  const query = <span class="cstat-no" title="statement not covered" >useInscriptions({</span>
+  const result = <span class="cstat-no" title="statement not covered" >useInscriptions({</span>
     taprootKeychain: account?.keychain,
     nativeSegwitAddress: nativeSegwitSigner.address,
   });
-  const pages = <span class="cstat-no" title="statement not covered" >query.data?.pages;</span>
-  const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
+&nbsp;
   const { ref: intersectionSentinel, inView } = <span class="cstat-no" title="statement not covered" >useInView({</span>
     rootMargin: '0% 0% 20% 0%',
   });
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
     async function <span class="fstat-no" title="function not covered" >fetchNextPage() {</span>
-<span class="cstat-no" title="statement not covered" >      if (!query.hasNextPage || query.isLoading || query.isFetchingNextPage) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >      if (!result.hasNextPage || result.isLoading || result.isFetchingNextPage) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >      try {</span>
 <span class="cstat-no" title="statement not covered" >        setIsLoadingMore(true);</span>
-<span class="cstat-no" title="statement not covered" >        await query.fetchNextPage();</span>
+<span class="cstat-no" title="statement not covered" >        await result.fetchNextPage();</span>
       } catch (e) {
         // TO-DO: handle error
         // console.log(e);
@@ -251,27 +247,25 @@ export function <span class="fstat-no" title="function not covered" >Ordinals({<
 <span class="cstat-no" title="statement not covered" >    if (inView) {</span>
 <span class="cstat-no" title="statement not covered" >      void fetchNextPage();</span>
     }
-  }, [inView, query, setIsLoadingMore]);
+  }, [inView, result, setIsLoadingMore]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
-    const inscriptionsLength = <span class="cstat-no" title="statement not covered" >pages?.reduce(<span class="fstat-no" title="function not covered" >(a</span>cc, page) =&gt; <span class="cstat-no" title="statement not covered" >acc + page.inscriptions.length, 0</span>) || 0;</span>
+    const inscriptionsLength = <span class="cstat-no" title="statement not covered" >result.inscriptions.length || 0;</span>
 <span class="cstat-no" title="statement not covered" >    if (inscriptionsLength &gt; 0) {</span>
 <span class="cstat-no" title="statement not covered" >      void analytics.track('view_collectibles', {</span>
         ordinals_count: inscriptionsLength,
       });
 <span class="cstat-no" title="statement not covered" >      void analytics.identify({ ordinals_count: inscriptionsLength });</span>
     }
-  }, [pages, analytics]);
+  }, [result.inscriptions.length]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!pages) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (!result.inscriptions) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;&gt;
-      {pages.map(<span class="fstat-no" title="function not covered" >page =&gt;</span>
-<span class="cstat-no" title="statement not covered" >        page.inscriptions.map(<span class="fstat-no" title="function not covered" >inscription =&gt; (</span></span>
-<span class="cstat-no" title="statement not covered" >          &lt;Inscription inscription={inscription} key={inscription.id} /&gt;</span>
-        ))
-      )}
+      {result.inscriptions.map(<span class="fstat-no" title="function not covered" >inscription =&gt; (</span>
+<span class="cstat-no" title="statement not covered" >        &lt;Inscription inscription={inscription} key={inscription.id} /&gt;</span>
+      ))}
       &lt;Box ref={intersectionSentinel} /&gt;
     &lt;/&gt;
   );
@@ -283,7 +277,7 @@ export function <span class="fstat-no" title="function not covered" >Ordinals({<
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-17T15:17:36.076Z
+                at 2024-07-02T16:12:04.334Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -208,15 +208,7 @@
 <a name='L143'></a><a href='#L143'>143</a>
 <a name='L144'></a><a href='#L144'>144</a>
 <a name='L145'></a><a href='#L145'>145</a>
-<a name='L146'></a><a href='#L146'>146</a>
-<a name='L147'></a><a href='#L147'>147</a>
-<a name='L148'></a><a href='#L148'>148</a>
-<a name='L149'></a><a href='#L149'>149</a>
-<a name='L150'></a><a href='#L150'>150</a>
-<a name='L151'></a><a href='#L151'>151</a>
-<a name='L152'></a><a href='#L152'>152</a>
-<a name='L153'></a><a href='#L153'>153</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L146'></a><a href='#L146'>146</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -274,8 +266,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -354,7 +345,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -363,36 +353,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 &nbsp;
 import { StacksTransaction } from '@stacks/transactions';
 import { Formik, FormikHelpers } from 'formik';
 import { Flex } from 'leather-styles/jsx';
 import * as yup from 'yup';
 &nbsp;
-import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@leather-wallet/constants';
-import { FeeTypes } from '@leather-wallet/models';
+import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@leather.io/constants';
+import { FeeTypes } from '@leather.io/models';
 import {
   useCalculateStacksTxFees,
   useNextNonce,
   useStxAvailableUnlockedBalance,
-} from '@leather-wallet/query';
-import { stxToMicroStx } from '@leather-wallet/utils';
+} from '@leather.io/query';
+import { Link } from '@leather.io/ui';
+import { stxToMicroStx } from '@leather.io/utils';
 &nbsp;
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 &nbsp;
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { NonceSetter } from '@app/components/nonce-setter';
-import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
 import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
 import { ContractCallDetails } from '@app/features/stacks-transaction-request/contract-call-details/contract-call-details';
 import { ContractDeployDetails } from '@app/features/stacks-transaction-request/contract-deploy-details/contract-deploy-details';
@@ -403,11 +388,11 @@ import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx
 import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { Link } from '@app/ui/components/link/link';
 &nbsp;
+import { HighFeeDialog } from '../stacks-high-fee-warning/stacks-high-fee-dialog';
 import { FeeForm } from './fee-form';
 import { MinimalErrorMessage } from './minimal-error-message';
-import { SubmitAction } from './submit-action';
+import { StacksTxSubmitAction } from './submit-action';
 &nbsp;
 interface StacksTransactionSignerProps {
   stacksTransaction: StacksTransaction;
@@ -424,10 +409,9 @@ export function <span class="fstat-no" title="function not covered" >StacksTrans
   onSignStacksTransaction,
   isMultisig,
 }: StacksTransactionSignerProps) {
-  const [isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
   const transactionRequest = <span class="cstat-no" title="statement not covered" >useTransactionRequestState();</span>
   const { data: stxFees } = <span class="cstat-no" title="statement not covered" >useCalculateStacksTxFees(stacksTransaction);</span>
-  const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
+&nbsp;
   const stxAddress = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccountAddress();</span>
   const availableUnlockedBalance = <span class="cstat-no" title="statement not covered" >useStxAvailableUnlockedBalance(stxAddress);</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
@@ -435,7 +419,7 @@ export function <span class="fstat-no" title="function not covered" >StacksTrans
   const { search } = <span class="cstat-no" title="statement not covered" >useLocation();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useOnMount(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
-<span class="cstat-no" title="statement not covered" >    void analytics.track('view_transaction_signing'), [analytics];</span>
+<span class="cstat-no" title="statement not covered" >    void analytics.track('view_transaction_signing'), [];</span>
   });
 &nbsp;
   async function <span class="fstat-no" title="function not covered" >onSubmit(</span>
@@ -505,13 +489,8 @@ export function <span class="fstat-no" title="function not covered" >StacksTrans
               &lt;/Link&gt;
             )}
             &lt;MinimalErrorMessage /&gt;
-            &lt;SubmitAction
-              setIsShowingHighFeeConfirmation={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etIsShowingHighFeeConfirmation(true)}</span>
-            /&gt;
-            &lt;HighFeeDialog
-              isShowing={isShowingHighFeeConfirmation}
-              learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX}
-            /&gt;
+            &lt;StacksTxSubmitAction /&gt;
+            &lt;HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} /&gt;
             &lt;Outlet /&gt;
           &lt;/&gt;
         )}
@@ -526,7 +505,7 @@ export function <span class="fstat-no" title="function not covered" >StacksTrans
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-17T15:17:36.076Z
+                at 2024-07-02T16:12:04.334Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
