@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { validate } from 'bitcoin-address-validation';
 
-import type { UtxoResponseItem } from '@leather-wallet/query';
-import { sumMoney, sumNumbers } from '@leather-wallet/utils';
+import type { UtxoResponseItem } from '@leather.io/query';
+import { sumMoney, sumNumbers } from '@leather.io/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 

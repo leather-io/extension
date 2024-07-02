@@ -4,13 +4,13 @@ import { PaymentTypes, RpcErrorCode } from '@btckit/types';
 import * as btc from '@scure/btc-signer';
 import * as bitcoin from 'bitcoinjs-lib';
 
-import { signBip322MessageSimple } from '@leather-wallet/bitcoin';
+import { signBip322MessageSimple } from '@leather.io/bitcoin';
 
 import { logger } from '@shared/logger';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { closeWindow, createDelay } from '@shared/utils';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { initialSearchParams } from '@app/common/initial-search-params';
 import { useToast } from '@app/features/toasts/use-toast';
@@ -50,7 +50,7 @@ interface SignBip322MessageFactoryArgs {
 }
 function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFactoryArgs) {
   const network = useCurrentNetwork();
-  const analytics = useAnalytics();
+
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
 

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { StacksTransaction } from '@stacks/transactions';
@@ -6,24 +5,24 @@ import { Formik, FormikHelpers } from 'formik';
 import { Flex } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
-import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@leather-wallet/constants';
-import { FeeTypes } from '@leather-wallet/models';
+import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@leather.io/constants';
+import { FeeTypes } from '@leather.io/models';
 import {
   useCalculateStacksTxFees,
   useNextNonce,
   useStxAvailableUnlockedBalance,
-} from '@leather-wallet/query';
-import { stxToMicroStx } from '@leather-wallet/utils';
+} from '@leather.io/query';
+import { Link } from '@leather.io/ui';
+import { stxToMicroStx } from '@leather.io/utils';
 
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { NonceSetter } from '@app/components/nonce-setter';
-import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
 import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
 import { ContractCallDetails } from '@app/features/stacks-transaction-request/contract-call-details/contract-call-details';
 import { ContractDeployDetails } from '@app/features/stacks-transaction-request/contract-deploy-details/contract-deploy-details';
@@ -34,11 +33,11 @@ import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx
 import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { Link } from '@app/ui/components/link/link';
 
+import { HighFeeDialog } from '../stacks-high-fee-warning/stacks-high-fee-dialog';
 import { FeeForm } from './fee-form';
 import { MinimalErrorMessage } from './minimal-error-message';
-import { SubmitAction } from './submit-action';
+import { StacksTxSubmitAction } from './submit-action';
 
 interface StacksTransactionSignerProps {
   stacksTransaction: StacksTransaction;
@@ -55,10 +54,9 @@ export function StacksTransactionSigner({
   onSignStacksTransaction,
   isMultisig,
 }: StacksTransactionSignerProps) {
-  const [isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation] = useState(false);
   const transactionRequest = useTransactionRequestState();
   const { data: stxFees } = useCalculateStacksTxFees(stacksTransaction);
-  const analytics = useAnalytics();
+
   const stxAddress = useCurrentStacksAccountAddress();
   const availableUnlockedBalance = useStxAvailableUnlockedBalance(stxAddress);
   const navigate = useNavigate();
@@ -66,7 +64,7 @@ export function StacksTransactionSigner({
   const { search } = useLocation();
 
   useOnMount(() => {
-    void analytics.track('view_transaction_signing'), [analytics];
+    void analytics.track('view_transaction_signing'), [];
   });
 
   async function onSubmit(
@@ -136,13 +134,8 @@ export function StacksTransactionSigner({
               </Link>
             )}
             <MinimalErrorMessage />
-            <SubmitAction
-              setIsShowingHighFeeConfirmation={() => setIsShowingHighFeeConfirmation(true)}
-            />
-            <HighFeeDialog
-              isShowing={isShowingHighFeeConfirmation}
-              learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX}
-            />
+            <StacksTxSubmitAction />
+            <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
             <Outlet />
           </>
         )}

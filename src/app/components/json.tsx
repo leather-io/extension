@@ -2,7 +2,7 @@ import { bytesToHex } from '@stacks/common';
 import { css } from 'leather-styles/css';
 import { Box } from 'leather-styles/jsx';
 
-import { isBigInt, isTypedArray } from '@leather-wallet/utils';
+import { isBigInt, isTypedArray } from '@leather.io/utils';
 
 export function parseJson(content: string) {
   try {

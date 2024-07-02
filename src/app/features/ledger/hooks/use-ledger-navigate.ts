@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { bytesToHex } from '@stacks/common';
 import { StacksTransaction } from '@stacks/transactions';
 
-import type { SupportedBlockchains } from '@leather-wallet/models';
+import type { SupportedBlockchains } from '@leather.io/models';
 
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { RouteUrls } from '@shared/route-urls';

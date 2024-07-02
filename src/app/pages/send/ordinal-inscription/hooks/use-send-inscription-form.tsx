@@ -3,16 +3,16 @@ import { useNavigate } from 'react-router-dom';
 
 import * as yup from 'yup';
 
-import { bitcoinNetworkModeToCoreNetworkMode } from '@leather-wallet/bitcoin';
-import { useNumberOfInscriptionsOnUtxo } from '@leather-wallet/query';
-import { isError } from '@leather-wallet/utils';
+import { bitcoinNetworkModeToCoreNetworkMode } from '@leather.io/bitcoin';
+import { useNumberOfInscriptionsOnUtxo } from '@leather.io/query';
+import { isError } from '@leather.io/utils';
 
 import { FormErrorMessages } from '@shared/error-messages';
 import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { formFeeRowValue } from '@app/common/send/utils';
 import { InsufficientFundsError } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import {
@@ -32,7 +32,7 @@ import { useGenerateUnsignedOrdinalTx } from './use-generate-ordinal-tx';
 export function useSendInscriptionForm() {
   const [currentError, setShowError] = useState<null | string>(null);
   const [isCheckingFees, setIsCheckingFees] = useState(false);
-  const analytics = useAnalytics();
+
   const navigate = useNavigate();
   const sign = useSignBitcoinTx();
   const { inscription, utxo } = useSendInscriptionState();

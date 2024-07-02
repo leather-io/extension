@@ -3,10 +3,8 @@ import { ReactNode } from 'react';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, BoxProps, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { isString } from '@leather-wallet/utils';
-
-import { Button } from '@app/ui/components/button/button';
-import { DashedHr } from '@app/ui/components/hr';
+import { Button, DashedHr } from '@leather.io/ui';
+import { isString } from '@leather.io/utils';
 
 // InfoCardRow
 interface InfoCardRowProps {

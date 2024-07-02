@@ -8,7 +8,7 @@ import {
   i18nFormatCurrency,
   isDefined,
   isUndefined,
-} from '@leather-wallet/utils';
+} from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 

@@ -4,7 +4,7 @@ import {
   BITCOIN_API_BASE_URL_MAINNET,
   BITCOIN_API_BASE_URL_TESTNET,
   type NetworkConfiguration,
-} from '@leather-wallet/models';
+} from '@leather.io/models';
 
 import { PersistedNetworkConfiguration } from './networks.slice';
 

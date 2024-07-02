@@ -3,7 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { createMoney, formatMoney } from '@leather-wallet/utils';
+import { Callout, ExternalLinkIcon, Link } from '@leather.io/ui';
+import { createMoney, formatMoney } from '@leather.io/utils';
 
 import { HandleOpenStacksTxLinkArgs } from '@app/common/hooks/use-stacks-explorer-link';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
@@ -13,10 +14,7 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { Callout } from '@app/ui/components/callout/callout';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Link } from '@app/ui/components/link/link';
-import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
 

@@ -11,7 +11,7 @@ import {
   formatMoneyWithoutSymbol,
   isDefined,
   isUndefined,
-} from '@leather-wallet/utils';
+} from '@leather.io/utils';
 
 import { useShowFieldError } from '@app/common/form-utils';
 

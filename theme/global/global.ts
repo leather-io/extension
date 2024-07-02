@@ -1,4 +1,4 @@
-import { tokens } from '@leather-wallet/tokens';
+import { tokens } from '@leather.io/tokens';
 import { defineGlobalStyles } from '@pandacss/dev';
 
 // ts-unused-exports:disable-next-line

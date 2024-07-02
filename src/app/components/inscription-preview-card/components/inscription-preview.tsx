@@ -1,8 +1,7 @@
 import { BoxProps, Flex } from 'leather-styles/jsx';
 
-import type { Inscription } from '@leather-wallet/models';
-
-import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
+import type { Inscription } from '@leather.io/models';
+import { OrdinalAvatarIcon } from '@leather.io/ui';
 
 import { InscriptionImage } from './inscription-image';
 import { InscriptionPreviewContainer } from './inscription-preview-container';

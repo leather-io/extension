@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
+import { Callout } from '@leather.io/ui';
+
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
-import { Callout } from '@app/ui/components/callout/callout';
 
 export function RequestingTabClosedWarningMessage() {
   const [hasTabClosed, setHasTabClosed] = useState(false);

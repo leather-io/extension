@@ -1,5 +1,7 @@
 import { Stack } from 'leather-styles/jsx';
 
+import { BtcAvatarIcon, StxAvatarIcon } from '@leather.io/ui';
+
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BitcoinContractEntryPoint } from '@app/components/bitcoin-contract-entry-point/bitcoin-contract-entry-point';
 import {
@@ -7,21 +9,19 @@ import {
   BitcoinTaprootAccountLoader,
 } from '@app/components/loaders/bitcoin-account-loader';
 import { Brc20TokensLoader } from '@app/components/loaders/brc20-tokens-loader';
-import { BtcBalanceLoader } from '@app/components/loaders/btc-balance-loader';
+import { BtcAssetItemBalanceLoader } from '@app/components/loaders/btc-balance-loader';
 import { RunesLoader } from '@app/components/loaders/runes-loader';
 import { Sip10TokensLoader } from '@app/components/loaders/sip10-tokens-loader';
 import { Src20TokensLoader } from '@app/components/loaders/src20-tokens-loader';
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
 import { Stx20TokensLoader } from '@app/components/loaders/stx20-tokens-loader';
-import { StxBalanceLoader } from '@app/components/loaders/stx-balance-loader';
+import { StxAssetItemBalanceLoader } from '@app/components/loaders/stx-balance-loader';
 import { Brc20TokenAssetList } from '@app/features/asset-list/bitcoin/brc20-token-asset-list/brc20-token-asset-list';
 import { RunesAssetList } from '@app/features/asset-list/bitcoin/runes-asset-list/runes-asset-list';
 import { Src20TokenAssetList } from '@app/features/asset-list/bitcoin/src20-token-asset-list/src20-token-asset-list';
 import { Stx20TokenAssetList } from '@app/features/asset-list/stacks/stx20-token-asset-list/stx20-token-asset-list';
 import { StxCryptoAssetItem } from '@app/features/asset-list/stacks/stx-crypo-asset-item/stx-crypto-asset-item';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
-import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
-import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
 import { ConnectLedgerAssetItemFallback } from './_components/connect-ledger-asset-item-fallback';
 import { BtcCryptoAssetItem } from './bitcoin/btc-crypto-asset-item/btc-crypto-asset-item';
@@ -54,15 +54,15 @@ export function AssetList({ onSelectAsset, variant = 'read-only' }: AssetListPro
         }
       >
         {nativeSegwitAccount => (
-          <BtcBalanceLoader address={nativeSegwitAccount.address}>
-            {(balance, isInitialLoading) => (
+          <BtcAssetItemBalanceLoader address={nativeSegwitAccount.address}>
+            {(balance, isLoading) => (
               <BtcCryptoAssetItem
                 balance={balance}
-                isLoading={isInitialLoading}
+                isLoading={isLoading}
                 onSelectAsset={onSelectAsset}
               />
             )}
-          </BtcBalanceLoader>
+          </BtcAssetItemBalanceLoader>
         )}
       </BitcoinNativeSegwitAccountLoader>
 
@@ -86,22 +86,22 @@ export function AssetList({ onSelectAsset, variant = 'read-only' }: AssetListPro
       >
         {account => (
           <>
-            <StxBalanceLoader address={account.address}>
-              {(balance, isInitialLoading) => (
+            <StxAssetItemBalanceLoader address={account.address}>
+              {(balance, isLoading) => (
                 <StxCryptoAssetItem
                   balance={balance}
-                  isLoading={isInitialLoading}
+                  isLoading={isLoading}
                   onSelectAsset={onSelectAsset}
                 />
               )}
-            </StxBalanceLoader>
+            </StxAssetItemBalanceLoader>
             <Sip10TokensLoader
               address={account.address}
               filter={variant === 'interactive' ? 'all' : 'supported'}
             >
-              {(isInitialLoading, tokens) => (
+              {(isLoading, tokens) => (
                 <Sip10TokenAssetList
-                  isLoading={isInitialLoading}
+                  isLoading={isLoading}
                   tokens={tokens}
                   onSelectAsset={onSelectAsset}
                 />
@@ -149,8 +149,8 @@ export function AssetList({ onSelectAsset, variant = 'read-only' }: AssetListPro
         <CurrentStacksAccountLoader>
           {account => (
             <Sip10TokensLoader address={account.address} filter="unsupported">
-              {(isInitialLoading, tokens) => (
-                <Sip10TokenAssetListUnsupported isLoading={isInitialLoading} tokens={tokens} />
+              {(isLoading, tokens) => (
+                <Sip10TokenAssetListUnsupported isLoading={isLoading} tokens={tokens} />
               )}
             </Sip10TokensLoader>
           )}

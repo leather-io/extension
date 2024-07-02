@@ -86,6 +86,8 @@ const aliases = {
   '@stacks/transactions': '@stacks/transactions/dist/esm',
   '@stacks/wallet-sdk': '@stacks/wallet-sdk/dist/esm',
   'leather-styles': path.resolve('leather-styles'),
+  'react': path.resolve('./node_modules/react'),
+  'react-dom': path.resolve('./node_modules/react-dom')
 };
 
 export const config = {
@@ -160,6 +162,12 @@ export const config = {
         exclude: /node_modules/,
         loader: 'esbuild-loader',
         options: { tsconfig: './tsconfig.json', target: 'es2020' },
+      },
+      {
+        test: /\.(js)$/,
+        include: [/node_modules\/@leather.io\/ui/],
+        loader: 'esbuild-loader',
+        options: { tsconfig: './tsconfig.json', loader: 'jsx',target: 'es2020' },
       },
       {
         test: /\.mdx?$/,

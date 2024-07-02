@@ -8,7 +8,7 @@ import {
   useGetAccountTransactionsWithTransfersQuery,
   useGetBitcoinTransactionsByAddressesQuery,
   useStacksPendingTransactions,
-} from '@leather-wallet/query';
+} from '@leather.io/query';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
@@ -50,8 +50,8 @@ export function ActivityList() {
   const updateSubmittedTxs = useUpdateSubmittedTransactions();
 
   const [
-    { isInitialLoading: isInitialLoadingNsBitcoinTransactions, data: nsBitcoinTransactions = [] },
-    { isInitialLoading: isInitialLoadingTrBitcoinTransactions, data: trBitcoinTransactions = [] },
+    { isLoading: isLoadingNsBitcoinTransactions, data: nsBitcoinTransactions = [] },
+    { isLoading: isLoadingTrBitcoinTransactions, data: trBitcoinTransactions = [] },
   ] = useGetBitcoinTransactionsByAddressesQuery([nsBitcoinAddress, trBitcoinAddress]);
 
   const [{ data: nsPendingTxs = [] }, { data: trPendingTxs = [] }] = useBitcoinPendingTransactions([
@@ -63,12 +63,10 @@ export function ActivityList() {
     [nsPendingTxs, trPendingTxs]
   );
 
+  const { isLoading: isLoadingStacksTransactions, data: stacksTransactionsWithTransfers } =
+    useGetAccountTransactionsWithTransfersQuery(stxAddress);
   const {
-    isInitialLoading: isInitialLoadingStacksTransactions,
-    data: stacksTransactionsWithTransfers,
-  } = useGetAccountTransactionsWithTransfersQuery(stxAddress);
-  const {
-    query: { isInitialLoading: isInitialLoadingStacksPendingTransactions },
+    query: { isLoading: isLoadingStacksPendingTransactions },
     transactions: stacksPendingTransactions,
   } = useStacksPendingTransactions(stxAddress);
   const submittedTransactions = useSubmittedTransactions();
@@ -78,11 +76,11 @@ export function ActivityList() {
     updateSubmittedTxs(stacksPendingTransactions);
   }, [stacksPendingTransactions, updateSubmittedTxs]);
 
-  const isInitialLoading =
-    isInitialLoadingNsBitcoinTransactions ||
-    isInitialLoadingTrBitcoinTransactions ||
-    isInitialLoadingStacksTransactions ||
-    isInitialLoadingStacksPendingTransactions;
+  const isLoading =
+    isLoadingNsBitcoinTransactions ||
+    isLoadingTrBitcoinTransactions ||
+    isLoadingStacksTransactions ||
+    isLoadingStacksPendingTransactions;
 
   const transactionListBitcoinTxs = useMemo(() => {
     return convertBitcoinTxsToListType(
@@ -107,7 +105,7 @@ export function ActivityList() {
 
   const hasTxs = hasSubmittedTransactions || hasPendingTransactions || hasTransactions;
 
-  if (isInitialLoading)
+  if (isLoading)
     return (
       <ActivityListTabWrapper padContent>
         <LoadingSpinner />

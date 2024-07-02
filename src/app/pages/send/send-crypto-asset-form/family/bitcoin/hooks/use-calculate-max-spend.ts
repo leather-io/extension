@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { type UtxoResponseItem, useAverageBitcoinFeeRates } from '@leather-wallet/query';
+import { type UtxoResponseItem, useAverageBitcoinFeeRates } from '@leather.io/query';
 
 import { calculateMaxBitcoinSpend } from '@app/common/transactions/bitcoin/fees/calculate-max-bitcoin-spend';
 

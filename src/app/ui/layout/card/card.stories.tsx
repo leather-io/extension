@@ -1,7 +1,7 @@
 import type { Meta } from '@storybook/react';
 import { Box } from 'leather-styles/jsx';
 
-import { Button } from '@app/ui/components/button/button';
+import { Button } from '@leather.io/ui';
 
 import { Card as Component } from './card';
 

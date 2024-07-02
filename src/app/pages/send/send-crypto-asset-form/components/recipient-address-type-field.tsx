@@ -4,9 +4,9 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField, useFormikContext } from 'formik';
 import { Box } from 'leather-styles/jsx';
 
-import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form.model';
+import { Input } from '@leather.io/ui';
 
-import { Input } from '@app/ui/components/input/input';
+import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form.model';
 
 interface RecipientAddressTypeFieldProps {
   label?: string;

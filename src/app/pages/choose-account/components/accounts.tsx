@@ -5,6 +5,8 @@ import { Virtuoso } from 'react-virtuoso';
 import { Box, FlexProps, HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
+import { PlusIcon } from '@leather.io/ui';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { useFinishAuthRequest } from '@app/common/authentication/use-finish-auth-request';
@@ -21,7 +23,6 @@ import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { AccountAvatar } from '@app/ui/components/account/account-avatar/account-avatar';
 import { VirtuosoWrapper } from '@app/ui/components/virtuoso';
-import { PlusIcon } from '@app/ui/icons/plus-icon';
 
 interface AccountTitlePlaceholderProps {
   account: StacksAccount;

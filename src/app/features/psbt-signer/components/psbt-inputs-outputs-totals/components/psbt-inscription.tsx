@@ -1,10 +1,10 @@
-import type { Inscription } from '@leather-wallet/models';
-import { useInscription } from '@leather-wallet/query';
-import { isUndefined } from '@leather-wallet/utils';
+import type { Inscription } from '@leather.io/models';
+import { useInscription } from '@leather.io/query';
+import { OrdinalAvatarIcon } from '@leather.io/ui';
+import { isUndefined } from '@leather.io/utils';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
-import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
 
 import { PsbtAddressTotalItem } from './psbt-address-total-item';
 

@@ -1,14 +1,14 @@
 import { StacksTransaction } from '@stacks/transactions';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { Caption, ItemLayout, Pressable } from '@leather.io/ui';
+
+import { analytics } from '@shared/utils/analytics';
+
 import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
-import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { Caption } from '@app/ui/components/typography/caption';
-import { Pressable } from '@app/ui/pressable/pressable';
 
 import { SubmittedTransactionIcon } from './submitted-transaction-icon';
 import { getSubmittedTransactionDetails } from './submitted-transaction-list.utils';
@@ -18,7 +18,6 @@ interface SubmittedTransactionItemProps {
   txid: string;
 }
 export function SubmittedTransactionItem({ transaction, txid }: SubmittedTransactionItemProps) {
-  const analytics = useAnalytics();
   const { handleOpenStacksTxLink } = useStacksExplorerLink();
 
   if (!transaction) return null;

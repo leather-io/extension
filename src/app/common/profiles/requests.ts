@@ -4,7 +4,7 @@ import { Person } from '@stacks/profile';
 import { getAppPrivateKey } from '@stacks/wallet-sdk';
 import { TokenVerifier, decodeToken } from 'jsontokens';
 
-import { isString } from '@leather-wallet/utils';
+import { isString } from '@leather.io/utils';
 
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 

@@ -2,16 +2,15 @@ import { useNavigate } from 'react-router-dom';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
-import { WalletDefaultNetworkConfigurationIds } from '@leather-wallet/models';
+import { WalletDefaultNetworkConfigurationIds } from '@leather.io/models';
+import { Button, Dialog } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { NetworkListItem } from '@app/features/settings/network/network-list-item';
 import { useCurrentNetworkState, useNetworksActions } from '@app/store/networks/networks.hooks';
 import { useNetworks } from '@app/store/networks/networks.selectors';
-import { Button } from '@app/ui/components/button/button';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
@@ -24,7 +23,7 @@ interface NetworkDialogProps {
 export function NetworkDialog({ onClose }: NetworkDialogProps) {
   const navigate = useNavigate();
   const networks = useNetworks();
-  const analytics = useAnalytics();
+
   const networksActions = useNetworksActions();
   const currentNetwork = useCurrentNetworkState();
 

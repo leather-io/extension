@@ -1,15 +1,15 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { RouteUrls } from '@shared/route-urls';
+import { PlusIcon } from '@leather.io/ui';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { PlusIcon } from '@app/ui/icons/plus-icon';
+import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
 import { CollectibleItemLayout } from './collectible-item.layout';
 
 export function AddCollectible() {
   const navigate = useNavigate();
-  const analytics = useAnalytics();
+
   const location = useLocation();
 
   return (

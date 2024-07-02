@@ -2,7 +2,7 @@ import { useAsync } from 'react-async-hook';
 
 import { useFormikContext } from 'formik';
 
-import { useNextNonce } from '@leather-wallet/query';
+import { useNextNonce } from '@leather.io/query';
 
 import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 

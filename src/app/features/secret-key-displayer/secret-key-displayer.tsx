@@ -2,8 +2,8 @@ import { memo, useMemo } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 
 import { SecretKeyLayout } from '../../ui/components/secret-key/secret-key.layout';
@@ -14,7 +14,7 @@ interface SecretKeyProps {
 export const SecretKey = memo(({ secretKey }: SecretKeyProps) => {
   const { onCopy, hasCopied } = useClipboard(secretKey || '');
   const { pathname } = useLocation();
-  const analytics = useAnalytics();
+
   const navigate = useNavigate();
 
   const copyToClipboard = () => {

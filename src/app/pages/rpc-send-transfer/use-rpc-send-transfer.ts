@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import BigNumber from 'bignumber.js';
 
-import { createMoney, sumNumbers } from '@leather-wallet/utils';
+import { createMoney, sumNumbers } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 

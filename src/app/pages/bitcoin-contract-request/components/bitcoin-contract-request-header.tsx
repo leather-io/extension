@@ -3,9 +3,7 @@ import { memo } from 'react';
 import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contract-request.selectors';
 import { Flex } from 'leather-styles/jsx';
 
-import { Flag } from '@app/ui/components/flag/flag';
-import { Caption } from '@app/ui/components/typography/caption';
-import { Title } from '@app/ui/components/typography/title';
+import { Caption, Flag, Title } from '@leather.io/ui';
 
 interface BitcoinContractRequestHeaderBaseProps {
   counterpartyWalletIcon: string;

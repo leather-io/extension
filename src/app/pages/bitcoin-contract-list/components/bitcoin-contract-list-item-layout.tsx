@@ -2,18 +2,16 @@ import { useCallback } from 'react';
 
 import { Flex, HStack, styled } from 'leather-styles/jsx';
 
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
+import { BitcoinContractIcon, Caption, Flag } from '@leather.io/ui';
 import {
   baseCurrencyAmountInQuote,
   createMoneyFromDecimal,
   i18nFormatCurrency,
   satToBtc,
-} from '@leather-wallet/utils';
+} from '@leather.io/utils';
 
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
-import { Flag } from '@app/ui/components/flag/flag';
-import { Caption } from '@app/ui/components/typography/caption';
-import { BitcoinContractIcon } from '@app/ui/icons/bitcoin-contract-icon';
 
 interface BitcoinContractListItemLayoutProps {
   id: string;

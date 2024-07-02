@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { ErrorIcon } from '@app/ui/icons/error-icon';
+import { ErrorIcon } from '@leather.io/ui';
 
 interface ErrorMessageProps {
   title: string;

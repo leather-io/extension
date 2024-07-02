@@ -3,11 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { useFormikContext } from 'formik';
 import { styled } from 'leather-styles/jsx';
 
-import { isDefined, isUndefined } from '@leather-wallet/utils';
+import { SwapIcon } from '@leather.io/ui';
+import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
-
-import { SwapIcon } from '@app/ui/icons';
 
 import { SwapFormValues } from '../../../hooks/use-swap-form';
 import { useSwapContext } from '../../../swap.context';

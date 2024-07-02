@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
+import { BitcoinContractIcon } from '@leather.io/ui';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { useGetBitcoinContractsBalance } from '@app/query/bitcoin/balance/bitcoin-contracts-balance.hooks';
-import { BitcoinContractIcon } from '@app/ui/icons/bitcoin-contract-icon';
 
 import { BitcoinContractEntryPointLayout } from './bitcoin-contract-entry-point-layout';
 

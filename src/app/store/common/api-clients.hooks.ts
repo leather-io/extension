@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { bitcoinClient, stacksClient } from '@leather-wallet/query';
+import { bitcoinClient, stacksClient } from '@leather.io/query';
 
 import { useCurrentNetworkState } from '../networks/networks.hooks';
 

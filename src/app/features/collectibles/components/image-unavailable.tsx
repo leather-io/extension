@@ -1,6 +1,6 @@
 import { styled } from 'leather-styles/jsx';
 
-import { EyeSlashIcon } from '@app/ui/icons/eye-slash-icon';
+import { EyeSlashIcon } from '@leather.io/ui';
 
 import { CollectiblePlaceholderLayout } from './_collectible-types/collectible-placeholder.layout';
 

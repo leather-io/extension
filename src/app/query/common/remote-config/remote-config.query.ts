@@ -1,4 +1,4 @@
-import { useRemoteConfig } from '@leather-wallet/query';
+import { useRemoteConfig } from '@leather.io/query';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useHasCurrentBitcoinAccount } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
@@ -14,7 +14,7 @@ export {
   useConfigNftMetadataEnabled,
   useConfigRunesEnabled,
   useConfigSwapEnabled,
-} from '@leather-wallet/query';
+} from '@leather.io/query';
 
 export function useConfigBitcoinEnabled() {
   const { whenWallet } = useWalletType();

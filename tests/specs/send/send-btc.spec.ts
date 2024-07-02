@@ -4,7 +4,7 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { getDisplayerAddress } from '@tests/utils';
 
-import { BtcFeeType } from '@leather-wallet/models';
+import { BtcFeeType } from '@leather.io/models';
 
 import { test } from '../../fixtures/fixtures';
 

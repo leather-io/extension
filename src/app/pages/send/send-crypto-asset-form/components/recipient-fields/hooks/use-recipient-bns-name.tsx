@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 
 import { useFormikContext } from 'formik';
 
-import { type StacksClient, useStacksClient } from '@leather-wallet/query';
+import { type StacksClient, useStacksClient } from '@leather.io/query';
 
 import { FormErrorMessages } from '@shared/error-messages';
 import { logger } from '@shared/logger';

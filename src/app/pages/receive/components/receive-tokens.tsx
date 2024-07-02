@@ -4,18 +4,21 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { css } from 'leather-styles/css';
 import { Stack } from 'leather-styles/jsx';
 
-import { useAlexSwappableAssets } from '@leather-wallet/query';
+import { useAlexSwappableAssets } from '@leather.io/query';
+import {
+  Avatar,
+  Brc20AvatarIcon,
+  BtcAvatarIcon,
+  RunesAvatarIcon,
+  Src20AvatarIcon,
+  StxAvatarIcon,
+  defaultFallbackDelay,
+} from '@leather.io/ui';
 
 import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useConfigRunesEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
-import { Avatar, defaultFallbackDelay } from '@app/ui/components/avatar/avatar';
-import { Brc20AvatarIcon } from '@app/ui/components/avatar/brc20-avatar-icon';
-import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
-import { RunesAvatarIcon } from '@app/ui/components/avatar/runes-avatar-icon';
-import { Src20AvatarIcon } from '@app/ui/components/avatar/src20-avatar-icon';
-import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
 import { receiveTabStyle } from '../receive-dialog';
 import { ReceiveItem } from './receive-item';

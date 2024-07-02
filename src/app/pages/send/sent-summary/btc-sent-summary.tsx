@@ -2,7 +2,10 @@ import { useLocation } from 'react-router-dom';
 
 import { HStack, Stack } from 'leather-styles/jsx';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { CopyIcon, ExternalLinkIcon } from '@leather.io/ui';
+
+import { analytics } from '@shared/utils/analytics';
+
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
@@ -14,8 +17,6 @@ import {
 } from '@app/components/info-card/info-card';
 import { useToast } from '@app/features/toasts/use-toast';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { CopyIcon } from '@app/ui/icons/copy-icon';
-import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
 
@@ -23,7 +24,7 @@ import { TxDone } from '../send-crypto-asset-form/components/tx-done';
 
 export function BtcSentSummary() {
   const { state } = useLocation();
-  const analytics = useAnalytics();
+
   const toast = useToast();
 
   const {

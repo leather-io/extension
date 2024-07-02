@@ -1,6 +1,6 @@
-import { noop } from '@leather-wallet/utils';
+import { noop } from '@leather.io/utils';
 
-// TODO: Migrate to @leather-wallet/utils
+// TODO: Migrate to @leather.io/utils
 export function createWaitableAction<T = unknown>() {
   let resolve = (_value?: unknown) => noop();
   const promise = new Promise(r => (resolve = r));

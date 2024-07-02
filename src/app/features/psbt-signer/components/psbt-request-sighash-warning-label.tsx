@@ -1,4 +1,4 @@
-import { Callout } from '@app/ui/components/callout/callout';
+import { Callout } from '@leather.io/ui';
 
 interface PsbtRequestSighashWarningLabelProps {
   origin: string;

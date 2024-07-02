@@ -1,7 +1,8 @@
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
+import { CloseIcon } from '@leather.io/ui';
+
 import { HiroMessage } from '@app/query/common/remote-config/remote-config.query';
-import { CloseIcon } from '@app/ui/icons/close-icon';
 
 interface HiroMessageItemProps extends HiroMessage {
   onDismiss(id: string): void;

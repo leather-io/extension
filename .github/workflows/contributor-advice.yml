@@ -22,7 +22,7 @@ jobs:
 
             Please make sure to follow our [Contributor Guidelines][1]
 
-            [1]: https://github.com/leather-wallet/extension/tree/dev/.github/CONTRIBUTING.md
+            [1]: https://github.com/leather-io/extension/tree/dev/.github/CONTRIBUTING.md
 
       - name: Add label
         run: gh issue edit "$NUMBER" --add-label "$LABELS"

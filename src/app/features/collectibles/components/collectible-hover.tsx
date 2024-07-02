@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 
-import { Box, styled } from 'leather-styles/jsx';
+import { Box } from 'leather-styles/jsx';
 
-import { ArrowUpIcon } from '@app/ui/icons/arrow-up-icon';
+import { ArrowUpIcon, IconButton } from '@leather.io/ui';
 
 interface CollectibleHoverProps {
   collectibleTypeIcon?: ReactNode;
@@ -38,15 +38,23 @@ export function CollectibleHover({
         {collectibleTypeIcon}
       </Box>
       {onClickCallToAction && (
-        <styled.button
+        <IconButton
           _focus={{ outline: 'focus' }}
-          _hover={{ bg: 'ink.component-background-hover' }}
           alignItems="center"
           bg="ink.background-primary"
           borderRadius="50%"
           display="flex"
           height="30px"
           justifyContent="center"
+          icon={
+            <ArrowUpIcon
+              transform="rotate(45deg)"
+              borderRadius="50%"
+              width="30px"
+              height="30px"
+              _hover={{ bg: 'ink.component-background-hover' }}
+            />
+          }
           onClick={e => {
             e.stopPropagation();
             onClickCallToAction();
@@ -57,9 +65,7 @@ export function CollectibleHover({
           type="button"
           width="30px"
           zIndex={999}
-        >
-          <ArrowUpIcon transform="rotate(45deg)" />
-        </styled.button>
+        />
       )}
     </Box>
   );

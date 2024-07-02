@@ -3,13 +3,13 @@ import { useState } from 'react';
 import { useField } from 'formik';
 import { Stack } from 'leather-styles/jsx';
 
-import { createMoney, satToBtc } from '@leather-wallet/utils';
+import { Input } from '@leather.io/ui';
+import { createMoney, satToBtc } from '@leather.io/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { InsufficientFundsError } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
-import { Input } from '@app/ui/components/input/input';
 
 import { ErrorLabel } from '../error-label';
 import { BitcoinCustomFeeFiat } from './bitcoin-custom-fee-fiat';

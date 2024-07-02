@@ -1,4 +1,4 @@
-import type { CryptoAssetBalance, Stx20CryptoAssetInfo } from '@leather-wallet/models';
+import type { CryptoAssetBalance, Stx20CryptoAssetInfo } from '@leather.io/models';
 
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 import { Stx20AvatarIcon } from '@app/ui/components/avatar/stx20-avatar-icon';

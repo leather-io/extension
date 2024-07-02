@@ -1,6 +1,6 @@
 import { Box, HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { Caption } from '@app/ui/components/typography/caption';
+import { Caption } from '@leather.io/ui';
 
 import { TxAssetItem } from './tx-asset-item';
 

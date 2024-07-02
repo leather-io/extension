@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import get from 'lodash.get';
 
-import { isUndefined } from '@leather-wallet/utils';
+import { isUndefined } from '@leather.io/utils';
 
 type LocationState = string | boolean | undefined | number | Location;
 

@@ -2,31 +2,17 @@ import { hexToBytes } from '@stacks/common';
 import { BytesReader, PostCondition, deserializePostCondition } from '@stacks/transactions';
 import { toUnicode } from 'punycode';
 
-import { KEBAB_REGEX } from '@leather-wallet/constants';
+import { KEBAB_REGEX } from '@leather.io/constants';
 import {
   type BitcoinChainConfig,
   type BitcoinNetworkModes,
   HIRO_API_BASE_URL_NAKAMOTO_TESTNET,
-} from '@leather-wallet/models';
-import { isBoolean } from '@leather-wallet/utils';
+} from '@leather.io/models';
 
 import { HIRO_EXPLORER_URL } from '@shared/constants';
 
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, match => '-' + match.toLowerCase());
-}
-
-export function extractPhraseFromString(value: string) {
-  const clean = value.trim();
-  const words = clean.match(/\S+/g);
-  if (words?.length) {
-    return words
-      .map(word => (word.match(/[^0-9]+/g) ? word : null))
-      .filter(Boolean)
-      .join(' ');
-  } else {
-    return clean;
-  }
 }
 
 interface MakeBitcoinTxExplorerLinkArgs {
@@ -305,8 +291,4 @@ export function removeTrailingNullCharacters(s: string) {
 
 export function removeMinusSign(value: string) {
   return value.replace('-', '');
-}
-
-export function propIfDefined(prop: string, value: any) {
-  return isBoolean(value) ? { [prop]: value } : {};
 }

@@ -1,14 +1,10 @@
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import type { Money } from '@leather-wallet/models';
+import type { Money } from '@leather.io/models';
+import { BulletSeparator, Caption, ItemLayout, Pressable, SkeletonLoader } from '@leather.io/ui';
+import { spamFilter } from '@leather.io/utils';
 
-import { spamFilter } from '@app/common/utils/spam-filter';
-import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
-import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
-import { SkeletonLoader } from '@app/ui/components/skeleton-loader/skeleton-loader';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { Caption } from '@app/ui/components/typography/caption';
-import { Pressable } from '@app/ui/pressable/pressable';
 
 import { parseCryptoAssetBalance } from './crypto-asset-item.layout.utils';
 
@@ -77,7 +73,7 @@ export function CryptoAssetItemLayout({
     <ItemLayout
       flagImg={icon}
       titleLeft={spamFilter(titleLeft)}
-      captionLeft={captionLeft}
+      captionLeft={spamFilter(captionLeft)}
       titleRight={titleRight}
       captionRight={captionRight}
     />

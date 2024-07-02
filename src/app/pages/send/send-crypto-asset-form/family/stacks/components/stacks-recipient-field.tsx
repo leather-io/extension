@@ -1,4 +1,4 @@
-import { fetchNameOwner } from '@leather-wallet/query';
+import { fetchNameOwner } from '@leather.io/query';
 
 import { RecipientField } from '../../../components/recipient-fields/recipient-field';
 

@@ -4,13 +4,15 @@ import { NetworkSelectors } from '@tests/selectors/network.selectors';
 import { useFormikContext } from 'formik';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import type { BitcoinNetworkModes } from '@leather-wallet/models';
-
-import { Input } from '@app/ui/components/input/input';
-import { Select } from '@app/ui/components/select/select';
-import { SelectItemLayout } from '@app/ui/components/select/select-item.layout';
-import { Title } from '@app/ui/components/typography/title';
-import { CheckmarkIcon, ChevronDownIcon } from '@app/ui/icons';
+import type { BitcoinNetworkModes } from '@leather.io/models';
+import {
+  CheckmarkIcon,
+  ChevronDownIcon,
+  Input,
+  Select,
+  SelectItemLayout,
+  Title,
+} from '@leather.io/ui';
 
 import { type AddNetworkFormValues } from './use-add-network';
 
@@ -92,10 +94,10 @@ export function AddNetworkForm() {
       <Select.Root
         defaultValue={networks[0].value}
         onValueChange={value => {
-          void setFieldValue('bitcoinApi', value);
+          void setFieldValue('bitcoinNetwork', value);
         }}
       >
-        <Select.Trigger>
+        <Select.Trigger data-testid={NetworkSelectors.AddNetworkBitcoinAPISelector}>
           <Select.Value />
           <Select.Icon>
             <ChevronDownIcon variant="small" />
@@ -105,7 +107,11 @@ export function AddNetworkForm() {
           <Select.Content align="start" position="popper" sideOffset={8}>
             <Select.Viewport>
               {networks.map(item => (
-                <Select.Item key={item.label} value={item.value}>
+                <Select.Item
+                  key={item.label}
+                  value={item.value}
+                  data-testid={`bitcoin-api-option-${item.value}`}
+                >
                   <SelectItemLayout
                     contentLeft={
                       <HStack display="flex" gap="space.02" width="100%">

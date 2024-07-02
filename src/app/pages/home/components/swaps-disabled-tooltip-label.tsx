@@ -1,6 +1,6 @@
 import { Stack, styled } from 'leather-styles/jsx';
 
-import { Link } from '@app/ui/components/link/link';
+import { Link } from '@leather.io/ui';
 
 export function SwapsDisabledTooltipLabel() {
   return (

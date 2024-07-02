@@ -4,13 +4,14 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { decodeBitcoinTx } from '@leather-wallet/bitcoin';
-import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
-import { createMoney, formatMoney, formatMoneyPadded, sumMoney } from '@leather-wallet/utils';
+import { decodeBitcoinTx } from '@leather.io/bitcoin';
+import { useBitcoinBroadcastTransaction } from '@leather.io/query';
+import { Button } from '@leather.io/ui';
+import { createMoney, formatMoney, formatMoneyPadded, sumMoney } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import {
   InfoCardAssetValue,
   InfoCardRow,
@@ -18,7 +19,6 @@ import {
 } from '@app/components/info-card/info-card';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.hooks';
-import { Button } from '@app/ui/components/button/button';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
@@ -43,7 +43,6 @@ function useBrc20SendFormConfirmationState() {
 
 export function Brc20SendFormConfirmation() {
   const navigate = useNavigate();
-  const analytics = useAnalytics();
 
   const { amount, recipient, fee, ticker, serviceFee, tx, orderId, feeRowValue, holderAddress } =
     useBrc20SendFormConfirmationState();

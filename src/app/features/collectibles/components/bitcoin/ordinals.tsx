@@ -3,9 +3,10 @@ import { useInView } from 'react-intersection-observer';
 
 import { Box } from 'leather-styles/jsx';
 
-import { useInscriptions } from '@leather-wallet/query';
+import { useInscriptions } from '@leather.io/query';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
+
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
@@ -18,22 +19,21 @@ export function Ordinals({ setIsLoadingMore }: OrdinalsProps) {
   const account = useCurrentTaprootAccount();
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
 
-  const query = useInscriptions({
+  const result = useInscriptions({
     taprootKeychain: account?.keychain,
     nativeSegwitAddress: nativeSegwitSigner.address,
   });
-  const pages = query.data?.pages;
-  const analytics = useAnalytics();
+
   const { ref: intersectionSentinel, inView } = useInView({
     rootMargin: '0% 0% 20% 0%',
   });
 
   useEffect(() => {
     async function fetchNextPage() {
-      if (!query.hasNextPage || query.isLoading || query.isFetchingNextPage) return;
+      if (!result.hasNextPage || result.isLoading || result.isFetchingNextPage) return;
       try {
         setIsLoadingMore(true);
-        await query.fetchNextPage();
+        await result.fetchNextPage();
       } catch (e) {
         // TO-DO: handle error
         // console.log(e);
@@ -44,27 +44,25 @@ export function Ordinals({ setIsLoadingMore }: OrdinalsProps) {
     if (inView) {
       void fetchNextPage();
     }
-  }, [inView, query, setIsLoadingMore]);
+  }, [inView, result, setIsLoadingMore]);
 
   useEffect(() => {
-    const inscriptionsLength = pages?.reduce((acc, page) => acc + page.inscriptions.length, 0) || 0;
+    const inscriptionsLength = result.inscriptions.length || 0;
     if (inscriptionsLength > 0) {
       void analytics.track('view_collectibles', {
         ordinals_count: inscriptionsLength,
       });
       void analytics.identify({ ordinals_count: inscriptionsLength });
     }
-  }, [pages, analytics]);
+  }, [result.inscriptions.length]);
 
-  if (!pages) return null;
+  if (!result.inscriptions) return null;
 
   return (
     <>
-      {pages.map(page =>
-        page.inscriptions.map(inscription => (
-          <Inscription inscription={inscription} key={inscription.id} />
-        ))
-      )}
+      {result.inscriptions.map(inscription => (
+        <Inscription inscription={inscription} key={inscription.id} />
+      ))}
       <Box ref={intersectionSentinel} />
     </>
   );

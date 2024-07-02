@@ -1,6 +1,6 @@
 import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contract-request.selectors';
 
-import { Callout } from '@app/ui/components/callout/callout';
+import { Callout } from '@leather.io/ui';
 
 export function BitcoinContractRequestWarningLabel(props: { appName?: string }) {
   const { appName } = props;

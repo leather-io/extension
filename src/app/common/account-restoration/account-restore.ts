@@ -1,4 +1,4 @@
-import { createCounter, fibonacciGenerator } from '@leather-wallet/utils';
+import { createCounter, fibonacciGenerator } from '@leather.io/utils';
 
 const numOfEmptyAccountsToCheck = 20;
 

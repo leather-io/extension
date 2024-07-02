@@ -7,6 +7,7 @@ import { BroadcastErrorDialog } from '@app/components/broadcast-error-dialog/bro
 import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
 import { ledgerStacksMessageSigningRoutes } from '@app/features/ledger/flows/stacks-message-signing/ledger-stacks-sign-msg.routes';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
+import { StacksHighFeeWarningContainer } from '@app/features/stacks-high-fee-warning/stacks-high-fee-warning-container';
 import { PsbtRequest } from '@app/pages/psbt-request/psbt-request';
 import { SignStacksMessageRequest } from '@app/pages/sign-stacks-message-request/sign-stacks-message-request';
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
@@ -21,7 +22,9 @@ export const legacyRequestRoutes = (
       element={
         <AccountGate>
           <Suspense fallback={<SuspenseLoadingSpinner />}>
-            <TransactionRequest />
+            <StacksHighFeeWarningContainer>
+              <TransactionRequest />
+            </StacksHighFeeWarningContainer>
           </Suspense>
         </AccountGate>
       }

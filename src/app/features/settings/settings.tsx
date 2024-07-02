@@ -5,9 +5,25 @@ import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { css } from 'leather-styles/css';
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 
-import { RouteUrls } from '@shared/route-urls';
+import {
+  Caption,
+  DropdownMenu,
+  ExitIcon,
+  ExpandIcon,
+  ExternalLinkIcon,
+  Flag,
+  KeyIcon,
+  LockIcon,
+  MegaphoneIcon,
+  SunInCloudIcon,
+  SupportIcon,
+  SwapIcon,
+  WorldIcon,
+} from '@leather.io/ui';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
+
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useModifierKey } from '@app/common/hooks/use-modifier-key';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -20,21 +36,6 @@ import { ThemeDialog } from '@app/features/settings/theme/theme-dialog';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useHasLedgerKeys, useLedgerDeviceTargetId } from '@app/store/ledger/ledger.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
-import { DropdownMenu } from '@app/ui/components/dropdown-menu/dropdown-menu';
-import { Flag } from '@app/ui/components/flag/flag';
-import { Caption } from '@app/ui/components/typography/caption';
-import {
-  ExitIcon,
-  ExpandIcon,
-  ExternalLinkIcon,
-  KeyIcon,
-  LockIcon,
-  MegaphoneIcon,
-  SunInCloudIcon,
-  SupportIcon,
-  SwapIcon,
-  WorldIcon,
-} from '@app/ui/icons/';
 
 import { openFeedbackDialog } from '../feedback-button/feedback-button';
 import { extractDeviceNameFromKnownTargetIds } from '../ledger/utils/generic-ledger-utils';
@@ -54,7 +55,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
 
   const currentNetworkId = useCurrentNetworkId();
   const navigate = useNavigate();
-  const analytics = useAnalytics();
+
   const { walletType } = useWalletType();
   const targetId = useLedgerDeviceTargetId();
 

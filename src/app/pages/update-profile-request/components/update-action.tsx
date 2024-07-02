@@ -10,11 +10,11 @@ import {
   signAndUploadProfile,
 } from '@stacks/wallet-sdk';
 
-import { gaiaUrl } from '@leather-wallet/constants';
+import { gaiaUrl } from '@leather.io/constants';
 
 import { finalizeProfileUpdate } from '@shared/actions/finalize-profile-update';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useProfileUpdateRequestSearchParams } from '@app/store/profiles/requests.hooks';
 
@@ -64,7 +64,6 @@ export function UpdateAction({
   const { tabId, requestToken } = useProfileUpdateRequestSearchParams();
   const updateProfileSoftwareWallet = useUpdateProfileSoftwareWallet();
   const [isLoading, setIsLoading] = useState(false);
-  const analytics = useAnalytics();
 
   if (!requestToken || !tabId) return null;
 

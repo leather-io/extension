@@ -1,13 +1,13 @@
 import { Stack, styled } from 'leather-styles/jsx';
 
-import { useCalculateBitcoinFiatValue } from '@leather-wallet/query';
+import { useCalculateBitcoinFiatValue } from '@leather.io/query';
 import {
   createMoneyFromDecimal,
   formatMoney,
   i18nFormatCurrency,
   satToBtc,
   truncateMiddle,
-} from '@leather-wallet/utils';
+} from '@leather.io/utils';
 
 import { SimplifiedBitcoinContract } from '@app/common/hooks/use-bitcoin-contracts';
 

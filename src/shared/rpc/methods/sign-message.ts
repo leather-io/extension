@@ -1,7 +1,7 @@
 import { PaymentTypes } from '@btckit/types';
 import * as yup from 'yup';
 
-import { WalletDefaultNetworkConfigurationIds } from '@leather-wallet/models';
+import { WalletDefaultNetworkConfigurationIds } from '@leather.io/models';
 
 import {
   accountSchema,

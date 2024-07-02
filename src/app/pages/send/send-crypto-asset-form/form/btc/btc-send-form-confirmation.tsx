@@ -8,12 +8,13 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { decodeBitcoinTx } from '@leather-wallet/bitcoin';
-import type { CryptoCurrencies } from '@leather-wallet/models';
+import { decodeBitcoinTx } from '@leather.io/bitcoin';
+import type { CryptoCurrencies } from '@leather.io/models';
 import {
   useBitcoinBroadcastTransaction,
   useCryptoCurrencyMarketDataMeanAverage,
-} from '@leather-wallet/query';
+} from '@leather.io/query';
+import { Button } from '@leather.io/ui';
 import {
   baseCurrencyAmountInQuote,
   createMoney,
@@ -21,11 +22,11 @@ import {
   formatMoneyPadded,
   i18nFormatCurrency,
   satToBtc,
-} from '@leather-wallet/utils';
+} from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { queryClient } from '@app/common/persistence';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
@@ -34,7 +35,6 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { Button } from '@app/ui/components/button/button';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
@@ -61,7 +61,6 @@ export function BtcSendFormConfirmation() {
   const transaction = useMemo(() => btc.Transaction.fromRaw(hexToBytes(tx)), [tx]);
 
   const { refetch } = useCurrentNativeSegwitUtxos();
-  const analytics = useAnalytics();
 
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();

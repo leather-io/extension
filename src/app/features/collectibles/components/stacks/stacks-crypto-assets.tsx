@@ -3,9 +3,10 @@ import { useEffect } from 'react';
 import {
   useGetBnsNamesOwnedByAddressQuery,
   useStacksNonFungibleTokensMetadata,
-} from '@leather-wallet/query';
+} from '@leather.io/query';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
+
 import { parseIfValidPunycode } from '@app/common/utils';
 
 import { StacksBnsName } from './stacks-bns-name';
@@ -18,7 +19,6 @@ export function StacksCryptoAssets({ address }: StacksCryptoAssetsProps) {
   const names = useGetBnsNamesOwnedByAddressQuery(address).data?.names;
 
   const stacksNftsMetadataResp = useStacksNonFungibleTokensMetadata(address);
-  const analytics = useAnalytics();
 
   useEffect(() => {
     if (stacksNftsMetadataResp.length > 0) {
@@ -27,7 +27,7 @@ export function StacksCryptoAssets({ address }: StacksCryptoAssetsProps) {
       });
       void analytics.identify({ stacks_nfts_count: stacksNftsMetadataResp.length });
     }
-  }, [stacksNftsMetadataResp.length, analytics]);
+  }, [stacksNftsMetadataResp.length]);
 
   return (
     <>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Outlet, useOutletContext } from 'react-router-dom';
 
-import type { BtcFeeType } from '@leather-wallet/models';
+import type { BtcFeeType } from '@leather.io/models';
 
 import { closeWindow } from '@shared/utils';
 

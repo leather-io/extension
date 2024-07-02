@@ -4,14 +4,16 @@ import { globalCss } from './theme/global/global';
 
 export default defineConfig({
   preflight: true,
-
-  include: ['./src/**/*.{js,jsx,ts,tsx}'],
+  include: [
+    './node_modules/@leather.io/ui/dist-all/src/**/*.{js,jsx,ts,tsx}',
+    './src/**/*.{js,jsx,ts,tsx}',
+  ],
 
   exclude: [],
 
   prefix: 'leather',
 
-  presets: ['@leather-wallet/panda-preset'],
+  presets: ['@leather.io/panda-preset'],
 
   studio: { logo: '💼' },
 

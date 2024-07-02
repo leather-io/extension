@@ -1,4 +1,4 @@
-import { breakpoints, tokens } from '@leather-wallet/tokens';
+import { breakpoints, tokens } from '@leather.io/tokens';
 
 export const customViewports = {
   popup: {

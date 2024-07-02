@@ -2,13 +2,12 @@ import { useEffect } from 'react';
 
 import { InternalMethods } from '@shared/message-types';
 import { BackgroundMessages } from '@shared/messages';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 
 export function useOnOriginTabClose(handler: () => void) {
   const { tabId } = useDefaultRequestParams();
-  const analytics = useAnalytics();
 
   useEffect(() => {
     const messageHandler = (

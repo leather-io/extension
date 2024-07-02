@@ -1,8 +1,8 @@
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 
-import type { Money } from '@leather-wallet/models';
-import { useCalculateBitcoinFiatValue } from '@leather-wallet/query';
-import { formatMoney, i18nFormatCurrency } from '@leather-wallet/utils';
+import type { Money } from '@leather.io/models';
+import { useCalculateBitcoinFiatValue } from '@leather.io/query';
+import { formatMoney, i18nFormatCurrency } from '@leather.io/utils';
 
 import { PsbtRequestDetailsSectionLayout } from './psbt-request-details-section.layout';
 

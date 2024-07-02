@@ -11,8 +11,8 @@ import {
 } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 
-import { defaultSwapFee } from '@leather-wallet/query';
-import { isDefined, isUndefined } from '@leather-wallet/utils';
+import { defaultSwapFee } from '@leather.io/query';
+import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
@@ -48,7 +48,7 @@ function AlexSwapContainer() {
   const { whenWallet } = useWalletType();
 
   // Setting software to false until we revisit:
-  // https://github.com/leather-wallet/extension/issues/4750
+  // https://github.com/leather-io/extension/issues/4750
   const isSponsoredByAlex = whenWallet({
     ledger: false,
     software: false,

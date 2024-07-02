@@ -3,8 +3,8 @@ import { useMemo } from 'react';
 import {
   useCryptoCurrencyMarketDataMeanAverage,
   useStxCryptoAssetBalance,
-} from '@leather-wallet/query';
-import { baseCurrencyAmountInQuote, createMoney, i18nFormatCurrency } from '@leather-wallet/utils';
+} from '@leather.io/query';
+import { baseCurrencyAmountInQuote, createMoney, i18nFormatCurrency } from '@leather.io/utils';
 
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 
@@ -20,18 +20,18 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
   // get stx balance
   const {
     data: balance,
-    isLoading,
-    isInitialLoading,
-    isFetching: isFetchingStacksBalance,
+    isFetching: isFetchingStxBalance,
+    isLoading: isLoadingStxBalance,
+    isPending: isPendingStxBalance,
   } = useStxCryptoAssetBalance(stxAddress);
   const stxBalance = balance ? balance.totalBalance : createMoney(0, 'STX');
 
   // get btc balance
   const {
     balance: btcBalance,
-    isLoading: isLoadingBtcBalance,
     isFetching: isFetchingBtcBalance,
-    isInitialLoading: isInititalLoadingBtcBalance,
+    isLoading: isLoadingBtcBalance,
+    isPending: isPendingBtcBalance,
   } = useBtcCryptoAssetBalanceNativeSegwit(btcAddress);
 
   return useMemo(() => {
@@ -41,25 +41,25 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
 
     const totalBalance = { ...stxUsdAmount, amount: stxUsdAmount.amount.plus(btcUsdAmount.amount) };
     return {
+      isFetching: isFetchingStxBalance || isFetchingBtcBalance,
+      isLoading: isLoadingStxBalance || isLoadingBtcBalance,
+      isPending: isPendingStxBalance || isPendingBtcBalance,
       totalBalance,
       totalUsdBalance: i18nFormatCurrency(
         totalBalance,
         totalBalance.amount.isGreaterThanOrEqualTo(100_000) ? 0 : 2
       ),
-      isLoading: isLoading || isLoadingBtcBalance,
-      isInitialLoading: isInitialLoading || isInititalLoadingBtcBalance,
-      isFetching: isFetchingStacksBalance || isFetchingBtcBalance,
     };
   }, [
-    stxBalance,
-    stxMarketData,
     btcBalance.availableBalance,
     btcMarketData,
-    isLoading,
-    isLoadingBtcBalance,
-    isInitialLoading,
-    isInititalLoadingBtcBalance,
-    isFetchingStacksBalance,
     isFetchingBtcBalance,
+    isFetchingStxBalance,
+    isLoadingBtcBalance,
+    isLoadingStxBalance,
+    isPendingBtcBalance,
+    isPendingStxBalance,
+    stxBalance,
+    stxMarketData,
   ]);
 }

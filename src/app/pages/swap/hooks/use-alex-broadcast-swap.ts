@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { SponsoredTxError } from 'alex-sdk';
 
-import { delay } from '@leather-wallet/utils';
+import { delay } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';

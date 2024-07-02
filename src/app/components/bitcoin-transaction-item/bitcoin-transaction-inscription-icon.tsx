@@ -1,8 +1,7 @@
 import { Circle } from 'leather-styles/jsx';
 
-import type { Inscription } from '@leather-wallet/models';
-
-import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
+import type { Inscription } from '@leather.io/models';
+import { OrdinalAvatarIcon } from '@leather.io/ui';
 
 export function InscriptionIcon({ inscription, ...rest }: { inscription: Inscription }) {
   switch (inscription.mimeType) {

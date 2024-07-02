@@ -1,6 +1,6 @@
 import { BoxProps, styled } from 'leather-styles/jsx';
 
-import type { SupportedBlockchains } from '@leather-wallet/models';
+import type { SupportedBlockchains } from '@leather.io/models';
 
 import { Capitalize } from '@app/ui/utils/capitalize';
 

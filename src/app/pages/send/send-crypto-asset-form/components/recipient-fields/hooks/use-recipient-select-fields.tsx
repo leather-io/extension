@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useFormikContext } from 'formik';
 
-import type { Entries } from '@leather-wallet/models';
+import type { Entries } from '@leather.io/models';
 
 import { RouteUrls } from '@shared/route-urls';
 

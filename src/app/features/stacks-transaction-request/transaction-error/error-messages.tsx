@@ -4,13 +4,14 @@ import { Navigate } from 'react-router-dom';
 import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
 import { Flex, HStack, Stack } from 'leather-styles/jsx';
 
-import { useStxAvailableUnlockedBalance } from '@leather-wallet/query';
-import { truncateMiddle } from '@leather-wallet/utils';
+import { useStxAvailableUnlockedBalance } from '@leather.io/query';
+import { Button, Caption } from '@leather.io/ui';
+import { truncateMiddle } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { stacksValue } from '@app/common/stacks-utils';
 import { SwitchAccountDialog } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
@@ -18,14 +19,11 @@ import { ErrorMessage } from '@app/features/stacks-transaction-request/transacti
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { Button } from '@app/ui/components/button/button';
-import { Caption } from '@app/ui/components/typography/caption';
 
 interface InsufficientFundsActionButtonsProps {
   eventName: string;
 }
 function InsufficientFundsActionButtons({ eventName }: InsufficientFundsActionButtonsProps) {
-  const analytics = useAnalytics();
   const [isShowingSwitchAccount, setIsShowingSwitchAccount] = useState(false);
 
   const onGetStx = () => {

@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 
-import { isNumber } from '@leather-wallet/utils';
+import { Caption, DropdownMenu } from '@leather.io/ui';
+import { isNumber } from '@leather.io/utils';
 
 import {
   clearBrowserStorageLogs,
@@ -11,8 +12,6 @@ import {
 
 import { Divider } from '@app/components/layout/divider';
 import { useToast } from '@app/features/toasts/use-toast';
-import { DropdownMenu } from '@app/ui/components/dropdown-menu/dropdown-menu';
-import { Caption } from '@app/ui/components/typography/caption';
 
 const isAnEmptyLogsArrayByteThreshold = 7;
 

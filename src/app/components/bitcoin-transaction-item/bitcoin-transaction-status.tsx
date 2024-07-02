@@ -1,7 +1,7 @@
-import type { BitcoinTx } from '@leather-wallet/models';
+import type { BitcoinTx } from '@leather.io/models';
+import { Caption } from '@leather.io/ui';
 
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { Caption } from '@app/ui/components/typography/caption';
 
 interface BitcoinTransactionStatusProps {
   transaction: BitcoinTx;

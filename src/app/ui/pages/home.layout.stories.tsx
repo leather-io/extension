@@ -1,11 +1,9 @@
 import type { Meta } from '@storybook/react';
 import { Box, Flex, Stack } from 'leather-styles/jsx';
 
-import { RouteUrls } from '@shared/route-urls';
+import { ArrowDownIcon, ArrowUpIcon, IconButton, PlusIcon, SwapIcon, Tabs } from '@leather.io/ui';
 
-import { IconButton } from '@app/ui/components/icon-button/icon-button';
-import { Tabs } from '@app/ui/components/tabs/tabs';
-import { ArrowDownIcon, ArrowUpIcon, PlusIcon, SwapIcon } from '@app/ui/icons';
+import { RouteUrls } from '@shared/route-urls';
 
 import { HomeLayout as Component } from './home.layout';
 

@@ -1,13 +1,12 @@
 import type { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
 
-import type { StxTransfer } from '@leather-wallet/models';
+import type { StxTransfer } from '@leather.io/models';
+import { ArrowDownIcon, ArrowUpIcon } from '@leather.io/ui';
 
 import { stacksValue } from '@app/common/stacks-utils';
 import { getTxCaption } from '@app/common/transactions/stacks/transaction.utils';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { ArrowDownIcon } from '@app/ui/icons/arrow-down-icon';
-import { ArrowUpIcon } from '@app/ui/icons/arrow-up-icon';
 
 import { TxTransferIconWrapper } from './tx-transfer-icon-wrapper';
 

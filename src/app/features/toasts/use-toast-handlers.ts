@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 
-import type { ToastProps } from '@app/ui/components/toast/toast';
+import type { ToastProps } from '@leather.io/ui';
 
 export function useToastHandlers() {
   const [toasts, setToasts] = useState(new Map());

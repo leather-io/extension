@@ -4,8 +4,9 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import { Flex, Stack } from 'leather-styles/jsx';
 
-import type { BitcoinTx } from '@leather-wallet/models';
-import { btcToSat, createMoney, formatMoney } from '@leather-wallet/utils';
+import type { BitcoinTx } from '@leather.io/models';
+import { Caption, Dialog, Spinner } from '@leather.io/ui';
+import { btcToSat, createMoney, formatMoney } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -15,11 +16,8 @@ import { BitcoinCustomFeeInput } from '@app/components/bitcoin-custom-fee/bitcoi
 import { BitcoinTransactionItem } from '@app/components/bitcoin-transaction-item/bitcoin-transaction-item';
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
-import { Spinner } from '@app/ui/components/spinner';
-import { Caption } from '@app/ui/components/typography/caption';
 
 import { IncreaseFeeActions } from './components/increase-fee-actions';
 import { useBtcIncreaseFee } from './hooks/use-btc-increase-fee';

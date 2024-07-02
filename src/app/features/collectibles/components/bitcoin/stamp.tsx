@@ -1,4 +1,4 @@
-import { Stamp as BitcoinStamp } from '@leather-wallet/query';
+import { Stamp as BitcoinStamp } from '@leather.io/query';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { StampsAvatarIcon } from '@app/ui/components/avatar/stamps-avatar-icon';

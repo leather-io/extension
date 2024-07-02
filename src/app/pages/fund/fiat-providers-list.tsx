@@ -2,9 +2,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Grid } from 'leather-styles/jsx';
 
-import type { CryptoCurrencies } from '@leather-wallet/models';
+import type { CryptoCurrencies } from '@leather.io/models';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
+
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import {
@@ -26,7 +27,7 @@ export function FiatProvidersList(props: FiatProvidersProps) {
   const navigate = useNavigate();
   const activeProviders = useActiveFiatProviders();
   const hasProviders = useHasFiatProviders();
-  const analytics = useAnalytics();
+
   const location = useLocation();
 
   const goToProviderExternalWebsite = (provider: string, providerUrl: string) => {

@@ -8,8 +8,8 @@ import {
   ecdsaPublicKeyToSchnorr,
   getNativeSegwitAccountDerivationPath,
   getTaprootAccountDerivationPath,
-} from '@leather-wallet/bitcoin';
-import { makeNumberRange } from '@leather-wallet/utils';
+} from '@leather.io/bitcoin';
+import { makeNumberRange } from '@leather.io/utils';
 
 import { getAssumedZeroIndexSigningConfig } from './signer-config';
 

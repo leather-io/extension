@@ -2,8 +2,9 @@ import { Suspense, memo } from 'react';
 
 import { Stack, StackProps } from 'leather-styles/jsx';
 
+import { Caption } from '@leather.io/ui';
+
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { Caption } from '@app/ui/components/typography/caption';
 
 import { FunctionArgumentItem } from './function-argument-item';
 

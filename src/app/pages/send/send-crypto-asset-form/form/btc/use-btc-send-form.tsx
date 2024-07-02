@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { FormikHelpers, FormikProps } from 'formik';
 import * as yup from 'yup';
 
-import { bitcoinNetworkModeToCoreNetworkMode } from '@leather-wallet/bitcoin';
+import { bitcoinNetworkModeToCoreNetworkMode } from '@leather.io/bitcoin';
 
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 

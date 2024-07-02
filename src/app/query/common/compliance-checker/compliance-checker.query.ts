@@ -1,12 +1,11 @@
 import { type UseQueryOptions, useQueries } from '@tanstack/react-query';
 import axios from 'axios';
 
-import type { BitcoinNetworkModes } from '@leather-wallet/models';
-import { ensureArray } from '@leather-wallet/utils';
+import type { BitcoinNetworkModes } from '@leather.io/models';
+import { ensureArray } from '@leather.io/utils';
 
 import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -56,7 +55,7 @@ function makeComplianceQuery(
     async queryFn() {
       return checkEntityAddressIsCompliant(address);
     },
-    cacheTime: Infinity,
+    gcTime: Infinity,
     staleTime: oneWeekInMs,
     refetchInterval: oneWeekInMs,
     refetchOnMount: false,
@@ -77,7 +76,6 @@ function useCheckAddressComplianceQueries(addresses: string[]) {
 export const compliantErrorBody = 'Unable to handle request, errorCode: 1398';
 
 export function useBreakOnNonCompliantEntity(address: string | string[]) {
-  const analytics = useAnalytics();
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
 
   const complianceReports = useCheckAddressComplianceQueries([

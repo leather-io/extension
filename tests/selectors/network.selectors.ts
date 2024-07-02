@@ -5,7 +5,6 @@ export enum NetworkSelectors {
   NetworkStacksAddress = 'network-stacks-address',
   NetworkBitcoinAddress = 'network-bitcoin-address',
   NetworkKey = 'network-key',
-  AddNetworkBtn = 'add-network-btn',
   ErrorText = 'error-text',
   EmptyNameError = 'Enter a name',
   EmptyStacksAddressError = 'Enter a valid Stacks API URL',
@@ -13,4 +12,9 @@ export enum NetworkSelectors {
   EmptyKeyError = 'Enter a unique key',
   NoStacksNodeFetch = 'Unable to fetch info from stacks node',
   NoBitcoinNodeFetch = 'Unable to fetch mempool from bitcoin node',
+
+  // add network form
+  AddNetworkBtn = 'add-network-btn',
+  AddNetworkBitcoinAPISelector = 'add-network-bitcoin-api-selector',
+  BitcoinAPIOptionTestnet = 'bitcoin-api-option-testnet',
 }

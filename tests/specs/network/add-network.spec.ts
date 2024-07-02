@@ -15,6 +15,15 @@ test.describe('Networks tests', () => {
     }
   );
 
+  test('that bitcoin api url changes on selecting different network', async ({ page }) => {
+    await page.getByTestId(NetworkSelectors.AddNetworkBitcoinAPISelector).click();
+    await page.getByTestId(NetworkSelectors.BitcoinAPIOptionTestnet).click();
+
+    const bitcoinUrl = await page.getByTestId(NetworkSelectors.NetworkBitcoinAddress);
+
+    test.expect(await bitcoinUrl.inputValue()).toEqual('https://blockstream.info/testnet/api');
+  });
+
   test('validation error when stacks api url is empty', async ({ networkPage }) => {
     await networkPage.inputNetworkNameField('Test network');
     await networkPage.inputNetworkStacksAddressField('');

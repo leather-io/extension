@@ -3,13 +3,13 @@ import { Outlet, useParams } from 'react-router-dom';
 import { deserializeTransaction } from '@stacks/transactions';
 import { Box, Stack } from 'leather-styles/jsx';
 
-import type { CryptoCurrencies } from '@leather-wallet/models';
+import type { CryptoCurrencies } from '@leather.io/models';
+import { InfoCircleIcon } from '@leather.io/ui';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
 import { useStacksTransactionSummary } from '@app/features/stacks-transaction-request/hooks/use-stacks-transaction-summary';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { InfoCircleIcon } from '@app/ui/icons/info-circle-icon';
 
 import { SendFormConfirmation } from '../send-form-confirmation';
 

@@ -1,11 +1,11 @@
 import BigNumber from 'bignumber.js';
 
-import { createMoney, formatMoneyPadded } from '@leather-wallet/utils';
+import { Button } from '@leather.io/ui';
+import { createMoney, formatMoneyPadded } from '@leather.io/utils';
 
 import { InfoCardFooter } from '@app/components/info-card/info-card';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { Button } from '@app/ui/components/button/button';
 
 import { SendTransferDetails } from './components/send-transfer-details';
 import { SendTransferHeader } from './components/send-transfer-header';

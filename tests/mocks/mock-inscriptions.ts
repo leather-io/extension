@@ -1,4 +1,4 @@
-import { type InscriptionResponseHiro, createInscriptionHiro } from '@leather-wallet/query';
+import { type InscriptionResponseHiro, createInscriptionHiro } from '@leather.io/query';
 
 export const mockInscriptionResponse1: InscriptionResponseHiro = {
   address: 'bc1pwrmewwprc8k8l2k63x4advg0nx0jk50xzqnee996lm87mcuza7kq6drg2k',

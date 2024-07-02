@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 import { Stack } from 'leather-styles/jsx';
 
-import type { Brc20CryptoAssetInfo, CryptoAssetBalance, MarketData } from '@leather-wallet/models';
+import type { Brc20CryptoAssetInfo, CryptoAssetBalance, MarketData } from '@leather.io/models';
+import { Brc20AvatarIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 import type { AssetListVariant } from '@app/features/asset-list/asset-list';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
-import { Brc20AvatarIcon } from '@app/ui/components/avatar/brc20-avatar-icon';
 
 interface Brc20TokenAssetDetails {
   balance: CryptoAssetBalance;
@@ -25,7 +25,7 @@ interface Brc20TokenAssetListProps {
 }
 export function Brc20TokenAssetList({ tokens, variant }: Brc20TokenAssetListProps) {
   const navigate = useNavigate();
-  const { balance, isInitialLoading } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
+  const { balance, isLoading } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
 
   const hasPositiveBtcBalanceForFees =
     variant === 'interactive' && balance.availableBalance.amount.isGreaterThan(0);
@@ -42,6 +42,7 @@ export function Brc20TokenAssetList({ tokens, variant }: Brc20TokenAssetListProp
     });
   }
 
+  if (!tokens.length) return null;
   return (
     <Stack data-testid={CryptoAssetSelectors.CryptoAssetList}>
       {tokens.map(token => (
@@ -49,7 +50,7 @@ export function Brc20TokenAssetList({ tokens, variant }: Brc20TokenAssetListProp
           availableBalance={token.balance.availableBalance}
           captionLeft={token.info.name.toUpperCase()}
           icon={<Brc20AvatarIcon />}
-          isLoading={isInitialLoading}
+          isLoading={isLoading}
           key={token.info.symbol}
           onSelectAsset={
             hasPositiveBtcBalanceForFees ? () => navigateToBrc20SendForm(token) : undefined

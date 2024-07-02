@@ -42,6 +42,12 @@ const config: StorybookConfig = {
             loader: 'esbuild-loader',
             options: { tsconfig: './tsconfig.json', target: 'es2020' },
           },
+          {
+            test: /\.(js)$/,
+            include: [/node_modules\/@leather.io\/ui/],
+            loader: 'esbuild-loader',
+            options: { tsconfig: './tsconfig.json', loader: 'jsx', target: 'es2020' },
+          },
         ],
       },
     },

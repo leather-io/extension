@@ -1,11 +1,10 @@
 import type React from 'react';
 
-import type { Blockchains, Currencies } from '@leather-wallet/models';
+import type { Blockchains, Currencies } from '@leather.io/models';
+import { ItemLayout, Pressable } from '@leather.io/ui';
 
 import { capitalize } from '@app/common/utils';
 import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
-import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
-import { Pressable } from '@app/ui/pressable/pressable';
 
 import type { AssetListVariant } from '../asset-list';
 import { ConnectLedgerButton } from './connect-ledger-asset-button';

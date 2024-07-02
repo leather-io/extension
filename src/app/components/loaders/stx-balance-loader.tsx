@@ -1,15 +1,33 @@
-import type { StxCryptoAssetBalance } from '@leather-wallet/models';
-import { useStxCryptoAssetBalance } from '@leather-wallet/query';
+import type { StxCryptoAssetBalance } from '@leather.io/models';
+import {
+  isErrorTooManyRequests,
+  isFetchedWithSuccess,
+  isInitializingData,
+  useStxCryptoAssetBalance,
+} from '@leather.io/query';
+import { StxAvatarIcon } from '@leather.io/ui';
 
-import { isFetchedWithSuccess } from '@app/query/query-config';
+import { CryptoAssetItemError } from '../crypto-asset-item/crypto-asset-item-error';
+import { CryptoAssetItemPlaceholder } from '../crypto-asset-item/crypto-asset-item-placeholder';
 
-interface StxBalanceLoaderProps {
+interface StxAssetItemBalanceLoaderProps {
   address: string;
-  children(balance: StxCryptoAssetBalance, isInitialLoading: boolean): React.ReactNode;
+  children(balance: StxCryptoAssetBalance, isLoading: boolean): React.ReactNode;
 }
-export function StxBalanceLoader({ address, children }: StxBalanceLoaderProps) {
+export function StxAssetItemBalanceLoader({ address, children }: StxAssetItemBalanceLoaderProps) {
   const result = useStxCryptoAssetBalance(address);
-  if (!isFetchedWithSuccess(result)) return null;
-  const { data: balance, isInitialLoading } = result;
-  return children(balance, isInitialLoading);
+  if (isInitializingData(result)) return <CryptoAssetItemPlaceholder />;
+  if (isErrorTooManyRequests(result))
+    return (
+      <CryptoAssetItemError
+        caption="STX"
+        icon={<StxAvatarIcon />}
+        onRefetch={() => result.refetch()}
+        title="Stacks"
+      />
+    );
+  if (!isFetchedWithSuccess(result))
+    return <CryptoAssetItemError caption="STX" icon={<StxAvatarIcon />} title="Stacks" />;
+  const { data: balance, isLoading } = result;
+  return children(balance, isLoading);
 }

@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react';
 
 import type { TransactionInput, TransactionOutput } from '@scure/btc-signer/psbt';
 
-import { createMoney, subtractMoney } from '@leather-wallet/utils';
+import { createMoney, subtractMoney } from '@leather.io/utils';
 
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';

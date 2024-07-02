@@ -1,7 +1,7 @@
-import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather-wallet/models';
+import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather.io/models';
+import { StxAvatarIcon } from '@leather.io/ui';
 
 import { StacksAssetAvatar } from '@app/components/stacks-asset-avatar';
-import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
 import { AmountField } from '../../components/amount-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';

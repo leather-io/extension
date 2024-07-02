@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import { TransactionTypes } from '@stacks/connect';
 import { FungiblePostCondition, addressToString } from '@stacks/transactions';
 
-import { truncateMiddle } from '@leather-wallet/utils';
+import { truncateMiddle } from '@leather.io/utils';
 
 import { ftDecimals, getSafeImageCanonicalUri } from '@app/common/stacks-utils';
 import {

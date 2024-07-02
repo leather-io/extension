@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { ContractCallPayload } from '@stacks/connect';
 
-import { useNextNonce } from '@leather-wallet/query';
+import { useNextNonce } from '@leather.io/query';
 
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 

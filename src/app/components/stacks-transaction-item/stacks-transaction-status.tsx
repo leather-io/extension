@@ -1,8 +1,8 @@
-import { StacksTx } from '@leather-wallet/models';
+import { StacksTx } from '@leather.io/models';
+import { Caption } from '@leather.io/ui';
 
 import { isPendingTx } from '@app/common/transactions/stacks/transaction.utils';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { Caption } from '@app/ui/components/typography/caption';
 
 const pendingWaitingMessage =
   'This transaction is waiting to be confirmed. Depending on network congestion, this may take anywhere from a few minutes, to a couple of hours.';

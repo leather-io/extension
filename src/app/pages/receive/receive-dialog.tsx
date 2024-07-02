@@ -4,17 +4,17 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { RouteUrls } from '@shared/route-urls';
+import { Dialog, Tabs } from '@leather.io/ui';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
+
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Header } from '@app/ui/components/containers/headers/header';
-import { Tabs } from '@app/ui/components/tabs/tabs';
 
 import { ReceiveCollectibles } from './components/receive-collectibles';
 import { ReceiveTokens } from './components/receive-tokens';
@@ -34,7 +34,7 @@ interface ReceiveDialogProps {
 
 export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
   useBackgroundLocationRedirect();
-  const analytics = useAnalytics();
+
   const backgroundLocation = useLocationState<Location>('backgroundLocation');
   const navigate = useNavigate();
   const location = useLocation();

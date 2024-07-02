@@ -1,9 +1,9 @@
 import { Flex, Grid, HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
+import { RefreshIcon, Spinner } from '@leather.io/ui';
+
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { Spinner } from '@app/ui/components/spinner';
-import { RefreshIcon } from '@app/ui/icons/refresh-icon';
 
 interface CollectiblesLayoutProps {
   title: string;

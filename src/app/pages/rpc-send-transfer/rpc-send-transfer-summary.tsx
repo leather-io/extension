@@ -2,9 +2,11 @@ import { useLocation } from 'react-router-dom';
 
 import { HStack, Stack } from 'leather-styles/jsx';
 
-import type { TransferRecipient } from '@shared/models/form.model';
+import { CheckmarkIcon, CopyIcon, ExternalLinkIcon } from '@leather.io/ui';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import type { TransferRecipient } from '@shared/models/form.model';
+import { analytics } from '@shared/utils/analytics';
+
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
@@ -16,15 +18,12 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { useToast } from '@app/features/toasts/use-toast';
-import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
-import { CopyIcon } from '@app/ui/icons/copy-icon';
-import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
 import { Card } from '@app/ui/layout/card/card';
 
 export function RpcSendTransferSummary() {
   const { state } = useLocation();
   const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
-  const analytics = useAnalytics();
+
   const toast = useToast();
 
   const {

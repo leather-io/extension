@@ -6,8 +6,8 @@ import { PartialSignature } from 'ledger-bitcoin/build/main/lib/appClient';
 import {
   getNativeSegwitAccountDerivationPath,
   getTaprootAccountDerivationPath,
-} from '@leather-wallet/bitcoin';
-import type { BitcoinNetworkModes } from '@leather-wallet/models';
+} from '@leather.io/bitcoin';
+import type { BitcoinNetworkModes } from '@leather.io/models';
 
 import { LEDGER_APPS_MAP, promptOpenAppOnDevice } from './generic-ledger-utils';
 

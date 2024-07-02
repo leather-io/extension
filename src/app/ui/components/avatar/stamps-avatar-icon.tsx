@@ -1,6 +1,6 @@
 import StampsAvatarIconSrc from '@assets/avatars/stamps-avatar-icon.png';
 
-import { Avatar, type AvatarProps } from './avatar';
+import { Avatar, type AvatarProps } from '@leather.io/ui';
 
 const fallback = 'ST';
 

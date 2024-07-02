@@ -6,10 +6,13 @@ import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box } from 'leather-styles/jsx';
 
+import { Flag, HamburgerIcon, Logo, NetworkModeBadge } from '@leather.io/ui';
+
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics, useInitalizeAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useInitalizeAnalytics } from '@app/common/app-analytics';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
@@ -20,11 +23,7 @@ import { useOnWalletLock } from '@app/routes/hooks/use-on-wallet-lock';
 import { useHasStateRehydrated } from '@app/store';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { ContainerLayout } from '@app/ui/components/containers/container.layout';
-import { NetworkModeBadge } from '@app/ui/components/containers/headers/components/network-mode-badge';
 import { Header } from '@app/ui/components/containers/headers/header';
-import { Flag } from '@app/ui/components/flag/flag';
-import { Logo } from '@app/ui/components/logo';
-import { HamburgerIcon } from '@app/ui/icons/';
 
 import { useRestoreFormState } from '../popup-send-form-restoration/use-restore-form-state';
 import { Settings } from '../settings/settings';
@@ -53,7 +52,7 @@ export function Container() {
   const navigate = useNavigate();
   const { pathname: locationPathname } = useLocation();
   const pathname = locationPathname as RouteUrls;
-  const analytics = useAnalytics();
+
   const hasStateRehydrated = useHasStateRehydrated();
   const { chain, name: chainName } = useCurrentNetworkState();
 
@@ -62,7 +61,7 @@ export function Container() {
   useRestoreFormState();
   useInitalizeAnalytics();
 
-  useEffect(() => void analytics.page('view', `${pathname}`), [analytics, pathname]);
+  useEffect(() => void analytics.page('view', `${pathname}`), [pathname]);
 
   const variant = getPageVariant(pathname);
 

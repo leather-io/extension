@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import { Box, FlexProps, Stack, styled } from 'leather-styles/jsx';
 
-import type { BtcFeeType, Money } from '@leather-wallet/models';
-import { formatMoney } from '@leather-wallet/utils';
+import type { BtcFeeType, Money } from '@leather.io/models';
+import { formatMoney } from '@leather.io/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 

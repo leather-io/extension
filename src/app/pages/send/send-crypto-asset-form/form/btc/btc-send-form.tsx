@@ -4,18 +4,13 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
 import { Box } from 'leather-styles/jsx';
 
-import { HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@leather-wallet/constants';
-import type { CryptoCurrencies } from '@leather-wallet/models';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
-import { formatMoney } from '@leather-wallet/utils';
+import type { CryptoCurrencies } from '@leather.io/models';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
+import { BtcAvatarIcon, Button, Callout, Link } from '@leather.io/ui';
+import { formatMoney } from '@leather.io/utils';
 
-import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
-import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
-import { Button } from '@app/ui/components/button/button';
-import { Callout } from '@app/ui/components/callout/callout';
 import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Link } from '@app/ui/components/link/link';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
 
@@ -115,7 +110,6 @@ export function BtcSendForm() {
                   )}
                 </CardContent>
               </Card>
-              <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
               <Outlet />
 
               {/* This is for testing purposes only, to make sure the form is ready to be submitted. */}

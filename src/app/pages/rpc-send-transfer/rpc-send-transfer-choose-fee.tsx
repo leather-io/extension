@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import type { BtcFeeType, Money } from '@leather-wallet/models';
-import type { UtxoResponseItem } from '@leather-wallet/query';
+import type { BtcFeeType, Money } from '@leather.io/models';
+import type { UtxoResponseItem } from '@leather.io/query';
 
 import { logger } from '@shared/logger';
 import type { TransferRecipient } from '@shared/models/form.model';

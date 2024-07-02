@@ -4,13 +4,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useFormikContext } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
 
+import { Dialog, Link } from '@leather.io/ui';
+
 import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
-import { Link } from '@app/ui/components/link/link';
 
 import { EditNonceForm } from './components/edit-nonce-form';
 

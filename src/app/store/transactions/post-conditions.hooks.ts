@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { ContractCallPayload, ContractDeployPayload, STXTransferPayload } from '@stacks/connect';
 import { FungiblePostCondition, addressToString } from '@stacks/transactions';
 
-import { isFtAsset, useGetFungibleTokenMetadataQuery } from '@leather-wallet/query';
+import { isFtAsset, useGetFungibleTokenMetadataQuery } from '@leather.io/query';
 
 import {
   getPostCondition,

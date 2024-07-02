@@ -3,12 +3,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { HStack } from 'leather-styles/jsx';
 
-import type { BitcoinTx } from '@leather-wallet/models';
-import { useInscriptionByOutput } from '@leather-wallet/query';
+import type { BitcoinTx } from '@leather.io/models';
+import { useInscriptionByOutput } from '@leather.io/query';
+import { BtcAvatarIcon, BulletSeparator, Caption } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import {
   containsTaprootInput,
@@ -20,9 +21,6 @@ import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { IncreaseFeeButton } from '@app/components/stacks-transaction-item/increase-fee-button';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
-import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
-import { Caption } from '@app/ui/components/typography/caption';
 
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
 import { BitcoinTransactionIcon } from './bitcoin-transaction-icon';
@@ -40,7 +38,6 @@ export function BitcoinTransactionItem({ transaction }: BitcoinTransactionItemPr
 
   const bitcoinAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
-  const analytics = useAnalytics();
   const caption = useMemo(() => getBitcoinTxCaption(transaction), [transaction]);
   const value = useMemo(
     () => getBitcoinTxValue(bitcoinAddress, transaction),

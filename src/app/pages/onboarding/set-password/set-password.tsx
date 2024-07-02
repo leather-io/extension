@@ -6,12 +6,13 @@ import { Form, Formik } from 'formik';
 import { debounce } from 'ts-debounce';
 import * as yup from 'yup';
 
-import { isUndefined } from '@leather-wallet/utils';
+import { Button } from '@leather.io/ui';
+import { isUndefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
 import { useFinishAuthRequest } from '@app/common/authentication/use-finish-auth-request';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import {
@@ -20,7 +21,6 @@ import {
 } from '@app/common/validation/validate-password';
 import { OnboardingGate } from '@app/routes/onboarding-gate';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { Button } from '@app/ui/components/button/button';
 import { TwoColumnLayout } from '@app/ui/pages/two-column.layout';
 
 import { PasswordField } from './components/password-field';
@@ -49,11 +49,10 @@ function SetPasswordPage() {
   const finishSignIn = useFinishAuthRequest();
   const navigate = useNavigate();
   const { decodedAuthRequest } = useOnboardingState();
-  const analytics = useAnalytics();
 
   useEffect(() => {
     void analytics.page('view', '/set-password');
-  }, [analytics]);
+  }, []);
 
   const submit = useCallback(
     async (password: string) => {
@@ -85,7 +84,7 @@ function SetPasswordPage() {
       }
       setLoading(false);
     },
-    [strengthResult, submit, analytics]
+    [strengthResult, submit]
   );
 
   const validationSchema = yup.object({

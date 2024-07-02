@@ -1,5 +1,5 @@
-import { defaultCurrentNetwork } from '@leather-wallet/models';
-import { useNetworkStatus } from '@leather-wallet/query';
+import { defaultCurrentNetwork } from '@leather.io/models';
+import { useNetworkStatus } from '@leather.io/query';
 
 import { useCurrentNetworkId, useNetworks } from '@app/store/networks/networks.selectors';
 

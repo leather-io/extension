@@ -16,7 +16,7 @@ export function CurrentStacksAccountLoader({
   fallback,
 }: CurrentStacksAccountLoaderProps) {
   const currentAccount = useCurrentStacksAccount();
-  if (!currentAccount) return fallback ? fallback : null;
+  if (!currentAccount) return fallback;
   return children(currentAccount);
 }
 

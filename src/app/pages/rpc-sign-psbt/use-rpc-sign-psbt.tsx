@@ -4,25 +4,25 @@ import { RpcErrorCode } from '@btckit/types';
 import { hexToBytes } from '@noble/hashes/utils';
 import { bytesToHex } from '@stacks/common';
 
-import type { Money } from '@leather-wallet/models';
+import type { Money } from '@leather.io/models';
 import {
   useBitcoinBroadcastTransaction,
   useCalculateBitcoinFiatValue,
   useCryptoCurrencyMarketDataMeanAverage,
-} from '@leather-wallet/query';
+} from '@leather.io/query';
 import {
   formatMoney,
   formatMoneyPadded,
   i18nFormatCurrency,
   isError,
   sumMoney,
-} from '@leather-wallet/utils';
+} from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { closeWindow } from '@shared/utils';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { SignPsbtArgs } from '@app/common/psbt/requests';
 import { useRpcSignPsbtParams } from '@app/common/psbt/use-psbt-request-params';
 import { usePsbtSigner } from '@app/features/psbt-signer/hooks/use-psbt-signer';
@@ -36,7 +36,6 @@ interface BroadcastSignedPsbtTxArgs {
   tx: string;
 }
 export function useRpcSignPsbt() {
-  const analytics = useAnalytics();
   const navigate = useNavigate();
   const { broadcast, origin, psbtHex, requestId, signAtIndex, tabId } = useRpcSignPsbtParams();
   const { signPsbt, getPsbtAsTransaction } = usePsbtSigner();

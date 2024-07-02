@@ -4,10 +4,11 @@ import {
   TEST_BNS_RESOLVED_ADDRESS,
   TEST_TESTNET_ACCOUNT_2_STX_ADDRESS,
 } from '@tests/mocks/constants';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { getDisplayerAddress } from '@tests/utils';
 
-import { STX_DECIMALS } from '@leather-wallet/constants';
+import { HIGH_FEE_AMOUNT_STX, STX_DECIMALS } from '@leather.io/constants';
 
 import { FormErrorMessages } from '@shared/error-messages';
 
@@ -23,6 +24,28 @@ test.describe('send stx: tests on testnet', () => {
     await homePage.selectTestnet();
     await homePage.sendButton.click();
     await sendPage.selectStxAndGoToSendForm();
+  });
+
+  test('that we show high fee warning in case of high custom fee', async ({ sendPage, page }) => {
+    const highFeeAmount = HIGH_FEE_AMOUNT_STX + 1;
+    await sendPage.amountInput.fill(amount);
+    await sendPage.amountInput.blur();
+    await sendPage.recipientInput.fill(TEST_TESTNET_ACCOUNT_2_STX_ADDRESS);
+    await sendPage.recipientInput.blur();
+
+    await page.getByTestId(SharedComponentsSelectors.MiddleFeeEstimateItem).click();
+    await page.getByTestId(SharedComponentsSelectors.CustomFeeSelectItem).click();
+    await page
+      .getByTestId(SharedComponentsSelectors.CustomFeeFieldInput)
+      .fill(highFeeAmount.toString());
+
+    await sendPage.previewSendTxButton.click();
+
+    await page.getByTestId(SendCryptoAssetSelectors.HighFeeWarningDialog).isVisible();
+    await page.getByTestId(SendCryptoAssetSelectors.HighFeeWarningDialogSubmit).click();
+
+    const details = await sendPage.confirmationDetails.allInnerTexts();
+    test.expect(details).toBeTruthy();
   });
 
   test('that send max button sets available balance minus fee', async ({ sendPage }) => {

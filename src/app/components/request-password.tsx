@@ -3,13 +3,14 @@ import { FormEvent, useCallback, useState } from 'react';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, Stack, styled } from 'leather-styles/jsx';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { Button, Logo } from '@leather.io/ui';
+
+import { analytics } from '@shared/utils/analytics';
+
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { buildEnterKeyEvent } from '@app/common/hooks/use-modifier-key';
 import { WaitingMessages, useWaitingMessage } from '@app/common/hooks/use-waiting-message';
-import { Button } from '@app/ui/components/button/button';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Logo } from '@app/ui/components/logo';
 import { Card } from '@app/ui/layout/card/card';
 import { Page } from '@app/ui/layout/page/page.layout';
 
@@ -31,7 +32,7 @@ export function RequestPassword({ onSuccess }: RequestPasswordProps) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { unlockWallet } = useKeyActions();
-  const analytics = useAnalytics();
+
   const [isRunning, waitingMessage, startWaitingMessage, stopWaitingMessage] =
     useWaitingMessage(waitingMessages);
 
@@ -51,7 +52,7 @@ export function RequestPassword({ onSuccess }: RequestPasswordProps) {
     void analytics.track('complete_unlock', {
       durationMs: unlockSuccessTimeMs - startUnlockTimeMs,
     });
-  }, [analytics, startWaitingMessage, stopWaitingMessage, unlockWallet, password, onSuccess]);
+  }, [startWaitingMessage, stopWaitingMessage, unlockWallet, password, onSuccess]);
 
   return (
     <Page>

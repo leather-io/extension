@@ -1,6 +1,6 @@
 import { AddressVersion } from '@stacks/transactions';
 
-import { type BitcoinClient, type StacksClient, fetchNamesForAddress } from '@leather-wallet/query';
+import { type BitcoinClient, type StacksClient, fetchNamesForAddress } from '@leather.io/query';
 
 import { decryptMnemonic, encryptMnemonic } from '@shared/crypto/mnemonic-encryption';
 import { logger } from '@shared/logger';

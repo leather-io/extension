@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { PayloadType, cvToString } from '@stacks/transactions';
 import { BigNumber } from 'bignumber.js';
 
-import { microStxToStx } from '@leather-wallet/utils';
+import { microStxToStx } from '@leather.io/utils';
 
 import { isSip10Transfer } from '@app/common/transactions/stacks/is-sip-10-transfer';
 import { useLedgerTxSigningContext } from '@app/features/ledger/generic-flows/tx-signing/ledger-sign-tx.context';

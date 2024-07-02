@@ -5,14 +5,13 @@ import { Form, Formik } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
-import type { BtcFeeType } from '@leather-wallet/models';
-import { createMoney } from '@leather-wallet/utils';
+import type { BtcFeeType } from '@leather.io/models';
+import { Button, Link } from '@leather.io/ui';
+import { createMoney } from '@leather.io/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Button } from '@app/ui/components/button/button';
-import { Link } from '@app/ui/components/link/link';
 
 import { OnChooseFeeArgs } from '../bitcoin-fees-list/bitcoin-fees-list';
 import { BitcoinCustomFeeInput } from './bitcoin-custom-fee-input';

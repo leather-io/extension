@@ -2,12 +2,8 @@ import { useState } from 'react';
 
 import { Stack, styled } from 'leather-styles/jsx';
 
-import {
-  type Sip10TokenAssetDetails,
-  useAlexCurrencyPriceAsMarketData,
-} from '@leather-wallet/query';
-
-import { Accordion } from '@app/ui/components/accordion/accordion';
+import { type Sip10TokenAssetDetails, useAlexCurrencyPriceAsMarketData } from '@leather.io/query';
+import { Accordion } from '@leather.io/ui';
 
 import { Sip10TokenAssetItem } from './sip10-token-asset-item';
 

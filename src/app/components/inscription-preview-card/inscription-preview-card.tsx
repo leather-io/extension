@@ -1,4 +1,4 @@
-import { Flag } from '@app/ui/components/flag/flag';
+import { Flag } from '@leather.io/ui';
 
 import { InscriptionMetadata } from './components/inscription-metadata';
 

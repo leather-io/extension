@@ -4,13 +4,10 @@ import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contra
 import { HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
+import { ArrowUpIcon, BtcAvatarIcon, CopyIcon, Flag, Link } from '@leather.io/ui';
+
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
-import { Flag } from '@app/ui/components/flag/flag';
-import { Link } from '@app/ui/components/link/link';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { ArrowUpIcon } from '@app/ui/icons/arrow-up-icon';
-import { CopyIcon } from '@app/ui/icons/copy-icon';
 
 interface BitcoinContractLockAmountProps {
   hoverLabel?: string;

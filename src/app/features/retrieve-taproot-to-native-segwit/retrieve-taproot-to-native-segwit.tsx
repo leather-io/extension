@@ -6,12 +6,13 @@ import {
   useBitcoinBroadcastTransaction,
   useCurrentTaprootAccountBalance,
   useCurrentTaprootAccountUninscribedUtxos,
-} from '@leather-wallet/query';
-import { delay, formatMoneyPadded, truncateMiddle } from '@leather-wallet/utils';
+} from '@leather.io/query';
+import { Link } from '@leather.io/ui';
+import { delay, formatMoneyPadded, truncateMiddle } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { useToast } from '@app/features/toasts/use-toast';
@@ -21,7 +22,6 @@ import {
   useCurrentAccountNativeSegwitIndexZeroSigner,
 } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
-import { Link } from '@app/ui/components/link/link';
 
 import { RetrieveTaprootToNativeSegwitLayout } from './components/retrieve-taproot-to-native-segwit.layout';
 import { useGenerateRetrieveTaprootFundsTx } from './use-generate-retrieve-taproot-funds-tx';
@@ -44,7 +44,7 @@ export function RetrieveTaprootToNativeSegwit() {
     nativeSegwitAddress: nativeSegwitSigner.address,
     currentAccountIndex,
   });
-  const analytics = useAnalytics();
+
   const { generateRetrieveTaprootFundsTx, fee } = useGenerateRetrieveTaprootFundsTx();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
 

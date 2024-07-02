@@ -5,13 +5,13 @@ import BigNumber from 'bignumber.js';
 import { useFormikContext } from 'formik';
 import { Stack } from 'leather-styles/jsx';
 
-import type { SwapAsset } from '@leather-wallet/query';
+import type { SwapAsset } from '@leather.io/query';
 import {
   convertAmountToFractionalUnit,
   createMoney,
   formatMoneyWithoutSymbol,
   isUndefined,
-} from '@leather-wallet/utils';
+} from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 

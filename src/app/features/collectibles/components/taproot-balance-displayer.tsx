@@ -1,11 +1,11 @@
-import { useCurrentTaprootAccountBalance } from '@leather-wallet/query';
-import { formatMoney } from '@leather-wallet/utils';
+import { useCurrentTaprootAccountBalance } from '@leather.io/query';
+import { Link } from '@leather.io/ui';
+import { formatMoney } from '@leather.io/utils';
 
 import { useRecoverUninscribedTaprootUtxosFeatureEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
-import { Link } from '@app/ui/components/link/link';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 const taprootSpendNotSupportedYetMsg = `

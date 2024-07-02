@@ -3,12 +3,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { decodeBitcoinTx } from '@leather-wallet/bitcoin';
-import type { CryptoCurrencies } from '@leather-wallet/models';
+import { decodeBitcoinTx } from '@leather.io/bitcoin';
+import type { CryptoCurrencies } from '@leather.io/models';
 import {
   useBitcoinBroadcastTransaction,
   useCryptoCurrencyMarketDataMeanAverage,
-} from '@leather-wallet/query';
+} from '@leather.io/query';
+import { Button } from '@leather.io/ui';
 import {
   baseCurrencyAmountInQuote,
   createMoney,
@@ -18,18 +19,17 @@ import {
   i18nFormatCurrency,
   sumMoney,
   truncateMiddle,
-} from '@leather-wallet/utils';
+} from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import type { TransferRecipient } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { InfoCardFooter } from '@app/components/info-card/info-card';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { Button } from '@app/ui/components/button/button';
 
 import { SendTransferConfirmationDetails } from './components/send-transfer-confirmation-details';
 import { useRpcSendTransferRequestParams } from './use-rpc-send-transfer';
@@ -48,7 +48,6 @@ function useRpcSendTransferConfirmationState() {
 }
 
 export function RpcSendTransferConfirmation() {
-  const analytics = useAnalytics();
   const navigate = useNavigate();
   const { origin, requestId, tabId } = useRpcSendTransferRequestParams();
   const { fee, recipients, time, tx, feeRowValue } = useRpcSendTransferConfirmationState();

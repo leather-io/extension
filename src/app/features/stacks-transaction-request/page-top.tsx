@@ -3,13 +3,14 @@ import { memo } from 'react';
 import { TransactionRequestSelectors } from '@tests/selectors/requests.selectors';
 import { Stack, styled } from 'leather-styles/jsx';
 
+import { Flag } from '@leather.io/ui';
+
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
 import { Favicon } from '@app/components/favicon';
 import { useStacksTxPageTitle } from '@app/features/stacks-transaction-request/hooks/use-stacks-tx-page-title';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { Flag } from '@app/ui/components/flag/flag';
 
 function PageTopBase() {
   const transactionRequest = useTransactionRequestState();
