@@ -73,7 +73,7 @@ export function CryptoAssetItemLayout({
     <ItemLayout
       flagImg={icon}
       titleLeft={spamFilter(titleLeft)}
-      captionLeft={captionLeft}
+      captionLeft={spamFilter(captionLeft)}
       titleRight={titleRight}
       captionRight={captionRight}
     />
