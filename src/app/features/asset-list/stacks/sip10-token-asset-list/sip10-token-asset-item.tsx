@@ -1,5 +1,4 @@
 import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather.io/models';
-import { spamFilter } from '@leather.io/utils';
 
 import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
 import { getSafeImageCanonicalUri } from '@app/common/stacks-utils';
@@ -20,23 +19,23 @@ export function Sip10TokenAssetItem({
   marketData,
   onSelectAsset,
 }: Sip10TokenAssetItemProps) {
-  const name = spamFilter(info.name);
   const fiatBalance = convertAssetBalanceToFiat({
     balance: balance.availableBalance,
     marketData,
   });
+  const { contractId, imageCanonicalUri, name, symbol } = info;
 
   return (
     <CryptoAssetItemLayout
       availableBalance={balance.availableBalance}
       fiatBalance={fiatBalance}
-      captionLeft={info.symbol}
-      contractId={info.contractId}
+      captionLeft={symbol}
+      contractId={contractId}
       icon={
         <StacksAssetAvatar
           color="white"
-          gradientString={info.contractId}
-          imageCanonicalUri={getSafeImageCanonicalUri(info.imageCanonicalUri, name)}
+          gradientString={contractId}
+          imageCanonicalUri={getSafeImageCanonicalUri(imageCanonicalUri, name)}
         >
           {name[0]}
         </StacksAssetAvatar>
