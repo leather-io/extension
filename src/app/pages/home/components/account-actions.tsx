@@ -11,7 +11,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import {
   useConfigBitcoinEnabled,
-  useConfigSwapEnabled,
+  useConfigSwapsEnabled,
 } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -29,7 +29,7 @@ export function AccountActions() {
   const currentBtcSigner = useCurrentAccountNativeSegwitIndexZeroSignerNullable();
   const btcAccount = currentBtcSigner?.address;
   const currentNetwork = useCurrentNetwork();
-  const swapsEnabled = useConfigSwapEnabled();
+  const swapsEnabled = useConfigSwapsEnabled();
   const swapsBtnDisabled = !swapsEnabled || !stacksAccount;
 
   const receivePath = isBitcoinEnabled

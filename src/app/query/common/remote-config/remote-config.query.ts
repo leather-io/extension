@@ -13,7 +13,7 @@ export {
   useRecoverUninscribedTaprootUtxosFeatureEnabled,
   useConfigNftMetadataEnabled,
   useConfigRunesEnabled,
-  useConfigSwapEnabled,
+  useConfigSwapsEnabled,
 } from '@leather.io/query';
 
 export function useConfigBitcoinEnabled() {

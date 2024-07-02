@@ -91,5 +91,5 @@
   },
   "recoverUninscribedTaprootUtxosFeatureEnabled": true,
   "runesEnabled": true,
-  "swapsEnabled": false
+  "swapsEnabled": true
 }
