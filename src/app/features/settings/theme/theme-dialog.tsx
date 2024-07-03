@@ -5,7 +5,7 @@ import { Dialog } from '@leather.io/ui';
 import { analytics } from '@shared/utils/analytics';
 
 import { UserSelectedTheme, themeLabelMap, useThemeSwitcher } from '@app/common/theme-provider';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
+import { DialogHeader } from '@app/features/container/containers/headers/dialog-header';
 
 import { ThemeListItem } from './theme-list-item';
 

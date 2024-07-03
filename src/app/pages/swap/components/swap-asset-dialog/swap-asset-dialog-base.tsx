@@ -2,7 +2,7 @@ import { Dialog } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { Header } from '@app/ui/components/containers/headers/header';
+import { Header } from '@app/features/container/containers/headers/header';
 
 import { useSwapNavigate } from '../../hooks/use-swap-navigate';
 import { useSwapContext } from '../../swap.context';

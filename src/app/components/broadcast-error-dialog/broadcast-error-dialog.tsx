@@ -1,13 +1,12 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import GenericError from '@assets/images/generic-error.png';
+import { Button, Dialog } from '@leather.io/ui';
 import { Flex, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { Button, Dialog } from '@leather.io/ui';
-
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
+import { Footer } from '@app/features/container/containers/footers/footer';
+import { DialogHeader } from '@app/features/container/containers/headers/dialog-header';
 
 export function BroadcastErrorDialog() {
   const navigate = useNavigate();

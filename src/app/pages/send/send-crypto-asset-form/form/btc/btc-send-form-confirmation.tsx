@@ -1,13 +1,6 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { hexToBytes } from '@noble/hashes/utils';
-import * as btc from '@scure/btc-signer';
-import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
-import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { Stack } from 'leather-styles/jsx';
-import get from 'lodash.get';
-
 import { decodeBitcoinTx } from '@leather.io/bitcoin';
 import type { CryptoCurrencies } from '@leather.io/models';
 import {
@@ -23,6 +16,12 @@ import {
   i18nFormatCurrency,
   satToBtc,
 } from '@leather.io/utils';
+import { hexToBytes } from '@noble/hashes/utils';
+import * as btc from '@scure/btc-signer';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
+import { Stack } from 'leather-styles/jsx';
+import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
@@ -34,8 +33,8 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
+import { Footer } from '@app/features/container/containers/footers/footer';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
 

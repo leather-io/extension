@@ -1,11 +1,10 @@
 import { Outlet } from 'react-router-dom';
 
+import { Button } from '@leather.io/ui';
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 
-import { Button } from '@leather.io/ui';
-
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
-import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Footer } from '@app/features/container/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
 

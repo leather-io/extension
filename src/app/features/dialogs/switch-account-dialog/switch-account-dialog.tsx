@@ -1,17 +1,16 @@
 import { memo } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
-import { Box } from 'leather-styles/jsx';
-
 import { Button, Dialog } from '@leather.io/ui';
+import { Box } from 'leather-styles/jsx';
 
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useWalletType } from '@app/common/use-wallet-type';
+import { Footer } from '@app/features/container/containers/footers/footer';
+import { DialogHeader } from '@app/features/container/containers/headers/dialog-header';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { VirtuosoWrapper } from '@app/ui/components/virtuoso';
 
 import { AccountListUnavailable } from './components/account-list-unavailable';

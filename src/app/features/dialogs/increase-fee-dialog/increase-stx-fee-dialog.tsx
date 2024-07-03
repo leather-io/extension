@@ -1,12 +1,6 @@
 import { Suspense, useCallback, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import { type StacksTransaction } from '@stacks/transactions';
-import BigNumber from 'bignumber.js';
-import { Formik } from 'formik';
-import { Flex, Stack } from 'leather-styles/jsx';
-import * as yup from 'yup';
-
 import {
   useStacksRawTransaction,
   useStxAvailableUnlockedBalance,
@@ -14,6 +8,11 @@ import {
 } from '@leather.io/query';
 import { Caption, Dialog, Spinner } from '@leather.io/ui';
 import { microStxToStx, stxToMicroStx } from '@leather.io/utils';
+import { type StacksTransaction } from '@stacks/transactions';
+import BigNumber from 'bignumber.js';
+import { Formik } from 'formik';
+import { Flex, Stack } from 'leather-styles/jsx';
+import * as yup from 'yup';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -23,12 +22,12 @@ import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
+import { Footer } from '@app/features/container/containers/footers/footer';
+import { DialogHeader } from '@app/features/container/containers/headers/dialog-header';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { IncreaseFeeActions } from './components/increase-fee-actions';
 import { IncreaseFeeField } from './components/increase-fee-field';

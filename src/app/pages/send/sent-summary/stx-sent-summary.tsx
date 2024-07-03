@@ -1,8 +1,7 @@
 import { useLocation } from 'react-router-dom';
 
-import { HStack, Stack } from 'leather-styles/jsx';
-
 import { CopyIcon, ExternalLinkIcon } from '@leather.io/ui';
+import { HStack, Stack } from 'leather-styles/jsx';
 
 import { analytics } from '@shared/utils/analytics';
 
@@ -15,8 +14,8 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
+import { Footer } from '@app/features/container/containers/footers/footer';
 import { useToast } from '@app/features/toasts/use-toast';
-import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
 

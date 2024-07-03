@@ -1,13 +1,12 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
-import { Stack } from 'leather-styles/jsx';
-import get from 'lodash.get';
-
 import { decodeBitcoinTx } from '@leather.io/bitcoin';
 import { useBitcoinBroadcastTransaction } from '@leather.io/query';
 import { Button } from '@leather.io/ui';
 import { createMoney, formatMoney, formatMoneyPadded, sumMoney } from '@leather.io/utils';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+import { Stack } from 'leather-styles/jsx';
+import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
@@ -17,9 +16,9 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
+import { Footer } from '@app/features/container/containers/footers/footer';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.hooks';
-import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
 

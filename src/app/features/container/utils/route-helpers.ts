@@ -2,27 +2,27 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { isKnownPopupRoute } from './get-popup-header';
 
-function isHomePage(pathname: RouteUrls) {
-  return (
-    pathname === RouteUrls.Home ||
-    pathname.match(RouteUrls.Activity) ||
-    pathname.match(RouteUrls.Receive) ||
-    pathname.match(RouteUrls.SendOrdinalInscription)
-  );
-}
+// function isHomePage(pathname: RouteUrls) {
+//   return (
+//     pathname === RouteUrls.Home ||
+//     pathname.match(RouteUrls.Activity) ||
+//     pathname.match(RouteUrls.Receive) ||
+//     pathname.match(RouteUrls.SendOrdinalInscription)
+//   );
+// }
 
 export function isLandingPage(pathname: RouteUrls) {
   return pathname.match(RouteUrls.Onboarding); // need to match get-started/ledger
 }
 
-function isOnboardingPage(pathname: RouteUrls) {
-  return (
-    pathname === RouteUrls.BackUpSecretKey ||
-    pathname === RouteUrls.SetPassword ||
-    pathname === RouteUrls.SignIn ||
-    pathname === RouteUrls.ViewSecretKey
-  );
-}
+// function isOnboardingPage(pathname: RouteUrls) {
+//   return (
+//     pathname === RouteUrls.BackUpSecretKey ||
+//     pathname === RouteUrls.SetPassword ||
+//     pathname === RouteUrls.SignIn ||
+//     pathname === RouteUrls.ViewSecretKey
+//   );
+// }
 
 function isFundPage(pathname: RouteUrls) {
   return (
@@ -33,8 +33,8 @@ function isFundPage(pathname: RouteUrls) {
 
 export function getPageVariant(pathname: RouteUrls) {
   if (isFundPage(pathname)) return 'fund';
-  if (isHomePage(pathname)) return 'home';
-  if (isOnboardingPage(pathname)) return 'onboarding';
+  // if (isHomePage(pathname)) return 'home';
+  // if (isOnboardingPage(pathname)) return 'onboarding';
   return 'page';
 }
 
