@@ -1,14 +1,15 @@
 import QRCode from 'react-qr-code';
 import { useNavigate } from 'react-router-dom';
 
-import { AddressDisplayer, Button, Dialog } from '@leather.io/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
+import { AddressDisplayer, Button, Dialog } from '@leather.io/ui';
+
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { Footer } from '@app/features/container/containers/footers/footer';
-import { Header } from '@app/features/container/containers/headers/header';
+import { DialogHeader } from '@app/features/container/containers/headers/dialog-header';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 
 interface ReceiveTokensLayoutProps {
@@ -28,14 +29,14 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
   return (
     <Dialog
       header={
-        <Header
+        <DialogHeader
           variant="bigTitle"
           title={
             <>
               Receive <br /> {title}
             </>
           }
-          onGoBack={() => navigate(backgroundLocation ?? '..')}
+          onClose={() => navigate(backgroundLocation ?? '..')}
         />
       }
       isShowing

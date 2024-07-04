@@ -11,7 +11,8 @@ interface BigTitleHeaderProps {
   onClose?(): void;
   title?: ReactNode;
 }
-
+// all big title headers seem to be dialogs anyway
+// dialog headers with a big title font
 export function BigTitleHeader({ onClose, title }: BigTitleHeaderProps) {
   return (
     <Flex justifyContent="space-between" mt={{ base: 'space.05', md: 'unset' }}>

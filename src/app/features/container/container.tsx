@@ -14,7 +14,6 @@ import { useOnWalletLock } from '@app/routes/hooks/use-on-wallet-lock';
 import { useHasStateRehydrated } from '@app/store';
 
 import { useRestoreFormState } from '../popup-send-form-restoration/use-restore-form-state';
-import { OnboardingLayout } from './containers/onboarding.layout';
 
 interface ContainerProps {
   layout: any;

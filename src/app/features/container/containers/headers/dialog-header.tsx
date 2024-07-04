@@ -7,9 +7,10 @@ import { CloseIcon, IconButton } from '@leather.io/ui';
 interface DialogHeaderProps {
   onClose?(): void;
   title?: ReactNode;
+  variant?: 'standard' | 'bigTitle';
 }
 
-export function DialogHeader({ onClose, title }: DialogHeaderProps) {
+export function DialogHeader({ onClose, title, variant = 'standard' }: DialogHeaderProps) {
   return (
     <Flex
       justifyContent="flex-end"
@@ -20,7 +21,11 @@ export function DialogHeader({ onClose, title }: DialogHeaderProps) {
       width="100%"
       minHeight="40px"
     >
-      {title && (
+      {title && variant === 'bigTitle' ? (
+        <styled.h2 flex="1" textAlign="left" textStyle="heading.03">
+          {title}
+        </styled.h2>
+      ) : (
         <styled.h2 flex="1" textAlign="center" textStyle="heading.05">
           {title}
         </styled.h2>
