@@ -1,6 +1,11 @@
 import { AddressVersion } from '@stacks/transactions';
 
-import { type BitcoinClient, type StacksClient, fetchNamesForAddress } from '@leather.io/query';
+import {
+  type BitcoinClient,
+  QueryPrefixes,
+  type StacksClient,
+  fetchNamesForAddress,
+} from '@leather.io/query';
 
 import { decryptMnemonic, encryptMnemonic } from '@shared/crypto/mnemonic-encryption';
 import { logger } from '@shared/logger';
@@ -10,6 +15,7 @@ import { identifyUser } from '@shared/utils/analytics';
 import { recurseAccountsForActivity } from '@app/common/account-restoration/account-restore';
 import { checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex } from '@app/common/account-restoration/legacy-gaia-config-lookup';
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
+import { queryClient } from '@app/common/persistence';
 import { AppThunk } from '@app/store';
 import { initalizeWalletSession } from '@app/store/session-restore';
 
@@ -54,6 +60,7 @@ function setWalletEncryptionPassword(args: {
         isTestnet: false,
         signal: new AbortSignal(),
       });
+      queryClient.setQueryData([QueryPrefixes.BnsNamesByAddress, address], resp);
       return resp.names.length > 0;
     }
 
