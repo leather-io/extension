@@ -74,6 +74,11 @@ export function ContainerLayout({ children }: ContainerLayoutProps) {
     isKnownPopupRoute(pathname) || isSummaryPage(pathname) || variant === 'onboarding';
 
   const isLogoClickable = variant !== 'home' && !isRpcRoute(pathname);
+
+>>> fix this next! make it simple and try share header 
+
+then next is the page layout, then popout possibly
+
   return (
     <Flex
       data-testid="main-container"
