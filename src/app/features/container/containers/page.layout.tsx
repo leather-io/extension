@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Flag, HamburgerIcon, Logo, NetworkModeBadge } from '@leather.io/ui';
 import { ChainID } from '@stacks/transactions';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, Flex } from 'leather-styles/jsx';
+
+import { Flag, HamburgerIcon, Logo, NetworkModeBadge } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -69,10 +70,10 @@ export function PageLayout({ children }: PageLayoutProps) {
         return navigate(-1);
     }
   }
-  const showLogoSm = variant === 'home' || isSessionLocked || isKnownPopupRoute(pathname);
+  const showLogoSm = isSessionLocked || isKnownPopupRoute(pathname);
   const hideSettings = isKnownPopupRoute(pathname) || isSummaryPage(pathname);
 
-  const isLogoClickable = variant !== 'home' && !isRpcRoute(pathname);
+  const isLogoClickable = !isRpcRoute(pathname);
   return (
     <Flex
       data-testid="main-container"
@@ -81,7 +82,6 @@ export function PageLayout({ children }: PageLayoutProps) {
       width="100%"
       height={{ base: '100vh', sm: '100%' }}
     >
-      {/* {header} */}
       {displayHeader && (
         <Header
           variant={variant}

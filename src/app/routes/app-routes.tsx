@@ -181,14 +181,6 @@ function useAppRoutes() {
 
             {sendCryptoAssetFormRoutes}
 
-            {/* <Route
-              path={RouteUrls.ViewSecretKey}
-              element={
-                <AccountGate>
-                  <ViewSecretKey />
-                </AccountGate>
-              }
-            /> */}
             <Route path={RouteUrls.Unlock} element={<Unlock />}>
               {leatherIntroDialogRoutes}
             </Route>
