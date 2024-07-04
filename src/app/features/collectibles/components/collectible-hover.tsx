@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { Box, styled } from 'leather-styles/jsx';
+import { Box } from 'leather-styles/jsx';
 
 import { ExternalLinkIcon, IconButton } from '@leather.io/ui';
 
@@ -38,29 +38,19 @@ export function CollectibleHover({
         {collectibleTypeIcon}
       </Box>
       {onClickCallToAction && (
-        <IconButton
-          height="32px"
-          width="32px"
-          _focus={{ outline: 'focus' }}
-          borderRadius="xs"
-          alignItems="center"
-          display="flex"
-          justifyContent="center"
-          icon={
-            <styled.div bg="ink.background-primary" padding="space.01">
-              <ExternalLinkIcon _hover={{ bg: 'ink.component-background-hover' }} />
-            </styled.div>
-          }
-          onClick={e => {
-            e.stopPropagation();
-            onClickCallToAction();
-          }}
-          position="absolute"
-          right="12px"
-          top="12px"
-          type="button"
-          zIndex={999}
-        />
+        <Box position="absolute" right="12px" top="12px" zIndex={999}>
+          <IconButton
+            _focus={{ outline: 'focus' }}
+            _hover={{ bg: 'ink.background-primary' }}
+            bg="ink.background-primary"
+            color="ink.action-primary-default"
+            icon={<ExternalLinkIcon />}
+            onClick={e => {
+              e.stopPropagation();
+              onClickCallToAction();
+            }}
+          />
+        </Box>
       )}
     </Box>
   );
