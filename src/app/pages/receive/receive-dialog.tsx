@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
-import { Box, styled } from 'leather-styles/jsx';
+import { Box } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { Dialog, Tabs } from '@leather.io/ui';
@@ -87,7 +87,7 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
     <Dialog
       header={
         <DialogHeader
-          variant="bigTitle"
+          variant="large"
           title={title}
           onClose={() => navigate(backgroundLocation ?? '..')}
         />

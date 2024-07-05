@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Flag, HamburgerIcon, Logo, NetworkModeBadge } from '@leather.io/ui';
 import { ChainID } from '@stacks/transactions';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, Flex } from 'leather-styles/jsx';
+
+import { Flag, HamburgerIcon, Logo, NetworkModeBadge } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -26,7 +27,6 @@ import { getTitleFromUrl } from '../utils/get-title-from-url';
 import {
   canGoBack,
   getIsSessionLocked,
-  getPageVariant,
   hideLogo,
   hideSettingsOnSm,
   isLandingPage,
@@ -45,8 +45,6 @@ export function ContainerLayout({ children }: ContainerLayoutProps) {
   const pathname = locationPathname as RouteUrls;
 
   const { chain, name: chainName } = useCurrentNetworkState();
-
-  const variant = getPageVariant(pathname);
 
   const displayHeader = !isLandingPage(pathname) && !isNoHeaderPopup(pathname);
   const isSessionLocked = getIsSessionLocked(pathname);
@@ -69,11 +67,10 @@ export function ContainerLayout({ children }: ContainerLayoutProps) {
         return navigate(-1);
     }
   }
-  const showLogoSm = variant === 'home' || isSessionLocked || isKnownPopupRoute(pathname);
-  const hideSettings =
-    isKnownPopupRoute(pathname) || isSummaryPage(pathname) || variant === 'onboarding';
+  const showLogoSm = isSessionLocked || isKnownPopupRoute(pathname);
+  const hideSettings = isKnownPopupRoute(pathname) || isSummaryPage(pathname);
 
-  const isLogoClickable = variant !== 'home' && !isRpcRoute(pathname);
+  const isLogoClickable = !isRpcRoute(pathname);
   return (
     <Flex
       data-testid="main-container"
@@ -82,10 +79,8 @@ export function ContainerLayout({ children }: ContainerLayoutProps) {
       width="100%"
       height={{ base: '100vh', sm: '100%' }}
     >
-      {/* {header} */}
       {displayHeader && (
         <Header
-          variant={variant}
           onGoBack={canGoBack(pathname) ? () => getOnGoBackLocation(pathname) : undefined}
           onClose={isSummaryPage(pathname) ? () => navigate(RouteUrls.Home) : undefined}
           settingsMenu={

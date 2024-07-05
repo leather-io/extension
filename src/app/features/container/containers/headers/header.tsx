@@ -5,13 +5,9 @@ import { Flex, Grid, GridItem, HStack, styled } from 'leather-styles/jsx';
 
 import { ArrowLeftIcon, CloseIcon } from '@leather.io/ui';
 
-import { BigTitleHeader } from './components/big-title-header';
 import { HeaderActionButton } from './components/header-action-button';
 
-type HeaderVariants = 'page' | 'home' | 'onboarding' | 'bigTitle' | 'fund';
-
 export interface HeaderProps {
-  variant: HeaderVariants;
   onClose?(): void;
   onGoBack?(): void;
   title?: ReactNode;
@@ -23,7 +19,6 @@ export interface HeaderProps {
 }
 
 export function Header({
-  variant,
   onClose,
   onGoBack,
   account,
@@ -39,8 +34,7 @@ export function Header({
     <styled.header
       justifyContent="center"
       margin={{ base: 0, md: 'auto' }}
-      p={variant === 'bigTitle' ? 'space.05' : 'space.04'}
-      paddingLeft={{ base: undefined, sm: variant === 'onboarding' ? 0 : undefined }}
+      p="space.04"
       bg="transparent"
       maxWidth={{ base: '100vw', md: 'fullPageMaxWidth' }}
       width="100%"
@@ -50,31 +44,30 @@ export function Header({
         gridTemplateColumns={title ? '2fr 4fr 2fr' : 'auto 4fr auto'}
         gridAutoFlow="column"
         width="100%"
-        hideFrom={variant === 'bigTitle' ? 'md' : undefined}
       >
         <GridItem justifySelf="start">
           {logoItem && (
             <Flex py={{ base: 0, md: 'space.01' }}>
-              {variant !== 'home' && onGoBack ? (
+              {onGoBack && (
                 <HeaderActionButton
                   icon={<ArrowLeftIcon />}
                   onAction={onGoBack}
                   dataTestId={SharedComponentsSelectors.HeaderBackBtn}
                 />
-              ) : undefined}
+              )}
               {account ? account : logo}
             </Flex>
           )}
         </GridItem>
-        <GridItem margin="auto" hideBelow={variant === 'bigTitle' ? 'md' : undefined}>
+        <GridItem margin="auto">
           {title && <styled.span textStyle="heading.05">{title}</styled.span>}
         </GridItem>
-        <GridItem hideBelow={variant === 'bigTitle' ? 'md' : undefined}>
+        <GridItem>
           <HStack alignItems="center" justifyContent="flex-end">
             {networkBadge}
             {totalBalance && totalBalance}
             {settingsMenu}
-            {variant !== 'bigTitle' && onClose && (
+            {onClose && (
               <HeaderActionButton
                 icon={<CloseIcon />}
                 dataTestId={SharedComponentsSelectors.HeaderCloseBtn}
@@ -84,7 +77,6 @@ export function Header({
           </HStack>
         </GridItem>
       </Grid>
-      {variant === 'bigTitle' && <BigTitleHeader title={title} onClose={onClose} />}
     </styled.header>
   );
 }

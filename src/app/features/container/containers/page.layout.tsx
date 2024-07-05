@@ -27,7 +27,6 @@ import { getTitleFromUrl } from '../utils/get-title-from-url';
 import {
   canGoBack,
   getIsSessionLocked,
-  getPageVariant,
   hideLogo,
   hideSettingsOnSm,
   isLandingPage,
@@ -46,8 +45,6 @@ export function PageLayout({ children }: PageLayoutProps) {
   const pathname = locationPathname as RouteUrls;
 
   const { chain, name: chainName } = useCurrentNetworkState();
-
-  const variant = getPageVariant(pathname);
 
   const displayHeader = !isLandingPage(pathname) && !isNoHeaderPopup(pathname);
   const isSessionLocked = getIsSessionLocked(pathname);
@@ -84,7 +81,6 @@ export function PageLayout({ children }: PageLayoutProps) {
     >
       {displayHeader && (
         <Header
-          variant={variant}
           onGoBack={canGoBack(pathname) ? () => getOnGoBackLocation(pathname) : undefined}
           onClose={isSummaryPage(pathname) ? () => navigate(RouteUrls.Home) : undefined}
           settingsMenu={

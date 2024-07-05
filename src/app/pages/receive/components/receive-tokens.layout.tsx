@@ -30,7 +30,7 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
     <Dialog
       header={
         <DialogHeader
-          variant="bigTitle"
+          variant="large"
           title={
             <>
               Receive <br /> {title}
