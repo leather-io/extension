@@ -1,8 +1,9 @@
 import { FormEvent, useCallback, useState } from 'react';
 
-import { Button, Logo } from '@leather.io/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, Stack, styled } from 'leather-styles/jsx';
+
+import { Button, Logo } from '@leather.io/ui';
 
 import { analytics } from '@shared/utils/analytics';
 

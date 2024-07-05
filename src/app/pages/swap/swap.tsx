@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 
-import { Button } from '@leather.io/ui';
-import { isUndefined } from '@leather.io/utils';
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { useFormikContext } from 'formik';
+
+import { Button } from '@leather.io/ui';
+import { isUndefined } from '@leather.io/utils';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Footer } from '@app/features/container/containers/footers/footer';

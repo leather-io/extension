@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { PsbtSelectors } from '@tests/selectors/requests.selectors';
+
 import { getPsbtTxInputs, getPsbtTxOutputs } from '@leather.io/bitcoin';
 import { Button } from '@leather.io/ui';
 import { isError } from '@leather.io/utils';
-import { PsbtSelectors } from '@tests/selectors/requests.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';

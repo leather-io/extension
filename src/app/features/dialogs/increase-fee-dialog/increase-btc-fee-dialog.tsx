@@ -1,11 +1,12 @@
 import { Suspense } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import { Formik } from 'formik';
+import { Flex, Stack } from 'leather-styles/jsx';
+
 import type { BitcoinTx } from '@leather.io/models';
 import { Caption, Dialog, Spinner } from '@leather.io/ui';
 import { btcToSat, createMoney, formatMoney } from '@leather.io/utils';
-import { Formik } from 'formik';
-import { Flex, Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 

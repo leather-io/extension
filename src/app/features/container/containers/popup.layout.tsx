@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
@@ -14,22 +14,52 @@ import { CurrentAccountName } from '@app/features/current-account/current-accoun
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { TotalBalance } from '../total-balance';
-import {
-  getDisplayAddresssBalanceOf,
-  isRpcRoute,
-  showAccountInfo,
-  showBalanceInfo,
-} from '../utils/get-popup-header';
-import { getTitleFromUrl } from '../utils/get-title-from-url';
-import { isNoHeaderPopup } from '../utils/route-helpers';
 import { Header } from './headers/header';
+
+function isNoHeaderPopup(pathname: RouteUrls) {
+  return pathname === RouteUrls.RpcGetAddresses || pathname === RouteUrls.ChooseAccount;
+}
+
+function showAccountInfo(pathname: RouteUrls) {
+  switch (pathname) {
+    case RouteUrls.TransactionRequest:
+    case RouteUrls.ProfileUpdateRequest:
+    case RouteUrls.RpcSendTransfer:
+      return true;
+    default:
+      return false;
+  }
+}
+
+function showBalanceInfo(pathname: RouteUrls) {
+  switch (pathname) {
+    case RouteUrls.ProfileUpdateRequest:
+    case RouteUrls.RpcSendTransfer:
+      return true;
+    case RouteUrls.TransactionRequest:
+    default:
+      return false;
+  }
+}
+
+function getDisplayAddresssBalanceOf(pathname: RouteUrls) {
+  //  TODO it's unclear when to show ALL or STX balance here
+  switch (pathname) {
+    case RouteUrls.TransactionRequest:
+    case RouteUrls.ProfileUpdateRequest:
+    case RouteUrls.RpcSendTransfer:
+      return 'all';
+    default:
+      return 'stx';
+  }
+}
 
 interface PopupLayoutProps {
   children?: React.JSX.Element | React.JSX.Element[];
 }
 export function PopupLayout({ children }: PopupLayoutProps) {
   const [isShowingSwitchAccount, setIsShowingSwitchAccount] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { pathname: locationPathname } = useLocation();
   const pathname = locationPathname as RouteUrls;
 
@@ -37,7 +67,8 @@ export function PopupLayout({ children }: PopupLayoutProps) {
 
   const displayHeader = !isNoHeaderPopup(pathname);
 
-  const isLogoClickable = !isRpcRoute(pathname);
+  // this should probably never be clickable in popups ?
+  // const isLogoClickable = !isRpcRoute(pathname);
   return (
     <Flex
       data-testid="main-container"
@@ -54,14 +85,13 @@ export function PopupLayout({ children }: PopupLayoutProps) {
               name={chainName}
             />
           }
-          title={getTitleFromUrl(pathname)}
           logo={
             //  PETE check this and improve - why no logo here, can't rememebr
             pathname !== RouteUrls.RpcGetAddresses && (
               <Box height="headerPopupHeight" margin="auto" px="space.02">
                 <Logo
                   data-testid={OnboardingSelectors.LogoRouteToHome}
-                  onClick={isLogoClickable ? () => navigate(RouteUrls.Home) : undefined}
+                  // onClick={isLogoClickable ? () => navigate(RouteUrls.Home) : undefined}
                 />
               </Box>
             )

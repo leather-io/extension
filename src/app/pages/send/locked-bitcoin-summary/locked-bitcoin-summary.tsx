@@ -1,8 +1,9 @@
 import { useLocation } from 'react-router-dom';
 
+import { HStack, styled } from 'leather-styles/jsx';
+
 import { CheckmarkIcon, CopyIcon, ExternalLinkIcon } from '@leather.io/ui';
 import { satToBtc } from '@leather.io/utils';
-import { HStack, styled } from 'leather-styles/jsx';
 
 import { analytics } from '@shared/utils/analytics';
 

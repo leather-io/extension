@@ -1,6 +1,7 @@
-import { Button, Callout } from '@leather.io/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Stack } from 'leather-styles/jsx';
+
+import { Button, Callout } from '@leather.io/ui';
 
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {

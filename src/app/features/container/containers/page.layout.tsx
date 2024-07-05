@@ -13,14 +13,77 @@ import { RouteUrls } from '@shared/route-urls';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { Settings } from '../../settings/settings';
-import { getTitleFromUrl } from '../utils/get-title-from-url';
-import {
-  canGoBack,
-  getIsSessionLocked,
-  hideSettingsOnSm,
-  isSummaryPage,
-} from '../utils/route-helpers';
 import { Header } from './headers/header';
+
+// PETE refactor this so that routes get title in app-routes instead
+function getTitleFromUrl(pathname: RouteUrls) {
+  if (pathname.match(RouteUrls.SendCryptoAsset)) {
+    // removing this as no titles in any popup
+    // don't show send on first step of send flow or popuop transfer
+    // if (pathname === RouteUrls.SendCryptoAsset) return undefined;
+    // if (pathname === RouteUrls.RpcSendTransfer) return undefined;
+    return 'Send';
+  }
+
+  switch (pathname) {
+    case RouteUrls.AddNetwork:
+      return 'Add a network';
+    case RouteUrls.BitcoinContractList:
+      return 'Bitcoin Contracts';
+    case RouteUrls.BitcoinContractLockSuccess:
+      return 'Locked Bitcoin';
+    case RouteUrls.SendBrc20ChooseFee:
+      return 'Choose fee';
+    case RouteUrls.SendBrc20Confirmation:
+    case RouteUrls.SwapReview:
+    case RouteUrls.SendBrc20Confirmation:
+    case '/send/btc/confirm':
+      return 'Review';
+    case RouteUrls.Swap:
+      return 'Swap';
+    case RouteUrls.SentStxTxSummary:
+    case RouteUrls.SentBtcTxSummary:
+      return 'Sent';
+    case RouteUrls.SentBrc20Summary:
+      return 'Creating transfer inscription';
+    case RouteUrls.SendBrc20Confirmation:
+    default:
+      return undefined;
+  }
+}
+
+function getIsSessionLocked(pathname: RouteUrls) {
+  return pathname === RouteUrls.Unlock;
+}
+
+function hideSettingsOnSm(pathname: RouteUrls) {
+  switch (pathname) {
+    case RouteUrls.SendCryptoAsset:
+    case RouteUrls.FundChooseCurrency:
+      return true;
+    default:
+      return false;
+  }
+}
+
+function canGoBack(pathname: RouteUrls) {
+  if (getIsSessionLocked(pathname) || isSummaryPage(pathname)) {
+    return false;
+  }
+  return true;
+}
+
+function isSummaryPage(pathname: RouteUrls) {
+  /* TODO refactor the summary routes to make this cleaner
+  we need to block going back from summary pages catching the dynamic routes:
+  SentBtcTxSummary = '/sent/btc/:txId',
+  SentStxTxSummary = '/sent/stx/:txId',
+  SentBrc20Summary = '/send/brc20/:ticker/summary',
+  RpcSignPsbtSummary = '/sign-psbt/summary',
+  RpcSendTransferSummary = '/send-transfer/summary',
+  */
+  return pathname.match('/sent/stx/') || pathname.match('/sent/btc/' || pathname.match('summary'));
+}
 
 interface PageLayoutProps {
   children?: React.JSX.Element | React.JSX.Element[];

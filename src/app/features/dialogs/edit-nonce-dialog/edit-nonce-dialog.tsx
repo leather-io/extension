@@ -1,9 +1,10 @@
 import { useCallback, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Dialog, Link } from '@leather.io/ui';
 import { useFormikContext } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
+
+import { Dialog, Link } from '@leather.io/ui';
 
 import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 

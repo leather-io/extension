@@ -2,8 +2,9 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 
-import { Dialog } from '@leather.io/ui';
 import { Box } from 'leather-styles/jsx';
+
+import { Dialog } from '@leather.io/ui';
 
 import { DialogHeader } from '@app/features/container/containers/headers/dialog-header';
 import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';

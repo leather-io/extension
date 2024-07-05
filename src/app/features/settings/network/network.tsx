@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+
 import { WalletDefaultNetworkConfigurationIds } from '@leather.io/models';
 import { Button, Dialog } from '@leather.io/ui';
-import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';

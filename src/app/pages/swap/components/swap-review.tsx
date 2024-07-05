@@ -1,7 +1,8 @@
 import { Outlet } from 'react-router-dom';
 
-import { Button } from '@leather.io/ui';
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
+
+import { Button } from '@leather.io/ui';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { Footer } from '@app/features/container/containers/footers/footer';

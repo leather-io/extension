@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Dialog, Link } from '@leather.io/ui';
 import { styled } from 'leather-styles/jsx';
+
+import { Dialog, Link } from '@leather.io/ui';
 
 import { DialogHeader } from '@app/features/container/containers/headers/dialog-header';
 import { UnsupportedBrowserImg } from '@app/features/ledger/illustrations/ledger-illu-unsupported-browser';

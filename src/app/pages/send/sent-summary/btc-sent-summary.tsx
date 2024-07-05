@@ -1,7 +1,8 @@
 import { useLocation } from 'react-router-dom';
 
-import { CopyIcon, ExternalLinkIcon } from '@leather.io/ui';
 import { HStack, Stack } from 'leather-styles/jsx';
+
+import { CopyIcon, ExternalLinkIcon } from '@leather.io/ui';
 
 import { analytics } from '@shared/utils/analytics';
 

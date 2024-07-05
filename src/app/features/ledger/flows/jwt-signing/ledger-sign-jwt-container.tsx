@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
-import { Dialog } from '@leather.io/ui';
-import { delay, isError } from '@leather.io/utils';
 import { TransactionVersion, getAddressFromPublicKey } from '@stacks/transactions';
 import { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
+
+import { Dialog } from '@leather.io/ui';
+import { delay, isError } from '@leather.io/utils';
 
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { logger } from '@shared/logger';

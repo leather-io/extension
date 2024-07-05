@@ -7,7 +7,7 @@ import { ArrowLeftIcon, CloseIcon } from '@leather.io/ui';
 
 import { HeaderActionButton } from './components/header-action-button';
 
-export interface HeaderProps {
+interface HeaderProps {
   onClose?(): void;
   onGoBack?(): void;
   title?: ReactNode;

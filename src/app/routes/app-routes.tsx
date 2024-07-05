@@ -84,7 +84,11 @@ function useAppRoutes() {
     createRoutesFromElements(
       <Route>
         {/* where to pass onGoBack though? */}
+        {/* PETE make a HOC to wrap these common stuff
+ accept layout and children and always have error boundary + catch all
 
+ also refactor the routes to split them up into smaller files by category
+*/}
         <Route element={<Container layout={<HomeLayout />} />}>
           <Route key="error" errorElement={<RouterErrorBoundary />}>
             <Route
@@ -120,27 +124,7 @@ function useAppRoutes() {
             </Route>
 
             {ledgerStacksTxSigningRoutes}
-            {/* PETE - moving this to rpc-routes. 
 
-need to check if the below are also in a popup 
-- BitcoinContractLockSuccess
-- BitcoinContractLockError
-- BitcoinContractList
-
-was classifying this as a popup route in 
-// export function isKnownPopupRoute(pathname: RouteUrls) {
-//   if (pathname.match('/bitcoin-contract-offer')) return true;
-*/}
-            {/* <Route
-              path={RouteUrls.RpcReceiveBitcoinContractOffer}
-              element={
-                <AccountGate>
-                  <Suspense fallback={<SuspenseLoadingSpinner />}>
-                    <BitcoinContractRequest />
-                  </Suspense>
-                </AccountGate>
-              }
-            /> */}
             <Route path={RouteUrls.BitcoinContractLockSuccess} element={<LockBitcoinSummary />} />
             <Route path={RouteUrls.BitcoinContractLockError} element={<BroadcastError />} />
             <Route path={RouteUrls.BitcoinContractList} element={<BitcoinContractList />} />
@@ -192,9 +176,6 @@ was classifying this as a popup route in
             <Route path={RouteUrls.Unlock} element={<Unlock />}>
               {leatherIntroDialogRoutes}
             </Route>
-            {/* 
-            {legacyRequestRoutes}
-            {rpcRequestRoutes} */}
             <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
             <Route
               path={RouteUrls.RequestError}
@@ -204,24 +185,6 @@ was classifying this as a popup route in
                 </AccountGate>
               }
             />
-            {/* PETE need to test this RpcSignStacksTransaction 
-              - where to find it, what header etc. 
-              - seems like it should in in rpc-routes but then with the edit nonce dialog its unclear
-              */}
-
-            {/* PETE need to check this RpcSignBip322Message - seems a duplicate and it is in rpc-routes already */}
-
-            {/* <Route
-              path={RouteUrls.RpcSignBip322Message}
-              lazy={async () => {
-                const { RpcSignBip322MessageRoute } = await import(
-                  '@app/pages/rpc-sign-bip322-message/rpc-sign-bip322-message'
-                );
-                return { Component: RpcSignBip322MessageRoute };
-              }}
-            >
-              {ledgerBitcoinTxSigningRoutes}
-            </Route> */}
 
             {alexSwapRoutes}
 

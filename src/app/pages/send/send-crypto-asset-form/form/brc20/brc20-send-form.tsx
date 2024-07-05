@@ -1,12 +1,13 @@
 import { Outlet, useLocation } from 'react-router-dom';
 
-import type { MarketData, Money } from '@leather.io/models';
-import { Brc20AvatarIcon, Button, Callout, Link } from '@leather.io/ui';
-import { convertAmountToBaseUnit, formatMoney } from '@leather.io/utils';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
 import { Box, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
+
+import type { MarketData, Money } from '@leather.io/models';
+import { Brc20AvatarIcon, Button, Callout, Link } from '@leather.io/ui';
+import { convertAmountToBaseUnit, formatMoney } from '@leather.io/utils';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { AvailableBalance } from '@app/features/container/containers/footers/available-balance';

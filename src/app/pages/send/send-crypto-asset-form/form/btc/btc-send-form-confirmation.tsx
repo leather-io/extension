@@ -1,6 +1,13 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { hexToBytes } from '@noble/hashes/utils';
+import * as btc from '@scure/btc-signer';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
+import { Stack } from 'leather-styles/jsx';
+import get from 'lodash.get';
+
 import { decodeBitcoinTx } from '@leather.io/bitcoin';
 import type { CryptoCurrencies } from '@leather.io/models';
 import {
@@ -16,12 +23,6 @@ import {
   i18nFormatCurrency,
   satToBtc,
 } from '@leather.io/utils';
-import { hexToBytes } from '@noble/hashes/utils';
-import * as btc from '@scure/btc-signer';
-import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
-import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { Stack } from 'leather-styles/jsx';
-import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';

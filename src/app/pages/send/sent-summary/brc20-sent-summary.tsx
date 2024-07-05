@@ -1,9 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Callout, ExternalLinkIcon, Link } from '@leather.io/ui';
-import { createMoney, formatMoney } from '@leather.io/utils';
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
+
+import { Callout, ExternalLinkIcon, Link } from '@leather.io/ui';
+import { createMoney, formatMoney } from '@leather.io/utils';
 
 import { HandleOpenStacksTxLinkArgs } from '@app/common/hooks/use-stacks-explorer-link';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';

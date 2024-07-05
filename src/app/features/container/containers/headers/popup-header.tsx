@@ -2,13 +2,16 @@ import { ReactNode } from 'react';
 
 import { Flex, Grid, GridItem, HStack, styled } from 'leather-styles/jsx';
 
-interface HomeHeaderProps {
-  settingsMenu?: ReactNode;
+interface PopupHeaderProps {
+  account?: ReactNode;
+  totalBalance?: ReactNode;
   networkBadge?: ReactNode;
   logo?: ReactNode;
 }
 
-export function HomeHeader({ settingsMenu, networkBadge, logo }: HomeHeaderProps) {
+export function PopupHeader({ account, totalBalance, networkBadge, logo }: PopupHeaderProps) {
+  const logoItem = logo || account;
+
   return (
     <styled.header
       justifyContent="center"
@@ -20,21 +23,21 @@ export function HomeHeader({ settingsMenu, networkBadge, logo }: HomeHeaderProps
     >
       <Grid
         alignItems="center"
-        // same as onboarding-header.tsx - don't need grid really as no title
-        gridTemplateColumns={'auto 4fr auto'}
+        // don't think these ever have a title, page is the only one
+        gridTemplateColumns="auto 4fr auto"
         gridAutoFlow="column"
         width="100%"
       >
         <GridItem justifySelf="start">
-          <Flex py={{ base: 0, md: 'space.01' }}>{logo}</Flex>
+          {logoItem && <Flex py={{ base: 0, md: 'space.01' }}>{account ? account : logo}</Flex>}
         </GridItem>
-
-        {/*  This grid item could be un-needed */}
-        <GridItem margin="auto"></GridItem>
+        <GridItem margin="auto">
+          {/* {title && <styled.span textStyle="heading.05">{title}</styled.span>} */}
+        </GridItem>
         <GridItem>
           <HStack alignItems="center" justifyContent="flex-end">
             {networkBadge}
-            {settingsMenu}
+            {totalBalance && totalBalance}
           </HStack>
         </GridItem>
       </Grid>

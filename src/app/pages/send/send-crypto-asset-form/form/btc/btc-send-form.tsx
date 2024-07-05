@@ -1,12 +1,13 @@
 import { Outlet } from 'react-router-dom';
 
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+import { Form, Formik } from 'formik';
+import { Box } from 'leather-styles/jsx';
+
 import type { CryptoCurrencies } from '@leather.io/models';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import { BtcAvatarIcon, Button, Callout, Link } from '@leather.io/ui';
 import { formatMoney } from '@leather.io/utils';
-import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
-import { Form, Formik } from 'formik';
-import { Box } from 'leather-styles/jsx';
 
 import { AvailableBalance } from '@app/features/container/containers/footers/available-balance';
 import { Footer } from '@app/features/container/containers/footers/footer';
