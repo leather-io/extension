@@ -22,7 +22,11 @@ import {
 } from '@shared/message-types';
 import type { WalletMethodMap, WalletMethodNames, WalletResponses } from '@shared/rpc/rpc-methods';
 
+import { addLeatherToProviders } from './add-leather-to-providers';
+
 type CallableMethods = keyof typeof ExternalMethods;
+
+addLeatherToProviders();
 
 interface ExtensionResponse {
   source: 'blockstack-extension';
