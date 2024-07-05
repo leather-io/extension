@@ -10,8 +10,8 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
-import { ContainerLayout } from './container.layout';
-import { OnboardingHeader } from './headers/onboarding-header';
+import { ContainerLayout } from '../container.layout';
+import { OnboardingHeader } from './onboarding-header';
 
 interface OnboardingLayoutProps {
   children?: React.JSX.Element | React.JSX.Element[];

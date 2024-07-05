@@ -2,7 +2,7 @@ import { Flex } from 'leather-styles/jsx';
 
 interface ContainerLayoutProps {
   content?: React.JSX.Element | React.JSX.Element[];
-  header: React.JSX.Element | null;
+  header?: React.JSX.Element | null;
 }
 export function ContainerLayout({ content, header }: ContainerLayoutProps) {
   return (

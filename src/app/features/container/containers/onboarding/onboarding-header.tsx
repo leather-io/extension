@@ -5,7 +5,7 @@ import { Flex, Grid, GridItem, HStack, styled } from 'leather-styles/jsx';
 
 import { ArrowLeftIcon } from '@leather.io/ui';
 
-import { HeaderActionButton } from './components/header-action-button';
+import { HeaderActionButton } from '../headers/components/header-action-button';
 
 interface HeaderProps {
   onClose?(): void;

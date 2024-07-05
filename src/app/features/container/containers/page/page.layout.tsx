@@ -12,8 +12,9 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
-import { Settings } from '../../settings/settings';
-import { Header } from './headers/header';
+import { Settings } from '../../../settings/settings';
+import { ContainerLayout } from '../container.layout';
+import { Header } from '../headers/header';
 
 // PETE refactor this so that routes get title in app-routes instead
 function getTitleFromUrl(pathname: RouteUrls) {
@@ -119,54 +120,49 @@ export function PageLayout({ children }: PageLayoutProps) {
   const hideSettings = isSummaryPage(pathname);
 
   return (
-    <Flex
-      data-testid="main-container"
-      flexDirection="column"
-      flexGrow={1}
-      width="100%"
-      height={{ base: '100vh', sm: '100%' }}
-    >
-      <Header
-        onGoBack={canGoBack(pathname) ? () => getOnGoBackLocation(pathname) : undefined}
-        onClose={isSummaryPage(pathname) ? () => navigate(RouteUrls.Home) : undefined}
-        settingsMenu={
-          hideSettings ? null : (
-            <Settings
-              triggerButton={
-                <HamburgerIcon
-                  data-testid={SettingsSelectors.SettingsMenuBtn}
-                  hideBelow={hideSettingsOnSm(pathname) ? 'sm' : undefined}
-                />
-              }
-              toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
+    <ContainerLayout
+      header={
+        <Header
+          // maybe set these in location state of child routes?
+          onGoBack={canGoBack(pathname) ? () => getOnGoBackLocation(pathname) : undefined}
+          onClose={isSummaryPage(pathname) ? () => navigate(RouteUrls.Home) : undefined}
+          settingsMenu={
+            hideSettings ? null : (
+              <Settings
+                triggerButton={
+                  <HamburgerIcon
+                    data-testid={SettingsSelectors.SettingsMenuBtn}
+                    hideBelow={hideSettingsOnSm(pathname) ? 'sm' : undefined}
+                  />
+                }
+                toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
+              />
+            )
+          }
+          networkBadge={
+            <NetworkModeBadge
+              isTestnetChain={chain.stacks.chainId === ChainID.Testnet}
+              name={chainName}
             />
-          )
-        }
-        networkBadge={
-          <NetworkModeBadge
-            isTestnetChain={chain.stacks.chainId === ChainID.Testnet}
-            name={chainName}
-          />
-        }
-        title={getTitleFromUrl(pathname)}
-        logo={
-          <Box
-            height="headerContainerHeight"
-            margin="auto"
-            px="space.02"
-            hideBelow={isSessionLocked ? undefined : 'sm'}
-            hideFrom={isSessionLocked ? 'sm' : undefined}
-          >
-            <Logo
-              data-testid={OnboardingSelectors.LogoRouteToHome}
-              onClick={() => navigate(RouteUrls.Home)}
-            />
-          </Box>
-        }
-      />
-      <Flex className="main-content" flexGrow={1} position="relative" width="100%">
-        {children}
-      </Flex>
-    </Flex>
+          }
+          title={getTitleFromUrl(pathname)}
+          logo={
+            <Box
+              height="headerContainerHeight"
+              margin="auto"
+              px="space.02"
+              hideBelow={isSessionLocked ? undefined : 'sm'}
+              hideFrom={isSessionLocked ? 'sm' : undefined}
+            >
+              <Logo
+                data-testid={OnboardingSelectors.LogoRouteToHome}
+                onClick={() => navigate(RouteUrls.Home)}
+              />
+            </Box>
+          }
+        />
+      }
+      content={children}
+    />
   );
 }

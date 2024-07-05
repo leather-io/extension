@@ -6,9 +6,9 @@ import { HamburgerIcon, Logo, NetworkModeBadge } from '@leather.io/ui';
 
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
-import { Settings } from '../../settings/settings';
-import { ContainerLayout } from './container.layout';
-import { HomeHeader } from './headers/home-header';
+import { Settings } from '../../../settings/settings';
+import { ContainerLayout } from '../container.layout';
+import { HomeHeader } from './home-header';
 
 // props need to be optional because of the way the container is structured
 // they aren't provided in app-routes and are instead fed via the outlet context

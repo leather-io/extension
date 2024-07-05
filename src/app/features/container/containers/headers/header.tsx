@@ -65,7 +65,6 @@ export function Header({
         <GridItem>
           <HStack alignItems="center" justifyContent="flex-end">
             {networkBadge}
-            {totalBalance && totalBalance}
             {settingsMenu}
             {onClose && (
               <HeaderActionButton

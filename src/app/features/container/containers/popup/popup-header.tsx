@@ -11,7 +11,7 @@ interface PopupHeaderProps {
 
 export function PopupHeader({ account, totalBalance, networkBadge, logo }: PopupHeaderProps) {
   const logoItem = logo || account;
-
+  //  styled.header could be its own wrapper component we pass a child that could be grid or flex
   return (
     <styled.header
       justifyContent="center"
@@ -21,18 +21,9 @@ export function PopupHeader({ account, totalBalance, networkBadge, logo }: Popup
       maxWidth={{ base: '100vw', md: 'fullPageMaxWidth' }}
       width="100%"
     >
-      <Grid
-        alignItems="center"
-        // don't think these ever have a title, page is the only one
-        gridTemplateColumns="auto 4fr auto"
-        gridAutoFlow="column"
-        width="100%"
-      >
+      <Grid alignItems="center" gridTemplateColumns="auto auto" gridAutoFlow="column" width="100%">
         <GridItem justifySelf="start">
           {logoItem && <Flex py={{ base: 0, md: 'space.01' }}>{account ? account : logo}</Flex>}
-        </GridItem>
-        <GridItem margin="auto">
-          {/* {title && <styled.span textStyle="heading.05">{title}</styled.span>} */}
         </GridItem>
         <GridItem>
           <HStack alignItems="center" justifyContent="flex-end">

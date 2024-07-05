@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
-import { Box, Flex } from 'leather-styles/jsx';
+import { Box } from 'leather-styles/jsx';
 
 import { Flag, Logo, NetworkModeBadge } from '@leather.io/ui';
 
@@ -13,8 +13,9 @@ import { CurrentAccountAvatar } from '@app/features/current-account/current-acco
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
-import { TotalBalance } from '../total-balance';
-import { Header } from './headers/header';
+import { TotalBalance } from '../../total-balance';
+import { ContainerLayout } from '../container.layout';
+import { PopupHeader } from './popup-header';
 
 function isNoHeaderPopup(pathname: RouteUrls) {
   return pathname === RouteUrls.RpcGetAddresses || pathname === RouteUrls.ChooseAccount;
@@ -59,7 +60,6 @@ interface PopupLayoutProps {
 }
 export function PopupLayout({ children }: PopupLayoutProps) {
   const [isShowingSwitchAccount, setIsShowingSwitchAccount] = useState(false);
-  // const navigate = useNavigate();
   const { pathname: locationPathname } = useLocation();
   const pathname = locationPathname as RouteUrls;
 
@@ -67,59 +67,51 @@ export function PopupLayout({ children }: PopupLayoutProps) {
 
   const displayHeader = !isNoHeaderPopup(pathname);
 
-  // this should probably never be clickable in popups ?
-  // const isLogoClickable = !isRpcRoute(pathname);
   return (
-    <Flex
-      data-testid="main-container"
-      flexDirection="column"
-      flexGrow={1}
-      width="100%"
-      height={{ base: '100vh', sm: '100%' }}
-    >
-      {displayHeader && (
-        <Header
-          networkBadge={
-            <NetworkModeBadge
-              isTestnetChain={chain.stacks.chainId === ChainID.Testnet}
-              name={chainName}
-            />
-          }
-          logo={
-            //  PETE check this and improve - why no logo here, can't rememebr
-            pathname !== RouteUrls.RpcGetAddresses && (
-              <Box height="headerPopupHeight" margin="auto" px="space.02">
-                <Logo
-                  data-testid={OnboardingSelectors.LogoRouteToHome}
-                  // onClick={isLogoClickable ? () => navigate(RouteUrls.Home) : undefined}
-                />
-              </Box>
-            )
-          }
-          account={
-            showAccountInfo(pathname) && (
-              <Flag
-                align="middle"
-                img={
-                  <CurrentAccountAvatar
-                    toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
+    <ContainerLayout
+      header={
+        displayHeader ? (
+          <PopupHeader
+            networkBadge={
+              <NetworkModeBadge
+                isTestnetChain={chain.stacks.chainId === ChainID.Testnet}
+                name={chainName}
+              />
+            }
+            logo={
+              //  PETE check this and improve - why no logo here, can't rememebr
+              pathname !== RouteUrls.RpcGetAddresses && (
+                <Box height="headerPopupHeight" margin="auto" px="space.02">
+                  <Logo
+                    data-testid={OnboardingSelectors.LogoRouteToHome}
+                    // onClick={isLogoClickable ? () => navigate(RouteUrls.Home) : undefined}
                   />
-                }
-              >
-                <CurrentAccountName />
-              </Flag>
-            )
-          }
-          totalBalance={
-            showBalanceInfo(pathname) && (
-              <TotalBalance displayAddresssBalanceOf={getDisplayAddresssBalanceOf(pathname)} />
-            )
-          }
-        />
-      )}
-      <Flex className="main-content" flexGrow={1} position="relative" width="100%">
-        {children}
-      </Flex>
-    </Flex>
+                </Box>
+              )
+            }
+            account={
+              showAccountInfo(pathname) && (
+                <Flag
+                  align="middle"
+                  img={
+                    <CurrentAccountAvatar
+                      toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
+                    />
+                  }
+                >
+                  <CurrentAccountName />
+                </Flag>
+              )
+            }
+            totalBalance={
+              showBalanceInfo(pathname) && (
+                <TotalBalance displayAddresssBalanceOf={getDisplayAddresssBalanceOf(pathname)} />
+              )
+            }
+          />
+        ) : undefined
+      }
+      content={children}
+    />
   );
 }

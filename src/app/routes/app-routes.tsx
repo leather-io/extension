@@ -14,10 +14,10 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { AddNetwork } from '@app/features/add-network/add-network';
 import { Container } from '@app/features/container/container';
 // import { HomeLayout } from '@app/ui/pages/home.layout'; - TODO  rename this other home wrapper
-import { HomeLayout } from '@app/features/container/containers/home.layout';
-import { OnboardingLayout } from '@app/features/container/containers/onboarding.layout';
-import { PageLayout } from '@app/features/container/containers/page.layout';
-import { PopupLayout } from '@app/features/container/containers/popup.layout';
+import { HomeLayout } from '@app/features/container/containers/home/home.layout';
+import { OnboardingLayout } from '@app/features/container/containers/onboarding/onboarding.layout';
+import { PageLayout } from '@app/features/container/containers/page/page.layout';
+import { PopupLayout } from '@app/features/container/containers/popup/popup.layout';
 import { IncreaseBtcFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-btc-fee-dialog';
 import { IncreaseStxFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-stx-fee-dialog';
 import { leatherIntroDialogRoutes } from '@app/features/dialogs/leather-intro-dialog/leather-intro-dialog';
