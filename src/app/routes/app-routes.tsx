@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import {
   Navigate,
   Route,
@@ -18,7 +17,7 @@ import { Container } from '@app/features/container/container';
 import { HomeLayout } from '@app/features/container/containers/home.layout';
 import { OnboardingLayout } from '@app/features/container/containers/onboarding.layout';
 import { PageLayout } from '@app/features/container/containers/page.layout';
-import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
+import { PopupLayout } from '@app/features/container/containers/popup.layout';
 import { IncreaseBtcFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-btc-fee-dialog';
 import { IncreaseStxFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-stx-fee-dialog';
 import { leatherIntroDialogRoutes } from '@app/features/dialogs/leather-intro-dialog/leather-intro-dialog';
@@ -32,7 +31,6 @@ import { UnsupportedBrowserLayout } from '@app/features/ledger/generic-steps';
 import { ConnectLedgerStart } from '@app/features/ledger/generic-steps/connect-device/connect-ledger-start';
 import { RetrieveTaprootToNativeSegwit } from '@app/features/retrieve-taproot-to-native-segwit/retrieve-taproot-to-native-segwit';
 import { BitcoinContractList } from '@app/pages/bitcoin-contract-list/bitcoin-contract-list';
-import { BitcoinContractRequest } from '@app/pages/bitcoin-contract-request/bitcoin-contract-request';
 import { ChooseAccount } from '@app/pages/choose-account/choose-account';
 import { ChooseCryptoAssetToFund } from '@app/pages/fund/choose-asset-to-fund/choose-asset-to-fund';
 import { FundPage } from '@app/pages/fund/fund';
@@ -43,7 +41,6 @@ import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { ReceiveBtcModal } from '@app/pages/receive/receive-btc';
 import { ReceiveStxModal } from '@app/pages/receive/receive-stx';
 import { RequestError } from '@app/pages/request-error/request-error';
-import { RpcSignStacksTransaction } from '@app/pages/rpc-sign-stacks-transaction/rpc-sign-stacks-transaction';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { LockBitcoinSummary } from '@app/pages/send/locked-bitcoin-summary/locked-bitcoin-summary';
 import { sendOrdinalRoutes } from '@app/pages/send/ordinal-inscription/ordinal-routes';
@@ -123,8 +120,18 @@ function useAppRoutes() {
             </Route>
 
             {ledgerStacksTxSigningRoutes}
+            {/* PETE - moving this to rpc-routes. 
 
-            <Route
+need to check if the below are also in a popup 
+- BitcoinContractLockSuccess
+- BitcoinContractLockError
+- BitcoinContractList
+
+was classifying this as a popup route in 
+// export function isKnownPopupRoute(pathname: RouteUrls) {
+//   if (pathname.match('/bitcoin-contract-offer')) return true;
+*/}
+            {/* <Route
               path={RouteUrls.RpcReceiveBitcoinContractOffer}
               element={
                 <AccountGate>
@@ -133,7 +140,7 @@ function useAppRoutes() {
                   </Suspense>
                 </AccountGate>
               }
-            />
+            /> */}
             <Route path={RouteUrls.BitcoinContractLockSuccess} element={<LockBitcoinSummary />} />
             <Route path={RouteUrls.BitcoinContractLockError} element={<BroadcastError />} />
             <Route path={RouteUrls.BitcoinContractList} element={<BitcoinContractList />} />
@@ -185,9 +192,9 @@ function useAppRoutes() {
             <Route path={RouteUrls.Unlock} element={<Unlock />}>
               {leatherIntroDialogRoutes}
             </Route>
-
+            {/* 
             {legacyRequestRoutes}
-            {rpcRequestRoutes}
+            {rpcRequestRoutes} */}
             <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
             <Route
               path={RouteUrls.RequestError}
@@ -197,19 +204,14 @@ function useAppRoutes() {
                 </AccountGate>
               }
             />
+            {/* PETE need to test this RpcSignStacksTransaction 
+              - where to find it, what header etc. 
+              - seems like it should in in rpc-routes but then with the edit nonce dialog its unclear
+              */}
 
-            <Route
-              path={RouteUrls.RpcSignStacksTransaction}
-              element={
-                <AccountGate>
-                  <RpcSignStacksTransaction />
-                </AccountGate>
-              }
-            >
-              <Route path={RouteUrls.EditNonce} element={<EditNonceDialog />} />
-            </Route>
+            {/* PETE need to check this RpcSignBip322Message - seems a duplicate and it is in rpc-routes already */}
 
-            <Route
+            {/* <Route
               path={RouteUrls.RpcSignBip322Message}
               lazy={async () => {
                 const { RpcSignBip322MessageRoute } = await import(
@@ -219,7 +221,7 @@ function useAppRoutes() {
               }}
             >
               {ledgerBitcoinTxSigningRoutes}
-            </Route>
+            </Route> */}
 
             {alexSwapRoutes}
 
@@ -287,6 +289,11 @@ function useAppRoutes() {
             {/* Catch-all route redirects to onboarding */}
             <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
           </Route>
+        </Route>
+
+        <Route element={<Container layout={<PopupLayout />} />}>
+          {legacyRequestRoutes}
+          {rpcRequestRoutes}
         </Route>
       </Route>
     )

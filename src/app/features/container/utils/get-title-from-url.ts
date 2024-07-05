@@ -1,5 +1,6 @@
 import { RouteUrls } from '@shared/route-urls';
 
+// PETE refactor this so that routes get title in app-routes instead
 export function getTitleFromUrl(pathname: RouteUrls) {
   if (pathname.match(RouteUrls.SendCryptoAsset)) {
     // don't show send on first step of send flow or popuop transfer

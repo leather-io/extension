@@ -58,26 +58,27 @@ export function getDisplayAddresssBalanceOf(pathname: RouteUrls) {
   }
 }
 
-export function isKnownPopupRoute(pathname: RouteUrls) {
-  if (pathname.match('/bitcoin-contract-offer')) return true;
-  switch (pathname) {
-    case RouteUrls.TransactionRequest:
-    case RouteUrls.ProfileUpdateRequest:
-    case RouteUrls.PsbtRequest:
-    case RouteUrls.SignatureRequest:
-    case RouteUrls.RpcGetAddresses:
-    case RouteUrls.RpcSendTransfer:
-    case RouteUrls.SignatureRequest:
-    case RouteUrls.RpcSignBip322Message:
-    case RouteUrls.RpcStacksSignature:
-    case RouteUrls.RpcSignPsbt:
-    case RouteUrls.RpcSignPsbtSummary:
-    case RouteUrls.RpcSendTransfer:
-    case RouteUrls.RpcSendTransferChooseFee:
-    case RouteUrls.RpcSendTransferConfirmation:
-    case RouteUrls.RpcSendTransferSummary:
-      return true;
-    default:
-      return false;
-  }
-}
+// // this function is not needed but should help update app-routes.ts to use popup layout
+// export function isKnownPopupRoute(pathname: RouteUrls) {
+//   if (pathname.match('/bitcoin-contract-offer')) return true;
+//   switch (pathname) {
+//     // case RouteUrls.TransactionRequest:
+//     // case RouteUrls.ProfileUpdateRequest:
+//     // case RouteUrls.PsbtRequest:
+//     // case RouteUrls.SignatureRequest:
+//     // case RouteUrls.RpcGetAddresses:
+//     // case RouteUrls.RpcSendTransfer:
+//     // case RouteUrls.SignatureRequest:
+//       // case RouteUrls.RpcSignBip322Message:
+//       // case RouteUrls.RpcStacksSignature:
+//       // case RouteUrls.RpcSignPsbt:
+//       // case RouteUrls.RpcSignPsbtSummary:
+//       // case RouteUrls.RpcSendTransfer:
+//       // case RouteUrls.RpcSendTransferChooseFee:
+//       // case RouteUrls.RpcSendTransferConfirmation:
+//       // case RouteUrls.RpcSendTransferSummary:
+//       return true;
+//     default:
+//       return false;
+//   }
+// }

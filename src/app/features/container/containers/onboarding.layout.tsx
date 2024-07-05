@@ -10,7 +10,6 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
-import { isLandingPage, isNoHeaderPopup } from '../utils/route-helpers';
 import { ContainerLayout } from './container.layout';
 import { OnboardingHeader } from './headers/onboarding-header';
 
@@ -24,7 +23,7 @@ export function OnboardingLayout({ children }: OnboardingLayoutProps) {
 
   const { chain, name: chainName } = useCurrentNetworkState();
 
-  const displayHeader = !isLandingPage(pathname) && !isNoHeaderPopup(pathname);
+  const displayHeader = !pathname.match(RouteUrls.Onboarding);
 
   return (
     <ContainerLayout

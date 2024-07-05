@@ -1,11 +1,5 @@
 import { RouteUrls } from '@shared/route-urls';
 
-import { isKnownPopupRoute } from './get-popup-header';
-
-export function isLandingPage(pathname: RouteUrls) {
-  return pathname.match(RouteUrls.Onboarding); // need to match get-started/ledger
-}
-
 export function getIsSessionLocked(pathname: RouteUrls) {
   return pathname === RouteUrls.Unlock;
 }
@@ -23,14 +17,10 @@ export function isSummaryPage(pathname: RouteUrls) {
 }
 
 export function canGoBack(pathname: RouteUrls) {
-  if (getIsSessionLocked(pathname) || isKnownPopupRoute(pathname) || isSummaryPage(pathname)) {
+  if (getIsSessionLocked(pathname) || isSummaryPage(pathname)) {
     return false;
   }
   return true;
-}
-
-export function hideLogo(pathname: RouteUrls) {
-  return pathname === RouteUrls.RpcGetAddresses || pathname === RouteUrls.ViewSecretKey;
 }
 
 export function isNoHeaderPopup(pathname: RouteUrls) {
