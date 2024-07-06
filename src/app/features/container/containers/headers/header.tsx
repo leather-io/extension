@@ -5,12 +5,13 @@ import { Flex, Grid, GridItem, HStack, styled } from 'leather-styles/jsx';
 
 import { ArrowLeftIcon, CloseIcon } from '@leather.io/ui';
 
+import { usePageContext } from '../page/page.context';
 import { HeaderActionButton } from './components/header-action-button';
 
 interface HeaderProps {
   onClose?(): void;
   onGoBack?(): void;
-  title?: ReactNode;
+  // title?: ReactNode;
   account?: ReactNode;
   totalBalance?: ReactNode;
   settingsMenu?: ReactNode;
@@ -25,11 +26,13 @@ export function Header({
   totalBalance,
   settingsMenu,
   networkBadge,
-  title,
   logo,
 }: HeaderProps) {
   const logoItem = onGoBack || logo || account;
 
+  const {
+    state: { title },
+  } = usePageContext();
   return (
     <styled.header
       justifyContent="center"

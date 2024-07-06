@@ -6,13 +6,7 @@ interface ContainerLayoutProps {
 }
 export function ContainerLayout({ content, header }: ContainerLayoutProps) {
   return (
-    <Flex
-      data-testid="main-container"
-      flexDirection="column"
-      flexGrow={1}
-      width="100%"
-      height={{ base: '100vh', sm: '100%' }}
-    >
+    <Flex flexDirection="column" flexGrow={1} width="100%" height={{ base: '100vh', sm: '100%' }}>
       {header}
       <Flex className="main-content" flexGrow={1} position="relative" width="100%">
         {content}

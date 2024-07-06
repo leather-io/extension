@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { NetworkSelectors } from '@tests/selectors/network.selectors';
 import { Form, Formik } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
@@ -5,6 +7,7 @@ import { Stack, styled } from 'leather-styles/jsx';
 import { Button } from '@leather.io/ui';
 
 import { ErrorLabel } from '@app/components/error-label';
+import { usePageContext } from '@app/features/container/containers/page/page.context';
 import { Card } from '@app/ui/layout/card/card';
 import { Page } from '@app/ui/layout/page/page.layout';
 
@@ -13,6 +16,12 @@ import { useAddNetwork } from './use-add-network';
 
 export function AddNetwork() {
   const { error, initialFormValues, loading, onSubmit } = useAddNetwork();
+
+  const { dispatch } = usePageContext();
+
+  useEffect(() => {
+    dispatch({ type: 'update', payload: { title: 'Add Network' } });
+  }, [dispatch]);
 
   return (
     <Page>

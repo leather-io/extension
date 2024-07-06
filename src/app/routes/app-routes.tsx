@@ -50,6 +50,7 @@ import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorize
 import { Unlock } from '@app/pages/unlock';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
 import { AccountGate } from '@app/routes/account-gate';
+// import { RouteWrapper } from '@app/routes/components/route-wrapper';
 import { receiveRoutes } from '@app/routes/receive-routes';
 import { legacyRequestRoutes } from '@app/routes/request-routes';
 import { rpcRequestRoutes } from '@app/routes/rpc-routes';
@@ -83,12 +84,19 @@ function useAppRoutes() {
   return sentryCreateBrowserRouter(
     createRoutesFromElements(
       <Route>
-        {/* where to pass onGoBack though? */}
-        {/* PETE make a HOC to wrap these common stuff
- accept layout and children and always have error boundary + catch all
-
- also refactor the routes to split them up into smaller files by category
-*/}
+        {/* this didn't work? not critcal yet */}
+        {/* <RouteWrapper layout={<Container layout={<HomeLayout />} />}>
+          <Route
+            path="/*"
+            element={
+              <AccountGate>
+                <Home />
+              </AccountGate>
+            }
+          >
+            {homePageModalRoutes}
+          </Route>
+        </RouteWrapper> */}
         <Route element={<Container layout={<HomeLayout />} />}>
           <Route key="error" errorElement={<RouterErrorBoundary />}>
             <Route

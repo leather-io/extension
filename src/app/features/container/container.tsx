@@ -51,13 +51,12 @@ export function Container({ layout }: ContainerProps) {
           layout,
           { isShowingSwitchAccount, setIsShowingSwitchAccount }, // pass props here e.g. onGoBack?
 
-          // If desired , could add another set of <Routes that controls the title? Seems the same as a lookup function though
-          // probably routeState is what we should use. I wonder can it be set in app-routes.tsx?
+          // > good progress but stuck here and on how to set title and onGoBack
+
+          // TBC
 
           // maybe pass setOnGoBackLocation to outlet which updates state in this component?
           // then gets passed as a prop to the layout?
-          // also need to figure out how to do that for titles
-          // see if I still need this context here, I might not
           <Outlet context={{ isShowingSwitchAccount, setIsShowingSwitchAccount }} />
         )}
     </>

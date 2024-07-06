@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { createContext, useContext, useReducer, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
-import { Box, Flex } from 'leather-styles/jsx';
+import { Box } from 'leather-styles/jsx';
 
 import { HamburgerIcon, Logo, NetworkModeBadge } from '@leather.io/ui';
 
@@ -15,17 +15,17 @@ import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { Settings } from '../../../settings/settings';
 import { ContainerLayout } from '../container.layout';
 import { Header } from '../headers/header';
+import { PageProvider } from './page.context';
 
 // PETE refactor this so that routes get title in app-routes instead
 function getTitleFromUrl(pathname: RouteUrls) {
   if (pathname.match(RouteUrls.SendCryptoAsset)) {
-    // removing this as no titles in any popup
-    // don't show send on first step of send flow or popuop transfer
-    // if (pathname === RouteUrls.SendCryptoAsset) return undefined;
-    // if (pathname === RouteUrls.RpcSendTransfer) return undefined;
     return 'Send';
   }
-
+  // clearly not good but WIP fix
+  if (pathname.match('swap')) {
+    return 'Swap';
+  }
   switch (pathname) {
     case RouteUrls.AddNetwork:
       return 'Add a network';
@@ -119,50 +119,77 @@ export function PageLayout({ children }: PageLayoutProps) {
   }
   const hideSettings = isSummaryPage(pathname);
 
+  // const context = useContext(ExampleContext);
+
+  // console.log('Context', context, ExampleContext);
+
+  // const [language, setLanguage] = useState<string>('en');
+  // const value = { language, setLanguage };
+  // const { state } = usePageContext();
+
+  // PETE language provider was working.
+
+  // Page provider seems better but not sure how to use the
+  // value in header without the error being thrown
+
+  // seems quite close
+
   return (
-    <ContainerLayout
-      header={
-        <Header
-          // maybe set these in location state of child routes?
-          onGoBack={canGoBack(pathname) ? () => getOnGoBackLocation(pathname) : undefined}
-          onClose={isSummaryPage(pathname) ? () => navigate(RouteUrls.Home) : undefined}
-          settingsMenu={
-            hideSettings ? null : (
-              <Settings
-                triggerButton={
-                  <HamburgerIcon
-                    data-testid={SettingsSelectors.SettingsMenuBtn}
-                    hideBelow={hideSettingsOnSm(pathname) ? 'sm' : undefined}
-                  />
-                }
-                toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
+    <PageProvider>
+      {/* <LanguageContext.Provider value={{ language, setLanguage }}> */}
+      {/* <ExampleProvider> */}
+      <ContainerLayout
+        header={
+          <Header
+            // maybe set these in location state of child routes?
+            onGoBack={canGoBack(pathname) ? () => getOnGoBackLocation(pathname) : undefined}
+            onClose={isSummaryPage(pathname) ? () => navigate(RouteUrls.Home) : undefined}
+            settingsMenu={
+              hideSettings ? null : (
+                <Settings
+                  triggerButton={
+                    <HamburgerIcon
+                      data-testid={SettingsSelectors.SettingsMenuBtn}
+                      hideBelow={hideSettingsOnSm(pathname) ? 'sm' : undefined}
+                    />
+                  }
+                  toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
+                />
+              )
+            }
+            networkBadge={
+              <NetworkModeBadge
+                isTestnetChain={chain.stacks.chainId === ChainID.Testnet}
+                name={chainName}
               />
-            )
-          }
-          networkBadge={
-            <NetworkModeBadge
-              isTestnetChain={chain.stacks.chainId === ChainID.Testnet}
-              name={chainName}
-            />
-          }
-          title={getTitleFromUrl(pathname)}
-          logo={
-            <Box
-              height="headerContainerHeight"
-              margin="auto"
-              px="space.02"
-              hideBelow={isSessionLocked ? undefined : 'sm'}
-              hideFrom={isSessionLocked ? 'sm' : undefined}
-            >
-              <Logo
-                data-testid={OnboardingSelectors.LogoRouteToHome}
-                onClick={() => navigate(RouteUrls.Home)}
-              />
-            </Box>
-          }
-        />
-      }
-      content={children}
-    />
+            }
+            title={getTitleFromUrl(pathname)}
+            logo={
+              <Box
+                height="headerContainerHeight"
+                margin="auto"
+                px="space.02"
+                hideBelow={isSessionLocked ? undefined : 'sm'}
+                hideFrom={isSessionLocked ? 'sm' : undefined}
+              >
+                <Logo
+                  data-testid={OnboardingSelectors.LogoRouteToHome}
+                  onClick={() => navigate(RouteUrls.Home)}
+                />
+              </Box>
+            }
+          />
+        }
+        content={
+          <>
+            {/* <h1>{language}</h1> */}
+            {/* <h2>{title}</h2> */}
+            {children}
+          </>
+        }
+      />
+      {/* </ExampleProvider> */}
+      {/* </LanguageContext.Provider> */}
+    </PageProvider>
   );
 }
