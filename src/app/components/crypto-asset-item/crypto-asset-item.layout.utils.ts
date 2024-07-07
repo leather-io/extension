@@ -7,15 +7,14 @@ import { formatBalance } from '@app/common/format-balance';
 
 export function parseCryptoAssetBalance(availableBalance: Money) {
   const availableBalanceString = formatMoneyWithoutSymbol(availableBalance);
-  const dataTestId = CryptoAssetSelectors.CryptoAssetListItem.replace(
-    '{symbol}',
-    availableBalance.symbol.toLowerCase()
-  );
   const formattedBalance = formatBalance(availableBalanceString);
 
   return {
     availableBalanceString,
-    dataTestId,
     formattedBalance,
   };
+}
+
+export function getCryptoDataTestId(symbol: string) {
+  return CryptoAssetSelectors.CryptoAssetListItem.replace('{symbol}', symbol.toLowerCase());
 }
