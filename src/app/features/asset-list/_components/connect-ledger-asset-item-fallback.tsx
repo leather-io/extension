@@ -3,10 +3,10 @@ import type React from 'react';
 import type { Blockchains, Currencies } from '@leather.io/models';
 import { ItemLayout, Pressable } from '@leather.io/ui';
 
+import type { AssetListVariant } from '@app/common/asset-list-utils';
 import { capitalize } from '@app/common/utils';
 import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
 
-import type { AssetListVariant } from '../asset-list';
 import { ConnectLedgerButton } from './connect-ledger-asset-button';
 
 interface ConnectLedgerAssetItemFallbackProps {

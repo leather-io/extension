@@ -9,14 +9,18 @@ import {
   i18nFormatCurrency,
 } from '@leather.io/utils';
 
-import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
+import { CryptoAssetItemBalanceLayout } from '@app/components/crypto-asset-item/crypto-asset-item-balance.layout';
 
 interface StxCryptoAssetItemProps {
   balance: StxCryptoAssetBalance;
   isLoading: boolean;
   onSelectAsset?(symbol: string): void;
 }
-export function StxCryptoAssetItem({ balance, isLoading, onSelectAsset }: StxCryptoAssetItemProps) {
+export function StxCryptoAssetItemBalance({
+  balance,
+  isLoading,
+  onSelectAsset,
+}: StxCryptoAssetItemProps) {
   const marketData = useCryptoCurrencyMarketDataMeanAverage('STX');
 
   const { availableBalance, lockedBalance } = balance;
@@ -34,7 +38,7 @@ export function StxCryptoAssetItem({ balance, isLoading, onSelectAsset }: StxCry
   const captionRightBulletInfo = <Caption>{fiatLockedBalance} locked</Caption>;
 
   return (
-    <CryptoAssetItemLayout
+    <CryptoAssetItemBalanceLayout
       availableBalance={balance.availableBalance}
       captionLeft="STX"
       captionRightBulletInfo={showLockedBalance && captionRightBulletInfo}

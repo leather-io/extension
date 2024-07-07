@@ -3,7 +3,7 @@ import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import { BtcAvatarIcon } from '@leather.io/ui';
 import { baseCurrencyAmountInQuote, i18nFormatCurrency } from '@leather.io/utils';
 
-import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
+import { CryptoAssetItemBalanceLayout } from '@app/components/crypto-asset-item/crypto-asset-item-balance.layout';
 
 interface BtcCryptoAssetItemProps {
   balance: BtcCryptoAssetBalance;
@@ -17,7 +17,7 @@ export function BtcCryptoAssetItem({ balance, isLoading, onSelectAsset }: BtcCry
   );
 
   return (
-    <CryptoAssetItemLayout
+    <CryptoAssetItemBalanceLayout
       availableBalance={balance.availableBalance}
       captionLeft="BTC"
       fiatBalance={fiatAvailableBalance}
