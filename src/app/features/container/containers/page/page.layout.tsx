@@ -1,6 +1,6 @@
 import { ContainerLayout } from '../container.layout';
-import { Header } from './header';
 import { PageProvider } from './page.context';
+import { PageHeader } from './page.header';
 
 interface PageLayoutProps {
   children?: React.JSX.Element | React.JSX.Element[];
@@ -8,7 +8,7 @@ interface PageLayoutProps {
 export function PageLayout({ children }: PageLayoutProps) {
   return (
     <PageProvider>
-      <ContainerLayout header={<Header />} content={children} />
+      <ContainerLayout header={<PageHeader />} content={children} />
     </PageProvider>
   );
 }

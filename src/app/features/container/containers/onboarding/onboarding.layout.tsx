@@ -39,6 +39,7 @@ export function OnboardingLayout({ children }: OnboardingLayoutProps) {
             }
             logo={
               // fixme this RouteUrls.ViewSecretKey needs work to show logo when viewing key but not when entering password
+              // maybe I can use a context here also to update the header when its unlocked? ?
               pathname !== RouteUrls.ViewSecretKey && (
                 <Box height="headerContainerHeight" margin="auto" px="space.02">
                   <Logo

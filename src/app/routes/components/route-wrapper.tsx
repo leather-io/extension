@@ -10,22 +10,17 @@ interface RouteWrapperProps {
 }
 export function RouteWrapper({ children, layout }: RouteWrapperProps) {
   return (
-    <>
-      <Routes>
-        {/* where to pass onGoBack though? */}
-        {/* PETE make a HOC to wrap these common stuff
- accept layout and children and always have error boundary + catch all
-
- also refactor the routes to split them up into smaller files by category
+    <Routes>
+      {/* TODO wrap common Route stuff - accept layout and children and always have error boundary + catch all
+       also refactor the routes to split them up into smaller files by category
 */}
-        <Route element={layout}>
-          <Route key="error" errorElement={<RouterErrorBoundary />}>
-            {children}
-            {/* Catch-all route redirects to onboarding */}
-            <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
-          </Route>
+      <Route element={layout}>
+        <Route key="error" errorElement={<RouterErrorBoundary />}>
+          {children}
+          {/* Catch-all route redirects to onboarding */}
+          <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
         </Route>
-      </Routes>
-    </>
+      </Route>
+    </Routes>
   );
 }

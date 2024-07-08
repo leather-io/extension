@@ -1,11 +1,13 @@
 import { ReactNode, createContext, useContext, useEffect, useReducer } from 'react';
 
+import { RouteUrls } from '@shared/route-urls';
+
 interface HeaderPayloadState {
   title?: string;
   isSummaryPage?: boolean;
   isSessionLocked?: boolean;
   isSettingsVisibleOnSm?: boolean;
-  onGoBack?(): void;
+  onBackLocation?: RouteUrls;
   onClose?(): void;
 }
 

@@ -17,7 +17,7 @@ import { Page } from '@app/ui/layout/page/page.layout';
 
 export function ChooseCryptoAssetToFund() {
   const navigate = useNavigate();
-  useUpdatePageHeaderContext({ isSettingsVisibleOnSm: false });
+  useUpdatePageHeaderContext({ isSettingsVisibleOnSm: false, onBackLocation: RouteUrls.Home });
 
   const navigateToFund = useCallback(
     (symbol: string) => navigate(RouteUrls.Fund.replace(':currency', symbol)),

@@ -11,6 +11,7 @@ import { formatMoney } from '@leather.io/utils';
 
 import { AvailableBalance } from '@app/features/container/containers/footers/available-balance';
 import { Footer } from '@app/features/container/containers/footers/footer';
+import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
 
@@ -41,6 +42,7 @@ export function BtcSendForm() {
     validationSchema,
   } = useBtcSendForm();
 
+  // useUpdatePageHeaderContext({ title: 'Send' });
   return (
     <Box width="100%" pb="space.04">
       <Formik

@@ -49,14 +49,8 @@ export function Container({ layout }: ContainerProps) {
       {layout &&
         cloneElement(
           layout,
-          { isShowingSwitchAccount, setIsShowingSwitchAccount }, // pass props here e.g. onGoBack?
-
-          // > good progress but stuck here and on how to set title and onGoBack
-
-          // TBC
-
-          // maybe pass setOnGoBackLocation to outlet which updates state in this component?
-          // then gets passed as a prop to the layout?
+          { isShowingSwitchAccount, setIsShowingSwitchAccount }, // don't think this is used? is it?
+          // actually check the HomeLayout and try and replace the other isShowingSwitchAccount with this one and pass it down?
           <Outlet context={{ isShowingSwitchAccount, setIsShowingSwitchAccount }} />
         )}
     </>

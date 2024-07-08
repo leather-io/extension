@@ -18,7 +18,6 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { Footer } from '@app/features/container/containers/footers/footer';
-import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.hooks';
 import { Card } from '@app/ui/layout/card/card';
@@ -44,7 +43,6 @@ function useBrc20SendFormConfirmationState() {
 
 export function Brc20SendFormConfirmation() {
   const navigate = useNavigate();
-  useUpdatePageHeaderContext({ title: 'Review' });
 
   const { amount, recipient, fee, ticker, serviceFee, tx, orderId, feeRowValue, holderAddress } =
     useBrc20SendFormConfirmationState();
