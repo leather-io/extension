@@ -18,7 +18,7 @@ jobs:
         run: echo "SHORT_SHA=`echo ${{ github.event.pull_request.head.sha }} | cut -c1-7`" >> $GITHUB_OUTPUT
 
   set-in-progress-message:
-    if: github.repository == 'leather-wallet/extension' && github.actor != 'dependabot[bot]'
+    if: github.repository == 'leather-io/extension' && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     needs:
       - sha-hash
@@ -65,7 +65,7 @@ jobs:
           path: dist
 
   set-download-link:
-    if: github.repository == 'leather-wallet/extension' && github.actor != 'dependabot[bot]'
+    if: github.repository == 'leather-io/extension' && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     needs:
       - sha-hash
@@ -84,7 +84,7 @@ jobs:
       - uses: kyranjamie/pull-request-fixed-header@v1.0.1
         env:
           EXTENSION_BUILD_LINK: '[Extension build](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})'
-          TEST_REPORT_LINK: '[Test report](https://leather-wallet.github.io/playwright-reports/${{ env.BRANCH_NAME }})'
+          TEST_REPORT_LINK: '[Test report](https://leather-io.github.io/playwright-reports/${{ env.BRANCH_NAME }})'
           STORYBOOK_LINK: '[Storybook](https://${{ env.BRANCH_NAME }}--65982789c7e2278518f189e7.chromatic.com)'
           CHROMATIC_LINK: '[Chromatic](https://www.chromatic.com/library?appId=65982789c7e2278518f189e7&branch=${{ env.BRANCH_NAME }})'
         with:
