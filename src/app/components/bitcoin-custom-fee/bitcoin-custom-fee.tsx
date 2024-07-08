@@ -7,7 +7,6 @@ import * as yup from 'yup';
 
 import type { BtcFeeType } from '@leather.io/models';
 import { Button, Link } from '@leather.io/ui';
-import { createMoney } from '@leather.io/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 
@@ -31,7 +30,6 @@ interface BitcoinCustomFeeProps {
 }
 
 export function BitcoinCustomFee({
-  amount,
   customFeeInitialValue,
   hasInsufficientBalanceError,
   isSendingMax,
@@ -44,7 +42,6 @@ export function BitcoinCustomFee({
 }: BitcoinCustomFeeProps) {
   const feeInputRef = useRef<HTMLInputElement | null>(null);
   const getCustomFeeValues = useBitcoinCustomFee({
-    amount: createMoney(amount, 'BTC'),
     isSendingMax,
     recipients,
   });
@@ -97,7 +94,6 @@ export function BitcoinCustomFee({
                 </Link>
               </styled.span>
               <BitcoinCustomFeeInput
-                amount={amount}
                 isSendingMax={isSendingMax}
                 onClick={async () => {
                   feeInputRef.current?.focus();

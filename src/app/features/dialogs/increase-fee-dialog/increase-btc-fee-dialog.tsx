@@ -93,9 +93,6 @@ export function IncreaseBtcFeeDialog() {
                   <Stack gap="space.04">
                     <Stack gap="space.01">
                       <BitcoinCustomFeeInput
-                        amount={Math.abs(
-                          btcToSat(getBitcoinTxValue(currentBitcoinAddress, btcTx)).toNumber()
-                        )}
                         isSendingMax={false}
                         recipients={recipients}
                         hasInsufficientBalanceError={false}
