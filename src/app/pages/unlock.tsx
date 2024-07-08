@@ -5,14 +5,9 @@ import { useUpdatePageHeaderContext } from '@app/features/container/containers/p
 
 export function Unlock() {
   const navigate = useNavigate();
-  // PETE - critical to make sure this resets the state of the page header on unlock
-  //  Pete this doesn't reset which is bad and could indicate titles won't reset also
-  // look into that article with useRef
-  // finish other work first though
   useUpdatePageHeaderContext({ isSessionLocked: true });
   // Here we want to return to the previous route. The user could land on any
   // page when the wallet is locked, so we can't assume as single route.
-  // see if I can do a state reset easily on unmount via useUpdatePageHeaderContext
   const returnToPreviousRoute = () => navigate(-1);
 
   return (

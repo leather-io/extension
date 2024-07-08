@@ -55,6 +55,8 @@ export function useUpdatePageHeaderContext(payload: HeaderPayloadState) {
 
   useEffect(() => {
     dispatch({ type: 'update', payload });
-  }, [dispatch, payload]);
-  // Pete could be as simple as firing a reset action here on close
+    return () => {
+      dispatch({ type: 'reset' });
+    };
+  });
 }

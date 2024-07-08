@@ -10,8 +10,7 @@ import { Settings } from '../../../settings/settings';
 import { ContainerLayout } from '../container.layout';
 import { HomeHeader } from './home-header';
 
-// props need to be optional because of the way the container is structured
-// they aren't provided in app-routes and are instead fed via the outlet context
+// props are optional as populated by the outlet context
 interface HomeLayoutProps {
   children?: React.JSX.Element | React.JSX.Element[];
   isShowingSwitchAccount?: boolean;

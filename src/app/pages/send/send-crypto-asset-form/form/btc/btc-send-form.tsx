@@ -42,7 +42,7 @@ export function BtcSendForm() {
     validationSchema,
   } = useBtcSendForm();
 
-  // useUpdatePageHeaderContext({ title: 'Send' });
+  useUpdatePageHeaderContext({ title: 'Send' });
   return (
     <Box width="100%" pb="space.04">
       <Formik

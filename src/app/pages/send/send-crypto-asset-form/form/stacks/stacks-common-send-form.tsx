@@ -17,6 +17,7 @@ import { FeesRow } from '@app/components/fees-row/fees-row';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { AvailableBalance } from '@app/features/container/containers/footers/available-balance';
 import { Footer } from '@app/features/container/containers/footers/footer';
+import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { HighFeeDialog } from '@app/features/stacks-high-fee-warning/stacks-high-fee-dialog';
 import { Card } from '@app/ui/layout/card/card';
@@ -51,6 +52,7 @@ export function StacksCommonSendForm({
 }: StacksCommonSendFormProps) {
   const navigate = useNavigate();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
+  useUpdatePageHeaderContext({ title: 'Send' });
   return (
     <Box width="100%" pb="space.04">
       <Formik

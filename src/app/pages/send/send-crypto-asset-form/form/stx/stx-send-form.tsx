@@ -2,8 +2,7 @@ import type { CryptoCurrencies } from '@leather.io/models';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import { StxAvatarIcon } from '@leather.io/ui';
 
-import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
-
+// import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
 import { AmountField } from '../../components/amount-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendFiatValue } from '../../components/send-fiat-value';
@@ -15,7 +14,7 @@ const symbol = 'STX' satisfies CryptoCurrencies;
 
 export function StxSendForm() {
   const stxMarketData = useCryptoCurrencyMarketDataMeanAverage(symbol);
-  useUpdatePageHeaderContext({ title: 'Send' });
+  // useUpdatePageHeaderContext({ title: 'Send' });
   const {
     availableUnlockedBalance,
     initialValues,

@@ -7,7 +7,7 @@ import type { CryptoCurrencies } from '@leather.io/models';
 import { InfoCircleIcon } from '@leather.io/ui';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
-import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
+// import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
 import { useStacksTransactionSummary } from '@app/features/stacks-transaction-request/hooks/use-stacks-transaction-summary';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
@@ -24,7 +24,12 @@ function useStacksSendFormConfirmationState() {
 
 export function StacksSendFormConfirmation() {
   const { tx, decimals, showFeeChangeWarning } = useStacksSendFormConfirmationState();
-  useUpdatePageHeaderContext({ title: 'Send' });
+
+  /* PETE the same memory leak thing that was happening BTC happens here 
+  
+  need to move initial title state, check into it and solve asap as would block PR
+  */
+  // useUpdatePageHeaderContext({ title: 'Send' });
 
   const { symbol = 'STX' } = useParams();
 
