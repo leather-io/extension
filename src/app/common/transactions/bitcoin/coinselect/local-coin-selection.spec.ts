@@ -1,7 +1,8 @@
 import { BTC_P2WPKH_DUST_AMOUNT } from '@leather.io/constants';
 import { createMoney, createNullArrayOfLength, sumNumbers } from '@leather.io/utils';
 
-import { determineUtxosForSpend } from './local-coin-selection';
+import { filterUneconomicalUtxos, getSizeInfo } from '../utils';
+import { determineUtxosForSpend, determineUtxosForSpendAll } from './local-coin-selection';
 
 const demoUtxos = [
   { value: 8200 },
@@ -167,5 +168,65 @@ describe(determineUtxosForSpend.name, () => {
         .minus(amount.toString())
         .toString()
     );
+  });
+
+  test('that spending all economical spendable utxos does not result in dust utxos', () => {
+    const feeRate = 3;
+    const recipients = [
+      {
+        address: 'tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m',
+        amount: createMoney(Number(1), 'BTC'),
+      },
+    ];
+    const filteredUtxos = filterUneconomicalUtxos({
+      utxos: demoUtxos.sort((a, b) => b.value - a.value) as any,
+      feeRate,
+      recipients,
+    });
+    const amount = filteredUtxos.reduce((total, utxo) => total + utxo.value, 0) - 2251;
+    recipients[0].amount = createMoney(Number(amount), 'BTC');
+
+    const result = determineUtxosForSpend({
+      utxos: filteredUtxos as any,
+      recipients: [
+        {
+          address: 'tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m',
+          amount: createMoney(Number(amount), 'BTC'),
+        },
+      ],
+      feeRate,
+    });
+    expect(result.inputs.length).toEqual(10);
+    expect(result.outputs.length).toEqual(1);
+    expect(result.fee).toEqual(2251);
+  });
+
+  test('that spending all utxos with sendMax does not result in dust utxos', () => {
+    const utxos = [{ value: 1000 }, { value: 2000 }, { value: 3000 }];
+    const recipients = [
+      {
+        address: 'tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m',
+        amount: createMoney(Number(1), 'BTC'),
+      },
+    ];
+    const sizeInfo = getSizeInfo({
+      inputLength: utxos.length,
+      isSendMax: true,
+      recipients,
+    });
+    const feeRate = 3;
+    const fee = Math.floor(sizeInfo.txVBytes * feeRate);
+    const amount = utxos.reduce((total, utxo) => total + utxo.value, 0) - fee;
+    recipients[0].amount = createMoney(Number(amount), 'BTC');
+
+    const result = determineUtxosForSpendAll({
+      utxos: utxos as any,
+      recipients,
+      feeRate,
+    });
+    expect(result.inputs.length).toEqual(utxos.length);
+    expect(result.outputs.length).toEqual(1);
+    expect(result.fee).toEqual(735);
+    expect(fee).toEqual(735);
   });
 });
