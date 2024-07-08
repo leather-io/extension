@@ -28,7 +28,6 @@ const symbol: CryptoCurrencies = 'BTC';
 export function BtcSendForm() {
   const routeState = useSendFormRouteState();
   const marketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
-
   const {
     balance,
     calcMaxSpend,

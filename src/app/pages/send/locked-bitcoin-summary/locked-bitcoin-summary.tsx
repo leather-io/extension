@@ -11,6 +11,7 @@ import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-l
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { InfoCardAssetValue, InfoCardBtn } from '@app/components/info-card/info-card';
 import { Footer } from '@app/features/container/containers/footers/footer';
+import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
 import { useToast } from '@app/features/toasts/use-toast';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
@@ -18,6 +19,7 @@ import { CardContent } from '@app/ui/layout/card/card-content';
 export function LockBitcoinSummary() {
   const { state } = useLocation();
   const toast = useToast();
+  useUpdatePageHeaderContext({ title: 'Locked Bitcoin' });
 
   const { txId, txMoney, txFiatValue, txFiatValueSymbol, symbol, txLink } = state;
 

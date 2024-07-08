@@ -15,6 +15,7 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { Footer } from '@app/features/container/containers/footers/footer';
+import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
 
@@ -35,6 +36,7 @@ function useBrc20SentSummaryState() {
 }
 
 export function Brc20SentSummary() {
+  useUpdatePageHeaderContext({ title: 'Creating transfer inscription', isSummaryPage: true });
   const { ticker, amount, serviceFee, totalFee, feeRowValue } = useBrc20SentSummaryState();
   const amountFormatted = formatMoney(createMoney(Number(amount), ticker, 0));
   const navigate = useNavigate();

@@ -7,6 +7,7 @@ import type { CryptoCurrencies } from '@leather.io/models';
 import { InfoCircleIcon } from '@leather.io/ui';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
+import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
 import { useStacksTransactionSummary } from '@app/features/stacks-transaction-request/hooks/use-stacks-transaction-summary';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
@@ -23,6 +24,8 @@ function useStacksSendFormConfirmationState() {
 
 export function StacksSendFormConfirmation() {
   const { tx, decimals, showFeeChangeWarning } = useStacksSendFormConfirmationState();
+  useUpdatePageHeaderContext({ title: 'Send' });
+
   const { symbol = 'STX' } = useParams();
 
   const { stacksBroadcastTransaction, isBroadcasting } = useStacksBroadcastTransaction({

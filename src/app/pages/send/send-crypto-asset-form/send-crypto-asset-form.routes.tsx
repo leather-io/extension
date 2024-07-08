@@ -60,6 +60,7 @@ export const sendCryptoAssetFormRoutes = (
         </AccountGate>
       }
     />
+
     <Route element={<SendBitcoinAssetContainer />}>
       <Route
         path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'btc')}

@@ -9,6 +9,7 @@ import { isUndefined } from '@leather.io/utils';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Footer } from '@app/features/container/containers/footers/footer';
+import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
 
@@ -18,6 +19,7 @@ import { SwapFormValues } from './hooks/use-swap-form';
 import { useSwapContext } from './swap.context';
 
 export function Swap() {
+  useUpdatePageHeaderContext({ title: 'Swap' });
   const { isFetchingExchangeRate, swappableAssetsBase, swappableAssetsQuote } = useSwapContext();
   const { dirty, isValid, setFieldValue, values, validateForm } =
     useFormikContext<SwapFormValues>();

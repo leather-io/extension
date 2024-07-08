@@ -10,6 +10,7 @@ import {
 } from '@app/common/hooks/use-bitcoin-contracts';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
+import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
 
 import { BitcoinContractListItemLayout } from './components/bitcoin-contract-list-item-layout';
 
@@ -18,6 +19,8 @@ export function BitcoinContractList() {
   const [bitcoinContracts, setBitcoinContracts] = useState<BitcoinContractListItem[]>([]);
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState(false);
+
+  useUpdatePageHeaderContext({ title: 'Bitcoin Contracts' });
 
   useOnMount(() => {
     const fetchAndFormatBitcoinContracts = async () => {

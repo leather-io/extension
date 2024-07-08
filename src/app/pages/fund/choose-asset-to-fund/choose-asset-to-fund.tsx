@@ -11,11 +11,13 @@ import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-accou
 import { StxAssetItemBalanceLoader } from '@app/components/loaders/stx-balance-loader';
 import { BtcCryptoAssetItem } from '@app/features/asset-list/bitcoin/btc-crypto-asset-item/btc-crypto-asset-item';
 import { StxCryptoAssetItem } from '@app/features/asset-list/stacks/stx-crypo-asset-item/stx-crypto-asset-item';
+import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
 import { Card } from '@app/ui/layout/card/card';
 import { Page } from '@app/ui/layout/page/page.layout';
 
 export function ChooseCryptoAssetToFund() {
   const navigate = useNavigate();
+  useUpdatePageHeaderContext({ isSettingsVisibleOnSm: false });
 
   const navigateToFund = useCallback(
     (symbol: string) => navigate(RouteUrls.Fund.replace(':currency', symbol)),

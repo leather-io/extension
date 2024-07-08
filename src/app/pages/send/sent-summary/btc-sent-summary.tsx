@@ -16,6 +16,7 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { Footer } from '@app/features/container/containers/footers/footer';
+import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
 import { useToast } from '@app/features/toasts/use-toast';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
@@ -24,6 +25,7 @@ import { TxDone } from '../send-crypto-asset-form/components/tx-done';
 
 export function BtcSentSummary() {
   const { state } = useLocation();
+  useUpdatePageHeaderContext({ title: 'Sent', isSummaryPage: true });
 
   const toast = useToast();
 

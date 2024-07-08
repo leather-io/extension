@@ -21,6 +21,7 @@ import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoi
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
+import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.hooks';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
@@ -40,6 +41,7 @@ function useBrc20ChooseFeeState() {
 
 export function BrcChooseFee() {
   const toast = useToast();
+  useUpdatePageHeaderContext({ title: 'Choose fee' });
   const navigate = useNavigate();
   const { amount, recipient, ticker, utxos, holderAddress } = useBrc20ChooseFeeState();
   const generateTx = useGenerateUnsignedNativeSegwitTx();
