@@ -111,7 +111,7 @@ jobs:
           action: peaceiris/actions-gh-pages@v3
           with: |
             personal_token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
-            external_repository: leather-wallet/playwright-reports
+            external_repository: leather-io/playwright-reports
             publish_branch: main
             publish_dir: ./playwright-report
             destination_dir: ${{ steps.extract_branch.outputs.branch }}
@@ -121,7 +121,7 @@ jobs:
         if: steps.extract_branch.outputs.branch == 'dev'
         with:
           personal_token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
-          external_repository: leather-wallet/specs.leather.io
+          external_repository: leather-io/specs.leather.io
           publish_branch: main
           publish_dir: ./playwright-report
           cname: specs.leather.io

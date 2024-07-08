@@ -38,5 +38,5 @@ jobs:
       - uses: actions/upload-artifact@v3
         name: Upload build artifact
         with:
-          name: leather-wallet
+          name: leather-io
           path: dist
