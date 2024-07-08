@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
-import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Box } from 'leather-styles/jsx';
 
 import { Flag, Logo, NetworkModeBadge } from '@leather.io/ui';
@@ -17,8 +15,14 @@ import { TotalBalance } from '../../total-balance';
 import { ContainerLayout } from '../container.layout';
 import { PopupHeader } from './popup-header';
 
-function isNoHeaderPopup(pathname: RouteUrls) {
-  return pathname === RouteUrls.RpcGetAddresses || pathname === RouteUrls.ChooseAccount;
+function showHeader(pathname: RouteUrls) {
+  switch (pathname) {
+    case RouteUrls.RpcGetAddresses:
+    case RouteUrls.ChooseAccount:
+      return false;
+    default:
+      return true;
+  }
 }
 
 function showAccountInfo(pathname: RouteUrls) {
@@ -37,40 +41,32 @@ function showBalanceInfo(pathname: RouteUrls) {
     case RouteUrls.ProfileUpdateRequest:
     case RouteUrls.RpcSendTransfer:
       return true;
-    case RouteUrls.TransactionRequest:
     default:
       return false;
   }
 }
 
-function getDisplayAddresssBalanceOf(pathname: RouteUrls) {
-  //  TODO it's unclear when to show ALL or STX balance here
-  switch (pathname) {
-    case RouteUrls.TransactionRequest:
-    case RouteUrls.ProfileUpdateRequest:
-    case RouteUrls.RpcSendTransfer:
-      return 'all';
-    default:
-      return 'stx';
-  }
-}
-
 interface PopupLayoutProps {
   children?: React.JSX.Element | React.JSX.Element[];
+  isShowingSwitchAccount?: boolean;
+  setIsShowingSwitchAccount?(isShowingSwitchAccount: boolean): void;
 }
-export function PopupLayout({ children }: PopupLayoutProps) {
-  const [isShowingSwitchAccount, setIsShowingSwitchAccount] = useState(false);
+export function PopupLayout({
+  children,
+  isShowingSwitchAccount,
+  setIsShowingSwitchAccount,
+}: PopupLayoutProps) {
   const { pathname: locationPathname } = useLocation();
   const pathname = locationPathname as RouteUrls;
 
   const { chain, name: chainName } = useCurrentNetworkState();
 
-  const displayHeader = !isNoHeaderPopup(pathname);
+  const isHeaderVisible = showHeader(pathname);
 
   return (
     <ContainerLayout
       header={
-        displayHeader ? (
+        isHeaderVisible ? (
           <PopupHeader
             networkBadge={
               <NetworkModeBadge
@@ -79,15 +75,9 @@ export function PopupLayout({ children }: PopupLayoutProps) {
               />
             }
             logo={
-              //  PETE check this and improve - why no logo here, can't rememebr
-              pathname !== RouteUrls.RpcGetAddresses && (
-                <Box height="headerPopupHeight" margin="auto" px="space.02">
-                  <Logo
-                    data-testid={OnboardingSelectors.LogoRouteToHome}
-                    // onClick={isLogoClickable ? () => navigate(RouteUrls.Home) : undefined}
-                  />
-                </Box>
-              )
+              <Box height="headerPopupHeight" margin="auto" px="space.02">
+                <Logo />
+              </Box>
             }
             account={
               showAccountInfo(pathname) && (
@@ -95,7 +85,11 @@ export function PopupLayout({ children }: PopupLayoutProps) {
                   align="middle"
                   img={
                     <CurrentAccountAvatar
-                      toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
+                      toggleSwitchAccount={
+                        setIsShowingSwitchAccount
+                          ? () => setIsShowingSwitchAccount(!isShowingSwitchAccount)
+                          : () => null
+                      }
                     />
                   }
                 >
@@ -104,9 +98,8 @@ export function PopupLayout({ children }: PopupLayoutProps) {
               )
             }
             totalBalance={
-              showBalanceInfo(pathname) && (
-                <TotalBalance displayAddresssBalanceOf={getDisplayAddresssBalanceOf(pathname)} />
-              )
+              // We currently only show displayAddresssBalanceOf="all" in the total balance component
+              showBalanceInfo(pathname) && <TotalBalance displayAddresssBalanceOf="all" />
             }
           />
         ) : undefined
