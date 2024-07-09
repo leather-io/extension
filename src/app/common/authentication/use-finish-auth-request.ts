@@ -8,6 +8,7 @@ import {
 } from '@stacks/wallet-sdk';
 
 import { gaiaUrl } from '@leather.io/constants';
+import { useHiroApiRateLimiter } from '@leather.io/query';
 
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { logger } from '@shared/logger';
@@ -32,6 +33,7 @@ export function useFinishAuthRequest() {
   const { origin, tabId } = useAuthRequestParams();
 
   const wallet = useLegacyStacksWallet();
+  const hiroLimiter = useHiroApiRateLimiter();
 
   // TODO: It would be good to separate out finishing auth by the wallet vs an app
   // so that the additional data we provide apps can be removed from our onboarding.
@@ -55,12 +57,20 @@ export function useFinishAuthRequest() {
         if (!wallet) return;
 
         try {
-          const gaiaHubConfig = await createWalletGaiaConfig({ gaiaHubUrl: gaiaUrl, wallet });
+          const gaiaHubConfig = await hiroLimiter.add(
+            () => createWalletGaiaConfig({ gaiaHubUrl: gaiaUrl, wallet }),
+            {
+              priority: 5,
+              throwOnTimeout: true,
+            }
+          );
+
           const walletConfig = await getOrCreateWalletConfig({
             wallet,
             gaiaHubConfig,
             skipUpload: true,
           });
+
           await updateWalletConfigWithApp({
             wallet,
             walletConfig,
@@ -75,17 +85,23 @@ export function useFinishAuthRequest() {
             },
           });
 
-          const authResponse = await makeAuthResponse({
-            gaiaHubUrl: gaiaUrl,
-            appDomain: appURL.origin,
-            transitPublicKey: decodedAuthRequest.public_keys[0],
-            scopes: decodedAuthRequest.scopes,
-            account: account,
-            additionalData: {
-              ...getLegacyAuthBitcoinData(accountIndex),
-              walletProvider: 'leather',
+          const authResponse = await hiroLimiter.add(
+            () => {
+              return makeAuthResponse({
+                gaiaHubUrl: gaiaUrl,
+                appDomain: appURL.origin,
+                transitPublicKey: decodedAuthRequest.public_keys[0],
+                scopes: decodedAuthRequest.scopes,
+                account: account,
+                additionalData: {
+                  ...getLegacyAuthBitcoinData(accountIndex),
+                  walletProvider: 'leather',
+                },
+              });
             },
-          });
+            { priority: 5, throwOnTimeout: true }
+          );
+
           keyActions.switchAccount(accountIndex);
           finalizeAuthResponse({
             decodedAuthRequest,
@@ -112,6 +128,7 @@ export function useFinishAuthRequest() {
       appName,
       getLegacyAuthBitcoinData,
       keyActions,
+      hiroLimiter,
     ]
   );
 }
