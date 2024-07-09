@@ -35,7 +35,7 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { Footer } from '@app/features/container/containers/footers/footer';
-import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
+// import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
@@ -57,7 +57,7 @@ function useBtcSendFormConfirmationState() {
 
 export function BtcSendFormConfirmation() {
   const navigate = useNavigate();
-  useUpdatePageHeaderContext({ title: 'Review' });
+  // useUpdatePageHeaderContext({ title: 'Review' });
   const { tx, recipient, fee, arrivesIn, feeRowValue } = useBtcSendFormConfirmationState();
 
   const transaction = useMemo(() => btc.Transaction.fromRaw(hexToBytes(tx)), [tx]);

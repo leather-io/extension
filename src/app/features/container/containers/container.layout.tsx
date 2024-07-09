@@ -5,6 +5,7 @@ interface ContainerLayoutProps {
   header?: React.JSX.Element | null;
 }
 export function ContainerLayout({ content, header }: ContainerLayoutProps) {
+  console.log('render ContainerLayout');
   return (
     <Flex flexDirection="column" flexGrow={1} width="100%" height={{ base: '100vh', sm: '100%' }}>
       {header}

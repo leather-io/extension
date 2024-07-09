@@ -42,7 +42,8 @@ export function BtcSendForm() {
     validationSchema,
   } = useBtcSendForm();
 
-  useUpdatePageHeaderContext({ title: 'Send' });
+  // with this enabled ChooseCryptoAsset re-renders like a mad thing
+  // useUpdatePageHeaderContext({ title: 'Send' });
   return (
     <Box width="100%" pb="space.04">
       <Formik

@@ -5,14 +5,16 @@ import { Box, styled } from 'leather-styles/jsx';
 import { RouteUrls } from '@shared/route-urls';
 
 import { AssetList } from '@app/features/asset-list/asset-list';
-import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
+// import { useUpdatePageHeaderContext } from '@app/features/container/containers/page/page.context';
 import { useConfigBitcoinSendEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { Card } from '@app/ui/layout/card/card';
 
 export function ChooseCryptoAsset() {
   const navigate = useNavigate();
   const isBitcoinSendEnabled = useConfigBitcoinSendEnabled();
-  useUpdatePageHeaderContext({ isSettingsVisibleOnSm: false });
+  // this seems to stop memory leak but we shouldn't show 'Send' in the header on this page
+  // maybe route state would be better?
+  // useUpdatePageHeaderContext({ isSettingsVisibleOnSm: false, title: 'Send' });
 
   function navigateToSendForm(symbol: string, contractId?: string) {
     if (symbol === 'BTC' && !isBitcoinSendEnabled) return navigate(RouteUrls.SendBtcDisabled);

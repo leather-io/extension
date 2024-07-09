@@ -45,6 +45,13 @@ export function Container({ layout }: ContainerProps) {
       )}
 
       <InAppMessages />
+      {/* > Pete , back to this in the AM 
+- tackle issue with memory leak 
+- try decouple logic like Kyran said 
+
+In a smaller follow up then
+- fix actual bugs with account showing 
+- resizing of popout  */}
 
       {layout &&
         cloneElement(

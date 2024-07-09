@@ -17,6 +17,7 @@ export function PageLayout({
   isShowingSwitchAccount,
   setIsShowingSwitchAccount,
 }: PageLayoutProps) {
+  console.log('render PageLayout');
   return (
     <PageProvider>
       <ContainerLayout

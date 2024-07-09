@@ -53,6 +53,9 @@ export function PageHeader({ settingsMenu }: PageHeaderProps) {
   // pages with nested dialogs need a custom back location to prevent re-opening the dialog
   const onGoBack = onBackLocation ? () => navigate(onBackLocation) : () => navigate(-1);
   const canGoBack = !isSummaryPage && !isSessionLocked;
+
+  console.log('render PageHeader');
+
   return (
     <styled.header
       justifyContent="center"
