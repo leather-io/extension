@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
@@ -13,10 +14,7 @@ import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { ContainerLayout } from '../container.layout';
 import { OnboardingHeader } from './onboarding-header';
 
-interface OnboardingLayoutProps {
-  children?: React.JSX.Element | React.JSX.Element[];
-}
-export function OnboardingLayout({ children }: OnboardingLayoutProps) {
+export function OnboardingLayout() {
   const navigate = useNavigate();
   const { pathname: locationPathname } = useLocation();
   const pathname = locationPathname as RouteUrls;
@@ -52,7 +50,7 @@ export function OnboardingLayout({ children }: OnboardingLayoutProps) {
           />
         ) : null
       }
-      content={children}
+      content={<Outlet />}
     />
   );
 }

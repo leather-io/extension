@@ -1,3 +1,5 @@
+import { Outlet } from 'react-router-dom';
+
 import { ChainID } from '@stacks/transactions';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box } from 'leather-styles/jsx';
@@ -12,30 +14,26 @@ import { HomeHeader } from './home-header';
 
 // props are optional as populated by the outlet context
 interface HomeLayoutProps {
-  children?: React.JSX.Element | React.JSX.Element[];
   isShowingSwitchAccount?: boolean;
   setIsShowingSwitchAccount?(isShowingSwitchAccount: boolean): void;
 }
 
-export function HomeLayout({
-  children,
-  isShowingSwitchAccount,
-  setIsShowingSwitchAccount,
-}: HomeLayoutProps) {
+export function HomeLayout({ isShowingSwitchAccount, setIsShowingSwitchAccount }: HomeLayoutProps) {
   const { chain, name: chainName } = useCurrentNetworkState();
-
   return (
     <ContainerLayout
       header={
         <HomeHeader
           settingsMenu={
-            //  guard needed as setIsShowingSwitchAccount passed via cloning
-            setIsShowingSwitchAccount ? (
-              <Settings
-                triggerButton={<HamburgerIcon data-testid={SettingsSelectors.SettingsMenuBtn} />}
-                toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
-              />
-            ) : undefined
+            // this toggleSwitchAccount is not working now, come up with a more elegant solution in container
+            <Settings
+              triggerButton={<HamburgerIcon data-testid={SettingsSelectors.SettingsMenuBtn} />}
+              toggleSwitchAccount={
+                setIsShowingSwitchAccount
+                  ? () => setIsShowingSwitchAccount(!isShowingSwitchAccount)
+                  : () => null
+              }
+            />
           }
           networkBadge={
             <NetworkModeBadge
@@ -50,7 +48,7 @@ export function HomeLayout({
           }
         />
       }
-      content={children}
+      content={<Outlet context={{ isShowingSwitchAccount, setIsShowingSwitchAccount }} />}
     />
   );
 }

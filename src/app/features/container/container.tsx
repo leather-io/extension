@@ -15,11 +15,7 @@ import { useHasStateRehydrated } from '@app/store';
 
 import { useRestoreFormState } from '../popup-send-form-restoration/use-restore-form-state';
 
-interface ContainerProps {
-  layout: any;
-}
-
-export function Container({ layout }: ContainerProps) {
+export function Container() {
   const [isShowingSwitchAccount, setIsShowingSwitchAccount] = useState(false);
   const { pathname: locationPathname } = useLocation();
   const pathname = locationPathname as RouteUrls;
@@ -53,13 +49,14 @@ In a smaller follow up then
 - fix actual bugs with account showing 
 - resizing of popout  */}
 
-      {layout &&
+      {/* {layout &&
         cloneElement(
           layout,
           { isShowingSwitchAccount, setIsShowingSwitchAccount }, // don't think this is used? is it?
           // actually check the HomeLayout and try and replace the other isShowingSwitchAccount with this one and pass it down?
           <Outlet context={{ isShowingSwitchAccount, setIsShowingSwitchAccount }} />
-        )}
+        )} */}
+      <Outlet context={{ isShowingSwitchAccount, setIsShowingSwitchAccount }} />
     </>
   );
 }

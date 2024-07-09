@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
 import { Box } from 'leather-styles/jsx';
@@ -52,7 +53,6 @@ interface PopupLayoutProps {
   setIsShowingSwitchAccount?(isShowingSwitchAccount: boolean): void;
 }
 export function PopupLayout({
-  children,
   isShowingSwitchAccount,
   setIsShowingSwitchAccount,
 }: PopupLayoutProps) {
@@ -104,7 +104,7 @@ export function PopupLayout({
           />
         ) : undefined
       }
-      content={children}
+      content={<Outlet />}
     />
   );
 }

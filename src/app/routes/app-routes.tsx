@@ -83,22 +83,9 @@ export const homePageModalRoutes = (
 function useAppRoutes() {
   return sentryCreateBrowserRouter(
     createRoutesFromElements(
-      <Route>
-        {/* this didn't work? not critcal yet */}
-        {/* <RouteWrapper layout={<Container layout={<HomeLayout />} />}>
-          <Route
-            path="/*"
-            element={
-              <AccountGate>
-                <Home />
-              </AccountGate>
-            }
-          >
-            {homePageModalRoutes}
-          </Route>
-        </RouteWrapper> */}
-        <Route element={<Container layout={<HomeLayout />} />}>
-          <Route key="error" errorElement={<RouterErrorBoundary />}>
+      <Route element={<Container />}>
+        <Route key="error" errorElement={<RouterErrorBoundary />}>
+          <Route element={<HomeLayout />}>
             <Route
               path="/*"
               element={
@@ -109,13 +96,8 @@ function useAppRoutes() {
             >
               {homePageModalRoutes}
             </Route>
-
-            {/* Catch-all route redirects to onboarding */}
-            <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
           </Route>
-        </Route>
-        <Route element={<Container layout={<PageLayout />} />}>
-          <Route key="error" errorElement={<RouterErrorBoundary />}>
+          <Route element={<PageLayout />}>
             <Route
               path={RouteUrls.RetrieveTaprootFunds}
               element={<RetrieveTaprootToNativeSegwit />}
@@ -193,14 +175,9 @@ function useAppRoutes() {
             />
 
             {alexSwapRoutes}
-
-            {/* Catch-all route redirects to onboarding */}
-            <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
           </Route>
-        </Route>
 
-        <Route element={<Container layout={<OnboardingLayout />} />}>
-          <Route key="error" errorElement={<RouterErrorBoundary />}>
+          <Route element={<OnboardingLayout />}>
             <Route
               path={RouteUrls.Onboarding}
               element={
@@ -254,15 +231,15 @@ function useAppRoutes() {
                 </AccountGate>
               }
             />
-
-            {/* Catch-all route redirects to onboarding */}
-            <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
           </Route>
-        </Route>
 
-        <Route element={<Container layout={<PopupLayout />} />}>
-          {legacyRequestRoutes}
-          {rpcRequestRoutes}
+          <Route element={<PopupLayout />}>
+            {legacyRequestRoutes}
+            {rpcRequestRoutes}
+          </Route>
+
+          {/* Catch-all route redirects to onboarding */}
+          <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
         </Route>
       </Route>
     )
