@@ -1,4 +1,4 @@
-import { cloneElement, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';

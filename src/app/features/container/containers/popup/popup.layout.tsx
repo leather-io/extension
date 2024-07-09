@@ -1,5 +1,4 @@
-import { useLocation } from 'react-router-dom';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
 import { Box } from 'leather-styles/jsx';

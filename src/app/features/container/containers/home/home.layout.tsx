@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useOutletContext } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
@@ -6,33 +6,27 @@ import { Box } from 'leather-styles/jsx';
 
 import { HamburgerIcon, Logo, NetworkModeBadge } from '@leather.io/ui';
 
+import { SwitchAccountOutletContext } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { Settings } from '../../../settings/settings';
 import { ContainerLayout } from '../container.layout';
 import { HomeHeader } from './home-header';
 
-// props are optional as populated by the outlet context
-interface HomeLayoutProps {
-  isShowingSwitchAccount?: boolean;
-  setIsShowingSwitchAccount?(isShowingSwitchAccount: boolean): void;
-}
-
-export function HomeLayout({ isShowingSwitchAccount, setIsShowingSwitchAccount }: HomeLayoutProps) {
+export function HomeLayout() {
   const { chain, name: chainName } = useCurrentNetworkState();
+
+  const { isShowingSwitchAccount, setIsShowingSwitchAccount } =
+    useOutletContext<SwitchAccountOutletContext>();
+
   return (
     <ContainerLayout
       header={
         <HomeHeader
           settingsMenu={
-            // this toggleSwitchAccount is not working now, come up with a more elegant solution in container
             <Settings
               triggerButton={<HamburgerIcon data-testid={SettingsSelectors.SettingsMenuBtn} />}
-              toggleSwitchAccount={
-                setIsShowingSwitchAccount
-                  ? () => setIsShowingSwitchAccount(!isShowingSwitchAccount)
-                  : () => null
-              }
+              toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
             />
           }
           networkBadge={
