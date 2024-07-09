@@ -43,12 +43,17 @@ function setWalletEncryptionPassword(args: {
       await checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex(secretKey);
 
     async function doesStacksAddressHaveBalance(address: string) {
-      const resp = await stxClient.getAccountBalance(address);
+      const resp = await stxClient.getAccountBalance(address, new AbortSignal());
       return Number(resp.stx.balance) > 0;
     }
 
     async function doesStacksAddressHaveBnsName(address: string) {
-      const resp = await fetchNamesForAddress({ client: stxClient, address, isTestnet: false });
+      const resp = await fetchNamesForAddress({
+        client: stxClient,
+        address,
+        isTestnet: false,
+        signal: new AbortSignal(),
+      });
       return resp.names.length > 0;
     }
 

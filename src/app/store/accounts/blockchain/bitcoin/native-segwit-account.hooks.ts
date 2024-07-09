@@ -12,13 +12,13 @@ import {
   lookUpLedgerKeysByPath,
 } from '@leather.io/bitcoin';
 import { extractAddressIndexFromPath } from '@leather.io/crypto';
+import { useBitcoinClient } from '@leather.io/query';
 import { reverseBytes } from '@leather.io/utils';
 
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { analytics } from '@shared/utils/analytics';
 
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
-import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { selectCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { selectCurrentAccountIndex } from '@app/store/software-keys/software-key.selectors';
 
