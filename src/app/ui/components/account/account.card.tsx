@@ -38,6 +38,7 @@ export function AccountCard({
         data-testid={SettingsSelectors.SwitchAccountTrigger}
         onClick={toggleSwitchAccount}
         variant="text"
+        maxWidth="fit-content"
       >
         <Flex>
           <AccountNameLayout
