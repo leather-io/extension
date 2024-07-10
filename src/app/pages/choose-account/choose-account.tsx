@@ -10,6 +10,7 @@ import { closeWindow } from '@shared/utils';
 import { useCancelAuthRequest } from '@app/common/authentication/use-cancel-auth-request';
 import { useAppDetails } from '@app/common/hooks/auth/use-app-details';
 import { RequesterFlag } from '@app/components/requester-flag';
+// import { Content } from '@app/components/layout';
 import { ChooseAccountsList } from '@app/pages/choose-account/components/accounts';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';

@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { Outlet, useOutletContext } from 'react-router-dom';
 
+import { Flex } from 'leather-styles/jsx';
+
 import type { BtcFeeType } from '@leather.io/models';
 
 import { closeWindow } from '@shared/utils';
 
-import { RpcSendTransferContainerLayout } from './components/rpc-send-transfer-container.layout';
+import { PopupHeader } from '@app/features/container/headers/popup.header';
+
 import { useRpcSendTransfer } from './use-rpc-send-transfer';
 
 interface RpcSendTransferContextState {
@@ -27,8 +30,11 @@ export function RpcSendTransferContainer() {
   }
 
   return (
-    <RpcSendTransferContainerLayout>
-      <Outlet context={{ selectedFeeType, setSelectedFeeType }} />
-    </RpcSendTransferContainerLayout>
+    <>
+      <PopupHeader showSwitchAccount balance="all" />
+      <Flex alignItems="center" flexDirection="column" p="space.05" width="100%">
+        <Outlet context={{ selectedFeeType, setSelectedFeeType }} />
+      </Flex>
+    </>
   );
 }

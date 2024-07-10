@@ -1,5 +1,6 @@
 import { isSignableMessageType } from '@shared/signature/signature-types';
 
+import { PopupHeader } from '@app/features/container/headers/popup.header';
 import { StacksMessageSigning } from '@app/features/stacks-message-signer/stacks-message-signing';
 import {
   useSignStacksMessageRequest,
@@ -18,14 +19,18 @@ export function SignStacksMessageRequest() {
   if (!payload) return null;
 
   return (
-    <StacksMessageSigning
-      payload={payload}
-      isLoading={isLoading}
-      onSignMessage={signMessage}
-      onCancelMessageSigning={onCancelMessageSigning}
-      messageType={messageType}
-      tabId={tabId}
-      origin={origin}
-    />
+    <>
+      {/* TODO check this route for '/signature' as it seems STX specific but we don't show balance */}
+      <PopupHeader showSwitchAccount />
+      <StacksMessageSigning
+        payload={payload}
+        isLoading={isLoading}
+        onSignMessage={signMessage}
+        onCancelMessageSigning={onCancelMessageSigning}
+        messageType={messageType}
+        tabId={tabId}
+        origin={origin}
+      />
+    </>
   );
 }

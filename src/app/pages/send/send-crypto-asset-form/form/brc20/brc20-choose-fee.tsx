@@ -18,9 +18,11 @@ import {
   OnChooseFeeArgs,
 } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list';
+import { Content, Page } from '@app/components/layout';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
+import { PageHeader } from '@app/features/container/headers/page.header';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.hooks';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
@@ -124,42 +126,52 @@ export function BrcChooseFee() {
     }
   }
 
-  return isLoadingOrder ? (
-    <Stack
-      alignItems="center"
-      minHeight={['unset', '630px']}
-      p="space.06"
-      gap="space.04"
-      width="100%"
-    >
-      <LoadingSpinner />
-    </Stack>
-  ) : (
+  return (
     <>
-      <BitcoinChooseFee
-        amount={amountAsMoney}
-        defaultToCustomFee={!feesList.length}
-        feesList={
-          <BitcoinFeesList
-            feesList={feesList}
-            isLoading={isLoading}
-            onChooseFee={previewTransaction}
-            onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
-            onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
-            selectedFeeType={selectedFeeType}
-          />
-        }
-        isLoading={isLoading}
-        isSendingMax={false}
-        onChooseFee={previewTransaction}
-        onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
-        onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
-        recommendedFeeRate={recommendedFeeRate}
-        recipients={recipients}
-        showError={showInsufficientBalanceError}
-        maxRecommendedFeeRate={feesList[0]?.feeRate}
-      />
-      <Outlet />
+      <PageHeader title="Choose fee" />
+      <Content>
+        <Page>
+          {isLoadingOrder && (
+            <Stack
+              alignItems="center"
+              minHeight={['unset', '630px']}
+              p="space.06"
+              gap="space.04"
+              width="100%"
+            >
+              <LoadingSpinner />
+            </Stack>
+          )}
+          {!isLoadingOrder && (
+            <>
+              <BitcoinChooseFee
+                amount={amountAsMoney}
+                defaultToCustomFee={!feesList.length}
+                feesList={
+                  <BitcoinFeesList
+                    feesList={feesList}
+                    isLoading={isLoading}
+                    onChooseFee={previewTransaction}
+                    onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
+                    onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
+                    selectedFeeType={selectedFeeType}
+                  />
+                }
+                isLoading={isLoading}
+                isSendingMax={false}
+                onChooseFee={previewTransaction}
+                onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
+                onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
+                recommendedFeeRate={recommendedFeeRate}
+                recipients={recipients}
+                showError={showInsufficientBalanceError}
+                maxRecommendedFeeRate={feesList[0]?.feeRate}
+              />
+              <Outlet />
+            </>
+          )}
+        </Page>
+      </Content>
     </>
   );
 }

@@ -7,6 +7,7 @@ import { closeWindow } from '@shared/utils';
 
 import { Disclaimer } from '@app/components/disclaimer';
 import { NoFeesWarningRow } from '@app/components/no-fees-warning-row';
+import { PopupHeader } from '@app/features/container/headers/popup.header';
 import { MessagePreviewBox } from '@app/features/message-signer/message-preview-box';
 import { MessageSigningRequestLayout } from '@app/features/message-signer/message-signing-request.layout';
 import { AccountGate } from '@app/routes/account-gate';
@@ -57,7 +58,7 @@ function RpcSignBip322Message() {
 
   return (
     <>
-      <Outlet />
+      <PopupHeader showSwitchAccount balance="all" />
       <MessageSigningRequestLayout>
         <MessageSigningHeader
           origin={origin}
@@ -76,6 +77,7 @@ function RpcSignBip322Message() {
           mb="space.05"
         />
       </MessageSigningRequestLayout>
+      <Outlet />
     </>
   );
 }

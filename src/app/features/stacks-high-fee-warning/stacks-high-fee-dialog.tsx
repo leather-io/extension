@@ -7,8 +7,8 @@ import { Button, Caption, Dialog, ErrorIcon, Link, Title } from '@leather.io/ui'
 import { StacksSendFormValues } from '@shared/models/form.model';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
+import { Footer } from '@app/components/layout';
+import { DialogHeader } from '@app/components/layout/dialog-header';
 
 import { useStacksHighFeeWarningContext } from './stacks-high-fee-warning-container';
 

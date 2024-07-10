@@ -14,10 +14,10 @@ import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { InfoCardBtn, InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
+import { Footer } from '@app/components/layout';
+import { Card } from '@app/components/layout';
+import { DialogHeader } from '@app/components/layout/dialog-header';
 import { useToast } from '@app/features/toasts/use-toast';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
-import { Card } from '@app/ui/layout/card/card';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 

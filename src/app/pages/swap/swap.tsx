@@ -7,10 +7,10 @@ import { useFormikContext } from 'formik';
 import { Button } from '@leather.io/ui';
 import { isUndefined } from '@leather.io/utils';
 
+import { Footer } from '@app/components/layout';
+import { CardContent } from '@app/components/layout';
+import { Card } from '@app/components/layout';
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Card } from '@app/ui/layout/card/card';
-import { CardContent } from '@app/ui/layout/card/card-content';
 
 import { SwapAssetSelectBase } from './components/swap-asset-select/swap-asset-select-base';
 import { SwapAssetSelectQuote } from './components/swap-asset-select/swap-asset-select-quote';

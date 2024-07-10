@@ -8,7 +8,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
+import { DialogHeader } from '@app/components/layout/dialog-header';
 
 import { BroadcastErrorLayout } from './components/broadcast-error.layout';
 

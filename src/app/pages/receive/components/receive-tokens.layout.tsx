@@ -8,9 +8,9 @@ import { token } from 'leather-styles/tokens';
 import { AddressDisplayer, Button, Dialog } from '@leather.io/ui';
 
 import { useLocationState } from '@app/common/hooks/use-location-state';
+import { Footer } from '@app/components/layout';
+import { DialogHeader } from '@app/components/layout/dialog-header';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Header } from '@app/ui/components/containers/headers/header';
 
 interface ReceiveTokensLayoutProps {
   address: string;
@@ -29,14 +29,14 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
   return (
     <Dialog
       header={
-        <Header
-          variant="bigTitle"
+        <DialogHeader
+          variant="large"
           title={
             <>
               Receive <br /> {title}
             </>
           }
-          onGoBack={() => navigate(backgroundLocation ?? '..')}
+          onClose={() => navigate(backgroundLocation ?? '..')}
         />
       }
       isShowing

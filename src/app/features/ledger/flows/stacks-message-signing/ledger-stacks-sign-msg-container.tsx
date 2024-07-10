@@ -12,6 +12,7 @@ import { UnsignedMessage, whenSignableMessageOfType } from '@shared/signature/si
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { appEvents } from '@app/common/publish-subscribe';
+import { DialogHeader } from '@app/components/layout/dialog-header';
 import { useCancelLedgerAction } from '@app/features/ledger/utils/generic-ledger-utils';
 import {
   getStacksAppVersion,
@@ -21,7 +22,6 @@ import {
 } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';

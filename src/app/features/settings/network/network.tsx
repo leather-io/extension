@@ -8,11 +8,11 @@ import { Button, Dialog } from '@leather.io/ui';
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
 
+import { Footer } from '@app/components/layout';
+import { DialogHeader } from '@app/components/layout/dialog-header';
 import { NetworkListItem } from '@app/features/settings/network/network-list-item';
 import { useCurrentNetworkState, useNetworksActions } from '@app/store/networks/networks.hooks';
 import { useNetworks } from '@app/store/networks/networks.selectors';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 const defaultNetworkIds = Object.values(WalletDefaultNetworkConfigurationIds) as string[];
 

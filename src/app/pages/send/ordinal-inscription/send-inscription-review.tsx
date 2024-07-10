@@ -13,12 +13,12 @@ import { analytics } from '@shared/utils/analytics';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
+import { Footer } from '@app/components/layout';
+import { Card } from '@app/components/layout';
+import { DialogHeader } from '@app/components/layout/dialog-header';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useAppDispatch } from '@app/store';
 import { inscriptionSent } from '@app/store/ordinals/ordinals.slice';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
-import { Card } from '@app/ui/layout/card/card';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 import { useSendInscriptionState } from './components/send-inscription-container';

@@ -9,9 +9,9 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Card } from '@app/ui/layout/card/card';
-import { CardContent } from '@app/ui/layout/card/card-content';
+import { Footer } from '@app/components/layout';
+import { CardContent } from '@app/components/layout';
+import { Card } from '@app/components/layout';
 
 interface SendFormConfirmationProps {
   recipient: string;
