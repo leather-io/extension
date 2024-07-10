@@ -1,34 +1,18 @@
-import { AddressType, Network, getAddressInfo, validate } from 'bitcoin-address-validation';
+import { Network, validate } from 'bitcoin-address-validation';
 import * as yup from 'yup';
 
 import type { BitcoinNetworkModes } from '@leather.io/models';
-import { isString } from '@leather.io/utils';
+import { isEmptyString, isUndefined } from '@leather.io/utils';
 
 import { FormErrorMessages } from '@shared/error-messages';
 
 export function btcAddressValidator() {
-  return yup
-    .string()
-    .defined(FormErrorMessages.AddressRequired)
-    .test((input, context) => {
-      if (!input) return false;
-      if (!validate(input))
-        return context.createError({
-          message: FormErrorMessages.InvalidAddress,
-        });
-      return true;
-    });
-}
-
-// ts-unused-exports:disable-next-line
-export function btcTaprootAddressValidator() {
-  return yup.string().test((input, context) => {
-    if (!input || !validate(input)) return false;
-    if (getAddressInfo(input).type !== AddressType.p2tr)
-      return context.createError({
-        message: 'Only taproot addresses are supported',
-      });
-    return true;
+  return yup.string().test({
+    message: FormErrorMessages.InvalidAddress,
+    test(value) {
+      if (isUndefined(value) || isEmptyString(value)) return true;
+      return validate(value);
+    },
   });
 }
 
@@ -41,7 +25,7 @@ function btcAddressNetworkValidatorFactory(network: BitcoinNetworkModes) {
   }
 
   return (value?: string) => {
-    if (!isString(value)) return false;
+    if (isUndefined(value) || isEmptyString(value)) return true;
     return validate(value, getAddressNetworkType(network));
   };
 }

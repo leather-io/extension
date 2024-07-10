@@ -8,6 +8,7 @@ import { useNumberOfInscriptionsOnUtxo } from '@leather.io/query';
 import { isError } from '@leather.io/utils';
 
 import { FormErrorMessages } from '@shared/error-messages';
+import { btcAddressNetworkValidator, btcAddressValidator } from '@shared/forms/address-validators';
 import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
@@ -15,10 +16,6 @@ import { analytics } from '@shared/utils/analytics';
 
 import { formFeeRowValue } from '@app/common/send/utils';
 import { InsufficientFundsError } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
-import {
-  btcAddressNetworkValidator,
-  btcAddressValidator,
-} from '@app/common/validation/forms/address-validators';
 import { complianceValidator } from '@app/common/validation/forms/compliance-validators';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';

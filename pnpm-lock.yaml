@@ -36,8 +36,8 @@ importers:
         specifier: 1.2.0
         version: 1.2.0(encoding@0.1.13)
       '@leather.io/bitcoin':
-        specifier: 0.8.4
-        version: 0.8.4(encoding@0.1.13)
+        specifier: 0.8.6
+        version: 0.8.6(encoding@0.1.13)
       '@leather.io/constants':
         specifier: 0.8.1
         version: 0.8.1
@@ -48,17 +48,17 @@ importers:
         specifier: 0.10.1
         version: 0.10.1
       '@leather.io/query':
-        specifier: 0.10.0
-        version: 0.10.0(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
+        specifier: 0.10.2
+        version: 0.10.2(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
       '@leather.io/tokens':
         specifier: 0.6.1
         version: 0.6.1
       '@leather.io/ui':
-        specifier: 1.6.1
-        version: 1.6.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@swc/core@1.4.8)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.4.8)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)
+        specifier: 1.6.3
+        version: 1.6.3(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@swc/core@1.4.8)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.4.8)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)
       '@leather.io/utils':
-        specifier: 0.9.3
-        version: 0.9.3
+        specifier: 0.10.1
+        version: 0.10.1
       '@ledgerhq/hw-transport-webusb':
         specifier: 6.27.19
         version: 6.27.19
@@ -2880,8 +2880,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@leather.io/bitcoin@0.8.4':
-    resolution: {integrity: sha512-8uf2jxKFKIih4Zel/dxVeOkR+K5hZq+d5pOHXqbdCFRFdxjQ4/b+pxx7vfMbnU+l2ZDL0xOx2brYwGAF5mpSZw==}
+  '@leather.io/bitcoin@0.8.6':
+    resolution: {integrity: sha512-gW/bzxw/o3asIkUyVtzyhDJ0M0hh53hKFg+WP/qoxYexaY/FVfdTKoPZ6tn5eJWNGVUf7owhZX7yhcnRJ1N9pA==}
 
   '@leather.io/constants@0.8.1':
     resolution: {integrity: sha512-bw+AcJwkLaVDaXSMPVy5uVxGblSO8ocI52RmjWb2LfhKJk5ZoV75IdGeR0S59aMbQdSmUmYqmWmPkuDmkmSj0Q==}
@@ -2904,8 +2904,8 @@ packages:
   '@leather.io/prettier-config@0.5.0':
     resolution: {integrity: sha512-Pul+4MAyBKnQvqgcKJLbZl4DHnS4kCJzSuaYFW6cfHdre7BFn/iY6Er/Dvm9F8g7VMtkdYu68jEYxQ1Xc7A0KQ==}
 
-  '@leather.io/query@0.10.0':
-    resolution: {integrity: sha512-zzscg1VEN5ojpvCUTOdEkWAx75Z+1Puw6+5RSUcqhg1b+ngggAoVww5oKb+I6bdxht3SxLomRobJIyduBCpLfg==}
+  '@leather.io/query@0.10.2':
+    resolution: {integrity: sha512-Fikei979AsZkLvO1boUQkJJOlVcHf9NZvSvFnvgTlaqZA3HAwLykeNkHyrSca359jiC3Xi7Ie+wH/RcFsh11AQ==}
     peerDependencies:
       react: '*'
 
@@ -2918,11 +2918,11 @@ packages:
   '@leather.io/tokens@0.6.1':
     resolution: {integrity: sha512-lJ3T2s/7PlszC7Bthk6SQpjdGbdfgt8TVh1m+RqIYnY0lBE7ZpmnZG8xnTYNeZLlJ8KbK3kRpPxx4JePKd5e8A==}
 
-  '@leather.io/ui@1.6.1':
-    resolution: {integrity: sha512-yf7edsrEQ+8k7dy8ELaBtW79HKQ36dmLMo02vC6Bpijdabf+iZ0od04D1S1HoTZXkx48Gwd2rQ2vR+8MKXrUSQ==}
+  '@leather.io/ui@1.6.3':
+    resolution: {integrity: sha512-JpcsiXOB7qwzvPxeU/D+1poiLZIA9Q4O1pAXKLW0VbQ+P15pNtwa3HZ9GBXzkzbYNYh2K5qdyRIWHdxJIwkg0Q==}
 
-  '@leather.io/utils@0.9.3':
-    resolution: {integrity: sha512-9KMm6C/vCSjIjDm0qPo4KOAbpig5f5GmFjl5vcl4o1/a4uC8pOCn3bMxZPTgAOJgR6Ljba7mTB09JvxWBYJB8Q==}
+  '@leather.io/utils@0.10.1':
+    resolution: {integrity: sha512-ph32lrsn9toQjI/60YN09ii9bK0ugfatS61APp1i8L6LMiOZYAShsXTNQRV2VmN3X5hLVKltqdZlDZYgien5Qg==}
 
   '@ledgerhq/devices@8.2.0':
     resolution: {integrity: sha512-XROTW2gTmmuy+YPPDjdtKKTQ3mfxrPtKtV+a9QFbj8f5MnjVMV0Zpy1BIB4CyIMsVVi4z6+nI67auT7IlsM3SQ==}
@@ -17530,13 +17530,13 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  '@leather.io/bitcoin@0.8.4(encoding@0.1.13)':
+  '@leather.io/bitcoin@0.8.6(encoding@0.1.13)':
     dependencies:
       '@bitcoinerlab/secp256k1': 1.0.2
       '@leather.io/constants': 0.8.1
       '@leather.io/crypto': 1.0.3
       '@leather.io/models': 0.10.1
-      '@leather.io/utils': 0.9.3
+      '@leather.io/utils': 0.10.1
       '@noble/hashes': 1.4.0
       '@noble/secp256k1': 2.1.0
       '@scure/base': 1.1.6
@@ -17594,15 +17594,15 @@ snapshots:
       - '@vue/compiler-sfc'
       - supports-color
 
-  '@leather.io/query@0.10.0(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)':
+  '@leather.io/query@0.10.2(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)':
     dependencies:
       '@fungible-systems/zone-file': 2.0.0
       '@hirosystems/token-metadata-api-client': 1.2.0(encoding@0.1.13)
-      '@leather.io/bitcoin': 0.8.4(encoding@0.1.13)
+      '@leather.io/bitcoin': 0.8.6(encoding@0.1.13)
       '@leather.io/constants': 0.8.1
       '@leather.io/models': 0.10.1
       '@leather.io/rpc': 2.0.1
-      '@leather.io/utils': 0.9.3
+      '@leather.io/utils': 0.10.1
       '@noble/hashes': 1.4.0
       '@scure/base': 1.1.6
       '@scure/bip32': 1.4.0
@@ -17637,11 +17637,11 @@ snapshots:
 
   '@leather.io/tokens@0.6.1': {}
 
-  '@leather.io/ui@1.6.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@swc/core@1.4.8)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.4.8)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)':
+  '@leather.io/ui@1.6.3(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@swc/core@1.4.8)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.4.8)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)':
     dependencies:
       '@expo/vector-icons': 14.0.0
       '@leather.io/tokens': 0.6.1
-      '@leather.io/utils': 0.9.3
+      '@leather.io/utils': 0.10.1
       '@radix-ui/react-accessible-icon': 1.0.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-accordion': 1.1.2(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-avatar': 1.0.4(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -17685,7 +17685,7 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@leather.io/utils@0.9.3':
+  '@leather.io/utils@0.10.1':
     dependencies:
       '@leather.io/constants': 0.8.1
       '@leather.io/models': 0.10.1

@@ -69,6 +69,7 @@ export function StacksCommonSendForm({
                   footer={
                     <Footer variant="card">
                       <Button
+                        aria-busy={props.isValidating}
                         data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
                         onClick={() => props.handleSubmit()}
                         type="submit"
