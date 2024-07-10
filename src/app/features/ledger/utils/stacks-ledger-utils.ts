@@ -70,6 +70,7 @@ export function signLedgerStacksUtf8Message(app: StacksApp) {
 }
 
 export function signLedgerStacksStructuredMessage(app: StacksApp) {
+  // this is the data he asked for
   return async (domain: string, payload: string, accountIndex: number): Promise<ResponseSign> =>
     app.sign_structured_msg(getStxDerivationPath(accountIndex), domain, payload);
 }
