@@ -29,6 +29,8 @@ export function showAccountInfo(pathname: RouteUrls) {
     case RouteUrls.TransactionRequest:
     case RouteUrls.ProfileUpdateRequest:
     case RouteUrls.RpcSendTransfer:
+    case RouteUrls.RpcSignPsbt:
+    case RouteUrls.RpcSignBip322Message:
       return true;
     default:
       return false;
