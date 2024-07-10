@@ -28,6 +28,7 @@ export function SignLedgerMessage() {
     structured: (domain, message) => {
       const ledgerFirstHashPageInView = 34;
       const hash = deriveStructuredMessageHash({ domain, message });
+      console.log('deriveStructuredMessageHash', hash, message);
       const [hashPart1, hashPart2] = [
         hash.slice(0, ledgerFirstHashPageInView),
         hash.slice(ledgerFirstHashPageInView),

@@ -90,9 +90,12 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
 
       const resp = await whenSignableMessageOfType(unsignedMessage)({
         async utf8(msg) {
+          console.log('signing utf8 message', msg);
           return signLedgerStacksUtf8Message(stacksApp)(msg, account.index);
         },
         async structured(domain, msg) {
+          // here?
+          console.log('signing utf8 message', msg, serializeCV(msg), bytesToHex(serializeCV(msg)));
           return signLedgerStacksStructuredMessage(stacksApp)(
             bytesToHex(serializeCV(domain)),
             bytesToHex(serializeCV(msg)),

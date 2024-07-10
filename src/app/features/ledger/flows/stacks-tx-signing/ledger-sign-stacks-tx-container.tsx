@@ -40,6 +40,7 @@ export const ledgerStacksTxSigningRoutes = ledgerSignTxRoutes({
 });
 
 function LedgerSignStacksTxContainer() {
+  console.log('LedgerSignStacksTxContainer');
   const location = useLocation();
   const ledgerNavigate = useLedgerNavigate();
   const ledgerAnalytics = useLedgerAnalytics();
@@ -96,6 +97,7 @@ function LedgerSignStacksTxContainer() {
 
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
 
+      console.log('unsignedTx', unsignedTx);
       const resp = await signLedgerStacksTransaction(stacksApp)(
         Buffer.from(unsignedTx, 'hex'),
         account.index
