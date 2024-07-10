@@ -5,6 +5,7 @@ import { useAlexCurrencyPriceAsMarketData, useSip10Token } from '@leather.io/que
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { useUpdatePageHeaderContext } from '@app/common/page/page.context';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
@@ -40,6 +41,7 @@ function Sip10TokenSendFormLoader({ children }: Sip10TokenSendFormLoaderProps) {
 }
 
 export function Sip10TokenSendForm() {
+  useUpdatePageHeaderContext({ title: 'Send' });
   return (
     <Sip10TokenSendFormLoader>
       {token => (

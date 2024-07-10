@@ -10,10 +10,10 @@ import { Brc20AvatarIcon, Button, Callout, Link } from '@leather.io/ui';
 import { convertAmountToBaseUnit, formatMoney } from '@leather.io/utils';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
-import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
+import { AvailableBalance } from '@app/ui/layout/containers/footers/available-balance';
+import { Footer } from '@app/ui/layout/containers/footers/footer';
 
 import { AmountField } from '../../components/amount-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';

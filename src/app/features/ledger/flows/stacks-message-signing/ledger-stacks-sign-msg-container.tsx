@@ -21,7 +21,7 @@ import {
 } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
+import { DialogHeader } from '@app/ui/layout/containers/headers/dialog-header';
 
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';

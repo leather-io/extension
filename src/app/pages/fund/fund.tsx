@@ -9,6 +9,7 @@ import type {
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { useUpdatePageHeaderContext } from '@app/common/page/page.context';
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -28,6 +29,9 @@ export function FundPage() {
   const currentStxAccount = useCurrentStacksAccount();
   const bitcoinSigner = useCurrentAccountNativeSegwitIndexZeroSignerNullable();
   const { currency = 'STX' } = useParams();
+  useUpdatePageHeaderContext({
+    onBackLocation: RouteUrls.FundChooseCurrency,
+  });
 
   const fundCryptoCurrencyMap: Record<CryptoCurrencies, FundCryptoCurrencyInfo> = {
     BTC: {

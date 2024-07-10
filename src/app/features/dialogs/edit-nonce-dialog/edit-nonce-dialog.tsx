@@ -10,7 +10,7 @@ import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/model
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
+import { DialogHeader } from '@app/ui/layout/containers/headers/dialog-header';
 
 import { EditNonceForm } from './components/edit-nonce-form';
 

@@ -11,7 +11,7 @@ import { BitcoinCustomFee } from '@app/components/bitcoin-custom-fee/bitcoin-cus
 import { MAX_FEE_RATE_MULTIPLIER } from '@app/components/bitcoin-custom-fee/hooks/use-bitcoin-custom-fee';
 import { OnChooseFeeArgs } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
-import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
+import { AvailableBalance } from '@app/ui/layout/containers/footers/available-balance';
 
 import { BitcoinChooseFeeLayout } from './components/bitcoin-choose-fee.layout';
 import { ChooseFeeSubtitle } from './components/choose-fee-subtitle';

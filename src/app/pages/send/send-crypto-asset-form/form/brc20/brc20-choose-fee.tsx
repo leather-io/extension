@@ -11,6 +11,7 @@ import { createMoney } from '@leather.io/utils';
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 
+import { useUpdatePageHeaderContext } from '@app/common/page/page.context';
 import { formFeeRowValue } from '@app/common/send/utils';
 import { useGenerateUnsignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import {
@@ -40,6 +41,7 @@ function useBrc20ChooseFeeState() {
 
 export function BrcChooseFee() {
   const toast = useToast();
+  useUpdatePageHeaderContext({ title: 'Choose fee' });
   const navigate = useNavigate();
   const { amount, recipient, ticker, utxos, holderAddress } = useBrc20ChooseFeeState();
   const generateTx = useGenerateUnsignedNativeSegwitTx();

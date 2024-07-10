@@ -27,8 +27,8 @@ import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-
 import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
+import { Footer } from '@app/ui/layout/containers/footers/footer';
+import { DialogHeader } from '@app/ui/layout/containers/headers/dialog-header';
 
 import { IncreaseFeeActions } from './components/increase-fee-actions';
 import { IncreaseFeeField } from './components/increase-fee-field';

@@ -5,6 +5,7 @@ import { Stack, styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { useUpdatePageHeaderContext } from '@app/common/page/page.context';
 import { BitcoinNativeSegwitAccountLoader } from '@app/components/loaders/bitcoin-account-loader';
 import { BtcAssetItemBalanceLoader } from '@app/components/loaders/btc-balance-loader';
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
@@ -16,6 +17,7 @@ import { Page } from '@app/ui/layout/page/page.layout';
 
 export function ChooseCryptoAssetToFund() {
   const navigate = useNavigate();
+  useUpdatePageHeaderContext({ isSettingsVisibleOnSm: false, onBackLocation: RouteUrls.Home });
 
   const navigateToFund = useCallback(
     (symbol: string) => navigate(RouteUrls.Fund.replace(':currency', symbol)),

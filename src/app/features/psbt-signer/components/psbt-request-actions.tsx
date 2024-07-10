@@ -1,6 +1,6 @@
 import { Button } from '@leather.io/ui';
 
-import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Footer } from '@app/ui/layout/containers/footers/footer';
 
 interface PsbtRequestActionsProps {
   isLoading?: boolean;

@@ -8,6 +8,7 @@ import { analytics } from '@shared/utils/analytics';
 
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
+import { useUpdatePageHeaderContext } from '@app/common/page/page.context';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
   InfoCardAssetValue,
@@ -16,14 +17,15 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { useToast } from '@app/features/toasts/use-toast';
-import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
+import { Footer } from '@app/ui/layout/containers/footers/footer';
 
 import { TxDone } from '../send-crypto-asset-form/components/tx-done';
 
 export function BtcSentSummary() {
   const { state } = useLocation();
+  useUpdatePageHeaderContext({ title: 'Sent', isSummaryPage: true });
 
   const toast = useToast();
 

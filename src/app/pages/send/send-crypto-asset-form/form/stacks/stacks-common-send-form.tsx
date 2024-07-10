@@ -13,14 +13,15 @@ import { formatMoney } from '@leather.io/utils';
 import { StacksSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
+import { useUpdatePageHeaderContext } from '@app/common/page/page.context';
 import { FeesRow } from '@app/components/fees-row/fees-row';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { HighFeeDialog } from '@app/features/stacks-high-fee-warning/stacks-high-fee-dialog';
-import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
-import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
+import { AvailableBalance } from '@app/ui/layout/containers/footers/available-balance';
+import { Footer } from '@app/ui/layout/containers/footers/footer';
 
 import { MemoField } from '../../components/memo-field';
 import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field';
@@ -51,6 +52,7 @@ export function StacksCommonSendForm({
 }: StacksCommonSendFormProps) {
   const navigate = useNavigate();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
+  useUpdatePageHeaderContext({ title: 'Send' });
   return (
     <Box width="100%" pb="space.04">
       <Formik

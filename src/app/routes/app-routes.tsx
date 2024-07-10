@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import {
   Navigate,
   Route,
@@ -14,7 +13,10 @@ import { RouteUrls } from '@shared/route-urls';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { AddNetwork } from '@app/features/add-network/add-network';
 import { Container } from '@app/features/container/container';
-import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
+import { HomeLayout } from '@app/features/container/layouts/home.layout';
+import { OnboardingLayout } from '@app/features/container/layouts/onboarding.layout';
+import { PageLayout } from '@app/features/container/layouts/page.layout';
+import { PopupLayout } from '@app/features/container/layouts/popup.layout';
 import { IncreaseBtcFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-btc-fee-dialog';
 import { IncreaseStxFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-stx-fee-dialog';
 import { leatherIntroDialogRoutes } from '@app/features/dialogs/leather-intro-dialog/leather-intro-dialog';
@@ -28,7 +30,6 @@ import { UnsupportedBrowserLayout } from '@app/features/ledger/generic-steps';
 import { ConnectLedgerStart } from '@app/features/ledger/generic-steps/connect-device/connect-ledger-start';
 import { RetrieveTaprootToNativeSegwit } from '@app/features/retrieve-taproot-to-native-segwit/retrieve-taproot-to-native-segwit';
 import { BitcoinContractList } from '@app/pages/bitcoin-contract-list/bitcoin-contract-list';
-import { BitcoinContractRequest } from '@app/pages/bitcoin-contract-request/bitcoin-contract-request';
 import { ChooseAccount } from '@app/pages/choose-account/choose-account';
 import { ChooseCryptoAssetToFund } from '@app/pages/fund/choose-asset-to-fund/choose-asset-to-fund';
 import { FundPage } from '@app/pages/fund/fund';
@@ -39,7 +40,6 @@ import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { ReceiveBtcModal } from '@app/pages/receive/receive-btc';
 import { ReceiveStxModal } from '@app/pages/receive/receive-stx';
 import { RequestError } from '@app/pages/request-error/request-error';
-import { RpcSignStacksTransaction } from '@app/pages/rpc-sign-stacks-transaction/rpc-sign-stacks-transaction';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { LockBitcoinSummary } from '@app/pages/send/locked-bitcoin-summary/locked-bitcoin-summary';
 import { sendOrdinalRoutes } from '@app/pages/send/ordinal-inscription/ordinal-routes';
@@ -81,186 +81,170 @@ function useAppRoutes() {
   return sentryCreateBrowserRouter(
     createRoutesFromElements(
       <Route element={<Container />}>
-        <Route key="error" errorElement={<RouterErrorBoundary />}>
-          <Route
-            path="/*"
-            element={
-              <AccountGate>
-                <Home />
-              </AccountGate>
-            }
-          >
-            {homePageModalRoutes}
-          </Route>
-
-          <Route
-            path={RouteUrls.RetrieveTaprootFunds}
-            element={<RetrieveTaprootToNativeSegwit />}
-          />
-          <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDialog />}>
-            {ledgerStacksTxSigningRoutes}
-          </Route>
-          <Route
-            path={`${RouteUrls.IncreaseStxFee}/${RouteUrls.TransactionBroadcastError}`}
-            element={<BroadcastError />}
-          />
-          <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeDialog />}>
-            {ledgerBitcoinTxSigningRoutes}
-          </Route>
-
-          {ledgerStacksTxSigningRoutes}
-
-          <Route
-            path={RouteUrls.RpcReceiveBitcoinContractOffer}
-            element={
-              <AccountGate>
-                <Suspense fallback={<SuspenseLoadingSpinner />}>
-                  <BitcoinContractRequest />
-                </Suspense>
-              </AccountGate>
-            }
-          />
-          <Route path={RouteUrls.BitcoinContractLockSuccess} element={<LockBitcoinSummary />} />
-          <Route path={RouteUrls.BitcoinContractLockError} element={<BroadcastError />} />
-          <Route path={RouteUrls.BitcoinContractList} element={<BitcoinContractList />} />
-          <Route
-            path={RouteUrls.Onboarding}
-            element={
-              <OnboardingGate>
-                <WelcomePage />
-              </OnboardingGate>
-            }
-          >
-            <Route path={RouteUrls.ConnectLedgerStart} element={<ConnectLedgerStart />} />
+        <Route element={<HomeLayout />}>
+          {/* FIXME don't duplicate RouterErrorBoundary just for layout */}
+          <Route key="error" errorElement={<RouterErrorBoundary />}>
             <Route
-              path={RouteUrls.LedgerUnsupportedBrowser}
-              element={<UnsupportedBrowserLayout />}
+              path="/*"
+              element={
+                <AccountGate>
+                  <Home />
+                </AccountGate>
+              }
+            >
+              {homePageModalRoutes}
+            </Route>
+          </Route>
+        </Route>
+        <Route element={<PageLayout />}>
+          <Route key="error" errorElement={<RouterErrorBoundary />}>
+            <Route
+              path={RouteUrls.RetrieveTaprootFunds}
+              element={<RetrieveTaprootToNativeSegwit />}
+            />
+            <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDialog />}>
+              {ledgerStacksTxSigningRoutes}
+            </Route>
+            <Route
+              path={`${RouteUrls.IncreaseStxFee}/${RouteUrls.TransactionBroadcastError}`}
+              element={<BroadcastError />}
+            />
+            <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeDialog />}>
+              {ledgerBitcoinTxSigningRoutes}
+            </Route>
+
+            {ledgerStacksTxSigningRoutes}
+
+            <Route path={RouteUrls.BitcoinContractLockSuccess} element={<LockBitcoinSummary />} />
+            <Route path={RouteUrls.BitcoinContractLockError} element={<BroadcastError />} />
+            <Route path={RouteUrls.BitcoinContractList} element={<BitcoinContractList />} />
+
+            <Route
+              path={RouteUrls.AddNetwork}
+              element={
+                <AccountGate>
+                  <AddNetwork />
+                </AccountGate>
+              }
+            />
+            <Route
+              path={RouteUrls.ChooseAccount}
+              element={
+                <AccountGate>
+                  <ChooseAccount />
+                </AccountGate>
+              }
+            >
+              {ledgerJwtSigningRoutes}
+            </Route>
+            <Route
+              path={RouteUrls.Fund}
+              element={
+                <AccountGate>
+                  <FundPage />
+                </AccountGate>
+              }
+            >
+              <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
+              <Route path={RouteUrls.ReceiveBtc} element={<ReceiveBtcModal />} />
+            </Route>
+            <Route
+              path={RouteUrls.FundChooseCurrency}
+              element={
+                <AccountGate>
+                  <ChooseCryptoAssetToFund />
+                </AccountGate>
+              }
+            >
+              <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
+            </Route>
+
+            {sendCryptoAssetFormRoutes}
+
+            <Route path={RouteUrls.Unlock} element={<Unlock />}>
+              {leatherIntroDialogRoutes}
+            </Route>
+            <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
+            <Route
+              path={RouteUrls.RequestError}
+              element={
+                <AccountGate>
+                  <RequestError />
+                </AccountGate>
+              }
             />
 
-            {requestBitcoinKeysRoutes}
-            {requestStacksKeysRoutes}
+            {alexSwapRoutes}
           </Route>
-          <Route
-            path={RouteUrls.BackUpSecretKey}
-            element={
-              <OnboardingGate>
-                <BackUpSecretKeyPage />
-              </OnboardingGate>
-            }
-          />
-          <Route
-            path={RouteUrls.SetPassword}
-            lazy={async () => {
-              const { SetPasswordRoute } = await import(
-                '@app/pages/onboarding/set-password/set-password'
-              );
-              return { Component: SetPasswordRoute };
-            }}
-          />
-
-          <Route
-            path={RouteUrls.SignIn}
-            element={
-              <OnboardingGate>
-                <SignIn />
-              </OnboardingGate>
-            }
-          />
-          <Route
-            path={RouteUrls.AddNetwork}
-            element={
-              <AccountGate>
-                <AddNetwork />
-              </AccountGate>
-            }
-          />
-          <Route
-            path={RouteUrls.ChooseAccount}
-            element={
-              <AccountGate>
-                <ChooseAccount />
-              </AccountGate>
-            }
-          >
-            {ledgerJwtSigningRoutes}
-          </Route>
-
-          <Route
-            path={RouteUrls.Fund}
-            element={
-              <AccountGate>
-                <FundPage />
-              </AccountGate>
-            }
-          >
-            <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
-            <Route path={RouteUrls.ReceiveBtc} element={<ReceiveBtcModal />} />
-          </Route>
-          <Route
-            path={RouteUrls.FundChooseCurrency}
-            element={
-              <AccountGate>
-                <ChooseCryptoAssetToFund />
-              </AccountGate>
-            }
-          >
-            <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
-          </Route>
-
-          {sendCryptoAssetFormRoutes}
-
-          <Route
-            path={RouteUrls.ViewSecretKey}
-            element={
-              <AccountGate>
-                <ViewSecretKey />
-              </AccountGate>
-            }
-          />
-          <Route path={RouteUrls.Unlock} element={<Unlock />}>
-            {leatherIntroDialogRoutes}
-          </Route>
-
-          {legacyRequestRoutes}
-          {rpcRequestRoutes}
-          <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
-          <Route
-            path={RouteUrls.RequestError}
-            element={
-              <AccountGate>
-                <RequestError />
-              </AccountGate>
-            }
-          />
-
-          <Route
-            path={RouteUrls.RpcSignStacksTransaction}
-            element={
-              <AccountGate>
-                <RpcSignStacksTransaction />
-              </AccountGate>
-            }
-          >
-            <Route path={RouteUrls.EditNonce} element={<EditNonceDialog />} />
-          </Route>
-
-          <Route
-            path={RouteUrls.RpcSignBip322Message}
-            lazy={async () => {
-              const { RpcSignBip322MessageRoute } = await import(
-                '@app/pages/rpc-sign-bip322-message/rpc-sign-bip322-message'
-              );
-              return { Component: RpcSignBip322MessageRoute };
-            }}
-          >
-            {ledgerBitcoinTxSigningRoutes}
-          </Route>
-
-          {alexSwapRoutes}
-
-          {/* Catch-all route redirects to onboarding */}
-          <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
         </Route>
+
+        <Route element={<OnboardingLayout />}>
+          <Route key="error" errorElement={<RouterErrorBoundary />}>
+            <Route
+              path={RouteUrls.Onboarding}
+              element={
+                <OnboardingGate>
+                  <WelcomePage />
+                </OnboardingGate>
+              }
+            >
+              <Route path={RouteUrls.ConnectLedgerStart} element={<ConnectLedgerStart />} />
+              <Route
+                path={RouteUrls.LedgerUnsupportedBrowser}
+                element={<UnsupportedBrowserLayout />}
+              />
+
+              {requestBitcoinKeysRoutes}
+              {requestStacksKeysRoutes}
+            </Route>
+
+            <Route
+              path={RouteUrls.BackUpSecretKey}
+              element={
+                <OnboardingGate>
+                  <BackUpSecretKeyPage />
+                </OnboardingGate>
+              }
+            />
+            <Route
+              path={RouteUrls.SetPassword}
+              lazy={async () => {
+                const { SetPasswordRoute } = await import(
+                  '@app/pages/onboarding/set-password/set-password'
+                );
+                return { Component: SetPasswordRoute };
+              }}
+            />
+
+            <Route
+              path={RouteUrls.SignIn}
+              element={
+                <OnboardingGate>
+                  <SignIn />
+                </OnboardingGate>
+              }
+            />
+
+            <Route
+              path={RouteUrls.ViewSecretKey}
+              element={
+                <AccountGate>
+                  <ViewSecretKey />
+                </AccountGate>
+              }
+            />
+          </Route>
+        </Route>
+
+        <Route element={<PopupLayout />}>
+          <Route key="error" errorElement={<RouterErrorBoundary />}>
+            {legacyRequestRoutes}
+            {rpcRequestRoutes}
+          </Route>
+        </Route>
+
+        {/* Catch-all route redirects to onboarding */}
+        <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
       </Route>
     )
   );

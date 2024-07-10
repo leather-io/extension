@@ -16,9 +16,9 @@ import { InscriptionPreview } from '@app/components/inscription-preview-card/com
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useAppDispatch } from '@app/store';
 import { inscriptionSent } from '@app/store/ordinals/ordinals.slice';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { Card } from '@app/ui/layout/card/card';
+import { Footer } from '@app/ui/layout/containers/footers/footer';
+import { DialogHeader } from '@app/ui/layout/containers/headers/dialog-header';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 import { useSendInscriptionState } from './components/send-inscription-container';

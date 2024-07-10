@@ -15,9 +15,9 @@ import { FormAddressDisplayer } from '@app/components/address-displayer/form-add
 import { InfoCardBtn, InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { useToast } from '@app/features/toasts/use-toast';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { Card } from '@app/ui/layout/card/card';
+import { Footer } from '@app/ui/layout/containers/footers/footer';
+import { DialogHeader } from '@app/ui/layout/containers/headers/dialog-header';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 

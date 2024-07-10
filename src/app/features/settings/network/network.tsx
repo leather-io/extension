@@ -11,8 +11,8 @@ import { analytics } from '@shared/utils/analytics';
 import { NetworkListItem } from '@app/features/settings/network/network-list-item';
 import { useCurrentNetworkState, useNetworksActions } from '@app/store/networks/networks.hooks';
 import { useNetworks } from '@app/store/networks/networks.selectors';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
+import { Footer } from '@app/ui/layout/containers/footers/footer';
+import { DialogHeader } from '@app/ui/layout/containers/headers/dialog-header';
 
 const defaultNetworkIds = Object.values(WalletDefaultNetworkConfigurationIds) as string[];
 

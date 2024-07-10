@@ -7,6 +7,7 @@ import { Callout, ExternalLinkIcon, Link } from '@leather.io/ui';
 import { createMoney, formatMoney } from '@leather.io/utils';
 
 import { HandleOpenStacksTxLinkArgs } from '@app/common/hooks/use-stacks-explorer-link';
+import { useUpdatePageHeaderContext } from '@app/common/page/page.context';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import {
   InfoCardAssetValue,
@@ -14,9 +15,9 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
+import { Footer } from '@app/ui/layout/containers/footers/footer';
 
 import { TxDone } from '../send-crypto-asset-form/components/tx-done';
 
@@ -35,6 +36,7 @@ function useBrc20SentSummaryState() {
 }
 
 export function Brc20SentSummary() {
+  useUpdatePageHeaderContext({ title: 'Creating transfer inscription', isSummaryPage: true });
   const { ticker, amount, serviceFee, totalFee, feeRowValue } = useBrc20SentSummaryState();
   const amountFormatted = formatMoney(createMoney(Number(amount), ticker, 0));
   const navigate = useNavigate();

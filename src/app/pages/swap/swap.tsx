@@ -7,10 +7,13 @@ import { useFormikContext } from 'formik';
 import { Button } from '@leather.io/ui';
 import { isUndefined } from '@leather.io/utils';
 
+import { RouteUrls } from '@shared/route-urls';
+
+import { useUpdatePageHeaderContext } from '@app/common/page/page.context';
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
+import { Footer } from '@app/ui/layout/containers/footers/footer';
 
 import { SwapAssetSelectBase } from './components/swap-asset-select/swap-asset-select-base';
 import { SwapAssetSelectQuote } from './components/swap-asset-select/swap-asset-select-quote';
@@ -18,6 +21,8 @@ import { SwapFormValues } from './hooks/use-swap-form';
 import { useSwapContext } from './swap.context';
 
 export function Swap() {
+  // Swap uses routed dialogs to choose assets so needs onBackLocation to go Home
+  useUpdatePageHeaderContext({ title: 'Swap', onBackLocation: RouteUrls.Home });
   const { isFetchingExchangeRate, swappableAssetsBase, swappableAssetsQuote } = useSwapContext();
   const { dirty, isValid, setFieldValue, values, validateForm } =
     useFormikContext<SwapFormValues>();

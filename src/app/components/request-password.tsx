@@ -10,8 +10,8 @@ import { analytics } from '@shared/utils/analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { buildEnterKeyEvent } from '@app/common/hooks/use-modifier-key';
 import { WaitingMessages, useWaitingMessage } from '@app/common/hooks/use-waiting-message';
-import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';
+import { Footer } from '@app/ui/layout/containers/footers/footer';
 import { Page } from '@app/ui/layout/page/page.layout';
 
 import { ErrorLabel } from './error-label';

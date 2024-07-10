@@ -4,6 +4,7 @@ import { Stack, styled } from 'leather-styles/jsx';
 
 import { Button } from '@leather.io/ui';
 
+import { useUpdatePageHeaderContext } from '@app/common/page/page.context';
 import { ErrorLabel } from '@app/components/error-label';
 import { Card } from '@app/ui/layout/card/card';
 import { Page } from '@app/ui/layout/page/page.layout';
@@ -13,6 +14,7 @@ import { useAddNetwork } from './use-add-network';
 
 export function AddNetwork() {
   const { error, initialFormValues, loading, onSubmit } = useAddNetwork();
+  useUpdatePageHeaderContext({ title: 'Add Network' });
 
   return (
     <Page>

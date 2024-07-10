@@ -26,7 +26,7 @@ import {
   useCurrentStacksAccount,
   useStacksAccounts,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
+import { DialogHeader } from '@app/ui/layout/containers/headers/dialog-header';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { checkLockedDeviceError, useLedgerResponseState } from '../../utils/generic-ledger-utils';

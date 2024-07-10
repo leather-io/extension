@@ -9,10 +9,10 @@ import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import { BtcAvatarIcon, Button, Callout, Link } from '@leather.io/ui';
 import { formatMoney } from '@leather.io/utils';
 
-import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
-import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
+import { AvailableBalance } from '@app/ui/layout/containers/footers/available-balance';
+import { Footer } from '@app/ui/layout/containers/footers/footer';
 
 import { AmountField } from '../../components/amount-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
@@ -28,7 +28,6 @@ const symbol: CryptoCurrencies = 'BTC';
 export function BtcSendForm() {
   const routeState = useSendFormRouteState();
   const marketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
-
   const {
     balance,
     calcMaxSpend,
@@ -41,6 +40,9 @@ export function BtcSendForm() {
     utxos,
     validationSchema,
   } = useBtcSendForm();
+
+  // with this enabled PageLayout re-renders in a loop
+  // useUpdatePageHeaderContext({ title: 'Send' });
 
   return (
     <Box width="100%" pb="space.04">

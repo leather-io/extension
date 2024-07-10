@@ -2,9 +2,9 @@ import { Flex, styled } from 'leather-styles/jsx';
 
 import { BtcAvatarIcon, Button, Callout, Dialog } from '@leather.io/ui';
 
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { Card } from '@app/ui/layout/card/card';
+import { Footer } from '@app/ui/layout/containers/footers/footer';
+import { DialogHeader } from '@app/ui/layout/containers/headers/dialog-header';
 
 interface RetrieveTaprootToNativeSegwitLayoutProps {
   isBroadcasting: boolean;

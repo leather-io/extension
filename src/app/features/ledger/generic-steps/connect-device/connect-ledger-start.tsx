@@ -7,7 +7,7 @@ import { closeWindow } from '@shared/utils';
 
 import { doesBrowserSupportWebUsbApi, whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
+import { DialogHeader } from '@app/ui/layout/containers/headers/dialog-header';
 
 import { immediatelyAttemptLedgerConnection } from '../../hooks/use-when-reattempt-ledger-connection';
 import { ConnectLedger } from './connect-ledger';

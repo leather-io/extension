@@ -10,8 +10,8 @@ import { RouteUrls } from '@shared/route-urls';
 import { ErrorLabel } from '@app/components/error-label';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { InscriptionPreviewCard } from '@app/components/inscription-preview-card/inscription-preview-card';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
+import { Footer } from '@app/ui/layout/containers/footers/footer';
+import { DialogHeader } from '@app/ui/layout/containers/headers/dialog-header';
 
 import { RecipientAddressTypeField } from '../send-crypto-asset-form/components/recipient-address-type-field';
 import { CollectibleAsset } from './components/collectible-asset';

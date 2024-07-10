@@ -1,5 +1,3 @@
-import { memo } from 'react';
-
 import { CircleProps } from 'leather-styles/jsx';
 
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
@@ -9,17 +7,12 @@ import { AccountAvatar } from '@app/ui/components/account/account-avatar/account
 interface CurrentAccountAvatar extends CircleProps {
   toggleSwitchAccount(): void;
 }
-export const CurrentAccountAvatar = memo(({ toggleSwitchAccount }: CurrentAccountAvatar) => {
+export function CurrentAccountAvatar() {
   const stacksAccount = useCurrentStacksAccount();
   const name = useCurrentAccountDisplayName();
   if (!stacksAccount) return null;
 
   return (
-    <AccountAvatar
-      index={stacksAccount.index}
-      name={name}
-      onClick={() => toggleSwitchAccount()}
-      publicKey={stacksAccount.stxPublicKey}
-    />
+    <AccountAvatar index={stacksAccount.index} name={name} publicKey={stacksAccount.stxPublicKey} />
   );
-});
+}
