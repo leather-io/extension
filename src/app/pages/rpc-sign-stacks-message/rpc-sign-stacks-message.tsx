@@ -1,5 +1,6 @@
 import { isSignableMessageType } from '@shared/signature/signature-types';
 
+import { PopupHeader } from '@app/features/container/headers/popup.header';
 import { StacksMessageSigning } from '@app/features/stacks-message-signer/stacks-message-signing';
 
 import {
@@ -19,14 +20,17 @@ export function RpcStacksMessageSigning() {
   if (!payload) return null;
 
   return (
-    <StacksMessageSigning
-      payload={payload}
-      isLoading={isLoading}
-      onSignMessage={signMessage}
-      onCancelMessageSigning={onCancelMessageSigning}
-      messageType={messageType}
-      tabId={tabId}
-      origin={origin}
-    />
+    <>
+      <PopupHeader showSwitchAccount balance="stx" />
+      <StacksMessageSigning
+        payload={payload}
+        isLoading={isLoading}
+        onSignMessage={signMessage}
+        onCancelMessageSigning={onCancelMessageSigning}
+        messageType={messageType}
+        tabId={tabId}
+        origin={origin}
+      />
+    </>
   );
 }

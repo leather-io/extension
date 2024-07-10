@@ -6,8 +6,8 @@ import get from 'lodash.get';
 
 import { Button, Dialog } from '@leather.io/ui';
 
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
+import { Footer } from '@app/components/layout';
+import { DialogHeader } from '@app/components/layout/dialog-header';
 
 export function BroadcastErrorDialog() {
   const navigate = useNavigate();

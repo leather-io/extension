@@ -14,10 +14,10 @@ import { useLocationStateWithCache } from '@app/common/hooks/use-location-state'
 import { getBitcoinTxValue } from '@app/common/transactions/bitcoin/utils';
 import { BitcoinCustomFeeInput } from '@app/components/bitcoin-custom-fee/bitcoin-custom-fee-input';
 import { BitcoinTransactionItem } from '@app/components/bitcoin-transaction-item/bitcoin-transaction-item';
+import { Footer } from '@app/components/layout';
+import { DialogHeader } from '@app/components/layout/dialog-header';
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { IncreaseFeeActions } from './components/increase-fee-actions';
 import { useBtcIncreaseFee } from './hooks/use-btc-increase-fee';

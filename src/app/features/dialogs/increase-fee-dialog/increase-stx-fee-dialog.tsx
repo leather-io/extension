@@ -21,14 +21,14 @@ import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-
 import { stacksValue } from '@app/common/stacks-utils';
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
+import { Footer } from '@app/components/layout';
+import { DialogHeader } from '@app/components/layout/dialog-header';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { IncreaseFeeActions } from './components/increase-fee-actions';
 import { IncreaseFeeField } from './components/increase-fee-field';

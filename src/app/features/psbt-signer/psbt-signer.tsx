@@ -11,13 +11,14 @@ import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
 
 import { SignPsbtArgs } from '@app/common/psbt/requests';
+import { Footer } from '@app/components/layout';
+import { CardContent } from '@app/components/layout';
+import { Card } from '@app/components/layout';
+import { PopupHeader } from '@app/features/container/headers/popup.header';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Card } from '@app/ui/layout/card/card';
-import { CardContent } from '@app/ui/layout/card/card-content';
 
 import * as Psbt from './components';
 import { usePsbtDetails } from './hooks/use-psbt-details';
@@ -93,6 +94,7 @@ export function PsbtSigner(props: PsbtSignerProps) {
 
   return (
     <PsbtSignerProvider value={psbtSignerContext}>
+      <PopupHeader showSwitchAccount balance="all" />
       <Card
         footer={
           <Footer flexDirection="row">

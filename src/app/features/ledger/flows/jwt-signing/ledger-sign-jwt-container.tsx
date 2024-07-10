@@ -17,6 +17,7 @@ import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-s
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { makeLedgerCompatibleUnsignedAuthResponsePayload } from '@app/common/unsafe-auth-response';
+import { DialogHeader } from '@app/components/layout/dialog-header';
 import { useCancelLedgerAction } from '@app/features/ledger/utils/generic-ledger-utils';
 import {
   getStacksAppVersion,
@@ -26,7 +27,6 @@ import {
   useCurrentStacksAccount,
   useStacksAccounts,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { checkLockedDeviceError, useLedgerResponseState } from '../../utils/generic-ledger-utils';

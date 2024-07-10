@@ -14,9 +14,8 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Card } from '@app/ui/layout/card/card';
-import { CardContent } from '@app/ui/layout/card/card-content';
+import { Card, CardContent, Content, Footer, Page } from '@app/components/layout';
+import { PageHeader } from '@app/features/container/headers/page.header';
 
 import { TxDone } from '../send-crypto-asset-form/components/tx-done';
 
@@ -44,52 +43,65 @@ export function Brc20SentSummary() {
   }
 
   return (
-    <Card
-      footer={
-        <Footer variant="card">
-          <HStack gap="space.04" width="100%">
-            <InfoCardBtn
-              icon={<ExternalLinkIcon />}
-              label="Pending BRC-20 transfers"
-              onClick={onClickLink}
-            />
-          </HStack>
-        </Footer>
-      }
-    >
-      <CardContent p="space.00">
-        <TxDone />
+    <>
+      <PageHeader title="Creating transfer inscription" isSummaryPage />
+      <Content>
+        <Page>
+          <Card
+            footer={
+              <Footer variant="card">
+                <HStack gap="space.04" width="100%">
+                  <InfoCardBtn
+                    icon={<ExternalLinkIcon />}
+                    label="Pending BRC-20 transfers"
+                    onClick={onClickLink}
+                  />
+                </HStack>
+              </Footer>
+            }
+          >
+            <CardContent p="space.00">
+              <TxDone />
 
-        <InfoCardAssetValue px="space.05" symbol={ticker} value={Number(amount)} />
+              <InfoCardAssetValue px="space.05" symbol={ticker} value={Number(amount)} />
 
-        <Stack px="space.06" pb="space.06" width="100%">
-          <Callout variant="info" title="One more step is required to send tokens" mb="space.05">
-            <Stack>
-              <styled.span mb="space.02">
-                You'll need to send the transfer inscription to your recipient of choice from the
-                home screen once its status changes to "Ready to send"
-              </styled.span>
-              <Link
-                width="fit-content"
-                textStyle="body.02"
-                onClick={() => {
-                  openInNewTab('https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens');
-                }}
-              >
-                Learn more
-              </Link>
-            </Stack>
-          </Callout>
-          <InfoCardSeparator />
+              <Stack px="space.06" pb="space.06" width="100%">
+                <Callout
+                  variant="info"
+                  title="One more step is required to send tokens"
+                  mb="space.05"
+                >
+                  <Stack>
+                    <styled.span mb="space.02">
+                      You'll need to send the transfer inscription to your recipient of choice from
+                      the home screen once its status changes to "Ready to send"
+                    </styled.span>
+                    <Link
+                      width="fit-content"
+                      textStyle="body.02"
+                      onClick={() => {
+                        openInNewTab(
+                          'https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens'
+                        );
+                      }}
+                    >
+                      Learn more
+                    </Link>
+                  </Stack>
+                </Callout>
+                <InfoCardSeparator />
 
-          <InfoCardRow title="Sending" value={amountFormatted} />
-          <InfoCardRow title="Inscription service fee" value={serviceFee} />
-          <InfoCardRow title="Payment transaction fee" value={feeRowValue} />
+                <InfoCardRow title="Sending" value={amountFormatted} />
+                <InfoCardRow title="Inscription service fee" value={serviceFee} />
+                <InfoCardRow title="Payment transaction fee" value={feeRowValue} />
 
-          <InfoCardSeparator />
-          <InfoCardRow title="Total fee" value={totalFee} />
-        </Stack>
-      </CardContent>
-    </Card>
+                <InfoCardSeparator />
+                <InfoCardRow title="Total fee" value={totalFee} />
+              </Stack>
+            </CardContent>
+          </Card>
+        </Page>
+      </Content>
+    </>
   );
 }

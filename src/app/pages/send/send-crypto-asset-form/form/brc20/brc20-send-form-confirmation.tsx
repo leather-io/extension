@@ -17,11 +17,10 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
+import { Card, CardContent, Content, Footer, Page } from '@app/components/layout';
+import { PageHeader } from '@app/features/container/headers/page.header';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.hooks';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Card } from '@app/ui/layout/card/card';
-import { CardContent } from '@app/ui/layout/card/card-content';
 
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 
@@ -106,39 +105,46 @@ export function Brc20SendFormConfirmation() {
   }
 
   return (
-    <Card
-      dataTestId={SendCryptoAssetSelectors.ConfirmationDetails}
-      footer={
-        <Footer variant="card">
-          <Button aria-busy={isBroadcasting} onClick={initiateTransaction} width="100%">
-            Create transfer inscription
-          </Button>
-        </Footer>
-      }
-    >
-      <CardContent p="space.00">
-        <InfoCardAssetValue
-          data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
-          mb="space.06"
-          mt="space.05"
-          px="space.05"
-          symbol={ticker}
-          value={Number(amount)}
-        />
+    <>
+      <PageHeader title="Send" />
+      <Content>
+        <Page>
+          <Card
+            dataTestId={SendCryptoAssetSelectors.ConfirmationDetails}
+            footer={
+              <Footer variant="card">
+                <Button aria-busy={isBroadcasting} onClick={initiateTransaction} width="100%">
+                  Create transfer inscription
+                </Button>
+              </Footer>
+            }
+          >
+            <CardContent p="space.00">
+              <InfoCardAssetValue
+                data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
+                mb="space.06"
+                mt="space.05"
+                px="space.05"
+                symbol={ticker}
+                value={Number(amount)}
+              />
 
-        <Stack pb="space.06" px="space.06" width="100%">
-          <InfoCardRow title="Sending" value={amountFormatted} />
-          <InfoCardRow title="Inscription service fee" value={serviceFeeFormatted} />
-          <InfoCardRow
-            title="Payment transaction fee"
-            value={feeRowValue}
-            data-testid={SendCryptoAssetSelectors.ConfirmationDetailsFee}
-          />
-          <InfoCardSeparator />
+              <Stack pb="space.06" px="space.06" width="100%">
+                <InfoCardRow title="Sending" value={amountFormatted} />
+                <InfoCardRow title="Inscription service fee" value={serviceFeeFormatted} />
+                <InfoCardRow
+                  title="Payment transaction fee"
+                  value={feeRowValue}
+                  data-testid={SendCryptoAssetSelectors.ConfirmationDetailsFee}
+                />
+                <InfoCardSeparator />
 
-          <InfoCardRow title="Total fee" value={totalFeeFormatted} />
-        </Stack>
-      </CardContent>
-    </Card>
+                <InfoCardRow title="Total fee" value={totalFeeFormatted} />
+              </Stack>
+            </CardContent>
+          </Card>
+        </Page>
+      </Content>
+    </>
   );
 }

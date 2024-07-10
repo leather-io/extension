@@ -6,9 +6,9 @@ import { Box } from 'leather-styles/jsx';
 
 import { Dialog } from '@leather.io/ui';
 
+import { DialogHeader } from '@app/components/layout/dialog-header';
 import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { VirtuosoWrapper } from '@app/ui/components/virtuoso';
 
 import { AccountListItem } from './account-list-item';

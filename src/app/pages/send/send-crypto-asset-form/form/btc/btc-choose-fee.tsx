@@ -8,8 +8,10 @@ import { BitcoinSendFormValues } from '@shared/models/form.model';
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
 import { BitcoinFeesList } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list';
+import { Content, Page } from '@app/components/layout';
 import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
+import { PageHeader } from '@app/features/container/headers/page.header';
 
 import { useSendBitcoinAssetContextState } from '../../family/bitcoin/components/send-bitcoin-asset-container';
 import { useBtcChooseFee } from './use-btc-choose-fee';
@@ -49,30 +51,35 @@ export function BtcChooseFee() {
 
   return (
     <>
-      <BitcoinChooseFee
-        amount={amountAsMoney}
-        defaultToCustomFee={!feesList.length}
-        feesList={
-          <BitcoinFeesList
-            feesList={feesList}
+      <PageHeader title="Send" />
+      <Content>
+        <Page>
+          <BitcoinChooseFee
+            amount={amountAsMoney}
+            defaultToCustomFee={!feesList.length}
+            feesList={
+              <BitcoinFeesList
+                feesList={feesList}
+                isLoading={isLoading}
+                onChooseFee={previewTransaction}
+                onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
+                onValidateBitcoinSpend={onValidateBitcoinAmountSpend}
+                selectedFeeType={selectedFeeType}
+              />
+            }
             isLoading={isLoading}
+            isSendingMax={isSendingMax}
             onChooseFee={previewTransaction}
-            onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
             onValidateBitcoinSpend={onValidateBitcoinAmountSpend}
-            selectedFeeType={selectedFeeType}
+            onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
+            recipients={recipients}
+            recommendedFeeRate={recommendedFeeRate}
+            showError={showInsufficientBalanceError}
+            maxRecommendedFeeRate={feesList[0]?.feeRate}
           />
-        }
-        isLoading={isLoading}
-        isSendingMax={isSendingMax}
-        onChooseFee={previewTransaction}
-        onValidateBitcoinSpend={onValidateBitcoinAmountSpend}
-        onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
-        recipients={recipients}
-        recommendedFeeRate={recommendedFeeRate}
-        showError={showInsufficientBalanceError}
-        maxRecommendedFeeRate={feesList[0]?.feeRate}
-      />
-      <Outlet />
+          <Outlet />
+        </Page>
+      </Content>
     </>
   );
 }

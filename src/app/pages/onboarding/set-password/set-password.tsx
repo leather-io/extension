@@ -19,9 +19,10 @@ import {
   blankPasswordValidation,
   validatePassword,
 } from '@app/common/validation/validate-password';
+import { Content, TwoColumnLayout } from '@app/components/layout';
+import { MainHeader } from '@app/features/container/headers/main.header';
 import { OnboardingGate } from '@app/routes/onboarding-gate';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { TwoColumnLayout } from '@app/ui/pages/two-column.layout';
 
 import { PasswordField } from './components/password-field';
 
@@ -49,7 +50,7 @@ function SetPasswordPage() {
   const finishSignIn = useFinishAuthRequest();
   const navigate = useNavigate();
   const { decodedAuthRequest } = useOnboardingState();
-
+  debugger;
   useEffect(() => {
     void analytics.page('view', '/set-password');
   }, []);
@@ -109,46 +110,51 @@ function SetPasswordPage() {
       }),
   });
   return (
-    <Formik
-      initialValues={setPasswordFormValues}
-      onSubmit={onSubmit}
-      validationSchema={validationSchema}
-      validateOnBlur
-      validateOnMount
-      validateOnChange
-    >
-      {({ dirty, isSubmitting, isValid }) => (
-        <Form>
-          <TwoColumnLayout
-            wideChild={false}
-            title={
-              <>
-                Set a <br />
-                password
-              </>
-            }
-            content={
-              <>
-                Your password protects your Secret Key on this device only. To access your wallet on
-                another device, you'll need just your Secret Key.
-              </>
-            }
-          >
-            <>
-              <PasswordField strengthResult={strengthResult} isDisabled={loading} />
-              <Button
-                data-testid={OnboardingSelectors.SetPasswordBtn}
-                disabled={loading || !(dirty && isValid)}
-                aria-busy={loading || isSubmitting}
-                mt="space.08"
-                type="submit"
+    <>
+      <MainHeader />
+      <Content>
+        <Formik
+          initialValues={setPasswordFormValues}
+          onSubmit={onSubmit}
+          validationSchema={validationSchema}
+          validateOnBlur
+          validateOnMount
+          validateOnChange
+        >
+          {({ dirty, isSubmitting, isValid }) => (
+            <Form>
+              <TwoColumnLayout
+                wideChild={false}
+                title={
+                  <>
+                    Set a <br />
+                    password
+                  </>
+                }
+                content={
+                  <>
+                    Your password protects your Secret Key on this device only. To access your
+                    wallet on another device, you'll need just your Secret Key.
+                  </>
+                }
               >
-                Continue
-              </Button>
-            </>
-          </TwoColumnLayout>
-        </Form>
-      )}
-    </Formik>
+                <>
+                  <PasswordField strengthResult={strengthResult} isDisabled={loading} />
+                  <Button
+                    data-testid={OnboardingSelectors.SetPasswordBtn}
+                    disabled={loading || !(dirty && isValid)}
+                    aria-busy={loading || isSubmitting}
+                    mt="space.08"
+                    type="submit"
+                  >
+                    Continue
+                  </Button>
+                </>
+              </TwoColumnLayout>
+            </Form>
+          )}
+        </Formik>
+      </Content>
+    </>
   );
 }

@@ -20,10 +20,11 @@ import { alex } from '@shared/utils/alex-sdk';
 
 import { migratePositiveAssetBalancesToTop } from '@app/common/asset-utils';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
+import { Content, Page } from '@app/components/layout';
+import { PageHeader } from '@app/features/container/headers/page.header';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
-import { Page } from '@app/ui/layout/page/page.layout';
 
 import { SwapForm } from './components/swap-form';
 import { generateSwapRoutes } from './generate-swap-routes';
@@ -172,11 +173,15 @@ function AlexSwapContainer() {
 
   return (
     <SwapProvider value={swapContextValue}>
-      <Page>
-        <SwapForm>
-          <Outlet />
-        </SwapForm>
-      </Page>
+      {/* Swap uses routed dialogs to choose assets so needs onBackLocation to go Home */}
+      <PageHeader title="Swap" onBackLocation={RouteUrls.Home} />
+      <Content>
+        <Page>
+          <SwapForm>
+            <Outlet />
+          </SwapForm>
+        </Page>
+      </Content>
     </SwapProvider>
   );
 }

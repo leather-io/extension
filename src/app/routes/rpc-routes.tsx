@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerStacksMessageSigningRoutes } from '@app/features/ledger/flows/stacks-message-signing/ledger-stacks-sign-msg.routes';
 import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
@@ -10,6 +11,7 @@ import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-tra
 import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
 import { RpcSignPsbtSummary } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt-summary';
 import { RpcStacksMessageSigning } from '@app/pages/rpc-sign-stacks-message/rpc-sign-stacks-message';
+import { RpcSignStacksTransaction } from '@app/pages/rpc-sign-stacks-transaction/rpc-sign-stacks-transaction';
 import { AccountGate } from '@app/routes/account-gate';
 
 import { SuspenseLoadingSpinner } from './app-routes';
@@ -65,6 +67,17 @@ export const rpcRequestRoutes = (
       }
     >
       {ledgerStacksMessageSigningRoutes}
+    </Route>
+
+    <Route
+      path={RouteUrls.RpcSignStacksTransaction}
+      element={
+        <AccountGate>
+          <RpcSignStacksTransaction />
+        </AccountGate>
+      }
+    >
+      <Route path={RouteUrls.EditNonce} element={<EditNonceDialog />} />
     </Route>
   </>
 );
