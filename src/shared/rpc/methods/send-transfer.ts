@@ -4,11 +4,8 @@ import * as yup from 'yup';
 import { type BitcoinNetworkModes, WalletDefaultNetworkConfigurationIds } from '@leather.io/models';
 
 import { FormErrorMessages } from '@shared/error-messages';
+import { btcAddressNetworkValidator, btcAddressValidator } from '@shared/forms/address-validators';
 import { checkIfDigitsOnly } from '@shared/forms/amount-validators';
-import {
-  btcAddressNetworkValidator,
-  btcAddressValidator,
-} from '@shared/forms/bitcoin-address-validators';
 
 import {
   accountSchema,

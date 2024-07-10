@@ -5,15 +5,13 @@ import * as yup from 'yup';
 
 import { bitcoinNetworkModeToCoreNetworkMode } from '@leather.io/bitcoin';
 
+import { FormErrorMessages } from '@shared/error-messages';
+import { btcAddressNetworkValidator, btcAddressValidator } from '@shared/forms/address-validators';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 
 import { formatPrecisionError } from '@app/common/error-formatters';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import {
-  btcAddressNetworkValidator,
-  btcAddressValidator,
-  notCurrentAddressValidator,
-} from '@app/common/validation/forms/address-validators';
+import { notCurrentAddressValidator } from '@app/common/validation/forms/address-validators';
 import {
   btcInsufficientBalanceValidator,
   btcMinimumSpendValidator,
@@ -74,6 +72,7 @@ export function useBtcSendForm() {
         ),
       recipient: yup
         .string()
+        .defined(FormErrorMessages.AddressRequired)
         .concat(btcAddressValidator())
         .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.bitcoinNetwork))
         .concat(notCurrentAddressValidator(nativeSegwitSigner.address || ''))
@@ -82,8 +81,7 @@ export function useBtcSendForm() {
             btcAddressValidator(),
             bitcoinNetworkModeToCoreNetworkMode(currentNetwork.chain.bitcoin.bitcoinNetwork)
           )
-        )
-        .required('Enter a bitcoin address'),
+        ),
     }),
 
     async chooseTransactionFee(
