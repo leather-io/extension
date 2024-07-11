@@ -2,7 +2,6 @@ import type { StxCryptoAssetBalance } from '@leather.io/models';
 import {
   isErrorTooManyRequests,
   isFetchedWithSuccess,
-  isInitializingData,
   useStxCryptoAssetBalance,
 } from '@leather.io/query';
 import { StxAvatarIcon } from '@leather.io/ui';
@@ -16,7 +15,7 @@ interface StxAssetItemBalanceLoaderProps {
 }
 export function StxAssetItemBalanceLoader({ address, children }: StxAssetItemBalanceLoaderProps) {
   const result = useStxCryptoAssetBalance(address);
-  if (isInitializingData(result)) return <CryptoAssetItemPlaceholder />;
+  if (result.isLoading) return <CryptoAssetItemPlaceholder />;
   if (isErrorTooManyRequests(result))
     return (
       <CryptoAssetItemError
