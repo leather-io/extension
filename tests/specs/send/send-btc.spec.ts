@@ -4,7 +4,7 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { getDisplayerAddress } from '@tests/utils';
 
-import { BtcFeeType } from '@leather.io/models';
+import { BESTINSLOT_API_BASE_URL_TESTNET, BtcFeeType } from '@leather.io/models';
 
 import { test } from '../../fixtures/fixtures';
 
@@ -127,7 +127,7 @@ test.describe('send btc', () => {
       });
 
       await sendPage.page.route(
-        '**/leatherapi.bestinslot.xyz/v3/inscription/in_transaction**',
+        `${BESTINSLOT_API_BASE_URL_TESTNET}/inscription/in_transaction**`,
         async route => {
           return route.fulfill({
             status: 200,
@@ -140,7 +140,7 @@ test.describe('send btc', () => {
       );
 
       await sendPage.page.route(
-        '**/leatherapi.bestinslot.xyz/v3/inscription/single_info_id**',
+        `${BESTINSLOT_API_BASE_URL_TESTNET}/inscription/single_info_id**`,
         async route => {
           return route.fulfill({
             status: 200,
