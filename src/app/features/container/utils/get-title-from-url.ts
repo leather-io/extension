@@ -11,10 +11,6 @@ export function getTitleFromUrl(pathname: RouteUrls) {
   switch (pathname) {
     case RouteUrls.AddNetwork:
       return 'Add a network';
-    case RouteUrls.BitcoinContractList:
-      return 'Bitcoin Contracts';
-    case RouteUrls.BitcoinContractLockSuccess:
-      return 'Locked Bitcoin';
     case RouteUrls.SendBrc20ChooseFee:
       return 'Choose fee';
     case RouteUrls.SendBrc20Confirmation:

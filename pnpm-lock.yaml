@@ -26,9 +26,6 @@ importers:
       '@coinbase/cbpay-js':
         specifier: 2.1.0
         version: 2.1.0(regenerator-runtime@0.13.11)
-      '@dlc-link/dlc-tools':
-        specifier: 1.1.1
-        version: 1.1.1
       '@fungible-systems/zone-file':
         specifier: 2.0.0
         version: 2.0.0
@@ -2140,9 +2137,6 @@ packages:
   '@discoveryjs/json-ext@0.5.7':
     resolution: {integrity: sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==}
     engines: {node: '>=10.0.0'}
-
-  '@dlc-link/dlc-tools@1.1.1':
-    resolution: {integrity: sha512-+4RlBjqv3Ws9ndc9dP+SWS/GZ7j18T3TlpzgEblR/WB8pA0FAV2D8Faz+S32m7q6CXFogArZXc/IoyQ+bx3Wtg==}
 
   '@dnd-kit/accessibility@3.1.0':
     resolution: {integrity: sha512-ea7IkhKvlJUv9iSHJOnxinBcoOI3ppGnnL+VDJ75O45Nss6HtZd8IdN8touXPDtASfeI2T2LImb8VOZcL47wjQ==}
@@ -16683,8 +16677,6 @@ snapshots:
       - supports-color
 
   '@discoveryjs/json-ext@0.5.7': {}
-
-  '@dlc-link/dlc-tools@1.1.1': {}
 
   '@dnd-kit/accessibility@3.1.0(react@18.3.1)':
     dependencies:
