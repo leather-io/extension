@@ -132,7 +132,6 @@
     "@bitcoinerlab/secp256k1": "1.0.2",
     "@blockstack/stacks-transactions": "0.7.0",
     "@coinbase/cbpay-js": "2.1.0",
-    "@dlc-link/dlc-tools": "1.1.1",
     "@fungible-systems/zone-file": "2.0.0",
     "@hirosystems/token-metadata-api-client": "1.2.0",
     "@leather.io/bitcoin": "0.8.6",

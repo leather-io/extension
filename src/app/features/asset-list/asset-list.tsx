@@ -3,7 +3,6 @@ import { Stack } from 'leather-styles/jsx';
 import { BtcAvatarIcon, StxAvatarIcon } from '@leather.io/ui';
 
 import { useWalletType } from '@app/common/use-wallet-type';
-import { BitcoinContractEntryPoint } from '@app/components/bitcoin-contract-entry-point/bitcoin-contract-entry-point';
 import {
   BitcoinNativeSegwitAccountLoader,
   BitcoinTaprootAccountLoader,
@@ -21,7 +20,6 @@ import { RunesAssetList } from '@app/features/asset-list/bitcoin/runes-asset-lis
 import { Src20TokenAssetList } from '@app/features/asset-list/bitcoin/src20-token-asset-list/src20-token-asset-list';
 import { Stx20TokenAssetList } from '@app/features/asset-list/stacks/stx20-token-asset-list/stx20-token-asset-list';
 import { StxCryptoAssetItem } from '@app/features/asset-list/stacks/stx-crypo-asset-item/stx-crypto-asset-item';
-import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { ConnectLedgerAssetItemFallback } from './_components/connect-ledger-asset-item-fallback';
 import { BtcCryptoAssetItem } from './bitcoin/btc-crypto-asset-item/btc-crypto-asset-item';
@@ -35,7 +33,6 @@ interface AssetListProps {
   variant?: AssetListVariant;
 }
 export function AssetList({ onSelectAsset, variant = 'read-only' }: AssetListProps) {
-  const network = useCurrentNetwork();
   const { whenWallet } = useWalletType();
 
   const isReadOnly = variant === 'read-only';
@@ -65,14 +62,6 @@ export function AssetList({ onSelectAsset, variant = 'read-only' }: AssetListPro
           </BtcAssetItemBalanceLoader>
         )}
       </BitcoinNativeSegwitAccountLoader>
-
-      {/* Temporary duplication during Ledger Bitcoin feature dev */}
-      {isReadOnly &&
-        ['testnet', 'regtest'].includes(network.chain.bitcoin.bitcoinNetwork) &&
-        whenWallet({
-          software: <BitcoinContractEntryPoint />,
-          ledger: null,
-        })}
 
       <CurrentStacksAccountLoader
         fallback={

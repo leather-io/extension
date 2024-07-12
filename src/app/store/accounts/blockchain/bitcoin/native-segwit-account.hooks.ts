@@ -43,7 +43,7 @@ const selectCurrentNetworkNativeSegwitAccountBuilder = createSelector(
   (nativeSegwitKeychains, network) => nativeSegwitKeychains[network.chain.bitcoin.bitcoinNetwork]
 );
 
-export function useNativeSegwitAccountBuilder() {
+function useNativeSegwitAccountBuilder() {
   return useSelector(selectCurrentNetworkNativeSegwitAccountBuilder);
 }
 
