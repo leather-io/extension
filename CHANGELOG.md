@@ -1,3 +1,28 @@
+## [6.43.0](https://github.com/leather-io/extension/compare/v6.42.2...v6.43.0) (2024-07-15)
+
+
+### Features
+
+* add Leather to WBIP004 array, closes [#5615](https://github.com/leather-io/extension/issues/5615) ([e38f6ab](https://github.com/leather-io/extension/commit/e38f6ab36e8e0c333571adeefbac3c57b00b7c8c))
+* mock mainnet btc blockstream requests ([16d751c](https://github.com/leather-io/extension/commit/16d751c7b10e2ba056f99256286ddd4d2f36ce32))
+
+
+### Bug Fixes
+
+* choose account prevent bug, closes [#5509](https://github.com/leather-io/extension/issues/5509) ([89500a8](https://github.com/leather-io/extension/commit/89500a807095c31b275d279b4c86fc5760cee096))
+* collectible hover, closes [#4971](https://github.com/leather-io/extension/issues/4971) ([7728eeb](https://github.com/leather-io/extension/commit/7728eeb356904244a3b484da2d9c649ea8b58143))
+* confine clickable area of account switcher to account name and chevron, closes [#5621](https://github.com/leather-io/extension/issues/5621) ([472c7e4](https://github.com/leather-io/extension/commit/472c7e4b416e42ff2bedf1d1f786a6bb2aa5b8e6))
+* dust change amounts, closes [#4979](https://github.com/leather-io/extension/issues/4979) ([8b40ea7](https://github.com/leather-io/extension/commit/8b40ea79680323479889e35f3a1e31ce941abfdf))
+* increase zIndex of tooltip to prevent it being obscured, closes [#5622](https://github.com/leather-io/extension/issues/5622) ([a1f86bb](https://github.com/leather-io/extension/commit/a1f86bbab9b6af8e03d4ec40475519e61ab6992b))
+* show account name in signPsbt and signBip322 header, ref [#4657](https://github.com/leather-io/extension/issues/4657) [#4859](https://github.com/leather-io/extension/issues/4859) ([71f2565](https://github.com/leather-io/extension/commit/71f2565d19392a88901380a74961f9cece6301b6))
+
+
+### Internal
+
+* add new analytics events ([3f9548e](https://github.com/leather-io/extension/commit/3f9548e3eb2a56eb9e3a5e7cc43fbc7c9f852d86))
+* post-release merge back ([c1bbf89](https://github.com/leather-io/extension/commit/c1bbf89ba86ff86f190edf8687a9441433fca7cb))
+* reenable swaps, closes leather-io/issues[#98](https://github.com/leather-io/extension/issues/98) ([5faba22](https://github.com/leather-io/extension/commit/5faba22cd6aa32bfee2b2eac2d08d88473b9ebeb))
+
 ## [6.42.2](https://github.com/leather-io/extension/compare/v6.42.1...v6.42.2) (2024-07-02)
 
 
