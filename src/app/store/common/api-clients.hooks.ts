@@ -1,13 +1,8 @@
 import { useMemo } from 'react';
 
-import { bitcoinClient, stacksClient } from '@leather.io/query';
+import { stacksClient } from '@leather.io/query';
 
 import { useCurrentNetworkState } from '../networks/networks.hooks';
-
-export function useBitcoinClient() {
-  const network = useCurrentNetworkState();
-  return bitcoinClient(network.chain.bitcoin.bitcoinUrl);
-}
 
 export function useStacksClient() {
   const network = useCurrentNetworkState();

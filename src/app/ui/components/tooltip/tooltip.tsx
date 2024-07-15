@@ -48,6 +48,7 @@ const defaultContentStyles = css({
   textAlign: 'center',
   wordWrap: 'break-word',
   color: 'ink.background-primary',
+  zIndex: 4,
 
   "&[data-state='delayed-open'][data-side='top']": {
     animationName: 'slideDownAndFade',

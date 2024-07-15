@@ -61,9 +61,14 @@ test.describe('Onboarding an existing user', () => {
     await test.expect(signInSeedError).not.toBeVisible();
   });
 
-  test('Activity tab', async ({ extensionId, globalPage, onboardingPage, homePage }) => {
+  test('Activity tab', async ({ extensionId, globalPage, onboardingPage, homePage, page }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signUpNewUser();
+    await page.route(`**/blockstream.info/api/address/**/txs`, route =>
+      route.fulfill({
+        json: [],
+      })
+    );
     await homePage.clickActivityTab();
     const noActivityText = homePage.page.getByText('No activity yet');
     await test.expect(noActivityText).toBeVisible();

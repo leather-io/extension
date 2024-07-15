@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { validate } from 'bitcoin-address-validation';
 
+import { BTC_P2WPKH_DUST_AMOUNT } from '@leather.io/constants';
 import type { UtxoResponseItem } from '@leather.io/query';
 import { sumMoney, sumNumbers } from '@leather.io/utils';
 
@@ -12,6 +13,11 @@ export class InsufficientFundsError extends Error {
   constructor() {
     super('Insufficient funds');
   }
+}
+
+interface Output {
+  value: bigint;
+  address?: string;
 }
 
 export interface DetermineUtxosForSpendArgs {
@@ -101,20 +107,24 @@ export function determineUtxosForSpend({ feeRate, recipients, utxos }: Determine
     new BigNumber(estimateTransactionSize().txVBytes).multipliedBy(feeRate).toNumber()
   );
 
-  const outputs: {
-    value: bigint;
-    address?: string;
-  }[] = [
+  const changeAmount =
+    BigInt(getUtxoTotal(neededUtxos).toString()) - BigInt(amount.amount.toNumber()) - BigInt(fee);
+
+  const changeUtxos: Output[] =
+    changeAmount > BTC_P2WPKH_DUST_AMOUNT
+      ? [
+          {
+            value: changeAmount,
+          },
+        ]
+      : [];
+
+  const outputs: Output[] = [
     ...recipients.map(({ address, amount }) => ({
       value: BigInt(amount.amount.toNumber()),
       address,
     })),
-    {
-      value:
-        BigInt(getUtxoTotal(neededUtxos).toString()) -
-        BigInt(amount.amount.toNumber()) -
-        BigInt(fee),
-    },
+    ...changeUtxos,
   ];
 
   return {

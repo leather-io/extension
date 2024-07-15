@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 
 import { generateSecretKey } from '@stacks/wallet-sdk';
 
+import { useBitcoinClient } from '@leather.io/query';
+
 import { logger } from '@shared/logger';
 import { clearChromeStorage } from '@shared/storage/redux-pesist';
 import { analytics } from '@shared/utils/analytics';
@@ -10,7 +12,7 @@ import { queryClient } from '@app/common/persistence';
 import { partiallyClearLocalStorage } from '@app/common/store-utils';
 import { useAppDispatch } from '@app/store';
 import { createNewAccount, stxChainActions } from '@app/store/chains/stx-chain.actions';
-import { useBitcoinClient, useStacksClient } from '@app/store/common/api-clients.hooks';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
 import { bitcoinKeysSlice } from '@app/store/ledger/bitcoin/bitcoin-key.slice';
 import { stacksKeysSlice } from '@app/store/ledger/stacks/stacks-key.slice';

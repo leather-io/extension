@@ -28,7 +28,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.LEATHER_BOT }}
-          external_repository: leather-wallet/storybook
+          external_repository: leather-io/storybook
           publish_branch: main
           publish_dir: ./storybook-static
           cname: storybook.leather.io

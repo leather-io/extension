@@ -20,8 +20,6 @@ import { alex } from '@shared/utils/alex-sdk';
 
 import { migratePositiveAssetBalancesToTop } from '@app/common/asset-utils';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
-import { useWalletType } from '@app/common/use-wallet-type';
-import { NonceSetter } from '@app/components/nonce-setter';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
@@ -29,7 +27,6 @@ import { Page } from '@app/ui/layout/page/page.layout';
 
 import { SwapForm } from './components/swap-form';
 import { generateSwapRoutes } from './generate-swap-routes';
-import { useAlexBroadcastSwap } from './hooks/use-alex-broadcast-swap';
 import { oneHundredMillion, useAlexSwap } from './hooks/use-alex-swap';
 import { useStacksBroadcastSwap } from './hooks/use-stacks-broadcast-swap';
 import { SwapFormValues } from './hooks/use-swap-form';
@@ -45,14 +42,6 @@ function AlexSwapContainer() {
   const currentAccount = useCurrentStacksAccount();
   const generateUnsignedTx = useGenerateStacksContractCallUnsignedTx();
   const signTx = useSignStacksTransaction();
-  const { whenWallet } = useWalletType();
-
-  // Setting software to false until we revisit:
-  // https://github.com/leather-io/extension/issues/4750
-  const isSponsoredByAlex = whenWallet({
-    ledger: false,
-    software: false,
-  });
 
   const {
     fetchQuoteAmount,
@@ -63,8 +52,6 @@ function AlexSwapContainer() {
     swapAssets,
     swapSubmissionData,
   } = useAlexSwap();
-
-  const broadcastAlexSwap = useAlexBroadcastSwap();
   const broadcastStacksSwap = useStacksBroadcastSwap();
 
   async function onSubmitSwapForReview(values: SwapFormValues) {
@@ -79,7 +66,7 @@ function AlexSwapContainer() {
     ]);
 
     onSetSwapSubmissionData({
-      fee: isSponsoredByAlex ? '0' : defaultSwapFee.amount.toString(),
+      fee: defaultSwapFee.amount.toString(),
       feeCurrency: values.feeCurrency,
       feeType: values.feeType,
       liquidityFee: new BigNumber(Number(lpFee)).dividedBy(oneHundredMillion).toNumber(),
@@ -87,7 +74,7 @@ function AlexSwapContainer() {
       protocol: 'ALEX',
       router: router.map(x => swapAssets.find(asset => asset.currency === x)).filter(isDefined),
       slippage,
-      sponsored: isSponsoredByAlex,
+      sponsored: false,
       swapAmountBase: values.swapAmountBase,
       swapAmountQuote: values.swapAmountQuote,
       swapAssetBase: values.swapAssetBase,
@@ -129,13 +116,12 @@ function AlexSwapContainer() {
         .toString()
     );
 
-    const tx = alex.runSwap(
+    const tx = await alex.runSwap(
       currentAccount?.address,
       swapSubmissionData.swapAssetBase.currency,
       swapSubmissionData.swapAssetQuote.currency,
       fromAmount,
-      minToAmount,
-      swapSubmissionData.router.map(x => x.currency)
+      minToAmount
     );
 
     // TODO: Add choose fee step
@@ -166,14 +152,8 @@ function AlexSwapContainer() {
       const signedTx = await signTx(unsignedTx);
       if (!signedTx)
         return logger.error('Attempted to generate raw tx, but signed tx is undefined');
-      const txRaw = bytesToHex(signedTx.serialize());
 
-      return whenWallet({
-        ledger: await broadcastStacksSwap(signedTx),
-        software: isSponsoredByAlex
-          ? await broadcastAlexSwap(txRaw)
-          : await broadcastStacksSwap(signedTx),
-      });
+      return await broadcastStacksSwap(signedTx);
     } catch (error) {}
   }
 
@@ -194,7 +174,6 @@ function AlexSwapContainer() {
     <SwapProvider value={swapContextValue}>
       <Page>
         <SwapForm>
-          <NonceSetter />
           <Outlet />
         </SwapForm>
       </Page>

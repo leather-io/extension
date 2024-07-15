@@ -7,7 +7,7 @@ import {
 
 import { gaiaUrl as gaiaHubUrl } from '@shared/constants';
 
-// This function repliactes behaviour  wrapped in the `restoreWalletAccounts`
+// This function replicates behaviour  wrapped in the `restoreWalletAccounts`
 // method of wallet-sdk. It checks for BNS names on Gaia-persisted accounts,
 // resulting in a huge number of requests when called by a wallet with many
 // accounts. Here, we only care to find the number of accounts a user has
