@@ -1,5 +1,8 @@
 import * as reduxPersist from 'redux-persist';
 
+import { HIRO_API_BASE_URL_MAINNET } from '@leather.io/models';
+import { getHiroApiRateLimiter } from '@leather.io/query';
+
 import { logger } from '@shared/logger';
 import { getLogsFromBrowserStorage } from '@shared/logger-storage';
 import { persistConfig } from '@shared/storage/redux-pesist';
@@ -22,6 +25,15 @@ const debug = {
   },
   logStore() {
     return store.getState();
+  },
+  logHiroLimiter(url = HIRO_API_BASE_URL_MAINNET) {
+    const limiter = getHiroApiRateLimiter(url);
+
+    return {
+      size: limiter.size,
+      pending: limiter.pending,
+      limiter,
+    };
   },
   // Utilised in integration tests
   async logPersistedStore() {
