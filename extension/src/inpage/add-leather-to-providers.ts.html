@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/pages/swap/hooks/use-alex-broadcast-swap.ts</title>
+    <title>Code coverage report for extension/src/inpage/add-leather-to-providers.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../../../sort-arrow-sprite.png);
+            background-image: url(../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/pages/swap/hooks</a> use-alex-broadcast-swap.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">extension/src/inpage</a> add-leather-to-providers.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Branches</span>
                 <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
-                <span class="quiet">Functions</span>
+                <span class="quiet">Branches</span>
                 <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -116,19 +116,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -139,43 +130,52 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">interface WalletProvider {
+  id: string;
+  name: string;
+  icon: string;
+  webUrl?: string;
+  chromeWebStoreUrl?: string;
+  mozillaAddOnsUrl?: string;
+  googlePlayStoreUrl?: string;
+  iOSAppStoreUrl?: string;
+  methods?: string[];
+}
 &nbsp;
-import { SponsoredTxError } from 'alex-sdk';
+// https://wbips.netlify.app/wbips/WBIP004
+export function <span class="fstat-no" title="function not covered" >addLeatherToProviders() {</span>
+  const win = <span class="cstat-no" title="statement not covered" >window as unknown as Window &amp; { btc_providers?: WalletProvider[] };</span>
 &nbsp;
-import { delay } from '@leather.io/utils';
+<span class="cstat-no" title="statement not covered" >  if (!win.btc_providers) <span class="cstat-no" title="statement not covered" >win.btc_providers = [];</span></span>
 &nbsp;
-import { logger } from '@shared/logger';
-import { RouteUrls } from '@shared/route-urls';
-import { alex } from '@shared/utils/alex-sdk';
+<span class="cstat-no" title="statement not covered" >  win.btc_providers.push({</span>
+    id: 'LeatherProvider',
+    name: 'Leather',
+    icon: 'data:image/svg;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiByeD0iMjYuODM4NyIgZmlsbD0iIzEyMTAwRiIvPgo8cGF0aCBkPSJNNzQuOTE3MSA1Mi43MTE0QzgyLjQ3NjYgNTEuNTQwOCA5My40MDg3IDQzLjU4MDQgOTMuNDA4NyAzNy4zNzYxQzkzLjQwODcgMzUuNTAzMSA5MS44OTY4IDM0LjIxNTQgODkuNjg3MSAzNC4yMTU0Qzg1LjUwMDQgMzQuMjE1NCA3OC40MDYxIDQwLjUzNjggNzQuOTE3MSA1Mi43MTE0Wk0zOS45MTEgODMuNDk5MUMzMC4wMjU2IDgzLjQ5OTEgMjkuMjExNSA5My4zMzI0IDM5LjA5NjkgOTMuMzMyNEM0My41MTYzIDkzLjMzMjQgNDguODY2MSA5MS41NzY0IDUxLjY1NzMgODguNDE1N0M0Ny41ODY4IDg0LjkwMzggNDQuMjE0MSA4My40OTkxIDM5LjkxMSA4My40OTkxWk0xMDIuODI5IDc5LjI4NDhDMTAzLjQxIDk1Ljc5MDcgOTUuMDM2OSAxMDUuMDM5IDgwLjg0ODQgMTA1LjAzOUM3Mi40NzQ4IDEwNS4wMzkgNjguMjg4MSAxMDEuODc4IDU5LjMzMyA5Ni4wMjQ4QzU0LjY4MSAxMDEuMTc2IDQ1Ljg0MjMgMTA1LjAzOSAzOC41MTU0IDEwNS4wMzlDMTMuMjc4NSAxMDUuMDM5IDE0LjMyNTIgNzIuODQ2MyA0MC4wMjczIDcyLjg0NjNDNDUuMzc3MSA3Mi44NDYzIDQ5LjkxMjggNzQuMjUxMSA1NS43Mjc3IDc3Ljg4TDU5LjU2NTYgNjQuNDE3N0M0My43NDg5IDYwLjA4NjQgMzUuODQwNSA0Ny45MTE4IDQzLjYzMjYgMzAuNDY5M0g1Ni4xOTI5QzQ5LjIxNSA0Mi4wNTg2IDUzLjk4MzIgNTEuNjU3OCA2Mi44MjIgNTIuNzExNEM2Ny41OTAzIDM1LjczNzIgNzcuODI0NiAyMi41MDkgOTEuNDMxNiAyMi41MDlDOTkuMTA3NCAyMi41MDkgMTA1LjE1NSAyNy41NDI4IDEwNS4xNTUgMzYuNjczN0MxMDUuMTU1IDUxLjMwNjYgODYuMDgxOSA2My4yNDcxIDcxLjY2MDcgNjQuNDE3N0w2NS43Mjk1IDg1LjM3MjFDNzIuNDc0OCA5My4yMTUzIDkxLjE5OSAxMDAuODI0IDkxLjE5OSA3OS4yODQ4SDEwMi44MjlaIiBmaWxsPSIjRjdGNUYzIi8+Cjwvc3ZnPgo=',
 &nbsp;
-import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
+    webUrl: 'https://leather.io',
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useAlexBroadcastSwap() {</span>
-  const { setIsIdle } = <span class="cstat-no" title="statement not covered" >useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);</span>
-  const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
+    chromeWebStoreUrl:
+      'https://chromewebstore.google.com/detail/leather/ldinpeekobnhjjdofggfgjlcehhmanlj',
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return useCallback(</span>
-<span class="fstat-no" title="function not covered" >    async (t</span>xRaw: string) =&gt; {
-<span class="cstat-no" title="statement not covered" >      try {</span>
-        const txId = <span class="cstat-no" title="statement not covered" >await alex.broadcastSponsoredTx(txRaw);</span>
-<span class="cstat-no" title="statement not covered" >        logger.info('transaction:', txId);</span>
-<span class="cstat-no" title="statement not covered" >        await delay(1000);</span>
-<span class="cstat-no" title="statement not covered" >        setIsIdle();</span>
-<span class="cstat-no" title="statement not covered" >        navigate(RouteUrls.Activity);</span>
-      } catch (e) {
-<span class="cstat-no" title="statement not covered" >        setIsIdle();</span>
-<span class="cstat-no" title="statement not covered" >        navigate(RouteUrls.SwapError, {</span>
-          state: {
-            message: e instanceof (Error || SponsoredTxError) ? e.message : 'Unknown error',
-            title: 'Failed to broadcast',
-          },
-        });
-      }
-    },
-    [navigate, setIsIdle]
-  );
+    methods: [
+      'getAddresses',
+      'signMessage',
+      'sentTransfer',
+      'signPsbt',
+      'stx_signMessage',
+      'stx_signTransaction',
+    ],
+  });
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -184,16 +184,16 @@ export function <span class="fstat-no" title="function not covered" >useAlexBroa
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-02T16:13:44.669Z
+                at 2024-07-15T08:35:08.139Z
             </div>
-        <script src="../../../../../../prettify.js"></script>
+        <script src="../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../../../sorter.js"></script>
-        <script src="../../../../../../block-navigation.js"></script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
     </body>
 </html>
     

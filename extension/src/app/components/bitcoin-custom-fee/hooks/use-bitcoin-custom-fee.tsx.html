@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -111,16 +111,7 @@
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L49'></a><a href='#L49'>49</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,8 +133,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,11 +141,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,29 +161,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback } from 'react';
 &nbsp;
-import type { Money } from '@leather.io/models';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import { baseCurrencyAmountInQuote, createMoney, i18nFormatCurrency } from '@leather.io/utils';
 &nbsp;
 import type { TransferRecipient } from '@shared/models/form.model';
 &nbsp;
 import {
+  type DetermineUtxosForSpendArgs,
   determineUtxosForSpend,
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 &nbsp;
 export const MAX_FEE_RATE_MULTIPLIER = <span class="cstat-no" title="statement not covered" >50;</span>
 &nbsp;
 interface UseBitcoinCustomFeeArgs {
-  amount: Money;
   isSendingMax: boolean;
   recipients: TransferRecipient[];
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useBitcoinCustomFee({</span> amount, isSendingMax, recipients }: UseBitcoinCustomFeeArgs) {
-  const { balance } = <span class="cstat-no" title="statement not covered" >useCurrentBtcCryptoAssetBalanceNativeSegwit();</span>
+export function <span class="fstat-no" title="function not covered" >useBitcoinCustomFee({</span> isSendingMax, recipients }: UseBitcoinCustomFeeArgs) {
   const { data: utxos = <span class="branch-0 cbranch-no" title="branch not covered" >[] }</span> = <span class="cstat-no" title="statement not covered" >useCurrentNativeSegwitUtxos();</span>
   const btcMarketData = <span class="cstat-no" title="statement not covered" >useCryptoCurrencyMarketDataMeanAverage('BTC');</span>
 &nbsp;
@@ -207,12 +188,7 @@ export function <span class="fstat-no" title="function not covered" >useBitcoinC
 <span class="fstat-no" title="function not covered" >    (f</span>eeRate: number) =&gt; {
 <span class="cstat-no" title="statement not covered" >      if (!feeRate || !utxos.length) <span class="cstat-no" title="statement not covered" >return { fee: 0, fiatFeeValue: '' };</span></span>
 &nbsp;
-      const satAmount = <span class="cstat-no" title="statement not covered" >isSendingMax</span>
-        ? balance.availableBalance.amount.toNumber()
-        : amount.amount.toNumber();
-&nbsp;
-      const determineUtxosArgs = <span class="cstat-no" title="statement not covered" >{</span>
-        amount: satAmount,
+      const determineUtxosArgs: DetermineUtxosForSpendArgs = <span class="cstat-no" title="statement not covered" >{</span>
         recipients,
         utxos,
         feeRate,
@@ -228,7 +204,7 @@ export function <span class="fstat-no" title="function not covered" >useBitcoinC
         )}`,
       };
     },
-    [utxos, isSendingMax, balance.availableBalance.amount, amount.amount, recipients, btcMarketData]
+    [utxos, isSendingMax, recipients, btcMarketData]
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -238,7 +214,7 @@ export function <span class="fstat-no" title="function not covered" >useBitcoinC
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-02T16:13:44.669Z
+                at 2024-07-15T08:35:08.139Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>
