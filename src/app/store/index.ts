@@ -29,6 +29,7 @@ import { stxChainSlice } from './chains/stx-chain.slice';
 import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
 import { bitcoinKeysSlice } from './ledger/bitcoin/bitcoin-key.slice';
 import { stacksKeysSlice } from './ledger/stacks/stacks-key.slice';
+import { manageTokensSlice } from './manage-tokens/manage-tokens.slice';
 import { networksSlice } from './networks/networks.slice';
 import { ordinalsSlice } from './ordinals/ordinals.slice';
 import { settingsSlice } from './settings/settings.slice';
@@ -51,6 +52,7 @@ export interface RootState {
   networks: ReturnType<typeof networksSlice.reducer>;
   submittedTransactions: ReturnType<typeof submittedTransactionsSlice.reducer>;
   settings: ReturnType<typeof settingsSlice.reducer>;
+  manageTokens: ReturnType<typeof manageTokensSlice.reducer>;
 }
 
 const appReducer = combineReducers({
@@ -68,6 +70,7 @@ const appReducer = combineReducers({
   networks: networksSlice.reducer,
   submittedTransactions: submittedTransactionsSlice.reducer,
   settings: settingsSlice.reducer,
+  manageTokens: manageTokensSlice.reducer,
 });
 
 function rootReducer(state: RootState | undefined, action: Action) {

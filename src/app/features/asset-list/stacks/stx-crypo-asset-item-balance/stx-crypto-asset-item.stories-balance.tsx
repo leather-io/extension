@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 
 import { queryClient } from '@app/common/persistence';
 
-import { StxCryptoAssetItem as Component } from './stx-crypto-asset-item';
+import { StxCryptoAssetItemBalance as Component } from './stx-crypto-asset-item-balance';
 
 const meta: Meta<typeof Component> = {
   component: Component,

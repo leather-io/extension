@@ -10,7 +10,7 @@ import { BtcAssetItemBalanceLoader } from '@app/components/loaders/btc-balance-l
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
 import { StxAssetItemBalanceLoader } from '@app/components/loaders/stx-balance-loader';
 import { BtcCryptoAssetItem } from '@app/features/asset-list/bitcoin/btc-crypto-asset-item/btc-crypto-asset-item';
-import { StxCryptoAssetItem } from '@app/features/asset-list/stacks/stx-crypo-asset-item/stx-crypto-asset-item';
+import { StxCryptoAssetItemBalance } from '@app/features/asset-list/stacks/stx-crypo-asset-item-balance/stx-crypto-asset-item-balance';
 import { Card } from '@app/ui/layout/card/card';
 import { Page } from '@app/ui/layout/page/page.layout';
 
@@ -51,7 +51,7 @@ export function ChooseCryptoAssetToFund() {
               {account => (
                 <StxAssetItemBalanceLoader address={account.address}>
                   {(balance, isLoading) => (
-                    <StxCryptoAssetItem
+                    <StxCryptoAssetItemBalance
                       balance={balance}
                       isLoading={isLoading}
                       onSelectAsset={() => navigateToFund('STX')}

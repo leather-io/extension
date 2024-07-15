@@ -6,9 +6,9 @@ import { spamFilter } from '@leather.io/utils';
 
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
-import { parseCryptoAssetBalance } from './crypto-asset-item.layout.utils';
+import { getCryptoDataTestId, parseCryptoAssetBalance } from './crypto-asset-item.layout.utils';
 
-interface CryptoAssetItemLayoutProps {
+interface CryptoAssetItemBalanceLayoutProps {
   availableBalance: Money;
   balanceSuffix?: string;
   captionLeft: string;
@@ -21,7 +21,7 @@ interface CryptoAssetItemLayoutProps {
   titleLeft: string;
   titleRightBulletInfo?: React.ReactNode;
 }
-export function CryptoAssetItemLayout({
+export function CryptoAssetItemBalanceLayout({
   availableBalance,
   balanceSuffix,
   captionLeft,
@@ -33,9 +33,10 @@ export function CryptoAssetItemLayout({
   onSelectAsset,
   titleLeft,
   titleRightBulletInfo,
-}: CryptoAssetItemLayoutProps) {
-  const { availableBalanceString, dataTestId, formattedBalance } =
-    parseCryptoAssetBalance(availableBalance);
+}: CryptoAssetItemBalanceLayoutProps) {
+  const { availableBalanceString, formattedBalance } = parseCryptoAssetBalance(availableBalance);
+  const symbol = availableBalance.symbol;
+  const dataTestId = getCryptoDataTestId(symbol);
 
   const titleRight = (
     <SkeletonLoader width="126px" isLoading={isLoading}>
