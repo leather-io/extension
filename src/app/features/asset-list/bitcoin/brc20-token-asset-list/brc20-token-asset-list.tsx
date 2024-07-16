@@ -8,6 +8,7 @@ import { Brc20AvatarIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 import type { AssetListVariant } from '@app/features/asset-list/asset-list';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
@@ -23,6 +24,14 @@ interface Brc20TokenAssetListProps {
   tokens: Brc20TokenAssetDetails[];
   variant?: AssetListVariant;
 }
+
+function getBrc20TokenFiatBalance(token: Brc20TokenAssetDetails) {
+  return convertAssetBalanceToFiat({
+    balance: token.balance.availableBalance,
+    marketData: token.marketData,
+  });
+}
+
 export function Brc20TokenAssetList({ tokens, variant }: Brc20TokenAssetListProps) {
   const navigate = useNavigate();
   const { balance, isLoading } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
@@ -56,6 +65,7 @@ export function Brc20TokenAssetList({ tokens, variant }: Brc20TokenAssetListProp
             hasPositiveBtcBalanceForFees ? () => navigateToBrc20SendForm(token) : undefined
           }
           titleLeft={token.info.symbol}
+          fiatBalance={getBrc20TokenFiatBalance(token)}
         />
       ))}
     </Stack>
