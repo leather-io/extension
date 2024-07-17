@@ -5,6 +5,7 @@ import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { ChevronDownIcon, Link, SkeletonLoader } from '@leather.io/ui';
 
+import { useScaleText } from '@app/common/hooks/use-scale-text';
 import { AccountNameLayout } from '@app/components/account/account-name';
 
 interface AccountCardProps {
@@ -24,6 +25,8 @@ export function AccountCard({
   isFetchingBnsName,
   isLoadingBalance,
 }: AccountCardProps) {
+  const scaleTextRef = useScaleText();
+
   return (
     <Flex
       direction="column"
@@ -57,7 +60,18 @@ export function AccountCard({
       <Flex flexDir={{ base: 'column', md: 'row' }} justify="space-between">
         <Box mb="space.05" mt="space.04">
           <SkeletonLoader width="200px" height="38px" isLoading={isLoadingBalance}>
-            <styled.h1 textStyle="heading.02">{balance}</styled.h1>
+            <styled.h1
+              textStyle="heading.02"
+              style={{
+                whiteSpace: 'nowrap',
+                display: 'inline-block',
+                transformOrigin: 'left center',
+                maxWidth: '100%',
+              }}
+              ref={scaleTextRef}
+            >
+              {balance}
+            </styled.h1>
           </SkeletonLoader>
         </Box>
         {children}

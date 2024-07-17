@@ -4,7 +4,6 @@ import type { ValueOf } from '@leather.io/models';
 
 import { SignStacksTransaction } from '@shared/rpc/methods/sign-stacks-transaction';
 
-import { AcceptBitcoinContract } from './methods/accept-bitcoin-contract';
 import { SignPsbt } from './methods/sign-psbt';
 import { SignStacksMessage } from './methods/sign-stacks-message';
 import { SupportedMethods } from './methods/supported-methods';
@@ -13,7 +12,6 @@ import { SupportedMethods } from './methods/supported-methods';
 export type WalletMethodMap = BtcKitMethodMap &
   SupportedMethods &
   SignPsbt &
-  AcceptBitcoinContract &
   SignStacksTransaction &
   SignStacksMessage;
 

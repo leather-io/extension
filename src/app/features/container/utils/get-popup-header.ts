@@ -4,8 +4,6 @@
 import { RouteUrls } from '@shared/route-urls';
 
 export function isRpcRoute(pathname: RouteUrls) {
-  //RouteUrls.RpcReceiveBitcoinContractOffer
-  if (pathname.match('/bitcoin-contract-offer')) return true;
   switch (pathname) {
     case RouteUrls.PsbtRequest:
     case RouteUrls.SignatureRequest:
@@ -61,7 +59,6 @@ export function getDisplayAddresssBalanceOf(pathname: RouteUrls) {
 }
 
 export function isKnownPopupRoute(pathname: RouteUrls) {
-  if (pathname.match('/bitcoin-contract-offer')) return true;
   switch (pathname) {
     case RouteUrls.TransactionRequest:
     case RouteUrls.ProfileUpdateRequest:

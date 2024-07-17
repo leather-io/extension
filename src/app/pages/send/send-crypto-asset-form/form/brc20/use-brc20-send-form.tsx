@@ -7,15 +7,12 @@ import * as yup from 'yup';
 import type { Money } from '@leather.io/models';
 import { noop } from '@leather.io/utils';
 
+import { btcAddressNetworkValidator, btcAddressValidator } from '@shared/forms/address-validators';
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useWalletType } from '@app/common/use-wallet-type';
-import {
-  btcAddressNetworkValidator,
-  btcAddressValidator,
-} from '@app/common/validation/forms/address-validators';
 import { tokenAmountValidator } from '@app/common/validation/forms/amount-validators';
 import { currencyAmountValidator } from '@app/common/validation/forms/currency-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';

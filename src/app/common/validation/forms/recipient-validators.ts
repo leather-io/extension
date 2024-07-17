@@ -1,3 +1,5 @@
+import * as yup from 'yup';
+
 import type { NetworkConfiguration } from '@leather.io/models';
 
 import { stacksChainIdToCoreNetworkMode } from '@shared/crypto/stacks/stacks.utils';
@@ -14,9 +16,12 @@ export function stxRecipientValidator(
   currentAddress: string,
   currentNetwork: NetworkConfiguration
 ) {
-  return stxAddressValidator(FormErrorMessages.InvalidAddress)
+  return yup
+    .string()
+    .defined(FormErrorMessages.AddressRequired)
+    .concat(stxAddressValidator(FormErrorMessages.InvalidAddress))
     .concat(stxAddressNetworkValidator(currentNetwork))
-    .concat(notCurrentAddressValidator(currentAddress || ''))
+    .concat(notCurrentAddressValidator(currentAddress))
     .concat(
       complianceValidator(
         stxAddressValidator(FormErrorMessages.InvalidAddress),

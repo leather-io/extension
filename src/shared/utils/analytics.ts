@@ -30,7 +30,9 @@ export function decorateAnalyticsEventsWithContext(
       void analytics.addSourceMiddleware(({ payload, next }) => {
         Object.entries(getEventContextProperties()).forEach(([key, value]) => {
           payload.obj.context = payload.obj.context || {};
-          payload.obj.context[key] = value;
+          payload.obj.context.ip = '0.0.0.0';
+          payload.obj.properties = payload.obj.properties || {};
+          payload.obj.properties[key] = value;
         });
         next(payload);
       })

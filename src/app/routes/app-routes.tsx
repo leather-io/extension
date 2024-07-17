@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import {
   Navigate,
   Route,
@@ -27,8 +26,6 @@ import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-t
 import { UnsupportedBrowserLayout } from '@app/features/ledger/generic-steps';
 import { ConnectLedgerStart } from '@app/features/ledger/generic-steps/connect-device/connect-ledger-start';
 import { RetrieveTaprootToNativeSegwit } from '@app/features/retrieve-taproot-to-native-segwit/retrieve-taproot-to-native-segwit';
-import { BitcoinContractList } from '@app/pages/bitcoin-contract-list/bitcoin-contract-list';
-import { BitcoinContractRequest } from '@app/pages/bitcoin-contract-request/bitcoin-contract-request';
 import { ChooseAccount } from '@app/pages/choose-account/choose-account';
 import { ChooseCryptoAssetToFund } from '@app/pages/fund/choose-asset-to-fund/choose-asset-to-fund';
 import { FundPage } from '@app/pages/fund/fund';
@@ -41,7 +38,6 @@ import { ReceiveStxModal } from '@app/pages/receive/receive-stx';
 import { RequestError } from '@app/pages/request-error/request-error';
 import { RpcSignStacksTransaction } from '@app/pages/rpc-sign-stacks-transaction/rpc-sign-stacks-transaction';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
-import { LockBitcoinSummary } from '@app/pages/send/locked-bitcoin-summary/locked-bitcoin-summary';
 import { sendOrdinalRoutes } from '@app/pages/send/ordinal-inscription/ordinal-routes';
 import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
 import { alexSwapRoutes } from '@app/pages/swap/alex-swap-container';
@@ -110,19 +106,6 @@ function useAppRoutes() {
 
           {ledgerStacksTxSigningRoutes}
 
-          <Route
-            path={RouteUrls.RpcReceiveBitcoinContractOffer}
-            element={
-              <AccountGate>
-                <Suspense fallback={<SuspenseLoadingSpinner />}>
-                  <BitcoinContractRequest />
-                </Suspense>
-              </AccountGate>
-            }
-          />
-          <Route path={RouteUrls.BitcoinContractLockSuccess} element={<LockBitcoinSummary />} />
-          <Route path={RouteUrls.BitcoinContractLockError} element={<BroadcastError />} />
-          <Route path={RouteUrls.BitcoinContractList} element={<BitcoinContractList />} />
           <Route
             path={RouteUrls.Onboarding}
             element={

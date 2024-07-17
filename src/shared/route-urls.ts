@@ -42,11 +42,6 @@ export enum RouteUrls {
   // Locked wallet route
   Unlock = '/unlock',
 
-  // Bitcoin Contract routes
-  BitcoinContractLockSuccess = '/bitcoin-contract-lock-success',
-  BitcoinContractLockError = '/bitcoin-contract-lock-error',
-  BitcoinContractList = '/bitcoin-contract-list',
-
   // Modal routes
   EditNonce = 'edit-nonce',
   SignOutConfirm = 'sign-out',
@@ -100,7 +95,6 @@ export enum RouteUrls {
   RpcSendTransferChooseFee = '/send-transfer/choose-fee',
   RpcSendTransferConfirmation = '/send-transfer/confirm',
   RpcSendTransferSummary = '/send-transfer/summary',
-  RpcReceiveBitcoinContractOffer = '/bitcoin-contract-offer/:bitcoinContractOffer/:counterpartyWalletURL',
   RpcSignBip322Message = '/sign-bip322-message',
   RpcStacksSignature = '/sign-stacks-message',
 
