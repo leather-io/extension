@@ -13,7 +13,7 @@ export function ReceiveStxModal() {
   const toast = useToast();
   const currentAccount = useCurrentStacksAccount();
 
-  const accountName = useCurrentAccountDisplayName();
+  const { data: accountName = 'Account' } = useCurrentAccountDisplayName();
 
   if (!currentAccount) return null;
 

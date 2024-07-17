@@ -1,5 +1,5 @@
 import { defaultCurrentNetwork } from '@leather.io/models';
-import { useNetworkStatus } from '@leather.io/query';
+import { useGetStacksNetworkStatusQuery } from '@leather.io/query';
 
 import { useCurrentNetworkId, useNetworks } from '@app/store/networks/networks.selectors';
 
@@ -21,12 +21,12 @@ export function NetworkListItem({
   const networks = useNetworks();
 
   const network = networks[networkId] || defaultCurrentNetwork;
-  const isOnline = useNetworkStatus(network.chain.stacks.url);
+  const { isSuccess } = useGetStacksNetworkStatusQuery(network.chain.stacks.url);
 
   return (
     <NetworkListItemLayout
       isActive={networkId === currentNetworkId}
-      isOnline={isOnline}
+      isOnline={isSuccess}
       network={network}
       networkId={networkId}
       isCustom={isCustom}
