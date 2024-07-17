@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/query/bitcoin/balance/bitcoin-contracts-balance.query.ts</title>
+    <title>Code coverage report for extension/src/app/common/hooks/use-scale-text.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/query/bitcoin/balance</a> bitcoin-contracts-balance.query.ts</h1>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/common/hooks</a> use-scale-text.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -83,17 +83,7 @@
 <a name='L18'></a><a href='#L18'>18</a>
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -101,48 +91,37 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { UseQueryResult, useQuery } from '@tanstack/react-query';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useRef } from 'react';
 &nbsp;
-import type { Money } from '@leather.io/models';
+import { useOnMount } from '@app/common/hooks/use-on-mount';
 &nbsp;
-import { useBitcoinContracts } from '@app/common/hooks/use-bitcoin-contracts';
-import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
+export function <span class="fstat-no" title="function not covered" >useScaleText() {</span>
+  const ref = <span class="cstat-no" title="statement not covered" >useRef&lt;HTMLHeadingElement&gt;(null);</span>
 &nbsp;
-const staleTime = <span class="cstat-no" title="statement not covered" >1 * 60 * 1000;</span>
-&nbsp;
-const balanceQueryOptions = <span class="cstat-no" title="statement not covered" >{</span>
-  staleTime,
-  keepPreviousData: false,
-  refetchOnMount: true,
-} as const;
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >useBitcoinContractsBalanceQuery(): UseQueryResult&lt;Money&gt; {</span>
-  const { sumBitcoinContractCollateralAmounts } = <span class="cstat-no" title="statement not covered" >useBitcoinContracts();</span>
-  const currentAccountIndex = <span class="cstat-no" title="statement not covered" >useCurrentAccountIndex();</span>
-  const currentNetwork = <span class="cstat-no" title="statement not covered" >useCurrentNetwork();</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return useQuery({</span>
-    queryKey: ['sum-bitcoin-contract-collateral-amounts', currentAccountIndex, currentNetwork?.id],
-    queryFn: sumBitcoinContractCollateralAmounts,
-    ...balanceQueryOptions,
+<span class="cstat-no" title="statement not covered" >  useOnMount(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
+    const el = <span class="cstat-no" title="statement not covered" >ref.current;</span>
+<span class="cstat-no" title="statement not covered" >    if (el) {</span>
+      const parentWidth = <span class="cstat-no" title="statement not covered" >el.parentElement?.offsetWidth || 0;</span>
+      const naturalWidth = <span class="cstat-no" title="statement not covered" >el.scrollWidth;</span>
+      const scale = <span class="cstat-no" title="statement not covered" >parentWidth / naturalWidth;</span>
+      const finalScale = <span class="cstat-no" title="statement not covered" >Math.max(scale);</span>
+<span class="cstat-no" title="statement not covered" >      el.style.transform = finalScale &lt; 1 ? `scale(${finalScale})` : 'none';</span>
+    }
   });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return ref;</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -151,16 +130,16 @@ export function <span class="fstat-no" title="function not covered" >useBitcoinC
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-15T08:36:27.829Z
+                at 2024-07-17T16:14:57.564Z
             </div>
-        <script src="../../../../../../prettify.js"></script>
+        <script src="../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../../../sorter.js"></script>
-        <script src="../../../../../../block-navigation.js"></script>
+        <script src="../../../../../sorter.js"></script>
+        <script src="../../../../../block-navigation.js"></script>
     </body>
 </html>
     
