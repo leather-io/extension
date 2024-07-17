@@ -1,3 +1,29 @@
+## [6.44.0](https://github.com/leather-io/extension/compare/v6.43.0...v6.44.0) (2024-07-17)
+
+
+### Features
+
+* add debug command to log hiro limiter data ([52a0c15](https://github.com/leather-io/extension/commit/52a0c15c8919e86b7414309585cedfc3e6b01c81))
+* add runes fiat balance, closes [#5300](https://github.com/leather-io/extension/issues/5300) ([0a175f7](https://github.com/leather-io/extension/commit/0a175f7edaf4d002cb26da62b25513b88f1fe683))
+* auto-scale balance font-size to avoid line-break ([b25d5bc](https://github.com/leather-io/extension/commit/b25d5bc43b68991da9dece4fe4ebdd835896074e))
+
+
+### Bug Fixes
+
+* **analytics:** remove query error tracking, too many events ([f3de110](https://github.com/leather-io/extension/commit/f3de110f65d0165d9cfef591a1a690b78ad075e3))
+* **analytics:** segment not passing context to mixpanel ([52a6fb2](https://github.com/leather-io/extension/commit/52a6fb2487a59687535104e9dbbcb696fa4c915c))
+* send forms address error, closes [#5440](https://github.com/leather-io/extension/issues/5440) ([0b99130](https://github.com/leather-io/extension/commit/0b991308e5e050165fb067bda9e673c9a1aaf66a))
+* show brc20 token fiat balance, closes [#5626](https://github.com/leather-io/extension/issues/5626) ([adf8c19](https://github.com/leather-io/extension/commit/adf8c190e756dfe7467ec6421a1a45115f040f72))
+* stx balance loading condition ([37686a4](https://github.com/leather-io/extension/commit/37686a4508fd35636193e195e278a02e4390b282))
+
+
+### Internal
+
+* post-release merge back ([db89bdd](https://github.com/leather-io/extension/commit/db89bddea0627884b532bca402993313c3ac1270))
+* remove bitcoin contracts, closes [#5244](https://github.com/leather-io/extension/issues/5244) and leather-io/issues[#69](https://github.com/leather-io/extension/issues/69) ([1b9f9a2](https://github.com/leather-io/extension/commit/1b9f9a28dbd25665524dbd7f6acc2e541d4bb3dc))
+* update query cache with known data ([69a4e0c](https://github.com/leather-io/extension/commit/69a4e0c5e1e1f6e24879f01aaccf9dbceb781bb5))
+* update query package ([98beec5](https://github.com/leather-io/extension/commit/98beec57b4cd0647058c2f28a91d03691dea4f0d))
+
 ## [6.43.0](https://github.com/leather-io/extension/compare/v6.42.2...v6.43.0) (2024-07-15)
 
 
