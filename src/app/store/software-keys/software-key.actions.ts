@@ -2,8 +2,8 @@ import { AddressVersion } from '@stacks/transactions';
 
 import {
   type BitcoinClient,
-  QueryPrefixes,
   type StacksClient,
+  StacksQueryPrefixes,
   fetchNamesForAddress,
 } from '@leather.io/query';
 
@@ -60,7 +60,7 @@ function setWalletEncryptionPassword(args: {
         isTestnet: false,
         signal: new AbortSignal(),
       });
-      queryClient.setQueryData([QueryPrefixes.BnsNamesByAddress, address], resp);
+      queryClient.setQueryData([StacksQueryPrefixes.GetBnsNamesByAddress, address], resp);
       return resp.names.length > 0;
     }
 

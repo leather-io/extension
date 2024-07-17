@@ -16,7 +16,7 @@ interface FunctionArgumentProps {
 export function FunctionArgumentItem(props: FunctionArgumentProps) {
   const { arg, index, ...rest } = props;
   const transactionRequest = useTransactionRequestState();
-  const contractFunction = useContractFunction(transactionRequest);
+  const { data: contractFunction } = useContractFunction(transactionRequest);
   const argCV = deserializeCV(Buffer.from(arg, 'hex'));
   const strValue = cvToString(argCV);
 

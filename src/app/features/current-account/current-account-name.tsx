@@ -21,7 +21,7 @@ function AccountNameTitle({ children, ...props }: HasChildren & BoxProps) {
 
 const AccountNameSuspense = memo((props: BoxProps) => {
   const currentAccount = useCurrentStacksAccount();
-  const name = useCurrentAccountDisplayName();
+  const { data: name = 'Account' } = useCurrentAccountDisplayName();
   if (!currentAccount || typeof currentAccount.index === 'undefined') return null;
   // FIXME: The name is truncated here with JS but we could just use CSS to do this
   const nameCharLimit = 18;
@@ -35,7 +35,7 @@ const AccountNameSuspense = memo((props: BoxProps) => {
 });
 
 export function CurrentAccountName() {
-  const defaultName = useCurrentAccountDisplayName();
+  const { data: defaultName = 'Account' } = useCurrentAccountDisplayName();
   const fallback = <AccountNameTitle>{defaultName}</AccountNameTitle>;
   return (
     <Suspense fallback={fallback}>
