@@ -28,12 +28,14 @@ interface UseStacksBroadcastTransactionArgs {
   token: CryptoCurrencies;
   decimals?: number;
   isIncreaseFeeTransaction?: boolean;
+  isCancelTransaction?: boolean;
 }
 
 export function useStacksBroadcastTransaction({
   token,
   decimals,
   isIncreaseFeeTransaction,
+  isCancelTransaction,
 }: UseStacksBroadcastTransactionArgs) {
   const signStacksTransaction = useSignStacksTransaction();
   const [isBroadcasting, setIsBroadcasting] = useState(false);
@@ -60,7 +62,7 @@ export function useStacksBroadcastTransaction({
         });
       }
       if (txId) {
-        if (isIncreaseFeeTransaction) {
+        if (isIncreaseFeeTransaction || isCancelTransaction) {
           navigate(RouteUrls.Activity);
           return;
         }
@@ -97,6 +99,9 @@ export function useStacksBroadcastTransaction({
               handlePreviewSuccess(signedTx, txId);
               if (isIncreaseFeeTransaction) {
                 toast.success('Fee increased successfully');
+              }
+              if (isCancelTransaction) {
+                toast.success('Transaction cancellation submitted');
               }
             },
             replaceByFee: false,
@@ -137,5 +142,6 @@ export function useStacksBroadcastTransaction({
     broadcastTransactionFn,
     signStacksTransaction,
     isIncreaseFeeTransaction,
+    isCancelTransaction,
   ]);
 }
