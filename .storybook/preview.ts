@@ -5,7 +5,8 @@ import { customViewports } from './viewports';
 
 const preview: Preview = {
   parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
+    // Deprecated: https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#implicit-actions-can-not-be-used-during-rendering-for-example-in-the-play-function
+    // actions: { argTypesRegex: '^on[A-Z].*' },
     backgrounds: {
       default: 'leather-light-mode',
       values: [
