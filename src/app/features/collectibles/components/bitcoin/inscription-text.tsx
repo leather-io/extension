@@ -1,4 +1,4 @@
-import { useInscriptionTextContentQuery } from '@leather.io/query';
+import { useGetInscriptionTextContentQuery } from '@leather.io/query';
 import { OrdinalAvatarIcon } from '@leather.io/ui';
 
 import { parseJson } from '@app/components/json';
@@ -17,7 +17,7 @@ export function InscriptionText({
   onClickCallToAction,
   onClickSend,
 }: InscriptionTextProps) {
-  const query = useInscriptionTextContentQuery(contentSrc);
+  const query = useGetInscriptionTextContentQuery(contentSrc);
 
   if (query.isLoading || query.isError) return null;
 

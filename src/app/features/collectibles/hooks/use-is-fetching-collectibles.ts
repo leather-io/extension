@@ -9,10 +9,10 @@ function areAnyQueriesFetching(...args: number[]) {
 
 export function useIsFetchingCollectiblesRelatedQuery() {
   // Ordinal inscriptions
-  const n1 = useIsFetching({ queryKey: [BitcoinQueryPrefixes.TaprootAddressUtxos] });
-  const n2 = useIsFetching({ queryKey: [BitcoinQueryPrefixes.InscriptionsByAddress] });
-  const n3 = useIsFetching({ queryKey: [BitcoinQueryPrefixes.InscriptionMetadata] });
-  const n4 = useIsFetching({ queryKey: [BitcoinQueryPrefixes.OrdinalTextContent] });
+  const n1 = useIsFetching({ queryKey: [BitcoinQueryPrefixes.GetTaprootUtxosByAddress] });
+  const n2 = useIsFetching({ queryKey: [BitcoinQueryPrefixes.GetInscriptionsByAddress] });
+  const n3 = useIsFetching({ queryKey: [BitcoinQueryPrefixes.GetInscription] });
+  const n4 = useIsFetching({ queryKey: [BitcoinQueryPrefixes.GetInscriptionTextContent] });
   const n5 = useIsFetching({ queryKey: [BitcoinQueryPrefixes.GetInscriptions] });
 
   // BNS

@@ -45,8 +45,8 @@ importers:
         specifier: 0.10.2
         version: 0.10.2
       '@leather.io/query':
-        specifier: 1.0.2
-        version: 1.0.2(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
+        specifier: 2.0.0
+        version: 2.0.0(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
       '@leather.io/tokens':
         specifier: 0.6.2
         version: 0.6.2
@@ -2618,8 +2618,8 @@ packages:
   '@leather.io/prettier-config@0.5.0':
     resolution: {integrity: sha512-Pul+4MAyBKnQvqgcKJLbZl4DHnS4kCJzSuaYFW6cfHdre7BFn/iY6Er/Dvm9F8g7VMtkdYu68jEYxQ1Xc7A0KQ==}
 
-  '@leather.io/query@1.0.2':
-    resolution: {integrity: sha512-cyIfEMwU0a2Hh/edAlYYks9IiEd9RJ//qYprGrymvKPc56vQLxYVdSjAFFT/PB1NXzsM+ZBJK3ElNsbHkWegwQ==}
+  '@leather.io/query@2.0.0':
+    resolution: {integrity: sha512-J46LTfcwVW7al9+rhozgOH08HncZ4bd4I3c8Z+DM6sB2uUmch4/KM/8siuWCYUcC+NYZlAXeVy6+acZUmM9i7Q==}
     peerDependencies:
       react: '*'
 
@@ -16709,8 +16709,8 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.24.8
       '@expo/code-signing-certificates': 0.0.5
-      '@expo/config': 9.0.2
-      '@expo/config-plugins': 8.0.4
+      '@expo/config': 9.0.3
+      '@expo/config-plugins': 8.0.8
       '@expo/devcert': 1.1.2
       '@expo/env': 0.3.0
       '@expo/image-utils': 0.5.1(encoding@0.1.13)
@@ -16840,7 +16840,7 @@ snapshots:
   '@expo/config@9.0.2':
     dependencies:
       '@babel/code-frame': 7.10.4
-      '@expo/config-plugins': 8.0.4
+      '@expo/config-plugins': 8.0.8
       '@expo/config-types': 51.0.2
       '@expo/json-file': 8.3.3
       getenv: 1.0.0
@@ -16924,7 +16924,7 @@ snapshots:
       '@babel/generator': 7.24.10
       '@babel/parser': 7.24.8
       '@babel/types': 7.24.9
-      '@expo/config': 9.0.2
+      '@expo/config': 9.0.3
       '@expo/env': 0.3.0
       '@expo/json-file': 8.3.3
       '@expo/spawn-async': 1.7.2
@@ -16987,8 +16987,8 @@ snapshots:
 
   '@expo/prebuild-config@7.0.4(encoding@0.1.13)(expo-modules-autolinking@1.11.1)':
     dependencies:
-      '@expo/config': 9.0.2
-      '@expo/config-plugins': 8.0.4
+      '@expo/config': 9.0.3
+      '@expo/config-plugins': 8.0.8
       '@expo/config-types': 51.0.2
       '@expo/image-utils': 0.5.1(encoding@0.1.13)
       '@expo/json-file': 8.3.3
@@ -17262,7 +17262,7 @@ snapshots:
       - '@vue/compiler-sfc'
       - supports-color
 
-  '@leather.io/query@1.0.2(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)':
+  '@leather.io/query@2.0.0(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)':
     dependencies:
       '@fungible-systems/zone-file': 2.0.0
       '@hirosystems/token-metadata-api-client': 1.2.0(encoding@0.1.13)
@@ -19432,7 +19432,7 @@ snapshots:
       chalk: 4.1.2
       execa: 5.1.1
       metro: 0.80.9(encoding@0.1.13)
-      metro-config: 0.80.5(encoding@0.1.13)
+      metro-config: 0.80.9(encoding@0.1.13)
       metro-core: 0.80.9
       node-fetch: 2.7.0(encoding@0.1.13)
       querystring: 0.2.1
@@ -19521,7 +19521,7 @@ snapshots:
     dependencies:
       '@react-native/js-polyfills': 0.73.1
       '@react-native/metro-babel-transformer': 0.73.15(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))
-      metro-config: 0.80.5(encoding@0.1.13)
+      metro-config: 0.80.9(encoding@0.1.13)
       metro-runtime: 0.80.9
     transitivePeerDependencies:
       - '@babel/core'
@@ -20241,7 +20241,7 @@ snapshots:
   '@stacks/common@4.3.5':
     dependencies:
       '@types/bn.js': 5.1.5
-      '@types/node': 18.19.40
+      '@types/node': 18.19.41
       buffer: 6.0.3
 
   '@stacks/common@6.13.0':
