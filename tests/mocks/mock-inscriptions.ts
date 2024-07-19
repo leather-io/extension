@@ -1,4 +1,4 @@
-import { type InscriptionResponseHiro, createInscriptionHiro } from '@leather.io/query';
+import { type InscriptionResponseHiro, createHiroInscription } from '@leather.io/query';
 
 export const mockInscriptionResponse1: InscriptionResponseHiro = {
   address: 'bc1pwrmewwprc8k8l2k63x4advg0nx0jk50xzqnee996lm87mcuza7kq6drg2k',
@@ -27,7 +27,7 @@ export const mockInscriptionResponse1: InscriptionResponseHiro = {
   value: '10000',
 };
 
-export const mockInscription1 = createInscriptionHiro(mockInscriptionResponse1);
+export const mockInscription1 = createHiroInscription(mockInscriptionResponse1);
 
 export const mockInscriptionResponse2: InscriptionResponseHiro = {
   address: 'bc1pwrmewwprc8k8l2k63x4advg0nx0jk50xzqnee996lm87mcuza7kq6drg2k',
@@ -56,7 +56,7 @@ export const mockInscriptionResponse2: InscriptionResponseHiro = {
   value: '10000',
 };
 
-export const mockInscription2 = createInscriptionHiro(mockInscriptionResponse2);
+export const mockInscription2 = createHiroInscription(mockInscriptionResponse2);
 
 export const mockInscriptionResponsesList = [
   {
@@ -86,4 +86,4 @@ export const mockInscriptionResponsesList = [
     value: '546',
   },
 ];
-export const mockInscriptionsList = mockInscriptionResponsesList.map(createInscriptionHiro);
+export const mockInscriptionsList = mockInscriptionResponsesList.map(createHiroInscription);

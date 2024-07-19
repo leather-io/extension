@@ -137,7 +137,7 @@ export const Debugger = () => {
       bufferCV(Buffer.from('hello, world')),
       stringAsciiCV('hey-ascii'),
       stringUtf8CV('hey-utf8'),
-      standardPrincipalCV('ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3'),
+      standardPrincipalCV('STS8CKF63P16J28AYF7PXW9E5AACH0NZNRV74CM7'),
       trueCV(),
     ];
     const postConditions = [
@@ -150,7 +150,7 @@ export const Debugger = () => {
     console.log('creating allow mode contract call');
     await doContractCall({
       network,
-      contractAddress: 'ST1X6M947Z7E58CNE0H8YJVJTVKS9VW0PHEG3NHN3',
+      contractAddress: 'STS8CKF63P16J28AYF7PXW9E5AACH0NZNRV74CM7',
       contractName: 'faker',
       functionName: 'rawr',
       functionArgs: args,

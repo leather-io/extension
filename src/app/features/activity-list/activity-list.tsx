@@ -6,7 +6,7 @@ import uniqby from 'lodash.uniqby';
 import {
   useBitcoinPendingTransactions,
   useGetAccountTransactionsWithTransfersQuery,
-  useGetBitcoinTransactionsByAddressesQuery,
+  useGetBitcoinTransactionsByAddressListQuery,
   useStacksPendingTransactions,
 } from '@leather.io/query';
 
@@ -52,7 +52,7 @@ export function ActivityList() {
   const [
     { isLoading: isLoadingNsBitcoinTransactions, data: nsBitcoinTransactions = [] },
     { isLoading: isLoadingTrBitcoinTransactions, data: trBitcoinTransactions = [] },
-  ] = useGetBitcoinTransactionsByAddressesQuery([nsBitcoinAddress, trBitcoinAddress]);
+  ] = useGetBitcoinTransactionsByAddressListQuery([nsBitcoinAddress, trBitcoinAddress]);
 
   const [{ data: nsPendingTxs = [] }, { data: trPendingTxs = [] }] = useBitcoinPendingTransactions([
     nsBitcoinAddress,

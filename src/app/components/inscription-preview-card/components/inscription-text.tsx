@@ -1,7 +1,7 @@
 import { sanitize } from 'dompurify';
 import { Box } from 'leather-styles/jsx';
 
-import { useInscriptionTextContentQuery } from '@leather.io/query';
+import { useGetInscriptionTextContentQuery } from '@leather.io/query';
 
 import { parseJson } from '@app/components/json';
 import { LoadingSpinner } from '@app/components/loading-spinner';
@@ -10,7 +10,7 @@ interface InscriptionTextProps {
   contentSrc: string;
 }
 export function InscriptionText(props: InscriptionTextProps) {
-  const query = useInscriptionTextContentQuery(props.contentSrc);
+  const query = useGetInscriptionTextContentQuery(props.contentSrc);
 
   if (query.isLoading) return <LoadingSpinner size="16px" />;
 
