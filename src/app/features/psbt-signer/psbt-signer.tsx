@@ -11,7 +11,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
 
 import { SignPsbtArgs } from '@app/common/psbt/requests';
-import { Card, CardContent, Footer } from '@app/components/layout';
+import { ButtonRow, Card, CardContent, CardFooter } from '@app/components/layout';
 import { PopupHeader } from '@app/features/container/headers/popup.header';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
@@ -95,32 +95,30 @@ export function PsbtSigner(props: PsbtSignerProps) {
       <PopupHeader showSwitchAccount balance="all" />
       <Card
         footer={
-          <Footer flexDirection="row">
-            <Button flexGrow={1} onClick={onCancel} variant="outline">
-              Cancel
-            </Button>
-            <Button
-              flexGrow={1}
-              aria-busy={isBroadcasting}
-              onClick={() =>
-                onSignPsbt({
-                  addressNativeSegwitTotal,
-                  addressTaprootTotal,
-                  fee,
-                  inputs: psbtTxInputs,
-                })
-              }
-            >
-              Confirm
-            </Button>
-          </Footer>
+          <CardFooter borderTop="default" maxWidth="popupMaxWidth">
+            <ButtonRow flexDirection="row">
+              <Button flexGrow={1} onClick={onCancel} variant="outline">
+                Cancel
+              </Button>
+              <Button
+                flexGrow={1}
+                aria-busy={isBroadcasting}
+                onClick={() =>
+                  onSignPsbt({
+                    addressNativeSegwitTotal,
+                    addressTaprootTotal,
+                    fee,
+                    inputs: psbtTxInputs,
+                  })
+                }
+              >
+                Confirm
+              </Button>
+            </ButtonRow>
+          </CardFooter>
         }
       >
-        <CardContent
-          dataTestId={PsbtSelectors.PsbtSignerCard}
-          maxHeight="80vh"
-          maxWidth="popupWidth"
-        >
+        <CardContent dataTestId={PsbtSelectors.PsbtSignerCard} maxHeight="80vh">
           <Psbt.PsbtRequestHeader name={name} origin={origin} />
           <Psbt.PsbtRequestDetailsLayout>
             {isPsbtMutable ? <Psbt.PsbtRequestSighashWarningLabel origin={origin} /> : null}

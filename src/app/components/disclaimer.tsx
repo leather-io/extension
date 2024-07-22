@@ -10,7 +10,7 @@ interface DisclaimerProps extends BoxProps {
 }
 export function Disclaimer({ disclaimerText, learnMoreUrl, ...props }: DisclaimerProps) {
   return (
-    <Box lineHeight="1.4" {...props}>
+    <Box {...props}>
       <styled.span textStyle="caption.01">
         {disclaimerText}
         {learnMoreUrl ? (

@@ -10,7 +10,14 @@ import { Brc20AvatarIcon, Button, Callout, Link } from '@leather.io/ui';
 import { convertAmountToBaseUnit, formatMoney } from '@leather.io/utils';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { AvailableBalance, Card, CardContent, Content, Footer, Page } from '@app/components/layout';
+import {
+  AvailableBalance,
+  Card,
+  CardContent,
+  CardFooter,
+  Content,
+  Page,
+} from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 
 import { AmountField } from '../../components/amount-field';
@@ -54,7 +61,7 @@ export function Brc20SendForm() {
                   <Form>
                     <Card
                       footer={
-                        <Footer variant="card">
+                        <CardFooter>
                           <Button
                             data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
                             onClick={() => props.handleSubmit()}
@@ -66,7 +73,7 @@ export function Brc20SendForm() {
                             balance={formatMoney(balance)}
                             balanceTooltipLabel="Total balance minus any amounts already represented by transfer inscriptions in your wallet."
                           />
-                        </Footer>
+                        </CardFooter>
                       }
                     >
                       <CardContent dataTestId={SendCryptoAssetSelectors.SendForm}>

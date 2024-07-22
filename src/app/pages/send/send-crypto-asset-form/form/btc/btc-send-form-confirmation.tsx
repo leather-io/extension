@@ -34,7 +34,7 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { Card, CardContent, Content, Footer, Page } from '@app/components/layout';
+import { Card, CardContent, CardFooter, Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 
@@ -140,7 +140,7 @@ export function BtcSendFormConfirmation() {
           <Card
             dataTestId={SendCryptoAssetSelectors.ConfirmationDetails}
             footer={
-              <Footer variant="card">
+              <CardFooter>
                 <Button
                   data-testid={SharedComponentsSelectors.InfoCardButton}
                   aria-busy={isBroadcasting}
@@ -149,7 +149,7 @@ export function BtcSendFormConfirmation() {
                 >
                   Confirm and send transaction
                 </Button>
-              </Footer>
+              </CardFooter>
             }
           >
             <CardContent p="space.00">

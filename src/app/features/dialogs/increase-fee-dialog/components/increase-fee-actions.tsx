@@ -1,4 +1,5 @@
 import { useFormikContext } from 'formik';
+import { Flex } from 'leather-styles/jsx';
 
 import { Button } from '@leather.io/ui';
 
@@ -19,7 +20,7 @@ export function IncreaseFeeActions(props: IncreaseFeeActionsProps) {
   const actionText = whenWallet({ ledger: 'Confirm on Ledger', software: 'Submit' });
 
   return (
-    <>
+    <Flex flexDirection="row" width="100%" gap="space.04">
       <Button onClick={onCancel} variant="outline" flexGrow={1}>
         Cancel
       </Button>
@@ -34,6 +35,6 @@ export function IncreaseFeeActions(props: IncreaseFeeActionsProps) {
       >
         {actionText}
       </Button>
-    </>
+    </Flex>
   );
 }

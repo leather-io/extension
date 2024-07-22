@@ -9,7 +9,14 @@ import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import { BtcAvatarIcon, Button, Callout, Link } from '@leather.io/ui';
 import { formatMoney } from '@leather.io/utils';
 
-import { AvailableBalance, Card, CardContent, Content, Footer, Page } from '@app/components/layout';
+import {
+  AvailableBalance,
+  Card,
+  CardContent,
+  CardFooter,
+  Content,
+  Page,
+} from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 
 import { AmountField } from '../../components/amount-field';
@@ -64,7 +71,7 @@ export function BtcSendForm() {
                   <Form>
                     <Card
                       footer={
-                        <Footer variant="card">
+                        <CardFooter>
                           <Button
                             aria-busy={props.isValidating}
                             data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
@@ -74,7 +81,7 @@ export function BtcSendForm() {
                             Continue
                           </Button>
                           <AvailableBalance balance={formatMoney(balance.availableBalance)} />
-                        </Footer>
+                        </CardFooter>
                       }
                     >
                       <CardContent dataTestId={SendCryptoAssetSelectors.SendForm}>

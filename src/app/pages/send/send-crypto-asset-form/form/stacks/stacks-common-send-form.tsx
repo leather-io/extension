@@ -14,7 +14,7 @@ import { StacksSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { FeesRow } from '@app/components/fees-row/fees-row';
-import { AvailableBalance, Card, CardContent, Footer, Page } from '@app/components/layout';
+import { AvailableBalance, Card, CardContent, CardFooter, Page } from '@app/components/layout';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { HighFeeDialog } from '@app/features/stacks-high-fee-warning/stacks-high-fee-dialog';
@@ -65,17 +65,18 @@ export function StacksCommonSendForm({
                 <Form>
                   <Card
                     footer={
-                      <Footer variant="card">
+                      <CardFooter>
                         <Button
                           aria-busy={props.isValidating}
                           data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
                           onClick={() => props.handleSubmit()}
                           type="submit"
+                          fullWidth
                         >
                           Continue
                         </Button>
                         <AvailableBalance balance={formatMoney(availableTokenBalance)} />
-                      </Footer>
+                      </CardFooter>
                     }
                   >
                     <CardContent dataTestId={SendCryptoAssetSelectors.SendForm}>

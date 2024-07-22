@@ -17,7 +17,7 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { Card, CardContent, Content, Footer, Page } from '@app/components/layout';
+import { Card, CardContent, CardFooter, Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.hooks';
@@ -112,11 +112,11 @@ export function Brc20SendFormConfirmation() {
           <Card
             dataTestId={SendCryptoAssetSelectors.ConfirmationDetails}
             footer={
-              <Footer variant="card">
+              <CardFooter>
                 <Button aria-busy={isBroadcasting} onClick={initiateTransaction} width="100%">
                   Create transfer inscription
                 </Button>
-              </Footer>
+              </CardFooter>
             }
           >
             <CardContent p="space.00">

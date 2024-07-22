@@ -34,7 +34,7 @@ export function Footer() {
 export function SignOutConfirmFooter() {
   return (
     <Component>
-      <Flex flexDirection="row" gap="space.04">
+      <Flex flexDirection="row" gap="space.04" width="100%">
         <Button color="gray" flexGrow={1} variant="outline" onClick={() => null}>
           Cancel
         </Button>
