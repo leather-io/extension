@@ -1,5 +1,6 @@
-import { tokens } from '@leather.io/tokens';
 import { defineGlobalStyles } from '@pandacss/dev';
+
+import { tokens } from '@leather.io/tokens';
 
 // ts-unused-exports:disable-next-line
 export const globalCss = defineGlobalStyles({
@@ -34,16 +35,24 @@ export const globalCss = defineGlobalStyles({
     },
   },
   '.mode__popup': {
-    'html,body, #app, .radix-themes': {
-      maxHeight: '100vh',
+    '&, body': {
+      height: '100%',
+      width: '100%',
       minHeight: tokens.sizes.dialogHeight.value,
-      width: tokens.sizes.popupWidth.value,
+      maxWidth: tokens.sizes.popupMaxWidth.value,
       margin: '0 auto',
-
-      '::-webkit-scrollbar': {
-        display: 'none',
-        width: 0,
-      },
+    },
+    '&, #main-container': {
+      height: '100vh',
+    },
+  },
+  '.mode__action-popup': {
+    'html,body': {
+      minWidth: tokens.sizes.popupWidth.value,
+      maxWidth: tokens.sizes.popupWidth.value,
+      minHeight: tokens.sizes.dialogHeight.value,
+      maxHeight: tokens.sizes.dialogHeight.value,
+      margin: '0 auto',
     },
   },
 });

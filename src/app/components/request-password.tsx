@@ -10,7 +10,7 @@ import { analytics } from '@shared/utils/analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { buildEnterKeyEvent } from '@app/common/hooks/use-modifier-key';
 import { WaitingMessages, useWaitingMessage } from '@app/common/hooks/use-waiting-message';
-import { Card, Footer, Page } from '@app/components/layout';
+import { Card, CardFooter, Page } from '@app/components/layout';
 
 import { ErrorLabel } from './error-label';
 
@@ -63,17 +63,18 @@ export function RequestPassword({ onSuccess }: RequestPasswordProps) {
           </styled.h1>
         }
         footer={
-          <Footer variant="card">
+          <CardFooter>
             <Button
               data-testid={SettingsSelectors.UnlockWalletBtn}
               disabled={isRunning || !!error}
               aria-busy={isRunning}
               onClick={submit}
               variant="solid"
+              fullWidth
             >
               Continue
             </Button>
-          </Footer>
+          </CardFooter>
         }
       >
         <Stack gap="space.05" px="space.05" minHeight="330px">

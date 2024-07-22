@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { Flex } from 'leather-styles/jsx';
+import { Flex, FlexProps } from 'leather-styles/jsx';
 
 interface CardProps {
   children: ReactNode;
@@ -9,9 +9,9 @@ interface CardProps {
   footer?: ReactNode;
 }
 
-export function Card({ children, dataTestId, header, footer }: CardProps) {
+export function Card({ children, dataTestId, header, footer, ...props }: CardProps & FlexProps) {
   return (
-    <Flex data-testid={dataTestId} direction="column">
+    <Flex data-testid={dataTestId} direction="column" width="100%" {...props}>
       {header}
       {children}
       {footer}

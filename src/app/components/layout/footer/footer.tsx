@@ -1,31 +1,24 @@
-import type { ReactNode } from 'react';
+import { Flex, FlexProps } from 'leather-styles/jsx';
 
-import { Flex, styled } from 'leather-styles/jsx';
+import type { HasChildren } from '@app/common/has-children';
 
-interface FooterProps {
-  children: ReactNode;
-  variant?: 'page' | 'card';
-  flexDirection?: 'column' | 'row';
-}
-
-export function Footer({ children, variant = 'page', flexDirection = 'column' }: FooterProps) {
+export function Footer({ children, ...props }: HasChildren & FlexProps) {
   return (
-    <styled.footer
+    <Flex
       gap="space.05"
       p="space.05"
       bottom={0}
       width="100vw"
-      maxWidth={variant === 'card' ? 'pageWidth' : '100%'}
+      maxWidth="100%"
       zIndex={1}
       minHeight="footerHeight"
-      position={variant === 'card' ? ' absolute' : 'fixed'}
+      position="fixed"
       borderBottomRadius="md"
-      bg={variant === 'page' ? 'ink.background-primary' : undefined}
-      borderTop={variant === 'page' ? ' default' : 'none'}
+      bg="ink.background-primary"
+      borderTop="default"
+      {...props}
     >
-      <Flex flexDirection={flexDirection} width="100%" gap="space.04">
-        {children}
-      </Flex>
-    </styled.footer>
+      {children}
+    </Flex>
   );
 }

@@ -11,6 +11,7 @@ export function Page({ children }: PageProps) {
   return (
     <Box
       width="pageWidth"
+      margin="auto"
       height={{ base: '100%', md: 'fit-content' }}
       border={{ base: 'unset', sm: 'default' }}
       rounded="lg"

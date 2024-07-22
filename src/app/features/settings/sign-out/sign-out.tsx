@@ -39,27 +39,29 @@ export function SignOutDialog({ isShowing, onUserDeleteWallet, onClose }: SignOu
       isShowing={isShowing}
       onClose={onClose}
       footer={
-        <Footer flexDirection="row">
-          <Button
-            color="gray"
-            data-testid={SettingsSelectors.BtnSignOutReturnToHomeScreen}
-            flexGrow={1}
-            variant="outline"
-            onClick={onClose}
-          >
-            Cancel
-          </Button>
-          <Button
-            color="lightModeInk.1"
-            opacity={!canSignOut ? 0.8 : undefined}
-            data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
-            flexGrow={1}
-            disabled={!canSignOut}
-            onClick={handleSignOut}
-            type="submit"
-          >
-            Sign out
-          </Button>
+        <Footer>
+          <Flex flexDirection="row" gap="space.04" width="100%">
+            <Button
+              color="gray"
+              data-testid={SettingsSelectors.BtnSignOutReturnToHomeScreen}
+              flexGrow={1}
+              variant="outline"
+              onClick={onClose}
+            >
+              Cancel
+            </Button>
+            <Button
+              color="lightModeInk.1"
+              opacity={!canSignOut ? 0.8 : undefined}
+              data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
+              flexGrow={1}
+              disabled={!canSignOut}
+              onClick={handleSignOut}
+              type="submit"
+            >
+              Sign out
+            </Button>
+          </Flex>
         </Footer>
       }
     >

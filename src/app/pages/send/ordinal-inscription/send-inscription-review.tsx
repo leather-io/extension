@@ -13,7 +13,7 @@ import { analytics } from '@shared/utils/analytics';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
-import { Card, Footer } from '@app/components/layout';
+import { Card, CardFooter } from '@app/components/layout';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useAppDispatch } from '@app/store';
 import { inscriptionSent } from '@app/store/ordinals/ordinals.slice';
@@ -81,7 +81,7 @@ export function SendInscriptionReview() {
     >
       <Card
         footer={
-          <Footer variant="card">
+          <CardFooter>
             <Button
               variant="solid"
               disabled={isBroadcasting}
@@ -90,7 +90,7 @@ export function SendInscriptionReview() {
             >
               Confirm and send transaction
             </Button>
-          </Footer>
+          </CardFooter>
         }
       >
         <Box px="space.06" mt="space.06">

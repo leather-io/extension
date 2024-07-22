@@ -13,7 +13,13 @@ export function GetAddressesLayout({
   onUserApproveGetAddresses,
 }: GetAddressesLayoutProps) {
   return (
-    <Flex flexDirection="column" height="100vh" width="100%">
+    <Flex
+      flexDirection="column"
+      height="100vh"
+      width="100%"
+      maxWidth="popupMaxWidth"
+      margin="0 auto"
+    >
       <Flex
         flex={1}
         flexDirection="column"

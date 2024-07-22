@@ -20,10 +20,12 @@ export function RetrieveTaprootToNativeSegwitLayout(
       header={<DialogHeader />}
       onClose={() => onClose()}
       footer={
-        <Footer flexDirection="row">
-          <Button onClick={onApproveTransaction} aria-busy={isBroadcasting} width="100%">
-            Retrieve bitcoin
-          </Button>
+        <Footer>
+          <Flex flexDirection="row">
+            <Button onClick={onApproveTransaction} aria-busy={isBroadcasting} fullWidth>
+              Retrieve bitcoin
+            </Button>
+          </Flex>
         </Footer>
       }
     >

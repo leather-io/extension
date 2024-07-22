@@ -15,7 +15,7 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { Card, CardContent, Content, Footer, Page } from '@app/components/layout';
+import { Card, CardContent, CardFooter, Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 import { useToast } from '@app/features/toasts/use-toast';
 
@@ -59,7 +59,7 @@ export function StxSentSummary() {
         <Page>
           <Card
             footer={
-              <Footer variant="card">
+              <CardFooter>
                 <HStack gap="space.04" width="100%">
                   <InfoCardBtn
                     icon={<ExternalLinkIcon />}
@@ -68,7 +68,7 @@ export function StxSentSummary() {
                   />
                   <InfoCardBtn icon={<CopyIcon />} label="Copy ID" onClick={onClickCopy} />
                 </HStack>
-              </Footer>
+              </CardFooter>
             }
           >
             <CardContent p="space.00">

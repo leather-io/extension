@@ -1,6 +1,6 @@
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useFormikContext } from 'formik';
-import { HStack, Stack } from 'leather-styles/jsx';
+import { Flex, HStack, Stack } from 'leather-styles/jsx';
 
 import { Button, Caption, Dialog, DialogHeader, ErrorIcon, Link, Title } from '@leather.io/ui';
 
@@ -26,21 +26,27 @@ export function HighFeeDialog({ learnMoreUrl }: HighFeeDialogProps) {
       isShowing={showHighFeeWarningDialog}
       onClose={() => setShowHighFeeWarningDialog(false)}
       footer={
-        <Footer flexDirection="row">
-          <Button onClick={() => setShowHighFeeWarningDialog(false)} variant="outline" flexGrow={1}>
-            Edit fee
-          </Button>
-          <Button
-            onClick={() => {
-              setHasBypassedFeeWarning(true);
-              handleSubmit();
-            }}
-            data-testid={SendCryptoAssetSelectors.HighFeeWarningDialogSubmit}
-            type="submit"
-            flexGrow={1}
-          >
-            Yes, I'm sure
-          </Button>
+        <Footer>
+          <Flex flexDirection="row" gap="space.04" width="100%">
+            <Button
+              onClick={() => setShowHighFeeWarningDialog(false)}
+              variant="outline"
+              flexGrow={1}
+            >
+              Edit fee
+            </Button>
+            <Button
+              onClick={() => {
+                setHasBypassedFeeWarning(true);
+                handleSubmit();
+              }}
+              data-testid={SendCryptoAssetSelectors.HighFeeWarningDialogSubmit}
+              type="submit"
+              flexGrow={1}
+            >
+              Yes, I'm sure
+            </Button>
+          </Flex>
         </Footer>
       }
     >
