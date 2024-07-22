@@ -1,3 +1,5 @@
+import { tokens } from '@leather.io/tokens';
+
 import { pxStringToNumber } from '@shared/utils/px-string-to-number';
 
 interface PopupOptions {
@@ -5,18 +7,12 @@ interface PopupOptions {
   title?: string;
   skipPopupFallback?: boolean;
 }
-// FIXME import popupTokens from '@leather.io/tokens' when bundling working
-// https://github.com/leather-io/mono/pull/76
-const popupTokens = {
-  popupWidth: { value: '390px' },
-  popupHeight: { value: '756px' },
-};
 
 export function popup(options: PopupOptions): Promise<any> {
   const { url } = options;
 
-  const popupWidth = pxStringToNumber(popupTokens.popupWidth.value);
-  const popupHeight = pxStringToNumber(popupTokens.popupHeight.value);
+  const popupWidth = pxStringToNumber(tokens.sizes.popupWidth.value);
+  const popupHeight = pxStringToNumber(tokens.sizes.popupHeight.value);
 
   return new Promise(resolve => {
     // @see https://developer.chrome.com/docs/extensions/reference/windows/#method-getCurrent

@@ -46,7 +46,7 @@ export function SendInscriptionForm() {
               onClose={() => navigate(RouteUrls.Home)}
               footer={
                 <Footer>
-                  <Button onClick={() => props.handleSubmit()} type="submit">
+                  <Button onClick={() => props.handleSubmit()} type="submit" fullWidth>
                     Continue
                   </Button>
                 </Footer>

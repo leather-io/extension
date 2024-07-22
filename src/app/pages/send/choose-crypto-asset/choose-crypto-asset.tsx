@@ -27,6 +27,9 @@ export function ChooseCryptoAsset() {
       <Content>
         <Page>
           <Card
+            contentStyle={{
+              p: 'space.00',
+            }}
             header={
               <styled.h1 textStyle="heading.03" p="space.05">
                 choose asset <br /> to send
