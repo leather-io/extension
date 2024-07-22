@@ -24,7 +24,7 @@ export function ProfileDataContent(props: ProfileDataContentProps) {
       <UpdateAction profileUpdaterPayload={profileUpdateRequest} />
       <hr />
       <Disclaimer
-        disclaimerText={`This update will overwrite any values in your public profile with the included property names.`}
+        disclaimerText="This update will overwrite any values in your public profile with the included property names."
         learnMoreUrl="https://docs.hiro.so/build-apps/transaction-signing#get-the-users-stacks-address"
       />
     </>

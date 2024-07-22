@@ -1,6 +1,5 @@
 export { PsbtInputsAndOutputs } from './psbt-inputs-and-outputs/psbt-inputs-and-outputs';
 export { PsbtInputsOutputsTotals } from './psbt-inputs-outputs-totals/psbt-inputs-outputs-totals';
-export { PsbtRequestActions } from './psbt-request-actions';
 export { PsbtRequestDetailsHeader } from './psbt-request-details-header';
 export { PsbtRequestDetailsLayout } from './psbt-request-details.layout';
 export { PsbtRequestFee } from './psbt-request-fee';

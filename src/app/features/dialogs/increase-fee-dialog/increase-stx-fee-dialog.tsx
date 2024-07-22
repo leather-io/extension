@@ -89,7 +89,7 @@ export function IncreaseStxFeeDialog() {
               onClose={() => navigate(RouteUrls.Home)}
               header={<DialogHeader title="Increase fee" />}
               footer={
-                <Footer flexDirection="row">
+                <Footer>
                   <IncreaseFeeActions
                     isDisabled={stxToMicroStx(props.values.fee).isEqualTo(fee)}
                     isLoading={isLoadingRawTx || isLoadingTx}

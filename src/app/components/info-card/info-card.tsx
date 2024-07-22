@@ -105,7 +105,6 @@ export function InfoCardBtn({ icon, label, onClick }: InfoCardBtnProps) {
 interface InfoCardFooterProps {
   children: ReactNode;
 }
-/** @deprecated replace with ui/footer */
 export function InfoCardFooter({ children }: InfoCardFooterProps) {
   return (
     <Flex

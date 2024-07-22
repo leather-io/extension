@@ -66,7 +66,7 @@ export function IncreaseBtcFeeDialog() {
             onClose={onClose}
             header={<DialogHeader title="Increase fee" />}
             footer={
-              <Footer flexDirection="row">
+              <Footer>
                 <IncreaseFeeActions
                   isDisabled={isBroadcasting}
                   isBroadcasting={isBroadcasting}

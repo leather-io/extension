@@ -87,7 +87,7 @@ const manifest = {
   web_accessible_resources: [{ resources: ['inpage.js'], matches: ['*://*/*'] }],
   action: {
     default_title: 'Leather',
-    default_popup: 'popup.html',
+    default_popup: 'action-popup.html',
     default_icon: defaultIconEnvironment[WALLET_ENVIRONMENT],
   },
   options_ui: {
