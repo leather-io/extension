@@ -51,8 +51,8 @@ importers:
         specifier: 0.6.2
         version: 0.6.2
       '@leather.io/ui':
-        specifier: 1.6.4
-        version: 1.6.4(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))(@swc/core@1.7.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.7.0)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)
+        specifier: 1.6.5
+        version: 1.6.5(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))(@swc/core@1.7.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.7.0)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)
       '@leather.io/utils':
         specifier: 0.10.2
         version: 0.10.2
@@ -2629,8 +2629,11 @@ packages:
   '@leather.io/tokens@0.6.2':
     resolution: {integrity: sha512-ExsvDpHL2XH8G8UZ6RjgpLBOVwlkHjQs2XUJX7jXBb2iORLfGJETujKgIH5zohhveBoVi2TcVhrZB+ezhv7EQA==}
 
-  '@leather.io/ui@1.6.4':
-    resolution: {integrity: sha512-nLhKTvn3zNqEdamQspXXJBownh8fwBD/PTQyzXJC6n5ZXCTdHQ1T6Qovz8UBlaoD40yqLwgG7bV2XscBmXnbNQ==}
+  '@leather.io/tokens@0.6.3':
+    resolution: {integrity: sha512-MHS1pxU1p6Ce5wPZlxXAbMehI3WQO1Vf5zWHFXd/Ed5hCfgG2MaIv95ia7+jIpeSjrwK7IB5xK1H2RnuK2eexA==}
+
+  '@leather.io/ui@1.6.5':
+    resolution: {integrity: sha512-95UaztkKPFhv12LvAoG0Vxf+0SGqeMRoC4aGEbcd+DdQSBQKhmFfekWCzrQ9SqXMU7an0po2aC8/aYpWN7kyqg==}
 
   '@leather.io/utils@0.10.2':
     resolution: {integrity: sha512-w5tt8hBrEhaJDO4bOtkvjW2Dv5aFX/0VcY8U1VrjMGK8ShfwmG/rJLVo+02FDL76LxOGB8scP4khinhHOPWM0A==}
@@ -2655,6 +2658,7 @@ packages:
 
   '@ls-lint/ls-lint@2.2.3':
     resolution: {integrity: sha512-ekM12jNm/7O2I/hsRv9HvYkRdfrHpiV1epVuI2NP+eTIcEgdIdKkKCs9KgQydu/8R5YXTov9aHdOgplmCHLupw==}
+    cpu: [x64, arm64, s390x]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -17301,10 +17305,12 @@ snapshots:
 
   '@leather.io/tokens@0.6.2': {}
 
-  '@leather.io/ui@1.6.4(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))(@swc/core@1.7.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.7.0)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)':
+  '@leather.io/tokens@0.6.3': {}
+
+  '@leather.io/ui@1.6.5(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))(@swc/core@1.7.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.7.0)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)':
     dependencies:
       '@expo/vector-icons': 14.0.0
-      '@leather.io/tokens': 0.6.2
+      '@leather.io/tokens': 0.6.3
       '@leather.io/utils': 0.10.2
       '@radix-ui/react-accessible-icon': 1.0.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-accordion': 1.1.2(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
