@@ -12,7 +12,10 @@ import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
 
-import { useInitalizeAnalytics } from '@app/common/app-analytics';
+import {
+  useHandleQueuedBackgroundAnalytics,
+  useInitalizeAnalytics,
+} from '@app/common/app-analytics';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
@@ -60,6 +63,7 @@ export function Container() {
   useOnSignOut(() => closeWindow());
   useRestoreFormState();
   useInitalizeAnalytics();
+  useHandleQueuedBackgroundAnalytics();
 
   useEffect(() => void analytics.page('view', `${pathname}`), [pathname]);
 

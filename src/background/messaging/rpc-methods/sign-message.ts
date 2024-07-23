@@ -18,9 +18,11 @@ import {
   makeSearchParamsWithDefaults,
   triggerRequestWindowOpen,
 } from '../messaging-utils';
+import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-message-handler';
 
 export async function rpcSignMessage(message: SignMessageRequest, port: chrome.runtime.Port) {
   if (isUndefined(message.params)) {
+    void trackRpcRequestError({ endpoint: 'signMessage', error: 'Undefined parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       makeRpcErrorResponse('signMessage', {
@@ -32,6 +34,8 @@ export async function rpcSignMessage(message: SignMessageRequest, port: chrome.r
   }
 
   if (!validateRpcSignMessageParams(message.params)) {
+    void trackRpcRequestError({ endpoint: 'signMessage', error: 'Invalid parameters' });
+
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       makeRpcErrorResponse('signMessage', {
@@ -49,6 +53,8 @@ export async function rpcSignMessage(message: SignMessageRequest, port: chrome.r
     (message.params as any).paymentType ?? 'p2wpkh';
 
   if (!isSupportedMessageSigningPaymentType(paymentType)) {
+    void trackRpcRequestError({ endpoint: 'signMessage', error: 'Unsupported payment type' });
+
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       makeRpcErrorResponse('signMessage', {
@@ -62,6 +68,8 @@ export async function rpcSignMessage(message: SignMessageRequest, port: chrome.r
     );
     return;
   }
+
+  void trackRpcRequestSuccess({ endpoint: message.method });
 
   const requestParams: RequestParams = [
     ['message', message.params.message],

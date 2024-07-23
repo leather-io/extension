@@ -19,6 +19,7 @@ import {
   makeSearchParamsWithDefaults,
   triggerRequestWindowOpen,
 } from '../messaging-utils';
+import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-message-handler';
 
 function validatePsbt(hex: string) {
   try {
@@ -31,9 +32,10 @@ function validatePsbt(hex: string) {
 
 export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime.Port) {
   if (isUndefined(message.params)) {
+    void trackRpcRequestError({ endpoint: message.method, error: 'Undefined parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse('signPsbt', {
+      makeRpcErrorResponse(message.method, {
         id: message.id,
         error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
       })
@@ -42,9 +44,10 @@ export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime
   }
 
   if (!validateRpcSignPsbtParams(message.params)) {
+    void trackRpcRequestError({ endpoint: message.method, error: 'Invalid parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse('signPsbt', {
+      makeRpcErrorResponse(message.method, {
         id: message.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
@@ -56,6 +59,8 @@ export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime
   }
 
   if (!validatePsbt(message.params.hex)) {
+    void trackRpcRequestError({ endpoint: message.method, error: 'Invalid PSBT' });
+
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       makeRpcErrorResponse('signPsbt', {
@@ -87,6 +92,8 @@ export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime
     ensureArray(message.params.signAtIndex).forEach(index =>
       requestParams.push(['signAtIndex', index.toString()])
     );
+
+  void trackRpcRequestSuccess({ endpoint: message.method });
 
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
 

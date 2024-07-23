@@ -36,6 +36,7 @@ import {
   makeSearchParamsWithDefaults,
   triggerRequestWindowOpen,
 } from '../messaging-utils';
+import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-message-handler';
 
 const MEMO_DESERIALIZATION_STUB = '\u0000';
 
@@ -114,6 +115,7 @@ export async function rpcSignStacksTransaction(
   port: chrome.runtime.Port
 ) {
   if (isUndefined(message.params)) {
+    void trackRpcRequestError({ endpoint: message.method, error: 'Undefined parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       makeRpcErrorResponse('stx_signTransaction', {
@@ -125,6 +127,8 @@ export async function rpcSignStacksTransaction(
   }
 
   if (!validateRpcSignStacksTransactionParams(message.params)) {
+    void trackRpcRequestError({ endpoint: message.method, error: 'Invalid parameters' });
+
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       makeRpcErrorResponse('stx_signTransaction', {
@@ -139,6 +143,8 @@ export async function rpcSignStacksTransaction(
   }
 
   if (!validateStacksTransaction(message.params.txHex!)) {
+    void trackRpcRequestError({ endpoint: message.method, error: 'Invalid Stacks transaction' });
+
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       makeRpcErrorResponse('stx_signTransaction', {
@@ -159,6 +165,8 @@ export async function rpcSignStacksTransaction(
   const hashMode = stacksTransaction.auth.spendingCondition.hashMode as MultiSigHashMode;
   const isMultisig =
     hashMode === AddressHashMode.SerializeP2SH || hashMode === AddressHashMode.SerializeP2WSH;
+
+  void trackRpcRequestSuccess({ endpoint: message.method });
 
   const requestParams = [
     ['txHex', message.params.txHex],
