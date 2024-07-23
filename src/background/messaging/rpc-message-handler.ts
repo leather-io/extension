@@ -2,6 +2,7 @@ import { RpcErrorCode } from '@btckit/types';
 
 import { WalletRequests, makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
+import { queueAnalyticsRequest } from '@background/background-analytics';
 import { rpcSignStacksTransaction } from '@background/messaging/rpc-methods/sign-stacks-transaction';
 
 import { getTabIdFromPort } from './messaging-utils';
@@ -62,4 +63,19 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
       );
       break;
   }
+}
+
+interface TrackRpcRequestSuccess {
+  endpoint: WalletRequests['method'];
+}
+export async function trackRpcRequestSuccess(args: TrackRpcRequestSuccess) {
+  return queueAnalyticsRequest('rpc_request_successful', { ...args });
+}
+
+interface TrackRpcRequestError {
+  endpoint: WalletRequests['method'];
+  error: string;
+}
+export async function trackRpcRequestError(args: TrackRpcRequestError) {
+  return queueAnalyticsRequest('rpc_request_error', { ...args });
 }

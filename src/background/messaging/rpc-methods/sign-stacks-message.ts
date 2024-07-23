@@ -17,12 +17,14 @@ import {
   makeSearchParamsWithDefaults,
   triggerRequestWindowOpen,
 } from '../messaging-utils';
+import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-message-handler';
 
 export async function rpcSignStacksMessage(
   message: SignStacksMessageRequest,
   port: chrome.runtime.Port
 ) {
   if (isUndefined(message.params)) {
+    void trackRpcRequestError({ endpoint: message.method, error: 'Undefined parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       makeRpcErrorResponse('stx_signMessage', {
@@ -34,6 +36,7 @@ export async function rpcSignStacksMessage(
   }
 
   if (!validateRpcSignStacksMessageParams(message.params)) {
+    void trackRpcRequestError({ endpoint: message.method, error: 'Invalid parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       makeRpcErrorResponse('stx_signMessage', {
@@ -46,6 +49,8 @@ export async function rpcSignStacksMessage(
     );
     return;
   }
+
+  void trackRpcRequestSuccess({ endpoint: message.method });
 
   const requestParams: RequestParams = [
     ['message', message.params.message],
