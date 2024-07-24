@@ -48,11 +48,11 @@ importers:
         specifier: 2.0.0
         version: 2.0.0(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
       '@leather.io/tokens':
-        specifier: 0.6.2
-        version: 0.6.2
+        specifier: 0.7.0
+        version: 0.7.0
       '@leather.io/ui':
-        specifier: 1.6.4
-        version: 1.6.4(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))(@swc/core@1.7.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.7.0)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)
+        specifier: 1.8.0
+        version: 1.8.0(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))(@swc/core@1.7.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.7.0)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)
       '@leather.io/utils':
         specifier: 0.10.2
         version: 0.10.2
@@ -376,8 +376,8 @@ importers:
         specifier: 0.6.1
         version: 0.6.1(typescript@5.4.5)
       '@leather.io/panda-preset':
-        specifier: 0.3.2
-        version: 0.3.2(jsdom@22.1.0)(typescript@5.4.5)
+        specifier: 0.3.4
+        version: 0.3.4(jsdom@22.1.0)(typescript@5.4.5)
       '@leather.io/prettier-config':
         specifier: 0.5.0
         version: 0.5.0(@vue/compiler-sfc@3.4.32)
@@ -2612,8 +2612,8 @@ packages:
   '@leather.io/models@0.10.2':
     resolution: {integrity: sha512-N4KTT0jApIZphx96/abD0xwA+4A23k+hmPWsf98N2LKxG5ZzYmuzoB5VUlw7hGdwpZFbDW625ALQjjPMPoyG8A==}
 
-  '@leather.io/panda-preset@0.3.2':
-    resolution: {integrity: sha512-pX5uwCghWbphnLCcqA21ffjfA6qty+g/YFSTPIfTTyauAcv5JfCMDqZihOlbS5SEOt321KDL7No0UKyDLC5vvQ==}
+  '@leather.io/panda-preset@0.3.4':
+    resolution: {integrity: sha512-q+ri1ObAPe0GsYWKZe/5AWjSwH1lEgRnBn5NIVE7OJUt8eXa1vQuXMeXFLmY+UU7dhVYSY148RU+SNiRl1DfSw==}
 
   '@leather.io/prettier-config@0.5.0':
     resolution: {integrity: sha512-Pul+4MAyBKnQvqgcKJLbZl4DHnS4kCJzSuaYFW6cfHdre7BFn/iY6Er/Dvm9F8g7VMtkdYu68jEYxQ1Xc7A0KQ==}
@@ -2626,11 +2626,11 @@ packages:
   '@leather.io/rpc@2.0.2':
     resolution: {integrity: sha512-xCEwMbhuaGpuP9oRZ+7QE6JwOGdz8LagxbSZj87kBLZQLk4MLkQpx+AdQ9u0VkbGaWyqSVYew2WEdqKFqYSbsA==}
 
-  '@leather.io/tokens@0.6.2':
-    resolution: {integrity: sha512-ExsvDpHL2XH8G8UZ6RjgpLBOVwlkHjQs2XUJX7jXBb2iORLfGJETujKgIH5zohhveBoVi2TcVhrZB+ezhv7EQA==}
+  '@leather.io/tokens@0.7.0':
+    resolution: {integrity: sha512-RLF8enOE+t/KdcTjjyQUf6rMEyxLb/PPMYZgvoT/FWoQgnjYluhG6zc1HROu7wM8XEBF4kESABIM6UYKtkAs1Q==}
 
-  '@leather.io/ui@1.6.4':
-    resolution: {integrity: sha512-nLhKTvn3zNqEdamQspXXJBownh8fwBD/PTQyzXJC6n5ZXCTdHQ1T6Qovz8UBlaoD40yqLwgG7bV2XscBmXnbNQ==}
+  '@leather.io/ui@1.8.0':
+    resolution: {integrity: sha512-JuyL8gRAkji89sPPhjYQBKXIB/QAPB7s8YaUwSywX5rKuzm86PYCe/1a8zGCt2UbRotHQnJ6tQnFomXlfOlf0g==}
 
   '@leather.io/utils@0.10.2':
     resolution: {integrity: sha512-w5tt8hBrEhaJDO4bOtkvjW2Dv5aFX/0VcY8U1VrjMGK8ShfwmG/rJLVo+02FDL76LxOGB8scP4khinhHOPWM0A==}
@@ -17247,7 +17247,7 @@ snapshots:
       '@stacks/stacks-blockchain-api-types': 7.8.2
       bignumber.js: 9.1.2
 
-  '@leather.io/panda-preset@0.3.2(jsdom@22.1.0)(typescript@5.4.5)':
+  '@leather.io/panda-preset@0.3.4(jsdom@22.1.0)(typescript@5.4.5)':
     dependencies:
       '@pandacss/dev': 0.40.1(jsdom@22.1.0)(typescript@5.4.5)
     transitivePeerDependencies:
@@ -17299,12 +17299,12 @@ snapshots:
     dependencies:
       '@leather.io/models': 0.10.2
 
-  '@leather.io/tokens@0.6.2': {}
+  '@leather.io/tokens@0.7.0': {}
 
-  '@leather.io/ui@1.6.4(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))(@swc/core@1.7.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.7.0)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)':
+  '@leather.io/ui@1.8.0(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))(@swc/core@1.7.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.7.0)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)':
     dependencies:
       '@expo/vector-icons': 14.0.0
-      '@leather.io/tokens': 0.6.2
+      '@leather.io/tokens': 0.7.0
       '@leather.io/utils': 0.10.2
       '@radix-ui/react-accessible-icon': 1.0.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-accordion': 1.1.2(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
