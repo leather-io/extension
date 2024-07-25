@@ -2,7 +2,7 @@ import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import BigNumber from 'bignumber.js';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { useGetStackNetworkBlockTimeQuery } from '@leather.io/query';
+import { useGetStacksNetworkBlockTimeQuery } from '@leather.io/query';
 import { ChevronUpIcon } from '@leather.io/ui';
 import {
   createMoneyFromDecimal,
@@ -37,7 +37,7 @@ const sponsoredFeeLabel =
 export function SwapDetails() {
   const { swapSubmissionData } = useSwapContext();
   const { isTestnet } = useCurrentNetworkState();
-  const { data: blockTime } = useGetStackNetworkBlockTimeQuery();
+  const { data: blockTime } = useGetStacksNetworkBlockTimeQuery();
 
   if (
     isUndefined(swapSubmissionData) ||

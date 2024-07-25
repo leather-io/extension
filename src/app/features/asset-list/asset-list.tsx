@@ -20,6 +20,8 @@ import { RunesAssetList } from '@app/features/asset-list/bitcoin/runes-asset-lis
 import { Src20TokenAssetList } from '@app/features/asset-list/bitcoin/src20-token-asset-list/src20-token-asset-list';
 import { Stx20TokenAssetList } from '@app/features/asset-list/stacks/stx20-token-asset-list/stx20-token-asset-list';
 import { StxCryptoAssetItem } from '@app/features/asset-list/stacks/stx-crypo-asset-item/stx-crypto-asset-item';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useHasLedgerKeys } from '@app/store/ledger/ledger.selectors';
 
 import { ConnectLedgerAssetItemFallback } from './_components/connect-ledger-asset-item-fallback';
 import { BtcCryptoAssetItem } from './bitcoin/btc-crypto-asset-item/btc-crypto-asset-item';
@@ -34,6 +36,8 @@ interface AssetListProps {
 }
 export function AssetList({ onSelectAsset, variant = 'read-only' }: AssetListProps) {
   const { whenWallet } = useWalletType();
+  const currentAccount = useCurrentStacksAccount();
+  const isLedger = useHasLedgerKeys();
 
   const isReadOnly = variant === 'read-only';
 
@@ -65,12 +69,14 @@ export function AssetList({ onSelectAsset, variant = 'read-only' }: AssetListPro
 
       <CurrentStacksAccountLoader
         fallback={
-          <ConnectLedgerAssetItemFallback
-            chain="stacks"
-            icon={<StxAvatarIcon />}
-            symbol="STX"
-            variant={variant}
-          />
+          !currentAccount && !isLedger ? null : (
+            <ConnectLedgerAssetItemFallback
+              chain="stacks"
+              icon={<StxAvatarIcon />}
+              symbol="STX"
+              variant={variant}
+            />
+          )
         }
       >
         {account => (

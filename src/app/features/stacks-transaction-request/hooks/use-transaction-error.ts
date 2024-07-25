@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
-import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
+import { TransactionTypes } from '@stacks/connect';
 import BigNumber from 'bignumber.js';
 import { useFormikContext } from 'formik';
 
-import { useContractInterface, useStxAvailableUnlockedBalance } from '@leather.io/query';
+import { useGetContractInterfaceQuery, useStxAvailableUnlockedBalance } from '@leather.io/query';
 import { stxToMicroStx } from '@leather.io/utils';
 
 import { StacksTransactionFormValues } from '@shared/models/form.model';
@@ -22,7 +22,7 @@ function getIsMultisig() {
 
 export function useTransactionError() {
   const transactionRequest = useTransactionRequestState();
-  const contractInterface = useContractInterface(transactionRequest as ContractCallPayload);
+  const contractInterface = useGetContractInterfaceQuery(transactionRequest);
   const { origin } = useDefaultRequestParams();
   const { values } = useFormikContext<StacksTransactionFormValues>();
 

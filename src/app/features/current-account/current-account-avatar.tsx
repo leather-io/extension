@@ -11,7 +11,7 @@ interface CurrentAccountAvatar extends CircleProps {
 }
 export const CurrentAccountAvatar = memo(({ toggleSwitchAccount }: CurrentAccountAvatar) => {
   const stacksAccount = useCurrentStacksAccount();
-  const name = useCurrentAccountDisplayName();
+  const { data: name = 'Account' } = useCurrentAccountDisplayName();
   if (!stacksAccount) return null;
 
   return (

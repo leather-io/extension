@@ -14,7 +14,7 @@ import BigNumber from 'bignumber.js';
 import type { CryptoCurrencies } from '@leather.io/models';
 import {
   useCryptoCurrencyMarketDataMeanAverage,
-  useGetStackNetworkBlockTimeQuery,
+  useGetStacksNetworkBlockTimeQuery,
 } from '@leather.io/query';
 import {
   baseCurrencyAmountInQuote,
@@ -34,7 +34,7 @@ export function useStacksTransactionSummary(token: CryptoCurrencies) {
   // TODO: unsafe type assumption
   const tokenMarketData = useCryptoCurrencyMarketDataMeanAverage(token as 'BTC' | 'STX');
   const { isTestnet } = useCurrentNetworkState();
-  const { data: blockTime } = useGetStackNetworkBlockTimeQuery();
+  const { data: blockTime } = useGetStacksNetworkBlockTimeQuery();
 
   function formSentSummaryTxState(txId: string, signedTx: StacksTransaction, decimals?: number) {
     return {

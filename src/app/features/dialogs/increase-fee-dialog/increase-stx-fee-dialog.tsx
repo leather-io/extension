@@ -8,9 +8,9 @@ import { Flex, Stack } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
 import {
+  useGetTransactionByIdQuery,
   useStacksRawTransaction,
   useStxAvailableUnlockedBalance,
-  useTransactionById,
 } from '@leather.io/query';
 import { Caption, Dialog, Spinner } from '@leather.io/ui';
 import { microStxToStx, stxToMicroStx } from '@leather.io/utils';
@@ -39,7 +39,7 @@ export function IncreaseStxFeeDialog() {
   const { txid } = useParams();
   const toast = useToast();
   const refreshAccountData = useRefreshAllAccountData();
-  const { data: tx, isLoading: isLoadingTx } = useTransactionById(txid || '');
+  const { data: tx, isLoading: isLoadingTx } = useGetTransactionByIdQuery(txid || '');
   const stxAddress = useCurrentStacksAccountAddress();
   const availableUnlockedBalance = useStxAvailableUnlockedBalance(stxAddress);
   const submittedTransactionsActions = useSubmittedTransactionsActions();

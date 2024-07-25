@@ -1,5 +1,6 @@
 import type { StorybookConfig } from '@storybook/react-webpack5';
 import path from 'path';
+import remarkGfm from 'remark-gfm';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import Webpack from 'webpack';
 
@@ -13,7 +14,11 @@ const config: StorybookConfig = {
       name: '@storybook/addon-docs',
       options: {
         csfPluginOptions: null,
-        mdxPluginOptions: {},
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        },
         transcludeMarkdown: true,
       },
     },
@@ -51,7 +56,6 @@ const config: StorybookConfig = {
         ],
       },
     },
-    '@storybook/addon-mdx-gfm',
     '@storybook/addon-webpack5-compiler-swc',
     '@chromatic-com/storybook',
   ],

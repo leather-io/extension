@@ -1,6 +1,6 @@
 import { useIsFetching } from '@tanstack/react-query';
 
-import { QueryPrefixes } from '@leather.io/query';
+import { BitcoinQueryPrefixes, StacksQueryPrefixes } from '@leather.io/query';
 import { sumNumbers } from '@leather.io/utils';
 
 function areAnyQueriesFetching(...args: number[]) {
@@ -9,17 +9,17 @@ function areAnyQueriesFetching(...args: number[]) {
 
 export function useIsFetchingCollectiblesRelatedQuery() {
   // Ordinal inscriptions
-  const n1 = useIsFetching({ queryKey: [QueryPrefixes.TaprootAddressUtxos] });
-  const n2 = useIsFetching({ queryKey: [QueryPrefixes.InscriptionsByAddress] });
-  const n3 = useIsFetching({ queryKey: [QueryPrefixes.InscriptionMetadata] });
-  const n4 = useIsFetching({ queryKey: [QueryPrefixes.OrdinalTextContent] });
-  const n5 = useIsFetching({ queryKey: [QueryPrefixes.GetInscriptions] });
+  const n1 = useIsFetching({ queryKey: [BitcoinQueryPrefixes.GetTaprootUtxosByAddress] });
+  const n2 = useIsFetching({ queryKey: [BitcoinQueryPrefixes.GetInscriptionsByAddress] });
+  const n3 = useIsFetching({ queryKey: [BitcoinQueryPrefixes.GetInscription] });
+  const n4 = useIsFetching({ queryKey: [BitcoinQueryPrefixes.GetInscriptionTextContent] });
+  const n5 = useIsFetching({ queryKey: [BitcoinQueryPrefixes.GetInscriptions] });
 
   // BNS
-  const n6 = useIsFetching({ queryKey: [QueryPrefixes.BnsNamesByAddress] });
+  const n6 = useIsFetching({ queryKey: [StacksQueryPrefixes.GetBnsNamesByAddress] });
 
   // NFTs
-  const n7 = useIsFetching({ queryKey: [QueryPrefixes.GetNftMetadata] });
+  const n7 = useIsFetching({ queryKey: [StacksQueryPrefixes.GetNftMetadata] });
 
   return areAnyQueriesFetching(n1, n2, n3, n4, n5, n6, n7);
 }

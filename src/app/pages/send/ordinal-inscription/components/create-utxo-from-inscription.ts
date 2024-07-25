@@ -17,7 +17,7 @@ export function createUtxoFromInscription({
   const { genesisBlockHash, genesisTimestamp, genesisBlockHeight, value } = inscription;
   return {
     txid: inscription.txid,
-    vout: Number(inscription.output.split(':')[1]),
+    vout: Number(inscription.output),
     status: {
       confirmed: true,
       block_height: genesisBlockHeight,

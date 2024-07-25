@@ -1,6 +1,3 @@
-/**
- * POPUP header logic notes here -> https://github.com/leather-io/extension/issues/4371#issuecomment-1919114939
- */
 import { RouteUrls } from '@shared/route-urls';
 
 export function isRpcRoute(pathname: RouteUrls) {
@@ -24,11 +21,14 @@ export function isRpcRoute(pathname: RouteUrls) {
 
 export function showAccountInfo(pathname: RouteUrls) {
   switch (pathname) {
+    case RouteUrls.PsbtRequest:
     case RouteUrls.TransactionRequest:
     case RouteUrls.ProfileUpdateRequest:
     case RouteUrls.RpcSendTransfer:
     case RouteUrls.RpcSignPsbt:
     case RouteUrls.RpcSignBip322Message:
+    case RouteUrls.SignatureRequest:
+    case RouteUrls.RpcStacksSignature:
       return true;
     default:
       return false;
@@ -39,20 +39,25 @@ export function showBalanceInfo(pathname: RouteUrls) {
   switch (pathname) {
     case RouteUrls.ProfileUpdateRequest:
     case RouteUrls.RpcSendTransfer:
-      return true;
+    case RouteUrls.PsbtRequest:
+    case RouteUrls.RpcSignBip322Message:
+    case RouteUrls.RpcStacksSignature:
     case RouteUrls.TransactionRequest:
+      return true;
     default:
       return false;
   }
 }
 
 export function getDisplayAddresssBalanceOf(pathname: RouteUrls) {
-  //  TODO it's unclear when to show ALL or STX balance here
   switch (pathname) {
-    case RouteUrls.TransactionRequest:
     case RouteUrls.ProfileUpdateRequest:
     case RouteUrls.RpcSendTransfer:
+    case RouteUrls.PsbtRequest:
+    case RouteUrls.RpcSignBip322Message:
       return 'all';
+    case RouteUrls.RpcStacksSignature:
+    case RouteUrls.TransactionRequest:
     default:
       return 'stx';
   }

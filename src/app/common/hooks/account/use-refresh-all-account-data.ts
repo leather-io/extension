@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { useAccountMempoolQuery } from '@leather.io/query';
+import { useGetAddressMempoolTransactionsQuery } from '@leather.io/query';
 import { delay } from '@leather.io/utils';
 
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -9,7 +9,7 @@ import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/s
 // to use react-query itself to do this if needed?
 export function useRefreshAllAccountData() {
   const address = useCurrentStacksAccountAddress();
-  const { refetch } = useAccountMempoolQuery(address);
+  const { refetch } = useGetAddressMempoolTransactionsQuery(address);
   return useCallback(
     async (ms?: number) => {
       if (typeof ms === 'number') await delay(ms);

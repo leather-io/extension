@@ -35,6 +35,7 @@ test.describe('Transaction signing', () => {
 
       await testAppPage.clickContractCallButton();
       const transactionRequestPage = new TransactionRequestPage(await context.waitForEvent('page'));
+      await transactionRequestPage.waitForTransactionRequestPage();
       const error =
         await transactionRequestPage.waitForTransactionRequestError('Insufficient balance');
 
