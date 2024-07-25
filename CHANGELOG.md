@@ -1,3 +1,22 @@
+## [6.44.1](https://github.com/leather-io/extension/compare/v6.44.0...v6.44.1) (2024-07-25)
+
+
+### Bug Fixes
+
+* handle long token names gracefully, ref leather-wallet/extension[#5673](https://github.com/leather-io/extension/issues/5673) ([3110f7e](https://github.com/leather-io/extension/commit/3110f7ef7b36862441b9afef5748234d7b794e78))
+* rate limiting on testnet ([f4258cd](https://github.com/leather-io/extension/commit/f4258cde47540998f3a546fbc4e27cb9a04d032a))
+* security vulnerability with ip pkg in storybook ([85d34b3](https://github.com/leather-io/extension/commit/85d34b3f7a9b870d516a559be5cd6da3c56fdf46))
+* send inscription flow validation error ([8030d3a](https://github.com/leather-io/extension/commit/8030d3afbdadc062211b4adea4cb53c1eece2cd8))
+* stx fallback btn show on load ([95d6ea5](https://github.com/leather-io/extension/commit/95d6ea5e307e13a4d6feab66e939bb7591344247))
+* update popup headers to show account info, ref leather-wallet/issues[#157](https://github.com/leather-io/extension/issues/157) ([93ad45f](https://github.com/leather-io/extension/commit/93ad45f3f93120c0556bf1b01afe52aab38d3764))
+
+
+### Internal
+
+* bitcoin queries, closes leather-io/issues[#94](https://github.com/leather-io/extension/issues/94) and leather-io/issues[#101](https://github.com/leather-io/extension/issues/101) ([1187acf](https://github.com/leather-io/extension/commit/1187acf3bbd43332f89c151c1926288d04b8c093))
+* **release:** 6.44.0 ([9fc4eb4](https://github.com/leather-io/extension/commit/9fc4eb4d34a95e3d94a4dca9086f4be44a79a16b)), closes [#5300](https://github.com/leather-io/extension/issues/5300) [#5440](https://github.com/leather-io/extension/issues/5440) [#5626](https://github.com/leather-io/extension/issues/5626) [#5244](https://github.com/leather-io/extension/issues/5244) [#69](https://github.com/leather-io/extension/issues/69)
+* stacks queries ([5041cfb](https://github.com/leather-io/extension/commit/5041cfbf820c29b7eb63246e7df311b0fb96e995))
+
 ## [6.44.0](https://github.com/leather-io/extension/compare/v6.43.0...v6.44.0) (2024-07-17)
 
 
