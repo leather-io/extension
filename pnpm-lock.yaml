@@ -51,8 +51,8 @@ importers:
         specifier: 0.7.0
         version: 0.7.0
       '@leather.io/ui':
-        specifier: 1.8.0
-        version: 1.8.0(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))(@swc/core@1.7.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.7.0)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)
+        specifier: 1.8.1
+        version: 1.8.1(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))(@swc/core@1.7.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.7.0)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)
       '@leather.io/utils':
         specifier: 0.10.2
         version: 0.10.2
@@ -2626,14 +2626,20 @@ packages:
   '@leather.io/rpc@2.0.2':
     resolution: {integrity: sha512-xCEwMbhuaGpuP9oRZ+7QE6JwOGdz8LagxbSZj87kBLZQLk4MLkQpx+AdQ9u0VkbGaWyqSVYew2WEdqKFqYSbsA==}
 
+  '@leather.io/rpc@2.1.0':
+    resolution: {integrity: sha512-qcAEdUWyUzyPuPyPA1PNknIEBB4NTCjzMNPqvxlUVnWn2G5VCUZ7NsjPLB+jBXlsaozBk6C9mXcWnXfSlPSQAg==}
+
   '@leather.io/tokens@0.7.0':
     resolution: {integrity: sha512-RLF8enOE+t/KdcTjjyQUf6rMEyxLb/PPMYZgvoT/FWoQgnjYluhG6zc1HROu7wM8XEBF4kESABIM6UYKtkAs1Q==}
 
-  '@leather.io/ui@1.8.0':
-    resolution: {integrity: sha512-JuyL8gRAkji89sPPhjYQBKXIB/QAPB7s8YaUwSywX5rKuzm86PYCe/1a8zGCt2UbRotHQnJ6tQnFomXlfOlf0g==}
+  '@leather.io/ui@1.8.1':
+    resolution: {integrity: sha512-6rCQ1Tt1Pb4NjIIbBxxAObKEnZ3+XPkGmIefW49Hj0hoO7dJcvQaWdjNe0hHqGZiTMFnr/6pi0nqxWH+F1/Bkg==}
 
   '@leather.io/utils@0.10.2':
     resolution: {integrity: sha512-w5tt8hBrEhaJDO4bOtkvjW2Dv5aFX/0VcY8U1VrjMGK8ShfwmG/rJLVo+02FDL76LxOGB8scP4khinhHOPWM0A==}
+
+  '@leather.io/utils@0.10.3':
+    resolution: {integrity: sha512-UAzG1nc9xrXy6e4ctLzbQ0PShofYyWhdOR37s6r9Czi+nH5D0otGdYVI3Zt2aipMh3KpV/oqGXNX/6A6Zy/Ofg==}
 
   '@ledgerhq/devices@8.4.0':
     resolution: {integrity: sha512-TUrMlWZJ+5AFp2lWMw4rGQoU+WtjIqlFX5SzQDL9phaUHrt4TFierAGHsaj5+tUHudhD4JhIaLI2cn1NOyq5NQ==}
@@ -2655,6 +2661,7 @@ packages:
 
   '@ls-lint/ls-lint@2.2.3':
     resolution: {integrity: sha512-ekM12jNm/7O2I/hsRv9HvYkRdfrHpiV1epVuI2NP+eTIcEgdIdKkKCs9KgQydu/8R5YXTov9aHdOgplmCHLupw==}
+    cpu: [x64, arm64, s390x]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -17299,13 +17306,18 @@ snapshots:
     dependencies:
       '@leather.io/models': 0.10.2
 
+  '@leather.io/rpc@2.1.0':
+    dependencies:
+      '@leather.io/models': 0.10.2
+      zod: 3.23.6
+
   '@leather.io/tokens@0.7.0': {}
 
-  '@leather.io/ui@1.8.0(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))(@swc/core@1.7.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.7.0)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)':
+  '@leather.io/ui@1.8.1(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))(@swc/core@1.7.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.7.0)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)':
     dependencies:
       '@expo/vector-icons': 14.0.0
       '@leather.io/tokens': 0.7.0
-      '@leather.io/utils': 0.10.2
+      '@leather.io/utils': 0.10.3
       '@radix-ui/react-accessible-icon': 1.0.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-accordion': 1.1.2(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-avatar': 1.0.4(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -17354,6 +17366,13 @@ snapshots:
       '@leather.io/constants': 0.8.2
       '@leather.io/models': 0.10.2
       '@leather.io/rpc': 2.0.2
+      bignumber.js: 9.1.2
+
+  '@leather.io/utils@0.10.3':
+    dependencies:
+      '@leather.io/constants': 0.8.2
+      '@leather.io/models': 0.10.2
+      '@leather.io/rpc': 2.1.0
       bignumber.js: 9.1.2
 
   '@ledgerhq/devices@8.4.0':
