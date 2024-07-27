@@ -62,7 +62,8 @@ export function useGetAddresses() {
       if (stacksAccount) {
         const stacksAddressResponse = {
           symbol: 'STX',
-          address: stacksAccount?.address ?? '',
+          address: stacksAccount.address ?? '',
+          publicKey: stacksAccount.stxPublicKey ?? '',
         };
 
         keysToIncludeInResponse.push(stacksAddressResponse);
