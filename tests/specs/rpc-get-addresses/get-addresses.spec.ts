@@ -40,7 +40,13 @@ function getExpectedResponseForKeys(keys: SupportedBlockchains[]) {
       derivationPath: "m/86'/0'/0'/0/0",
     },
   ];
-  const stacksKeys = [{ symbol: 'STX', address: 'SPS8CKF63P16J28AYF7PXW9E5AACH0NZNTEFWSFE' }];
+  const stacksKeys = [
+    {
+      symbol: 'STX',
+      publicKey: '0329b076bc20f7b1592b2a1a5cb91dfefe8c966e50e256458e23dd2c5d63f8f1af',
+      address: 'SPS8CKF63P16J28AYF7PXW9E5AACH0NZNTEFWSFE',
+    },
+  ];
   return {
     jsonrpc: '2.0',
     result: {
