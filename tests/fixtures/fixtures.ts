@@ -45,6 +45,7 @@ export const test = base.extend<TestFixtures>({
     });
     await use(context);
     await context.close();
+    await context.browser()?.close();
   },
   extensionId: async ({ context }, use) => {
     let [background] = context.serviceWorkers();
