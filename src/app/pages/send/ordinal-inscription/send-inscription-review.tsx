@@ -84,7 +84,12 @@ export function SendInscriptionReview() {
       <Card
         footer={
           <Footer variant="card">
-            <Button aria-busy={isBroadcasting} onClick={sendInscription}>
+            <Button
+              variant="solid"
+              disabled={isBroadcasting}
+              aria-busy={isBroadcasting}
+              onClick={sendInscription}
+            >
               Confirm and send transaction
             </Button>
           </Footer>
