@@ -1,3 +1,18 @@
+## [6.44.2](https://github.com/leather-io/extension/compare/v6.44.1...v6.44.2) (2024-07-29)
+
+
+### Bug Fixes
+
+* inscription send error state layout ([f955408](https://github.com/leather-io/extension/commit/f95540896174e4e1a6b2697e4aa72b27066a48d7))
+* **rpc:** return stxPublicKey from getAddresses ([4972a54](https://github.com/leather-io/extension/commit/4972a54e46279e2670a6d826ffd3800ad55dd14d))
+* send inscription review button ([c353367](https://github.com/leather-io/extension/commit/c353367ee9c49c5314d15be9115ef4a17030e14c))
+
+
+### Internal
+
+* post-release merge back ([3c81db3](https://github.com/leather-io/extension/commit/3c81db384318ab70740ea362c6483ebe66ba28e3))
+* update packages ([0353b33](https://github.com/leather-io/extension/commit/0353b33844f4ae7ed6a2e4619f7c5aad63173539))
+
 ## [6.44.1](https://github.com/leather-io/extension/compare/v6.44.0...v6.44.1) (2024-07-25)
 
 
