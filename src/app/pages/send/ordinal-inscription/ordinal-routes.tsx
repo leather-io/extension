@@ -21,6 +21,6 @@ export const sendOrdinalRoutes = (
     <Route path={RouteUrls.SendOrdinalInscriptionReview} element={<SendInscriptionReview />} />
 
     <Route path={RouteUrls.SendOrdinalInscriptionSent} element={<SendInscriptionSummary />} />
-    <Route path={RouteUrls.SendOrdinalInscriptionError} element={<BroadcastError />} />
+    <Route path={RouteUrls.SendOrdinalInscriptionError} element={<BroadcastError showInDialog />} />
   </Route>
 );

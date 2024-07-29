@@ -1,15 +1,24 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import get from 'lodash.get';
 
+import { Dialog } from '@leather.io/ui';
+
+import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { BroadcastErrorLayout } from './components/broadcast-error.layout';
 
-export function BroadcastError() {
+interface Props {
+  showInDialog?: boolean;
+}
+
+export function BroadcastError({ showInDialog = false }: Props) {
   const { state } = useLocation();
+  const navigate = useNavigate();
 
   const msg = get(state, 'error.message', 'Unknown error response');
   const title = get(state, 'title', 'There was an error broadcasting your transaction');
@@ -17,7 +26,7 @@ export function BroadcastError() {
 
   useOnMount(() => void analytics.track('bitcoin_contract_error', { msg }));
 
-  return (
+  const layout = (
     <BroadcastErrorLayout
       my="space.05"
       textAlign="center"
@@ -26,4 +35,18 @@ export function BroadcastError() {
       body={body}
     />
   );
+
+  if (showInDialog) {
+    return (
+      <Dialog
+        header={<DialogHeader title="Error" />}
+        isShowing
+        onClose={() => navigate(RouteUrls.Home)}
+      >
+        {layout}
+      </Dialog>
+    );
+  }
+
+  return layout;
 }
