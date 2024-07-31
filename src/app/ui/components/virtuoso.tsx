@@ -20,7 +20,7 @@ export function VirtuosoWrapper({ children, hasFooter, isPopup }: VirtuosoWrappe
   const [key, setKey] = useState(0);
   const isAtLeastMd = useViewportMinWidth('md');
   const virtualHeight = isAtLeastMd ? '70vh' : '100vh';
-  const headerHeight = isPopup ? 230 : 80;
+  const headerHeight = isPopup ? 230 : 60;
   const footerHeight = hasFooter ? 95 : 0;
   const heightOffset = headerHeight + footerHeight;
   const height = vhToPixels(virtualHeight) - heightOffset;
@@ -33,9 +33,10 @@ export function VirtuosoWrapper({ children, hasFooter, isPopup }: VirtuosoWrappe
   return (
     <Box
       key={key}
+      pt="space.03"
+      overflow="hidden"
       style={{
         height: height,
-        overflow: 'hidden',
         marginBottom: hasFooter ? `${footerHeight}px` : '10px',
       }}
     >
