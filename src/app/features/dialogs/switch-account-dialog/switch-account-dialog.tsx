@@ -76,7 +76,7 @@ export const SwitchAccountDialog = memo(({ isShowing, onClose }: SwitchAccountDi
           initialTopMostItemIndex={whenWallet({ ledger: 0, software: currentAccountIndex })}
           totalCount={accountNum}
           itemContent={index => (
-            <Box key={index} my="space.05" px="space.05">
+            <Box key={index} py="space.03" px="space.05">
               <SwitchAccountListItem
                 handleClose={onClose}
                 currentAccountIndex={currentAccountIndex}
