@@ -356,6 +356,7 @@
   },
   "resolutions": {
     "braces": "3.0.3",
+    "fast-xml-parser": "4.4.1",
     "nanoid": "3.3.4",
     "socket.io-parser": "4.2.4",
     "wrap-ansi": "7.0.0",
