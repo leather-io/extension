@@ -1,10 +1,12 @@
+import { ReactNode } from 'react';
+
 import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
 interface TwoColumnLayoutProps {
-  title: React.JSX.Element;
-  content: React.JSX.Element;
-  action?: React.JSX.Element;
-  children: React.JSX.Element;
+  title: ReactNode;
+  content: ReactNode;
+  action?: ReactNode;
+  children: ReactNode;
   wideChild?: boolean;
 }
 

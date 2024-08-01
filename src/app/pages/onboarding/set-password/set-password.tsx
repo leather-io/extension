@@ -131,12 +131,7 @@ function SetPasswordPage() {
                     password
                   </>
                 }
-                content={
-                  <>
-                    Your password protects your Secret Key on this device only. To access your
-                    wallet on another device, you'll need just your Secret Key.
-                  </>
-                }
+                content="Your password protects your Secret Key on this device only. To access your wallet on another device, you'll need just your Secret Key."
               >
                 <>
                   <PasswordField strengthResult={strengthResult} isDisabled={loading} />
