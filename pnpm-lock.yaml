@@ -52,8 +52,8 @@ importers:
         specifier: 0.7.0
         version: 0.7.0
       '@leather.io/ui':
-        specifier: 1.9.0
-        version: 1.9.0(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))(@swc/core@1.7.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.7.0)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)
+        specifier: 1.9.2
+        version: 1.9.2(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))(@swc/core@1.7.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.7.0)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)
       '@leather.io/utils':
         specifier: 0.11.0
         version: 0.11.0
@@ -2613,6 +2613,9 @@ packages:
   '@leather.io/models@0.10.2':
     resolution: {integrity: sha512-N4KTT0jApIZphx96/abD0xwA+4A23k+hmPWsf98N2LKxG5ZzYmuzoB5VUlw7hGdwpZFbDW625ALQjjPMPoyG8A==}
 
+  '@leather.io/models@0.11.0':
+    resolution: {integrity: sha512-iKhEno6aVhFKvsnsMKbHQYXIqEGo4TOkJcPs/4yHq2EZmPEMFk8FMxUNZZKcKnVSxedInjzFaFhYF/sz+tTxjQ==}
+
   '@leather.io/panda-preset@0.3.4':
     resolution: {integrity: sha512-q+ri1ObAPe0GsYWKZe/5AWjSwH1lEgRnBn5NIVE7OJUt8eXa1vQuXMeXFLmY+UU7dhVYSY148RU+SNiRl1DfSw==}
 
@@ -2627,14 +2630,20 @@ packages:
   '@leather.io/rpc@2.1.1':
     resolution: {integrity: sha512-rAoPxiooffpbF9mtpSleA8Y5O9WZS6VEvGFYDLQPkt3JxAEm0+cVykDYypJWbrnMAqKNL3FVSSnR2TDtsZ8GiA==}
 
+  '@leather.io/rpc@2.1.2':
+    resolution: {integrity: sha512-Smv00bOQF3Suju3peJWAywpFjTurLg+GZgKi7uymKHfkXhnrUmOxYkXKE1azac8E4MardseZIP7jjGU/hgmFnQ==}
+
   '@leather.io/tokens@0.7.0':
     resolution: {integrity: sha512-RLF8enOE+t/KdcTjjyQUf6rMEyxLb/PPMYZgvoT/FWoQgnjYluhG6zc1HROu7wM8XEBF4kESABIM6UYKtkAs1Q==}
 
-  '@leather.io/ui@1.9.0':
-    resolution: {integrity: sha512-KNfjqsULmj9S697oh4eGkmGBNiEDXl3vH9Ghddv+RcN2IwuWA8ulNbp8C268HyI/PWhBdm3sbM2LMRXpf9qDSA==}
+  '@leather.io/ui@1.9.2':
+    resolution: {integrity: sha512-Aeuz49O9HicqQ00KVFD4gq8kzASzc8Izlw+yWdP2rQNTaENEuA5qIrDblm4WUC4OBaqhIm2m7SUMmfO34r3P0A==}
 
   '@leather.io/utils@0.11.0':
     resolution: {integrity: sha512-/i1auGETc6WlPCdukbkMKtMUsliDQwUZ/YNJ8noCjXkZTGKvecvH8VXt+nY3lnqUSAigCfSTMk/c8CGLFUJkxQ==}
+
+  '@leather.io/utils@0.11.1':
+    resolution: {integrity: sha512-uRwWihcI0U/QUCheAr9TwKa9NvUb7HB5vtIpiCpYKDeGmjer4lvvIcPvyPxm5G0/ccB/umtqni9nK5EtwJJ6vA==}
 
   '@ledgerhq/devices@8.4.0':
     resolution: {integrity: sha512-TUrMlWZJ+5AFp2lWMw4rGQoU+WtjIqlFX5SzQDL9phaUHrt4TFierAGHsaj5+tUHudhD4JhIaLI2cn1NOyq5NQ==}
@@ -17249,6 +17258,12 @@ snapshots:
       '@stacks/stacks-blockchain-api-types': 7.8.2
       bignumber.js: 9.1.2
 
+  '@leather.io/models@0.11.0':
+    dependencies:
+      '@stacks/stacks-blockchain-api-types': 7.8.2
+      bignumber.js: 9.1.2
+      zod: 3.23.6
+
   '@leather.io/panda-preset@0.3.4(jsdom@22.1.0)(typescript@5.4.5)':
     dependencies:
       '@pandacss/dev': 0.40.1(jsdom@22.1.0)(typescript@5.4.5)
@@ -17302,13 +17317,18 @@ snapshots:
       '@leather.io/models': 0.10.2
       zod: 3.23.6
 
+  '@leather.io/rpc@2.1.2':
+    dependencies:
+      '@leather.io/models': 0.11.0
+      zod: 3.23.6
+
   '@leather.io/tokens@0.7.0': {}
 
-  '@leather.io/ui@1.9.0(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))(@swc/core@1.7.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.7.0)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)':
+  '@leather.io/ui@1.9.2(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))(@swc/core@1.7.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.7.0)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)':
     dependencies:
       '@expo/vector-icons': 14.0.0
       '@leather.io/tokens': 0.7.0
-      '@leather.io/utils': 0.11.0
+      '@leather.io/utils': 0.11.1
       '@radix-ui/react-accessible-icon': 1.0.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-accordion': 1.1.2(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-avatar': 1.0.4(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -17357,6 +17377,13 @@ snapshots:
       '@leather.io/constants': 0.8.2
       '@leather.io/models': 0.10.2
       '@leather.io/rpc': 2.1.1
+      bignumber.js: 9.1.2
+
+  '@leather.io/utils@0.11.1':
+    dependencies:
+      '@leather.io/constants': 0.8.2
+      '@leather.io/models': 0.11.0
+      '@leather.io/rpc': 2.1.2
       bignumber.js: 9.1.2
 
   '@ledgerhq/devices@8.4.0':

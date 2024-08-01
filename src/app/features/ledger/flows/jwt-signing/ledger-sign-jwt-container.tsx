@@ -5,7 +5,7 @@ import { TransactionVersion, getAddressFromPublicKey } from '@stacks/transaction
 import { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
 
-import { Dialog } from '@leather.io/ui';
+import { Dialog, DialogHeader } from '@leather.io/ui';
 import { delay, isError } from '@leather.io/utils';
 
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
@@ -17,7 +17,6 @@ import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-s
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { makeLedgerCompatibleUnsignedAuthResponsePayload } from '@app/common/unsafe-auth-response';
-import { DialogHeader } from '@app/components/layout/dialog-header';
 import { useCancelLedgerAction } from '@app/features/ledger/utils/generic-ledger-utils';
 import {
   getStacksAppVersion,
