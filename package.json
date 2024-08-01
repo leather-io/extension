@@ -252,7 +252,7 @@
     "@leather.io/eslint-config": "0.6.1",
     "@leather.io/panda-preset": "0.3.4",
     "@leather.io/prettier-config": "0.5.0",
-    "@leather.io/rpc": "2.1.1",
+    "@leather.io/rpc": "2.1.2",
     "@ls-lint/ls-lint": "2.2.3",
     "@mdx-js/loader": "3.0.0",
     "@pandacss/dev": "0.40.1",
