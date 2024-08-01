@@ -14,8 +14,7 @@ import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { InfoCardBtn, InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
-import { Footer } from '@app/components/layout';
-import { Card } from '@app/components/layout';
+import { Card, Footer } from '@app/components/layout';
 import { DialogHeader } from '@app/components/layout/dialog-header';
 import { useToast } from '@app/features/toasts/use-toast';
 

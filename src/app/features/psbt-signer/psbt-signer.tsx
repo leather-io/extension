@@ -11,9 +11,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
 
 import { SignPsbtArgs } from '@app/common/psbt/requests';
-import { Footer } from '@app/components/layout';
-import { CardContent } from '@app/components/layout';
-import { Card } from '@app/components/layout';
+import { Card, CardContent, Footer } from '@app/components/layout';
 import { PopupHeader } from '@app/features/container/headers/popup.header';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';

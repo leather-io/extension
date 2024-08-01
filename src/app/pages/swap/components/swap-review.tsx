@@ -5,9 +5,7 @@ import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { Button } from '@leather.io/ui';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
-import { Footer } from '@app/components/layout';
-import { CardContent } from '@app/components/layout';
-import { Card } from '@app/components/layout';
+import { Card, CardContent, Footer } from '@app/components/layout';
 
 import { useSwapContext } from '../swap.context';
 import { SwapAssetsPair } from './swap-assets-pair/swap-assets-pair';

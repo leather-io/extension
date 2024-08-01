@@ -23,7 +23,6 @@ interface SwitchAccountDialogProps {
 }
 
 export const SwitchAccountDialog = memo(({ isShowing, onClose }: SwitchAccountDialogProps) => {
-  console.info('SwitchAccountDialog render', isShowing);
   const currentAccountIndex = useCurrentAccountIndex();
   const createAccount = useCreateAccount();
   const { whenWallet } = useWalletType();
