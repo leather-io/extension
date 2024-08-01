@@ -28,7 +28,7 @@ export function SignIn() {
               Sign in <br /> with your <br /> Secret Key
             </>
           }
-          content={<>Speed things up by pasting your entire Secret Key in one go.</>}
+          content="Speed things up by pasting your entire Secret Key in one go."
           action={
             <Link
               onClick={() => setTwentyFourWordMode(!twentyFourWordMode)}
