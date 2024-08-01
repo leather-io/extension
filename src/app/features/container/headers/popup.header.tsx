@@ -20,6 +20,7 @@ interface PopupHeaderProps {
 export function PopupHeader({ showSwitchAccount, balance }: PopupHeaderProps) {
   const { isShowingSwitchAccount, setIsShowingSwitchAccount } =
     useOutletContext<SwitchAccountOutletContext>();
+
   return (
     <Header>
       <HeaderGrid

@@ -4,13 +4,12 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { Dialog, Tabs } from '@leather.io/ui';
+import { Dialog, DialogHeader, Tabs } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
 
 import { useLocationState } from '@app/common/hooks/use-location-state';
-import { DialogHeader } from '@app/components/layout/dialog-header';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';

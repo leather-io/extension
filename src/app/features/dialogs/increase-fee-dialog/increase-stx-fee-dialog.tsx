@@ -12,7 +12,7 @@ import {
   useStacksRawTransaction,
   useStxAvailableUnlockedBalance,
 } from '@leather.io/query';
-import { Caption, Dialog, Spinner } from '@leather.io/ui';
+import { Caption, Dialog, DialogHeader, Spinner } from '@leather.io/ui';
 import { microStxToStx, stxToMicroStx } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -22,7 +22,6 @@ import { stacksValue } from '@app/common/stacks-utils';
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { Footer } from '@app/components/layout';
-import { DialogHeader } from '@app/components/layout/dialog-header';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';

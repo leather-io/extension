@@ -4,9 +4,8 @@ import { Virtuoso } from 'react-virtuoso';
 
 import { Box } from 'leather-styles/jsx';
 
-import { Dialog } from '@leather.io/ui';
+import { Dialog, DialogHeader } from '@leather.io/ui';
 
-import { DialogHeader } from '@app/components/layout/dialog-header';
 import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { VirtuosoWrapper } from '@app/ui/components/virtuoso';

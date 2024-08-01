@@ -1,11 +1,10 @@
 import { useCallback } from 'react';
 
-import { Dialog } from '@leather.io/ui';
+import { Dialog, DialogHeader } from '@leather.io/ui';
 
 import { analytics } from '@shared/utils/analytics';
 
 import { UserSelectedTheme, themeLabelMap, useThemeSwitcher } from '@app/common/theme-provider';
-import { DialogHeader } from '@app/components/layout/dialog-header';
 
 import { ThemeListItem } from './theme-list-item';
 

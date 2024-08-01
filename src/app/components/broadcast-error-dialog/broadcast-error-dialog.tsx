@@ -4,10 +4,9 @@ import GenericError from '@assets/images/generic-error.png';
 import { Flex, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { Button, Dialog } from '@leather.io/ui';
+import { Button, Dialog, DialogHeader } from '@leather.io/ui';
 
 import { Footer } from '@app/components/layout';
-import { DialogHeader } from '@app/components/layout/dialog-header';
 
 export function BroadcastErrorDialog() {
   const navigate = useNavigate();

@@ -2,13 +2,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import get from 'lodash.get';
 
-import { Dialog } from '@leather.io/ui';
+import { Dialog, DialogHeader } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { DialogHeader } from '@app/components/layout/dialog-header';
 
 import { BroadcastErrorLayout } from './components/broadcast-error.layout';
 

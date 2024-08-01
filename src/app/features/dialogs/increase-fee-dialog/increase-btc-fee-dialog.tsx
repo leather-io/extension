@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import { Flex, Stack } from 'leather-styles/jsx';
 
 import type { BitcoinTx } from '@leather.io/models';
-import { Caption, Dialog, Spinner } from '@leather.io/ui';
+import { Caption, Dialog, DialogHeader, Spinner } from '@leather.io/ui';
 import { btcToSat, createMoney, formatMoney } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -15,7 +15,6 @@ import { getBitcoinTxValue } from '@app/common/transactions/bitcoin/utils';
 import { BitcoinCustomFeeInput } from '@app/components/bitcoin-custom-fee/bitcoin-custom-fee-input';
 import { BitcoinTransactionItem } from '@app/components/bitcoin-transaction-item/bitcoin-transaction-item';
 import { Footer } from '@app/components/layout';
-import { DialogHeader } from '@app/components/layout/dialog-header';
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
