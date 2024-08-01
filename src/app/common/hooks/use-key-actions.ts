@@ -5,6 +5,8 @@ import { generateSecretKey } from '@stacks/wallet-sdk';
 import { useBitcoinClient } from '@leather.io/query';
 
 import { logger } from '@shared/logger';
+import { InternalMethods } from '@shared/message-types';
+import { sendMessage } from '@shared/messages';
 import { clearChromeStorage } from '@shared/storage/redux-pesist';
 import { analytics } from '@shared/utils/analytics';
 
@@ -46,8 +48,9 @@ export function useKeyActions() {
         return dispatch(keyActions.unlockWalletAction(password));
       },
 
-      switchAccount(index: number) {
-        return dispatch(stxChainActions.switchAccount(index));
+      switchAccount(accountIndex: number) {
+        sendMessage({ method: InternalMethods.AccountChanged, payload: { accountIndex } });
+        return dispatch(stxChainActions.switchAccount(accountIndex));
       },
 
       async createNewAccount() {

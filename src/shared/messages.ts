@@ -13,7 +13,9 @@ type OriginatingTabClosed = BackgroundMessage<
   { tabId: number }
 >;
 
-export type BackgroundMessages = OriginatingTabClosed;
+type AccountChanged = BackgroundMessage<InternalMethods.AccountChanged, { accountIndex: number }>;
+
+export type BackgroundMessages = OriginatingTabClosed | AccountChanged;
 
 export function sendMessage(message: BackgroundMessages) {
   return chrome.runtime.sendMessage(message);
