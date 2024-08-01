@@ -24,9 +24,9 @@ import { AccountActions } from './components/account-actions';
 import { HomeTabs } from './components/home-tabs';
 
 export function Home() {
+  const { decodedAuthRequest } = useOnboardingState();
   const { isShowingSwitchAccount, setIsShowingSwitchAccount } =
     useOutletContext<SwitchAccountOutletContext>();
-  const { decodedAuthRequest } = useOnboardingState();
   const navigate = useNavigate();
   const account = useCurrentStacksAccount();
   const currentAccountIndex = useCurrentAccountIndex();

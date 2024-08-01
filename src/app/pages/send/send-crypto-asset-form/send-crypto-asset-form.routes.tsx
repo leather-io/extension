@@ -4,7 +4,6 @@ import { Route } from 'react-router-dom';
 import { RouteUrls } from '@shared/route-urls';
 
 import { BroadcastErrorDialog } from '@app/components/broadcast-error-dialog/broadcast-error-dialog';
-import { PageLayout } from '@app/components/layout/layouts/page.layout';
 import { FullPageWithHeaderLoadingSpinner } from '@app/components/loading-spinner';
 import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
@@ -43,7 +42,7 @@ const broadcastErrorDialogRoute = (
 );
 
 export const sendCryptoAssetFormRoutes = (
-  <Route element={<PageLayout />}>
+  <Route>
     <Route
       path={RouteUrls.SendCryptoAsset}
       element={

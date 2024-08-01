@@ -50,7 +50,7 @@ function SetPasswordPage() {
   const finishSignIn = useFinishAuthRequest();
   const navigate = useNavigate();
   const { decodedAuthRequest } = useOnboardingState();
-  debugger;
+
   useEffect(() => {
     void analytics.page('view', '/set-password');
   }, []);

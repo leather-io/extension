@@ -58,6 +58,7 @@ function RpcSignBip322Message() {
 
   return (
     <>
+      <Outlet />
       <PopupHeader showSwitchAccount balance="all" />
       <MessageSigningRequestLayout>
         <MessageSigningHeader
@@ -77,7 +78,6 @@ function RpcSignBip322Message() {
           mb="space.05"
         />
       </MessageSigningRequestLayout>
-      <Outlet />
     </>
   );
 }

@@ -10,7 +10,8 @@ import * as Sentry from '@sentry/react';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { HomeLayout } from '@app/components/layout/layouts/home.layout';
+import { Content } from '@app/components/layout/layouts/content.layout';
+import { SwitchAccountLayout } from '@app/components/layout/layouts/switch-account.layout';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { AddNetwork } from '@app/features/add-network/add-network';
 import { Container } from '@app/features/container/container';
@@ -82,7 +83,9 @@ function useAppRoutes() {
             element={
               <>
                 <MainHeader hideBackButton />
-                <HomeLayout />
+                <Content>
+                  <SwitchAccountLayout />
+                </Content>
               </>
             }
           >
@@ -115,6 +118,7 @@ function useAppRoutes() {
             {ledgerStacksTxSigningRoutes}
           </Route>
           {/* Page Routes */}
+
           <Route
             path={RouteUrls.RetrieveTaprootFunds}
             element={<RetrieveTaprootToNativeSegwit />}
