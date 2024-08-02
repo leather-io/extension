@@ -37,7 +37,7 @@ export function PsbtInputOutputItemLayout({
             label={hasCopied ? 'Copied!' : addressHoverLabel}
             side="bottom"
           >
-            <Box display="flex" height="16px">
+            <Box display="flex">
               <styled.button _hover={{ bg: 'ink.component-background-hover' }} onClick={onCopy}>
                 {addressHoverLabel ? <CopyIcon variant="small" /> : null}
               </styled.button>
