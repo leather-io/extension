@@ -22,7 +22,6 @@ interface NetworkDialogProps {
 export function NetworkDialog({ onClose }: NetworkDialogProps) {
   const navigate = useNavigate();
   const networks = useNetworks();
-
   const networksActions = useNetworksActions();
   const currentNetwork = useCurrentNetworkState();
 
@@ -73,6 +72,14 @@ export function NetworkDialog({ onClose }: NetworkDialogProps) {
           onRemoveNetwork={id => {
             if (id === currentNetwork.id) networksActions.changeNetwork('mainnet');
             removeNetwork(id);
+          }}
+          onEditNetwork={() => {
+            onClose();
+            navigate(RouteUrls.AddNetwork, {
+              state: {
+                network: networks[id],
+              },
+            });
           }}
         />
       ))}

@@ -105,4 +105,8 @@ export class SendPage {
   async clickInfoCardButton() {
     await this.infoCardButton.click();
   }
+
+  async waitForFeeRow() {
+    await this.page.getByTestId(SharedComponentsSelectors.FeeRow).waitFor({ state: 'attached' });
+  }
 }

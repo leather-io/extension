@@ -110,6 +110,10 @@ test.describe('send stx: tests on testnet', () => {
   });
 
   test.describe('send form validation', () => {
+    test.beforeEach(async ({ sendPage }) => {
+      await sendPage.waitForFeeRow();
+    });
+
     test('that the amount must be a number', async ({ sendPage }) => {
       await sendPage.amountInput.fill('aaaaaa');
       await sendPage.amountInput.blur();

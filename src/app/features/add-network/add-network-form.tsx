@@ -39,7 +39,8 @@ const networks: {
 ];
 
 export function AddNetworkForm() {
-  const { handleChange, setFieldValue, values } = useFormikContext<AddNetworkFormValues>();
+  const { handleChange, setFieldValue, values, initialValues } =
+    useFormikContext<AddNetworkFormValues>();
 
   const setStacksUrl = useCallback(
     (value: string) => {
@@ -92,7 +93,7 @@ export function AddNetworkForm() {
       <Title>Bitcoin API</Title>
 
       <Select.Root
-        defaultValue={networks[0].value}
+        defaultValue={initialValues.bitcoinNetwork || networks[0].value}
         onValueChange={value => {
           void setFieldValue('bitcoinNetwork', value);
         }}
