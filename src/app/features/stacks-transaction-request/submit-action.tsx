@@ -9,7 +9,11 @@ import { useTransactionError } from '@app/features/stacks-transaction-request/ho
 
 import { useStacksHighFeeWarningContext } from '../stacks-high-fee-warning/stacks-high-fee-warning-container';
 
-export function StacksTxSubmitAction() {
+interface Props {
+  canSubmit: boolean;
+}
+
+export function StacksTxSubmitAction({ canSubmit }: Props) {
   const { handleSubmit, values, validateForm, isSubmitting } =
     useFormikContext<StacksTransactionFormValues>();
 
@@ -17,7 +21,7 @@ export function StacksTxSubmitAction() {
 
   const error = useTransactionError();
 
-  const isDisabled = !!error || Number(values.fee) < 0;
+  const isDisabled = !!error || Number(values.fee) < 0 || !canSubmit;
 
   async function onConfirmTransaction() {
     const formErrors = await validateForm();

@@ -4,7 +4,7 @@ import { TransactionTypes } from '@stacks/connect';
 import BigNumber from 'bignumber.js';
 import { useFormikContext } from 'formik';
 
-import { useGetContractInterfaceQuery, useStxAvailableUnlockedBalance } from '@leather.io/query';
+import { useGetContractInterfaceQuery, useStxCryptoAssetBalance } from '@leather.io/query';
 import { stxToMicroStx } from '@leather.io/utils';
 
 import { StacksTransactionFormValues } from '@shared/models/form.model';
@@ -27,10 +27,15 @@ export function useTransactionError() {
   const { values } = useFormikContext<StacksTransactionFormValues>();
 
   const currentAccount = useCurrentStacksAccount();
-  const availableUnlockedBalance = useStxAvailableUnlockedBalance(currentAccount?.address ?? '');
+  const { data, isLoading: isLoadingStxBalance } = useStxCryptoAssetBalance(
+    currentAccount?.address ?? ''
+  );
+  const availableUnlockedBalance = data?.unlockedBalance;
 
   return useMemo<TransactionErrorReason | void>(() => {
     if (!origin) return TransactionErrorReason.ExpiredRequest;
+
+    if (isLoadingStxBalance) return;
 
     if (!transactionRequest || !availableUnlockedBalance || !currentAccount) {
       return TransactionErrorReason.Generic;
@@ -63,6 +68,7 @@ export function useTransactionError() {
     }
     return;
   }, [
+    isLoadingStxBalance,
     origin,
     transactionRequest,
     availableUnlockedBalance,
