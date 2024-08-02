@@ -46,7 +46,7 @@ export function PsbtAddressTotalItem({
               label={hasCopied ? 'Copied!' : hoverLabel}
               side="bottom"
             >
-              <Box display="flex" height="16px">
+              <Box display="flex">
                 <Link onClick={onCopy} variant="text">
                   {hoverLabel ? <CopyIcon /> : null}
                 </Link>
