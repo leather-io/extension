@@ -27,6 +27,7 @@ import { analytics } from '@shared/utils/analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useModifierKey } from '@app/common/hooks/use-modifier-key';
 import { useWalletType } from '@app/common/use-wallet-type';
+import { truncateString } from '@app/common/utils';
 import { openInNewTab, openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { AppVersion } from '@app/components/app-version';
 import { Divider } from '@app/components/layout/divider';
@@ -130,7 +131,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
                   <Stack gap="space.00">
                     <styled.span textStyle="label.02">Change network</styled.span>
                     <Caption data-testid={SettingsSelectors.CurrentNetwork}>
-                      {currentNetworkId}
+                      {truncateString(currentNetworkId.toString(), 15)}
                     </Caption>
                   </Stack>
                 </Flag>
