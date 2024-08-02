@@ -6,7 +6,6 @@ import { Box, BoxProps, styled } from 'leather-styles/jsx';
 import { HasChildren } from '@app/common/has-children';
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { truncateString } from '@app/common/utils';
-import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 function AccountNameTitle({ children, ...props }: HasChildren & BoxProps) {
@@ -20,9 +19,7 @@ function AccountNameTitle({ children, ...props }: HasChildren & BoxProps) {
 }
 
 const AccountNameSuspense = memo((props: BoxProps) => {
-  const currentAccount = useCurrentStacksAccount();
   const { data: name = 'Account' } = useCurrentAccountDisplayName();
-  if (!currentAccount || typeof currentAccount.index === 'undefined') return null;
   // FIXME: The name is truncated here with JS but we could just use CSS to do this
   const nameCharLimit = 18;
   const isLong = name.length > nameCharLimit;

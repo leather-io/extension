@@ -33,7 +33,7 @@ function TotalBalanceSuspense({ displayAddresssBalanceOf }: TotalBalanceProps) {
   return (
     <TotalBalanceLayout>
       <HStack alignItems="center" justifyContent="right">
-        {account && displayAddresssBalanceOf === 'stx' && <StxBalance address={account.address} />}
+        {displayAddresssBalanceOf === 'stx' && <StxBalance address={account?.address || ''} />}
         {isBitcoinEnabled && displayAddresssBalanceOf === 'all' && <BtcBalance />}
       </HStack>
     </TotalBalanceLayout>
