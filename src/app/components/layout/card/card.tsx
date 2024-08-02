@@ -11,7 +11,7 @@ interface CardProps {
 
 export function Card({ children, dataTestId, header, footer, ...props }: CardProps & FlexProps) {
   return (
-    <Flex data-testid={dataTestId} direction="column" width="100%" {...props}>
+    <Flex data-testid={dataTestId} direction="column" {...props}>
       {header}
       {children}
       {footer}
