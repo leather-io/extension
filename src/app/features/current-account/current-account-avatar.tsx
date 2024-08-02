@@ -10,7 +10,7 @@ interface CurrentAccountAvatar extends CircleProps {
 export function CurrentAccountAvatar() {
   const stacksAccount = useCurrentStacksAccount();
   const { data: name = 'Account' } = useCurrentAccountDisplayName();
-  if (!stacksAccount) return null;
+  if (!stacksAccount) return <AccountAvatar index={0} name={name} publicKey="" />;
 
   return (
     <AccountAvatar index={stacksAccount.index} name={name} publicKey={stacksAccount.stxPublicKey} />
