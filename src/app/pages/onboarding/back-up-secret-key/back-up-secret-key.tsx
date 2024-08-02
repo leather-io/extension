@@ -28,7 +28,12 @@ export const BackUpSecretKeyPage = memo(() => {
       <Content>
         <TwoColumnLayout
           title="Back up your Secret Key"
-          content="You'll need it to access your wallet on a new device, or this one if you lose your password — so back it up somewhere safe!"
+          content={
+            <>
+              You'll need it to access your wallet on a new device, or this one if you lose your
+              password — so back it up somewhere safe!
+            </>
+          }
           action={
             <Stack gap="space.05" mt="space.04">
               <HStack alignItems="center">
