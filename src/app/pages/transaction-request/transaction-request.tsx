@@ -10,7 +10,7 @@ import { FeeTypes } from '@leather.io/models';
 import {
   useCalculateStacksTxFees,
   useNextNonce,
-  useStxAvailableUnlockedBalance,
+  useStxCryptoAssetBalance,
 } from '@leather.io/query';
 import { Link } from '@leather.io/ui';
 
@@ -51,8 +51,12 @@ function TransactionRequestBase() {
 
   const generateUnsignedTx = useGenerateUnsignedStacksTransaction();
   const stxAddress = useCurrentStacksAccountAddress();
-  const availableUnlockedBalance = useStxAvailableUnlockedBalance(stxAddress);
-  const { data: nextNonce } = useNextNonce(stxAddress);
+  const { data, status: balanceQueryStatus } = useStxCryptoAssetBalance(stxAddress);
+  const availableUnlockedBalance = data?.availableUnlockedBalance;
+
+  const { data: nextNonce, status: nonceQueryStatus } = useNextNonce(stxAddress);
+  const canSubmit = balanceQueryStatus === 'success' && nonceQueryStatus === 'success';
+
   const navigate = useNavigate();
   const { stacksBroadcastTransaction } = useStacksBroadcastTransaction({ token: 'STX' });
 
@@ -108,8 +112,8 @@ function TransactionRequestBase() {
           initialValues={initialValues}
           onSubmit={onSubmit}
           validateOnChange={false}
-          validateOnBlur={false}
           validateOnMount={false}
+          validateOnBlur={false}
           validationSchema={validationSchema}
         >
           {() => (
@@ -133,7 +137,7 @@ function TransactionRequestBase() {
                 Edit nonce
               </Link>
               <MinimalErrorMessage />
-              <StacksTxSubmitAction />
+              <StacksTxSubmitAction canSubmit={canSubmit} />
 
               <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
               <Outlet />
