@@ -131,13 +131,17 @@ export const Debugger = () => {
     sponsored = false
   ) => {
     clearState();
+    const contractAddress = network.isMainnet()
+      ? 'SPY0682ZM7VGPMVGQP99Z05J3QWMVV83RA6N42SA'
+      : 'STS8CKF63P16J28AYF7PXW9E5AACH0NZNRV74CM7';
+
     const args = [
       uintCV(1234),
       intCV(-234),
       bufferCV(Buffer.from('hello, world')),
       stringAsciiCV('hey-ascii'),
       stringUtf8CV('hey-utf8'),
-      standardPrincipalCV('STS8CKF63P16J28AYF7PXW9E5AACH0NZNRV74CM7'),
+      standardPrincipalCV(contractAddress),
       trueCV(),
     ];
     const postConditions = [
@@ -150,7 +154,7 @@ export const Debugger = () => {
     console.log('creating allow mode contract call');
     await doContractCall({
       network,
-      contractAddress: 'STS8CKF63P16J28AYF7PXW9E5AACH0NZNRV74CM7',
+      contractAddress,
       contractName: 'faker',
       functionName: 'rawr',
       functionArgs: args,
