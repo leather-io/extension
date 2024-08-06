@@ -2,12 +2,10 @@ import { bytesToHex } from '@noble/hashes/utils';
 import * as secp from '@noble/secp256k1';
 import StacksApp from '@zondax/ledger-stacks';
 
+import { makeStxDerivationPath } from '@leather.io/stacks';
 import { delay } from '@leather.io/utils';
 
-import {
-  getIdentityDerivationPath,
-  getStxDerivationPath,
-} from '@shared/crypto/stacks/stacks.utils';
+import { getIdentityDerivationPath } from '@shared/crypto/stacks/stacks-address-gen';
 
 import { defaultNumberOfKeysToPullFromLedgerDevice } from '../../generic-flows/request-keys/use-request-ledger-keys';
 import {
@@ -57,7 +55,7 @@ export function pullStacksKeysFromLedgerDevice(stacksApp: StacksApp) {
       if (!dataPublicKeyResp.publicKey) return { status: 'failure', ...dataPublicKeyResp };
 
       publicKeys.push({
-        path: getStxDerivationPath(index),
+        path: makeStxDerivationPath(index),
         stxPublicKey: stxPublicKeyResp.publicKey.toString('hex'),
         // We return a decompressed public key, to match the behaviour of
         // @stacks/wallet-sdk. I'm not sure why we return an uncompressed key
