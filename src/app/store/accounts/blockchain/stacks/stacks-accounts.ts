@@ -13,10 +13,10 @@ import {
 import { deriveStxPrivateKey, generateWallet } from '@stacks/wallet-sdk';
 import { atom } from 'jotai';
 
+import { whenStacksChainId } from '@leather.io/stacks';
 import { createNullArrayOfLength } from '@leather.io/utils';
 
 import { DATA_DERIVATION_PATH, deriveStacksSalt } from '@shared/crypto/stacks/stacks-address-gen';
-import { whenStacksChainId } from '@shared/crypto/stacks/stacks.utils';
 import { defaultWalletKeyId } from '@shared/utils';
 
 import { derivePublicKey } from '@app/common/keychain/keychain';

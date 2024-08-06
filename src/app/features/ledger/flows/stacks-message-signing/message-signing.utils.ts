@@ -8,7 +8,8 @@ import {
   encodeStructuredData,
 } from '@stacks/transactions';
 
-import { stacksChainIdToCoreNetworkMode } from '@shared/crypto/stacks/stacks.utils';
+import { stacksChainIdToCoreNetworkMode } from '@leather.io/stacks';
+
 import { UnsignedMessageStructured } from '@shared/signature/signature-types';
 
 import { capitalize } from '@app/common/utils';
