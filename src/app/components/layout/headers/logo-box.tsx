@@ -14,7 +14,6 @@ export function LogoBox({ isSessionLocked }: { isSessionLocked?: boolean | undef
       height="headerContainerHeight"
       margin="auto"
       px="space.02"
-      hideBelow={isSessionLocked ? undefined : 'sm'}
       hideFrom={isSessionLocked ? 'sm' : undefined}
     >
       <Logo
