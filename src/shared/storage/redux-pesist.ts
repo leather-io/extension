@@ -1,7 +1,8 @@
 import { PersistConfig, createMigrate, getStoredState } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
-import { getStxDerivationPath } from '@shared/crypto/stacks/stacks.utils';
+import { makeStxDerivationPath } from '@leather.io/stacks';
+
 import { defaultWalletKeyId } from '@shared/utils';
 
 import type { RootState } from '@app/store';
@@ -103,7 +104,7 @@ async function migrateToUsingNoSerialization() {
 function processStacksLedgerKeys(stacksKeys: any) {
   const newStacksKeys = stacksKeys.entities.default.publicKeys.reduce(
     (acc: { ids: string[]; entities: Record<string, any> }, item: any, index: number) => {
-      const path = getStxDerivationPath(index);
+      const path = makeStxDerivationPath(index);
       const id = path.replace('m', defaultWalletKeyId);
 
       acc.ids.push(id);

@@ -3,7 +3,7 @@ import { bytesToHex } from '@stacks/common';
 import StacksApp from '@zondax/ledger-stacks';
 import ecdsaFormat from 'ecdsa-sig-formatter';
 
-import { getIdentityDerivationPath } from '@shared/crypto/stacks/stacks.utils';
+import { getIdentityDerivationPath } from '@shared/crypto/stacks/stacks-address-gen';
 
 function reformatDerSignatureToJose(derSignature: Uint8Array) {
   // Stacks authentication uses `ES256k`, however `ecdsa-sig-formatter` doesn't
