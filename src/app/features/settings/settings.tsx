@@ -24,6 +24,7 @@ import {
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
 
+import { useHasKeys } from '@app/common/hooks/auth/use-has-keys';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useModifierKey } from '@app/common/hooks/use-modifier-key';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -34,8 +35,7 @@ import { Divider } from '@app/components/layout/divider';
 import { NetworkDialog } from '@app/features/settings/network/network';
 import { SignOut } from '@app/features/settings/sign-out/sign-out-confirm';
 import { ThemeDialog } from '@app/features/settings/theme/theme-dialog';
-import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useHasLedgerKeys, useLedgerDeviceTargetId } from '@app/store/ledger/ledger.selectors';
+import { useLedgerDeviceTargetId } from '@app/store/ledger/ledger.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
 
 import { openFeedbackDialog } from '../feedback-button/feedback-button';
@@ -51,7 +51,9 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
   const [showSignOut, setShowSignOut] = useState(false);
   const [showChangeTheme, setShowChangeTheme] = useState(false);
   const [showChangeNetwork, setShowChangeNetwork] = useState(false);
-  const hasGeneratedWallet = !!useCurrentStacksAccount();
+
+  const { hasKeys, hasLedgerKeys } = useHasKeys();
+
   const { lockWallet } = useKeyActions();
 
   const currentNetworkId = useCurrentNetworkId();
@@ -62,7 +64,6 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
 
   const location = useLocation();
 
-  const isLedger = useHasLedgerKeys();
   const { isPressed: showAdvancedMenuOptions } = useModifierKey('alt', 120);
 
   return (
@@ -81,12 +82,12 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
             })}
           >
             <DropdownMenu.Group>
-              {isLedger && targetId && (
+              {hasLedgerKeys && targetId && (
                 <DropdownMenu.Item>
                   <LedgerDeviceItemRow deviceType={extractDeviceNameFromKnownTargetIds(targetId)} />
                 </DropdownMenu.Item>
               )}
-              {hasGeneratedWallet && (
+              {hasKeys && (
                 <DropdownMenu.Item
                   data-testid={SettingsSelectors.SwitchAccountTrigger}
                   onSelect={toggleSwitchAccount}
@@ -96,7 +97,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
                   </Flag>
                 </DropdownMenu.Item>
               )}
-              {hasGeneratedWallet && walletType === 'software' && (
+              {hasKeys && walletType === 'software' && (
                 <DropdownMenu.Item
                   data-testid={SettingsSelectors.ViewSecretKeyListItem}
                   onSelect={() => navigate(RouteUrls.ViewSecretKey)}
@@ -176,7 +177,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
             <Divider />
             <DropdownMenu.Group>
               {showAdvancedMenuOptions && <AdvancedMenuItems />}
-              {hasGeneratedWallet && walletType === 'software' && (
+              {hasKeys && walletType === 'software' && (
                 <DropdownMenu.Item
                   onSelect={() => {
                     void analytics.track('lock_session');
@@ -191,14 +192,16 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
                 </DropdownMenu.Item>
               )}
 
-              <DropdownMenu.Item
-                onSelect={() => setShowSignOut(!showSignOut)}
-                data-testid={SettingsSelectors.SignOutListItem}
-              >
-                <Flag color="red.action-primary-default" img={<ExitIcon />} textStyle="label.02">
-                  Sign out
-                </Flag>
-              </DropdownMenu.Item>
+              {hasKeys && (
+                <DropdownMenu.Item
+                  onSelect={() => setShowSignOut(!showSignOut)}
+                  data-testid={SettingsSelectors.SignOutListItem}
+                >
+                  <Flag color="red.action-primary-default" img={<ExitIcon />} textStyle="label.02">
+                    Sign out
+                  </Flag>
+                </DropdownMenu.Item>
+              )}
             </DropdownMenu.Group>
             <AppVersion />
           </DropdownMenu.Content>
