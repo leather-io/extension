@@ -1,7 +1,7 @@
 import { ChainID } from '@stacks/transactions';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { stacksChainIdToCoreNetworkMode } from '@shared/crypto/stacks/stacks.utils';
+import { stacksChainIdToCoreNetworkMode } from '@leather.io/stacks';
 
 import { capitalize } from '@app/common/utils';
 

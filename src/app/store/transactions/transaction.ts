@@ -1,7 +1,7 @@
 import { ChainID, TransactionVersion } from '@stacks/transactions';
 import { atom } from 'jotai';
 
-import { whenStacksChainId } from '@shared/crypto/stacks/stacks.utils';
+import { whenStacksChainId } from '@leather.io/stacks';
 
 import { currentNetworkAtom } from '@app/store/networks/networks';
 

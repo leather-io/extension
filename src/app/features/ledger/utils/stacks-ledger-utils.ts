@@ -8,7 +8,7 @@ import {
 import StacksApp, { LedgerError, ResponseSign, ResponseVersion } from '@zondax/ledger-stacks';
 import { compare } from 'compare-versions';
 
-import { getStxDerivationPath, stxDerivationWithAccount } from '@shared/crypto/stacks/stacks.utils';
+import { makeStxDerivationPath, stxDerivationWithAccount } from '@leather.io/stacks';
 
 import {
   LEDGER_APPS_MAP,
@@ -22,7 +22,7 @@ import {
 export function requestPublicKeyForStxAccount(app: StacksApp) {
   return async (index: number) =>
     app.getAddressAndPubKey(
-      getStxDerivationPath(index),
+      makeStxDerivationPath(index),
       // We pass mainnet as it expects something, however this is so it can return a formatted address
       // We only need the public key, and can derive the address later in any network format
       AddressVersion.MainnetSingleSig
@@ -66,12 +66,12 @@ export function signLedgerStacksTransaction(app: StacksApp) {
 
 export function signLedgerStacksUtf8Message(app: StacksApp) {
   return async (payload: string, accountIndex: number): Promise<ResponseSign> =>
-    app.sign_msg(getStxDerivationPath(accountIndex), payload);
+    app.sign_msg(makeStxDerivationPath(accountIndex), payload);
 }
 
 export function signLedgerStacksStructuredMessage(app: StacksApp) {
   return async (domain: string, payload: string, accountIndex: number): Promise<ResponseSign> =>
-    app.sign_structured_msg(getStxDerivationPath(accountIndex), domain, payload);
+    app.sign_structured_msg(makeStxDerivationPath(accountIndex), domain, payload);
 }
 
 export function signStacksTransactionWithSignature(transaction: string, signatureVRS: Buffer) {
