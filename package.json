@@ -136,7 +136,7 @@
     "@hirosystems/token-metadata-api-client": "1.2.0",
     "@leather.io/bitcoin": "0.10.0",
     "@leather.io/constants": "0.8.2",
-    "@leather.io/crypto": "1.1.0",
+    "@leather.io/crypto": "1.2.0",
     "@leather.io/models": "0.11.0",
     "@leather.io/query": "2.4.0",
     "@leather.io/tokens": "0.7.0",
