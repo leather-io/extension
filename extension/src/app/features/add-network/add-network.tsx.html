@@ -126,7 +126,16 @@
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -146,7 +155,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -196,8 +214,8 @@ import { Stack, styled } from 'leather-styles/jsx';
 import { Button } from '@leather.io/ui';
 &nbsp;
 import { ErrorLabel } from '@app/components/error-label';
-import { Card } from '@app/ui/layout/card/card';
-import { Page } from '@app/ui/layout/page/page.layout';
+import { Card, Content, Page } from '@app/components/layout';
+import { PageHeader } from '@app/features/container/headers/page.header';
 &nbsp;
 import { AddNetworkForm } from './add-network-form';
 import { useAddNetwork } from './use-add-network';
@@ -206,50 +224,59 @@ export function <span class="fstat-no" title="function not covered" >AddNetwork(
   const { error, initialFormValues, loading, onSubmit } = <span class="cstat-no" title="statement not covered" >useAddNetwork();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Page&gt;
-      &lt;Formik initialValues={initialFormValues} onSubmit={onSubmit}&gt;
-        {<span class="fstat-no" title="function not covered" >() =&gt; (</span>
-<span class="cstat-no" title="statement not covered" >          &lt;Card&gt;</span>
-            &lt;Form data-testid={NetworkSelectors.NetworkPageReady}&gt;
-              &lt;Stack
-                gap="space.05"
-                maxWidth="pageWidth"
-                px={['space.05', 'space.04']}
-                textAlign={['left', 'center']}
-                my="space.05"
-              &gt;
-                &lt;styled.span textStyle="body.02"&gt;
-                  Use this form to add a new instance of the{' '}
-                  &lt;a
-                    href="https://github.com/blockstack/stacks-blockchain-api"
-                    target="_blank"
-                    rel="noreferrer"
+    &lt;&gt;
+      &lt;PageHeader title="Add Network" /&gt;
+      &lt;Content&gt;
+        &lt;Page&gt;
+          &lt;Formik initialValues={initialFormValues} onSubmit={onSubmit}&gt;
+            {<span class="fstat-no" title="function not covered" >() =&gt; (</span>
+<span class="cstat-no" title="statement not covered" >              &lt;Card&gt;</span>
+                &lt;Form data-testid={NetworkSelectors.NetworkPageReady}&gt;
+                  &lt;Stack
+                    gap="space.05"
+                    maxWidth="pageWidth"
+                    px={['space.05', 'space.04']}
+                    textAlign={['left', 'center']}
+                    my="space.05"
                   &gt;
-                    Stacks Blockchain API
-                  &lt;/a&gt;{' '}
-                  or{' '}
-                  &lt;a href="https://github.com/Blockstream/esplora" target="_blank" rel="noreferrer"&gt;
-                    Bitcoin Blockchain API
-                  &lt;/a&gt;
-                  . Make sure you review and trust the host before you add it.
-                &lt;/styled.span&gt;
-                &lt;AddNetworkForm /&gt;
-                {error ? (
-                  &lt;ErrorLabel data-testid={NetworkSelectors.ErrorText}&gt;{error}&lt;/ErrorLabel&gt;
-                ) : null}
-                &lt;Button
-                  aria-busy={loading}
-                  data-testid={NetworkSelectors.AddNetworkBtn}
-                  type="submit"
-                &gt;
-                  Add network
-                &lt;/Button&gt;
-              &lt;/Stack&gt;
-            &lt;/Form&gt;
-          &lt;/Card&gt;
-        )}
-      &lt;/Formik&gt;
-    &lt;/Page&gt;
+                    &lt;styled.span textStyle="body.02"&gt;
+                      Use this form to add a new instance of the{' '}
+                      &lt;a
+                        href="https://github.com/blockstack/stacks-blockchain-api"
+                        target="_blank"
+                        rel="noreferrer"
+                      &gt;
+                        Stacks Blockchain API
+                      &lt;/a&gt;{' '}
+                      or{' '}
+                      &lt;a
+                        href="https://github.com/Blockstream/esplora"
+                        target="_blank"
+                        rel="noreferrer"
+                      &gt;
+                        Bitcoin Blockchain API
+                      &lt;/a&gt;
+                      . Make sure you review and trust the host before you add it.
+                    &lt;/styled.span&gt;
+                    &lt;AddNetworkForm /&gt;
+                    {error ? (
+                      &lt;ErrorLabel data-testid={NetworkSelectors.ErrorText}&gt;{error}&lt;/ErrorLabel&gt;
+                    ) : null}
+                    &lt;Button
+                      aria-busy={loading}
+                      data-testid={NetworkSelectors.AddNetworkBtn}
+                      type="submit"
+                    &gt;
+                      Add network
+                    &lt;/Button&gt;
+                  &lt;/Stack&gt;
+                &lt;/Form&gt;
+              &lt;/Card&gt;
+            )}
+          &lt;/Formik&gt;
+        &lt;/Page&gt;
+      &lt;/Content&gt;
+    &lt;/&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -259,7 +286,7 @@ export function <span class="fstat-no" title="function not covered" >AddNetwork(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-29T13:14:23.802Z
+                at 2024-08-08T15:33:37.374Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

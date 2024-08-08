@@ -109,26 +109,13 @@
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -139,6 +126,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -160,8 +172,9 @@
 import { Link } from '@leather.io/ui';
 import { createNullArrayOfLength } from '@leather.io/utils';
 &nbsp;
+import { Content, TwoColumnLayout } from '@app/components/layout';
+import { MainHeader } from '@app/features/container/headers/main.header';
 import { MnemonicForm } from '@app/pages/onboarding/sign-in/mnemonic-form';
-import { TwoColumnLayout } from '@app/ui/pages/two-column.layout';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >SignIn() {</span>
   const [twentyFourWordMode, setTwentyFourWordMode] = <span class="cstat-no" title="statement not covered" >useState(true);</span>
@@ -175,30 +188,35 @@ export function <span class="fstat-no" title="function not covered" >SignIn() {<
   }, [twentyFourWordMode]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;TwoColumnLayout
-      title={
-        &lt;&gt;
-          Sign in &lt;br /&gt; with your &lt;br /&gt; Secret Key
-        &lt;/&gt;
-      }
-      content={&lt;&gt;Speed things up by pasting your entire Secret Key in one go.&lt;/&gt;}
-      action={
-        &lt;Link
-          onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etTwentyFourWordMode(!twentyFourWordMode)}</span>
-          textStyle="label.03"
-          width="fit-content"
-          variant="text"
+    &lt;&gt;
+      &lt;MainHeader /&gt;
+      &lt;Content&gt;
+        &lt;TwoColumnLayout
+          title={
+            &lt;&gt;
+              Sign in &lt;br /&gt; with your &lt;br /&gt; Secret Key
+            &lt;/&gt;
+          }
+          content="Speed things up by pasting your entire Secret Key in one go."
+          action={
+            &lt;Link
+              onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etTwentyFourWordMode(!twentyFourWordMode)}</span>
+              textStyle="label.03"
+              width="fit-content"
+              variant="text"
+            &gt;
+              {twentyFourWordMode ? 'Have a 12-word Secret Key?' : 'Use 24 word Secret Key'}
+            &lt;/Link&gt;
+          }
         &gt;
-          {twentyFourWordMode ? 'Have a 12-word Secret Key?' : 'Use 24 word Secret Key'}
-        &lt;/Link&gt;
-      }
-    &gt;
-      &lt;MnemonicForm
-        mnemonic={mnemonic}
-        setMnemonic={setMnemonic}
-        twentyFourWordMode={twentyFourWordMode}
-      /&gt;
-    &lt;/TwoColumnLayout&gt;
+          &lt;MnemonicForm
+            mnemonic={mnemonic}
+            setMnemonic={setMnemonic}
+            twentyFourWordMode={twentyFourWordMode}
+          /&gt;
+        &lt;/TwoColumnLayout&gt;
+      &lt;/Content&gt;
+    &lt;/&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -208,7 +226,7 @@ export function <span class="fstat-no" title="function not covered" >SignIn() {<
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-29T13:14:23.802Z
+                at 2024-08-08T15:33:37.374Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

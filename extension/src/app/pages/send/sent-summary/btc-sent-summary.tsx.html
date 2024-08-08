@@ -153,8 +153,17 @@
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
 <a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -210,6 +219,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -260,10 +280,9 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
+import { Card, CardContent, Content, Footer, Page } from '@app/components/layout';
+import { PageHeader } from '@app/features/container/headers/page.header';
 import { useToast } from '@app/features/toasts/use-toast';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Card } from '@app/ui/layout/card/card';
-import { CardContent } from '@app/ui/layout/card/card-content';
 &nbsp;
 import { TxDone } from '../send-crypto-asset-form/components/tx-done';
 &nbsp;
@@ -300,37 +319,48 @@ export function <span class="fstat-no" title="function not covered" >BtcSentSumm
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Card
-      footer={
-        &lt;Footer variant="card"&gt;
-          &lt;HStack gap="space.04" width="100%"&gt;
-            &lt;InfoCardBtn icon={&lt;ExternalLinkIcon /&gt;} label="View details" onClick={onClickLink} /&gt;
-            &lt;InfoCardBtn icon={&lt;CopyIcon /&gt;} label="Copy ID" onClick={onClickCopy} /&gt;
-          &lt;/HStack&gt;
-        &lt;/Footer&gt;
-      }
-    &gt;
-      &lt;CardContent p="space.00"&gt;
-        &lt;TxDone /&gt;
-        &lt;InfoCardAssetValue
-          fiatSymbol={txFiatValueSymbol}
-          fiatValue={txFiatValue}
-          px="space.05"
-          symbol={symbol}
-          value={txValue}
-        /&gt;
+    &lt;&gt;
+      &lt;PageHeader title="Sent" isSummaryPage /&gt;
+      &lt;Content&gt;
+        &lt;Page&gt;
+          &lt;Card
+            footer={
+              &lt;Footer variant="card"&gt;
+                &lt;HStack gap="space.04" width="100%"&gt;
+                  &lt;InfoCardBtn
+                    icon={&lt;ExternalLinkIcon /&gt;}
+                    label="View details"
+                    onClick={onClickLink}
+                  /&gt;
+                  &lt;InfoCardBtn icon={&lt;CopyIcon /&gt;} label="Copy ID" onClick={onClickCopy} /&gt;
+                &lt;/HStack&gt;
+              &lt;/Footer&gt;
+            }
+          &gt;
+            &lt;CardContent p="space.00"&gt;
+              &lt;TxDone /&gt;
+              &lt;InfoCardAssetValue
+                fiatSymbol={txFiatValueSymbol}
+                fiatValue={txFiatValue}
+                px="space.05"
+                symbol={symbol}
+                value={txValue}
+              /&gt;
 &nbsp;
-        &lt;Stack pb="space.06" px="space.06" width="100%"&gt;
-          &lt;InfoCardRow title="To" value={&lt;FormAddressDisplayer address={recipient} /&gt;} /&gt;
-          &lt;InfoCardSeparator /&gt;
-          &lt;InfoCardRow title="Total spend" value={totalSpend} /&gt;
+              &lt;Stack pb="space.06" px="space.06" width="100%"&gt;
+                &lt;InfoCardRow title="To" value={&lt;FormAddressDisplayer address={recipient} /&gt;} /&gt;
+                &lt;InfoCardSeparator /&gt;
+                &lt;InfoCardRow title="Total spend" value={totalSpend} /&gt;
 &nbsp;
-          &lt;InfoCardRow title="Sending" value={sendingValue} /&gt;
-          &lt;InfoCardRow title="Fee" value={feeRowValue} /&gt;
-          {arrivesIn &amp;&amp; &lt;InfoCardRow title="Arrives in" value={arrivesIn} /&gt;}
-        &lt;/Stack&gt;
-      &lt;/CardContent&gt;
-    &lt;/Card&gt;
+                &lt;InfoCardRow title="Sending" value={sendingValue} /&gt;
+                &lt;InfoCardRow title="Fee" value={feeRowValue} /&gt;
+                {arrivesIn &amp;&amp; &lt;InfoCardRow title="Arrives in" value={arrivesIn} /&gt;}
+              &lt;/Stack&gt;
+            &lt;/CardContent&gt;
+          &lt;/Card&gt;
+        &lt;/Page&gt;
+      &lt;/Content&gt;
+    &lt;/&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -340,7 +370,7 @@ export function <span class="fstat-no" title="function not covered" >BtcSentSumm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-29T13:14:23.802Z
+                at 2024-08-08T15:33:37.374Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

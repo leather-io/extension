@@ -171,11 +171,7 @@
 <a name='L106'></a><a href='#L106'>106</a>
 <a name='L107'></a><a href='#L107'>107</a>
 <a name='L108'></a><a href='#L108'>108</a>
-<a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L109'></a><a href='#L109'>109</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -234,17 +230,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -255,6 +242,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -266,6 +263,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -297,13 +295,10 @@ import { StacksSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 import { FeesRow } from '@app/components/fees-row/fees-row';
+import { AvailableBalance, Card, CardContent, Footer, Page } from '@app/components/layout';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { HighFeeDialog } from '@app/features/stacks-high-fee-warning/stacks-high-fee-dialog';
-import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Card } from '@app/ui/layout/card/card';
-import { CardContent } from '@app/ui/layout/card/card-content';
 &nbsp;
 import { MemoField } from '../../components/memo-field';
 import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field';
@@ -335,59 +330,61 @@ export function <span class="fstat-no" title="function not covered" >StacksCommo
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
   const { onFormStateChange } = <span class="cstat-no" title="statement not covered" >useUpdatePersistedSendFormValues();</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Box width="100%" pb="space.04"&gt;
-      &lt;Formik
-        initialValues={initialValues}
-        onSubmit={onSubmit}
-        validationSchema={validationSchema}
-        {...defaultSendFormFormikProps}
-      &gt;
-        {<span class="fstat-no" title="function not covered" >props =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >          onFormStateChange(props.values);</span>
-<span class="cstat-no" title="statement not covered" >          return (</span>
-            &lt;&gt;
-              &lt;NonceSetter /&gt;
-              &lt;Form&gt;
-                &lt;Card
-                  footer={
-                    &lt;Footer variant="card"&gt;
-                      &lt;Button
-                        aria-busy={props.isValidating}
-                        data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
-                        onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >p</span>rops.handleSubmit()}</span>
-                        type="submit"
+    &lt;Page&gt;
+      &lt;Box width="100%" pb="space.04"&gt;
+        &lt;Formik
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          validationSchema={validationSchema}
+          {...defaultSendFormFormikProps}
+        &gt;
+          {<span class="fstat-no" title="function not covered" >props =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            onFormStateChange(props.values);</span>
+<span class="cstat-no" title="statement not covered" >            return (</span>
+              &lt;&gt;
+                &lt;NonceSetter /&gt;
+                &lt;Form&gt;
+                  &lt;Card
+                    footer={
+                      &lt;Footer variant="card"&gt;
+                        &lt;Button
+                          aria-busy={props.isValidating}
+                          data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
+                          onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >p</span>rops.handleSubmit()}</span>
+                          type="submit"
+                        &gt;
+                          Continue
+                        &lt;/Button&gt;
+                        &lt;AvailableBalance balance={formatMoney(availableTokenBalance)} /&gt;
+                      &lt;/Footer&gt;
+                    }
+                  &gt;
+                    &lt;CardContent dataTestId={SendCryptoAssetSelectors.SendForm}&gt;
+                      {amountField}
+                      {selectedAssetField}
+                      &lt;StacksRecipientField /&gt;
+                      &lt;MemoField /&gt;
+                      &lt;Box mt="space.04" width="100%"&gt;
+                        &lt;FeesRow fees={fees} isSponsored={false} /&gt;
+                      &lt;/Box&gt;
+                      &lt;Link
+                        alignSelf="flex-end"
+                        mt="space.04"
+                        onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.EditNonce)}</span>
                       &gt;
-                        Continue
-                      &lt;/Button&gt;
-                      &lt;AvailableBalance balance={formatMoney(availableTokenBalance)} /&gt;
-                    &lt;/Footer&gt;
-                  }
-                &gt;
-                  &lt;CardContent dataTestId={SendCryptoAssetSelectors.SendForm}&gt;
-                    {amountField}
-                    {selectedAssetField}
-                    &lt;StacksRecipientField /&gt;
-                    &lt;MemoField /&gt;
-                    &lt;Box mt="space.04" width="100%"&gt;
-                      &lt;FeesRow fees={fees} isSponsored={false} /&gt;
-                    &lt;/Box&gt;
-                    &lt;Link
-                      alignSelf="flex-end"
-                      mt="space.04"
-                      onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.EditNonce)}</span>
-                    &gt;
-                      Edit nonce
-                    &lt;/Link&gt;
-                  &lt;/CardContent&gt;
-                &lt;/Card&gt;
-                &lt;HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} /&gt;
-                &lt;Outlet /&gt;
-              &lt;/Form&gt;
-            &lt;/&gt;
-          );
-        }}
-      &lt;/Formik&gt;
-    &lt;/Box&gt;
+                        Edit nonce
+                      &lt;/Link&gt;
+                    &lt;/CardContent&gt;
+                  &lt;/Card&gt;
+                  &lt;HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} /&gt;
+                  &lt;Outlet /&gt;
+                &lt;/Form&gt;
+              &lt;/&gt;
+            );
+          }}
+        &lt;/Formik&gt;
+      &lt;/Box&gt;
+    &lt;/Page&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -397,7 +394,7 @@ export function <span class="fstat-no" title="function not covered" >StacksCommo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-29T13:14:23.802Z
+                at 2024-08-08T15:33:37.374Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>
