@@ -11,3 +11,6 @@ updates:
       interval: 'daily'
     allow:
       - dependency-name: '@leather.io/*'
+    groups:
+      leather:
+        patterns: *
