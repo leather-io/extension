@@ -1,3 +1,38 @@
+## [6.45.0](https://github.com/leather-io/extension/compare/v6.44.2...v6.45.0) (2024-08-08)
+
+
+### Features
+
+* add handle network item menu, closes [#5124](https://github.com/leather-io/extension/issues/5124) ([7a778a1](https://github.com/leather-io/extension/commit/7a778a1aa3155a5be47f167726cacd587f6a3c79))
+* **analytics:** background analytics event ([967f7b1](https://github.com/leather-io/extension/commit/967f7b1e0e2c3744fadd6a47983ad8d695585e91))
+* implement mempool api, closes leather-io/issues[#215](https://github.com/leather-io/extension/issues/215) ([0608cb8](https://github.com/leather-io/extension/commit/0608cb82b728acc814849caacb2ae30d6eddfdf2))
+
+
+### Bug Fixes
+
+* account change in open frames ([ac21ff8](https://github.com/leather-io/extension/commit/ac21ff8d6183284abb38ea4b2fc5693bde262ec2))
+* default to first account as useCurrentStacksAccount returns undefined, ref [#5683](https://github.com/leather-io/extension/issues/5683) ([d67d238](https://github.com/leather-io/extension/commit/d67d2388ceaa6f3bb2c1cfa64a8d2f0609c069c6))
+* disable stx transfer if form is not valid ([8c9dc16](https://github.com/leather-io/extension/commit/8c9dc16c491f5b32765557d547fdda1e4f0749ca))
+* empty logo in popup mode ([10af7db](https://github.com/leather-io/extension/commit/10af7db287374daced7a5d58344077b6d7093eea))
+* fix visual bug on hover of PSBT copy, ref [#4972](https://github.com/leather-io/extension/issues/4972) ([64d2fb6](https://github.com/leather-io/extension/commit/64d2fb68950c18062ee6906703fccd30c9f066f9))
+* logo box show ([0cf3dae](https://github.com/leather-io/extension/commit/0cf3dae876595739c906d1fa39b8db81fff47ed2))
+* mainnet faker contract address ([17d71a8](https://github.com/leather-io/extension/commit/17d71a80134deceb5e5d30ce8ff84e027fd807df))
+* remove sign out if there are no keys ([051b1b5](https://github.com/leather-io/extension/commit/051b1b546fab11305dc3b4433628212ea6cd8b9d))
+
+
+### Internal
+
+* force resolution of fast-xml-parser ([bbded02](https://github.com/leather-io/extension/commit/bbded0279fa9da87c76180ba264890cc06cdb8c8))
+* import DialogHeader from monorepo ([1878330](https://github.com/leather-io/extension/commit/187833081ccbbccb76839a28b214ee8ddc33dba4))
+* post-release merge back ([8a77da4](https://github.com/leather-io/extension/commit/8a77da45c08268bdefbeb6eb54e46299b85cd2c1))
+* readd fragments to help escape single quote ([8ac4349](https://github.com/leather-io/extension/commit/8ac4349a1e051569baef9990c49f428c73cec37e))
+* refactor containers to make them more composable, ref [#4370](https://github.com/leather-io/extension/issues/4370) ([231842f](https://github.com/leather-io/extension/commit/231842f59a60b8d5e7ca447ff0bf8cd7cc7ebd31))
+* refactor switch-account to use shared context ([10254d9](https://github.com/leather-io/extension/commit/10254d931070536f4251d5dbe17de4d2dec3742f))
+* refactor TwoColumn to remove unneeded fragments ([b5b7988](https://github.com/leather-io/extension/commit/b5b7988fd6332f316cad1d87784a1b3519bd7f5e))
+* update org name ([da5cc05](https://github.com/leather-io/extension/commit/da5cc05b1e2be631282ca3f29dc5527f26dc0214))
+* update react-virtuoso package ([c874c00](https://github.com/leather-io/extension/commit/c874c00e80d71f25730230502eb12a3370846e12))
+* update ui and query packages ([5e2547c](https://github.com/leather-io/extension/commit/5e2547c7b15f5fd78dd000b59871fade2babd36b))
+
 ## [6.44.2](https://github.com/leather-io/extension/compare/v6.44.1...v6.44.2) (2024-07-29)
 
 
