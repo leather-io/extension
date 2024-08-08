@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { Outlet, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -11,7 +11,6 @@ import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-t
 import { StacksHighFeeWarningContainer } from '@app/features/stacks-high-fee-warning/stacks-high-fee-warning-container';
 import { SendBtcDisabled } from '@app/pages/send/choose-crypto-asset/send-btc-disabled';
 import { AccountGate } from '@app/routes/account-gate';
-import { Page } from '@app/ui/layout/page/page.layout';
 
 import { BroadcastError } from '../broadcast-error/broadcast-error';
 import { ChooseCryptoAsset } from '../choose-crypto-asset/choose-crypto-asset';
@@ -43,13 +42,7 @@ const broadcastErrorDialogRoute = (
 );
 
 export const sendCryptoAssetFormRoutes = (
-  <Route
-    element={
-      <Page>
-        <Outlet />
-      </Page>
-    }
-  >
+  <Route>
     <Route
       path={RouteUrls.SendCryptoAsset}
       element={
@@ -60,6 +53,7 @@ export const sendCryptoAssetFormRoutes = (
         </AccountGate>
       }
     />
+
     <Route element={<SendBitcoinAssetContainer />}>
       <Route
         path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'btc')}

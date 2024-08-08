@@ -1,8 +1,6 @@
-import { Dialog } from '@leather.io/ui';
+import { Dialog, DialogHeader } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
-
-import { Header } from '@app/ui/components/containers/headers/header';
 
 import { useSwapNavigate } from '../../hooks/use-swap-navigate';
 import { useSwapContext } from '../../swap.context';
@@ -17,14 +15,14 @@ export function SwapAssetDialogQuote() {
       isShowing
       onClose={() => navigate(RouteUrls.Swap)}
       header={
-        <Header
+        <DialogHeader
           title={
             <>
               Choose asset <br /> to receive
             </>
           }
-          variant="bigTitle"
-          onGoBack={() => navigate(RouteUrls.Swap)}
+          variant="large"
+          onClose={() => navigate(RouteUrls.Swap)}
         />
       }
     >

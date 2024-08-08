@@ -10,7 +10,7 @@ import { FeeTypes } from '@leather.io/models';
 import {
   useCalculateStacksTxFees,
   useNextNonce,
-  useStxAvailableUnlockedBalance,
+  useStxCryptoAssetBalance,
 } from '@leather.io/query';
 import { Link } from '@leather.io/ui';
 
@@ -23,6 +23,7 @@ import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { NonceSetter } from '@app/components/nonce-setter';
+import { PopupHeader } from '@app/features/container/headers/popup.header';
 import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
 import { HighFeeDialog } from '@app/features/stacks-high-fee-warning/stacks-high-fee-dialog';
 import { ContractCallDetails } from '@app/features/stacks-transaction-request/contract-call-details/contract-call-details';
@@ -50,8 +51,12 @@ function TransactionRequestBase() {
 
   const generateUnsignedTx = useGenerateUnsignedStacksTransaction();
   const stxAddress = useCurrentStacksAccountAddress();
-  const availableUnlockedBalance = useStxAvailableUnlockedBalance(stxAddress);
-  const { data: nextNonce } = useNextNonce(stxAddress);
+  const { data, status: balanceQueryStatus } = useStxCryptoAssetBalance(stxAddress);
+  const availableUnlockedBalance = data?.availableUnlockedBalance;
+
+  const { data: nextNonce, status: nonceQueryStatus } = useNextNonce(stxAddress);
+  const canSubmit = balanceQueryStatus === 'success' && nonceQueryStatus === 'success';
+
   const navigate = useNavigate();
   const { stacksBroadcastTransaction } = useStacksBroadcastTransaction({ token: 'STX' });
 
@@ -94,46 +99,53 @@ function TransactionRequestBase() {
   };
 
   return (
-    <Flex
-      alignItems="center"
-      background="ink.background-primary"
-      flexDirection="column"
-      p="space.05"
-      width="100%"
-    >
-      <Formik
-        initialValues={initialValues}
-        onSubmit={onSubmit}
-        validateOnChange={false}
-        validateOnBlur={false}
-        validateOnMount={false}
-        validationSchema={validationSchema}
+    <>
+      <PopupHeader showSwitchAccount balance="stx" />
+      <Flex
+        alignItems="center"
+        background="ink.background-primary"
+        flexDirection="column"
+        p="space.05"
+        width="100%"
       >
-        {() => (
-          <>
-            <PageTop />
-            <RequestingTabClosedWarningMessage />
-            <PostConditionModeWarning />
-            <TransactionError />
-            <PostConditions />
-            {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}
-            {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
-            {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
+        <Formik
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          validateOnChange={false}
+          validateOnMount={false}
+          validateOnBlur={false}
+          validationSchema={validationSchema}
+        >
+          {() => (
+            <>
+              <PageTop />
+              <RequestingTabClosedWarningMessage />
+              <PostConditionModeWarning />
+              <TransactionError />
+              <PostConditions />
+              {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}
+              {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
+              {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
 
-            <NonceSetter />
-            <FeeForm fees={stxFees} />
-            <Link alignSelf="flex-end" my="space.04" onClick={() => navigate(RouteUrls.EditNonce)}>
-              Edit nonce
-            </Link>
-            <MinimalErrorMessage />
-            <StacksTxSubmitAction />
+              <NonceSetter />
+              <FeeForm fees={stxFees} />
+              <Link
+                alignSelf="flex-end"
+                my="space.04"
+                onClick={() => navigate(RouteUrls.EditNonce)}
+              >
+                Edit nonce
+              </Link>
+              <MinimalErrorMessage />
+              <StacksTxSubmitAction canSubmit={canSubmit} />
 
-            <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
-            <Outlet />
-          </>
-        )}
-      </Formik>
-    </Flex>
+              <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
+              <Outlet />
+            </>
+          )}
+        </Formik>
+      </Flex>
+    </>
   );
 }
 

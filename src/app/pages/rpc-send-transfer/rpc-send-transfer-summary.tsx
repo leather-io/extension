@@ -17,8 +17,8 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
+import { Card } from '@app/components/layout';
 import { useToast } from '@app/features/toasts/use-toast';
-import { Card } from '@app/ui/layout/card/card';
 
 export function RpcSendTransferSummary() {
   const { state } = useLocation();

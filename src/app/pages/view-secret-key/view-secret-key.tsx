@@ -3,10 +3,11 @@ import { Outlet } from 'react-router-dom';
 
 import { analytics } from '@shared/utils/analytics';
 
+import { Content, TwoColumnLayout } from '@app/components/layout';
 import { RequestPassword } from '@app/components/request-password';
+import { MainHeader } from '@app/features/container/headers/main.header';
 import { SecretKey } from '@app/features/secret-key-displayer/secret-key-displayer';
 import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
-import { TwoColumnLayout } from '@app/ui/pages/two-column.layout';
 
 export function ViewSecretKey() {
   const defaultWalletSecretKey = useDefaultWalletSecretKey();
@@ -18,30 +19,38 @@ export function ViewSecretKey() {
 
   if (showSecretKey) {
     return (
-      <TwoColumnLayout
-        title={
-          <>
-            Your <br /> Secret Key
-          </>
-        }
-        content={
-          <>
-            These 24 words are your Secret Key. They create your account, and you sign in on
-            different devices with them. Make sure to save these somewhere safe.
-            <br />
-            If you lose these words, you lose your account.
-          </>
-        }
-      >
-        <SecretKey secretKey={defaultWalletSecretKey ?? ''} />
-      </TwoColumnLayout>
+      <>
+        <MainHeader />
+        <Content>
+          <TwoColumnLayout
+            title={
+              <>
+                Your <br /> Secret Key
+              </>
+            }
+            content={
+              <>
+                These 24 words are your Secret Key. They create your account, and you sign in on
+                different devices with them. Make sure to save these somewhere safe.
+                <br />
+                If you lose these words, you lose your account.
+              </>
+            }
+          >
+            <SecretKey secretKey={defaultWalletSecretKey ?? ''} />
+          </TwoColumnLayout>
+        </Content>
+      </>
     );
   }
 
   return (
     <>
-      <RequestPassword onSuccess={() => setShowSecretKey(true)} />
-      <Outlet />
+      <MainHeader hideLogo />
+      <Content>
+        <RequestPassword onSuccess={() => setShowSecretKey(true)} />
+        <Outlet />
+      </Content>
     </>
   );
 }

@@ -1,9 +1,14 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
 
-import type { BitcoinNetworkModes, DefaultNetworkConfigurations } from '@leather.io/models';
+import {
+  type BitcoinNetworkModes,
+  type DefaultNetworkConfigurations,
+  type NetworkConfiguration,
+  networkConfigurationSchema,
+} from '@leather.io/models';
 
 import { RouteUrls } from '@shared/route-urls';
 import { isValidUrl } from '@shared/utils/validate-url';
@@ -39,16 +44,45 @@ const initialFormValues: AddNetworkFormValues = {
   bitcoinNetwork: 'mainnet',
 };
 
+function useInitialValues() {
+  const { state } = useLocation();
+
+  if (!state) {
+    return initialFormValues;
+  }
+
+  const network = state.network as NetworkConfiguration | undefined;
+
+  if (!network) {
+    return initialFormValues;
+  }
+
+  const isProperStateProvided = networkConfigurationSchema.safeParse(network).success;
+
+  if (!isProperStateProvided) {
+    return initialFormValues;
+  }
+
+  return {
+    key: network.id,
+    name: network.name,
+    stacksUrl: network.chain.stacks.url,
+    bitcoinUrl: network.chain.bitcoin.bitcoinUrl,
+    bitcoinNetwork: network.chain.bitcoin.bitcoinNetwork,
+  };
+}
+
 export function useAddNetwork() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const network = useCurrentStacksNetworkState();
   const networksActions = useNetworksActions();
+  const initialValues = useInitialValues();
 
   return {
     error,
-    initialFormValues,
+    initialFormValues: initialValues,
     loading,
     onSubmit: async (values: AddNetworkFormValues) => {
       const { name, stacksUrl, bitcoinUrl, key, bitcoinNetwork } = values;
@@ -113,10 +147,16 @@ export function useAddNetwork() {
         isSubnet &&
         (parentNetworkId === PeerNetworkID.Mainnet || parentNetworkId === PeerNetworkID.Testnet);
 
+      function removeEditedNetwork() {
+        if (initialValues.key) {
+          networksActions.removeNetwork(initialValues.key);
+        }
+      }
       // Currently, only subnets of mainnet and testnet are supported in the wallet
       if (isFirstLevelSubnet) {
         const parentChainId =
           parentNetworkId === PeerNetworkID.Mainnet ? ChainID.Mainnet : ChainID.Testnet;
+        removeEditedNetwork();
         networksActions.addNetwork({
           id: key as DefaultNetworkConfigurations,
           name: name,
@@ -128,6 +168,7 @@ export function useAddNetwork() {
         });
         navigate(RouteUrls.Home);
       } else if (chainId === ChainID.Mainnet || chainId === ChainID.Testnet) {
+        removeEditedNetwork();
         networksActions.addNetwork({
           id: key as DefaultNetworkConfigurations,
           name: name,

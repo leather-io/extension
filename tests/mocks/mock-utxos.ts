@@ -113,15 +113,15 @@ const mockMainnetNsTransactionsTestAccount = [
   },
 ];
 
-export async function mockMainnetTestAccountBlockstreamRequests(page: Page) {
+export async function mockMainnetTestAccountBitcoinRequests(page: Page) {
   await Promise.all([
-    page.route('**/blockstream.info/api/address/**/utxo', route =>
+    page.route('**/leather.mempool.space/api/address/**/utxo', route =>
       route.fulfill({
         json: [],
       })
     ),
     page.route(
-      `**/blockstream.info/api/address/${TEST_ACCOUNT_1_NATIVE_SEGWIT_ADDRESS}/txs`,
+      `**/leather.mempool.space/api/address/${TEST_ACCOUNT_1_NATIVE_SEGWIT_ADDRESS}/txs`,
       route =>
         route.fulfill({
           json: mockMainnetNsTransactionsTestAccount,

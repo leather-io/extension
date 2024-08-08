@@ -5,12 +5,11 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 import { Box, Flex, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
-import { AddressDisplayer, Button, Dialog } from '@leather.io/ui';
+import { AddressDisplayer, Button, Dialog, DialogHeader } from '@leather.io/ui';
 
 import { useLocationState } from '@app/common/hooks/use-location-state';
+import { Footer } from '@app/components/layout';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Header } from '@app/ui/components/containers/headers/header';
 
 interface ReceiveTokensLayoutProps {
   address: string;
@@ -29,14 +28,14 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
   return (
     <Dialog
       header={
-        <Header
-          variant="bigTitle"
+        <DialogHeader
+          variant="large"
           title={
             <>
               Receive <br /> {title}
             </>
           }
-          onGoBack={() => navigate(backgroundLocation ?? '..')}
+          onClose={() => navigate(backgroundLocation ?? '..')}
         />
       }
       isShowing

@@ -1,13 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Dialog } from '@leather.io/ui';
+import { Dialog, DialogHeader } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
 
 import { doesBrowserSupportWebUsbApi, whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { immediatelyAttemptLedgerConnection } from '../../hooks/use-when-reattempt-ledger-connection';
 import { ConnectLedger } from './connect-ledger';

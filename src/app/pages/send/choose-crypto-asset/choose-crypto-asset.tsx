@@ -4,9 +4,10 @@ import { Box, styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { Card, Content, Page } from '@app/components/layout';
 import { AssetList } from '@app/features/asset-list/asset-list';
+import { PageHeader } from '@app/features/container/headers/page.header';
 import { useConfigBitcoinSendEnabled } from '@app/query/common/remote-config/remote-config.query';
-import { Card } from '@app/ui/layout/card/card';
 
 export function ChooseCryptoAsset() {
   const navigate = useNavigate();
@@ -21,16 +22,23 @@ export function ChooseCryptoAsset() {
   }
 
   return (
-    <Card
-      header={
-        <styled.h1 textStyle="heading.03" p="space.05">
-          choose asset <br /> to send
-        </styled.h1>
-      }
-    >
-      <Box pb="space.04" px="space.05">
-        <AssetList onSelectAsset={navigateToSendForm} variant="interactive" />
-      </Box>
-    </Card>
+    <>
+      <PageHeader title="Send" isSettingsVisibleOnSm={false} />
+      <Content>
+        <Page>
+          <Card
+            header={
+              <styled.h1 textStyle="heading.03" p="space.05">
+                choose asset <br /> to send
+              </styled.h1>
+            }
+          >
+            <Box pb="space.04" px="space.05">
+              <AssetList onSelectAsset={navigateToSendForm} variant="interactive" />
+            </Box>
+          </Card>
+        </Page>
+      </Content>
+    </>
   );
 }

@@ -2,11 +2,10 @@ import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { useFormik } from 'formik';
 import { Flex, HStack, styled } from 'leather-styles/jsx';
 
-import { Button, Callout, Dialog } from '@leather.io/ui';
+import { Button, Callout, Dialog, DialogHeader } from '@leather.io/ui';
 
 import { useWalletType } from '@app/common/use-wallet-type';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
+import { Footer } from '@app/components/layout';
 
 interface SignOutDialogProps {
   isShowing: boolean;

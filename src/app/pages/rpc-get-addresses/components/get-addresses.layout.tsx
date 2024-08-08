@@ -8,9 +8,10 @@ interface GetAddressesLayoutProps {
   requester: string;
   onUserApproveGetAddresses(): void;
 }
-export function GetAddressesLayout(props: GetAddressesLayoutProps) {
-  const { requester, onUserApproveGetAddresses } = props;
-
+export function GetAddressesLayout({
+  requester,
+  onUserApproveGetAddresses,
+}: GetAddressesLayoutProps) {
   return (
     <Flex flexDirection="column" height="100vh" width="100%">
       <Flex

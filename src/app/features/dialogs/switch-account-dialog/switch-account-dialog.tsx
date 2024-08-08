@@ -3,24 +3,18 @@ import { Virtuoso } from 'react-virtuoso';
 
 import { Box } from 'leather-styles/jsx';
 
-import { Button, Dialog } from '@leather.io/ui';
+import { Button, Dialog, DialogHeader } from '@leather.io/ui';
 
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useWalletType } from '@app/common/use-wallet-type';
+import { Footer } from '@app/components/layout';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { VirtuosoWrapper } from '@app/ui/components/virtuoso';
 
 import { AccountListUnavailable } from './components/account-list-unavailable';
 import { SwitchAccountListItem } from './components/switch-account-list-item';
-
-export interface SwitchAccountOutletContext {
-  isShowingSwitchAccount: boolean;
-  setIsShowingSwitchAccount(isShowing: boolean): void;
-}
 
 interface SwitchAccountDialogProps {
   isShowing: boolean;
@@ -76,7 +70,7 @@ export const SwitchAccountDialog = memo(({ isShowing, onClose }: SwitchAccountDi
           initialTopMostItemIndex={whenWallet({ ledger: 0, software: currentAccountIndex })}
           totalCount={accountNum}
           itemContent={index => (
-            <Box key={index} my="space.05" px="space.05">
+            <Box key={index} py="space.03" px="space.05">
               <SwitchAccountListItem
                 handleClose={onClose}
                 currentAccountIndex={currentAccountIndex}

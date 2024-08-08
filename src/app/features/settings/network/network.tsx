@@ -3,16 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
 import { WalletDefaultNetworkConfigurationIds } from '@leather.io/models';
-import { Button, Dialog } from '@leather.io/ui';
+import { Button, Dialog, DialogHeader } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
 
+import { Footer } from '@app/components/layout';
 import { NetworkListItem } from '@app/features/settings/network/network-list-item';
 import { useCurrentNetworkState, useNetworksActions } from '@app/store/networks/networks.hooks';
 import { useNetworks } from '@app/store/networks/networks.selectors';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 const defaultNetworkIds = Object.values(WalletDefaultNetworkConfigurationIds) as string[];
 
@@ -23,7 +22,6 @@ interface NetworkDialogProps {
 export function NetworkDialog({ onClose }: NetworkDialogProps) {
   const navigate = useNavigate();
   const networks = useNetworks();
-
   const networksActions = useNetworksActions();
   const currentNetwork = useCurrentNetworkState();
 
@@ -74,6 +72,14 @@ export function NetworkDialog({ onClose }: NetworkDialogProps) {
           onRemoveNetwork={id => {
             if (id === currentNetwork.id) networksActions.changeNetwork('mainnet');
             removeNetwork(id);
+          }}
+          onEditNetwork={() => {
+            onClose();
+            navigate(RouteUrls.AddNetwork, {
+              state: {
+                network: networks[id],
+              },
+            });
           }}
         />
       ))}

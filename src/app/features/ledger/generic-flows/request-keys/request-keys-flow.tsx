@@ -1,9 +1,8 @@
 import { Outlet } from 'react-router-dom';
 
-import { Dialog } from '@leather.io/ui';
+import { Dialog, DialogHeader } from '@leather.io/ui';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { LedgerRequestKeysContext, LedgerRequestKeysProvider } from './ledger-request-keys.context';

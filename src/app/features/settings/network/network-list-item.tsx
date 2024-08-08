@@ -10,12 +10,14 @@ interface NetworkListItemProps {
   isCustom: boolean;
   onNetworkSelected(networkId: string): void;
   onRemoveNetwork(networkId: string): void;
+  onEditNetwork(): void;
 }
 export function NetworkListItem({
   networkId,
   onNetworkSelected,
   onRemoveNetwork,
   isCustom,
+  onEditNetwork,
 }: NetworkListItemProps) {
   const currentNetworkId = useCurrentNetworkId();
   const networks = useNetworks();
@@ -31,6 +33,7 @@ export function NetworkListItem({
       networkId={networkId}
       isCustom={isCustom}
       onSelectNetwork={() => onNetworkSelected(networkId)}
+      onEditNetwork={onEditNetwork}
       onRemoveNetwork={onRemoveNetwork}
     />
   );

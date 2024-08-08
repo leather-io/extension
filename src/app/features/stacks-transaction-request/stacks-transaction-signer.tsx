@@ -10,7 +10,7 @@ import { FeeTypes } from '@leather.io/models';
 import {
   useCalculateStacksTxFees,
   useNextNonce,
-  useStxAvailableUnlockedBalance,
+  useStxCryptoAssetBalance,
 } from '@leather.io/query';
 import { Link } from '@leather.io/ui';
 import { stxToMicroStx } from '@leather.io/utils';
@@ -58,9 +58,12 @@ export function StacksTransactionSigner({
   const { data: stxFees } = useCalculateStacksTxFees(stacksTransaction);
 
   const stxAddress = useCurrentStacksAccountAddress();
-  const availableUnlockedBalance = useStxAvailableUnlockedBalance(stxAddress);
+  const { data, status: balanceQueryStatus } = useStxCryptoAssetBalance(stxAddress);
+  const availableUnlockedBalance = data?.availableUnlockedBalance;
   const navigate = useNavigate();
-  const { data: nextNonce } = useNextNonce(stxAddress);
+  const { data: nextNonce, status: nonceQueryStatus } = useNextNonce(stxAddress);
+  const canSubmit = balanceQueryStatus === 'success' && nonceQueryStatus === 'success';
+
   const { search } = useLocation();
 
   useOnMount(() => {
@@ -134,7 +137,7 @@ export function StacksTransactionSigner({
               </Link>
             )}
             <MinimalErrorMessage />
-            <StacksTxSubmitAction />
+            <StacksTxSubmitAction canSubmit={canSubmit} />
             <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
             <Outlet />
           </>

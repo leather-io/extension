@@ -21,12 +21,15 @@ import {
   makeSearchParamsWithDefaults,
   triggerRequestWindowOpen,
 } from '../messaging-utils';
+import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-message-handler';
 
 export async function rpcSendTransfer(
   message: RpcRequest<'sendTransfer', RpcSendTransferParams | SendTransferRequestParams>,
   port: chrome.runtime.Port
 ) {
   if (isUndefined(message.params)) {
+    void trackRpcRequestError({ endpoint: 'sendTransfer', error: 'Undefined parameters' });
+
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       makeRpcErrorResponse('sendTransfer', {
@@ -43,6 +46,8 @@ export async function rpcSendTransfer(
     : (message.params as RpcSendTransferParams);
 
   if (!validateRpcSendTransferParams(params)) {
+    void trackRpcRequestError({ endpoint: 'sendTransfer', error: 'Invalid parameters' });
+
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       makeRpcErrorResponse('sendTransfer', {
@@ -55,6 +60,8 @@ export async function rpcSendTransfer(
     );
     return;
   }
+
+  void trackRpcRequestSuccess({ endpoint: message.method });
 
   const recipients: [string, string][] = params.recipients.map(({ address }) => [
     'recipient',

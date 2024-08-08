@@ -5,7 +5,7 @@ import { bytesToHex, signatureVrsToRsv } from '@stacks/common';
 import { serializeCV } from '@stacks/transactions';
 import { LedgerError } from '@zondax/ledger-stacks';
 
-import { Dialog } from '@leather.io/ui';
+import { Dialog, DialogHeader } from '@leather.io/ui';
 import { delay, isError } from '@leather.io/utils';
 
 import { UnsignedMessage, whenSignableMessageOfType } from '@shared/signature/signature-types';
@@ -21,7 +21,6 @@ import {
 } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';

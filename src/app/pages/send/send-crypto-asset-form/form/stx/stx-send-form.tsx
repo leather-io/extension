@@ -2,6 +2,9 @@ import type { CryptoCurrencies } from '@leather.io/models';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import { StxAvatarIcon } from '@leather.io/ui';
 
+import { Content } from '@app/components/layout';
+import { PageHeader } from '@app/features/container/headers/page.header';
+
 import { AmountField } from '../../components/amount-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendFiatValue } from '../../components/send-fiat-value';
@@ -13,7 +16,6 @@ const symbol = 'STX' satisfies CryptoCurrencies;
 
 export function StxSendForm() {
   const stxMarketData = useCryptoCurrencyMarketDataMeanAverage(symbol);
-
   const {
     availableUnlockedBalance,
     initialValues,
@@ -41,14 +43,19 @@ export function StxSendForm() {
   );
 
   return (
-    <StacksCommonSendForm
-      onSubmit={previewTransaction}
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      amountField={amountField}
-      selectedAssetField={selectedAssetField}
-      fees={fees}
-      availableTokenBalance={availableUnlockedBalance}
-    />
+    <>
+      <PageHeader title="Send" />
+      <Content>
+        <StacksCommonSendForm
+          onSubmit={previewTransaction}
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          amountField={amountField}
+          selectedAssetField={selectedAssetField}
+          fees={fees}
+          availableTokenBalance={availableUnlockedBalance}
+        />
+      </Content>
+    </>
   );
 }

@@ -4,7 +4,7 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { Dialog, Tabs } from '@leather.io/ui';
+import { Dialog, DialogHeader, Tabs } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
@@ -14,7 +14,6 @@ import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { Header } from '@app/ui/components/containers/headers/header';
 
 import { ReceiveCollectibles } from './components/receive-collectibles';
 import { ReceiveTokens } from './components/receive-tokens';
@@ -86,10 +85,10 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
   return (
     <Dialog
       header={
-        <Header
+        <DialogHeader
+          variant="large"
           title={title}
-          variant="bigTitle"
-          onGoBack={() => navigate(backgroundLocation ?? '..')}
+          onClose={() => navigate(backgroundLocation ?? '..')}
         />
       }
       onClose={() => navigate(backgroundLocation ?? '..')}

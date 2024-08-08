@@ -4,7 +4,7 @@ import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import type { Blockchains, Inscription } from '@leather.io/models';
-import { CheckmarkIcon, CopyIcon, Dialog, ExternalLinkIcon } from '@leather.io/ui';
+import { CheckmarkIcon, CopyIcon, Dialog, DialogHeader, ExternalLinkIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
@@ -14,10 +14,8 @@ import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { InfoCardBtn, InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
+import { Card, Footer } from '@app/components/layout';
 import { useToast } from '@app/features/toasts/use-toast';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
-import { Card } from '@app/ui/layout/card/card';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 

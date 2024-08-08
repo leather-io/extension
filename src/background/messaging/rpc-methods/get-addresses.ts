@@ -8,10 +8,13 @@ import {
   makeSearchParamsWithDefaults,
   triggerRequestWindowOpen,
 } from '../messaging-utils';
+import { trackRpcRequestSuccess } from '../rpc-message-handler';
 
 export async function rpcGetAddresses(message: GetAddressesRequest, port: chrome.runtime.Port) {
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['requestId', message.id]]);
   const { id } = await triggerRequestWindowOpen(RouteUrls.RpcGetAddresses, urlParams);
+  void trackRpcRequestSuccess({ endpoint: message.method });
+
   listenForPopupClose({
     tabId,
     id,

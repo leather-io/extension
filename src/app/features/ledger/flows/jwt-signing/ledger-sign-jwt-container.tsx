@@ -5,7 +5,7 @@ import { TransactionVersion, getAddressFromPublicKey } from '@stacks/transaction
 import { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
 
-import { Dialog } from '@leather.io/ui';
+import { Dialog, DialogHeader } from '@leather.io/ui';
 import { delay, isError } from '@leather.io/utils';
 
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
@@ -26,7 +26,6 @@ import {
   useCurrentStacksAccount,
   useStacksAccounts,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { checkLockedDeviceError, useLedgerResponseState } from '../../utils/generic-ledger-utils';

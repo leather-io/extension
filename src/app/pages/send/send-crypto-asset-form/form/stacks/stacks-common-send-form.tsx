@@ -14,13 +14,10 @@ import { StacksSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { FeesRow } from '@app/components/fees-row/fees-row';
+import { AvailableBalance, Card, CardContent, Footer, Page } from '@app/components/layout';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { HighFeeDialog } from '@app/features/stacks-high-fee-warning/stacks-high-fee-dialog';
-import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Card } from '@app/ui/layout/card/card';
-import { CardContent } from '@app/ui/layout/card/card-content';
 
 import { MemoField } from '../../components/memo-field';
 import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field';
@@ -52,58 +49,60 @@ export function StacksCommonSendForm({
   const navigate = useNavigate();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
   return (
-    <Box width="100%" pb="space.04">
-      <Formik
-        initialValues={initialValues}
-        onSubmit={onSubmit}
-        validationSchema={validationSchema}
-        {...defaultSendFormFormikProps}
-      >
-        {props => {
-          onFormStateChange(props.values);
-          return (
-            <>
-              <NonceSetter />
-              <Form>
-                <Card
-                  footer={
-                    <Footer variant="card">
-                      <Button
-                        aria-busy={props.isValidating}
-                        data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
-                        onClick={() => props.handleSubmit()}
-                        type="submit"
+    <Page>
+      <Box width="100%" pb="space.04">
+        <Formik
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          validationSchema={validationSchema}
+          {...defaultSendFormFormikProps}
+        >
+          {props => {
+            onFormStateChange(props.values);
+            return (
+              <>
+                <NonceSetter />
+                <Form>
+                  <Card
+                    footer={
+                      <Footer variant="card">
+                        <Button
+                          aria-busy={props.isValidating}
+                          data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
+                          onClick={() => props.handleSubmit()}
+                          type="submit"
+                        >
+                          Continue
+                        </Button>
+                        <AvailableBalance balance={formatMoney(availableTokenBalance)} />
+                      </Footer>
+                    }
+                  >
+                    <CardContent dataTestId={SendCryptoAssetSelectors.SendForm}>
+                      {amountField}
+                      {selectedAssetField}
+                      <StacksRecipientField />
+                      <MemoField />
+                      <Box mt="space.04" width="100%">
+                        <FeesRow fees={fees} isSponsored={false} />
+                      </Box>
+                      <Link
+                        alignSelf="flex-end"
+                        mt="space.04"
+                        onClick={() => navigate(RouteUrls.EditNonce)}
                       >
-                        Continue
-                      </Button>
-                      <AvailableBalance balance={formatMoney(availableTokenBalance)} />
-                    </Footer>
-                  }
-                >
-                  <CardContent dataTestId={SendCryptoAssetSelectors.SendForm}>
-                    {amountField}
-                    {selectedAssetField}
-                    <StacksRecipientField />
-                    <MemoField />
-                    <Box mt="space.04" width="100%">
-                      <FeesRow fees={fees} isSponsored={false} />
-                    </Box>
-                    <Link
-                      alignSelf="flex-end"
-                      mt="space.04"
-                      onClick={() => navigate(RouteUrls.EditNonce)}
-                    >
-                      Edit nonce
-                    </Link>
-                  </CardContent>
-                </Card>
-                <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
-                <Outlet />
-              </Form>
-            </>
-          );
-        }}
-      </Formik>
-    </Box>
+                        Edit nonce
+                      </Link>
+                    </CardContent>
+                  </Card>
+                  <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
+                  <Outlet />
+                </Form>
+              </>
+            );
+          }}
+        </Formik>
+      </Box>
+    </Page>
   );
 }

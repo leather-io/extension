@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react';
 
-import { Card } from '@app/ui/layout/card/card.stories';
+import { Card } from '@app/components/layout/card/card.stories';
 
 import { Page as Component } from './page.layout';
 
