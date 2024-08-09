@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
 
-import {
-  useGetBnsNamesOwnedByAddressQuery,
-  useStacksNonFungibleTokensMetadata,
-} from '@leather.io/query';
+import { isNftAsset, useGetBnsNamesOwnedByAddressQuery } from '@leather.io/query';
 
 import { analytics } from '@shared/utils/analytics';
 
 import { parseIfValidPunycode } from '@app/common/utils';
+import { useStacksNonFungibleTokensMetadata } from '@app/query/stacks/stacks-nft-token-metadata.query';
 
 import { StacksBnsName } from './stacks-bns-name';
 import { StacksNonFungibleTokens } from './stacks-non-fungible-tokens';
@@ -18,7 +16,13 @@ interface StacksCryptoAssetsProps {
 export function StacksCryptoAssets({ address }: StacksCryptoAssetsProps) {
   const names = useGetBnsNamesOwnedByAddressQuery(address).data?.names;
 
-  const stacksNftsMetadataResp = useStacksNonFungibleTokensMetadata(address);
+  // NftMetadataResponse[]
+  const stacksNftsMetadataResp = useStacksNonFungibleTokensMetadata(address)
+    .filter(resp => resp.status === 'success')
+    .map(resp => {
+      if (resp.data && isNftAsset(resp.data)) return resp.data;
+      return;
+    });
 
   useEffect(() => {
     if (stacksNftsMetadataResp.length > 0) {

@@ -29,6 +29,7 @@ import { stxChainSlice } from './chains/stx-chain.slice';
 import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
 import { bitcoinKeysSlice } from './ledger/bitcoin/bitcoin-key.slice';
 import { stacksKeysSlice } from './ledger/stacks/stacks-key.slice';
+import { missingDataSlice } from './missing-stacks-nfts/missing-stacks-nfts.slice';
 import { networksSlice } from './networks/networks.slice';
 import { ordinalsSlice } from './ordinals/ordinals.slice';
 import { settingsSlice } from './settings/settings.slice';
@@ -47,6 +48,7 @@ export interface RootState {
   };
   ordinals: ReturnType<typeof ordinalsSlice.reducer>;
   inMemoryKeys: ReturnType<typeof inMemoryKeySlice.reducer>;
+  missingData: ReturnType<typeof missingDataSlice.reducer>;
   softwareKeys: ReturnType<typeof keySlice.reducer>;
   networks: ReturnType<typeof networksSlice.reducer>;
   submittedTransactions: ReturnType<typeof submittedTransactionsSlice.reducer>;
@@ -64,6 +66,7 @@ const appReducer = combineReducers({
   }),
   ordinals: ordinalsSlice.reducer,
   inMemoryKeys: inMemoryKeySlice.reducer,
+  missingData: missingDataSlice.reducer,
   softwareKeys: keySlice.reducer,
   networks: networksSlice.reducer,
   submittedTransactions: submittedTransactionsSlice.reducer,
