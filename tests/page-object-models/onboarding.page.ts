@@ -35,6 +35,9 @@ export const testSoftwareAccountDefaultWalletState = {
       ids: [],
     },
   },
+  missingData: {
+    stacksNfts: [],
+  },
   networks: { ids: [], entities: {}, currentNetworkId: 'mainnet' },
   ordinals: {
     entities: {},
@@ -215,6 +218,9 @@ export function makeLedgerTestAccountWalletState(keysToInclude: SupportedBlockch
     ledger: {
       bitcoin: keysToInclude.includes('bitcoin') ? ledgerBitcoinKeysState : emptyKeysState,
       stacks: keysToInclude.includes('stacks') ? ledgerStacksKeysState : emptyKeysState,
+    },
+    missingData: {
+      stacksNfts: [],
     },
     networks: { currentNetworkId: 'mainnet', entities: {}, ids: [] },
     onboarding: {

@@ -189,6 +189,7 @@ export const persistConfig: PersistConfig<RootState> & UntypedDeserializeOption 
     'ordinals',
     'softwareKeys',
     'ledger',
+    'missingData',
     'networks',
     'onboarding',
     'settings',
