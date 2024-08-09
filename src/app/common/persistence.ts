@@ -1,10 +1,12 @@
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
-import { MutationCache, QueryClient } from '@tanstack/react-query';
+import { QueryCache, QueryClient } from '@tanstack/react-query';
 import { persistQueryClient } from '@tanstack/react-query-persist-client';
+import { ZodError } from 'zod';
 
 import { PERSISTENCE_CACHE_TIME } from '@leather.io/constants';
 
 import { IS_TEST_ENV } from '@shared/environment';
+import { logger } from '@shared/logger';
 import { analytics } from '@shared/utils/analytics';
 
 const storage = {
@@ -18,11 +20,26 @@ const storage = {
 
 const chromeStorageLocalPersister = createAsyncStoragePersister({ storage });
 
+function isZodError(error: Error): error is ZodError {
+  // `instanceof` check doesn't work when ZodError thrown from within a package
+  return error instanceof ZodError || error.name === 'ZodError';
+}
+
 export const queryClient = new QueryClient({
-  mutationCache: new MutationCache({
-    async onError(_error, _variables, _context, mutation) {
-      const mutationPrefix = mutation?.options.mutationKey?.[0] ?? '';
-      void analytics.track('mutation_error', { mutationPrefix });
+  queryCache: new QueryCache({
+    onError(error, query) {
+      if (isZodError(error)) {
+        const zodErrorReport = {
+          query: query.queryKey[0],
+          hash: query.queryHash,
+          error: JSON.stringify(error.issues),
+        };
+        logger.error('schema_fail', zodErrorReport);
+        // Replace with `formatQueryZodErrors` from `@leather.io/query`
+        // Example:
+        // `void analytics.track(...formatQueryZodErrors(error, query))`
+        void analytics.track('schema_fail', zodErrorReport);
+      }
     },
   }),
   defaultOptions: {
