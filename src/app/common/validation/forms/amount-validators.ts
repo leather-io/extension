@@ -19,7 +19,7 @@ import { FormErrorMessages } from '../../../../shared/error-messages';
 import { formatInsufficientBalanceError, formatPrecisionError } from '../../error-formatters';
 import { currencyAmountValidator, stxAmountPrecisionValidator } from './currency-validators';
 
-const minSpendAmountInSats = 6000;
+const minSpendAmountInSats = 546;
 
 function amountValidator() {
   return yup
