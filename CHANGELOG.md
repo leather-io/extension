@@ -1,3 +1,15 @@
+## [6.45.1](https://github.com/leather-io/extension/compare/v6.45.0...v6.45.1) (2024-08-12)
+
+
+### Bug Fixes
+
+* schema fail tracking ([de977cb](https://github.com/leather-io/extension/commit/de977cbcf290f55f8a757199ce35a212fc96e310))
+
+
+### Internal
+
+* post-release merge back ([1f9fc20](https://github.com/leather-io/extension/commit/1f9fc20db189c44fbd203c2c809c5ec1c96cbf2e))
+
 ## [6.45.0](https://github.com/leather-io/extension/compare/v6.44.2...v6.45.0) (2024-08-08)
 
 
