@@ -1,3 +1,15 @@
+## [6.45.2](https://github.com/leather-io/extension/compare/v6.45.1...v6.45.2) (2024-08-12)
+
+
+### Bug Fixes
+
+* use stacks package ([937c0e2](https://github.com/leather-io/extension/commit/937c0e23a08c66de1c0833c477a674ba33224f32))
+
+
+### Internal
+
+* post-release merge back ([85db0cc](https://github.com/leather-io/extension/commit/85db0cc578cbf56e0caf78c9da5bffdc14188219))
+
 ## [6.45.1](https://github.com/leather-io/extension/compare/v6.45.0...v6.45.1) (2024-08-12)
 
 
