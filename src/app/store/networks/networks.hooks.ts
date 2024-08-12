@@ -5,8 +5,7 @@ import { StacksNetwork } from '@stacks/network';
 import { ChainID, TransactionVersion } from '@stacks/transactions';
 
 import { HIRO_API_BASE_URL_NAKAMOTO_TESTNET, type NetworkModes } from '@leather.io/models';
-
-import { whenStacksChainId } from '@shared/crypto/stacks/stacks.utils';
+import { whenStacksChainId } from '@leather.io/stacks';
 
 import { useAppDispatch } from '@app/store';
 

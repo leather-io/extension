@@ -1,8 +1,8 @@
 import * as yup from 'yup';
 
 import type { NetworkConfiguration } from '@leather.io/models';
+import { stacksChainIdToCoreNetworkMode } from '@leather.io/stacks';
 
-import { stacksChainIdToCoreNetworkMode } from '@shared/crypto/stacks/stacks.utils';
 import { FormErrorMessages } from '@shared/error-messages';
 
 import {
