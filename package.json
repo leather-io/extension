@@ -184,7 +184,7 @@
     "are-passive-events-supported": "1.1.1",
     "argon2-browser": "1.18.0",
     "assert": "2.1.0",
-    "axios": "1.7.2",
+    "axios": "1.7.4",
     "base64url": "3.0.1",
     "bignumber.js": "9.1.2",
     "bitcoin-address-validation": "2.2.1",
