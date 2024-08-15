@@ -20,7 +20,7 @@ jobs:
 
       - name: Update @leather.io/* packages
         id: update-packages
-        run: echo output=$(pnpm upgrade "@leather.io/*" --latest) >> $GITHUB_OUTPUT
+        run: echo output=$(pnpm update "@leather.io/*" --latest | grep -v '^Progress') >> $GITHUB_OUTPUT
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
@@ -28,7 +28,7 @@ jobs:
           token: ${{ secrets.LEATHER_BOT }}
           branch: 'chore-update-leather-packages'
           commit-message: 'ci: update leather.io packages'
-          title: 'ci: update npm packages'
+          title: '[bot] ci: update npm packages'
           committer: 'leather-bot <leather-bot@users.noreply.github.com>'
           author: 'leather-bot <leather-bot@users.noreply.github.com>'
           body: |
