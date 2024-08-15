@@ -2,11 +2,11 @@ import { type UseQueryOptions, useQueries } from '@tanstack/react-query';
 import axios from 'axios';
 
 import type { BitcoinNetworkModes } from '@leather.io/models';
-import { ensureArray } from '@leather.io/utils';
+import { ensureArray, isEmptyString } from '@leather.io/utils';
 
 import { analytics } from '@shared/utils/analytics';
 
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 const checkApi = 'https://api.chainalysis.com/api/risk/v2/entities';
@@ -67,19 +67,19 @@ function makeComplianceQuery(
 function useCheckAddressComplianceQueries(addresses: string[]) {
   const network = useCurrentNetwork();
   return useQueries({
-    queries: addresses.map(address =>
-      makeComplianceQuery(address, network.chain.bitcoin.bitcoinNetwork)
-    ),
+    queries: addresses
+      .filter(address => !isEmptyString(address))
+      .map(address => makeComplianceQuery(address, network.chain.bitcoin.bitcoinNetwork)),
   });
 }
 
 export const compliantErrorBody = 'Unable to handle request, errorCode: 1398';
 
 export function useBreakOnNonCompliantEntity(address: string | string[]) {
-  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSignerNullable();
 
   const complianceReports = useCheckAddressComplianceQueries([
-    nativeSegwitSigner.address,
+    nativeSegwitSigner?.address ?? '',
     ...ensureArray(address),
   ]);
 
