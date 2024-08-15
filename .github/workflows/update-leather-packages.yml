@@ -1,7 +1,6 @@
 name: Update Leather.io packages
 
 on:
-  push:
   workflow_dispatch:
   repository_dispatch:
     types: [leather-deps-updated]
