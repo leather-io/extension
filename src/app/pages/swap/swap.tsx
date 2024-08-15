@@ -49,7 +49,7 @@ export function Swap() {
   return (
     <Card
       footer={
-        <CardFooter /* maxWidth="pageWidth" */>
+        <CardFooter>
           <Button
             data-testid={SwapSelectors.SwapReviewBtn}
             disabled={!(dirty && isValid) || isFetchingExchangeRate}
