@@ -1,0 +1,46 @@
+name: Update Leather.io packages
+
+on:
+  push:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [leather-deps-updated]
+
+jobs:
+  update-leather-deps:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dev
+          token: ${{ secrets.LEATHER_BOT }}
+
+      - uses: ./.github/actions/provision
+
+      - name: Update @leather.io/* packages
+        id: update-packages
+        run: echo output=$(pnpm upgrade "@leather.io/*" --latest) >> $GITHUB_OUTPUT
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.LEATHER_BOT }}
+          branch: 'chore-update-leather-packages'
+          commit-message: 'ci: update leather.io packages'
+          title: 'ci: update npm packages'
+          committer: 'leather-bot <leather-bot@users.noreply.github.com>'
+          author: 'leather-bot <leather-bot@users.noreply.github.com>'
+          body: |
+            Updating packages
+
+            If the CI build fails it's likely that there have been breaking changes upstream in the monorepo.
+            A Leather dev should checkout the repo and fix these before merging the pull request.
+
+            <details>
+
+              <summary>Output</summary>
+
+              ${{ steps.update-packages.outputs.output }}
+
+            </details>
