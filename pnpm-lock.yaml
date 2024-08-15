@@ -43,8 +43,8 @@ importers:
         specifier: 1.3.0
         version: 1.3.0
       '@leather.io/models':
-        specifier: 0.11.0
-        version: 0.11.0
+        specifier: 0.11.1
+        version: 0.11.1
       '@leather.io/query':
         specifier: 2.4.2
         version: 2.4.2(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
@@ -2487,7 +2487,7 @@ packages:
 
   '@expo/bunyan@4.0.1':
     resolution: {integrity: sha512-+Lla7nYSiHZirgK+U/uYzsLv/X+HaJienbD5AKX1UQZHYfWaP+9uuQluRB4GrEVWF0GZ7vEVp/jzaOT9k/SQlg==}
-    engines: {'0': node >=0.10.0}
+    engines: {node: '>=0.10.0'}
 
   '@expo/cli@0.18.13':
     resolution: {integrity: sha512-ZO1fpDK8z6mLeQGuFP6e3cZyCHV55ohZY7/tEyhpft3bwysS680eyFg5SFe+tWNFesnziFrbtI8JaUyhyjqovA==}
@@ -2714,6 +2714,9 @@ packages:
   '@leather.io/models@0.11.0':
     resolution: {integrity: sha512-iKhEno6aVhFKvsnsMKbHQYXIqEGo4TOkJcPs/4yHq2EZmPEMFk8FMxUNZZKcKnVSxedInjzFaFhYF/sz+tTxjQ==}
 
+  '@leather.io/models@0.11.1':
+    resolution: {integrity: sha512-+x6UDCPLSrSywufmUXb+PQ62fK9rbEe90d1+sr9DGpJiovXU74HmqVDX69FD6S6m10IAjbFl1ZvVG2aae0Yrkg==}
+
   '@leather.io/panda-preset@0.3.4':
     resolution: {integrity: sha512-q+ri1ObAPe0GsYWKZe/5AWjSwH1lEgRnBn5NIVE7OJUt8eXa1vQuXMeXFLmY+UU7dhVYSY148RU+SNiRl1DfSw==}
 
@@ -2760,6 +2763,7 @@ packages:
 
   '@ls-lint/ls-lint@2.2.3':
     resolution: {integrity: sha512-ekM12jNm/7O2I/hsRv9HvYkRdfrHpiV1epVuI2NP+eTIcEgdIdKkKCs9KgQydu/8R5YXTov9aHdOgplmCHLupw==}
+    cpu: [x64, arm64, s390x]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -15377,7 +15381,7 @@ snapshots:
       '@babel/helper-function-name': 7.24.7
       '@babel/helper-member-expression-to-functions': 7.24.8
       '@babel/helper-optimise-call-expression': 7.24.7
-      '@babel/helper-replace-supers': 7.24.7(@babel/core@7.25.2)
+      '@babel/helper-replace-supers': 7.24.7(@babel/core@7.24.9)
       '@babel/helper-skip-transparent-expression-wrappers': 7.24.7
       '@babel/helper-split-export-declaration': 7.24.7
       semver: 6.3.1
@@ -15510,6 +15514,15 @@ snapshots:
       '@babel/helper-annotate-as-pure': 7.24.7
       '@babel/helper-wrap-function': 7.25.0
       '@babel/traverse': 7.25.3
+    transitivePeerDependencies:
+      - supports-color
+
+  '@babel/helper-replace-supers@7.24.7(@babel/core@7.24.9)':
+    dependencies:
+      '@babel/core': 7.24.9
+      '@babel/helper-environment-visitor': 7.24.7
+      '@babel/helper-member-expression-to-functions': 7.24.8
+      '@babel/helper-optimise-call-expression': 7.24.7
     transitivePeerDependencies:
       - supports-color
 
@@ -15790,6 +15803,11 @@ snapshots:
       '@babel/core': 7.25.2
       '@babel/helper-plugin-utils': 7.24.8
 
+  '@babel/plugin-syntax-nullish-coalescing-operator@7.8.3(@babel/core@7.24.9)':
+    dependencies:
+      '@babel/core': 7.24.9
+      '@babel/helper-plugin-utils': 7.24.8
+
   '@babel/plugin-syntax-nullish-coalescing-operator@7.8.3(@babel/core@7.25.2)':
     dependencies:
       '@babel/core': 7.25.2
@@ -15808,6 +15826,11 @@ snapshots:
   '@babel/plugin-syntax-optional-catch-binding@7.8.3(@babel/core@7.25.2)':
     dependencies:
       '@babel/core': 7.25.2
+      '@babel/helper-plugin-utils': 7.24.8
+
+  '@babel/plugin-syntax-optional-chaining@7.8.3(@babel/core@7.24.9)':
+    dependencies:
+      '@babel/core': 7.24.9
       '@babel/helper-plugin-utils': 7.24.8
 
   '@babel/plugin-syntax-optional-chaining@7.8.3(@babel/core@7.25.2)':
@@ -15883,7 +15906,7 @@ snapshots:
   '@babel/plugin-transform-class-properties@7.24.7(@babel/core@7.24.9)':
     dependencies:
       '@babel/core': 7.24.9
-      '@babel/helper-create-class-features-plugin': 7.24.8(@babel/core@7.25.2)
+      '@babel/helper-create-class-features-plugin': 7.24.8(@babel/core@7.24.9)
       '@babel/helper-plugin-utils': 7.24.8
     transitivePeerDependencies:
       - supports-color
@@ -16053,7 +16076,7 @@ snapshots:
   '@babel/plugin-transform-modules-commonjs@7.24.8(@babel/core@7.24.9)':
     dependencies:
       '@babel/core': 7.24.9
-      '@babel/helper-module-transforms': 7.24.9(@babel/core@7.25.2)
+      '@babel/helper-module-transforms': 7.24.9(@babel/core@7.24.9)
       '@babel/helper-plugin-utils': 7.24.8
       '@babel/helper-simple-access': 7.24.7
     transitivePeerDependencies:
@@ -16101,7 +16124,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.24.9
       '@babel/helper-plugin-utils': 7.24.8
-      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.25.2)
+      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.24.9)
 
   '@babel/plugin-transform-nullish-coalescing-operator@7.24.7(@babel/core@7.25.2)':
     dependencies:
@@ -16142,7 +16165,7 @@ snapshots:
       '@babel/core': 7.24.9
       '@babel/helper-plugin-utils': 7.24.8
       '@babel/helper-skip-transparent-expression-wrappers': 7.24.7
-      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.25.2)
+      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.9)
     transitivePeerDependencies:
       - supports-color
 
@@ -16163,7 +16186,7 @@ snapshots:
   '@babel/plugin-transform-private-methods@7.24.7(@babel/core@7.24.9)':
     dependencies:
       '@babel/core': 7.24.9
-      '@babel/helper-create-class-features-plugin': 7.24.8(@babel/core@7.25.2)
+      '@babel/helper-create-class-features-plugin': 7.24.8(@babel/core@7.24.9)
       '@babel/helper-plugin-utils': 7.24.8
     transitivePeerDependencies:
       - supports-color
@@ -17786,6 +17809,12 @@ snapshots:
       - typescript
 
   '@leather.io/models@0.11.0':
+    dependencies:
+      '@stacks/stacks-blockchain-api-types': 7.8.2
+      bignumber.js: 9.1.2
+      zod: 3.23.6
+
+  '@leather.io/models@0.11.1':
     dependencies:
       '@stacks/stacks-blockchain-api-types': 7.8.2
       bignumber.js: 9.1.2
