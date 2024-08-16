@@ -11,7 +11,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
 
 import { SignPsbtArgs } from '@app/common/psbt/requests';
-import { ButtonRow, Card, CardContent, CardFooter } from '@app/components/layout';
+import { ButtonRow, Card, CardContent } from '@app/components/layout';
 import { PopupHeader } from '@app/features/container/headers/popup.header';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
@@ -96,27 +96,25 @@ export function PsbtSigner(props: PsbtSignerProps) {
       <Card
         overflow="hidden"
         footer={
-          <CardFooter>
-            <ButtonRow flexDirection="row">
-              <Button flexGrow={1} onClick={onCancel} variant="outline">
-                Cancel
-              </Button>
-              <Button
-                flexGrow={1}
-                aria-busy={isBroadcasting}
-                onClick={() =>
-                  onSignPsbt({
-                    addressNativeSegwitTotal,
-                    addressTaprootTotal,
-                    fee,
-                    inputs: psbtTxInputs,
-                  })
-                }
-              >
-                Confirm
-              </Button>
-            </ButtonRow>
-          </CardFooter>
+          <ButtonRow flexDirection="row">
+            <Button flexGrow={1} onClick={onCancel} variant="outline">
+              Cancel
+            </Button>
+            <Button
+              flexGrow={1}
+              aria-busy={isBroadcasting}
+              onClick={() =>
+                onSignPsbt({
+                  addressNativeSegwitTotal,
+                  addressTaprootTotal,
+                  fee,
+                  inputs: psbtTxInputs,
+                })
+              }
+            >
+              Confirm
+            </Button>
+          </ButtonRow>
         }
       >
         <CardContent

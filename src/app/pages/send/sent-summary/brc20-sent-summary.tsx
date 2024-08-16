@@ -14,7 +14,7 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { Card, CardContent, CardFooter, Content, Page } from '@app/components/layout';
+import { Card, CardContent, Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 
 import { TxDone } from '../send-crypto-asset-form/components/tx-done';
@@ -49,15 +49,13 @@ export function Brc20SentSummary() {
         <Page>
           <Card
             footer={
-              <CardFooter>
-                <HStack gap="space.04" width="100%">
-                  <InfoCardBtn
-                    icon={<ExternalLinkIcon />}
-                    label="Pending BRC-20 transfers"
-                    onClick={onClickLink}
-                  />
-                </HStack>
-              </CardFooter>
+              <HStack gap="space.04" width="100%">
+                <InfoCardBtn
+                  icon={<ExternalLinkIcon />}
+                  label="Pending BRC-20 transfers"
+                  onClick={onClickLink}
+                />
+              </HStack>
             }
           >
             <CardContent p="space.00">

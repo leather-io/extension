@@ -2,6 +2,8 @@ import type { ReactNode } from 'react';
 
 import { Flex, FlexProps } from 'leather-styles/jsx';
 
+import { CardFooter } from './components/card-footer';
+
 interface CardProps {
   children: ReactNode;
   dataTestId?: string;
@@ -21,7 +23,7 @@ export function Card({ children, dataTestId, header, footer, ...props }: CardPro
     >
       {header}
       {children}
-      {footer}
+      {footer && <CardFooter>{footer}</CardFooter>}
     </Flex>
   );
 }

@@ -15,7 +15,6 @@ import {
   ButtonRow,
   Card,
   CardContent,
-  CardFooter,
   Content,
   Page,
 } from '@app/components/layout';
@@ -61,21 +60,19 @@ export function Brc20SendForm() {
                 <Form>
                   <Card
                     footer={
-                      <CardFooter>
-                        <ButtonRow>
-                          <Button
-                            data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
-                            onClick={() => props.handleSubmit()}
-                            type="submit"
-                          >
-                            Continue
-                          </Button>
-                          <AvailableBalance
-                            balance={formatMoney(balance)}
-                            balanceTooltipLabel="Total balance minus any amounts already represented by transfer inscriptions in your wallet."
-                          />
-                        </ButtonRow>
-                      </CardFooter>
+                      <ButtonRow>
+                        <Button
+                          data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
+                          onClick={() => props.handleSubmit()}
+                          type="submit"
+                        >
+                          Continue
+                        </Button>
+                        <AvailableBalance
+                          balance={formatMoney(balance)}
+                          balanceTooltipLabel="Total balance minus any amounts already represented by transfer inscriptions in your wallet."
+                        />
+                      </ButtonRow>
                     }
                   >
                     <CardContent dataTestId={SendCryptoAssetSelectors.SendForm}>

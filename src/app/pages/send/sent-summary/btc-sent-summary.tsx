@@ -15,7 +15,7 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { Card, CardContent, CardFooter, Content, Page } from '@app/components/layout';
+import { Card, CardContent, Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 import { useToast } from '@app/features/toasts/use-toast';
 
@@ -60,16 +60,14 @@ export function BtcSentSummary() {
         <Page>
           <Card
             footer={
-              <CardFooter>
-                <HStack gap="space.04" width="100%">
-                  <InfoCardBtn
-                    icon={<ExternalLinkIcon />}
-                    label="View details"
-                    onClick={onClickLink}
-                  />
-                  <InfoCardBtn icon={<CopyIcon />} label="Copy ID" onClick={onClickCopy} />
-                </HStack>
-              </CardFooter>
+              <HStack gap="space.04" width="100%">
+                <InfoCardBtn
+                  icon={<ExternalLinkIcon />}
+                  label="View details"
+                  onClick={onClickLink}
+                />
+                <InfoCardBtn icon={<CopyIcon />} label="Copy ID" onClick={onClickCopy} />
+              </HStack>
             }
           >
             <CardContent p="space.00">

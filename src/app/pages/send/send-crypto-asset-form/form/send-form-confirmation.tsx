@@ -9,7 +9,7 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { Card, CardContent, CardFooter } from '@app/components/layout';
+import { Card, CardContent } from '@app/components/layout';
 
 interface SendFormConfirmationProps {
   recipient: string;
@@ -46,16 +46,14 @@ export function SendFormConfirmation({
   return (
     <Card
       footer={
-        <CardFooter>
-          <Button
-            aria-busy={isLoading}
-            data-testid={SendCryptoAssetSelectors.ConfirmSendTxBtn}
-            onClick={onBroadcastTransaction}
-            width="100%"
-          >
-            Confirm and send transaction
-          </Button>
-        </CardFooter>
+        <Button
+          aria-busy={isLoading}
+          data-testid={SendCryptoAssetSelectors.ConfirmSendTxBtn}
+          onClick={onBroadcastTransaction}
+          width="100%"
+        >
+          Confirm and send transaction
+        </Button>
       }
     >
       <CardContent dataTestId={SendCryptoAssetSelectors.ConfirmationDetails} p="space.00">

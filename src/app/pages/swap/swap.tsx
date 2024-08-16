@@ -7,7 +7,7 @@ import { useFormikContext } from 'formik';
 import { Button } from '@leather.io/ui';
 import { isUndefined } from '@leather.io/utils';
 
-import { Card, CardContent, CardFooter } from '@app/components/layout';
+import { Card, CardContent } from '@app/components/layout';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 
 import { SwapAssetSelectBase } from './components/swap-asset-select/swap-asset-select-base';
@@ -48,16 +48,14 @@ export function Swap() {
   return (
     <Card
       footer={
-        <CardFooter>
-          <Button
-            data-testid={SwapSelectors.SwapReviewBtn}
-            disabled={!(dirty && isValid) || isFetchingExchangeRate}
-            type="submit"
-            fullWidth
-          >
-            Review and swap
-          </Button>
-        </CardFooter>
+        <Button
+          data-testid={SwapSelectors.SwapReviewBtn}
+          disabled={!(dirty && isValid) || isFetchingExchangeRate}
+          type="submit"
+          fullWidth
+        >
+          Review and swap
+        </Button>
       }
     >
       <CardContent dataTestId={SwapSelectors.SwapPageReady}>

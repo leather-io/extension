@@ -5,7 +5,7 @@ import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { Button } from '@leather.io/ui';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
-import { Card, CardContent, CardFooter } from '@app/components/layout';
+import { Card, CardContent } from '@app/components/layout';
 
 import { useSwapContext } from '../swap.context';
 import { SwapAssetsPair } from './swap-assets-pair/swap-assets-pair';
@@ -19,17 +19,15 @@ export function SwapReview() {
     <>
       <Card
         footer={
-          <CardFooter>
-            <Button
-              aria-busy={isLoading}
-              data-testid={SwapSelectors.SwapSubmitBtn}
-              type="button"
-              onClick={onSubmitSwap}
-              fullWidth
-            >
-              Swap
-            </Button>
-          </CardFooter>
+          <Button
+            aria-busy={isLoading}
+            data-testid={SwapSelectors.SwapSubmitBtn}
+            type="button"
+            onClick={onSubmitSwap}
+            fullWidth
+          >
+            Swap
+          </Button>
         }
       >
         <CardContent dataTestId={SwapSelectors.SwapPageReady}>

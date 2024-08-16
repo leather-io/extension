@@ -13,7 +13,6 @@ import {
   ButtonRow,
   Card,
   CardContent,
-  CardFooter,
   Content,
   Page,
 } from '@app/components/layout';
@@ -70,19 +69,17 @@ export function BtcSendForm() {
                 <Form>
                   <Card
                     footer={
-                      <CardFooter>
-                        <ButtonRow>
-                          <Button
-                            aria-busy={props.isValidating}
-                            data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
-                            onClick={() => props.handleSubmit()}
-                            type="submit"
-                          >
-                            Continue
-                          </Button>
-                          <AvailableBalance balance={formatMoney(balance.availableBalance)} />
-                        </ButtonRow>
-                      </CardFooter>
+                      <ButtonRow>
+                        <Button
+                          aria-busy={props.isValidating}
+                          data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
+                          onClick={() => props.handleSubmit()}
+                          type="submit"
+                        >
+                          Continue
+                        </Button>
+                        <AvailableBalance balance={formatMoney(balance.availableBalance)} />
+                      </ButtonRow>
                     }
                   >
                     <CardContent dataTestId={SendCryptoAssetSelectors.SendForm}>
