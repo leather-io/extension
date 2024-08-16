@@ -1,5 +1,6 @@
 import { Flex, FlexProps } from 'leather-styles/jsx';
 
+import { Card } from '@app/components/layout';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 
 interface BitcoinChooseFeeLayoutProps extends FlexProps {
@@ -19,21 +20,10 @@ export function BitcoinChooseFeeLayout({
       </Flex>
     );
   }
-  // PEte - is this just now a Card ???
+
   return (
-    <Flex
-      px="space.05"
-      py="space.06"
-      flexDirection="column"
-      justifyContent="space-between"
-      alignItems="center"
-      flex="1 0 0"
-      alignSelf="stretch"
-      border={{ base: 'unset', sm: 'default' }}
-      rounded="lg"
-      {...rest}
-    >
+    <Card px="space.05" py="space.06" {...rest}>
       {children}
-    </Flex>
+    </Card>
   );
 }

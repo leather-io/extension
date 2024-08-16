@@ -2,7 +2,6 @@ import { Outlet } from 'react-router-dom';
 
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
-import { Box, Flex } from 'leather-styles/jsx';
 
 import type { CryptoCurrencies } from '@leather.io/models';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
@@ -11,6 +10,7 @@ import { formatMoney } from '@leather.io/utils';
 
 import {
   AvailableBalance,
+  ButtonRow,
   Card,
   CardContent,
   CardFooter,
@@ -71,8 +71,7 @@ export function BtcSendForm() {
                   <Card
                     footer={
                       <CardFooter>
-                        {/* TODO make a wrapper */}
-                        <Flex width="100%" pt="space.04" flexDirection="column" gap="space.04">
+                        <ButtonRow pt="space.04">
                           <Button
                             aria-busy={props.isValidating}
                             data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
@@ -82,7 +81,7 @@ export function BtcSendForm() {
                             Continue
                           </Button>
                           <AvailableBalance balance={formatMoney(balance.availableBalance)} />
-                        </Flex>
+                        </ButtonRow>
                       </CardFooter>
                     }
                   >
@@ -125,7 +124,7 @@ export function BtcSendForm() {
 
                   {/* This is for testing purposes only, to make sure the form is ready to be submitted. */}
                   {calcMaxSpend(props.values.recipient, utxos).spendableBitcoin.toNumber() > 0 ? (
-                    <Box data-testid={SendCryptoAssetSelectors.SendPageReady}></Box>
+                    <span data-testid={SendCryptoAssetSelectors.SendPageReady} />
                   ) : null}
                 </Form>
               );

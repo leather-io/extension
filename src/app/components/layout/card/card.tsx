@@ -36,3 +36,9 @@ export function Card({ children, dataTestId, header, footer, ...props }: CardPro
 // also on PSBT signing parts needs to have a maxHeight
 
 // need to test those flows now as could mess up the rest
+
+// > testing PSBT seems to be OK now
+// > now is time to review and clean this PR, make / delete components and prep for final tests
+
+// need to test action popup for send + swap against what we now have in prod
+// make sure footer is at bottom and scroll is not over doing it
