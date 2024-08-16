@@ -34,7 +34,7 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
 
   const { address: currentBitcoinAddress, publicKey } =
     useCurrentAccountNativeSegwitIndexZeroSigner();
-  const { data: utxos = [], refetch } = useCurrentNativeSegwitUtxos();
+  const { data: utxos = [], filteredUtxosQuery } = useCurrentNativeSegwitUtxos();
   const signTransaction = useSignBitcoinTx();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
   const recipient = getRecipientAddressFromOutput(btcTx.vout, currentBitcoinAddress) || '';
@@ -111,7 +111,7 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
           symbol: 'btc',
           txid,
         });
-        await refetch();
+        await filteredUtxosQuery.refetch();
         void queryClient.invalidateQueries({ queryKey: ['btc-txs-by-address'] });
       },
       onError,

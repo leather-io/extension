@@ -1,7 +1,14 @@
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import type { Money } from '@leather.io/models';
-import { BulletSeparator, Caption, ItemLayout, Pressable, SkeletonLoader } from '@leather.io/ui';
+import {
+  BulletSeparator,
+  Caption,
+  ItemLayout,
+  Pressable,
+  SkeletonLoader,
+  shimmerStyles,
+} from '@leather.io/ui';
 import { spamFilter } from '@leather.io/utils';
 
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
@@ -17,6 +24,7 @@ interface CryptoAssetItemLayoutProps {
   fiatBalance?: string;
   icon: React.ReactNode;
   isLoading?: boolean;
+  isLoadingAdditionalData?: boolean;
   onSelectAsset?(symbol: string, contractId?: string): void;
   titleLeft: string;
   titleRightBulletInfo?: React.ReactNode;
@@ -30,6 +38,7 @@ export function CryptoAssetItemLayout({
   fiatBalance,
   icon,
   isLoading = false,
+  isLoadingAdditionalData = false,
   onSelectAsset,
   titleLeft,
   titleRightBulletInfo,
@@ -46,7 +55,10 @@ export function CryptoAssetItemLayout({
       >
         <Flex alignItems="center" gap="space.02" textStyle="label.02">
           <BulletSeparator>
-            <styled.span>
+            <styled.span
+              data-state={isLoadingAdditionalData ? 'loading' : undefined}
+              className={shimmerStyles}
+            >
               {formattedBalance.value} {balanceSuffix}
             </styled.span>
             {titleRightBulletInfo}
@@ -60,7 +72,12 @@ export function CryptoAssetItemLayout({
     <SkeletonLoader width="78px" isLoading={isLoading}>
       <Flex alignItems="center" color="ink.text-subdued" gap="space.02">
         <BulletSeparator>
-          <Caption>{availableBalance.amount.toNumber() > 0 ? fiatBalance : null}</Caption>
+          <Caption
+            data-state={isLoadingAdditionalData ? 'loading' : undefined}
+            className={shimmerStyles}
+          >
+            {availableBalance.amount.toNumber() > 0 ? fiatBalance : null}
+          </Caption>
           {captionRightBulletInfo}
         </BulletSeparator>
       </Flex>

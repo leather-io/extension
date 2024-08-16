@@ -40,10 +40,10 @@ export function useBrc20SendForm({ balance, ticker, holderAddress }: UseBrc20Sen
   const navigate = useNavigate();
   const currentNetwork = useCurrentNetwork();
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const { data: utxos = [], refetch } = useCurrentNativeSegwitUtxos();
+  const { data: utxos = [], filteredUtxosQuery } = useCurrentNativeSegwitUtxos();
 
   // Forcing a refetch to ensure UTXOs are fresh
-  useOnMount(() => refetch());
+  useOnMount(() => filteredUtxosQuery.refetch());
 
   // TODO: change recipient to that one user iputs
   const initialValues = createDefaultInitialFormValues({

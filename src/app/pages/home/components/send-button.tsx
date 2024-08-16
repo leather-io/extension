@@ -19,10 +19,10 @@ function SendButtonSuspense() {
   const { whenWallet } = useWalletType();
   const btcAddress = useCurrentAccountNativeSegwitIndexZeroSignerNullable()?.address;
   const stxAddress = useCurrentStacksAccountAddress();
-  const { data: stxBalance } = useStxCryptoAssetBalance(stxAddress);
+  const { filteredBalanceQuery } = useStxCryptoAssetBalance(stxAddress);
   const stacksFtAssets = useTransferableSip10Tokens(stxAddress);
 
-  const isDisabled = !btcAddress && !stxBalance && stacksFtAssets?.length === 0;
+  const isDisabled = !btcAddress && !filteredBalanceQuery.data && stacksFtAssets?.length === 0;
 
   return (
     <IconButton

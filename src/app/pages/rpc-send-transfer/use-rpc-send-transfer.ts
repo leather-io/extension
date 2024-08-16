@@ -28,12 +28,12 @@ export function useRpcSendTransferRequestParams() {
 export function useRpcSendTransfer() {
   const navigate = useNavigate();
   const { origin, recipientsAddresses, amounts } = useRpcSendTransferRequestParams();
-  const { data: utxos = [], refetch } = useCurrentNativeSegwitUtxos();
+  const { data: utxos = [], filteredUtxosQuery } = useCurrentNativeSegwitUtxos();
   const totalAmount = sumNumbers(amounts.map(Number));
   const amountAsMoney = createMoney(new BigNumber(totalAmount), 'BTC');
 
   // Forcing a refetch to ensure UTXOs are fresh
-  useOnMount(() => refetch());
+  useOnMount(() => filteredUtxosQuery.refetch());
 
   if (!origin) throw new Error('Invalid params');
 
