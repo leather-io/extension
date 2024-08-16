@@ -56,11 +56,12 @@ export function AssetList({ onSelectAsset, variant = 'read-only' }: AssetListPro
       >
         {nativeSegwitAccount => (
           <BtcAssetItemBalanceLoader address={nativeSegwitAccount.address}>
-            {(balance, isLoading) => (
+            {(balance, isLoading, isLoadingAdditionalData) => (
               <BtcCryptoAssetItem
                 balance={balance}
                 isLoading={isLoading}
                 onSelectAsset={onSelectAsset}
+                isLoadingAdditionalData={isLoadingAdditionalData}
               />
             )}
           </BtcAssetItemBalanceLoader>

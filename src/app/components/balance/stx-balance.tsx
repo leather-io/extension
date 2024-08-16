@@ -10,15 +10,15 @@ interface StxBalanceProps {
 }
 export function StxBalance(props: StxBalanceProps) {
   const { address } = props;
-  const { data: balance } = useStxCryptoAssetBalance(address);
+  const { filteredBalanceQuery } = useStxCryptoAssetBalance(address);
 
   const stxBalance = useMemo(
     () =>
       stacksValue({
-        value: balance?.unlockedBalance.amount ?? 0,
+        value: filteredBalanceQuery.data?.unlockedBalance.amount ?? 0,
         withTicker: true,
       }),
-    [balance]
+    [filteredBalanceQuery.data?.unlockedBalance.amount]
   );
 
   return <Caption>{stxBalance}</Caption>;

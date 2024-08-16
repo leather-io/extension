@@ -56,7 +56,7 @@ export function Brc20SendFormConfirmation() {
 
   const amountFormatted = formatMoney(createMoney(Number(amount), ticker, 0));
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
-  const { refetch } = useCurrentNativeSegwitUtxos();
+  const { filteredUtxosQuery } = useCurrentNativeSegwitUtxos();
 
   const psbt = decodeBitcoinTx(tx);
   const nav = useSendFormNavigate();
@@ -77,7 +77,7 @@ export function Brc20SendFormConfirmation() {
           inputs: psbt.inputs.length,
           outputs: psbt.inputs.length,
         });
-        await refetch();
+        await filteredUtxosQuery.refetch();
         navigate(RouteUrls.SentBrc20Summary.replace(':ticker', ticker), {
           state: {
             serviceFee: serviceFeeFormatted,

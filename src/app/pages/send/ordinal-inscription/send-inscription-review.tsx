@@ -37,7 +37,7 @@ export function SendInscriptionReview() {
   const { arrivesIn, signedTx, recipient, feeRowValue } = useSendInscriptionReviewState();
 
   const { inscription } = useSendInscriptionState();
-  const { refetch } = useCurrentNativeSegwitUtxos();
+  const { filteredUtxosQuery } = useCurrentNativeSegwitUtxos();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
 
   async function sendInscription() {
@@ -46,7 +46,7 @@ export function SendInscriptionReview() {
       tx: bytesToHex(signedTx),
       async onSuccess(txid: string) {
         void analytics.track('broadcast_ordinal_transaction');
-        await refetch();
+        await filteredUtxosQuery.refetch();
         // Might be a BRC-20 transfer, so we want to remove it from the pending
         dispatch(inscriptionSent({ inscriptionId: inscription.id }));
         navigate(`/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionSent}`, {

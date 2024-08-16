@@ -35,14 +35,14 @@ export function useBtcSendForm() {
   const formRef = useRef<FormikProps<BitcoinSendFormValues>>(null);
   const currentNetwork = useCurrentNetwork();
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const { data: utxos = [], refetch } = useCurrentNativeSegwitUtxos();
+  const { data: utxos = [], filteredUtxosQuery } = useCurrentNativeSegwitUtxos();
   const { balance } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
   const sendFormNavigate = useSendFormNavigate();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
 
   // Forcing a refetch to ensure UTXOs are fresh
-  useOnMount(() => refetch());
+  useOnMount(() => filteredUtxosQuery.refetch());
 
   return {
     balance,

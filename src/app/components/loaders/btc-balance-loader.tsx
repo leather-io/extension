@@ -17,12 +17,17 @@ export function BtcBalanceLoader({ address, children }: BtcBalanceLoaderProps) {
 
 interface BtcAssetItemBalanceLoaderProps {
   address: string;
-  children(balance: BtcCryptoAssetBalance, isLoading: boolean): React.ReactNode;
+  children(
+    balance: BtcCryptoAssetBalance,
+    isLoading: boolean,
+    isLoadingAdditionalData: boolean
+  ): React.ReactNode;
 }
 export function BtcAssetItemBalanceLoader({ address, children }: BtcAssetItemBalanceLoaderProps) {
-  const { balance, isError, isLoading } = useBtcCryptoAssetBalanceNativeSegwit(address);
+  const { balance, filteredUtxosQuery, isLoading, isLoadingAdditionalData } =
+    useBtcCryptoAssetBalanceNativeSegwit(address);
   if (isLoading) return <CryptoAssetItemPlaceholder />;
-  if (isError)
+  if (filteredUtxosQuery.isError)
     return <CryptoAssetItemError caption="BTC" icon={<BtcAvatarIcon />} title="Bitcoin" />;
-  return children(balance, isLoading);
+  return children(balance, isLoading, isLoadingAdditionalData);
 }

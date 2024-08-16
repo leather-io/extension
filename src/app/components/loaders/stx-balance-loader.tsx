@@ -11,22 +11,39 @@ import { CryptoAssetItemPlaceholder } from '../crypto-asset-item/crypto-asset-it
 
 interface StxAssetItemBalanceLoaderProps {
   address: string;
-  children(balance: StxCryptoAssetBalance, isLoading: boolean): React.ReactNode;
+  children(
+    balance: StxCryptoAssetBalance,
+    isLoading: boolean,
+    isLoadingAdditionalData: boolean
+  ): React.ReactNode;
 }
 export function StxAssetItemBalanceLoader({ address, children }: StxAssetItemBalanceLoaderProps) {
-  const result = useStxCryptoAssetBalance(address);
-  if (result.isLoading) return <CryptoAssetItemPlaceholder />;
-  if (isErrorTooManyRequests(result))
+  const { initialBalanceQuery, filteredBalanceQuery, isLoadingAdditionalData } =
+    useStxCryptoAssetBalance(address);
+
+  async function refetchAll() {
+    await initialBalanceQuery.refetch();
+    return filteredBalanceQuery.refetch();
+  }
+
+  if (initialBalanceQuery.isLoading) return <CryptoAssetItemPlaceholder />;
+
+  if (isErrorTooManyRequests(filteredBalanceQuery)) {
     return (
       <CryptoAssetItemError
         caption="STX"
         icon={<StxAvatarIcon />}
-        onRefetch={() => result.refetch()}
+        onRefetch={() => refetchAll()}
         title="Stacks"
       />
     );
-  if (!isFetchedWithSuccess(result))
+  }
+
+  if (!isFetchedWithSuccess(filteredBalanceQuery)) {
     return <CryptoAssetItemError caption="STX" icon={<StxAvatarIcon />} title="Stacks" />;
-  const { data: balance, isLoading } = result;
-  return children(balance, isLoading);
+  }
+
+  const { data: balance, isLoading } = filteredBalanceQuery;
+
+  return children(balance, isLoading, isLoadingAdditionalData);
 }
