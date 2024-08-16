@@ -24,5 +24,8 @@ export const submittedTransactionsSlice = createSlice({
     transactionReplacedByFee(state, action: PayloadAction<string>) {
       submittedTransactionsAdapter.removeOne(state, action.payload);
     },
+    clearSubmittedTransactions(state) {
+      submittedTransactionsAdapter.removeAll(state);
+    },
   },
 });

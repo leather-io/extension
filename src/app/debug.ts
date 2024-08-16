@@ -11,6 +11,7 @@ import { queryClient } from './common/persistence';
 import { store } from './store';
 import { stxChainSlice } from './store/chains/stx-chain.slice';
 import { settingsSlice } from './store/settings/settings.slice';
+import { submittedTransactionsActions } from './store/submitted-transactions/submitted-transactions.actions';
 
 declare global {
   interface Window {
@@ -45,6 +46,9 @@ const debug = {
   },
   resetMessages() {
     store.dispatch(settingsSlice.actions.resetMessages());
+  },
+  clearSubmittedTransactions() {
+    store.dispatch(submittedTransactionsActions.clearSubmittedTransactions());
   },
   clearReactQueryCache() {
     queryClient.clear();
