@@ -14,7 +14,7 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { Card, CardContent, Content, Page } from '@app/components/layout';
+import { Card, Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 
 import { TxDone } from '../send-crypto-asset-form/components/tx-done';
@@ -48,6 +48,9 @@ export function Brc20SentSummary() {
       <Content>
         <Page>
           <Card
+            contentStyle={{
+              p: 'space.00',
+            }}
             footer={
               <HStack gap="space.04" width="100%">
                 <InfoCardBtn
@@ -58,45 +61,43 @@ export function Brc20SentSummary() {
               </HStack>
             }
           >
-            <CardContent p="space.00">
-              <TxDone />
+            <TxDone />
 
-              <InfoCardAssetValue px="space.05" symbol={ticker} value={Number(amount)} />
+            <InfoCardAssetValue px="space.05" symbol={ticker} value={Number(amount)} />
 
-              <Stack px="space.06" pb="space.06" width="100%">
-                <Callout
-                  variant="info"
-                  title="One more step is required to send tokens"
-                  mb="space.05"
-                >
-                  <Stack>
-                    <styled.span mb="space.02">
-                      You'll need to send the transfer inscription to your recipient of choice from
-                      the home screen once its status changes to "Ready to send"
-                    </styled.span>
-                    <Link
-                      width="fit-content"
-                      textStyle="body.02"
-                      onClick={() => {
-                        openInNewTab(
-                          'https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens'
-                        );
-                      }}
-                    >
-                      Learn more
-                    </Link>
-                  </Stack>
-                </Callout>
-                <InfoCardSeparator />
+            <Stack px="space.06" pb="space.06" width="100%">
+              <Callout
+                variant="info"
+                title="One more step is required to send tokens"
+                mb="space.05"
+              >
+                <Stack>
+                  <styled.span mb="space.02">
+                    You'll need to send the transfer inscription to your recipient of choice from
+                    the home screen once its status changes to "Ready to send"
+                  </styled.span>
+                  <Link
+                    width="fit-content"
+                    textStyle="body.02"
+                    onClick={() => {
+                      openInNewTab(
+                        'https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens'
+                      );
+                    }}
+                  >
+                    Learn more
+                  </Link>
+                </Stack>
+              </Callout>
+              <InfoCardSeparator />
 
-                <InfoCardRow title="Sending" value={amountFormatted} />
-                <InfoCardRow title="Inscription service fee" value={serviceFee} />
-                <InfoCardRow title="Payment transaction fee" value={feeRowValue} />
+              <InfoCardRow title="Sending" value={amountFormatted} />
+              <InfoCardRow title="Inscription service fee" value={serviceFee} />
+              <InfoCardRow title="Payment transaction fee" value={feeRowValue} />
 
-                <InfoCardSeparator />
-                <InfoCardRow title="Total fee" value={totalFee} />
-              </Stack>
-            </CardContent>
+              <InfoCardSeparator />
+              <InfoCardRow title="Total fee" value={totalFee} />
+            </Stack>
           </Card>
         </Page>
       </Content>

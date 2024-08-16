@@ -12,7 +12,7 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { Card, CardContent, Content, Page, SummaryFooter } from '@app/components/layout';
+import { Card, Content, Page, SummaryFooter } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 import { useToast } from '@app/features/toasts/use-toast';
 
@@ -55,27 +55,30 @@ export function BtcSentSummary() {
       <PageHeader title="Sent" isSummaryPage />
       <Content>
         <Page>
-          <Card footer={<SummaryFooter onClickCopy={onClickCopy} onClickLink={onClickLink} />}>
-            <CardContent p="space.00">
-              <TxDone />
-              <InfoCardAssetValue
-                fiatSymbol={txFiatValueSymbol}
-                fiatValue={txFiatValue}
-                px="space.05"
-                symbol={symbol}
-                value={txValue}
-              />
+          <Card
+            contentStyle={{
+              p: 'space.00',
+            }}
+            footer={<SummaryFooter onClickCopy={onClickCopy} onClickLink={onClickLink} />}
+          >
+            <TxDone />
+            <InfoCardAssetValue
+              fiatSymbol={txFiatValueSymbol}
+              fiatValue={txFiatValue}
+              px="space.05"
+              symbol={symbol}
+              value={txValue}
+            />
 
-              <Stack pb="space.06" px="space.06" width="100%">
-                <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
-                <InfoCardSeparator />
-                <InfoCardRow title="Total spend" value={totalSpend} />
+            <Stack pb="space.06" px="space.06" width="100%">
+              <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
+              <InfoCardSeparator />
+              <InfoCardRow title="Total spend" value={totalSpend} />
 
-                <InfoCardRow title="Sending" value={sendingValue} />
-                <InfoCardRow title="Fee" value={feeRowValue} />
-                {arrivesIn && <InfoCardRow title="Arrives in" value={arrivesIn} />}
-              </Stack>
-            </CardContent>
+              <InfoCardRow title="Sending" value={sendingValue} />
+              <InfoCardRow title="Fee" value={feeRowValue} />
+              {arrivesIn && <InfoCardRow title="Arrives in" value={arrivesIn} />}
+            </Stack>
           </Card>
         </Page>
       </Content>

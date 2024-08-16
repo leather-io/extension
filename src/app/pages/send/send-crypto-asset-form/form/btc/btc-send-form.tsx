@@ -8,14 +8,7 @@ import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import { BtcAvatarIcon, Button, Callout, Link } from '@leather.io/ui';
 import { formatMoney } from '@leather.io/utils';
 
-import {
-  AvailableBalance,
-  ButtonRow,
-  Card,
-  CardContent,
-  Content,
-  Page,
-} from '@app/components/layout';
+import { AvailableBalance, ButtonRow, Card, Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 
 import { AmountField } from '../../components/amount-field';
@@ -68,6 +61,7 @@ export function BtcSendForm() {
               return (
                 <Form>
                   <Card
+                    dataTestId={SendCryptoAssetSelectors.SendForm}
                     footer={
                       <ButtonRow>
                         <Button
@@ -82,40 +76,38 @@ export function BtcSendForm() {
                       </ButtonRow>
                     }
                   >
-                    <CardContent dataTestId={SendCryptoAssetSelectors.SendForm}>
-                      <AmountField
-                        autoComplete="off"
-                        balance={balance.availableBalance}
-                        bottomInputOverlay={
-                          <BitcoinSendMaxButton
-                            balance={balance.availableBalance}
-                            isSendingMax={isSendingMax}
-                            onSetIsSendingMax={onSetIsSendingMax}
-                            sendMaxBalance={sendMaxCalculation.spendableBitcoin.toString()}
-                            sendMaxFee={sendMaxCalculation.spendAllFee.toString()}
-                          />
-                        }
-                        onSetIsSendingMax={onSetIsSendingMax}
-                        isSendingMax={isSendingMax}
-                        switchableAmount={
-                          <SendFiatValue marketData={marketData} assetSymbol={symbol} />
-                        }
-                      />
-                      <SelectedAssetField icon={<BtcAvatarIcon />} name="Bitcoin" symbol={symbol} />
-                      <TransferRecipientField />
-                      {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && (
-                        <Callout variant="warning" title="Funds have no value" mt="space.04">
-                          This is a Bitcoin testnet transaction.
-                          <Link
-                            variant="text"
-                            href="https://coinfaucet.eu/en/btc-testnet"
-                            textStyle="caption.01"
-                          >
-                            Get testnet BTC here ↗
-                          </Link>
-                        </Callout>
-                      )}
-                    </CardContent>
+                    <AmountField
+                      autoComplete="off"
+                      balance={balance.availableBalance}
+                      bottomInputOverlay={
+                        <BitcoinSendMaxButton
+                          balance={balance.availableBalance}
+                          isSendingMax={isSendingMax}
+                          onSetIsSendingMax={onSetIsSendingMax}
+                          sendMaxBalance={sendMaxCalculation.spendableBitcoin.toString()}
+                          sendMaxFee={sendMaxCalculation.spendAllFee.toString()}
+                        />
+                      }
+                      onSetIsSendingMax={onSetIsSendingMax}
+                      isSendingMax={isSendingMax}
+                      switchableAmount={
+                        <SendFiatValue marketData={marketData} assetSymbol={symbol} />
+                      }
+                    />
+                    <SelectedAssetField icon={<BtcAvatarIcon />} name="Bitcoin" symbol={symbol} />
+                    <TransferRecipientField />
+                    {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && (
+                      <Callout variant="warning" title="Funds have no value" mt="space.04">
+                        This is a Bitcoin testnet transaction.
+                        <Link
+                          variant="text"
+                          href="https://coinfaucet.eu/en/btc-testnet"
+                          textStyle="caption.01"
+                        >
+                          Get testnet BTC here ↗
+                        </Link>
+                      </Callout>
+                    )}
                   </Card>
                   <Outlet />
 

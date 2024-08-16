@@ -9,7 +9,7 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { Card, CardContent } from '@app/components/layout';
+import { Card } from '@app/components/layout';
 
 interface SendFormConfirmationProps {
   recipient: string;
@@ -45,6 +45,10 @@ export function SendFormConfirmation({
 }: SendFormConfirmationProps) {
   return (
     <Card
+      dataTestId={SendCryptoAssetSelectors.ConfirmationDetails}
+      contentStyle={{
+        p: 'space.00',
+      }}
       footer={
         <Button
           aria-busy={isLoading}
@@ -56,46 +60,44 @@ export function SendFormConfirmation({
         </Button>
       }
     >
-      <CardContent dataTestId={SendCryptoAssetSelectors.ConfirmationDetails} p="space.00">
-        <InfoCardAssetValue
-          data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
-          fiatSymbol={txFiatValueSymbol}
-          fiatValue={txFiatValue}
-          mb="space.05"
-          mt={['unset', 'space.05']}
-          px="space.05"
-          symbol={symbol}
-          value={Number(txValue)}
+      <InfoCardAssetValue
+        data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
+        fiatSymbol={txFiatValueSymbol}
+        fiatValue={txFiatValue}
+        mb="space.05"
+        mt={['unset', 'space.05']}
+        px="space.05"
+        symbol={symbol}
+        value={Number(txValue)}
+      />
+
+      <Callout variant="info" title="Sending to an exchange?" px="space.03" mb="space.05">
+        {`Make sure you include the memo so the exchange can credit the ${symbol} to your account`}
+      </Callout>
+
+      <Stack pb="space.06" px="space.06" width="100%">
+        <InfoCardRow
+          title="To"
+          value={<FormAddressDisplayer address={recipient} />}
+          data-testid={SendCryptoAssetSelectors.ConfirmationDetailsRecipient}
         />
-
-        <Callout variant="info" title="Sending to an exchange?" px="space.03" mb="space.05">
-          {`Make sure you include the memo so the exchange can credit the ${symbol} to your account`}
-        </Callout>
-
-        <Stack pb="space.06" px="space.06" width="100%">
-          <InfoCardRow
-            title="To"
-            value={<FormAddressDisplayer address={recipient} />}
-            data-testid={SendCryptoAssetSelectors.ConfirmationDetailsRecipient}
-          />
-          <InfoCardSeparator />
-          <InfoCardRow title="Total spend" value={totalSpend} />
-          <InfoCardRow title="Sending" value={sendingValue} />
-          <InfoCardRow
-            title="Fee"
-            value={fee}
-            titleAdditionalElement={feeWarningTooltip}
-            data-testid={SendCryptoAssetSelectors.ConfirmationDetailsFee}
-          />
-          <InfoCardRow
-            title="Memo"
-            value={memoDisplayText}
-            data-testid={SendCryptoAssetSelectors.ConfirmationDetailsMemo}
-          />
-          <InfoCardRow title="Nonce" value={nonce} />
-          <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />
-        </Stack>
-      </CardContent>
+        <InfoCardSeparator />
+        <InfoCardRow title="Total spend" value={totalSpend} />
+        <InfoCardRow title="Sending" value={sendingValue} />
+        <InfoCardRow
+          title="Fee"
+          value={fee}
+          titleAdditionalElement={feeWarningTooltip}
+          data-testid={SendCryptoAssetSelectors.ConfirmationDetailsFee}
+        />
+        <InfoCardRow
+          title="Memo"
+          value={memoDisplayText}
+          data-testid={SendCryptoAssetSelectors.ConfirmationDetailsMemo}
+        />
+        <InfoCardRow title="Nonce" value={nonce} />
+        <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />
+      </Stack>
     </Card>
   );
 }

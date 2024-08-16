@@ -34,7 +34,7 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { Card, CardContent, Content, Page } from '@app/components/layout';
+import { Card, Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 
@@ -138,6 +138,9 @@ export function BtcSendFormConfirmation() {
       <Content>
         <Page>
           <Card
+            contentStyle={{
+              p: 'space.00',
+            }}
             dataTestId={SendCryptoAssetSelectors.ConfirmationDetails}
             footer={
               <Button
@@ -150,35 +153,33 @@ export function BtcSendFormConfirmation() {
               </Button>
             }
           >
-            <CardContent p="space.00">
-              <InfoCardAssetValue
-                data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
-                fiatSymbol={txFiatValueSymbol}
-                fiatValue={txFiatValue}
-                mb="space.06"
-                mt="space.05"
-                px="space.05"
-                symbol={symbol}
-                value={Number(transferAmount)}
-              />
+            <InfoCardAssetValue
+              data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
+              fiatSymbol={txFiatValueSymbol}
+              fiatValue={txFiatValue}
+              mb="space.06"
+              mt="space.05"
+              px="space.05"
+              symbol={symbol}
+              value={Number(transferAmount)}
+            />
 
-              <Stack pb="space.06" px="space.06" width="100%">
-                <InfoCardRow
-                  title="To"
-                  value={<FormAddressDisplayer address={recipient} />}
-                  data-testid={SendCryptoAssetSelectors.ConfirmationDetailsRecipient}
-                />
-                <InfoCardSeparator />
-                <InfoCardRow title="Total spend" value={totalSpend} />
-                <InfoCardRow title="Sending" value={sendingValue} />
-                <InfoCardRow
-                  title="Fee"
-                  value={feeRowValue}
-                  data-testid={SendCryptoAssetSelectors.ConfirmationDetailsFee}
-                />
-                {arrivesIn && <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />}
-              </Stack>
-            </CardContent>
+            <Stack pb="space.06" px="space.06" width="100%">
+              <InfoCardRow
+                title="To"
+                value={<FormAddressDisplayer address={recipient} />}
+                data-testid={SendCryptoAssetSelectors.ConfirmationDetailsRecipient}
+              />
+              <InfoCardSeparator />
+              <InfoCardRow title="Total spend" value={totalSpend} />
+              <InfoCardRow title="Sending" value={sendingValue} />
+              <InfoCardRow
+                title="Fee"
+                value={feeRowValue}
+                data-testid={SendCryptoAssetSelectors.ConfirmationDetailsFee}
+              />
+              {arrivesIn && <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />}
+            </Stack>
           </Card>
         </Page>
       </Content>

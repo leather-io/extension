@@ -11,7 +11,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
 
 import { SignPsbtArgs } from '@app/common/psbt/requests';
-import { ButtonRow, Card, CardContent } from '@app/components/layout';
+import { ButtonRow, Card } from '@app/components/layout';
 import { PopupHeader } from '@app/features/container/headers/popup.header';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
@@ -94,6 +94,11 @@ export function PsbtSigner(props: PsbtSignerProps) {
     <PsbtSignerProvider value={psbtSignerContext}>
       <PopupHeader showSwitchAccount balance="all" />
       <Card
+        dataTestId={PsbtSelectors.PsbtSignerCard}
+        contentStyle={{
+          maxHeight: '80vh',
+          borderBottom: 'default',
+        }}
         overflow="hidden"
         footer={
           <ButtonRow flexDirection="row">
@@ -117,21 +122,15 @@ export function PsbtSigner(props: PsbtSignerProps) {
           </ButtonRow>
         }
       >
-        <CardContent
-          dataTestId={PsbtSelectors.PsbtSignerCard}
-          maxHeight="80vh"
-          borderBottom="default" // work on this so it only shows if CardContent is scrollable
-        >
-          <Psbt.PsbtRequestHeader name={name} origin={origin} />
-          <Psbt.PsbtRequestDetailsLayout>
-            {isPsbtMutable ? <Psbt.PsbtRequestSighashWarningLabel origin={origin} /> : null}
-            <Psbt.PsbtRequestDetailsHeader />
-            <Psbt.PsbtInputsOutputsTotals />
-            <Psbt.PsbtInputsAndOutputs />
-            {psbtRaw ? <Psbt.PsbtRequestRaw psbt={psbtRaw} /> : null}
-            <Psbt.PsbtRequestFee fee={fee} />
-          </Psbt.PsbtRequestDetailsLayout>
-        </CardContent>
+        <Psbt.PsbtRequestHeader name={name} origin={origin} />
+        <Psbt.PsbtRequestDetailsLayout>
+          {isPsbtMutable ? <Psbt.PsbtRequestSighashWarningLabel origin={origin} /> : null}
+          <Psbt.PsbtRequestDetailsHeader />
+          <Psbt.PsbtInputsOutputsTotals />
+          <Psbt.PsbtInputsAndOutputs />
+          {psbtRaw ? <Psbt.PsbtRequestRaw psbt={psbtRaw} /> : null}
+          <Psbt.PsbtRequestFee fee={fee} />
+        </Psbt.PsbtRequestDetailsLayout>
       </Card>
     </PsbtSignerProvider>
   );

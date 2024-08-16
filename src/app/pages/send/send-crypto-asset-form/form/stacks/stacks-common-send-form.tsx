@@ -2,7 +2,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik, FormikHelpers } from 'formik';
-import { Box } from 'leather-styles/jsx';
+import { Box, Flex } from 'leather-styles/jsx';
 import { ObjectSchema } from 'yup';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@leather.io/constants';
@@ -14,7 +14,7 @@ import { StacksSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { FeesRow } from '@app/components/fees-row/fees-row';
-import { AvailableBalance, ButtonRow, Card, CardContent, Page } from '@app/components/layout';
+import { AvailableBalance, ButtonRow, Card, Page } from '@app/components/layout';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { HighFeeDialog } from '@app/features/stacks-high-fee-warning/stacks-high-fee-dialog';
@@ -63,6 +63,7 @@ export function StacksCommonSendForm({
               <NonceSetter />
               <Form>
                 <Card
+                  dataTestId={SendCryptoAssetSelectors.SendForm}
                   footer={
                     <ButtonRow>
                       <Button
@@ -78,9 +79,10 @@ export function StacksCommonSendForm({
                     </ButtonRow>
                   }
                 >
-                  <CardContent
-                    dataTestId={SendCryptoAssetSelectors.SendForm}
-                    marginBottom={{ base: 'unset', sm: '128px' }} // AvailBalance footer height = 24 + 80 + 24
+                  <Flex
+                    width="100%"
+                    flexDirection="column"
+                    marginBottom={{ base: 'unset', sm: '33px' }}
                   >
                     {amountField}
                     {selectedAssetField}
@@ -96,7 +98,7 @@ export function StacksCommonSendForm({
                     >
                       Edit nonce
                     </Link>
-                  </CardContent>
+                  </Flex>
                 </Card>
                 <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
                 <Outlet />

@@ -10,14 +10,7 @@ import { Brc20AvatarIcon, Button, Callout, Link } from '@leather.io/ui';
 import { convertAmountToBaseUnit, formatMoney } from '@leather.io/utils';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import {
-  AvailableBalance,
-  ButtonRow,
-  Card,
-  CardContent,
-  Content,
-  Page,
-} from '@app/components/layout';
+import { AvailableBalance, ButtonRow, Card, Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 
 import { AmountField } from '../../components/amount-field';
@@ -59,6 +52,7 @@ export function Brc20SendForm() {
               return (
                 <Form>
                   <Card
+                    dataTestId={SendCryptoAssetSelectors.SendForm}
                     footer={
                       <ButtonRow>
                         <Button
@@ -75,48 +69,42 @@ export function Brc20SendForm() {
                       </ButtonRow>
                     }
                   >
-                    <CardContent dataTestId={SendCryptoAssetSelectors.SendForm}>
-                      <AmountField
-                        balance={balance}
-                        bottomInputOverlay={
-                          <SendMaxButton
-                            balance={balance}
-                            sendMaxBalance={convertAmountToBaseUnit(balance).toString()}
+                    <AmountField
+                      balance={balance}
+                      bottomInputOverlay={
+                        <SendMaxButton
+                          balance={balance}
+                          sendMaxBalance={convertAmountToBaseUnit(balance).toString()}
+                        />
+                      }
+                      autoComplete="off"
+                      switchableAmount={
+                        marketData ? (
+                          <SendFiatValue
+                            marketData={marketData}
+                            assetSymbol={balance.symbol}
+                            assetDecimals={balance.decimals}
                           />
-                        }
-                        autoComplete="off"
-                        switchableAmount={
-                          marketData ? (
-                            <SendFiatValue
-                              marketData={marketData}
-                              assetSymbol={balance.symbol}
-                              assetDecimals={balance.decimals}
-                            />
-                          ) : undefined
-                        }
-                      />
-                      <SelectedAssetField
-                        icon={<Brc20AvatarIcon />}
-                        name={ticker}
-                        symbol={ticker}
-                      />
-                      <Callout variant="info" title="Sending BRC-20 tokens requires two steps">
-                        <styled.ol mb="space.02">
-                          <li>1. Create transfer inscription with amount to send</li>
-                          <li>2. Send transfer inscription to recipient of choice</li>
-                        </styled.ol>
-                        <Link
-                          onClick={() => {
-                            openInNewTab(
-                              'https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens'
-                            );
-                          }}
-                          textStyle="body.02"
-                        >
-                          Learn more
-                        </Link>
-                      </Callout>
-                    </CardContent>
+                        ) : undefined
+                      }
+                    />
+                    <SelectedAssetField icon={<Brc20AvatarIcon />} name={ticker} symbol={ticker} />
+                    <Callout variant="info" title="Sending BRC-20 tokens requires two steps">
+                      <styled.ol mb="space.02">
+                        <li>1. Create transfer inscription with amount to send</li>
+                        <li>2. Send transfer inscription to recipient of choice</li>
+                      </styled.ol>
+                      <Link
+                        onClick={() => {
+                          openInNewTab(
+                            'https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens'
+                          );
+                        }}
+                        textStyle="body.02"
+                      >
+                        Learn more
+                      </Link>
+                    </Callout>
                   </Card>
 
                   <Outlet />
