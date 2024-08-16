@@ -1,13 +1,13 @@
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useFormikContext } from 'formik';
-import { Flex, HStack, Stack } from 'leather-styles/jsx';
+import { HStack, Stack } from 'leather-styles/jsx';
 
 import { Button, Caption, Dialog, DialogHeader, ErrorIcon, Link, Title } from '@leather.io/ui';
 
 import { StacksSendFormValues } from '@shared/models/form.model';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Footer } from '@app/components/layout';
+import { ButtonRow, Footer } from '@app/components/layout';
 
 import { useStacksHighFeeWarningContext } from './stacks-high-fee-warning-container';
 
@@ -27,7 +27,7 @@ export function HighFeeDialog({ learnMoreUrl }: HighFeeDialogProps) {
       onClose={() => setShowHighFeeWarningDialog(false)}
       footer={
         <Footer>
-          <Flex flexDirection="row" gap="space.04" width="100%">
+          <ButtonRow flexDirection="row">
             <Button
               onClick={() => setShowHighFeeWarningDialog(false)}
               variant="outline"
@@ -46,7 +46,7 @@ export function HighFeeDialog({ learnMoreUrl }: HighFeeDialogProps) {
             >
               Yes, I'm sure
             </Button>
-          </Flex>
+          </ButtonRow>
         </Footer>
       }
     >

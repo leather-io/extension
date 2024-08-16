@@ -90,6 +90,12 @@ export function PsbtSigner(props: PsbtSignerProps) {
 
   if (shouldDefaultToAdvancedView && psbtRaw) return <Psbt.PsbtRequestRaw psbt={psbtRaw} />;
 
+  // need to also fix this issue with it scrolling too much
+  //https://github.com/leather-io/issues/issues/235
+  // thats already broken for ages.
+  // could be better to not use a card here?
+  // OR maybe add a different footer?
+
   return (
     <PsbtSignerProvider value={psbtSignerContext}>
       <PopupHeader showSwitchAccount balance="all" />
@@ -103,6 +109,9 @@ export function PsbtSigner(props: PsbtSignerProps) {
           // so now is a good time to try what Fab really wanted - only add the border if scrollable content
           // so try and do that on the CardContent
           // expands the scope of this a bit but will add a better solution
+
+          // CardFooter only ever gets this border top and gets it added here
+          // refactor thiis
           <CardFooter borderTop="default">
             <ButtonRow flexDirection="row">
               <Button flexGrow={1} onClick={onCancel} variant="outline">
@@ -126,7 +135,11 @@ export function PsbtSigner(props: PsbtSignerProps) {
           </CardFooter>
         }
       >
-        <CardContent dataTestId={PsbtSelectors.PsbtSignerCard} maxHeight="80vh">
+        <CardContent
+          dataTestId={PsbtSelectors.PsbtSignerCard}
+          maxHeight="80vh"
+          marginBottom="128px"
+        >
           <Psbt.PsbtRequestHeader name={name} origin={origin} />
           <Psbt.PsbtRequestDetailsLayout>
             {isPsbtMutable ? <Psbt.PsbtRequestSighashWarningLabel origin={origin} /> : null}

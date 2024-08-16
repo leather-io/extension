@@ -12,6 +12,7 @@ export function GetAddressesLayout({
   requester,
   onUserApproveGetAddresses,
 }: GetAddressesLayoutProps) {
+  // re-compare with psbt signer
   return (
     <Flex
       flexDirection="column"
