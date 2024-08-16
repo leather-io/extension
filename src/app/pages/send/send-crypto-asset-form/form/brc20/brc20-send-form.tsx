@@ -2,7 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
-import { Box, styled } from 'leather-styles/jsx';
+import { Flex, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import type { MarketData, Money } from '@leather.io/models';
@@ -47,21 +47,21 @@ export function Brc20SendForm() {
       <PageHeader title="Send" />
       <Content>
         <Page>
-          <Box pb="space.04" width="100%">
-            <Formik
-              initialValues={initialValues}
-              onSubmit={chooseTransactionFee}
-              validationSchema={validationSchema}
-              innerRef={formRef}
-              {...defaultSendFormFormikProps}
-            >
-              {props => {
-                onFormStateChange(props.values);
-                return (
-                  <Form>
-                    <Card
-                      footer={
-                        <CardFooter>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={chooseTransactionFee}
+            validationSchema={validationSchema}
+            innerRef={formRef}
+            {...defaultSendFormFormikProps}
+          >
+            {props => {
+              onFormStateChange(props.values);
+              return (
+                <Form>
+                  <Card
+                    footer={
+                      <CardFooter>
+                        <Flex width="100%" flexDirection="column" gap="space.04">
                           <Button
                             data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
                             onClick={() => props.handleSubmit()}
@@ -73,59 +73,59 @@ export function Brc20SendForm() {
                             balance={formatMoney(balance)}
                             balanceTooltipLabel="Total balance minus any amounts already represented by transfer inscriptions in your wallet."
                           />
-                        </CardFooter>
-                      }
-                    >
-                      <CardContent dataTestId={SendCryptoAssetSelectors.SendForm}>
-                        <AmountField
-                          balance={balance}
-                          bottomInputOverlay={
-                            <SendMaxButton
-                              balance={balance}
-                              sendMaxBalance={convertAmountToBaseUnit(balance).toString()}
+                        </Flex>
+                      </CardFooter>
+                    }
+                  >
+                    <CardContent dataTestId={SendCryptoAssetSelectors.SendForm}>
+                      <AmountField
+                        balance={balance}
+                        bottomInputOverlay={
+                          <SendMaxButton
+                            balance={balance}
+                            sendMaxBalance={convertAmountToBaseUnit(balance).toString()}
+                          />
+                        }
+                        autoComplete="off"
+                        switchableAmount={
+                          marketData ? (
+                            <SendFiatValue
+                              marketData={marketData}
+                              assetSymbol={balance.symbol}
+                              assetDecimals={balance.decimals}
                             />
-                          }
-                          autoComplete="off"
-                          switchableAmount={
-                            marketData ? (
-                              <SendFiatValue
-                                marketData={marketData}
-                                assetSymbol={balance.symbol}
-                                assetDecimals={balance.decimals}
-                              />
-                            ) : undefined
-                          }
-                        />
-                        <SelectedAssetField
-                          icon={<Brc20AvatarIcon />}
-                          name={ticker}
-                          symbol={ticker}
-                        />
-                        <Callout variant="info" title="Sending BRC-20 tokens requires two steps">
-                          <styled.ol mb="space.02">
-                            <li>1. Create transfer inscription with amount to send</li>
-                            <li>2. Send transfer inscription to recipient of choice</li>
-                          </styled.ol>
-                          <Link
-                            onClick={() => {
-                              openInNewTab(
-                                'https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens'
-                              );
-                            }}
-                            textStyle="body.02"
-                          >
-                            Learn more
-                          </Link>
-                        </Callout>
-                      </CardContent>
-                    </Card>
+                          ) : undefined
+                        }
+                      />
+                      <SelectedAssetField
+                        icon={<Brc20AvatarIcon />}
+                        name={ticker}
+                        symbol={ticker}
+                      />
+                      <Callout variant="info" title="Sending BRC-20 tokens requires two steps">
+                        <styled.ol mb="space.02">
+                          <li>1. Create transfer inscription with amount to send</li>
+                          <li>2. Send transfer inscription to recipient of choice</li>
+                        </styled.ol>
+                        <Link
+                          onClick={() => {
+                            openInNewTab(
+                              'https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens'
+                            );
+                          }}
+                          textStyle="body.02"
+                        >
+                          Learn more
+                        </Link>
+                      </Callout>
+                    </CardContent>
+                  </Card>
 
-                    <Outlet />
-                  </Form>
-                );
-              }}
-            </Formik>
-          </Box>
+                  <Outlet />
+                </Form>
+              );
+            }}
+          </Formik>
         </Page>
       </Content>
     </>

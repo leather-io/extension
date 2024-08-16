@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
-import { Box } from 'leather-styles/jsx';
+import { Box, Flex } from 'leather-styles/jsx';
 
 import type { CryptoCurrencies } from '@leather.io/models';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
@@ -51,27 +51,28 @@ export function BtcSendForm() {
       <PageHeader title="Send" />
       <Content>
         <Page>
-          <Box width="100%" pb="space.04">
-            <Formik
-              initialValues={createDefaultInitialFormValues({
-                ...routeState,
-                recipientBnsName: '',
-                symbol,
-              })}
-              onSubmit={chooseTransactionFee}
-              validationSchema={validationSchema}
-              innerRef={formRef}
-              {...defaultSendFormFormikProps}
-            >
-              {props => {
-                onFormStateChange(props.values);
-                const sendMaxCalculation = calcMaxSpend(props.values.recipient, utxos);
+          <Formik
+            initialValues={createDefaultInitialFormValues({
+              ...routeState,
+              recipientBnsName: '',
+              symbol,
+            })}
+            onSubmit={chooseTransactionFee}
+            validationSchema={validationSchema}
+            innerRef={formRef}
+            {...defaultSendFormFormikProps}
+          >
+            {props => {
+              onFormStateChange(props.values);
+              const sendMaxCalculation = calcMaxSpend(props.values.recipient, utxos);
 
-                return (
-                  <Form>
-                    <Card
-                      footer={
-                        <CardFooter>
+              return (
+                <Form>
+                  <Card
+                    footer={
+                      <CardFooter>
+                        {/* TODO make a wrapper */}
+                        <Flex width="100%" pt="space.04" flexDirection="column" gap="space.04">
                           <Button
                             aria-busy={props.isValidating}
                             data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
@@ -81,59 +82,55 @@ export function BtcSendForm() {
                             Continue
                           </Button>
                           <AvailableBalance balance={formatMoney(balance.availableBalance)} />
-                        </CardFooter>
-                      }
-                    >
-                      <CardContent dataTestId={SendCryptoAssetSelectors.SendForm}>
-                        <AmountField
-                          autoComplete="off"
-                          balance={balance.availableBalance}
-                          bottomInputOverlay={
-                            <BitcoinSendMaxButton
-                              balance={balance.availableBalance}
-                              isSendingMax={isSendingMax}
-                              onSetIsSendingMax={onSetIsSendingMax}
-                              sendMaxBalance={sendMaxCalculation.spendableBitcoin.toString()}
-                              sendMaxFee={sendMaxCalculation.spendAllFee.toString()}
-                            />
-                          }
-                          onSetIsSendingMax={onSetIsSendingMax}
-                          isSendingMax={isSendingMax}
-                          switchableAmount={
-                            <SendFiatValue marketData={marketData} assetSymbol={symbol} />
-                          }
-                        />
-                        <SelectedAssetField
-                          icon={<BtcAvatarIcon />}
-                          name="Bitcoin"
-                          symbol={symbol}
-                        />
-                        <TransferRecipientField />
-                        {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && (
-                          <Callout variant="warning" title="Funds have no value" mt="space.04">
-                            This is a Bitcoin testnet transaction.
-                            <Link
-                              variant="text"
-                              href="https://coinfaucet.eu/en/btc-testnet"
-                              textStyle="caption.01"
-                            >
-                              Get testnet BTC here ↗
-                            </Link>
-                          </Callout>
-                        )}
-                      </CardContent>
-                    </Card>
-                    <Outlet />
+                        </Flex>
+                      </CardFooter>
+                    }
+                  >
+                    <CardContent dataTestId={SendCryptoAssetSelectors.SendForm}>
+                      <AmountField
+                        autoComplete="off"
+                        balance={balance.availableBalance}
+                        bottomInputOverlay={
+                          <BitcoinSendMaxButton
+                            balance={balance.availableBalance}
+                            isSendingMax={isSendingMax}
+                            onSetIsSendingMax={onSetIsSendingMax}
+                            sendMaxBalance={sendMaxCalculation.spendableBitcoin.toString()}
+                            sendMaxFee={sendMaxCalculation.spendAllFee.toString()}
+                          />
+                        }
+                        onSetIsSendingMax={onSetIsSendingMax}
+                        isSendingMax={isSendingMax}
+                        switchableAmount={
+                          <SendFiatValue marketData={marketData} assetSymbol={symbol} />
+                        }
+                      />
+                      <SelectedAssetField icon={<BtcAvatarIcon />} name="Bitcoin" symbol={symbol} />
+                      <TransferRecipientField />
+                      {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && (
+                        <Callout variant="warning" title="Funds have no value" mt="space.04">
+                          This is a Bitcoin testnet transaction.
+                          <Link
+                            variant="text"
+                            href="https://coinfaucet.eu/en/btc-testnet"
+                            textStyle="caption.01"
+                          >
+                            Get testnet BTC here ↗
+                          </Link>
+                        </Callout>
+                      )}
+                    </CardContent>
+                  </Card>
+                  <Outlet />
 
-                    {/* This is for testing purposes only, to make sure the form is ready to be submitted. */}
-                    {calcMaxSpend(props.values.recipient, utxos).spendableBitcoin.toNumber() > 0 ? (
-                      <Box data-testid={SendCryptoAssetSelectors.SendPageReady}></Box>
-                    ) : null}
-                  </Form>
-                );
-              }}
-            </Formik>
-          </Box>
+                  {/* This is for testing purposes only, to make sure the form is ready to be submitted. */}
+                  {calcMaxSpend(props.values.recipient, utxos).spendableBitcoin.toNumber() > 0 ? (
+                    <Box data-testid={SendCryptoAssetSelectors.SendPageReady}></Box>
+                  ) : null}
+                </Form>
+              );
+            }}
+          </Formik>
         </Page>
       </Content>
     </>

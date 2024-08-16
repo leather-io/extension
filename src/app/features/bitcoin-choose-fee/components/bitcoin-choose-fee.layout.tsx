@@ -19,6 +19,7 @@ export function BitcoinChooseFeeLayout({
       </Flex>
     );
   }
+  // PEte - is this just now a Card ???
   return (
     <Flex
       px="space.05"
@@ -28,6 +29,8 @@ export function BitcoinChooseFeeLayout({
       alignItems="center"
       flex="1 0 0"
       alignSelf="stretch"
+      border={{ base: 'unset', sm: 'default' }}
+      rounded="lg"
       {...rest}
     >
       {children}

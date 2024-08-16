@@ -2,7 +2,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik, FormikHelpers } from 'formik';
-import { Box } from 'leather-styles/jsx';
+import { Box, Flex } from 'leather-styles/jsx';
 import { ObjectSchema } from 'yup';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@leather.io/constants';
@@ -66,20 +66,26 @@ export function StacksCommonSendForm({
                   <Card
                     footer={
                       <CardFooter>
-                        <Button
-                          aria-busy={props.isValidating}
-                          data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
-                          onClick={() => props.handleSubmit()}
-                          type="submit"
-                          fullWidth
-                        >
-                          Continue
-                        </Button>
-                        <AvailableBalance balance={formatMoney(availableTokenBalance)} />
+                        <Flex width="100%" flexDirection="column" gap="space.04">
+                          <Button
+                            aria-busy={props.isValidating}
+                            data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
+                            onClick={() => props.handleSubmit()}
+                            type="submit"
+                            fullWidth
+                          >
+                            Continue
+                          </Button>
+                          <AvailableBalance balance={formatMoney(availableTokenBalance)} />
+                        </Flex>
                       </CardFooter>
                     }
                   >
-                    <CardContent dataTestId={SendCryptoAssetSelectors.SendForm}>
+                    <CardContent
+                      dataTestId={SendCryptoAssetSelectors.SendForm}
+                      // TODO  clean this avail balance footer height = 24 + 80 + 24 - clean this up
+                      marginBottom="128px"
+                    >
                       {amountField}
                       {selectedAssetField}
                       <StacksRecipientField />

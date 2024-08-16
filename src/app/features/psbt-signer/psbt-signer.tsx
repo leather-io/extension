@@ -94,8 +94,9 @@ export function PsbtSigner(props: PsbtSignerProps) {
     <PsbtSignerProvider value={psbtSignerContext}>
       <PopupHeader showSwitchAccount balance="all" />
       <Card
+        height="100%" // maybe give this to all cards?
         footer={
-          <CardFooter borderTop="default" maxWidth="popupMaxWidth">
+          <CardFooter borderTop="default">
             <ButtonRow flexDirection="row">
               <Button flexGrow={1} onClick={onCancel} variant="outline">
                 Cancel

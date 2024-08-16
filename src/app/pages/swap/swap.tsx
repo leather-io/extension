@@ -45,7 +45,6 @@ export function Swap() {
 
   if (isUndefined(values.swapAssetBase)) return <LoadingSpinner height="300px" />;
 
-  // TODO fix bug here with Swap footer width and audit other <CardFooters
   return (
     <Card
       footer={
