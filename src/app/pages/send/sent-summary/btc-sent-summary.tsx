@@ -1,8 +1,6 @@
 import { useLocation } from 'react-router-dom';
 
-import { HStack, Stack } from 'leather-styles/jsx';
-
-import { CopyIcon, ExternalLinkIcon } from '@leather.io/ui';
+import { Stack } from 'leather-styles/jsx';
 
 import { analytics } from '@shared/utils/analytics';
 
@@ -11,11 +9,10 @@ import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
   InfoCardAssetValue,
-  InfoCardBtn,
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { Card, CardContent, Content, Page } from '@app/components/layout';
+import { Card, CardContent, Content, Page, SummaryFooter } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 import { useToast } from '@app/features/toasts/use-toast';
 
@@ -58,18 +55,7 @@ export function BtcSentSummary() {
       <PageHeader title="Sent" isSummaryPage />
       <Content>
         <Page>
-          <Card
-            footer={
-              <HStack gap="space.04" width="100%">
-                <InfoCardBtn
-                  icon={<ExternalLinkIcon />}
-                  label="View details"
-                  onClick={onClickLink}
-                />
-                <InfoCardBtn icon={<CopyIcon />} label="Copy ID" onClick={onClickCopy} />
-              </HStack>
-            }
-          >
+          <Card footer={<SummaryFooter onClickCopy={onClickCopy} onClickLink={onClickLink} />}>
             <CardContent p="space.00">
               <TxDone />
               <InfoCardAssetValue
