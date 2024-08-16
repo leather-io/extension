@@ -2,7 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
-import { Flex, styled } from 'leather-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import type { MarketData, Money } from '@leather.io/models';
@@ -12,6 +12,7 @@ import { convertAmountToBaseUnit, formatMoney } from '@leather.io/utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import {
   AvailableBalance,
+  ButtonRow,
   Card,
   CardContent,
   CardFooter,
@@ -61,7 +62,7 @@ export function Brc20SendForm() {
                   <Card
                     footer={
                       <CardFooter>
-                        <Flex width="100%" flexDirection="column" gap="space.04">
+                        <ButtonRow>
                           <Button
                             data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
                             onClick={() => props.handleSubmit()}
@@ -73,7 +74,7 @@ export function Brc20SendForm() {
                             balance={formatMoney(balance)}
                             balanceTooltipLabel="Total balance minus any amounts already represented by transfer inscriptions in your wallet."
                           />
-                        </Flex>
+                        </ButtonRow>
                       </CardFooter>
                     }
                   >

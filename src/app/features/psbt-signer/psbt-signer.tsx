@@ -95,7 +95,14 @@ export function PsbtSigner(props: PsbtSignerProps) {
       <PopupHeader showSwitchAccount balance="all" />
       <Card
         height="100%" // maybe give this to all cards?
+        // has
         footer={
+          // can I move borderTop to the button row?
+          // then I can move CardFooter into Card
+          // I can't move border top there BUT this is the only place we add that footer border
+          // so now is a good time to try what Fab really wanted - only add the border if scrollable content
+          // so try and do that on the CardContent
+          // expands the scope of this a bit but will add a better solution
           <CardFooter borderTop="default">
             <ButtonRow flexDirection="row">
               <Button flexGrow={1} onClick={onCancel} variant="outline">

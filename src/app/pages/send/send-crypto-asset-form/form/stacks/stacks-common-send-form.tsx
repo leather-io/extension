@@ -89,8 +89,7 @@ export function StacksCommonSendForm({
                 >
                   <CardContent
                     dataTestId={SendCryptoAssetSelectors.SendForm}
-                    // TODO  clean this avail balance footer height = 24 + 80 + 24 - clean this up
-                    marginBottom="128px"
+                    marginBottom={{ base: 'unset', sm: '128px' }} // AvailBalance footer height = 24 + 80 + 24
                   >
                     {amountField}
                     {selectedAssetField}

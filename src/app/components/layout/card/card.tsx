@@ -14,12 +14,10 @@ export function Card({ children, dataTestId, header, footer, ...props }: CardPro
     <Flex
       data-testid={dataTestId}
       direction="column"
-      {...props}
-      position="relative"
+      position={{ base: 'unset', sm: 'relative' }}
       border={{ base: 'unset', sm: 'default' }}
       rounded="lg"
-      borderBottom={{ base: 'unset', sm: footer ? 'unset' : 'default' }}
-      // borderBottom={{ base: 'unset', sm: 'default' }}
+      {...props}
     >
       {header}
       {children}

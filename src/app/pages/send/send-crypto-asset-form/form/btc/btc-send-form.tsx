@@ -71,7 +71,7 @@ export function BtcSendForm() {
                   <Card
                     footer={
                       <CardFooter>
-                        <ButtonRow pt="space.04">
+                        <ButtonRow>
                           <Button
                             aria-busy={props.isValidating}
                             data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}

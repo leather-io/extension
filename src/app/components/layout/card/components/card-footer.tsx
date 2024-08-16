@@ -8,14 +8,9 @@ export function CardFooter({ children, ...props }: HasChildren & FlexProps) {
   return (
     <Footer
       position="absolute"
-      // borderBottomRadius="md"
-      // rounded="lg"
-      // maxWidth="498px" // TODO improve pageWidth - 2px to account for border width so it doesn't disappear
-      // now this maxWidth seems not needed at all! maybe the relative above is enough???
       borderTop="none"
-      borderBottom={{ base: 'unset', sm: 'default' }}
-      // rounded="lg"
-      // bottom="space.01"
+      borderBottomLeftRadius="lg"
+      borderBottomRightRadius="lg"
       {...props}
     >
       {children}
