@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
@@ -65,6 +65,39 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
   const location = useLocation();
 
   const { isPressed: showAdvancedMenuOptions } = useModifierKey('alt', 120);
+
+  const bottomGroupItems = useMemo(
+    () =>
+      [
+        showAdvancedMenuOptions && <AdvancedMenuItems />,
+        hasKeys && walletType === 'software' && (
+          <DropdownMenu.Item
+            onSelect={() => {
+              void analytics.track('lock_session');
+              void lockWallet();
+              navigate(RouteUrls.Unlock);
+            }}
+            data-testid={SettingsSelectors.LockListItem}
+          >
+            <Flag img={<LockIcon />} textStyle="label.02">
+              Lock
+            </Flag>
+          </DropdownMenu.Item>
+        ),
+
+        hasKeys && (
+          <DropdownMenu.Item
+            onSelect={() => setShowSignOut(!showSignOut)}
+            data-testid={SettingsSelectors.SignOutListItem}
+          >
+            <Flag color="red.action-primary-default" img={<ExitIcon />} textStyle="label.02">
+              Sign out
+            </Flag>
+          </DropdownMenu.Item>
+        ),
+      ].filter(Boolean),
+    [hasKeys, lockWallet, navigate, showAdvancedMenuOptions, showSignOut, walletType]
+  );
 
   return (
     <>
@@ -174,35 +207,13 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
               </DropdownMenu.Item>
             </DropdownMenu.Group>
 
-            <Divider />
-            <DropdownMenu.Group>
-              {showAdvancedMenuOptions && <AdvancedMenuItems />}
-              {hasKeys && walletType === 'software' && (
-                <DropdownMenu.Item
-                  onSelect={() => {
-                    void analytics.track('lock_session');
-                    void lockWallet();
-                    navigate(RouteUrls.Unlock);
-                  }}
-                  data-testid={SettingsSelectors.LockListItem}
-                >
-                  <Flag img={<LockIcon />} textStyle="label.02">
-                    Lock
-                  </Flag>
-                </DropdownMenu.Item>
-              )}
+            {bottomGroupItems.length > 0 && (
+              <>
+                <Divider />
+                <DropdownMenu.Group>{...bottomGroupItems}</DropdownMenu.Group>
+              </>
+            )}
 
-              {hasKeys && (
-                <DropdownMenu.Item
-                  onSelect={() => setShowSignOut(!showSignOut)}
-                  data-testid={SettingsSelectors.SignOutListItem}
-                >
-                  <Flag color="red.action-primary-default" img={<ExitIcon />} textStyle="label.02">
-                    Sign out
-                  </Flag>
-                </DropdownMenu.Item>
-              )}
-            </DropdownMenu.Group>
             <AppVersion />
           </DropdownMenu.Content>
         </DropdownMenu.Portal>
