@@ -1,18 +1,18 @@
-import { BrowserClient, Feedback, getCurrentHub } from '@sentry/react';
 import { Flex } from 'leather-styles/jsx';
 
 import { Button, MegaphoneIcon } from '@leather.io/ui';
 
-import { analytics } from '@shared/utils/analytics';
+import { analytics, sentryFeedback } from '@shared/utils/analytics';
 
 import { useThemeSwitcher } from '@app/common/theme-provider';
 
-export function openFeedbackDialog() {
+export async function openFeedbackDialog() {
   void analytics.track('user_clicked_feedback_button');
-  const client = getCurrentHub().getClient<BrowserClient>();
-  const feedback = client?.getIntegration(Feedback);
-  if (!feedback) return;
-  feedback.openDialog();
+  const form = await sentryFeedback.createForm();
+  if (!form) return null;
+  form.appendToDom();
+  form.open();
+  return;
 }
 
 export function FeedbackButton() {
