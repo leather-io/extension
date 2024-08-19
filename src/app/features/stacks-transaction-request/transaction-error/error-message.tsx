@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { ErrorIcon } from '@leather.io/ui';
+import { ErrorTriangleIcon } from '@leather.io/ui';
 
 interface ErrorMessageProps {
   title: string;
@@ -23,7 +23,7 @@ export const ErrorMessage = memo(({ border, title, body, actions }: ErrorMessage
     >
       <Stack gap="space.04">
         <HStack alignItems="center" color="red.action-primary-default">
-          <ErrorIcon />
+          <ErrorTriangleIcon />
           <styled.h1 textStyle="label.01">{title}</styled.h1>
         </HStack>
         <styled.span textStyle="caption.01">{body}</styled.span>

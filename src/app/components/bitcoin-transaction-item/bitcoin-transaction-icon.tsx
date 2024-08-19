@@ -7,8 +7,9 @@ import { isBitcoinTxInbound } from '@app/common/transactions/bitcoin/utils';
 
 function TxStatusIcon(props: { address: string; tx: BitcoinTx }) {
   const { address, tx } = props;
-  if (isBitcoinTxInbound(address, tx)) return <ArrowDownIcon variant="small" />;
-  return <ArrowUpIcon variant="small" />;
+  if (isBitcoinTxInbound(address, tx))
+    return <ArrowDownIcon color="ink.background-primary" variant="small" />;
+  return <ArrowUpIcon color="ink.background-primary" variant="small" />;
 }
 
 interface TransactionIconProps extends CircleProps {

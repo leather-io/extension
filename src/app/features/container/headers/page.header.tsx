@@ -4,7 +4,7 @@ import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { styled } from 'leather-styles/jsx';
 
-import { ArrowLeftIcon, CloseIcon, HamburgerIcon } from '@leather.io/ui';
+import { ArrowLeftIcon, BarsTwoIcon, CloseIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { SwitchAccountOutletContext } from '@shared/switch-account';
@@ -64,7 +64,7 @@ export function PageHeader({
             ) : (
               <styled.div hideBelow={isSettingsVisibleOnSm ? undefined : 'sm'}>
                 <Settings
-                  triggerButton={<HamburgerIcon data-testid={SettingsSelectors.SettingsMenuBtn} />}
+                  triggerButton={<BarsTwoIcon data-testid={SettingsSelectors.SettingsMenuBtn} />}
                   toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
                 />
               </styled.div>

@@ -1,4 +1,4 @@
-import { Flex } from 'leather-styles/jsx';
+import { Box, Flex } from 'leather-styles/jsx';
 
 import { Button, MegaphoneIcon } from '@leather.io/ui';
 
@@ -42,7 +42,9 @@ export function FeedbackButton() {
       onClick={openFeedbackDialog}
     >
       <Flex>
-        <MegaphoneIcon mr="space.01" mt="2px" variant="small" />
+        <Box mr="space.01" mt="2px">
+          <MegaphoneIcon variant="small" />
+        </Box>
         Give feedback
       </Flex>
     </Button>

@@ -6,19 +6,19 @@ import { css } from 'leather-styles/css';
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 
 import {
+  ArrowsRepeatLeftRightIcon,
   Caption,
   DropdownMenu,
   ExitIcon,
   ExpandIcon,
   ExternalLinkIcon,
   Flag,
+  GlobeTiltedIcon,
   KeyIcon,
   LockIcon,
   MegaphoneIcon,
   SunInCloudIcon,
   SupportIcon,
-  SwapIcon,
-  WorldIcon,
 } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -130,7 +130,7 @@ export function Settings({
                   data-testid={SettingsSelectors.SwitchAccountTrigger}
                   onSelect={toggleSwitchAccount}
                 >
-                  <Flag img={<SwapIcon />} textStyle="label.02">
+                  <Flag img={<ArrowsRepeatLeftRightIcon />} textStyle="label.02">
                     Switch account
                   </Flag>
                 </DropdownMenu.Item>
@@ -166,7 +166,7 @@ export function Settings({
                   setShowChangeNetwork(!showChangeNetwork);
                 }}
               >
-                <Flag img={<WorldIcon />}>
+                <Flag img={<GlobeTiltedIcon />}>
                   <Stack gap="space.00">
                     <styled.span textStyle="label.02">Change network</styled.span>
                     <Caption data-testid={SettingsSelectors.CurrentNetwork}>

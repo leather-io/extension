@@ -12,7 +12,7 @@ export function CollectibleAudio({ icon, ...props }: CollectibleAudioProps) {
   return (
     <CollectibleItemLayout collectibleTypeIcon={icon} {...props}>
       <CollectiblePlaceholderLayout>
-        <HeadsetIcon width="xl" />
+        <HeadsetIcon height={36} width={36} />
       </CollectiblePlaceholderLayout>
     </CollectibleItemLayout>
   );

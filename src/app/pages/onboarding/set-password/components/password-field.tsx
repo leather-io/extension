@@ -4,7 +4,7 @@ import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { useField } from 'formik';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { Caption, EyeIcon, EyeSlashIcon, Input } from '@leather.io/ui';
+import { Caption, Eye1ClosedIcon, Eye1Icon, Input } from '@leather.io/ui';
 
 import { useThemeSwitcher } from '@app/common/theme-provider';
 import { ValidatedPassword } from '@app/common/validation/validate-password';
@@ -57,7 +57,7 @@ export function PasswordField({ strengthResult, isDisabled }: PasswordFieldProps
           width="20px"
           zIndex={10}
         >
-          {showPassword ? <EyeSlashIcon /> : <EyeIcon />}
+          {showPassword ? <Eye1ClosedIcon /> : <Eye1Icon />}
         </styled.button>
       </Box>
       <PasswordStrengthIndicator
