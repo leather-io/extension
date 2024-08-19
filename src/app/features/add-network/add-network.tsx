@@ -27,7 +27,6 @@ export function AddNetwork() {
                     gap="space.05"
                     maxWidth="pageWidth"
                     px={['space.05', 'space.04']}
-                    textAlign={['left', 'center']}
                     my="space.05"
                   >
                     <styled.span textStyle="body.02">

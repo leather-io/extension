@@ -132,18 +132,6 @@ export function AddNetworkForm() {
         </Select.Portal>
       </Select.Root>
 
-      <Title>Stacks API URL</Title>
-      <Input.Root>
-        <Input.Label>Name</Input.Label>
-        <Input.Field
-          height="inputHeight"
-          onChange={handleChange}
-          name="stacksUrl"
-          value={values.stacksUrl}
-          width="100%"
-          data-testid={NetworkSelectors.NetworkStacksAddress}
-        />
-      </Input.Root>
       <Title>Bitcoin API URL</Title>
       <Input.Root>
         <Input.Label>Bitcoin API URL</Input.Label>
@@ -163,6 +151,18 @@ export function AddNetworkForm() {
           name="key"
           value={values.key}
           width="100%"
+        />
+      </Input.Root>
+      <Title>Stacks API URL</Title>
+      <Input.Root>
+        <Input.Label>Name</Input.Label>
+        <Input.Field
+          height="inputHeight"
+          onChange={handleChange}
+          name="stacksUrl"
+          value={values.stacksUrl}
+          width="100%"
+          data-testid={NetworkSelectors.NetworkStacksAddress}
         />
       </Input.Root>
     </>
