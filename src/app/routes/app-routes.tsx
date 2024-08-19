@@ -15,7 +15,7 @@ import { SwitchAccountLayout } from '@app/components/layout/layouts/switch-accou
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { AddNetwork } from '@app/features/add-network/add-network';
 import { Container } from '@app/features/container/container';
-import { MainHeader } from '@app/features/container/headers/main.header';
+import { HomeHeader } from '@app/features/container/headers/home.header';
 import { IncreaseBtcFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-btc-fee-dialog';
 import { IncreaseStxFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-stx-fee-dialog';
 import { leatherIntroDialogRoutes } from '@app/features/dialogs/leather-intro-dialog/leather-intro-dialog';
@@ -82,7 +82,7 @@ function useAppRoutes() {
           <Route
             element={
               <>
-                <MainHeader hideBackButton />
+                <HomeHeader />
                 <Content>
                   <SwitchAccountLayout />
                 </Content>

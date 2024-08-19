@@ -20,7 +20,7 @@ import {
   validatePassword,
 } from '@app/common/validation/validate-password';
 import { Content, TwoColumnLayout } from '@app/components/layout';
-import { MainHeader } from '@app/features/container/headers/main.header';
+import { OnboardingHeader } from '@app/features/container/headers/onboarding.header';
 import { OnboardingGate } from '@app/routes/onboarding-gate';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
@@ -111,7 +111,7 @@ function SetPasswordPage() {
   });
   return (
     <>
-      <MainHeader />
+      <OnboardingHeader />
       <Content>
         <Formik
           initialValues={setPasswordFormValues}

@@ -2,7 +2,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Content } from '@app/components/layout';
 import { RequestPassword } from '@app/components/request-password';
-import { PageHeader } from '@app/features/container/headers/page.header';
+import { UnlockHeader } from '@app/features/container/headers/unlock.header';
 
 export function Unlock() {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ export function Unlock() {
 
   return (
     <>
-      <PageHeader isSessionLocked />
+      <UnlockHeader />
       <Content>
         <RequestPassword onSuccess={returnToPreviousRoute} />
         <Outlet />
