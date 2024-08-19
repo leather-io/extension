@@ -58,11 +58,11 @@ export function StacksTransactionSigner({
   const { data: stxFees } = useCalculateStacksTxFees(stacksTransaction);
 
   const stxAddress = useCurrentStacksAccountAddress();
-  const { data, status: balanceQueryStatus } = useStxCryptoAssetBalance(stxAddress);
-  const availableUnlockedBalance = data?.availableUnlockedBalance;
+  const { filteredBalanceQuery } = useStxCryptoAssetBalance(stxAddress);
+  const availableUnlockedBalance = filteredBalanceQuery.data?.availableUnlockedBalance;
   const navigate = useNavigate();
   const { data: nextNonce, status: nonceQueryStatus } = useNextNonce(stxAddress);
-  const canSubmit = balanceQueryStatus === 'success' && nonceQueryStatus === 'success';
+  const canSubmit = filteredBalanceQuery.status === 'success' && nonceQueryStatus === 'success';
 
   const { search } = useLocation();
 

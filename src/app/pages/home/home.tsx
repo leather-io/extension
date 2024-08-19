@@ -37,7 +37,7 @@ export function Home() {
   });
 
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const { totalUsdBalance, isLoading } = useTotalBalance({
+  const { totalUsdBalance, isLoading, isLoadingAdditionalData } = useTotalBalance({
     btcAddress,
     stxAddress: account?.address || '',
   });
@@ -66,6 +66,7 @@ export function Home() {
           toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
           isFetchingBnsName={isFetchingBnsName}
           isLoadingBalance={isLoading}
+          isLoadingAdditionalData={isLoadingAdditionalData}
         >
           <AccountActions />
         </AccountCard>

@@ -59,7 +59,7 @@ export function BtcSendFormConfirmation() {
 
   const transaction = useMemo(() => btc.Transaction.fromRaw(hexToBytes(tx)), [tx]);
 
-  const { refetch } = useCurrentNativeSegwitUtxos();
+  const { filteredUtxosQuery } = useCurrentNativeSegwitUtxos();
 
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
@@ -92,7 +92,7 @@ export function BtcSendFormConfirmation() {
           inputs: decodedTx.inputs.length,
           outputs: decodedTx.inputs.length,
         });
-        await refetch();
+        await filteredUtxosQuery.refetch();
         navigate(RouteUrls.SentBtcTxSummary.replace(':txId', `${txid}`), {
           state: formBtcTxSummaryState(txid),
         });

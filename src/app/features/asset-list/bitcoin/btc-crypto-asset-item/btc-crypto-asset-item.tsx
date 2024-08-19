@@ -8,9 +8,15 @@ import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-
 interface BtcCryptoAssetItemProps {
   balance: BtcCryptoAssetBalance;
   isLoading: boolean;
+  isLoadingAdditionalData?: boolean;
   onSelectAsset?(symbol: string): void;
 }
-export function BtcCryptoAssetItem({ balance, isLoading, onSelectAsset }: BtcCryptoAssetItemProps) {
+export function BtcCryptoAssetItem({
+  balance,
+  isLoading,
+  onSelectAsset,
+  isLoadingAdditionalData,
+}: BtcCryptoAssetItemProps) {
   const marketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const fiatAvailableBalance = i18nFormatCurrency(
     baseCurrencyAmountInQuote(balance.availableBalance, marketData)
@@ -23,6 +29,7 @@ export function BtcCryptoAssetItem({ balance, isLoading, onSelectAsset }: BtcCry
       fiatBalance={fiatAvailableBalance}
       icon={<BtcAvatarIcon />}
       isLoading={isLoading}
+      isLoadingAdditionalData={isLoadingAdditionalData}
       onSelectAsset={onSelectAsset}
       titleLeft="Bitcoin"
     />

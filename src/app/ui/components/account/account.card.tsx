@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { ChevronDownIcon, Link, SkeletonLoader } from '@leather.io/ui';
+import { ChevronDownIcon, Link, SkeletonLoader, shimmerStyles } from '@leather.io/ui';
 
 import { useScaleText } from '@app/common/hooks/use-scale-text';
 import { AccountNameLayout } from '@app/components/account/account-name';
@@ -15,6 +15,7 @@ interface AccountCardProps {
   toggleSwitchAccount(): void;
   isFetchingBnsName: boolean;
   isLoadingBalance: boolean;
+  isLoadingAdditionalData?: boolean;
 }
 
 export function AccountCard({
@@ -24,6 +25,7 @@ export function AccountCard({
   children,
   isFetchingBnsName,
   isLoadingBalance,
+  isLoadingAdditionalData,
 }: AccountCardProps) {
   const scaleTextRef = useScaleText();
 
@@ -62,6 +64,8 @@ export function AccountCard({
           <SkeletonLoader width="200px" height="38px" isLoading={isLoadingBalance}>
             <styled.h1
               textStyle="heading.02"
+              data-state={isLoadingAdditionalData ? 'loading' : undefined}
+              className={shimmerStyles}
               style={{
                 whiteSpace: 'nowrap',
                 display: 'inline-block',

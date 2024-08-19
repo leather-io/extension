@@ -27,15 +27,13 @@ export function useTransactionError() {
   const { values } = useFormikContext<StacksTransactionFormValues>();
 
   const currentAccount = useCurrentStacksAccount();
-  const { data, isLoading: isLoadingStxBalance } = useStxCryptoAssetBalance(
-    currentAccount?.address ?? ''
-  );
-  const availableUnlockedBalance = data?.unlockedBalance;
+  const { filteredBalanceQuery } = useStxCryptoAssetBalance(currentAccount?.address ?? '');
+  const availableUnlockedBalance = filteredBalanceQuery.data?.unlockedBalance;
 
   return useMemo<TransactionErrorReason | void>(() => {
     if (!origin) return TransactionErrorReason.ExpiredRequest;
 
-    if (isLoadingStxBalance) return;
+    if (filteredBalanceQuery.isLoading) return;
 
     if (!transactionRequest || !availableUnlockedBalance || !currentAccount) {
       return TransactionErrorReason.Generic;
@@ -68,12 +66,12 @@ export function useTransactionError() {
     }
     return;
   }, [
-    isLoadingStxBalance,
+    filteredBalanceQuery.isLoading,
     origin,
     transactionRequest,
+    contractInterface,
     availableUnlockedBalance,
     currentAccount,
-    contractInterface,
     values.fee,
   ]);
 }
