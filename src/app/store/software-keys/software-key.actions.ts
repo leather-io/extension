@@ -49,16 +49,18 @@ function setWalletEncryptionPassword(args: {
       await checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex(secretKey);
 
     async function doesStacksAddressHaveBalance(address: string) {
-      const resp = await stxClient.getAccountBalance(address, new AbortSignal());
+      const controller = new AbortController();
+      const resp = await stxClient.getAccountBalance(address, controller.signal);
       return Number(resp.stx.balance) > 0;
     }
 
     async function doesStacksAddressHaveBnsName(address: string) {
+      const controller = new AbortController();
       const resp = await fetchNamesForAddress({
         client: stxClient,
         address,
         isTestnet: false,
-        signal: new AbortSignal(),
+        signal: controller.signal,
       });
       queryClient.setQueryData([StacksQueryPrefixes.GetBnsNamesByAddress, address], resp);
       return resp.names.length > 0;
