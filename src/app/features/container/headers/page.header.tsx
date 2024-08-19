@@ -28,7 +28,7 @@ export function PageHeader({
   title,
   isSummaryPage,
   isSessionLocked,
-  isSettingsVisibleOnSm,
+  isSettingsVisibleOnSm = true,
   onBackLocation,
 }: PageHeaderProps) {
   const { isShowingSwitchAccount, setIsShowingSwitchAccount } =
