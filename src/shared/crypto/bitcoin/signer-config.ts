@@ -2,8 +2,8 @@ import * as btc from '@scure/btc-signer';
 
 import {
   getInputPaymentType,
-  getNativeSegwitAddressIndexDerivationPath,
-  getTaprootAddressIndexDerivationPath,
+  makeNativeSegwitAddressIndexDerivationPath,
+  makeTaprootAddressIndexDerivationPath,
 } from '@leather.io/bitcoin';
 import type { BitcoinNetworkModes } from '@leather.io/models';
 import { isUndefined, makeNumberRange } from '@leather.io/utils';
@@ -41,12 +41,12 @@ export function getAssumedZeroIndexSigningConfig({
           case 'p2wpkh':
             return {
               index: inputIndex,
-              derivationPath: getNativeSegwitAddressIndexDerivationPath(network, accountIndex, 0),
+              derivationPath: makeNativeSegwitAddressIndexDerivationPath(network, accountIndex, 0),
             };
           case 'p2tr':
             return {
               index: inputIndex,
-              derivationPath: getTaprootAddressIndexDerivationPath(network, accountIndex, 0),
+              derivationPath: makeTaprootAddressIndexDerivationPath(network, accountIndex, 0),
             };
           default:
             logger.error('Cannot assume zero index for non-segwit input types');

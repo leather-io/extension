@@ -5,6 +5,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { Psbt } from 'bitcoinjs-lib';
 
 import {
+  bitcoinSignerFactory,
   deriveAddressIndexZeroFromAccount,
   deriveNativeSegwitAccountFromRootKeychain,
   getNativeSegWitPaymentFromAddressIndex,
@@ -75,8 +76,9 @@ export function useNativeSegwitSigner(accountIndex: number) {
 
   return useMemo(() => {
     if (!account) return;
-    return bitcoinAddressIndexSignerFactory({
-      accountIndex,
+    const path = makeNativeSegwitAccountDerivationPath(account?.network, accountIndex);
+    return bitcoinSignerFactory({
+      path,
       accountKeychain: account.keychain,
       paymentFn: getNativeSegWitPaymentFromAddressIndex,
       network: account.network,

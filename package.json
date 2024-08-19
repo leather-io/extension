@@ -255,9 +255,9 @@
     "@btckit/types": "0.0.19",
     "@chromatic-com/storybook": "1.2.23",
     "@leather.io/eslint-config": "0.7.0",
-    "@leather.io/panda-preset": "0.3.8",
+    "@leather.io/panda-preset": "file:../mono/packages/panda-preset",
     "@leather.io/prettier-config": "0.6.0",
-    "@leather.io/rpc": "2.1.6",
+    "@leather.io/rpc": "file:../mono/packages/rpc",
     "@ls-lint/ls-lint": "2.2.3",
     "@mdx-js/loader": "3.0.0",
     "@pandacss/dev": "0.40.1",
@@ -372,7 +372,17 @@
   },
   "pnpm": {
     "overrides": {
-      "eslint": "8.56.0"
+      "eslint": "8.56.0",
+      "@leather.io/bitcoin": "file:../mono/packages/bitcoin",
+      "@leather.io/constants": "file:../mono/packages/constants",
+      "@leather.io/crypto": "file:../mono/packages/crypto",
+      "@leather.io/models": "file:../mono/packages/models",
+      "@leather.io/query": "file:../mono/packages/query",
+      "@leather.io/tokens": "file:../mono/packages/tokens",
+      "@leather.io/utils": "file:../mono/packages/utils",
+      "@leather.io/stacks": "file:../mono/packages/stacks",
+      "@leather.io/panda-preset": "file:../mono/packages/panda-preset",
+      "@leather.io/rpc": "file:../mono/packages/rpc"
     }
   },
   "keywords": [

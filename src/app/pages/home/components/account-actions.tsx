@@ -4,7 +4,6 @@ import { ChainID } from '@stacks/transactions';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box, Flex } from 'leather-styles/jsx';
 
-import { whenStacksChainId } from '@leather.io/stacks';
 import { ArrowsRepeatLeftRightIcon, CreditCardIcon, IconButton, InboxIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -54,7 +53,7 @@ export function AccountActions() {
           onClick={() => navigate(RouteUrls.FundChooseCurrency)}
         />
       )}
-      {whenStacksChainId(currentNetwork.chain.stacks.chainId)({
+      {whenSpnptacksChainId(currentNetwork.chain.stacks.chainId)({
         [ChainID.Mainnet]: (
           <BasicTooltip
             label={swapsEnabled ? '' : <SwapsDisabledTooltipLabel />}

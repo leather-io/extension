@@ -2,14 +2,17 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { createSelector } from '@reduxjs/toolkit';
+import { HARDENED_OFFSET } from '@scure/bip32';
 import { Psbt } from 'bitcoinjs-lib';
 
 import {
+  bitcoinSignerFactory,
   deriveTaprootAccount,
   ecdsaPublicKeyToSchnorr,
   getTaprootAccountDerivationPath,
   getTaprootPaymentFromAddressIndex,
   lookUpLedgerKeysByPath,
+  makeTaprootAccountDerivationPath,
 } from '@leather.io/bitcoin';
 import { extractAddressIndexFromPath } from '@leather.io/crypto';
 import type { BitcoinNetworkModes } from '@leather.io/models';
@@ -24,10 +27,7 @@ import {
   bitcoinAccountBuilderFactory,
   useBitcoinExtendedPublicKeyVersions,
 } from './bitcoin-keychain';
-import {
-  bitcoinAddressIndexSignerFactory,
-  useMakeBitcoinNetworkSignersForPaymentType,
-} from './bitcoin-signer';
+import { useMakeBitcoinNetworkSignersForPaymentType } from './bitcoin-signer';
 
 const selectTaprootAccountBuilder = bitcoinAccountBuilderFactory(
   deriveTaprootAccount,
@@ -64,6 +64,7 @@ export function useTaprootNetworkSigners() {
   return useMakeBitcoinNetworkSignersForPaymentType(
     mainnetKeychain,
     testnetKeychain,
+    'p2tr',
     getTaprootPaymentFromAddressIndex
   );
 }
@@ -74,8 +75,9 @@ export function useTaprootSigner(accountIndex: number, network: BitcoinNetworkMo
 
   return useMemo(() => {
     if (!account) return; // TODO: Revisit this return early
-    return bitcoinAddressIndexSignerFactory({
-      accountIndex,
+    const path = makeTaprootAccountDerivationPath(account.network, accountIndex);
+    return bitcoinSignerFactory({
+      path,
       accountKeychain: account.keychain,
       paymentFn: getTaprootPaymentFromAddressIndex,
       network,

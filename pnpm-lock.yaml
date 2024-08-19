@@ -14,6 +14,16 @@ overrides:
   webpack-dev-middleware: 5.3.4
   eslint: 8.56.0
   ws: 8.17.1
+  '@leather.io/bitcoin': file:../mono/packages/bitcoin
+  '@leather.io/constants': file:../mono/packages/constants
+  '@leather.io/crypto': file:../mono/packages/crypto
+  '@leather.io/models': file:../mono/packages/models
+  '@leather.io/query': file:../mono/packages/query
+  '@leather.io/tokens': file:../mono/packages/tokens
+  '@leather.io/utils': file:../mono/packages/utils
+  '@leather.io/stacks': file:../mono/packages/stacks
+  '@leather.io/panda-preset': file:../mono/packages/panda-preset
+  '@leather.io/rpc': file:../mono/packages/rpc
 
 importers:
 
@@ -35,32 +45,32 @@ importers:
         specifier: 1.2.0
         version: 1.2.0(encoding@0.1.13)
       '@leather.io/bitcoin':
-        specifier: 0.11.2
-        version: 0.11.2(encoding@0.1.13)
+        specifier: file:../mono/packages/bitcoin
+        version: file:../mono/packages/bitcoin(encoding@0.1.13)
       '@leather.io/constants':
-        specifier: 0.9.2
-        version: 0.9.2
+        specifier: file:../mono/packages/constants
+        version: file:../mono/packages/constants
       '@leather.io/crypto':
-        specifier: 1.4.2
-        version: 1.4.2
+        specifier: file:../mono/packages/crypto
+        version: file:../mono/packages/crypto
       '@leather.io/models':
-        specifier: 0.13.0
-        version: 0.13.0
+        specifier: file:../mono/packages/models
+        version: file:../mono/packages/models
       '@leather.io/query':
-        specifier: 2.10.0
-        version: 2.10.0(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
+        specifier: file:../mono/packages/query
+        version: file:../mono/packages/query(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
       '@leather.io/stacks':
-        specifier: 1.0.2
-        version: 1.0.2(encoding@0.1.13)
+        specifier: file:../mono/packages/stacks
+        version: file:../mono/packages/stacks(encoding@0.1.13)
       '@leather.io/tokens':
-        specifier: 0.9.0
-        version: 0.9.0
+        specifier: file:../mono/packages/tokens
+        version: file:../mono/packages/tokens
       '@leather.io/ui':
         specifier: 1.17.1
         version: 1.17.1(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(typescript@5.4.5)
       '@leather.io/utils':
-        specifier: 0.13.3
-        version: 0.13.3
+        specifier: file:../mono/packages/utils
+        version: file:../mono/packages/utils
       '@ledgerhq/hw-transport-webusb':
         specifier: 6.27.19
         version: 6.27.19
@@ -384,14 +394,14 @@ importers:
         specifier: 0.7.0
         version: 0.7.0(typescript@5.4.5)
       '@leather.io/panda-preset':
-        specifier: 0.3.8
-        version: 0.3.8(jsdom@22.1.0)(typescript@5.4.5)
+        specifier: file:../mono/packages/panda-preset
+        version: file:../mono/packages/panda-preset(jsdom@22.1.0)(typescript@5.4.5)
       '@leather.io/prettier-config':
         specifier: 0.6.0
-        version: 0.6.0(@vue/compiler-sfc@3.5.0)
+        version: 0.6.0(@vue/compiler-sfc@3.5.3)
       '@leather.io/rpc':
-        specifier: 2.1.6
-        version: 2.1.6
+        specifier: file:../mono/packages/rpc
+        version: file:../mono/packages/rpc
       '@ls-lint/ls-lint':
         specifier: 2.2.3
         version: 2.2.3
@@ -406,7 +416,7 @@ importers:
         version: 1.44.0
       '@pmmmwh/react-refresh-webpack-plugin':
         specifier: 0.5.13
-        version: 0.5.13(@types/webpack@5.28.5(@swc/core@1.7.18)(esbuild@0.23.1)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.1)(webpack@5.94.0)))(react-refresh@0.14.2)(type-fest@4.26.0)(webpack-dev-server@4.15.1(webpack-cli@5.1.4)(webpack@5.94.0))(webpack-hot-middleware@2.26.1)(webpack@5.94.0(@swc/core@1.7.18)(esbuild@0.23.1)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.1)(webpack@5.94.0)))
+        version: 0.5.13(@types/webpack@5.28.5(@swc/core@1.7.18)(esbuild@0.23.1)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.1)(webpack@5.94.0)))(react-refresh@0.14.2)(type-fest@4.26.1)(webpack-dev-server@4.15.1(webpack-cli@5.1.4)(webpack@5.94.0))(webpack-hot-middleware@2.26.1)(webpack@5.94.0(@swc/core@1.7.18)(esbuild@0.23.1)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.1)(webpack@5.94.0)))
       '@redux-devtools/cli':
         specifier: 4.0.0
         version: 4.0.0(@babel/core@7.25.2)(@reduxjs/toolkit@2.2.3(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1))(@types/react-dom@18.3.0)(@types/styled-components@5.1.34)(encoding@0.1.13)(react-native@0.74.1(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))
@@ -436,7 +446,7 @@ importers:
         version: 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
       '@storybook/addon-interactions':
         specifier: 8.2.4
-        version: 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6))
+        version: 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0))
       '@storybook/addon-links':
         specifier: 8.2.4
         version: 8.2.4(react@18.3.1)(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
@@ -457,7 +467,7 @@ importers:
         version: 8.2.4(@swc/core@1.7.18)(esbuild@0.23.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(typescript@5.4.5)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.1)(webpack@5.94.0))
       '@storybook/test':
         specifier: 8.2.4
-        version: 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6))
+        version: 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0))
       '@storybook/theming':
         specifier: 8.2.4
         version: 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
@@ -538,7 +548,7 @@ importers:
         version: 7.5.0(eslint@8.56.0)(typescript@5.4.5)
       '@vitest/coverage-istanbul':
         specifier: 2.0.5
-        version: 2.0.5(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6))
+        version: 2.0.5(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0))
       audit-ci:
         specifier: 6.6.1
         version: 6.6.1
@@ -664,7 +674,7 @@ importers:
         version: 5.4.5
       vitest:
         specifier: 2.0.5
-        version: 2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6)
+        version: 2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0)
       vm-browserify:
         specifier: 1.1.2
         version: 1.1.2
@@ -2772,58 +2782,46 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@leather.io/bitcoin@0.11.2':
-    resolution: {integrity: sha512-w+wq1OXUbhydHLP0rDbDwoRk7YdjyIUPKx/roGfDDO56+BQqgQ4v6B0btyAv7VCbD5blw1FTGln3e0RNYOGWoA==}
+  '@leather.io/bitcoin@file:../mono/packages/bitcoin':
+    resolution: {directory: ../mono/packages/bitcoin, type: directory}
 
-  '@leather.io/bitcoin@0.12.0':
-    resolution: {integrity: sha512-pTi6vQAJhKvnFUqVnI1sBClw3djGF8igEfBwRR6nJpGwzhg33kgyUW0iN08l1diFRRfvsOIv6tWsC3PNY6ulWQ==}
+  '@leather.io/constants@file:../mono/packages/constants':
+    resolution: {directory: ../mono/packages/constants, type: directory}
 
-  '@leather.io/constants@0.9.1':
-    resolution: {integrity: sha512-q0chtXhgFIyNioNbxZIFBaDDxjcwBLFSph6wx+3Vl0uwdDUaDNyDdd+WsoXEFxESCesyCWiAr4aS12hmfGIwIg==}
-
-  '@leather.io/constants@0.9.2':
-    resolution: {integrity: sha512-IZQ9Tl8R2kbDgqM9Fj60kAvlTOMaSJtsg/kO0K83pYiR69n4FRqHAT9ikDn+08/v5R8d0J8YCGO1F4aj96qC8g==}
-
-  '@leather.io/crypto@1.4.2':
-    resolution: {integrity: sha512-sSBub/+feiHHXP+PY1UK+EvkROJTwo2rv+G9Hr5rAHrVZTg7c3SSUg+cdMOJANjJ2sw76U7XejWWuuTRYmabjg==}
-
-  '@leather.io/crypto@1.5.0':
-    resolution: {integrity: sha512-9kRexVALrkL6B6pqeulErBcY5YE3GJk3Ob4lhJuKXmNlRamfYkWD73cbiSerM6cmH0vyuxow+5M+LFZP/95mrQ==}
+  '@leather.io/crypto@file:../mono/packages/crypto':
+    resolution: {directory: ../mono/packages/crypto, type: directory}
 
   '@leather.io/eslint-config@0.7.0':
     resolution: {integrity: sha512-4K7olfSC+mJnG90TSaLIlytp14yDprGXwe1+oP9TLQbuPFpJai3/+g5Bp/FeUC4NZ23UVbAlGXFCav2amBb77w==}
 
-  '@leather.io/models@0.13.0':
-    resolution: {integrity: sha512-5pgaKKXVjHD7CVb89r/MOwrTxNxVG/NVWll91q9MWjkfq/KEn+O6Ceg9wo2QJCaV/XD9rxozljAJ1WOJrWCyXg==}
+  '@leather.io/models@file:../mono/packages/models':
+    resolution: {directory: ../mono/packages/models, type: directory}
 
-  '@leather.io/panda-preset@0.3.8':
-    resolution: {integrity: sha512-MEohMC7VA28v+um3uYxTeLYNOZ+XXg09MoAtgvHw+RJJFtO6bBXFcmgooSJv44aaBuhRb3Zx9erz4xErq3GzcQ==}
+  '@leather.io/panda-preset@file:../mono/packages/panda-preset':
+    resolution: {directory: ../mono/packages/panda-preset, type: directory}
 
   '@leather.io/prettier-config@0.6.0':
     resolution: {integrity: sha512-QBKtLanfxFxXBlR58U/j8a6lBI0xzJzqqi36fXpGVp+9mJoEf6Ro6xrtFrixjW6seY6EOva4OApVnnPBsvOC/w==}
 
-  '@leather.io/query@2.10.0':
-    resolution: {integrity: sha512-GvtTbyWa+5k8h5vJoJOClLl7/nYl60eaMZqzdMBYZizwbJaTL5L0A5ndu3yqruVITDZ4R/S+FY2ILOCr1grt/g==}
+  '@leather.io/query@file:../mono/packages/query':
+    resolution: {directory: ../mono/packages/query, type: directory}
     peerDependencies:
       react: '*'
 
-  '@leather.io/rpc@2.1.6':
-    resolution: {integrity: sha512-zVozkq40S6HReKyA/7sto8tsfPN2uKQq4vvUcutvj35DCCugNbxn5Xr6jIjV52YxHn4vqVFC1D6cSPwpDsgE3g==}
+  '@leather.io/rpc@file:../mono/packages/rpc':
+    resolution: {directory: ../mono/packages/rpc, type: directory}
 
-  '@leather.io/stacks@1.0.2':
-    resolution: {integrity: sha512-nqrWj/JIaaXXhlbDJ9bCMIgwlH3IkNAkT991B5JuwqVt9A6fx2jH37a+jeFmZYfgyjTAk27leFCcJW8ydHlBvA==}
+  '@leather.io/stacks@file:../mono/packages/stacks':
+    resolution: {directory: ../mono/packages/stacks, type: directory}
 
-  '@leather.io/tokens@0.9.0':
-    resolution: {integrity: sha512-Lj0UYS6W8r7IkINssb8LodfNsefkzBzugiAM2XwCoQNgyOn4KAc3rdL5vYrXh8ErC4AT81xDb+DGkyCzejjObQ==}
+  '@leather.io/tokens@file:../mono/packages/tokens':
+    resolution: {directory: ../mono/packages/tokens, type: directory}
 
   '@leather.io/ui@1.17.1':
     resolution: {integrity: sha512-EEr1BYM5heicrHl1rB56xWKzbTc0Hp1i/sx9p8oMGEfLnjMB2C4rNpqEF58tGdhQ//DoFshWUrSysPd4wUDh2g==}
 
-  '@leather.io/utils@0.13.2':
-    resolution: {integrity: sha512-68rsDNS/mA9OYCPpU0yGGY3OMGWxAMqq4yZWi6mFnzqMgTvOW0MvFJOo/V4DhPxbo3sKS6mcwwbAH/YLnyBwGA==}
-
-  '@leather.io/utils@0.13.3':
-    resolution: {integrity: sha512-wKpOIWhq9ZKSB7oNSaBRDzSRffgyykaubYGq6E3mtoK5fwR3RZCbX9zQXlnWa2EFWkWJeSF4SPh+GWrIgU+C/g==}
+  '@leather.io/utils@file:../mono/packages/utils':
+    resolution: {directory: ../mono/packages/utils, type: directory}
 
   '@ledgerhq/devices@8.4.2':
     resolution: {integrity: sha512-oWNTp3jCMaEvRHsXNYE/yo+PFMgXAJGFHLOU1UdE4/fYkniHbD9wdxwyZrZvrxr9hNw4/9wHiThyITwPtMzG7g==}
@@ -6451,32 +6449,32 @@ packages:
   '@vue/compiler-core@3.4.19':
     resolution: {integrity: sha512-gj81785z0JNzRcU0Mq98E56e4ltO1yf8k5PQ+tV/7YHnbZkrM0fyFyuttnN8ngJZjbpofWE/m4qjKBiLl8Ju4w==}
 
-  '@vue/compiler-core@3.5.0':
-    resolution: {integrity: sha512-ja7cpqAOfw4tyFAxgBz70Z42miNDeaqTxExTsnXDLomRpqfyCgyvZvFp482fmsElpfvsoMJUsvzULhvxUTW6Iw==}
+  '@vue/compiler-core@3.5.3':
+    resolution: {integrity: sha512-adAfy9boPkP233NTyvLbGEqVuIfK/R0ZsBsIOW4BZNfb4BRpRW41Do1u+ozJpsb+mdoy80O20IzAsHaihRb5qA==}
 
   '@vue/compiler-dom@3.4.19':
     resolution: {integrity: sha512-vm6+cogWrshjqEHTzIDCp72DKtea8Ry/QVpQRYoyTIg9k7QZDX6D8+HGURjtmatfgM8xgCFtJJaOlCaRYRK3QA==}
 
-  '@vue/compiler-dom@3.5.0':
-    resolution: {integrity: sha512-xYjUybWZXl+1R/toDy815i4PbeehL2hThiSGkcpmIOCy2HoYyeeC/gAWK/Y/xsoK+GSw198/T5O31bYuQx5uvQ==}
+  '@vue/compiler-dom@3.5.3':
+    resolution: {integrity: sha512-wnzFArg9zpvk/811CDOZOadJRugf1Bgl/TQ3RfV4nKfSPok4hi0w10ziYUQR6LnnBAUlEXYLUfZ71Oj9ds/+QA==}
 
   '@vue/compiler-sfc@3.4.19':
     resolution: {integrity: sha512-LQ3U4SN0DlvV0xhr1lUsgLCYlwQfUfetyPxkKYu7dkfvx7g3ojrGAkw0AERLOKYXuAGnqFsEuytkdcComei3Yg==}
 
-  '@vue/compiler-sfc@3.5.0':
-    resolution: {integrity: sha512-B9DgLtrqok2GLuaFjLlSL15ZG3ZDBiitUH1ecex9guh/ZcA5MCdwuVE6nsfQxktuZY/QY0awJ35/ripIviCQTQ==}
+  '@vue/compiler-sfc@3.5.3':
+    resolution: {integrity: sha512-P3uATLny2tfyvMB04OQFe7Sczteno7SLFxwrOA/dw01pBWQHB5HL15a8PosoNX2aG/EAMGqnXTu+1LnmzFhpTQ==}
 
   '@vue/compiler-ssr@3.4.19':
     resolution: {integrity: sha512-P0PLKC4+u4OMJ8sinba/5Z/iDT84uMRRlrWzadgLA69opCpI1gG4N55qDSC+dedwq2fJtzmGald05LWR5TFfLw==}
 
-  '@vue/compiler-ssr@3.5.0':
-    resolution: {integrity: sha512-E263QZmA1dqRd7c3u/sWTLRMpQOT0aZ8av/L9SoD/v/BVMZaWFHPUUBswS+bzrfvG2suJF8vSLKx6k6ba5SUdA==}
+  '@vue/compiler-ssr@3.5.3':
+    resolution: {integrity: sha512-F/5f+r2WzL/2YAPl7UlKcJWHrvoZN8XwEBLnT7S4BXwncH25iDOabhO2M2DWioyTguJAGavDOawejkFXj8EM1w==}
 
   '@vue/shared@3.4.19':
     resolution: {integrity: sha512-/KliRRHMF6LoiThEy+4c1Z4KB/gbPrGjWwJR+crg2otgrf/egKzRaCPvJ51S5oetgsgXLfc4Rm5ZgrKHZrtMSw==}
 
-  '@vue/shared@3.5.0':
-    resolution: {integrity: sha512-m9IgiteBpCkFaMNwCOBkFksA7z8QiKc30ooRuoXWUFRDu0mGyNPlFHmbncF0/Kra1RlX8QrmBbRaIxVvikaR0Q==}
+  '@vue/shared@3.5.3':
+    resolution: {integrity: sha512-Jp2v8nylKBT+PlOUjun2Wp/f++TfJVFjshLzNtJDdmFJabJa7noGMncqXRM1vXGX+Yo2V7WykQFNxusSim8SCA==}
 
   '@webassemblyjs/ast@1.12.1':
     resolution: {integrity: sha512-EKfMUOPRRUTy5UII4qJDGPpqfwjOmZ5jeGFwid9mnoqIFK+e0vqoi1qH56JpmZSzEL53jKnNzScdmftJyG5xWg==}
@@ -7498,8 +7496,8 @@ packages:
   cjs-module-lexer@1.3.1:
     resolution: {integrity: sha512-a3KdPAANPbNE4ZUv9h6LckSl9zLsYOP4MBmhIPkRaeyybt+r4UghLvq+xw/YwUcC1gqylCkL4rdVs3Lwupjm4Q==}
 
-  clarity-codegen@0.5.2:
-    resolution: {integrity: sha512-t0uvboeZTII7n2lgobAxcQnhyjXwbUKYdUKJA3yjoaOXPvtr5i2zFV7H1E6ZeDMfqd3vIksMPvpdFfXum9SoNQ==}
+  clarity-codegen@0.5.3:
+    resolution: {integrity: sha512-SmcGEJVCsx2ljD7hGzcIv4W3lUzJl2k3zuH5kHDI0lgO2N6sTPRv+WyXzxmMsJvGCsdggkvVU9ebc2cR/Z+h+g==}
     hasBin: true
     peerDependencies:
       '@stacks/transactions': '*'
@@ -12570,8 +12568,8 @@ packages:
     resolution: {integrity: sha512-TesUflQ0WKZqAvg52PWL6kHgLKP6xB6heTOdoYM0Wt2UHyxNa4K25EZZMgKns3BH1RLVbZCREPpLY0rhnNoHVQ==}
     engines: {node: ^10 || ^12 || >=14}
 
-  postcss@8.4.44:
-    resolution: {integrity: sha512-Aweb9unOEpQ3ezu4Q00DPvvM2ZTUitJdNKeP/+uQgr1IBIqu574IaZoURId7BKtWMREwzKa9OgzPzezWGPWFQw==}
+  postcss@8.4.45:
+    resolution: {integrity: sha512-7KTLTdzdZZYscUc65XmjFiB73vBhBfbPztCYdUNvlaso9PrzjzcmjqBPR0lNGkcVlcO4BjiO5rK/qNz+XAen1Q==}
     engines: {node: ^10 || ^12 || >=14}
 
   prebuild-install@7.1.2:
@@ -13699,6 +13697,10 @@ packages:
     resolution: {integrity: sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==}
     engines: {node: '>=0.10.0'}
 
+  source-map-js@1.2.1:
+    resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
+    engines: {node: '>=0.10.0'}
+
   source-map-support@0.5.21:
     resolution: {integrity: sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==}
 
@@ -14107,6 +14109,11 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  terser@5.32.0:
+    resolution: {integrity: sha512-v3Gtw3IzpBJ0ugkxEX8U0W6+TnPKRRCWGh1jC/iM/e3Ki5+qvO1L1EAZ56bZasc64aXHwRHNIQEzm6//i5cemQ==}
+    engines: {node: '>=10'}
+    hasBin: true
+
   test-exclude@7.0.1:
     resolution: {integrity: sha512-pFYqmTw68LXVjeWJMST4+borgQP2AyMNbg1BpZh9LbyhUeNkeaPF9gzfPGUAnSMV3qPYdWUwDIjjCLiSDOl7vg==}
     engines: {node: '>=18'}
@@ -14387,8 +14394,8 @@ packages:
     resolution: {integrity: sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==}
     engines: {node: '>=14.16'}
 
-  type-fest@4.26.0:
-    resolution: {integrity: sha512-OduNjVJsFbifKb57UqZ2EMP1i4u64Xwow3NYXUtBbD4vIwJdQd4+xl8YDou1dlm4DVrtwT/7Ky8z8WyCULVfxw==}
+  type-fest@4.26.1:
+    resolution: {integrity: sha512-yOGpmOAL7CkKe/91I5O3gPICmJNLJ1G4zFYVAsRHg7M64biSnPtRj0WNQt++bRkjYOqjWXrhnUw1utzmVErAdg==}
     engines: {node: '>=16'}
 
   type-is@1.6.18:
@@ -17621,13 +17628,13 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@leather.io/bitcoin@0.11.2(encoding@0.1.13)':
+  '@leather.io/bitcoin@file:../mono/packages/bitcoin(encoding@0.1.13)':
     dependencies:
       '@bitcoinerlab/secp256k1': 1.0.2
-      '@leather.io/constants': 0.9.1
-      '@leather.io/crypto': 1.4.2
-      '@leather.io/models': 0.13.0
-      '@leather.io/utils': 0.13.2
+      '@leather.io/constants': file:../mono/packages/constants
+      '@leather.io/crypto': file:../mono/packages/crypto
+      '@leather.io/models': file:../mono/packages/models
+      '@leather.io/utils': file:../mono/packages/utils
       '@noble/hashes': 1.4.0
       '@noble/secp256k1': 2.1.0
       '@scure/base': 1.1.6
@@ -17643,41 +17650,11 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@leather.io/bitcoin@0.12.0(encoding@0.1.13)':
+  '@leather.io/constants@file:../mono/packages/constants': {}
+
+  '@leather.io/crypto@file:../mono/packages/crypto':
     dependencies:
-      '@bitcoinerlab/secp256k1': 1.0.2
-      '@leather.io/constants': 0.9.2
-      '@leather.io/crypto': 1.5.0
-      '@leather.io/models': 0.13.0
-      '@leather.io/utils': 0.13.3
-      '@noble/hashes': 1.4.0
-      '@noble/secp256k1': 2.1.0
-      '@scure/base': 1.1.6
-      '@scure/bip32': 1.4.0
-      '@scure/bip39': 1.3.0
-      '@scure/btc-signer': 1.3.2
-      '@stacks/common': 6.13.0
-      '@stacks/transactions': 6.15.0(encoding@0.1.13)
-      bip32: 4.0.0
-      bitcoinjs-lib: 6.1.5
-      ecpair: 2.1.0
-      varuint-bitcoin: 1.1.2
-    transitivePeerDependencies:
-      - encoding
-
-  '@leather.io/constants@0.9.1': {}
-
-  '@leather.io/constants@0.9.2': {}
-
-  '@leather.io/crypto@1.4.2':
-    dependencies:
-      '@leather.io/utils': 0.13.2
-      '@scure/bip32': 1.4.0
-      '@scure/bip39': 1.3.0
-
-  '@leather.io/crypto@1.5.0':
-    dependencies:
-      '@leather.io/utils': 0.13.3
+      '@leather.io/utils': file:../mono/packages/utils
       '@scure/bip32': 1.4.0
       '@scure/bip39': 1.3.0
 
@@ -17691,36 +17668,36 @@ snapshots:
       - supports-color
       - typescript
 
-  '@leather.io/models@0.13.0':
+  '@leather.io/models@file:../mono/packages/models':
     dependencies:
       '@stacks/stacks-blockchain-api-types': 7.8.2
       bignumber.js: 9.1.2
       zod: 3.23.6
 
-  '@leather.io/panda-preset@0.3.8(jsdom@22.1.0)(typescript@5.4.5)':
+  '@leather.io/panda-preset@file:../mono/packages/panda-preset(jsdom@22.1.0)(typescript@5.4.5)':
     dependencies:
       '@pandacss/dev': 0.40.1(jsdom@22.1.0)(typescript@5.4.5)
     transitivePeerDependencies:
       - jsdom
       - typescript
 
-  '@leather.io/prettier-config@0.6.0(@vue/compiler-sfc@3.5.0)':
+  '@leather.io/prettier-config@0.6.0(@vue/compiler-sfc@3.5.3)':
     dependencies:
-      '@trivago/prettier-plugin-sort-imports': 4.3.0(@vue/compiler-sfc@3.5.0)(prettier@3.3.3)
+      '@trivago/prettier-plugin-sort-imports': 4.3.0(@vue/compiler-sfc@3.5.3)(prettier@3.3.3)
       prettier: 3.3.3
     transitivePeerDependencies:
       - '@vue/compiler-sfc'
       - supports-color
 
-  '@leather.io/query@2.10.0(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)':
+  '@leather.io/query@file:../mono/packages/query(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)':
     dependencies:
       '@fungible-systems/zone-file': 2.0.0
       '@hirosystems/token-metadata-api-client': 1.2.0(encoding@0.1.13)
-      '@leather.io/bitcoin': 0.12.0(encoding@0.1.13)
-      '@leather.io/constants': 0.9.2
-      '@leather.io/models': 0.13.0
-      '@leather.io/rpc': 2.1.6
-      '@leather.io/utils': 0.13.3
+      '@leather.io/bitcoin': file:../mono/packages/bitcoin(encoding@0.1.13)
+      '@leather.io/constants': file:../mono/packages/constants
+      '@leather.io/models': file:../mono/packages/models
+      '@leather.io/rpc': file:../mono/packages/rpc
+      '@leather.io/utils': file:../mono/packages/utils
       '@noble/hashes': 1.4.0
       '@scure/base': 1.1.6
       '@scure/bip32': 1.4.0
@@ -17745,16 +17722,16 @@ snapshots:
       - debug
       - encoding
 
-  '@leather.io/rpc@2.1.6':
+  '@leather.io/rpc@file:../mono/packages/rpc':
     dependencies:
-      '@leather.io/models': 0.13.0
+      '@leather.io/models': file:../mono/packages/models
       zod: 3.23.6
 
-  '@leather.io/stacks@1.0.2(encoding@0.1.13)':
+  '@leather.io/stacks@file:../mono/packages/stacks(encoding@0.1.13)':
     dependencies:
-      '@leather.io/crypto': 1.4.2
-      '@leather.io/models': 0.13.0
-      '@leather.io/utils': 0.13.2
+      '@leather.io/crypto': file:../mono/packages/crypto
+      '@leather.io/models': file:../mono/packages/models
+      '@leather.io/utils': file:../mono/packages/utils
       '@noble/hashes': 1.4.0
       '@scure/bip32': 1.4.0
       '@stacks/encryption': 6.16.1
@@ -17762,13 +17739,13 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@leather.io/tokens@0.9.0': {}
+  '@leather.io/tokens@file:../mono/packages/tokens': {}
 
   '@leather.io/ui@1.17.1(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(typescript@5.4.5)':
     dependencies:
       '@expo/vector-icons': 14.0.0
-      '@leather.io/tokens': 0.9.0
-      '@leather.io/utils': 0.13.2
+      '@leather.io/tokens': file:../mono/packages/tokens
+      '@leather.io/utils': file:../mono/packages/utils
       '@radix-ui/react-accessible-icon': 1.0.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-accordion': 1.1.2(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-avatar': 1.0.4(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -17809,18 +17786,11 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@leather.io/utils@0.13.2':
+  '@leather.io/utils@file:../mono/packages/utils':
     dependencies:
-      '@leather.io/constants': 0.9.1
-      '@leather.io/models': 0.13.0
-      '@leather.io/rpc': 2.1.6
-      bignumber.js: 9.1.2
-
-  '@leather.io/utils@0.13.3':
-    dependencies:
-      '@leather.io/constants': 0.9.2
-      '@leather.io/models': 0.13.0
-      '@leather.io/rpc': 2.1.6
+      '@leather.io/constants': file:../mono/packages/constants
+      '@leather.io/models': file:../mono/packages/models
+      '@leather.io/rpc': file:../mono/packages/rpc
       bignumber.js: 9.1.2
 
   '@ledgerhq/devices@8.4.2':
@@ -18169,7 +18139,7 @@ snapshots:
     dependencies:
       playwright: 1.44.0
 
-  '@pmmmwh/react-refresh-webpack-plugin@0.5.13(@types/webpack@5.28.5(@swc/core@1.7.18)(esbuild@0.23.1)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.1)(webpack@5.94.0)))(react-refresh@0.14.2)(type-fest@4.26.0)(webpack-dev-server@4.15.1(webpack-cli@5.1.4)(webpack@5.94.0))(webpack-hot-middleware@2.26.1)(webpack@5.94.0(@swc/core@1.7.18)(esbuild@0.23.1)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.1)(webpack@5.94.0)))':
+  '@pmmmwh/react-refresh-webpack-plugin@0.5.13(@types/webpack@5.28.5(@swc/core@1.7.18)(esbuild@0.23.1)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.1)(webpack@5.94.0)))(react-refresh@0.14.2)(type-fest@4.26.1)(webpack-dev-server@4.15.1(webpack-cli@5.1.4)(webpack@5.94.0))(webpack-hot-middleware@2.26.1)(webpack@5.94.0(@swc/core@1.7.18)(esbuild@0.23.1)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.1)(webpack@5.94.0)))':
     dependencies:
       ansi-html-community: 0.0.8
       core-js-pure: 3.38.1
@@ -18182,7 +18152,7 @@ snapshots:
       webpack: 5.94.0(@swc/core@1.7.18)(esbuild@0.23.1)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.1)(webpack@5.94.0))
     optionalDependencies:
       '@types/webpack': 5.28.5(@swc/core@1.7.18)(esbuild@0.23.1)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.1)(webpack@5.94.0))
-      type-fest: 4.26.0
+      type-fest: 4.26.1
       webpack-dev-server: 4.15.1(webpack-cli@5.1.4)(webpack@5.94.0)
       webpack-hot-middleware: 2.26.1
 
@@ -20727,7 +20697,7 @@ snapshots:
   '@stacks/common@4.3.5':
     dependencies:
       '@types/bn.js': 5.1.5
-      '@types/node': 18.19.45
+      '@types/node': 18.19.49
       buffer: 6.0.3
 
   '@stacks/common@6.13.0':
@@ -21566,11 +21536,11 @@ snapshots:
       '@storybook/global': 5.0.0
       storybook: 8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2))
 
-  '@storybook/addon-interactions@8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6))':
+  '@storybook/addon-interactions@8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0))':
     dependencies:
       '@storybook/global': 5.0.0
       '@storybook/instrumenter': 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
-      '@storybook/test': 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6))
+      '@storybook/test': 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0))
       polished: 4.3.1
       storybook: 8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2))
       ts-dedent: 2.2.0
@@ -21995,12 +21965,12 @@ snapshots:
     optionalDependencies:
       typescript: 5.4.5
 
-  '@storybook/test@8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6))':
+  '@storybook/test@8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0))':
     dependencies:
       '@storybook/csf': 0.1.11
       '@storybook/instrumenter': 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
       '@testing-library/dom': 10.1.0
-      '@testing-library/jest-dom': 6.4.5(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6))
+      '@testing-library/jest-dom': 6.4.5(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0))
       '@testing-library/user-event': 14.5.2(@testing-library/dom@10.1.0)
       '@vitest/expect': 1.6.0
       '@vitest/spy': 1.6.0
@@ -22225,7 +22195,7 @@ snapshots:
       lz-string: 1.5.0
       pretty-format: 27.5.1
 
-  '@testing-library/jest-dom@6.4.5(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6))':
+  '@testing-library/jest-dom@6.4.5(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0))':
     dependencies:
       '@adobe/css-tools': 4.4.0
       '@babel/runtime': 7.25.4
@@ -22236,7 +22206,7 @@ snapshots:
       lodash: 4.17.21
       redent: 3.0.0
     optionalDependencies:
-      vitest: 2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6)
+      vitest: 2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0)
 
   '@testing-library/user-event@14.5.2(@testing-library/dom@10.1.0)':
     dependencies:
@@ -22247,7 +22217,7 @@ snapshots:
 
   '@tootallnate/once@2.0.0': {}
 
-  '@trivago/prettier-plugin-sort-imports@4.3.0(@vue/compiler-sfc@3.5.0)(prettier@3.3.3)':
+  '@trivago/prettier-plugin-sort-imports@4.3.0(@vue/compiler-sfc@3.5.3)(prettier@3.3.3)':
     dependencies:
       '@babel/generator': 7.17.7
       '@babel/parser': 7.25.6
@@ -22257,7 +22227,7 @@ snapshots:
       lodash: 4.17.21
       prettier: 3.3.3
     optionalDependencies:
-      '@vue/compiler-sfc': 3.5.0
+      '@vue/compiler-sfc': 3.5.3
     transitivePeerDependencies:
       - supports-color
 
@@ -23140,7 +23110,7 @@ snapshots:
       graphql: 15.8.0
       wonka: 4.0.15
 
-  '@vitest/coverage-istanbul@2.0.5(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6))':
+  '@vitest/coverage-istanbul@2.0.5(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0))':
     dependencies:
       '@istanbuljs/schema': 0.1.3
       debug: 4.3.6(supports-color@5.5.0)
@@ -23152,7 +23122,7 @@ snapshots:
       magicast: 0.3.4
       test-exclude: 7.0.1
       tinyrainbow: 1.2.0
-      vitest: 2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6)
+      vitest: 2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -23214,13 +23184,13 @@ snapshots:
       estree-walker: 2.0.2
       source-map-js: 1.2.0
 
-  '@vue/compiler-core@3.5.0':
+  '@vue/compiler-core@3.5.3':
     dependencies:
       '@babel/parser': 7.25.6
-      '@vue/shared': 3.5.0
+      '@vue/shared': 3.5.3
       entities: 4.5.0
       estree-walker: 2.0.2
-      source-map-js: 1.2.0
+      source-map-js: 1.2.1
     optional: true
 
   '@vue/compiler-dom@3.4.19':
@@ -23228,10 +23198,10 @@ snapshots:
       '@vue/compiler-core': 3.4.19
       '@vue/shared': 3.4.19
 
-  '@vue/compiler-dom@3.5.0':
+  '@vue/compiler-dom@3.5.3':
     dependencies:
-      '@vue/compiler-core': 3.5.0
-      '@vue/shared': 3.5.0
+      '@vue/compiler-core': 3.5.3
+      '@vue/shared': 3.5.3
     optional: true
 
   '@vue/compiler-sfc@3.4.19':
@@ -23246,17 +23216,17 @@ snapshots:
       postcss: 8.4.38
       source-map-js: 1.2.0
 
-  '@vue/compiler-sfc@3.5.0':
+  '@vue/compiler-sfc@3.5.3':
     dependencies:
       '@babel/parser': 7.25.6
-      '@vue/compiler-core': 3.5.0
-      '@vue/compiler-dom': 3.5.0
-      '@vue/compiler-ssr': 3.5.0
-      '@vue/shared': 3.5.0
+      '@vue/compiler-core': 3.5.3
+      '@vue/compiler-dom': 3.5.3
+      '@vue/compiler-ssr': 3.5.3
+      '@vue/shared': 3.5.3
       estree-walker: 2.0.2
       magic-string: 0.30.11
-      postcss: 8.4.44
-      source-map-js: 1.2.0
+      postcss: 8.4.45
+      source-map-js: 1.2.1
     optional: true
 
   '@vue/compiler-ssr@3.4.19':
@@ -23264,15 +23234,15 @@ snapshots:
       '@vue/compiler-dom': 3.4.19
       '@vue/shared': 3.4.19
 
-  '@vue/compiler-ssr@3.5.0':
+  '@vue/compiler-ssr@3.5.3':
     dependencies:
-      '@vue/compiler-dom': 3.5.0
-      '@vue/shared': 3.5.0
+      '@vue/compiler-dom': 3.5.3
+      '@vue/shared': 3.5.3
     optional: true
 
   '@vue/shared@3.4.19': {}
 
-  '@vue/shared@3.5.0':
+  '@vue/shared@3.5.3':
     optional: true
 
   '@webassemblyjs/ast@1.12.1':
@@ -23591,7 +23561,7 @@ snapshots:
     dependencies:
       '@stacks/network': 6.13.0(encoding@0.1.13)
       '@stacks/transactions': 6.15.0(encoding@0.1.13)
-      clarity-codegen: 0.5.2(@stacks/transactions@6.15.0(encoding@0.1.13))
+      clarity-codegen: 0.5.3(@stacks/transactions@6.15.0(encoding@0.1.13))
     transitivePeerDependencies:
       - debug
 
@@ -24509,7 +24479,7 @@ snapshots:
 
   cjs-module-lexer@1.3.1: {}
 
-  clarity-codegen@0.5.2(@stacks/transactions@6.15.0(encoding@0.1.13)):
+  clarity-codegen@0.5.3(@stacks/transactions@6.15.0(encoding@0.1.13)):
     dependencies:
       '@stacks/stacks-blockchain-api-types': 7.8.2
       '@stacks/transactions': 6.15.0(encoding@0.1.13)
@@ -30699,11 +30669,11 @@ snapshots:
       picocolors: 1.0.1
       source-map-js: 1.2.0
 
-  postcss@8.4.44:
+  postcss@8.4.45:
     dependencies:
       nanoid: 3.3.4
       picocolors: 1.1.0
-      source-map-js: 1.2.0
+      source-map-js: 1.2.1
     optional: true
 
   prebuild-install@7.1.2:
@@ -32114,6 +32084,9 @@ snapshots:
 
   source-map-js@1.2.0: {}
 
+  source-map-js@1.2.1:
+    optional: true
+
   source-map-support@0.5.21:
     dependencies:
       buffer-from: 1.1.2
@@ -32612,6 +32585,14 @@ snapshots:
       commander: 2.20.3
       source-map-support: 0.5.21
 
+  terser@5.32.0:
+    dependencies:
+      '@jridgewell/source-map': 0.3.6
+      acorn: 8.12.1
+      commander: 2.20.3
+      source-map-support: 0.5.21
+    optional: true
+
   test-exclude@7.0.1:
     dependencies:
       '@istanbuljs/schema': 0.1.3
@@ -32849,7 +32830,7 @@ snapshots:
 
   type-fest@3.13.1: {}
 
-  type-fest@4.26.0:
+  type-fest@4.26.1:
     optional: true
 
   type-is@1.6.18:
@@ -33291,13 +33272,13 @@ snapshots:
       bl: 1.2.3
       through2: 2.0.5
 
-  vite-node@2.0.5(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.31.6):
+  vite-node@2.0.5(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.32.0):
     dependencies:
       cac: 6.7.14
       debug: 4.3.6(supports-color@5.5.0)
       pathe: 1.1.2
       tinyrainbow: 1.2.0
-      vite: 5.4.2(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.31.6)
+      vite: 5.4.2(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.32.0)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -33309,7 +33290,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite@5.4.2(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.31.6):
+  vite@5.4.2(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.32.0):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.41
@@ -33318,9 +33299,9 @@ snapshots:
       '@types/node': 20.12.12
       fsevents: 2.3.3
       lightningcss: 1.26.0
-      terser: 5.31.6
+      terser: 5.32.0
 
-  vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6):
+  vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0):
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@vitest/expect': 2.0.5
@@ -33338,8 +33319,8 @@ snapshots:
       tinybench: 2.9.0
       tinypool: 1.0.1
       tinyrainbow: 1.2.0
-      vite: 5.4.2(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.31.6)
-      vite-node: 2.0.5(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.31.6)
+      vite: 5.4.2(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.32.0)
+      vite-node: 2.0.5(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.32.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 20.12.12
