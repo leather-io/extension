@@ -1,7 +1,7 @@
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
-import { Flex, styled } from 'leather-styles/jsx';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { Button, LettermarkIcon, Link, LogomarkIcon } from '@leather.io/ui';
+import { Button, LeatherLettermarkIcon, LeatherLogomarkIcon, Link } from '@leather.io/ui';
 
 import { useThemeSwitcher } from '@app/common/theme-provider';
 
@@ -128,13 +128,14 @@ export function WelcomeLayout({
         flex={{ base: 0, md: 1 }}
       >
         <Flex justifyContent="space-between">
-          <LogomarkIcon width="150px" height="34px" />
+          <LeatherLogomarkIcon height={34} width={150} />
           <Link href="https://leather.io/" hideBelow="md" variant="text">
             leather.io
           </Link>
         </Flex>
-
-        <LettermarkIcon hideBelow="md" height="auto" width="100%" />
+        <Box hideBelow="md">
+          <LeatherLettermarkIcon height="auto" width="100%" />
+        </Box>
       </Flex>
     </Flex>
   );

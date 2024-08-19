@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 
 import { useStxCryptoAssetBalance, useTransferableSip10Tokens } from '@leather.io/query';
-import { IconButton, SendIcon } from '@leather.io/ui';
+import { IconButton, PaperPlaneIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -28,7 +28,7 @@ function SendButtonSuspense() {
     <IconButton
       data-testid={HomePageSelectors.SendCryptoAssetBtn}
       label="Send"
-      icon={<SendIcon />}
+      icon={<PaperPlaneIcon />}
       onClick={() =>
         whenWallet({
           ledger: () =>
@@ -44,7 +44,9 @@ function SendButtonSuspense() {
   );
 }
 
-const SendButtonFallback = memo(() => <IconButton label="Send" icon={<SendIcon />} disabled />);
+const SendButtonFallback = memo(() => (
+  <IconButton label="Send" icon={<PaperPlaneIcon />} disabled />
+));
 
 export function SendButton() {
   return (

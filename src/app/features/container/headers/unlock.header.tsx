@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
-import { HamburgerIcon } from '@leather.io/ui';
+import { BarsTwoIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -24,7 +24,7 @@ export function UnlockHeader() {
           <HeaderGridRightCol>
             <Settings
               canLockWallet={false}
-              triggerButton={<HamburgerIcon data-testid={SettingsSelectors.SettingsMenuBtn} />}
+              triggerButton={<BarsTwoIcon data-testid={SettingsSelectors.SettingsMenuBtn} />}
             />
           </HeaderGridRightCol>
         }

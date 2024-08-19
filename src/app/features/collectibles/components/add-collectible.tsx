@@ -26,7 +26,7 @@ export function AddCollectible() {
       subtitle="Collectible"
       title="Add new"
     >
-      <PlusIcon height="auto" width="xl" />
+      <PlusIcon height={36} width={36} />
     </CollectibleItemLayout>
   );
 }

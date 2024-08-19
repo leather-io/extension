@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { HStack, styled } from 'leather-styles/jsx';
 
 import { useGetStacksNetworkBlockTimeQuery } from '@leather.io/query';
-import { ChevronUpIcon } from '@leather.io/ui';
+import { ChevronRightIcon } from '@leather.io/ui';
 import {
   createMoneyFromDecimal,
   formatMoneyPadded,
@@ -25,7 +25,7 @@ function RouteNames(props: { swapSubmissionData: SwapSubmissionData }) {
     return (
       <HStack gap="space.01" key={route.name}>
         <styled.span>{route.name}</styled.span>
-        {insertIcon && <ChevronUpIcon transform="rotate(90deg)" variant="small" />}
+        {insertIcon && <ChevronRightIcon variant="small" />}
       </HStack>
     );
   });

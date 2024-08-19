@@ -5,7 +5,7 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box, Flex } from 'leather-styles/jsx';
 
 import { whenStacksChainId } from '@leather.io/stacks';
-import { CreditCardIcon, IconButton, InboxIcon, SwapIcon } from '@leather.io/ui';
+import { ArrowsRepeatLeftRightIcon, CreditCardIcon, IconButton, InboxIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -61,11 +61,11 @@ export function AccountActions() {
             side="left"
             asChild
           >
-            <Box>
+            <Box display="flex">
               <IconButton
                 data-testid={HomePageSelectors.SwapBtn}
                 disabled={swapsBtnDisabled}
-                icon={<SwapIcon />}
+                icon={<ArrowsRepeatLeftRightIcon />}
                 label="Swap"
                 onClick={() =>
                   navigate(RouteUrls.Swap.replace(':base', 'STX').replace(':quote', ''))

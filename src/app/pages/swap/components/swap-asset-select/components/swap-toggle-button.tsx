@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useFormikContext } from 'formik';
 import { styled } from 'leather-styles/jsx';
 
-import { SwapIcon } from '@leather.io/ui';
+import { ArrowsRepeatLeftRightIcon } from '@leather.io/ui';
 import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -53,7 +53,7 @@ export function SwapToggleButton() {
       onClick={onToggleSwapAssets}
       type="button"
     >
-      <SwapIcon transform="rotate(90deg)" variant="small" />
+      <ArrowsRepeatLeftRightIcon transform="rotate(90)" variant="small" />
     </styled.button>
   );
 }

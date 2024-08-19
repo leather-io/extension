@@ -8,7 +8,7 @@ export function TokenTransferIcon(props: { tx: StacksTx }) {
   const currentAccountStxAddress = useCurrentStacksAccountAddress();
   const isSent = tx.sender_address === currentAccountStxAddress;
 
-  if (isSent) return <ArrowUpIcon variant="small" />;
+  if (isSent) return <ArrowUpIcon color="ink.background-primary" variant="small" />;
 
-  return <ArrowDownIcon variant="small" />;
+  return <ArrowDownIcon color="ink.background-primary" variant="small" />;
 }

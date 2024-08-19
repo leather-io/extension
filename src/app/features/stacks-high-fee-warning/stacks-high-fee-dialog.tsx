@@ -2,7 +2,15 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useFormikContext } from 'formik';
 import { HStack, Stack } from 'leather-styles/jsx';
 
-import { Button, Caption, Dialog, DialogHeader, ErrorIcon, Link, Title } from '@leather.io/ui';
+import {
+  Button,
+  Caption,
+  Dialog,
+  DialogHeader,
+  ErrorTriangleIcon,
+  Link,
+  Title,
+} from '@leather.io/ui';
 
 import { StacksSendFormValues } from '@shared/models/form.model';
 
@@ -46,7 +54,7 @@ export function HighFeeDialog({ learnMoreUrl }: HighFeeDialogProps) {
     >
       <Stack px="space.05" gap="space.05" pb="space.06">
         <HStack>
-          <ErrorIcon color="red.action-primary-default" width="md" />
+          <ErrorTriangleIcon color="red.action-primary-default" />
           <Title>
             Are you sure you want to pay {values.fee} {values.feeCurrency} in fees for this
             transaction?
