@@ -8,7 +8,7 @@ import { EyeSlashIcon, KeyIcon, LockIcon } from '@leather.io/ui';
 import { RouteUrls } from '@shared/route-urls';
 
 import { Content, TwoColumnLayout } from '@app/components/layout';
-import { MainHeader } from '@app/features/container/headers/main.header';
+import { OnboardingHeader } from '@app/features/container/headers/onboarding.header';
 import { SecretKey } from '@app/features/secret-key-displayer/secret-key-displayer';
 import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
 
@@ -24,7 +24,7 @@ export const BackUpSecretKeyPage = memo(() => {
 
   return (
     <>
-      <MainHeader />
+      <OnboardingHeader />
       <Content>
         <TwoColumnLayout
           title="Back up your Secret Key"

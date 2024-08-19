@@ -5,6 +5,7 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 
 import { ArrowLeftIcon, HamburgerIcon } from '@leather.io/ui';
 
+import { RouteUrls } from '@shared/route-urls';
 import { SwitchAccountOutletContext } from '@shared/switch-account';
 
 import { Header } from '@app/components/layout/headers/header';
@@ -13,29 +14,28 @@ import { HeaderGrid, HeaderGridRightCol } from '@app/components/layout/headers/h
 import { LogoBox } from '@app/components/layout/headers/logo-box';
 import { Settings } from '@app/features/settings/settings';
 
-interface MainHeaderProps {
-  hideBackButton?: boolean;
-  hideLogo?: boolean;
-}
-
-export function MainHeader({ hideBackButton = false, hideLogo = false }: MainHeaderProps) {
+export function UnlockHeader() {
   const { isShowingSwitchAccount, setIsShowingSwitchAccount } =
     useOutletContext<SwitchAccountOutletContext>();
   const navigate = useNavigate();
+
   return (
     <>
       <Header paddingLeft={{ base: undefined, sm: 0 }}>
         <HeaderGrid
           leftCol={
             <>
-              {!hideBackButton && (
-                <HeaderActionButton
-                  icon={<ArrowLeftIcon />}
-                  onAction={() => navigate(-1)}
-                  dataTestId={SharedComponentsSelectors.HeaderBackBtn}
-                />
-              )}
-              {!hideLogo && <LogoBox />}
+              <HeaderActionButton
+                icon={<ArrowLeftIcon />}
+                onAction={() => navigate(-1)}
+                dataTestId={SharedComponentsSelectors.HeaderBackBtn}
+              />
+
+              <LogoBox
+                onClick={() => navigate(RouteUrls.Home)}
+                hideBelow={undefined}
+                hideFrom="sm"
+              />
             </>
           }
           rightCol={
