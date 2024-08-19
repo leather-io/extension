@@ -16,7 +16,7 @@ export function AddNetwork() {
 
   return (
     <>
-      <PageHeader title="Add Network" />
+      <PageHeader title="Add network" />
       <Content>
         <Page>
           <Formik initialValues={initialFormValues} onSubmit={onSubmit}>
