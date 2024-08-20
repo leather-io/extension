@@ -2,7 +2,7 @@ import { NetworkSelectors } from '@tests/selectors/network.selectors';
 import { Form, Formik } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
 
-import { Button } from '@leather.io/ui';
+import { Button, Link } from '@leather.io/ui';
 
 import { ErrorLabel } from '@app/components/error-label';
 import { Card, Content, Page } from '@app/components/layout';
@@ -31,21 +31,21 @@ export function AddNetwork() {
                   >
                     <styled.span textStyle="body.02">
                       Use this form to add a new instance of the{' '}
-                      <a
+                      <Link
                         href="https://github.com/blockstack/stacks-blockchain-api"
                         target="_blank"
                         rel="noreferrer"
                       >
                         Stacks Blockchain API
-                      </a>{' '}
+                      </Link>{' '}
                       or{' '}
-                      <a
-                        href="https://github.com/Blockstream/esplora"
+                      <Link
+                        href="https://mempool.space/docs/api/rest"
                         target="_blank"
                         rel="noreferrer"
                       >
                         Bitcoin Blockchain API
-                      </a>
+                      </Link>
                       . Make sure you review and trust the host before you add it.
                     </styled.span>
                     <AddNetworkForm />

@@ -86,7 +86,7 @@ export function transformNetworkStateToMultichainStucture(
               bitcoin: {
                 blockchain: 'bitcoin',
                 bitcoinNetwork: bitcoinNetwork ? bitcoinNetwork : 'testnet',
-                bitcoinUrl: bitcoinUrl ? bitcoinUrl : 'https://blockstream.info/testnet/api',
+                bitcoinUrl: bitcoinUrl ? bitcoinUrl : BITCOIN_API_BASE_URL_TESTNET,
               },
             },
           },
