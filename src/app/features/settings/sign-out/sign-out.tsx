@@ -5,7 +5,7 @@ import { Flex, HStack, styled } from 'leather-styles/jsx';
 import { Button, Callout, Dialog, DialogHeader } from '@leather.io/ui';
 
 import { useWalletType } from '@app/common/use-wallet-type';
-import { ButtonRow, Footer } from '@app/components/layout';
+import { ButtonRow } from '@app/components/layout';
 
 interface SignOutDialogProps {
   isShowing: boolean;
@@ -39,30 +39,28 @@ export function SignOutDialog({ isShowing, onUserDeleteWallet, onClose }: SignOu
       isShowing={isShowing}
       onClose={onClose}
       footer={
-        <Footer>
-          <ButtonRow flexDirection="row">
-            <Button
-              color="gray"
-              data-testid={SettingsSelectors.BtnSignOutReturnToHomeScreen}
-              flexGrow={1}
-              variant="outline"
-              onClick={onClose}
-            >
-              Cancel
-            </Button>
-            <Button
-              color="lightModeInk.1"
-              opacity={!canSignOut ? 0.8 : undefined}
-              data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
-              flexGrow={1}
-              disabled={!canSignOut}
-              onClick={handleSignOut}
-              type="submit"
-            >
-              Sign out
-            </Button>
-          </ButtonRow>
-        </Footer>
+        <ButtonRow flexDirection="row">
+          <Button
+            color="gray"
+            data-testid={SettingsSelectors.BtnSignOutReturnToHomeScreen}
+            flexGrow={1}
+            variant="outline"
+            onClick={onClose}
+          >
+            Cancel
+          </Button>
+          <Button
+            color="lightModeInk.1"
+            opacity={!canSignOut ? 0.8 : undefined}
+            data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
+            flexGrow={1}
+            disabled={!canSignOut}
+            onClick={handleSignOut}
+            type="submit"
+          >
+            Sign out
+          </Button>
+        </ButtonRow>
       }
     >
       <Callout variant="warning" width="100%" title="You'll need your Secret Key to sign in again">

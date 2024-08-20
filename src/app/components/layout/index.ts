@@ -1,5 +1,4 @@
 export { Page } from './page/page.layout';
-export { Footer } from './footer/footer';
 export * from './card';
 
 export { AvailableBalance } from './card/components/available-balance';

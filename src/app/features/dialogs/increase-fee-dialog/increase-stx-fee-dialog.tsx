@@ -21,7 +21,6 @@ import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-
 import { stacksValue } from '@app/common/stacks-utils';
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
-import { Footer } from '@app/components/layout';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
@@ -89,13 +88,11 @@ export function IncreaseStxFeeDialog() {
               onClose={() => navigate(RouteUrls.Home)}
               header={<DialogHeader title="Increase fee" />}
               footer={
-                <Footer>
-                  <IncreaseFeeActions
-                    isDisabled={stxToMicroStx(props.values.fee).isEqualTo(fee)}
-                    isLoading={isLoadingRawTx || isLoadingTx}
-                    onCancel={() => navigate(RouteUrls.Home)}
-                  />
-                </Footer>
+                <IncreaseFeeActions
+                  isDisabled={stxToMicroStx(props.values.fee).isEqualTo(fee)}
+                  isLoading={isLoadingRawTx || isLoadingTx}
+                  onCancel={() => navigate(RouteUrls.Home)}
+                />
               }
             >
               <Stack gap="space.05" px="space.05" pb="space.05">

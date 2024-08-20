@@ -6,8 +6,6 @@ import get from 'lodash.get';
 
 import { Button, Dialog, DialogHeader } from '@leather.io/ui';
 
-import { Footer } from '@app/components/layout';
-
 export function BroadcastErrorDialog() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,11 +17,9 @@ export function BroadcastErrorDialog() {
       header={<DialogHeader />}
       onClose={() => navigate('..')}
       footer={
-        <Footer>
-          <Button fullWidth onClick={() => navigate('..')} mt="space.05">
-            Close
-          </Button>
-        </Footer>
+        <Button fullWidth onClick={() => navigate('..')} mt="space.05">
+          Close
+        </Button>
       }
     >
       <Flex

@@ -2,8 +2,6 @@ import { Flex, styled } from 'leather-styles/jsx';
 
 import { BtcAvatarIcon, Button, Callout, Dialog, DialogHeader } from '@leather.io/ui';
 
-import { Footer } from '@app/components/layout';
-
 interface RetrieveTaprootToNativeSegwitLayoutProps {
   isBroadcasting: boolean;
   children: React.ReactNode;
@@ -20,11 +18,11 @@ export function RetrieveTaprootToNativeSegwitLayout(
       header={<DialogHeader />}
       onClose={() => onClose()}
       footer={
-        <Footer>
+        <Flex flexDirection="row">
           <Button onClick={onApproveTransaction} aria-busy={isBroadcasting} fullWidth>
             Retrieve bitcoin
           </Button>
-        </Footer>
+        </Flex>
       }
     >
       <Flex alignItems="start" flexDirection="column" mx="space.06" mt="space.05" textAlign="left">

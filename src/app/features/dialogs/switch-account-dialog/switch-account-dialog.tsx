@@ -7,7 +7,6 @@ import { Button, Dialog, DialogHeader } from '@leather.io/ui';
 
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { Footer } from '@app/components/layout';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -53,11 +52,9 @@ export const SwitchAccountDialog = memo(({ isShowing, onClose }: SwitchAccountDi
       wrapChildren={false}
       footer={whenWallet({
         software: (
-          <Footer>
-            <Button fullWidth onClick={() => onCreateAccount()}>
-              Create new account
-            </Button>
-          </Footer>
+          <Button fullWidth onClick={() => onCreateAccount()}>
+            Create new account
+          </Button>
         ),
         ledger: null,
       })}
