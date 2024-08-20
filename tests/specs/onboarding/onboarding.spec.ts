@@ -6,6 +6,8 @@ import {
 import { testSoftwareAccountDefaultWalletState } from '@tests/page-object-models/onboarding.page';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 
+import { BITCOIN_API_BASE_URL_MAINNET } from '@leather.io/models';
+
 import { test } from '../../fixtures/fixtures';
 
 test.describe('Onboarding an existing user', () => {
@@ -64,7 +66,7 @@ test.describe('Onboarding an existing user', () => {
   test('Activity tab', async ({ extensionId, globalPage, onboardingPage, homePage, page }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signUpNewUser();
-    await page.route(`**/blockstream.info/api/address/**/txs`, route =>
+    await page.route(`${BITCOIN_API_BASE_URL_MAINNET}/address/**/txs`, route =>
       route.fulfill({
         json: [],
       })
