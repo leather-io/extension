@@ -4435,8 +4435,8 @@ packages:
   '@rnx-kit/tools-node@2.1.1':
     resolution: {integrity: sha512-jZC/pmeM3fv4LwpkVWlLyv5dOh6haUw/dBaDC0e5zkfehkIdLtRhVwz4l7iH9MW/i4I9OySoc+2DtDpX7KZyZA==}
 
-  '@rnx-kit/tools-react-native@1.4.0':
-    resolution: {integrity: sha512-pDhWghJKDlraToxQQr2ssOaWD8hN6Y8+rFKRusTjPohJ5fThP9yAw/t1EPSZ8e9w6YD3Bh2yVCwN9fIvGWRIWg==}
+  '@rnx-kit/tools-react-native@1.4.1':
+    resolution: {integrity: sha512-1bUodd3q4OsBjq3XBl1bDlt/b+cNw+O2BAySR4KnFdTShNXveSCC96zJl9Nopf8MrLp5MpLpWdxHP0HYlJyC+g==}
 
   '@rnx-kit/tools-workspaces@0.1.6':
     resolution: {integrity: sha512-af5CYnc1dtnMIAl2u0U1QHUCGgLNN9ZQkYCAtQOHPxxgF5yX2Cr9jrXLZ9M+/h/eSVbK0ETjJWbNbPoiUSW/7w==}
@@ -20369,7 +20369,7 @@ snapshots:
     dependencies:
       '@rnx-kit/console': 1.1.0
       '@rnx-kit/tools-node': 2.1.1
-      '@rnx-kit/tools-react-native': 1.4.0
+      '@rnx-kit/tools-react-native': 1.4.1
       '@rnx-kit/tools-workspaces': 0.1.6
       react: 18.2.0
       react-native: 0.74.1(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2))(@types/react@18.3.3)(encoding@0.1.13)(react@18.3.1)
@@ -20380,12 +20380,12 @@ snapshots:
     dependencies:
       '@rnx-kit/console': 1.1.0
       '@rnx-kit/tools-node': 2.1.1
-      '@rnx-kit/tools-react-native': 1.4.0
+      '@rnx-kit/tools-react-native': 1.4.1
       enhanced-resolve: 5.17.1
 
   '@rnx-kit/tools-node@2.1.1': {}
 
-  '@rnx-kit/tools-react-native@1.4.0':
+  '@rnx-kit/tools-react-native@1.4.1':
     dependencies:
       '@rnx-kit/tools-node': 2.1.1
 
