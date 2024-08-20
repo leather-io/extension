@@ -42,7 +42,9 @@
     "storybook-docs": "storybook dev --docs",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "mono:link": "node scripts/mono-link.js && pnpm install",
+    "mono:unlink": "node scripts/mono-unlink.js && pnpm install"
   },
   "license": "MIT",
   "main": "index.js",
