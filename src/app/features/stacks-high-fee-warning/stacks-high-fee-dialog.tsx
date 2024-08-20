@@ -7,7 +7,7 @@ import { Button, Caption, Dialog, DialogHeader, ErrorIcon, Link, Title } from '@
 import { StacksSendFormValues } from '@shared/models/form.model';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { ButtonRow, Footer } from '@app/components/layout';
+import { ButtonRow } from '@app/components/layout';
 
 import { useStacksHighFeeWarningContext } from './stacks-high-fee-warning-container';
 
@@ -26,28 +26,22 @@ export function HighFeeDialog({ learnMoreUrl }: HighFeeDialogProps) {
       isShowing={showHighFeeWarningDialog}
       onClose={() => setShowHighFeeWarningDialog(false)}
       footer={
-        <Footer>
-          <ButtonRow flexDirection="row">
-            <Button
-              onClick={() => setShowHighFeeWarningDialog(false)}
-              variant="outline"
-              flexGrow={1}
-            >
-              Edit fee
-            </Button>
-            <Button
-              onClick={() => {
-                setHasBypassedFeeWarning(true);
-                handleSubmit();
-              }}
-              data-testid={SendCryptoAssetSelectors.HighFeeWarningDialogSubmit}
-              type="submit"
-              flexGrow={1}
-            >
-              Yes, I'm sure
-            </Button>
-          </ButtonRow>
-        </Footer>
+        <ButtonRow flexDirection="row">
+          <Button onClick={() => setShowHighFeeWarningDialog(false)} variant="outline" flexGrow={1}>
+            Edit fee
+          </Button>
+          <Button
+            onClick={() => {
+              setHasBypassedFeeWarning(true);
+              handleSubmit();
+            }}
+            data-testid={SendCryptoAssetSelectors.HighFeeWarningDialogSubmit}
+            type="submit"
+            flexGrow={1}
+          >
+            Yes, I'm sure
+          </Button>
+        </ButtonRow>
       }
     >
       <Stack px="space.05" gap="space.05" pb="space.06">

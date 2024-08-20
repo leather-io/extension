@@ -10,7 +10,6 @@ import { RouteUrls } from '@shared/route-urls';
 import { ErrorLabel } from '@app/components/error-label';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { InscriptionPreviewCard } from '@app/components/inscription-preview-card/inscription-preview-card';
-import { Footer } from '@app/components/layout';
 
 import { RecipientAddressTypeField } from '../send-crypto-asset-form/components/recipient-address-type-field';
 import { CollectibleAsset } from './components/collectible-asset';
@@ -45,11 +44,9 @@ export function SendInscriptionForm() {
               isShowing
               onClose={() => navigate(RouteUrls.Home)}
               footer={
-                <Footer>
-                  <Button onClick={() => props.handleSubmit()} type="submit" fullWidth>
-                    Continue
-                  </Button>
-                </Footer>
+                <Button onClick={() => props.handleSubmit()} type="submit" fullWidth>
+                  Continue
+                </Button>
               }
             >
               <SendInscriptionFormLoader isLoading={isCheckingFees}>

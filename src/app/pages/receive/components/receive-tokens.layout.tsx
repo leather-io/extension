@@ -8,7 +8,6 @@ import { token } from 'leather-styles/tokens';
 import { AddressDisplayer, Button, Dialog, DialogHeader } from '@leather.io/ui';
 
 import { useLocationState } from '@app/common/hooks/use-location-state';
-import { Footer } from '@app/components/layout';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 
 interface ReceiveTokensLayoutProps {
@@ -41,11 +40,9 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
       isShowing
       onClose={() => navigate(backgroundLocation ?? '..')}
       footer={
-        <Footer>
-          <Button fullWidth onClick={() => onCopyAddressToClipboard(address)}>
-            Copy address
-          </Button>
-        </Footer>
+        <Button fullWidth onClick={() => onCopyAddressToClipboard(address)}>
+          Copy address
+        </Button>
       }
     >
       {warning && warning}

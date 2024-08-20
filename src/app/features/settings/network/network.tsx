@@ -8,7 +8,6 @@ import { Button, Dialog, DialogHeader } from '@leather.io/ui';
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
 
-import { Footer } from '@app/components/layout';
 import { NetworkListItem } from '@app/features/settings/network/network-list-item';
 import { useCurrentNetworkState, useNetworksActions } from '@app/store/networks/networks.hooks';
 import { useNetworks } from '@app/store/networks/networks.selectors';
@@ -46,18 +45,16 @@ export function NetworkDialog({ onClose }: NetworkDialogProps) {
       isShowing
       onClose={onClose}
       footer={
-        <Footer>
-          <Button
-            data-testid={SettingsSelectors.AddNewNetworkBtn}
-            fullWidth
-            onClick={() => {
-              addNetwork();
-              onClose();
-            }}
-          >
-            Add a network
-          </Button>
-        </Footer>
+        <Button
+          data-testid={SettingsSelectors.AddNewNetworkBtn}
+          fullWidth
+          onClick={() => {
+            addNetwork();
+            onClose();
+          }}
+        >
+          Add a network
+        </Button>
       }
     >
       {Object.keys(networks).map(id => (
