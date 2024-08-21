@@ -44,10 +44,15 @@ import { AdvancedMenuItems } from './components/advanced-menu-items';
 import { LedgerDeviceItemRow } from './components/ledger-item-row';
 
 interface SettingsProps {
+  canLockWallet?: boolean;
   triggerButton: React.ReactNode;
-  toggleSwitchAccount(): void;
+  toggleSwitchAccount?(): void;
 }
-export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) {
+export function Settings({
+  canLockWallet = true,
+  triggerButton,
+  toggleSwitchAccount,
+}: SettingsProps) {
   const [showSignOut, setShowSignOut] = useState(false);
   const [showChangeTheme, setShowChangeTheme] = useState(false);
   const [showChangeNetwork, setShowChangeNetwork] = useState(false);
@@ -70,7 +75,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
     () =>
       [
         showAdvancedMenuOptions && <AdvancedMenuItems />,
-        hasKeys && walletType === 'software' && (
+        canLockWallet && hasKeys && walletType === 'software' && (
           <DropdownMenu.Item
             onSelect={() => {
               void analytics.track('lock_session');
@@ -96,7 +101,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
           </DropdownMenu.Item>
         ),
       ].filter(Boolean),
-    [hasKeys, lockWallet, navigate, showAdvancedMenuOptions, showSignOut, walletType]
+    [canLockWallet, hasKeys, lockWallet, navigate, showAdvancedMenuOptions, showSignOut, walletType]
   );
 
   return (
@@ -120,7 +125,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
                   <LedgerDeviceItemRow deviceType={extractDeviceNameFromKnownTargetIds(targetId)} />
                 </DropdownMenu.Item>
               )}
-              {hasKeys && (
+              {hasKeys && toggleSwitchAccount && (
                 <DropdownMenu.Item
                   data-testid={SettingsSelectors.SwitchAccountTrigger}
                   onSelect={toggleSwitchAccount}
