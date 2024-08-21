@@ -12,7 +12,7 @@ const specs = {
 };
 
 async function interceptBitcoinRequests(homePage: HomePage) {
-  const requestPromise = homePage.page.waitForRequest(/bestinslot|mempool|inscriptions/, {
+  const requestPromise = homePage.page.waitForRequest(/bestinslot|mempool\.space|inscriptions/, {
     timeout: 1000,
   });
   return requestPromise;
