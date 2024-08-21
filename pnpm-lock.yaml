@@ -35,32 +35,32 @@ importers:
         specifier: 1.2.0
         version: 1.2.0(encoding@0.1.13)
       '@leather.io/bitcoin':
-        specifier: 0.11.0
-        version: 0.11.0(encoding@0.1.13)
+        specifier: 0.11.1
+        version: 0.11.1(encoding@0.1.13)
       '@leather.io/constants':
-        specifier: 0.9.0
-        version: 0.9.0
+        specifier: 0.9.1
+        version: 0.9.1
       '@leather.io/crypto':
-        specifier: 1.4.0
-        version: 1.4.0
+        specifier: 1.4.1
+        version: 1.4.1
       '@leather.io/models':
-        specifier: 0.12.0
-        version: 0.12.0
+        specifier: 0.12.1
+        version: 0.12.1
       '@leather.io/query':
-        specifier: 2.6.0
-        version: 2.6.0(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
+        specifier: 2.6.1
+        version: 2.6.1(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
       '@leather.io/stacks':
-        specifier: 1.0.0
-        version: 1.0.0(encoding@0.1.13)
+        specifier: 1.0.1
+        version: 1.0.1(encoding@0.1.13)
       '@leather.io/tokens':
-        specifier: 0.8.0
-        version: 0.8.0
+        specifier: 0.8.1
+        version: 0.8.1
       '@leather.io/ui':
         specifier: 1.13.0
         version: 1.13.0(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2))(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(typescript@5.4.5)
       '@leather.io/utils':
-        specifier: 0.13.0
-        version: 0.13.0
+        specifier: 0.13.1
+        version: 0.13.1
       '@ledgerhq/hw-transport-webusb':
         specifier: 6.27.19
         version: 6.27.19
@@ -381,17 +381,17 @@ importers:
         specifier: 1.2.23
         version: 1.2.23(react@18.3.1)
       '@leather.io/eslint-config':
-        specifier: 0.6.1
-        version: 0.6.1(typescript@5.4.5)
+        specifier: 0.7.0
+        version: 0.7.0(typescript@5.4.5)
       '@leather.io/panda-preset':
-        specifier: 0.3.6
-        version: 0.3.6(jsdom@22.1.0)(typescript@5.4.5)
+        specifier: 0.3.7
+        version: 0.3.7(jsdom@22.1.0)(typescript@5.4.5)
       '@leather.io/prettier-config':
         specifier: 0.6.0
         version: 0.6.0(@vue/compiler-sfc@3.4.38)
       '@leather.io/rpc':
-        specifier: 2.1.4
-        version: 2.1.4
+        specifier: 2.1.5
+        version: 2.1.5
       '@ls-lint/ls-lint':
         specifier: 2.2.3
         version: 2.2.3
@@ -2542,7 +2542,7 @@ packages:
 
   '@expo/bunyan@4.0.1':
     resolution: {integrity: sha512-+Lla7nYSiHZirgK+U/uYzsLv/X+HaJienbD5AKX1UQZHYfWaP+9uuQluRB4GrEVWF0GZ7vEVp/jzaOT9k/SQlg==}
-    engines: {node: '>=0.10.0'}
+    engines: {'0': node >=0.10.0}
 
   '@expo/cli@0.18.28':
     resolution: {integrity: sha512-fvbVPId6s6etindzP6Nzos/CS1NurMVy4JKozjebArHr63tBid5i/UY5Pp+4wTCAM20gB2SjRdwcwoL6HFC4Iw==}
@@ -2745,58 +2745,43 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@leather.io/bitcoin@0.11.0':
-    resolution: {integrity: sha512-RcM4b5MPNyAB3qHQT8aeuF1XVX3t5lNDPpHV8+ABXUxQ0rQwFtNiSU8ykOq1JUyg1fhnkJDGo0EQzEb/9dw96A==}
-
-  '@leather.io/constants@0.9.0':
-    resolution: {integrity: sha512-Pbc/ESyqZpbrwnTw+uXTtJzwRR+vnulLhHmL0qevzEr27tpnPSVrCUlyuHZh87seM0TFmUdoQ1hMS+1YTWnI2g==}
+  '@leather.io/bitcoin@0.11.1':
+    resolution: {integrity: sha512-tbSPErsa8cGwC9et8TCXv0f4kAum4qjlLaLKrwiZ63xArJcoWbEHgqBNeC9+BDwUWegMeqEAIAKNpVbQxh5gDQ==}
 
   '@leather.io/constants@0.9.1':
     resolution: {integrity: sha512-q0chtXhgFIyNioNbxZIFBaDDxjcwBLFSph6wx+3Vl0uwdDUaDNyDdd+WsoXEFxESCesyCWiAr4aS12hmfGIwIg==}
 
-  '@leather.io/crypto@1.4.0':
-    resolution: {integrity: sha512-MdCG5VfH80BDGH2vut82q0MFgcUoGRlPYydZ8qi2aYMIzfpgJZ9LC38a6oPd0tJy8F4f5OPqMhRfhtA2v30pwA==}
+  '@leather.io/crypto@1.4.1':
+    resolution: {integrity: sha512-lpnoWjrjRMMEL40rov1l/GqXI8W/zx5VUs0RqTLn+pHWcLRC/sfM14r+rDEHTPdIJ3cMyCfgC0YSZfm9x6JQVA==}
 
-  '@leather.io/eslint-config@0.6.1':
-    resolution: {integrity: sha512-NLvT7wpDR02jFZdp9g08ja5mRxdz/xCcB/tmXWJL8uDt2l+ebjHqaq45dZroAPm+EciLd0HU3jFfsSA7Txgh9w==}
-
-  '@leather.io/models@0.12.0':
-    resolution: {integrity: sha512-kB3Ls9qxVJZLX/OQOOXG3kkLc5AXbBm+2BifVCSaRcoU9yxBRbqCBDtQYaqPnQm24SLTfcgYgqdGpFC6LdD5CQ==}
+  '@leather.io/eslint-config@0.7.0':
+    resolution: {integrity: sha512-4K7olfSC+mJnG90TSaLIlytp14yDprGXwe1+oP9TLQbuPFpJai3/+g5Bp/FeUC4NZ23UVbAlGXFCav2amBb77w==}
 
   '@leather.io/models@0.12.1':
     resolution: {integrity: sha512-hjQxydBM9URXIi0yE/PoCwOFG9Zo0xa4kR+ZQ0WbpeForh5GNEzwpv6oTl1l2fDqPlcGbm3TIfAabiIOcQgqwA==}
 
-  '@leather.io/panda-preset@0.3.6':
-    resolution: {integrity: sha512-8orO9uzwMnUXwde8KO2F1pjqebcUum57mJykJkhxozNGtZ9fVrrk/G7zUlljiU627EU04hRRAd5Cx8s7MTYtRg==}
+  '@leather.io/panda-preset@0.3.7':
+    resolution: {integrity: sha512-gkPDbIO2+VBNEys1piF7WjH0AdH1agu8eFVefws87mcuCwkpqtDV9IaUzIHJH5y3f6JFc9R8EoDLaalvWzwBfA==}
 
   '@leather.io/prettier-config@0.6.0':
     resolution: {integrity: sha512-QBKtLanfxFxXBlR58U/j8a6lBI0xzJzqqi36fXpGVp+9mJoEf6Ro6xrtFrixjW6seY6EOva4OApVnnPBsvOC/w==}
 
-  '@leather.io/query@2.6.0':
-    resolution: {integrity: sha512-N2mGB7SGlnAthqMHT9nD/xaIBC5ec7IcEum92iFv/Q+AYF6Iremv3PukXUtPsE0qy3LeKo0j7NdAI1ek8vK89w==}
+  '@leather.io/query@2.6.1':
+    resolution: {integrity: sha512-R3D9cqmeYt+s9P/LuWCCA3UQC095Msnuin0oY+7+Qw7dbHAhFWDzPMMOURmAGpkOj2XTXy+8ImYhy/LuNHuEHA==}
     peerDependencies:
       react: '*'
-
-  '@leather.io/rpc@2.1.4':
-    resolution: {integrity: sha512-QnmT2+6O5e5KviXehWPvbzyq/MZx9f+SpCntaAjCl3v+VbUVCX92zqDxgeo1ZNFblpB9TrONXvCRQarQLG4dMQ==}
 
   '@leather.io/rpc@2.1.5':
     resolution: {integrity: sha512-7OqfxjjrCiGU7CDAP1kjgJQnySmRUeEM64ni4iIwYbS4Am2eVXQbw1urCpGag9dBs1zXupNmAjCs9xVR0kZiMQ==}
 
-  '@leather.io/stacks@1.0.0':
-    resolution: {integrity: sha512-iFBPuqg2iakXJXBDZRLlVYOWpkcpI+yVjYkLMq5tswQ3BW2oJW6vLwVO63wvioxwu/5OQX2iHtJsfd2pHa0BMw==}
-
-  '@leather.io/tokens@0.8.0':
-    resolution: {integrity: sha512-VLzkkig7tE+8zLpiFwZdbAoYpVAKU8M9Es4JDQCKcakD5pTIBVsVNwVAVx30zga6ZX5oKr0qHImQ7hL5Vwi2+A==}
+  '@leather.io/stacks@1.0.1':
+    resolution: {integrity: sha512-swcVoNWFOcPwTozXeg+ks44isNbcySiO3iCWCFZCNr1uMVF1pBz3ZcazP0vkpp+XPcMmhVUDLa2sEKbS04GqdQ==}
 
   '@leather.io/tokens@0.8.1':
     resolution: {integrity: sha512-6njyiYIyoJMQPH/9N0SXVoLMxv4PMxUwW43zpnP4YhDLCFMzhBU5WvB+2gOSpNi//Ip3ReZiO/lQWuI6mKDf5w==}
 
   '@leather.io/ui@1.13.0':
     resolution: {integrity: sha512-clrb5RBmTk9vy2p9FMAddiwH7zhbyKTlj2Z1WIKiS/YEgaPwuW+TcSERQ5oyZuggpmTzBRwD6YZRA5YhK4jg4w==}
-
-  '@leather.io/utils@0.13.0':
-    resolution: {integrity: sha512-ceFsO806ADSyT1WpEj3pHo3asAAScdE8NvzEf7jxyXjnyjyd4Mudgzg8LyrwLV83rHYY8lcU1QcnWxC8g0wUbA==}
 
   '@leather.io/utils@0.13.1':
     resolution: {integrity: sha512-DAgIR5zoRukiP/g7RoElZ69X4us9+Zjuq7IS/hhWv9FInu+R3qVbaFpuoauKeQ1kdTSvVknnqGUGHqKKC6ymbQ==}
@@ -17411,13 +17396,13 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@leather.io/bitcoin@0.11.0(encoding@0.1.13)':
+  '@leather.io/bitcoin@0.11.1(encoding@0.1.13)':
     dependencies:
       '@bitcoinerlab/secp256k1': 1.0.2
-      '@leather.io/constants': 0.9.0
-      '@leather.io/crypto': 1.4.0
-      '@leather.io/models': 0.12.0
-      '@leather.io/utils': 0.13.0
+      '@leather.io/constants': 0.9.1
+      '@leather.io/crypto': 1.4.1
+      '@leather.io/models': 0.12.1
+      '@leather.io/utils': 0.13.1
       '@noble/hashes': 1.4.0
       '@noble/secp256k1': 2.1.0
       '@scure/base': 1.1.6
@@ -17433,17 +17418,15 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@leather.io/constants@0.9.0': {}
-
   '@leather.io/constants@0.9.1': {}
 
-  '@leather.io/crypto@1.4.0':
+  '@leather.io/crypto@1.4.1':
     dependencies:
-      '@leather.io/utils': 0.13.0
+      '@leather.io/utils': 0.13.1
       '@scure/bip32': 1.4.0
       '@scure/bip39': 1.3.0
 
-  '@leather.io/eslint-config@0.6.1(typescript@5.4.5)':
+  '@leather.io/eslint-config@0.7.0(typescript@5.4.5)':
     dependencies:
       '@typescript-eslint/eslint-plugin': 6.9.0(@typescript-eslint/parser@6.9.0(eslint@8.56.0)(typescript@5.4.5))(eslint@8.56.0)(typescript@5.4.5)
       '@typescript-eslint/parser': 6.9.0(eslint@8.56.0)(typescript@5.4.5)
@@ -17453,19 +17436,13 @@ snapshots:
       - supports-color
       - typescript
 
-  '@leather.io/models@0.12.0':
-    dependencies:
-      '@stacks/stacks-blockchain-api-types': 7.8.2
-      bignumber.js: 9.1.2
-      zod: 3.23.6
-
   '@leather.io/models@0.12.1':
     dependencies:
       '@stacks/stacks-blockchain-api-types': 7.8.2
       bignumber.js: 9.1.2
       zod: 3.23.6
 
-  '@leather.io/panda-preset@0.3.6(jsdom@22.1.0)(typescript@5.4.5)':
+  '@leather.io/panda-preset@0.3.7(jsdom@22.1.0)(typescript@5.4.5)':
     dependencies:
       '@pandacss/dev': 0.40.1(jsdom@22.1.0)(typescript@5.4.5)
     transitivePeerDependencies:
@@ -17480,15 +17457,15 @@ snapshots:
       - '@vue/compiler-sfc'
       - supports-color
 
-  '@leather.io/query@2.6.0(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)':
+  '@leather.io/query@2.6.1(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)':
     dependencies:
       '@fungible-systems/zone-file': 2.0.0
       '@hirosystems/token-metadata-api-client': 1.2.0(encoding@0.1.13)
-      '@leather.io/bitcoin': 0.11.0(encoding@0.1.13)
-      '@leather.io/constants': 0.9.0
-      '@leather.io/models': 0.12.0
-      '@leather.io/rpc': 2.1.4
-      '@leather.io/utils': 0.13.0
+      '@leather.io/bitcoin': 0.11.1(encoding@0.1.13)
+      '@leather.io/constants': 0.9.1
+      '@leather.io/models': 0.12.1
+      '@leather.io/rpc': 2.1.5
+      '@leather.io/utils': 0.13.1
       '@noble/hashes': 1.4.0
       '@scure/base': 1.1.6
       '@scure/bip32': 1.4.0
@@ -17513,29 +17490,22 @@ snapshots:
       - debug
       - encoding
 
-  '@leather.io/rpc@2.1.4':
-    dependencies:
-      '@leather.io/models': 0.12.0
-      zod: 3.23.6
-
   '@leather.io/rpc@2.1.5':
     dependencies:
       '@leather.io/models': 0.12.1
       zod: 3.23.6
 
-  '@leather.io/stacks@1.0.0(encoding@0.1.13)':
+  '@leather.io/stacks@1.0.1(encoding@0.1.13)':
     dependencies:
-      '@leather.io/crypto': 1.4.0
-      '@leather.io/models': 0.12.0
-      '@leather.io/utils': 0.13.0
+      '@leather.io/crypto': 1.4.1
+      '@leather.io/models': 0.12.1
+      '@leather.io/utils': 0.13.1
       '@noble/hashes': 1.4.0
       '@scure/bip32': 1.4.0
       '@stacks/encryption': 6.16.1
       '@stacks/transactions': 6.15.0(encoding@0.1.13)
     transitivePeerDependencies:
       - encoding
-
-  '@leather.io/tokens@0.8.0': {}
 
   '@leather.io/tokens@0.8.1': {}
 
@@ -17582,13 +17552,6 @@ snapshots:
       - supports-color
       - typescript
       - utf-8-validate
-
-  '@leather.io/utils@0.13.0':
-    dependencies:
-      '@leather.io/constants': 0.9.0
-      '@leather.io/models': 0.12.0
-      '@leather.io/rpc': 2.1.4
-      bignumber.js: 9.1.2
 
   '@leather.io/utils@0.13.1':
     dependencies:
@@ -20497,7 +20460,7 @@ snapshots:
   '@stacks/common@4.3.5':
     dependencies:
       '@types/bn.js': 5.1.5
-      '@types/node': 18.19.44
+      '@types/node': 18.19.45
       buffer: 6.0.3
 
   '@stacks/common@6.13.0':
