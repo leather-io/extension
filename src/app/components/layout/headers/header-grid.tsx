@@ -15,7 +15,7 @@ export function HeaderGrid({ leftCol, centerCol, rightCol, ...props }: HeaderGri
   return (
     <Grid
       alignItems="center"
-      gridTemplateColumns={centerCol ? '2fr 4fr 2fr' : 'auto 4fr auto'}
+      gridTemplateColumns={centerCol ? '2fr 4fr 2fr' : 'auto auto'}
       gridAutoFlow="column"
       width="100%"
       {...props}

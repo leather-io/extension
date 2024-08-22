@@ -16,7 +16,7 @@ export function HomeHeader() {
     useOutletContext<SwitchAccountOutletContext>();
 
   return (
-    <Header paddingLeft={{ base: undefined, sm: 0 }}>
+    <Header>
       <HeaderGrid
         leftCol={<LogoBox hideBelow={undefined} />}
         rightCol={

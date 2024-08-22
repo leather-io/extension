@@ -49,7 +49,6 @@ export function Home() {
   return (
     <Stack
       data-testid={HomePageSelectors.HomePageContainer}
-      maxWidth={{ base: 'unset', md: 'fullPageMaxWidth' }}
       px={{ base: 0, md: 'space.05' }}
       py={{ base: 0, md: 'space.07' }}
       gap={{ base: 0, md: 'space.06' }}
