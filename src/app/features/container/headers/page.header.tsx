@@ -38,44 +38,40 @@ export function PageHeader({
   const canGoBack = !isSummaryPage;
 
   return (
-    <>
-      <Header>
-        <HeaderGrid
-          leftCol={
-            <>
-              {canGoBack && (
-                <HeaderActionButton
-                  icon={<ArrowLeftIcon />}
-                  onAction={onGoBack}
-                  dataTestId={SharedComponentsSelectors.HeaderBackBtn}
+    <Header>
+      <HeaderGrid
+        leftCol={
+          <>
+            {canGoBack && (
+              <HeaderActionButton
+                icon={<ArrowLeftIcon />}
+                onAction={onGoBack}
+                dataTestId={SharedComponentsSelectors.HeaderBackBtn}
+              />
+            )}
+            <LogoBox onClick={() => navigate(RouteUrls.Home)} />
+          </>
+        }
+        centerCol={title && <styled.span textStyle="heading.05">{title}</styled.span>}
+        rightCol={
+          <HeaderGridRightCol>
+            {isSummaryPage ? (
+              <HeaderActionButton
+                icon={<CloseIcon />}
+                dataTestId={SharedComponentsSelectors.HeaderCloseBtn}
+                onAction={() => navigate(RouteUrls.Home)}
+              />
+            ) : (
+              <styled.div hideBelow={isSettingsVisibleOnSm ? undefined : 'sm'}>
+                <Settings
+                  triggerButton={<HamburgerIcon data-testid={SettingsSelectors.SettingsMenuBtn} />}
+                  toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
                 />
-              )}
-              <LogoBox onClick={() => navigate(RouteUrls.Home)} />
-            </>
-          }
-          centerCol={title && <styled.span textStyle="heading.05">{title}</styled.span>}
-          rightCol={
-            <HeaderGridRightCol>
-              {isSummaryPage ? (
-                <HeaderActionButton
-                  icon={<CloseIcon />}
-                  dataTestId={SharedComponentsSelectors.HeaderCloseBtn}
-                  onAction={() => navigate(RouteUrls.Home)}
-                />
-              ) : (
-                <styled.div hideBelow={isSettingsVisibleOnSm ? undefined : 'sm'}>
-                  <Settings
-                    triggerButton={
-                      <HamburgerIcon data-testid={SettingsSelectors.SettingsMenuBtn} />
-                    }
-                    toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
-                  />
-                </styled.div>
-              )}
-            </HeaderGridRightCol>
-          }
-        />
-      </Header>
-    </>
+              </styled.div>
+            )}
+          </HeaderGridRightCol>
+        }
+      />
+    </Header>
   );
 }

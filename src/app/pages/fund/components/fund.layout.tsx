@@ -14,7 +14,6 @@ export function FundLayout({ blockchain, symbol, children }: FundLayoutProps) {
       alignItems={{ base: 'left', md: 'center' }}
       p={{ base: 'space.05', md: 'unset' }}
       gap={{ base: 'space.04', md: 'space.05' }}
-      maxWidth="fullPageMaxWidth"
     >
       <styled.h1
         textAlign={{ base: 'left', md: 'center' }}

@@ -15,7 +15,7 @@ export function UnlockHeader() {
   const navigate = useNavigate();
 
   return (
-    <Header paddingLeft={{ base: undefined, sm: 0 }}>
+    <Header>
       <HeaderGrid
         leftCol={
           <LogoBox onClick={() => navigate(RouteUrls.Home)} hideBelow={undefined} hideFrom="sm" />
