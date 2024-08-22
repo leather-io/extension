@@ -149,6 +149,10 @@
     "swapsEnabled": {
       "type": "boolean",
       "description": "Determines whether or not the swaps feature is enabled"
+    },
+    "brc20SendEnabled": {
+      "type": "boolean",
+      "description": "Determines whether or not BRC-20 tokens can be sent"
     }
   },
   "$defs": {
