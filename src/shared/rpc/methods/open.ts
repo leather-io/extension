@@ -1,14 +1,7 @@
 import { DefineRpcMethod, RpcRequest, RpcResponse } from '@btckit/types';
-import * as yup from 'yup';
 
-const rpcOpenParamsSchema = yup.object().shape({
-  url: yup.string(),
-});
+export type OpenRequest = RpcRequest<'open'>;
 
-type OpenRequestParams = yup.InferType<typeof rpcOpenParamsSchema>;
-
-export type OpenRequest = RpcRequest<'open', OpenRequestParams>;
-
-type OpenResponse = RpcResponse<Response>;
+type OpenResponse = RpcResponse<{ message: string }>;
 
 export type Open = DefineRpcMethod<OpenRequest, OpenResponse>;
