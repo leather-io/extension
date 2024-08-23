@@ -7,6 +7,7 @@ import { rpcSignStacksTransaction } from '@background/messaging/rpc-methods/sign
 
 import { getTabIdFromPort } from './messaging-utils';
 import { rpcGetAddresses } from './rpc-methods/get-addresses';
+import { rpcOpenWallet } from './rpc-methods/open-wallet';
 import { rpcSendTransfer } from './rpc-methods/send-transfer';
 import { rpcSignMessage } from './rpc-methods/sign-message';
 import { rpcSignPsbt } from './rpc-methods/sign-psbt';
@@ -15,6 +16,10 @@ import { rpcSupportedMethods } from './rpc-methods/supported-methods';
 
 export async function rpcMessageHandler(message: WalletRequests, port: chrome.runtime.Port) {
   switch (message.method) {
+    case 'openWallet': {
+      await rpcOpenWallet(message, port);
+      break;
+    }
     case 'getAddresses': {
       await rpcGetAddresses(message, port);
       break;

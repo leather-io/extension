@@ -4,12 +4,14 @@ import type { ValueOf } from '@leather.io/models';
 
 import { SignStacksTransaction } from '@shared/rpc/methods/sign-stacks-transaction';
 
+import { OpenWallet } from './methods/open-wallet';
 import { SignPsbt } from './methods/sign-psbt';
 import { SignStacksMessage } from './methods/sign-stacks-message';
 import { SupportedMethods } from './methods/supported-methods';
 
 // Supports BtcKit methods, as well as custom Leather methods
 export type WalletMethodMap = BtcKitMethodMap &
+  OpenWallet &
   SupportedMethods &
   SignPsbt &
   SignStacksTransaction &
