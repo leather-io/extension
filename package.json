@@ -44,7 +44,8 @@
     "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN",
     "preinstall": "npx only-allow pnpm",
     "mono:link": "node scripts/mono-link.js && pnpm install",
-    "mono:unlink": "node scripts/mono-unlink.js && pnpm install"
+    "mono:unlink": "node scripts/mono-unlink.js && pnpm install",
+    "mono:link:ui": "node scripts/mono-link-ui.js && pnpm install"
   },
   "license": "MIT",
   "main": "index.js",
