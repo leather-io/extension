@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -128,7 +128,15 @@
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,13 +157,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,11 +168,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -213,20 +229,24 @@ export function <span class="fstat-no" title="function not covered" >useTotalBal
   const stxMarketData = <span class="cstat-no" title="statement not covered" >useCryptoCurrencyMarketDataMeanAverage('STX');</span>
 &nbsp;
   // get stx balance
+  const { filteredBalanceQuery, isLoadingAdditionalData: isLoadingAdditionalDataStxBalance } =
+<span class="cstat-no" title="statement not covered" >    useStxCryptoAssetBalance(stxAddress);</span>
+&nbsp;
   const {
     data: balance,
     isFetching: isFetchingStxBalance,
     isLoading: isLoadingStxBalance,
     isPending: isPendingStxBalance,
-  } = <span class="cstat-no" title="statement not covered" >useStxCryptoAssetBalance(stxAddress);</span>
+  } = <span class="cstat-no" title="statement not covered" >filteredBalanceQuery;</span>
+&nbsp;
   const stxBalance = <span class="cstat-no" title="statement not covered" >balance ? balance.totalBalance : createMoney(0, 'STX');</span>
 &nbsp;
   // get btc balance
   const {
     balance: btcBalance,
-    isFetching: isFetchingBtcBalance,
     isLoading: isLoadingBtcBalance,
-    isPending: isPendingBtcBalance,
+    filteredUtxosQuery: { isFetching: isFetchingBtcBalance, isPending: isPendingBtcBalance },
+    isLoadingAdditionalData: isLoadingAdditionalDataBtcBalance,
   } = <span class="cstat-no" title="statement not covered" >useBtcCryptoAssetBalanceNativeSegwit(btcAddress);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
@@ -244,6 +264,8 @@ export function <span class="fstat-no" title="function not covered" >useTotalBal
         totalBalance,
         totalBalance.amount.isGreaterThanOrEqualTo(100_000) ? 0 : 2
       ),
+      isLoadingAdditionalData:
+        isLoadingAdditionalDataStxBalance || isLoadingAdditionalDataBtcBalance,
     };
   }, [
     btcBalance.availableBalance,
@@ -256,6 +278,8 @@ export function <span class="fstat-no" title="function not covered" >useTotalBal
     isPendingStxBalance,
     stxBalance,
     stxMarketData,
+    isLoadingAdditionalDataBtcBalance,
+    isLoadingAdditionalDataStxBalance,
   ]);
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -265,7 +289,7 @@ export function <span class="fstat-no" title="function not covered" >useTotalBal
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-12T11:55:20.232Z
+                at 2024-08-26T06:29:50.858Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

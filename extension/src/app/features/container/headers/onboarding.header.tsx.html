@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/features/container/headers/main.header.tsx</title>
+    <title>Code coverage report for extension/src/app/features/container/headers/onboarding.header.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/features/container/headers</a> main.header.tsx</h1>
+        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/features/container/headers</a> onboarding.header.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Branches</span>
                 <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
-                <span class="quiet">Functions</span>
+                <span class="quiet">Branches</span>
                 <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/4</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -115,8 +115,7 @@
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -140,20 +139,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -176,6 +174,7 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 &nbsp;
 import { ArrowLeftIcon, HamburgerIcon } from '@leather.io/ui';
 &nbsp;
+import { RouteUrls } from '@shared/route-urls';
 import { SwitchAccountOutletContext } from '@shared/switch-account';
 &nbsp;
 import { Header } from '@app/components/layout/headers/header';
@@ -184,29 +183,27 @@ import { HeaderGrid, HeaderGridRightCol } from '@app/components/layout/headers/h
 import { LogoBox } from '@app/components/layout/headers/logo-box';
 import { Settings } from '@app/features/settings/settings';
 &nbsp;
-interface MainHeaderProps {
-  hideBackButton?: boolean;
+interface OnboardingHeaderProps {
   hideLogo?: boolean;
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >MainHeader({</span> hideBackButton = <span class="branch-0 cbranch-no" title="branch not covered" >false, h</span>ideLogo = <span class="branch-0 cbranch-no" title="branch not covered" >false }</span>: MainHeaderProps) {
+export function <span class="fstat-no" title="function not covered" >OnboardingHeader({</span> hideLogo = <span class="branch-0 cbranch-no" title="branch not covered" >false }</span>: OnboardingHeaderProps) {
   const { isShowingSwitchAccount, setIsShowingSwitchAccount } =
 <span class="cstat-no" title="statement not covered" >    useOutletContext&lt;SwitchAccountOutletContext&gt;();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;&gt;
       &lt;Header paddingLeft={{ base: undefined, sm: 0 }}&gt;
         &lt;HeaderGrid
           leftCol={
             &lt;&gt;
-              {!hideBackButton &amp;&amp; (
-                &lt;HeaderActionButton
-                  icon={&lt;ArrowLeftIcon /&gt;}
-                  onAction={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(-1)}</span>
-                  dataTestId={SharedComponentsSelectors.HeaderBackBtn}
-                /&gt;
-              )}
-              {!hideLogo &amp;&amp; &lt;LogoBox /&gt;}
+              &lt;HeaderActionButton
+                icon={&lt;ArrowLeftIcon /&gt;}
+                onAction={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(-1)}</span>
+                dataTestId={SharedComponentsSelectors.HeaderBackBtn}
+              /&gt;
+              {!hideLogo &amp;&amp; &lt;LogoBox onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.Home)} /</span>&gt;}
             &lt;/&gt;
           }
           rightCol={
@@ -229,7 +226,7 @@ export function <span class="fstat-no" title="function not covered" >MainHeader(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-12T11:55:20.232Z
+                at 2024-08-26T06:29:50.858Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

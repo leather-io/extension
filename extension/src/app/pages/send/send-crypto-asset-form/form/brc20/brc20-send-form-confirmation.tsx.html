@@ -212,8 +212,7 @@
 <a name='L147'></a><a href='#L147'>147</a>
 <a name='L148'></a><a href='#L148'>148</a>
 <a name='L149'></a><a href='#L149'>149</a>
-<a name='L150'></a><a href='#L150'>150</a>
-<a name='L151'></a><a href='#L151'>151</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L150'></a><a href='#L150'>150</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -320,7 +319,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -382,7 +380,7 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { Card, CardContent, Content, Footer, Page } from '@app/components/layout';
+import { Card, Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.hooks';
@@ -421,7 +419,7 @@ export function <span class="fstat-no" title="function not covered" >Brc20SendFo
 &nbsp;
   const amountFormatted = <span class="cstat-no" title="statement not covered" >formatMoney(createMoney(Number(amount), ticker, 0));</span>
   const { broadcastTx, isBroadcasting } = <span class="cstat-no" title="statement not covered" >useBitcoinBroadcastTransaction();</span>
-  const { refetch } = <span class="cstat-no" title="statement not covered" >useCurrentNativeSegwitUtxos();</span>
+  const { filteredUtxosQuery } = <span class="cstat-no" title="statement not covered" >useCurrentNativeSegwitUtxos();</span>
 &nbsp;
   const psbt = <span class="cstat-no" title="statement not covered" >decodeBitcoinTx(tx);</span>
   const nav = <span class="cstat-no" title="statement not covered" >useSendFormNavigate();</span>
@@ -442,7 +440,7 @@ export function <span class="fstat-no" title="function not covered" >Brc20SendFo
           inputs: psbt.inputs.length,
           outputs: psbt.inputs.length,
         });
-<span class="cstat-no" title="statement not covered" >        await refetch();</span>
+<span class="cstat-no" title="statement not covered" >        await filteredUtxosQuery.refetch();</span>
 <span class="cstat-no" title="statement not covered" >        navigate(RouteUrls.SentBrc20Summary.replace(':ticker', ticker), {</span>
           state: {
             serviceFee: serviceFeeFormatted,
@@ -475,38 +473,37 @@ export function <span class="fstat-no" title="function not covered" >Brc20SendFo
       &lt;Content&gt;
         &lt;Page&gt;
           &lt;Card
+            contentStyle={{
+              p: 'space.00',
+            }}
             dataTestId={SendCryptoAssetSelectors.ConfirmationDetails}
             footer={
-              &lt;Footer variant="card"&gt;
-                &lt;Button aria-busy={isBroadcasting} onClick={initiateTransaction} width="100%"&gt;
-                  Create transfer inscription
-                &lt;/Button&gt;
-              &lt;/Footer&gt;
+              &lt;Button aria-busy={isBroadcasting} onClick={initiateTransaction} width="100%"&gt;
+                Create transfer inscription
+              &lt;/Button&gt;
             }
           &gt;
-            &lt;CardContent p="space.00"&gt;
-              &lt;InfoCardAssetValue
-                data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
-                mb="space.06"
-                mt="space.05"
-                px="space.05"
-                symbol={ticker}
-                value={Number(amount)}
+            &lt;InfoCardAssetValue
+              data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
+              mb="space.06"
+              mt="space.05"
+              px="space.05"
+              symbol={ticker}
+              value={Number(amount)}
+            /&gt;
+&nbsp;
+            &lt;Stack pb="space.06" px="space.06" width="100%"&gt;
+              &lt;InfoCardRow title="Sending" value={amountFormatted} /&gt;
+              &lt;InfoCardRow title="Inscription service fee" value={serviceFeeFormatted} /&gt;
+              &lt;InfoCardRow
+                title="Payment transaction fee"
+                value={feeRowValue}
+                data-testid={SendCryptoAssetSelectors.ConfirmationDetailsFee}
               /&gt;
+              &lt;InfoCardSeparator /&gt;
 &nbsp;
-              &lt;Stack pb="space.06" px="space.06" width="100%"&gt;
-                &lt;InfoCardRow title="Sending" value={amountFormatted} /&gt;
-                &lt;InfoCardRow title="Inscription service fee" value={serviceFeeFormatted} /&gt;
-                &lt;InfoCardRow
-                  title="Payment transaction fee"
-                  value={feeRowValue}
-                  data-testid={SendCryptoAssetSelectors.ConfirmationDetailsFee}
-                /&gt;
-                &lt;InfoCardSeparator /&gt;
-&nbsp;
-                &lt;InfoCardRow title="Total fee" value={totalFeeFormatted} /&gt;
-              &lt;/Stack&gt;
-            &lt;/CardContent&gt;
+              &lt;InfoCardRow title="Total fee" value={totalFeeFormatted} /&gt;
+            &lt;/Stack&gt;
           &lt;/Card&gt;
         &lt;/Page&gt;
       &lt;/Content&gt;
@@ -520,7 +517,7 @@ export function <span class="fstat-no" title="function not covered" >Brc20SendFo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-12T11:55:20.232Z
+                at 2024-08-26T06:29:50.858Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

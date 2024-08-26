@@ -169,8 +169,7 @@
 <a name='L104'></a><a href='#L104'>104</a>
 <a name='L105'></a><a href='#L105'>105</a>
 <a name='L106'></a><a href='#L106'>106</a>
-<a name='L107'></a><a href='#L107'>107</a>
-<a name='L108'></a><a href='#L108'>108</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L107'></a><a href='#L107'>107</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -253,7 +252,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -293,7 +291,7 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { Card, CardContent, Content, Footer, Page } from '@app/components/layout';
+import { Card, Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 &nbsp;
 import { TxDone } from '../send-crypto-asset-form/components/tx-done';
@@ -327,57 +325,56 @@ export function <span class="fstat-no" title="function not covered" >Brc20SentSu
       &lt;Content&gt;
         &lt;Page&gt;
           &lt;Card
+            contentStyle={{
+              p: 'space.00',
+            }}
             footer={
-              &lt;Footer variant="card"&gt;
-                &lt;HStack gap="space.04" width="100%"&gt;
-                  &lt;InfoCardBtn
-                    icon={&lt;ExternalLinkIcon /&gt;}
-                    label="Pending BRC-20 transfers"
-                    onClick={onClickLink}
-                  /&gt;
-                &lt;/HStack&gt;
-              &lt;/Footer&gt;
+              &lt;HStack gap="space.04" width="100%"&gt;
+                &lt;InfoCardBtn
+                  icon={&lt;ExternalLinkIcon /&gt;}
+                  label="Pending BRC-20 transfers"
+                  onClick={onClickLink}
+                /&gt;
+              &lt;/HStack&gt;
             }
           &gt;
-            &lt;CardContent p="space.00"&gt;
-              &lt;TxDone /&gt;
+            &lt;TxDone /&gt;
 &nbsp;
-              &lt;InfoCardAssetValue px="space.05" symbol={ticker} value={Number(amount)} /&gt;
+            &lt;InfoCardAssetValue px="space.05" symbol={ticker} value={Number(amount)} /&gt;
 &nbsp;
-              &lt;Stack px="space.06" pb="space.06" width="100%"&gt;
-                &lt;Callout
-                  variant="info"
-                  title="One more step is required to send tokens"
-                  mb="space.05"
-                &gt;
-                  &lt;Stack&gt;
-                    &lt;styled.span mb="space.02"&gt;
-                      You'll need to send the transfer inscription to your recipient of choice from
-                      the home screen once its status changes to "Ready to send"
-                    &lt;/styled.span&gt;
-                    &lt;Link
-                      width="fit-content"
-                      textStyle="body.02"
-                      onClick={<span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                        openInNewTab(</span>
-                          'https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens'
-                        );
-                      }}
-                    &gt;
-                      Learn more
-                    &lt;/Link&gt;
-                  &lt;/Stack&gt;
-                &lt;/Callout&gt;
-                &lt;InfoCardSeparator /&gt;
+            &lt;Stack px="space.06" pb="space.06" width="100%"&gt;
+              &lt;Callout
+                variant="info"
+                title="One more step is required to send tokens"
+                mb="space.05"
+              &gt;
+                &lt;Stack&gt;
+                  &lt;styled.span mb="space.02"&gt;
+                    You'll need to send the transfer inscription to your recipient of choice from
+                    the home screen once its status changes to "Ready to send"
+                  &lt;/styled.span&gt;
+                  &lt;Link
+                    width="fit-content"
+                    textStyle="body.02"
+                    onClick={<span class="fstat-no" title="function not covered" >() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                      openInNewTab(</span>
+                        'https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens'
+                      );
+                    }}
+                  &gt;
+                    Learn more
+                  &lt;/Link&gt;
+                &lt;/Stack&gt;
+              &lt;/Callout&gt;
+              &lt;InfoCardSeparator /&gt;
 &nbsp;
-                &lt;InfoCardRow title="Sending" value={amountFormatted} /&gt;
-                &lt;InfoCardRow title="Inscription service fee" value={serviceFee} /&gt;
-                &lt;InfoCardRow title="Payment transaction fee" value={feeRowValue} /&gt;
+              &lt;InfoCardRow title="Sending" value={amountFormatted} /&gt;
+              &lt;InfoCardRow title="Inscription service fee" value={serviceFee} /&gt;
+              &lt;InfoCardRow title="Payment transaction fee" value={feeRowValue} /&gt;
 &nbsp;
-                &lt;InfoCardSeparator /&gt;
-                &lt;InfoCardRow title="Total fee" value={totalFee} /&gt;
-              &lt;/Stack&gt;
-            &lt;/CardContent&gt;
+              &lt;InfoCardSeparator /&gt;
+              &lt;InfoCardRow title="Total fee" value={totalFee} /&gt;
+            &lt;/Stack&gt;
           &lt;/Card&gt;
         &lt;/Page&gt;
       &lt;/Content&gt;
@@ -391,7 +388,7 @@ export function <span class="fstat-no" title="function not covered" >Brc20SentSu
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-12T11:55:20.232Z
+                at 2024-08-26T06:29:50.858Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

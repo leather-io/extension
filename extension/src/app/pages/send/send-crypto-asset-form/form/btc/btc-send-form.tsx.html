@@ -190,14 +190,7 @@
 <a name='L125'></a><a href='#L125'>125</a>
 <a name='L126'></a><a href='#L126'>126</a>
 <a name='L127'></a><a href='#L127'>127</a>
-<a name='L128'></a><a href='#L128'>128</a>
-<a name='L129'></a><a href='#L129'>129</a>
-<a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a>
-<a name='L132'></a><a href='#L132'>132</a>
-<a name='L133'></a><a href='#L133'>133</a>
-<a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L128'></a><a href='#L128'>128</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -255,7 +248,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -267,14 +259,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -342,7 +328,7 @@ import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import { BtcAvatarIcon, Button, Callout, Link } from '@leather.io/ui';
 import { formatMoney } from '@leather.io/utils';
 &nbsp;
-import { AvailableBalance, Card, CardContent, Content, Footer, Page } from '@app/components/layout';
+import { AvailableBalance, ButtonRow, Card, Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 &nbsp;
 import { AmountField } from '../../components/amount-field';
@@ -377,89 +363,82 @@ export function <span class="fstat-no" title="function not covered" >BtcSendForm
       &lt;PageHeader title="Send" /&gt;
       &lt;Content&gt;
         &lt;Page&gt;
-          &lt;Box width="100%" pb="space.04"&gt;
-            &lt;Formik
-              initialValues={createDefaultInitialFormValues({
-                ...routeState,
-                recipientBnsName: '',
-                symbol,
-              })}
-              onSubmit={chooseTransactionFee}
-              validationSchema={validationSchema}
-              innerRef={formRef}
-              {...defaultSendFormFormikProps}
-            &gt;
-              {<span class="fstat-no" title="function not covered" >props =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                onFormStateChange(props.values);</span>
-                const sendMaxCalculation = <span class="cstat-no" title="statement not covered" >calcMaxSpend(props.values.recipient, utxos);</span>
+          &lt;Formik
+            initialValues={createDefaultInitialFormValues({
+              ...routeState,
+              recipientBnsName: '',
+              symbol,
+            })}
+            onSubmit={chooseTransactionFee}
+            validationSchema={validationSchema}
+            innerRef={formRef}
+            {...defaultSendFormFormikProps}
+          &gt;
+            {<span class="fstat-no" title="function not covered" >props =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >              onFormStateChange(props.values);</span>
+              const sendMaxCalculation = <span class="cstat-no" title="statement not covered" >calcMaxSpend(props.values.recipient, utxos);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >                return (</span>
-                  &lt;Form&gt;
-                    &lt;Card
-                      footer={
-                        &lt;Footer variant="card"&gt;
-                          &lt;Button
-                            aria-busy={props.isValidating}
-                            data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
-                            onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >p</span>rops.handleSubmit()}</span>
-                            type="submit"
-                          &gt;
-                            Continue
-                          &lt;/Button&gt;
-                          &lt;AvailableBalance balance={formatMoney(balance.availableBalance)} /&gt;
-                        &lt;/Footer&gt;
-                      }
-                    &gt;
-                      &lt;CardContent dataTestId={SendCryptoAssetSelectors.SendForm}&gt;
-                        &lt;AmountField
-                          autoComplete="off"
+<span class="cstat-no" title="statement not covered" >              return (</span>
+                &lt;Form&gt;
+                  &lt;Card
+                    dataTestId={SendCryptoAssetSelectors.SendForm}
+                    footer={
+                      &lt;ButtonRow&gt;
+                        &lt;Button
+                          aria-busy={props.isValidating}
+                          data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
+                          onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >p</span>rops.handleSubmit()}</span>
+                          type="submit"
+                        &gt;
+                          Continue
+                        &lt;/Button&gt;
+                        &lt;AvailableBalance balance={formatMoney(balance.availableBalance)} /&gt;
+                      &lt;/ButtonRow&gt;
+                    }
+                  &gt;
+                    &lt;AmountField
+                      autoComplete="off"
+                      balance={balance.availableBalance}
+                      bottomInputOverlay={
+                        &lt;BitcoinSendMaxButton
                           balance={balance.availableBalance}
-                          bottomInputOverlay={
-                            &lt;BitcoinSendMaxButton
-                              balance={balance.availableBalance}
-                              isSendingMax={isSendingMax}
-                              onSetIsSendingMax={onSetIsSendingMax}
-                              sendMaxBalance={sendMaxCalculation.spendableBitcoin.toString()}
-                              sendMaxFee={sendMaxCalculation.spendAllFee.toString()}
-                            /&gt;
-                          }
-                          onSetIsSendingMax={onSetIsSendingMax}
                           isSendingMax={isSendingMax}
-                          switchableAmount={
-                            &lt;SendFiatValue marketData={marketData} assetSymbol={symbol} /&gt;
-                          }
+                          onSetIsSendingMax={onSetIsSendingMax}
+                          sendMaxBalance={sendMaxCalculation.spendableBitcoin.toString()}
+                          sendMaxFee={sendMaxCalculation.spendAllFee.toString()}
                         /&gt;
-                        &lt;SelectedAssetField
-                          icon={&lt;BtcAvatarIcon /&gt;}
-                          name="Bitcoin"
-                          symbol={symbol}
-                        /&gt;
-                        &lt;TransferRecipientField /&gt;
-                        {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' &amp;&amp; (
-                          &lt;Callout variant="warning" title="Funds have no value" mt="space.04"&gt;
-                            This is a Bitcoin testnet transaction.
-                            &lt;Link
-                              variant="text"
-                              href="https://coinfaucet.eu/en/btc-testnet"
-                              textStyle="caption.01"
-                            &gt;
-                              Get testnet BTC here ↗
-                            &lt;/Link&gt;
-                          &lt;/Callout&gt;
-                        )}
-                      &lt;/CardContent&gt;
-                    &lt;/Card&gt;
-                    &lt;Outlet /&gt;
+                      }
+                      onSetIsSendingMax={onSetIsSendingMax}
+                      isSendingMax={isSendingMax}
+                      switchableAmount={
+                        &lt;SendFiatValue marketData={marketData} assetSymbol={symbol} /&gt;
+                      }
+                    /&gt;
+                    &lt;SelectedAssetField icon={&lt;BtcAvatarIcon /&gt;} name="Bitcoin" symbol={symbol} /&gt;
+                    &lt;TransferRecipientField /&gt;
+                    {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' &amp;&amp; (
+                      &lt;Callout variant="warning" title="Funds have no value" mt="space.04"&gt;
+                        This is a Bitcoin testnet transaction.
+                        &lt;Link
+                          variant="text"
+                          href="https://coinfaucet.eu/en/btc-testnet"
+                          textStyle="caption.01"
+                        &gt;
+                          Get testnet BTC here ↗
+                        &lt;/Link&gt;
+                      &lt;/Callout&gt;
+                    )}
+                  &lt;/Card&gt;
+                  &lt;Outlet /&gt;
 &nbsp;
-                    {/* This is for testing purposes only, to make sure the form is ready to be submitted. */}
-                    {calcMaxSpend(props.values.recipient, utxos).spendableBitcoin.toNumber() &gt; 0 ? (
-                      &lt;Box data-testid={SendCryptoAssetSelectors.SendPageReady}&gt;&lt;/Box&gt;
-                    ) : null}
-                  &lt;/Form&gt;
-                );
-              }}
-            &lt;/Formik&gt;
-          &lt;/Box&gt;
+                  {/* This is for testing purposes only, to make sure the form is ready to be submitted. */}
+                  {calcMaxSpend(props.values.recipient, utxos).spendableBitcoin.toNumber() &gt; 0 ? (
+                    &lt;Box data-testid={SendCryptoAssetSelectors.SendPageReady}&gt;&lt;/Box&gt;
+                  ) : null}
+                &lt;/Form&gt;
+              );
+            }}
+          &lt;/Formik&gt;
         &lt;/Page&gt;
       &lt;/Content&gt;
     &lt;/&gt;
@@ -472,7 +451,7 @@ export function <span class="fstat-no" title="function not covered" >BtcSendForm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-12T11:55:20.232Z
+                at 2024-08-26T06:29:50.858Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

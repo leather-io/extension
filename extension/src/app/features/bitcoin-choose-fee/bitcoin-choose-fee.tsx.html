@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -157,7 +157,14 @@
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -211,9 +218,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -253,7 +265,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState } from 'react';
 &nbsp;
-import { Box, FlexProps, Stack, styled } from 'leather-styles/jsx';
+import { Box, Flex, FlexProps, Stack } from 'leather-styles/jsx';
 &nbsp;
 import type { BtcFeeType, Money } from '@leather.io/models';
 import { formatMoney } from '@leather.io/utils';
@@ -263,10 +275,11 @@ import type { TransferRecipient } from '@shared/models/form.model';
 import { BitcoinCustomFee } from '@app/components/bitcoin-custom-fee/bitcoin-custom-fee';
 import { MAX_FEE_RATE_MULTIPLIER } from '@app/components/bitcoin-custom-fee/hooks/use-bitcoin-custom-fee';
 import { OnChooseFeeArgs } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
-import { AvailableBalance } from '@app/components/layout/footer/available-balance';
+import { AvailableBalance, Card } from '@app/components/layout';
+import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 &nbsp;
-import { BitcoinChooseFeeLayout } from './components/bitcoin-choose-fee.layout';
+import { ChooseFeeAmount } from './components/choose-fee-amount';
 import { ChooseFeeSubtitle } from './components/choose-fee-subtitle';
 import { ChooseFeeTabs } from './components/choose-fee-tabs';
 import { InsufficientBalanceError } from './components/insufficient-balance-error';
@@ -304,17 +317,25 @@ export function <span class="fstat-no" title="function not covered" >BitcoinChoo
   const hasAmount = <span class="cstat-no" title="statement not covered" >amount.amount.isGreaterThan(0);</span>
   const [customFeeInitialValue, setCustomFeeInitialValue] = <span class="cstat-no" title="statement not covered" >useState(recommendedFeeRate);</span>
 &nbsp;
+<span class="cstat-no" title="statement not covered" >  if (isLoading) {</span>
+<span class="cstat-no" title="statement not covered" >    return (</span>
+      &lt;Flex py="108px" justifyContent="center" alignItems="center" width="100%"&gt;
+        &lt;LoadingSpinner /&gt;
+      &lt;/Flex&gt;
+    );
+  }
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;BitcoinChooseFeeLayout isLoading={isLoading} {...rest}&gt;
+    &lt;Card
+      footer={
+        &lt;Box mt="space.05" width="100%"&gt;
+          &lt;AvailableBalance balance={formatMoney(balance.availableBalance)} /&gt;
+        &lt;/Box&gt;
+      }
+      {...rest}
+    &gt;
       &lt;Stack alignItems="center" width="100%"&gt;
-        {hasAmount &amp;&amp; (
-          &lt;styled.h3
-            textStyle="heading.03"
-            color={showError ? 'red.action-primary-default' : 'unset'}
-          &gt;
-            {formatMoney(amount)}
-          &lt;/styled.h3&gt;
-        )}
+        {hasAmount &amp;&amp; &lt;ChooseFeeAmount amount={amount} showError={showError} /&gt;}
         {showError ? (
           &lt;InsufficientBalanceError pb={hasAmount ? '0px' : '16px'} /&gt;
         ) : (
@@ -338,11 +359,8 @@ export function <span class="fstat-no" title="function not covered" >BitcoinChoo
           }
           feesList={feesList}
         /&gt;
-        &lt;Box mt="space.05" width="100%"&gt;
-          &lt;AvailableBalance balance={formatMoney(balance.availableBalance)} /&gt;
-        &lt;/Box&gt;
       &lt;/Stack&gt;
-    &lt;/BitcoinChooseFeeLayout&gt;
+    &lt;/Card&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -352,7 +370,7 @@ export function <span class="fstat-no" title="function not covered" >BitcoinChoo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-12T11:55:20.232Z
+                at 2024-08-26T06:29:50.858Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

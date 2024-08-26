@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -157,7 +157,33 @@
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -216,7 +242,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -254,7 +288,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Box, Flex, styled } from 'leather-styles/jsx';
 &nbsp;
 import type { Money } from '@leather.io/models';
-import { BulletSeparator, Caption, ItemLayout, Pressable, SkeletonLoader } from '@leather.io/ui';
+import {
+  BulletSeparator,
+  Caption,
+  ItemLayout,
+  Pressable,
+  SkeletonLoader,
+  shimmerStyles,
+} from '@leather.io/ui';
 import { spamFilter } from '@leather.io/utils';
 &nbsp;
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
@@ -270,6 +311,7 @@ interface CryptoAssetItemLayoutProps {
   fiatBalance?: string;
   icon: React.ReactNode;
   isLoading?: boolean;
+  isLoadingAdditionalData?: boolean;
   onSelectAsset?(symbol: string, contractId?: string): void;
   titleLeft: string;
   titleRightBulletInfo?: React.ReactNode;
@@ -283,6 +325,7 @@ export function <span class="fstat-no" title="function not covered" >CryptoAsset
   fiatBalance,
   icon,
   isLoading = <span class="branch-0 cbranch-no" title="branch not covered" >false,</span>
+  isLoadingAdditionalData = <span class="branch-0 cbranch-no" title="branch not covered" >false,</span>
   onSelectAsset,
   titleLeft,
   titleRightBulletInfo,
@@ -299,7 +342,10 @@ export function <span class="fstat-no" title="function not covered" >CryptoAsset
       &gt;
         &lt;Flex alignItems="center" gap="space.02" textStyle="label.02"&gt;
           &lt;BulletSeparator&gt;
-            &lt;styled.span&gt;
+            &lt;styled.span
+              data-state={isLoadingAdditionalData ? 'loading' : undefined}
+              className={shimmerStyles}
+            &gt;
               {formattedBalance.value} {balanceSuffix}
             &lt;/styled.span&gt;
             {titleRightBulletInfo}
@@ -313,7 +359,12 @@ export function <span class="fstat-no" title="function not covered" >CryptoAsset
 <span class="cstat-no" title="statement not covered" >    &lt;SkeletonLoader width="78px" isLoading={isLoading}&gt;</span>
       &lt;Flex alignItems="center" color="ink.text-subdued" gap="space.02"&gt;
         &lt;BulletSeparator&gt;
-          &lt;Caption&gt;{availableBalance.amount.toNumber() &gt; 0 ? fiatBalance : null}&lt;/Caption&gt;
+          &lt;Caption
+            data-state={isLoadingAdditionalData ? 'loading' : undefined}
+            className={shimmerStyles}
+          &gt;
+            {availableBalance.amount.toNumber() &gt; 0 ? fiatBalance : null}
+          &lt;/Caption&gt;
           {captionRightBulletInfo}
         &lt;/BulletSeparator&gt;
       &lt;/Flex&gt;
@@ -352,7 +403,7 @@ export function <span class="fstat-no" title="function not covered" >CryptoAsset
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-12T11:55:20.232Z
+                at 2024-08-26T06:29:50.858Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

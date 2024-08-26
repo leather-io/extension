@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -140,15 +140,7 @@
 <a name='L75'></a><a href='#L75'>75</a>
 <a name='L76'></a><a href='#L76'>76</a>
 <a name='L77'></a><a href='#L77'>77</a>
-<a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L78'></a><a href='#L78'>78</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -199,8 +191,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -216,10 +207,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -249,7 +237,6 @@ import { Settings } from '@app/features/settings/settings';
 interface PageHeaderProps {
   title?: string;
   isSummaryPage?: boolean;
-  isSessionLocked?: boolean;
   isSettingsVisibleOnSm?: boolean;
   onBackLocation?: RouteUrls;
   onClose?(): void;
@@ -257,9 +244,8 @@ interface PageHeaderProps {
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >PageHeader({</span>
   title,
-  isSummaryPage,
-  isSessionLocked,
-  isSettingsVisibleOnSm,
+  isSummaryPage = <span class="branch-0 cbranch-no" title="branch not covered" >false,</span>
+  isSettingsVisibleOnSm = <span class="branch-0 cbranch-no" title="branch not covered" >true,</span>
   onBackLocation,
 }: PageHeaderProps) {
   const { isShowingSwitchAccount, setIsShowingSwitchAccount } =
@@ -268,48 +254,44 @@ export function <span class="fstat-no" title="function not covered" >PageHeader(
 &nbsp;
   // pages with nested dialogs specify onBackLocation to prevent navigate(-1) re-opening the dialog
   const onGoBack = <span class="cstat-no" title="statement not covered" >onBackLocation ? <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(onBackLocation) : <span class="fstat-no" title="function not covered" >(</span>) =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(-1);</span></span>
-  const canGoBack = <span class="cstat-no" title="statement not covered" >!isSummaryPage &amp;&amp; !isSessionLocked;</span>
+  const canGoBack = <span class="cstat-no" title="statement not covered" >!isSummaryPage;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;&gt;
-      &lt;Header&gt;
-        &lt;HeaderGrid
-          leftCol={
-            &lt;&gt;
-              {canGoBack &amp;&amp; (
-                &lt;HeaderActionButton
-                  icon={&lt;ArrowLeftIcon /&gt;}
-                  onAction={onGoBack}
-                  dataTestId={SharedComponentsSelectors.HeaderBackBtn}
+    &lt;Header&gt;
+      &lt;HeaderGrid
+        leftCol={
+          &lt;&gt;
+            {canGoBack &amp;&amp; (
+              &lt;HeaderActionButton
+                icon={&lt;ArrowLeftIcon /&gt;}
+                onAction={onGoBack}
+                dataTestId={SharedComponentsSelectors.HeaderBackBtn}
+              /&gt;
+            )}
+            &lt;LogoBox onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.Home)} /</span>&gt;
+          &lt;/&gt;
+        }
+        centerCol={title &amp;&amp; &lt;styled.span textStyle="heading.05"&gt;{title}&lt;/styled.span&gt;}
+        rightCol={
+          &lt;HeaderGridRightCol&gt;
+            {isSummaryPage ? (
+              &lt;HeaderActionButton
+                icon={&lt;CloseIcon /&gt;}
+                dataTestId={SharedComponentsSelectors.HeaderCloseBtn}
+                onAction={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.Home)}</span>
+              /&gt;
+            ) : (
+              &lt;styled.div hideBelow={isSettingsVisibleOnSm ? undefined : 'sm'}&gt;
+                &lt;Settings
+                  triggerButton={&lt;HamburgerIcon data-testid={SettingsSelectors.SettingsMenuBtn} /&gt;}
+                  toggleSwitchAccount={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etIsShowingSwitchAccount(!isShowingSwitchAccount)}</span>
                 /&gt;
-              )}
-              &lt;LogoBox isSessionLocked={isSessionLocked} /&gt;
-            &lt;/&gt;
-          }
-          centerCol={title &amp;&amp; &lt;styled.span textStyle="heading.05"&gt;{title}&lt;/styled.span&gt;}
-          rightCol={
-            &lt;HeaderGridRightCol&gt;
-              {isSummaryPage ? (
-                &lt;HeaderActionButton
-                  icon={&lt;CloseIcon /&gt;}
-                  dataTestId={SharedComponentsSelectors.HeaderCloseBtn}
-                  onAction={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.Home)}</span>
-                /&gt;
-              ) : (
-                &lt;styled.div hideBelow={isSettingsVisibleOnSm ? undefined : 'sm'}&gt;
-                  &lt;Settings
-                    triggerButton={
-                      &lt;HamburgerIcon data-testid={SettingsSelectors.SettingsMenuBtn} /&gt;
-                    }
-                    toggleSwitchAccount={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etIsShowingSwitchAccount(!isShowingSwitchAccount)}</span>
-                  /&gt;
-                &lt;/styled.div&gt;
-              )}
-            &lt;/HeaderGridRightCol&gt;
-          }
-        /&gt;
-      &lt;/Header&gt;
-    &lt;/&gt;
+              &lt;/styled.div&gt;
+            )}
+          &lt;/HeaderGridRightCol&gt;
+        }
+      /&gt;
+    &lt;/Header&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -319,7 +301,7 @@ export function <span class="fstat-no" title="function not covered" >PageHeader(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-12T11:55:20.232Z
+                at 2024-08-26T06:29:50.858Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

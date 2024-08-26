@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/features/bitcoin-choose-fee/components/bitcoin-choose-fee.layout.tsx</title>
+    <title>Code coverage report for extension/src/app/features/container/headers/home.header.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/features/bitcoin-choose-fee/components</a> bitcoin-choose-fee.layout.tsx</h1>
+        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/features/container/headers</a> home.header.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -30,16 +30,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -96,10 +96,8 @@
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -114,11 +112,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -128,6 +121,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -135,40 +129,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Flex, FlexProps } from 'leather-styles/jsx';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useOutletContext } from 'react-router-dom';
 &nbsp;
-import { LoadingSpinner } from '@app/components/loading-spinner';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 &nbsp;
-interface BitcoinChooseFeeLayoutProps extends FlexProps {
-  children: React.JSX.Element;
-  isLoading: boolean;
-}
+import { HamburgerIcon } from '@leather.io/ui';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >BitcoinChooseFeeLayout({</span>
-  children,
-  isLoading,
-  ...rest
-}: BitcoinChooseFeeLayoutProps) {
-<span class="cstat-no" title="statement not covered" >  if (isLoading) {</span>
-<span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;Flex py="108px" justifyContent="center" alignItems="center" width="100%"&gt;
-        &lt;LoadingSpinner /&gt;
-      &lt;/Flex&gt;
-    );
-  }
+import { SwitchAccountOutletContext } from '@shared/switch-account';
+&nbsp;
+import { Header } from '@app/components/layout/headers/header';
+import { HeaderGrid, HeaderGridRightCol } from '@app/components/layout/headers/header-grid';
+import { LogoBox } from '@app/components/layout/headers/logo-box';
+import { Settings } from '@app/features/settings/settings';
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >HomeHeader() {</span>
+  const { isShowingSwitchAccount, setIsShowingSwitchAccount } =
+<span class="cstat-no" title="statement not covered" >    useOutletContext&lt;SwitchAccountOutletContext&gt;();</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Flex
-      px="space.05"
-      py="space.06"
-      flexDirection="column"
-      justifyContent="space-between"
-      alignItems="center"
-      flex="1 0 0"
-      alignSelf="stretch"
-      {...rest}
-    &gt;
-      {children}
-    &lt;/Flex&gt;
+    &lt;Header&gt;
+      &lt;HeaderGrid
+        leftCol={&lt;LogoBox hideBelow={undefined} /&gt;}
+        rightCol={
+          &lt;HeaderGridRightCol&gt;
+            &lt;Settings
+              triggerButton={&lt;HamburgerIcon data-testid={SettingsSelectors.SettingsMenuBtn} /&gt;}
+              toggleSwitchAccount={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etIsShowingSwitchAccount(!isShowingSwitchAccount)}</span>
+            /&gt;
+          &lt;/HeaderGridRightCol&gt;
+        }
+      /&gt;
+    &lt;/Header&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -178,7 +169,7 @@ export function <span class="fstat-no" title="function not covered" >BitcoinChoo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-12T11:55:20.232Z
+                at 2024-08-26T06:29:50.858Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>
