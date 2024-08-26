@@ -1,8 +1,10 @@
 import { ReactNode } from 'react';
 
-import { HStack, styled } from 'leather-styles/jsx';
+import { HStack } from 'leather-styles/jsx';
 
 import { Caption, ItemLayout, Pressable } from '@leather.io/ui';
+
+import { HideableBalance } from '@app/components/balance/hideable-balance';
 
 interface TransactionItemLayoutProps {
   openTxLink(): void;
@@ -42,7 +44,11 @@ export function TransactionItemLayout({
           </HStack>
         }
         titleRight={
-          rightElement ? rightElement : <styled.span textStyle="label.02">{txValue}</styled.span>
+          rightElement ? (
+            rightElement
+          ) : (
+            <HideableBalance textStyle="label.02">{txValue}</HideableBalance>
+          )
         }
       />
     </Pressable>

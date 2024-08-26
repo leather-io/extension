@@ -1,4 +1,4 @@
-import { Box, Flex, styled } from 'leather-styles/jsx';
+import { Box, Flex } from 'leather-styles/jsx';
 
 import type { Money } from '@leather.io/models';
 import {
@@ -11,6 +11,8 @@ import {
 } from '@leather.io/ui';
 import { spamFilter } from '@leather.io/utils';
 
+import { useHideBalanceContext } from '@app/common/hide-balance-provider';
+import { HideableBalance } from '@app/components/balance/hideable-balance';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 import { parseCryptoAssetBalance } from './crypto-asset-item.layout.utils';
@@ -43,6 +45,7 @@ export function CryptoAssetItemLayout({
   titleLeft,
   titleRightBulletInfo,
 }: CryptoAssetItemLayoutProps) {
+  const hideBalance = useHideBalanceContext();
   const { availableBalanceString, dataTestId, formattedBalance } =
     parseCryptoAssetBalance(availableBalance);
 
@@ -50,17 +53,17 @@ export function CryptoAssetItemLayout({
     <SkeletonLoader width="126px" isLoading={isLoading}>
       <BasicTooltip
         asChild
-        label={formattedBalance.isAbbreviated ? availableBalanceString : undefined}
+        label={formattedBalance.isAbbreviated && !hideBalance ? availableBalanceString : undefined}
         side="left"
       >
         <Flex alignItems="center" gap="space.02" textStyle="label.02">
           <BulletSeparator>
-            <styled.span
+            <HideableBalance
               data-state={isLoadingAdditionalData ? 'loading' : undefined}
               className={shimmerStyles}
             >
               {formattedBalance.value} {balanceSuffix}
-            </styled.span>
+            </HideableBalance>
             {titleRightBulletInfo}
           </BulletSeparator>
         </Flex>
@@ -76,7 +79,9 @@ export function CryptoAssetItemLayout({
             data-state={isLoadingAdditionalData ? 'loading' : undefined}
             className={shimmerStyles}
           >
-            {availableBalance.amount.toNumber() > 0 ? fiatBalance : null}
+            <HideableBalance>
+              {availableBalance.amount.toNumber() > 0 ? fiatBalance : null}
+            </HideableBalance>
           </Caption>
           {captionRightBulletInfo}
         </BulletSeparator>

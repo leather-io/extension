@@ -8,3 +8,8 @@ export function useDismissMessage() {
   const dispatch = useDispatch();
   return (messageId: string) => dispatch(settingsActions.messageDismissed(messageId));
 }
+
+export function useToggleHideBalance() {
+  const dispatch = useDispatch();
+  return () => dispatch(settingsActions.toggleHideBlance());
+}

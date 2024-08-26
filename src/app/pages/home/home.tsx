@@ -6,6 +6,7 @@ import { Box, Stack } from 'leather-styles/jsx';
 import { RouteUrls } from '@shared/route-urls';
 import { SwitchAccountOutletContext } from '@shared/switch-account';
 
+import { HideBalanceProvider } from '@app/common/hide-balance-provider';
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
@@ -18,6 +19,8 @@ import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useToggleHideBalance } from '@app/store/settings/settings.actions';
+import { useHideBalance } from '@app/store/settings/settings.selectors';
 import { AccountCard } from '@app/ui/components/account/account.card';
 
 import { AccountActions } from './components/account-actions';
@@ -30,6 +33,8 @@ export function Home() {
   const navigate = useNavigate();
   const account = useCurrentStacksAccount();
   const currentAccountIndex = useCurrentAccountIndex();
+  const hideBalance = useHideBalance();
+  const toggleHideBalance = useToggleHideBalance();
 
   const { data: name = '', isFetching: isFetchingBnsName } = useAccountDisplayName({
     address: account?.address || '',
@@ -47,39 +52,43 @@ export function Home() {
   });
 
   return (
-    <Stack
-      data-testid={HomePageSelectors.HomePageContainer}
-      px={{ base: 0, md: 'space.05' }}
-      py={{ base: 0, md: 'space.07' }}
-      gap={{ base: 0, md: 'space.06' }}
-      width="100%"
-      bg="ink.1"
-      borderRadius="lg"
-      animation="fadein"
-      animationDuration="500ms"
-    >
-      <Box px={{ base: 'space.05', md: 0 }} pb={{ base: 'space.05', md: 0 }}>
-        <AccountCard
-          name={name}
-          balance={totalUsdBalance}
-          toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
-          isFetchingBnsName={isFetchingBnsName}
-          isLoadingBalance={isLoading}
-          isLoadingAdditionalData={isLoadingAdditionalData}
-        >
-          <AccountActions />
-        </AccountCard>
-      </Box>
-      <FeedbackButton />
-      <HomeTabs>
-        <ModalBackgroundWrapper>
-          <Route index element={<Assets />} />
-          <Route path={RouteUrls.Activity} element={<ActivityList />}>
+    <HideBalanceProvider hideBalance={hideBalance}>
+      <Stack
+        data-testid={HomePageSelectors.HomePageContainer}
+        px={{ base: 0, md: 'space.05' }}
+        py={{ base: 0, md: 'space.07' }}
+        gap={{ base: 0, md: 'space.06' }}
+        width="100%"
+        bg="ink.1"
+        borderRadius="lg"
+        animation="fadein"
+        animationDuration="500ms"
+      >
+        <Box px={{ base: 'space.05', md: 0 }} pb={{ base: 'space.05', md: 0 }}>
+          <AccountCard
+            name={name}
+            balance={totalUsdBalance}
+            toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
+            toggleHideBlance={toggleHideBalance}
+            isFetchingBnsName={isFetchingBnsName}
+            isLoadingBalance={isLoading}
+            isLoadingAdditionalData={isLoadingAdditionalData}
+            hideBalance={hideBalance}
+          >
+            <AccountActions />
+          </AccountCard>
+        </Box>
+        <FeedbackButton />
+        <HomeTabs>
+          <ModalBackgroundWrapper>
+            <Route index element={<Assets />} />
+            <Route path={RouteUrls.Activity} element={<ActivityList />}>
+              {homePageModalRoutes}
+            </Route>
             {homePageModalRoutes}
-          </Route>
-          {homePageModalRoutes}
-        </ModalBackgroundWrapper>
-      </HomeTabs>
-    </Stack>
+          </ModalBackgroundWrapper>
+        </HomeTabs>
+      </Stack>
+    </HideBalanceProvider>
   );
 }

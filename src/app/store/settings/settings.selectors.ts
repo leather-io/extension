@@ -20,3 +20,9 @@ const selectDismissedMessageIds = createSelector(
 export function useDismissedMessageIds() {
   return useSelector(selectDismissedMessageIds);
 }
+
+const selectHideBalance = createSelector(selectSettings, state => state.hideBalance ?? false);
+
+export function useHideBalance() {
+  return useSelector(selectHideBalance);
+}
