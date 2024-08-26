@@ -1,3 +1,41 @@
+## [6.46.0](https://github.com/leather-io/extension/compare/v6.45.2...v6.46.0) (2024-08-26)
+
+
+### Features
+
+* change balance load logic, closes leather-io/issues[#227](https://github.com/leather-io/extension/issues/227) ([faf71fb](https://github.com/leather-io/extension/commit/faf71fb52497a926f17ffd7516687863dc0843a4))
+
+
+### Bug Fixes
+
+* add default true to show settings to make sure it shows for locked screens, closes [#5777](https://github.com/leather-io/extension/issues/5777) ([96b2990](https://github.com/leather-io/extension/commit/96b2990463ecdffafa19d0a06d2c7bedb1526957))
+* do not capitalise add network ([5258d7e](https://github.com/leather-io/extension/commit/5258d7e2dd6c5aae4915e3aa587706e48ee21480))
+* empty space in settings dropdown ([d33df6f](https://github.com/leather-io/extension/commit/d33df6fa992cd5650fb88f08ccefaeb0e3e47ea6))
+* failing ledger test ([67799fe](https://github.com/leather-io/extension/commit/67799febae1a374854d4f2d44f223aeadc55f878))
+* fix formatting of add network ui, closes leather-io/issues[#5735](https://github.com/leather-io/extension/issues/5735) ([8a76b5f](https://github.com/leather-io/extension/commit/8a76b5fe738845b156cbcf7e34834ff0d6e69861))
+* fix issues with alignment of page headers ([ea76352](https://github.com/leather-io/extension/commit/ea763521f979a3c272355514b3b4de0f76c16456))
+* **ledger:** support stx_signMessage, closes [#5756](https://github.com/leather-io/extension/issues/5756) ([92a99ed](https://github.com/leather-io/extension/commit/92a99ed6c4ded046f0cb85dc3d55a561d4761fe2))
+* make headers more composable, prevent logo hover, closes leather-io/issues[#4597](https://github.com/leather-io/extension/issues/4597) ([3f2e359](https://github.com/leather-io/extension/commit/3f2e35963d9d4d9a2b5e8d8fa08bd3ad73260c7a))
+* minimum bitcoin spend, closes [#5739](https://github.com/leather-io/extension/issues/5739) ([34405f6](https://github.com/leather-io/extension/commit/34405f661d9b42bd3d5820fd96157dcd7f51a176))
+* prevent illegal constructor error ([a774b66](https://github.com/leather-io/extension/commit/a774b66dcc5e7bb9a0cdef6394fe133d4d77c63a))
+* remove blockstream from tests and add network form ([86af370](https://github.com/leather-io/extension/commit/86af370bab40367b0dc84b8aeb50d182ff4fd0ad))
+* remove card from retrieve taproot ui ([27ca424](https://github.com/leather-io/extension/commit/27ca424be15ed89a764e34f7ac9e2f77294a5cab))
+* **sentry:** sample performance units, closes leather-io/issues[#249](https://github.com/leather-io/extension/issues/249) ([3b6a5d8](https://github.com/leather-io/extension/commit/3b6a5d8e82d3491e09f14be309c878bced2d102a))
+* tool to clear submitted tx state ([1e6f63d](https://github.com/leather-io/extension/commit/1e6f63ddfaab88debf3233506b6c37a3bedeebcf))
+* update ui library and deprecate footer ([0f5cfa2](https://github.com/leather-io/extension/commit/0f5cfa2346abd9055a5913867bae85e9a284344d))
+* validate dom nesting console error ([fe21fa8](https://github.com/leather-io/extension/commit/fe21fa812dcf7a478ca6b98bc9503a54dfc8d297))
+
+
+### Internal
+
+* differentiate action popup and popup, improve responsiveness and refactor footers, ref [#5260](https://github.com/leather-io/extension/issues/5260) ([2cae2a2](https://github.com/leather-io/extension/commit/2cae2a280b68a18feb19a8eec29f2c3dc77d9bdd))
+* hide lock option if wallet already locked ([b43cf8b](https://github.com/leather-io/extension/commit/b43cf8b10f2bb7e47358dc32def1e7c94501e852))
+* post-release merge back ([686a823](https://github.com/leather-io/extension/commit/686a8238cd40c2900ae606ba0b727c7dfa05af6a))
+* remove back button on unlock screen and remove fragment ([9bc13ab](https://github.com/leather-io/extension/commit/9bc13ab71d2e4360d073d66122799ff98ad78dbd))
+* update monorepo dependancies ([427f82f](https://github.com/leather-io/extension/commit/427f82f7a4a1cc529c4e6db1c315e7676e97b741))
+* update prettier ([9e7d404](https://github.com/leather-io/extension/commit/9e7d4041fd18e3d16bcfce3d9d53756be17a5c48))
+* update tanstack libraries ([1486f5c](https://github.com/leather-io/extension/commit/1486f5cb43ccae805ef922a25a08533e185ee631))
+
 ## [6.45.2](https://github.com/leather-io/extension/compare/v6.45.1...v6.45.2) (2024-08-12)
 
 
