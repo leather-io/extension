@@ -91,6 +91,5 @@
   },
   "recoverUninscribedTaprootUtxosFeatureEnabled": true,
   "runesEnabled": true,
-  "swapsEnabled": true,
-  "brc20SendEnabled": false
+  "swapsEnabled": true
 }
