@@ -4,7 +4,7 @@ import { Link } from '@leather.io/ui';
 import { createNullArrayOfLength } from '@leather.io/utils';
 
 import { Content, TwoColumnLayout } from '@app/components/layout';
-import { MainHeader } from '@app/features/container/headers/main.header';
+import { OnboardingHeader } from '@app/features/container/headers/onboarding.header';
 import { MnemonicForm } from '@app/pages/onboarding/sign-in/mnemonic-form';
 
 export function SignIn() {
@@ -20,7 +20,7 @@ export function SignIn() {
 
   return (
     <>
-      <MainHeader />
+      <OnboardingHeader />
       <Content>
         <TwoColumnLayout
           title={

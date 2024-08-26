@@ -10,7 +10,7 @@ import { analytics } from '@shared/utils/analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { buildEnterKeyEvent } from '@app/common/hooks/use-modifier-key';
 import { WaitingMessages, useWaitingMessage } from '@app/common/hooks/use-waiting-message';
-import { Card, Footer, Page } from '@app/components/layout';
+import { Card, Page } from '@app/components/layout';
 
 import { ErrorLabel } from './error-label';
 
@@ -55,6 +55,9 @@ export function RequestPassword({ onSuccess }: RequestPasswordProps) {
   return (
     <Page>
       <Card
+        contentStyle={{
+          p: 'space.00',
+        }}
         header={
           <styled.h1 p="space.04" hideBelow="sm">
             <Box px="space.02">
@@ -63,17 +66,16 @@ export function RequestPassword({ onSuccess }: RequestPasswordProps) {
           </styled.h1>
         }
         footer={
-          <Footer variant="card">
-            <Button
-              data-testid={SettingsSelectors.UnlockWalletBtn}
-              disabled={isRunning || !!error}
-              aria-busy={isRunning}
-              onClick={submit}
-              variant="solid"
-            >
-              Continue
-            </Button>
-          </Footer>
+          <Button
+            data-testid={SettingsSelectors.UnlockWalletBtn}
+            disabled={isRunning || !!error}
+            aria-busy={isRunning}
+            onClick={submit}
+            variant="solid"
+            fullWidth
+          >
+            Continue
+          </Button>
         }
       >
         <Stack gap="space.05" px="space.05" minHeight="330px">

@@ -3,6 +3,7 @@ import { useFormikContext } from 'formik';
 import { Button } from '@leather.io/ui';
 
 import { useWalletType } from '@app/common/use-wallet-type';
+import { ButtonRow } from '@app/components/layout';
 
 interface IncreaseFeeActionsProps {
   isBroadcasting?: boolean;
@@ -19,7 +20,7 @@ export function IncreaseFeeActions(props: IncreaseFeeActionsProps) {
   const actionText = whenWallet({ ledger: 'Confirm on Ledger', software: 'Submit' });
 
   return (
-    <>
+    <ButtonRow flexDirection="row">
       <Button onClick={onCancel} variant="outline" flexGrow={1}>
         Cancel
       </Button>
@@ -34,6 +35,6 @@ export function IncreaseFeeActions(props: IncreaseFeeActionsProps) {
       >
         {actionText}
       </Button>
-    </>
+    </ButtonRow>
   );
 }

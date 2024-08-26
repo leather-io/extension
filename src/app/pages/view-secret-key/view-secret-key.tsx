@@ -5,7 +5,7 @@ import { analytics } from '@shared/utils/analytics';
 
 import { Content, TwoColumnLayout } from '@app/components/layout';
 import { RequestPassword } from '@app/components/request-password';
-import { MainHeader } from '@app/features/container/headers/main.header';
+import { OnboardingHeader } from '@app/features/container/headers/onboarding.header';
 import { SecretKey } from '@app/features/secret-key-displayer/secret-key-displayer';
 import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
 
@@ -20,7 +20,7 @@ export function ViewSecretKey() {
   if (showSecretKey) {
     return (
       <>
-        <MainHeader />
+        <OnboardingHeader />
         <Content>
           <TwoColumnLayout
             title={
@@ -46,7 +46,7 @@ export function ViewSecretKey() {
 
   return (
     <>
-      <MainHeader hideLogo />
+      <OnboardingHeader hideLogo />
       <Content>
         <RequestPassword onSuccess={() => setShowSecretKey(true)} />
         <Outlet />

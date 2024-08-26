@@ -4,7 +4,11 @@ import { NetworkSelectors } from '@tests/selectors/network.selectors';
 import { useFormikContext } from 'formik';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import type { BitcoinNetworkModes } from '@leather.io/models';
+import {
+  BITCOIN_API_BASE_URL_MAINNET,
+  BITCOIN_API_BASE_URL_TESTNET,
+  type BitcoinNetworkModes,
+} from '@leather.io/models';
 import {
   CheckmarkIcon,
   ChevronDownIcon,
@@ -60,11 +64,11 @@ export function AddNetworkForm() {
     switch (values.bitcoinNetwork) {
       case 'mainnet':
         setStacksUrl('https://api.hiro.so');
-        setBitcoinUrl('https://blockstream.info/api');
+        setBitcoinUrl(BITCOIN_API_BASE_URL_MAINNET);
         break;
       case 'testnet':
         setStacksUrl('https://api.testnet.hiro.so');
-        setBitcoinUrl('https://blockstream.info/testnet/api');
+        setBitcoinUrl(BITCOIN_API_BASE_URL_TESTNET);
         break;
       case 'signet':
         setStacksUrl('https://api.testnet.hiro.so');
@@ -132,18 +136,6 @@ export function AddNetworkForm() {
         </Select.Portal>
       </Select.Root>
 
-      <Title>Stacks API URL</Title>
-      <Input.Root>
-        <Input.Label>Name</Input.Label>
-        <Input.Field
-          height="inputHeight"
-          onChange={handleChange}
-          name="stacksUrl"
-          value={values.stacksUrl}
-          width="100%"
-          data-testid={NetworkSelectors.NetworkStacksAddress}
-        />
-      </Input.Root>
       <Title>Bitcoin API URL</Title>
       <Input.Root>
         <Input.Label>Bitcoin API URL</Input.Label>
@@ -163,6 +155,18 @@ export function AddNetworkForm() {
           name="key"
           value={values.key}
           width="100%"
+        />
+      </Input.Root>
+      <Title>Stacks API URL</Title>
+      <Input.Root>
+        <Input.Label>Name</Input.Label>
+        <Input.Field
+          height="inputHeight"
+          onChange={handleChange}
+          name="stacksUrl"
+          value={values.stacksUrl}
+          width="100%"
+          data-testid={NetworkSelectors.NetworkStacksAddress}
         />
       </Input.Root>
     </>

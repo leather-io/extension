@@ -53,7 +53,7 @@ export function RpcSendTransferConfirmation() {
   const { fee, recipients, time, tx, feeRowValue } = useRpcSendTransferConfirmationState();
   const bitcoinAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
-  const { refetch } = useCurrentNativeSegwitUtxos();
+  const { filteredUtxosQuery } = useCurrentNativeSegwitUtxos();
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
 
   const psbt = decodeBitcoinTx(tx);
@@ -101,7 +101,7 @@ export function RpcSendTransferConfirmation() {
           inputs: psbt.inputs.length,
           outputs: psbt.inputs.length,
         });
-        await refetch();
+        await filteredUtxosQuery.refetch();
 
         chrome.tabs.sendMessage(
           tabId,

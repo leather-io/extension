@@ -25,7 +25,6 @@ export function TwoColumnLayout({
       mx={{ base: 'auto', md: 'space.03', lg: 'space.06' }}
       gap="space.05"
       width={{ base: '100vw', md: 'unset' }}
-      maxWidth="fullPageMaxWidth"
     >
       <Flex flexDirection="column" gap="space.04">
         <Stack gap="space.04">

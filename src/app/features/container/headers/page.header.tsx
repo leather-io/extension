@@ -18,7 +18,6 @@ import { Settings } from '@app/features/settings/settings';
 interface PageHeaderProps {
   title?: string;
   isSummaryPage?: boolean;
-  isSessionLocked?: boolean;
   isSettingsVisibleOnSm?: boolean;
   onBackLocation?: RouteUrls;
   onClose?(): void;
@@ -26,9 +25,8 @@ interface PageHeaderProps {
 
 export function PageHeader({
   title,
-  isSummaryPage,
-  isSessionLocked,
-  isSettingsVisibleOnSm,
+  isSummaryPage = false,
+  isSettingsVisibleOnSm = true,
   onBackLocation,
 }: PageHeaderProps) {
   const { isShowingSwitchAccount, setIsShowingSwitchAccount } =
@@ -37,47 +35,43 @@ export function PageHeader({
 
   // pages with nested dialogs specify onBackLocation to prevent navigate(-1) re-opening the dialog
   const onGoBack = onBackLocation ? () => navigate(onBackLocation) : () => navigate(-1);
-  const canGoBack = !isSummaryPage && !isSessionLocked;
+  const canGoBack = !isSummaryPage;
 
   return (
-    <>
-      <Header>
-        <HeaderGrid
-          leftCol={
-            <>
-              {canGoBack && (
-                <HeaderActionButton
-                  icon={<ArrowLeftIcon />}
-                  onAction={onGoBack}
-                  dataTestId={SharedComponentsSelectors.HeaderBackBtn}
+    <Header>
+      <HeaderGrid
+        leftCol={
+          <>
+            {canGoBack && (
+              <HeaderActionButton
+                icon={<ArrowLeftIcon />}
+                onAction={onGoBack}
+                dataTestId={SharedComponentsSelectors.HeaderBackBtn}
+              />
+            )}
+            <LogoBox onClick={() => navigate(RouteUrls.Home)} />
+          </>
+        }
+        centerCol={title && <styled.span textStyle="heading.05">{title}</styled.span>}
+        rightCol={
+          <HeaderGridRightCol>
+            {isSummaryPage ? (
+              <HeaderActionButton
+                icon={<CloseIcon />}
+                dataTestId={SharedComponentsSelectors.HeaderCloseBtn}
+                onAction={() => navigate(RouteUrls.Home)}
+              />
+            ) : (
+              <styled.div hideBelow={isSettingsVisibleOnSm ? undefined : 'sm'}>
+                <Settings
+                  triggerButton={<HamburgerIcon data-testid={SettingsSelectors.SettingsMenuBtn} />}
+                  toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
                 />
-              )}
-              <LogoBox isSessionLocked={isSessionLocked} />
-            </>
-          }
-          centerCol={title && <styled.span textStyle="heading.05">{title}</styled.span>}
-          rightCol={
-            <HeaderGridRightCol>
-              {isSummaryPage ? (
-                <HeaderActionButton
-                  icon={<CloseIcon />}
-                  dataTestId={SharedComponentsSelectors.HeaderCloseBtn}
-                  onAction={() => navigate(RouteUrls.Home)}
-                />
-              ) : (
-                <styled.div hideBelow={isSettingsVisibleOnSm ? undefined : 'sm'}>
-                  <Settings
-                    triggerButton={
-                      <HamburgerIcon data-testid={SettingsSelectors.SettingsMenuBtn} />
-                    }
-                    toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
-                  />
-                </styled.div>
-              )}
-            </HeaderGridRightCol>
-          }
-        />
-      </Header>
-    </>
+              </styled.div>
+            )}
+          </HeaderGridRightCol>
+        }
+      />
+    </Header>
   );
 }

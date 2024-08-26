@@ -14,7 +14,6 @@ import { useLocationStateWithCache } from '@app/common/hooks/use-location-state'
 import { getBitcoinTxValue } from '@app/common/transactions/bitcoin/utils';
 import { BitcoinCustomFeeInput } from '@app/components/bitcoin-custom-fee/bitcoin-custom-fee-input';
 import { BitcoinTransactionItem } from '@app/components/bitcoin-transaction-item/bitcoin-transaction-item';
-import { Footer } from '@app/components/layout';
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
@@ -66,13 +65,11 @@ export function IncreaseBtcFeeDialog() {
             onClose={onClose}
             header={<DialogHeader title="Increase fee" />}
             footer={
-              <Footer flexDirection="row">
-                <IncreaseFeeActions
-                  isDisabled={isBroadcasting}
-                  isBroadcasting={isBroadcasting}
-                  onCancel={() => navigate(RouteUrls.Home)}
-                />
-              </Footer>
+              <IncreaseFeeActions
+                isDisabled={isBroadcasting}
+                isBroadcasting={isBroadcasting}
+                onCancel={() => navigate(RouteUrls.Home)}
+              />
             }
           >
             <Stack gap="space.05" px="space.05" pb="space.05">

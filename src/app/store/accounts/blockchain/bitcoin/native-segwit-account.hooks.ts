@@ -8,8 +8,8 @@ import {
   deriveAddressIndexZeroFromAccount,
   deriveNativeSegwitAccountFromRootKeychain,
   getNativeSegWitPaymentFromAddressIndex,
-  getNativeSegwitAccountDerivationPath,
   lookUpLedgerKeysByPath,
+  makeNativeSegwitAccountDerivationPath,
 } from '@leather.io/bitcoin';
 import { extractAddressIndexFromPath } from '@leather.io/crypto';
 import { useBitcoinClient } from '@leather.io/query';
@@ -34,7 +34,7 @@ import {
 
 const selectNativeSegwitAccountBuilder = bitcoinAccountBuilderFactory(
   deriveNativeSegwitAccountFromRootKeychain,
-  lookUpLedgerKeysByPath(getNativeSegwitAccountDerivationPath)
+  lookUpLedgerKeysByPath(makeNativeSegwitAccountDerivationPath)
 );
 
 const selectCurrentNetworkNativeSegwitAccountBuilder = createSelector(

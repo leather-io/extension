@@ -13,7 +13,7 @@ import { analytics } from '@shared/utils/analytics';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
-import { Card, Footer } from '@app/components/layout';
+import { Card } from '@app/components/layout';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useAppDispatch } from '@app/store';
 import { inscriptionSent } from '@app/store/ordinals/ordinals.slice';
@@ -37,7 +37,7 @@ export function SendInscriptionReview() {
   const { arrivesIn, signedTx, recipient, feeRowValue } = useSendInscriptionReviewState();
 
   const { inscription } = useSendInscriptionState();
-  const { refetch } = useCurrentNativeSegwitUtxos();
+  const { filteredUtxosQuery } = useCurrentNativeSegwitUtxos();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
 
   async function sendInscription() {
@@ -46,7 +46,7 @@ export function SendInscriptionReview() {
       tx: bytesToHex(signedTx),
       async onSuccess(txid: string) {
         void analytics.track('broadcast_ordinal_transaction');
-        await refetch();
+        await filteredUtxosQuery.refetch();
         // Might be a BRC-20 transfer, so we want to remove it from the pending
         dispatch(inscriptionSent({ inscriptionId: inscription.id }));
         navigate(`/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionSent}`, {
@@ -81,16 +81,14 @@ export function SendInscriptionReview() {
     >
       <Card
         footer={
-          <Footer variant="card">
-            <Button
-              variant="solid"
-              disabled={isBroadcasting}
-              aria-busy={isBroadcasting}
-              onClick={sendInscription}
-            >
-              Confirm and send transaction
-            </Button>
-          </Footer>
+          <Button
+            variant="solid"
+            disabled={isBroadcasting}
+            aria-busy={isBroadcasting}
+            onClick={sendInscription}
+          >
+            Confirm and send transaction
+          </Button>
         }
       >
         <Box px="space.06" mt="space.06">

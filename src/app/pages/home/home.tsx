@@ -37,7 +37,7 @@ export function Home() {
   });
 
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const { totalUsdBalance, isLoading } = useTotalBalance({
+  const { totalUsdBalance, isLoading, isLoadingAdditionalData } = useTotalBalance({
     btcAddress,
     stxAddress: account?.address || '',
   });
@@ -49,7 +49,6 @@ export function Home() {
   return (
     <Stack
       data-testid={HomePageSelectors.HomePageContainer}
-      maxWidth={{ base: 'unset', md: 'fullPageMaxWidth' }}
       px={{ base: 0, md: 'space.05' }}
       py={{ base: 0, md: 'space.07' }}
       gap={{ base: 0, md: 'space.06' }}
@@ -66,6 +65,7 @@ export function Home() {
           toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
           isFetchingBnsName={isFetchingBnsName}
           isLoadingBalance={isLoading}
+          isLoadingAdditionalData={isLoadingAdditionalData}
         >
           <AccountActions />
         </AccountCard>

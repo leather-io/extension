@@ -40,7 +40,7 @@ export function useRpcSignPsbt() {
   const { broadcast, origin, psbtHex, requestId, signAtIndex, tabId } = useRpcSignPsbtParams();
   const { signPsbt, getPsbtAsTransaction } = usePsbtSigner();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
-  const { refetch } = useCurrentNativeSegwitUtxos();
+  const { filteredUtxosQuery } = useCurrentNativeSegwitUtxos();
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const calculateBitcoinFiatValue = useCalculateBitcoinFiatValue();
   const getDefaultSigningConfig = useGetAssumedZeroIndexSigningConfig();
@@ -62,7 +62,7 @@ export function useRpcSignPsbt() {
       // skip utxos check for psbt txs
       skipSpendableCheckUtxoIds: 'all',
       async onSuccess(txid) {
-        await refetch();
+        await filteredUtxosQuery.refetch();
 
         const psbtTxSummaryState = {
           fee: formatMoneyPadded(fee),

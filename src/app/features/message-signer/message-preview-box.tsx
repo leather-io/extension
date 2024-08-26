@@ -8,7 +8,14 @@ interface MessageBoxProps {
 }
 export function MessagePreviewBox({ message, hash }: MessageBoxProps) {
   return (
-    <Stack bg="ink.background-primary" border="active" borderRadius="sm" pb={hash ? 'space.02' : 0}>
+    <Stack
+      bg="ink.background-primary"
+      border="active"
+      borderRadius="sm"
+      pb={hash ? 'space.02' : 0}
+      width="100%"
+      maxWidth="popupMaxWidth"
+    >
       <Stack
         bg="ink.background-primary"
         borderRadius="lg"

@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
-import { Flex } from 'leather-styles/jsx';
+import { Box, Flex } from 'leather-styles/jsx';
 
 import { whenStacksChainId } from '@leather.io/stacks';
 import { CreditCardIcon, IconButton, InboxIcon, SwapIcon } from '@leather.io/ui';
@@ -56,14 +56,22 @@ export function AccountActions() {
       )}
       {whenStacksChainId(currentNetwork.chain.stacks.chainId)({
         [ChainID.Mainnet]: (
-          <BasicTooltip label={swapsEnabled ? '' : <SwapsDisabledTooltipLabel />} side="left">
-            <IconButton
-              data-testid={HomePageSelectors.SwapBtn}
-              disabled={swapsBtnDisabled}
-              icon={<SwapIcon />}
-              label="Swap"
-              onClick={() => navigate(RouteUrls.Swap.replace(':base', 'STX').replace(':quote', ''))}
-            />
+          <BasicTooltip
+            label={swapsEnabled ? '' : <SwapsDisabledTooltipLabel />}
+            side="left"
+            asChild
+          >
+            <Box>
+              <IconButton
+                data-testid={HomePageSelectors.SwapBtn}
+                disabled={swapsBtnDisabled}
+                icon={<SwapIcon />}
+                label="Swap"
+                onClick={() =>
+                  navigate(RouteUrls.Swap.replace(':base', 'STX').replace(':quote', ''))
+                }
+              />
+            </Box>
           </BasicTooltip>
         ),
         [ChainID.Testnet]: null,

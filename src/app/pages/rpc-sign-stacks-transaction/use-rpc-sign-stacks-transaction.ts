@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
 
 import { RpcErrorCode } from '@btckit/types';
 import { bytesToHex } from '@stacks/common';
@@ -9,18 +8,15 @@ import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-me
 import { closeWindow } from '@shared/utils';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
-import { useRejectIfLedgerWallet } from '@app/common/rpc-helpers';
+import { initialSearchParams } from '@app/common/initial-search-params';
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
 
 function useRpcSignStacksTransactionParams() {
-  useRejectIfLedgerWallet('stx_signTransaction');
-
-  const [searchParams] = useSearchParams();
   const { origin, tabId } = useDefaultRequestParams();
-  const requestId = searchParams.get('requestId');
-  const txHex = searchParams.get('txHex');
-  const isMultisig = searchParams.get('isMultisig');
+  const requestId = initialSearchParams.get('requestId');
+  const txHex = initialSearchParams.get('txHex');
+  const isMultisig = initialSearchParams.get('isMultisig');
 
   if (!requestId || !txHex || !origin) throw new Error('Invalid params');
 

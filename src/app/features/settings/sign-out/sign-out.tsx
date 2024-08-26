@@ -5,7 +5,7 @@ import { Flex, HStack, styled } from 'leather-styles/jsx';
 import { Button, Callout, Dialog, DialogHeader } from '@leather.io/ui';
 
 import { useWalletType } from '@app/common/use-wallet-type';
-import { Footer } from '@app/components/layout';
+import { ButtonRow } from '@app/components/layout';
 
 interface SignOutDialogProps {
   isShowing: boolean;
@@ -39,7 +39,7 @@ export function SignOutDialog({ isShowing, onUserDeleteWallet, onClose }: SignOu
       isShowing={isShowing}
       onClose={onClose}
       footer={
-        <Footer flexDirection="row">
+        <ButtonRow flexDirection="row">
           <Button
             color="gray"
             data-testid={SettingsSelectors.BtnSignOutReturnToHomeScreen}
@@ -60,7 +60,7 @@ export function SignOutDialog({ isShowing, onUserDeleteWallet, onClose }: SignOu
           >
             Sign out
           </Button>
-        </Footer>
+        </ButtonRow>
       }
     >
       <Callout variant="warning" width="100%" title="You'll need your Secret Key to sign in again">
