@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import {
@@ -74,7 +75,10 @@ export function AccountCard({
           </Flex>
         </Link>
         <Box mr={{ md: 'space.05' }}>
-          <Pressable onClick={toggleHideBlance}>
+          <Pressable
+            data-testid={SharedComponentsSelectors.AccountCardToggleHideBalanceBtn}
+            onClick={toggleHideBlance}
+          >
             {hideBalance ? <EyeSlashIcon variant="small" /> : <EyeIcon variant="small" />}
           </Pressable>
         </Box>
@@ -86,6 +90,7 @@ export function AccountCard({
               textStyle="heading.02"
               data-state={isLoadingAdditionalData ? 'loading' : undefined}
               className={shimmerStyles}
+              data-testid={SharedComponentsSelectors.AccountCardBalanceText}
               style={{
                 whiteSpace: 'nowrap',
                 display: 'inline-block',
