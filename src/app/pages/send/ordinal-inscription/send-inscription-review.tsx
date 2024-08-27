@@ -5,7 +5,7 @@ import { Box, Flex, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { useBitcoinBroadcastTransaction } from '@leather.io/query';
-import { Button, Dialog, DialogHeader } from '@leather.io/ui';
+import { Button, Sheet, SheetHeader } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
@@ -73,8 +73,8 @@ export function SendInscriptionReview() {
   }
 
   return (
-    <Dialog
-      header={<DialogHeader title="Review" />}
+    <Sheet
+      header={<SheetHeader title="Review" />}
       isShowing
       onGoBack={() => navigate(-1)}
       onClose={() => navigate(RouteUrls.Home)}
@@ -116,6 +116,6 @@ export function SendInscriptionReview() {
           </Stack>
         </Flex>
       </Card>
-    </Dialog>
+    </Sheet>
   );
 }

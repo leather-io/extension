@@ -1,6 +1,6 @@
 import { Flex, styled } from 'leather-styles/jsx';
 
-import { BtcAvatarIcon, Button, Callout, Dialog, DialogHeader } from '@leather.io/ui';
+import { BtcAvatarIcon, Button, Callout, Sheet, SheetHeader } from '@leather.io/ui';
 
 interface RetrieveTaprootToNativeSegwitLayoutProps {
   isBroadcasting: boolean;
@@ -13,9 +13,9 @@ export function RetrieveTaprootToNativeSegwitLayout(
 ) {
   const { onClose, onApproveTransaction, isBroadcasting, children } = props;
   return (
-    <Dialog
+    <Sheet
       isShowing
-      header={<DialogHeader />}
+      header={<SheetHeader />}
       onClose={() => onClose()}
       footer={
         <Flex flexDirection="row">
@@ -48,6 +48,6 @@ export function RetrieveTaprootToNativeSegwitLayout(
           lose it!
         </Callout>
       </Flex>
-    </Dialog>
+    </Sheet>
   );
 }

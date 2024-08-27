@@ -28,7 +28,7 @@ export function useStacksCommonSendForm({
   const stxAddress = useCurrentStacksAccountAddress();
   const { data: nextNonce } = useNextNonce(stxAddress);
   const currentNetwork = useCurrentNetworkState();
-  const { isHighFeeWithNoFormErrors, setShowHighFeeWarningDialog } =
+  const { isHighFeeWithNoFormErrors, setShowHighFeeWarningSheet } =
     useStacksHighFeeWarningContext();
 
   const initialValues: StacksSendFormValues = createDefaultInitialFormValues({
@@ -51,7 +51,7 @@ export function useStacksCommonSendForm({
     const formErrors = await formikHelpers.validateForm();
 
     if (isHighFeeWithNoFormErrors(formErrors, values.fee)) {
-      setShowHighFeeWarningDialog(true);
+      setShowHighFeeWarningSheet(true);
       return false;
     }
     return true;

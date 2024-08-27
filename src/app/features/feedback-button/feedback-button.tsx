@@ -6,7 +6,7 @@ import { analytics, sentryFeedback } from '@shared/utils/analytics';
 
 import { useThemeSwitcher } from '@app/common/theme-provider';
 
-export async function openFeedbackDialog() {
+export async function openFeedbackSheet() {
   void analytics.track('user_clicked_feedback_button');
   const form = await sentryFeedback.createForm();
   if (!form) return null;
@@ -39,7 +39,7 @@ export function FeedbackButton() {
           : undefined
       }
       zIndex={9}
-      onClick={openFeedbackDialog}
+      onClick={openFeedbackSheet}
     >
       <Flex>
         <Box mr="space.01" mt="2px">

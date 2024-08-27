@@ -25,7 +25,7 @@ import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { PopupHeader } from '@app/features/container/headers/popup.header';
 import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
-import { HighFeeDialog } from '@app/features/stacks-high-fee-warning/stacks-high-fee-dialog';
+import { HighFeeSheet } from '@app/features/stacks-high-fee-warning/stacks-high-fee-dialog';
 import { ContractCallDetails } from '@app/features/stacks-transaction-request/contract-call-details/contract-call-details';
 import { ContractDeployDetails } from '@app/features/stacks-transaction-request/contract-deploy-details/contract-deploy-details';
 import { FeeForm } from '@app/features/stacks-transaction-request/fee-form';
@@ -139,7 +139,7 @@ function TransactionRequestBase() {
               <MinimalErrorMessage />
               <StacksTxSubmitAction canSubmit={canSubmit} />
 
-              <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
+              <HighFeeSheet learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
               <Outlet />
             </>
           )}

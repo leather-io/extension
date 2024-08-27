@@ -11,7 +11,7 @@ import {
 } from '@app/common/app-analytics';
 import { ContainerLayout } from '@app/components/layout';
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { SwitchAccountDialog } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
+import { SwitchAccountSheet } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
 import { InAppMessages } from '@app/features/hiro-messages/in-app-messages';
 import { useOnChangeAccount } from '@app/routes/hooks/use-on-change-account';
 import { useOnSignOut } from '@app/routes/hooks/use-on-sign-out';
@@ -43,7 +43,7 @@ export function Container() {
   return (
     <>
       {isShowingSwitchAccount && (
-        <SwitchAccountDialog
+        <SwitchAccountSheet
           isShowing={isShowingSwitchAccount}
           onClose={() => setIsShowingSwitchAccount(false)}
         />

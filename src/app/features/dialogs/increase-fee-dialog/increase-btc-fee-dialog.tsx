@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import { Flex, Stack } from 'leather-styles/jsx';
 
 import type { BitcoinTx } from '@leather.io/models';
-import { Caption, Dialog, DialogHeader, Spinner } from '@leather.io/ui';
+import { Caption, Sheet, SheetHeader, Spinner } from '@leather.io/ui';
 import { btcToSat, createMoney, formatMoney } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -20,7 +20,7 @@ import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/account
 import { IncreaseFeeActions } from './components/increase-fee-actions';
 import { useBtcIncreaseFee } from './hooks/use-btc-increase-fee';
 
-export function IncreaseBtcFeeDialog() {
+export function IncreaseBtcFeeSheet() {
   const tx = useLocationStateWithCache('btcTx') as BitcoinTx;
   const navigate = useNavigate();
   const location = useLocation();
@@ -60,10 +60,10 @@ export function IncreaseBtcFeeDialog() {
         validationSchema={validationSchema}
       >
         <>
-          <Dialog
+          <Sheet
             isShowing={location.pathname === RouteUrls.IncreaseBtcFee}
             onClose={onClose}
-            header={<DialogHeader title="Increase fee" />}
+            header={<SheetHeader title="Increase fee" />}
             footer={
               <IncreaseFeeActions
                 isDisabled={isBroadcasting}
@@ -101,7 +101,7 @@ export function IncreaseBtcFeeDialog() {
                 </Stack>
               </Suspense>
             </Stack>
-          </Dialog>
+          </Sheet>
           <Outlet />
         </>
       </Formik>

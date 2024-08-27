@@ -3,7 +3,7 @@ import { Virtuoso } from 'react-virtuoso';
 
 import { Box } from 'leather-styles/jsx';
 
-import { Button, Dialog, DialogHeader } from '@leather.io/ui';
+import { Button, Sheet, SheetHeader } from '@leather.io/ui';
 
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -15,12 +15,12 @@ import { VirtuosoWrapper } from '@app/ui/components/virtuoso';
 import { AccountListUnavailable } from './components/account-list-unavailable';
 import { SwitchAccountListItem } from './components/switch-account-list-item';
 
-interface SwitchAccountDialogProps {
+interface SwitchAccountSheetProps {
   isShowing: boolean;
   onClose(): void;
 }
 
-export const SwitchAccountDialog = memo(({ isShowing, onClose }: SwitchAccountDialogProps) => {
+export const SwitchAccountSheet = memo(({ isShowing, onClose }: SwitchAccountSheetProps) => {
   const currentAccountIndex = useCurrentAccountIndex();
   const createAccount = useCreateAccount();
   const { whenWallet } = useWalletType();
@@ -45,8 +45,8 @@ export const SwitchAccountDialog = memo(({ isShowing, onClose }: SwitchAccountDi
   const accountNum = stacksAddressesNum || btcAddressesNum;
 
   return (
-    <Dialog
-      header={<DialogHeader title="Select account" />}
+    <Sheet
+      header={<SheetHeader title="Select account" />}
       isShowing={isShowing}
       onClose={onClose}
       wrapChildren={false}
@@ -77,6 +77,6 @@ export const SwitchAccountDialog = memo(({ isShowing, onClose }: SwitchAccountDi
           )}
         />
       </VirtuosoWrapper>
-    </Dialog>
+    </Sheet>
   );
 });
