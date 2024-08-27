@@ -11,9 +11,9 @@ import { HasChildren } from '@app/common/has-children';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 
 import { confettiConfig } from './confetti-config';
-import { useLeatherIntroDialogContext } from './leather-intro-dialog';
+import { useLeatherIntroSheetContext } from './leather-intro-dialog';
 
-export function LeatherIntroDialog({ children }: HasChildren) {
+export function LeatherIntroSheet({ children }: HasChildren) {
   return (
     <Dialog.Root defaultOpen>
       <Dialog.Content
@@ -28,8 +28,8 @@ export function LeatherIntroDialog({ children }: HasChildren) {
   );
 }
 
-export function LeatherIntroDialogPart1() {
-  const context = useLeatherIntroDialogContext();
+export function LeatherIntroSheetPart1() {
+  const context = useLeatherIntroSheetContext();
   const [showConfetti, setShowConfetti] = useState(false);
 
   return (
@@ -69,9 +69,9 @@ export function LeatherIntroDialogPart1() {
   );
 }
 
-export function LeatherIntroDialogPart2() {
+export function LeatherIntroSheetPart2() {
   const ref = useRef<HTMLVideoElement>(null);
-  const context = useLeatherIntroDialogContext();
+  const context = useLeatherIntroSheetContext();
 
   useLayoutEffect(() => {
     if (ref.current) ref.current.playbackRate = 0.65;

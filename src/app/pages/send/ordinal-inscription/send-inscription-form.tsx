@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Form, Formik } from 'formik';
 import { Box, Flex } from 'leather-styles/jsx';
 
-import { Button, Dialog, DialogHeader, OrdinalAvatarIcon } from '@leather.io/ui';
+import { Button, OrdinalAvatarIcon, Sheet, SheetHeader } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -38,8 +38,8 @@ export function SendInscriptionForm() {
       {props => {
         return (
           <Form>
-            <Dialog
-              header={<DialogHeader title="Send" />}
+            <Sheet
+              header={<SheetHeader title="Send" />}
               onGoBack={() => navigate(-1)}
               isShowing
               onClose={() => navigate(RouteUrls.Home)}
@@ -69,7 +69,7 @@ export function SendInscriptionForm() {
                   {currentError && <ErrorLabel>{currentError}</ErrorLabel>}
                 </Box>
               </SendInscriptionFormLoader>
-            </Dialog>
+            </Sheet>
           </Form>
         );
       }}

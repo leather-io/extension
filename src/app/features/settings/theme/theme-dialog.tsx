@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { Dialog, DialogHeader } from '@leather.io/ui';
+import { Sheet, SheetHeader } from '@leather.io/ui';
 
 import { analytics } from '@shared/utils/analytics';
 
@@ -8,11 +8,11 @@ import { UserSelectedTheme, themeLabelMap, useThemeSwitcher } from '@app/common/
 
 import { ThemeListItem } from './theme-list-item';
 
-interface ThemeDialogProps {
+interface ThemeSheetProps {
   onClose(): void;
 }
 
-export function ThemeDialog({ onClose }: ThemeDialogProps) {
+export function ThemeSheet({ onClose }: ThemeSheetProps) {
   const themes = Object.keys(themeLabelMap) as UserSelectedTheme[];
 
   const { setUserSelectedTheme } = useThemeSwitcher();
@@ -30,7 +30,7 @@ export function ThemeDialog({ onClose }: ThemeDialogProps) {
   const { userSelectedTheme } = useThemeSwitcher();
 
   return (
-    <Dialog header={<DialogHeader title="Change theme" />} isShowing onClose={onClose}>
+    <Sheet header={<SheetHeader title="Change theme" />} isShowing onClose={onClose}>
       {themes.map(theme => (
         <ThemeListItem
           key={theme}
@@ -39,6 +39,6 @@ export function ThemeDialog({ onClose }: ThemeDialogProps) {
           isActive={theme === userSelectedTheme}
         />
       ))}
-    </Dialog>
+    </Sheet>
   );
 }

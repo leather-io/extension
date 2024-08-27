@@ -34,7 +34,7 @@ import { TransactionError } from '@app/features/stacks-transaction-request/trans
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
-import { HighFeeDialog } from '../stacks-high-fee-warning/stacks-high-fee-dialog';
+import { HighFeeSheet } from '../stacks-high-fee-warning/stacks-high-fee-dialog';
 import { FeeForm } from './fee-form';
 import { MinimalErrorMessage } from './minimal-error-message';
 import { StacksTxSubmitAction } from './submit-action';
@@ -138,7 +138,7 @@ export function StacksTransactionSigner({
             )}
             <MinimalErrorMessage />
             <StacksTxSubmitAction canSubmit={canSubmit} />
-            <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
+            <HighFeeSheet learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
             <Outlet />
           </>
         )}

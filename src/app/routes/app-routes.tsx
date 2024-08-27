@@ -16,9 +16,9 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { AddNetwork } from '@app/features/add-network/add-network';
 import { Container } from '@app/features/container/container';
 import { HomeHeader } from '@app/features/container/headers/home.header';
-import { IncreaseBtcFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-btc-fee-dialog';
-import { IncreaseStxFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-stx-fee-dialog';
-import { leatherIntroDialogRoutes } from '@app/features/dialogs/leather-intro-dialog/leather-intro-dialog';
+import { IncreaseBtcFeeSheet } from '@app/features/dialogs/increase-fee-dialog/increase-btc-fee-dialog';
+import { IncreaseStxFeeSheet } from '@app/features/dialogs/increase-fee-dialog/increase-stx-fee-dialog';
+import { leatherIntroSheetRoutes } from '@app/features/dialogs/leather-intro-dialog/leather-intro-dialog';
 import { RouterErrorBoundary } from '@app/features/errors/app-error-boundary';
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
@@ -104,14 +104,14 @@ function useAppRoutes() {
               path={RouteUrls.RetrieveTaprootFunds}
               element={<RetrieveTaprootToNativeSegwit />}
             />
-            <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDialog />}>
+            <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeSheet />}>
               {ledgerStacksTxSigningRoutes}
             </Route>
             <Route
               path={`${RouteUrls.IncreaseStxFee}/${RouteUrls.TransactionBroadcastError}`}
               element={<BroadcastError />}
             />
-            <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeDialog />}>
+            <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeSheet />}>
               {ledgerBitcoinTxSigningRoutes}
             </Route>
 
@@ -123,14 +123,14 @@ function useAppRoutes() {
             path={RouteUrls.RetrieveTaprootFunds}
             element={<RetrieveTaprootToNativeSegwit />}
           />
-          <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDialog />}>
+          <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeSheet />}>
             {ledgerStacksTxSigningRoutes}
           </Route>
           <Route
             path={`${RouteUrls.IncreaseStxFee}/${RouteUrls.TransactionBroadcastError}`}
             element={<BroadcastError />}
           />
-          <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeDialog />}>
+          <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeSheet />}>
             {ledgerBitcoinTxSigningRoutes}
           </Route>
 
@@ -170,7 +170,7 @@ function useAppRoutes() {
           {sendCryptoAssetFormRoutes}
 
           <Route path={RouteUrls.Unlock} element={<Unlock />}>
-            {leatherIntroDialogRoutes}
+            {leatherIntroSheetRoutes}
           </Route>
           <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
           <Route

@@ -4,7 +4,7 @@ import { Virtuoso } from 'react-virtuoso';
 
 import { Box } from 'leather-styles/jsx';
 
-import { Dialog, DialogHeader } from '@leather.io/ui';
+import { Sheet, SheetHeader } from '@leather.io/ui';
 
 import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -12,7 +12,7 @@ import { VirtuosoWrapper } from '@app/ui/components/virtuoso';
 
 import { AccountListItem } from './account-list-item';
 
-export function RecipientAccountsDialog() {
+export function RecipientAccountsSheet() {
   const stacksAccounts = useStacksAccounts();
   const navigate = useNavigate();
 
@@ -25,8 +25,8 @@ export function RecipientAccountsDialog() {
   const accountNum = stacksAddressesNum || btcAddressesNum;
 
   return (
-    <Dialog
-      header={<DialogHeader title="My accounts" />}
+    <Sheet
+      header={<SheetHeader title="My accounts" />}
       isShowing
       onClose={onGoBack}
       wrapChildren={false}
@@ -48,6 +48,6 @@ export function RecipientAccountsDialog() {
           totalCount={accountNum}
         />
       </VirtuosoWrapper>
-    </Dialog>
+    </Sheet>
   );
 }

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Dialog, DialogHeader } from '@leather.io/ui';
+import { Sheet, SheetHeader } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
@@ -36,12 +36,12 @@ export function ConnectLedgerStart() {
   }
 
   return (
-    <Dialog isShowing header={<DialogHeader />} onClose={() => navigate('../')}>
+    <Sheet isShowing header={<SheetHeader />} onClose={() => navigate('../')}>
       <ConnectLedger
         connectBitcoin={() => connectChain('bitcoin')}
         connectStacks={() => connectChain('stacks')}
         showInstructions
       />
-    </Dialog>
+    </Sheet>
   );
 }

@@ -17,7 +17,7 @@ import { FeesRow } from '@app/components/fees-row/fees-row';
 import { AvailableBalance, ButtonRow, Card, Page } from '@app/components/layout';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
-import { HighFeeDialog } from '@app/features/stacks-high-fee-warning/stacks-high-fee-dialog';
+import { HighFeeSheet } from '@app/features/stacks-high-fee-warning/stacks-high-fee-dialog';
 
 import { MemoField } from '../../components/memo-field';
 import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field';
@@ -100,7 +100,7 @@ export function StacksCommonSendForm({
                     </Link>
                   </Flex>
                 </Card>
-                <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
+                <HighFeeSheet learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
                 <Outlet />
               </Form>
             </>

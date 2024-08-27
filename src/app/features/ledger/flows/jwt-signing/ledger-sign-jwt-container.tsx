@@ -5,7 +5,7 @@ import { TransactionVersion, getAddressFromPublicKey } from '@stacks/transaction
 import { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
 
-import { Dialog, DialogHeader } from '@leather.io/ui';
+import { Sheet, SheetHeader } from '@leather.io/ui';
 import { delay, isError } from '@leather.io/utils';
 
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
@@ -181,13 +181,13 @@ export function LedgerSignJwtContainer() {
 
   return (
     <LedgerJwtSigningProvider value={ledgerContextValue}>
-      <Dialog
+      <Sheet
         isShowing
-        header={<DialogHeader />}
+        header={<SheetHeader />}
         onClose={canCancelLedgerAction ? () => onCancelConnectLedger() : undefined}
       >
         <Outlet />
-      </Dialog>
+      </Sheet>
     </LedgerJwtSigningProvider>
   );
 }
