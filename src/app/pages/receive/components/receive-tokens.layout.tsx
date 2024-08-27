@@ -5,7 +5,7 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 import { Box, Flex, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
-import { AddressDisplayer, Button, Dialog, DialogHeader } from '@leather.io/ui';
+import { AddressDisplayer, Button, Sheet, SheetHeader } from '@leather.io/ui';
 
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
@@ -25,9 +25,9 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
   const backgroundLocation = useLocationState<Location>('backgroundLocation');
 
   return (
-    <Dialog
+    <Sheet
       header={
-        <DialogHeader
+        <SheetHeader
           variant="large"
           title={
             <>
@@ -82,6 +82,6 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
           </Flex>
         </Flex>
       </Flex>
-    </Dialog>
+    </Sheet>
   );
 }

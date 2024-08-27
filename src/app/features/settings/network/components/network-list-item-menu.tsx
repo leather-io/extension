@@ -2,7 +2,7 @@ import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { css } from 'leather-styles/css';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { DotsVerticalIcon, DropdownMenu, PenIcon, TrashIcon } from '@leather.io/ui';
+import { DropdownMenu, EllipsisVIcon, PencilIcon, TrashIcon } from '@leather.io/ui';
 
 interface Props {
   onEditNetwork(): void;
@@ -13,10 +13,7 @@ export function NetworkItemMenu({ onClickDeleteNetwork, onEditNetwork }: Props) 
   return (
     <DropdownMenu.Root>
       <DropdownMenu.IconButton>
-        <DotsVerticalIcon
-          color="ink.text-primary"
-          data-testid={SettingsSelectors.SettingsMenuBtn}
-        />
+        <EllipsisVIcon color="ink.text-primary" data-testid={SettingsSelectors.SettingsMenuBtn} />
       </DropdownMenu.IconButton>
       <DropdownMenu.Portal>
         <DropdownMenu.Content
@@ -35,7 +32,7 @@ export function NetworkItemMenu({ onClickDeleteNetwork, onEditNetwork }: Props) 
               }}
             >
               <HStack>
-                <PenIcon />
+                <PencilIcon />
                 <styled.span textStyle="label.02">Edit</styled.span>
               </HStack>
             </DropdownMenu.Item>

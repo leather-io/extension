@@ -4,17 +4,17 @@ import GenericError from '@assets/images/generic-error.png';
 import { Flex, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { Button, Dialog, DialogHeader } from '@leather.io/ui';
+import { Button, Sheet, SheetHeader } from '@leather.io/ui';
 
-export function BroadcastErrorDialog() {
+export function BroadcastErrorSheet() {
   const navigate = useNavigate();
   const location = useLocation();
   const message = get(location.state, 'message', '');
 
   return (
-    <Dialog
+    <Sheet
       isShowing
-      header={<DialogHeader />}
+      header={<SheetHeader />}
       onClose={() => navigate('..')}
       footer={
         <Button fullWidth onClick={() => navigate('..')} mt="space.05">
@@ -40,6 +40,6 @@ export function BroadcastErrorDialog() {
           {message && <>because of the error: {message.toLowerCase()}</>}
         </styled.span>
       </Flex>
-    </Dialog>
+    </Sheet>
   );
 }

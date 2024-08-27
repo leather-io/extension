@@ -4,7 +4,7 @@ import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import type { Blockchains, Inscription } from '@leather.io/models';
-import { CheckmarkIcon, CopyIcon, Dialog, DialogHeader, ExternalLinkIcon } from '@leather.io/ui';
+import { CheckmarkIcon, CopyIcon, ExternalLinkIcon, Sheet, SheetHeader } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
@@ -53,11 +53,7 @@ export function SendInscriptionSummary() {
   }
 
   return (
-    <Dialog
-      header={<DialogHeader title="Sent" />}
-      isShowing
-      onClose={() => navigate(RouteUrls.Home)}
-    >
+    <Sheet header={<SheetHeader title="Sent" />} isShowing onClose={() => navigate(RouteUrls.Home)}>
       <Card
         footer={
           <HStack gap="space.04" width="100%">
@@ -68,7 +64,11 @@ export function SendInscriptionSummary() {
       >
         <Box mt="space.06" px="space.06">
           <InscriptionPreviewCard
-            icon={<CheckmarkIcon mt="space.01" width="lg" />}
+            icon={
+              <Box mt="space.01">
+                <CheckmarkIcon height={36} width={36} />
+              </Box>
+            }
             image={<InscriptionPreview inscription={inscription} />}
             subtitle="Ordinal inscription"
             title={inscription.title}
@@ -91,6 +91,6 @@ export function SendInscriptionSummary() {
           </Stack>
         </Flex>
       </Card>
-    </Dialog>
+    </Sheet>
   );
 }

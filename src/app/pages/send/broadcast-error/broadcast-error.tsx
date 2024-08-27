@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import get from 'lodash.get';
 
-import { Dialog, DialogHeader } from '@leather.io/ui';
+import { Sheet, SheetHeader } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
@@ -12,10 +12,10 @@ import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { BroadcastErrorLayout } from './components/broadcast-error.layout';
 
 interface Props {
-  showInDialog?: boolean;
+  showInSheet?: boolean;
 }
 
-export function BroadcastError({ showInDialog = false }: Props) {
+export function BroadcastError({ showInSheet = false }: Props) {
   const { state } = useLocation();
   const navigate = useNavigate();
 
@@ -35,15 +35,15 @@ export function BroadcastError({ showInDialog = false }: Props) {
     />
   );
 
-  if (showInDialog) {
+  if (showInSheet) {
     return (
-      <Dialog
-        header={<DialogHeader title="Error" />}
+      <Sheet
+        header={<SheetHeader title="Error" />}
         isShowing
         onClose={() => navigate(RouteUrls.Home)}
       >
         {layout}
-      </Dialog>
+      </Sheet>
     );
   }
 

@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-import { Dialog, DialogHeader } from '@leather.io/ui';
+import { Sheet, SheetHeader } from '@leather.io/ui';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 
@@ -19,13 +19,13 @@ export function RequestKeysFlow({ context, isActionCancellableByUser }: RequestK
 
   return (
     <LedgerRequestKeysProvider value={context}>
-      <Dialog
+      <Sheet
         isShowing
-        header={<DialogHeader />}
+        header={<SheetHeader />}
         onClose={isActionCancellableByUser ? onCancelConnectLedger : undefined}
       >
         <Outlet />
-      </Dialog>
+      </Sheet>
     </LedgerRequestKeysProvider>
   );
 }

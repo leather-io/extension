@@ -1,6 +1,6 @@
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { Button, LettermarkIcon, LogomarkIcon } from '@leather.io/ui';
+import { Button, LeatherLettermarkIcon, LeatherLogomarkIcon } from '@leather.io/ui';
 
 import { RequesterFlag } from '@app/components/requester-flag';
 
@@ -29,7 +29,7 @@ export function GetAddressesLayout({
         gap="space.06"
       >
         <Box mb="space.08" mt="space.11">
-          <LogomarkIcon width="248px" height="58px" />
+          <LeatherLogomarkIcon height={58} width={248} />
         </Box>
         <styled.p textStyle="heading.03">Connect your account to</styled.p>
 
@@ -37,8 +37,10 @@ export function GetAddressesLayout({
         <Box width="100%" display="flex">
           <Button onClick={() => onUserApproveGetAddresses()} fullWidth>
             <Flex justifyContent="center" alignItems="center">
-              <LettermarkIcon mr="space.02" />
-              <styled.span textStyle="label.02">Connect Leather</styled.span>
+              <LeatherLettermarkIcon />
+              <styled.span ml="space.02" textStyle="label.02">
+                Connect Leather
+              </styled.span>
             </Flex>
           </Button>
         </Box>

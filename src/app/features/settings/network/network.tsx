@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
 import { WalletDefaultNetworkConfigurationIds } from '@leather.io/models';
-import { Button, Dialog, DialogHeader } from '@leather.io/ui';
+import { Button, Sheet, SheetHeader } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
@@ -14,11 +14,11 @@ import { useNetworks } from '@app/store/networks/networks.selectors';
 
 const defaultNetworkIds = Object.values(WalletDefaultNetworkConfigurationIds) as string[];
 
-interface NetworkDialogProps {
+interface NetworkSheetProps {
   onClose(): void;
 }
 
-export function NetworkDialog({ onClose }: NetworkDialogProps) {
+export function NetworkSheet({ onClose }: NetworkSheetProps) {
   const navigate = useNavigate();
   const networks = useNetworks();
   const networksActions = useNetworksActions();
@@ -40,8 +40,8 @@ export function NetworkDialog({ onClose }: NetworkDialogProps) {
   }
 
   return (
-    <Dialog
-      header={<DialogHeader title="Change network" />}
+    <Sheet
+      header={<SheetHeader title="Change network" />}
       isShowing
       onClose={onClose}
       footer={
@@ -80,6 +80,6 @@ export function NetworkDialog({ onClose }: NetworkDialogProps) {
           }}
         />
       ))}
-    </Dialog>
+    </Sheet>
   );
 }

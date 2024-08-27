@@ -5,7 +5,7 @@ import { bytesToHex, signatureVrsToRsv } from '@stacks/common';
 import { serializeCV } from '@stacks/transactions';
 import { LedgerError } from '@zondax/ledger-stacks';
 
-import { Dialog, DialogHeader } from '@leather.io/ui';
+import { Sheet, SheetHeader } from '@leather.io/ui';
 import { delay, isError } from '@leather.io/utils';
 
 import { UnsignedMessage, whenSignableMessageOfType } from '@shared/signature/signature-types';
@@ -145,13 +145,13 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
 
   return (
     <LedgerMsgSigningProvider value={ledgerContextValue}>
-      <Dialog
+      <Sheet
         isShowing
-        header={<DialogHeader />}
+        header={<SheetHeader />}
         onClose={canCancelLedgerAction ? () => ledgerNavigate.cancelLedgerAction() : undefined}
       >
         <Outlet />
-      </Dialog>
+      </Sheet>
     </LedgerMsgSigningProvider>
   );
 }

@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 
-import { LogomarkIcon } from '@leather.io/ui';
+import { LeatherLogomarkIcon } from '@leather.io/ui';
 
 import { closeWindow } from '@shared/utils';
 
@@ -36,7 +36,7 @@ export function ChooseAccount() {
       <Flex alignItems="center" flexDirection="column" pt="space.07" width="100%">
         <Stack gap="space.05" textAlign="center" alignItems="center">
           {url && <RequesterFlag requester={url.toString()} />}
-          <LogomarkIcon width="248px" height="58px" />
+          <LeatherLogomarkIcon height={58} width={248} />
           <Stack gap="space.04">
             <styled.h1 textStyle="heading.05">
               {hasConnectedStacksAccounts

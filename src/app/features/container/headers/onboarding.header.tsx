@@ -3,7 +3,7 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
-import { ArrowLeftIcon, HamburgerIcon } from '@leather.io/ui';
+import { ArrowLeftIcon, BarsTwoIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { SwitchAccountOutletContext } from '@shared/switch-account';
@@ -40,7 +40,7 @@ export function OnboardingHeader({ hideLogo = false }: OnboardingHeaderProps) {
           rightCol={
             <HeaderGridRightCol>
               <Settings
-                triggerButton={<HamburgerIcon data-testid={SettingsSelectors.SettingsMenuBtn} />}
+                triggerButton={<BarsTwoIcon data-testid={SettingsSelectors.SettingsMenuBtn} />}
                 toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
               />
             </HeaderGridRightCol>

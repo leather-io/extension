@@ -3,8 +3,8 @@ import { Route } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { BroadcastErrorDialog } from '@app/components/broadcast-error-dialog/broadcast-error-dialog';
-import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
+import { BroadcastErrorSheet } from '@app/components/broadcast-error-dialog/broadcast-error-dialog';
+import { EditNonceSheet } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
 import { ledgerStacksMessageSigningRoutes } from '@app/features/ledger/flows/stacks-message-signing/ledger-stacks-sign-msg.routes';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
 import { StacksHighFeeWarningContainer } from '@app/features/stacks-high-fee-warning/stacks-high-fee-warning-container';
@@ -30,8 +30,8 @@ export const legacyRequestRoutes = (
       }
     >
       {ledgerStacksTxSigningRoutes}
-      <Route path={RouteUrls.EditNonce} element={<EditNonceDialog />} />
-      <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDialog />} />
+      <Route path={RouteUrls.EditNonce} element={<EditNonceSheet />} />
+      <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorSheet />} />
     </Route>
     <Route
       path={RouteUrls.SignatureRequest}

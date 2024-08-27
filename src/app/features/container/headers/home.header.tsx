@@ -2,7 +2,7 @@ import { useOutletContext } from 'react-router-dom';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
-import { HamburgerIcon } from '@leather.io/ui';
+import { BarsTwoIcon } from '@leather.io/ui';
 
 import { SwitchAccountOutletContext } from '@shared/switch-account';
 
@@ -22,7 +22,7 @@ export function HomeHeader() {
         rightCol={
           <HeaderGridRightCol>
             <Settings
-              triggerButton={<HamburgerIcon data-testid={SettingsSelectors.SettingsMenuBtn} />}
+              triggerButton={<BarsTwoIcon data-testid={SettingsSelectors.SettingsMenuBtn} />}
               toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
             />
           </HeaderGridRightCol>

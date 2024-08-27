@@ -8,15 +8,15 @@ import { analytics } from '@shared/utils/analytics';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 
 import {
-  LeatherIntroDialog,
-  LeatherIntroDialogPart1,
-  LeatherIntroDialogPart2,
+  LeatherIntroSheet,
+  LeatherIntroSheetPart1,
+  LeatherIntroSheetPart2,
 } from './leather-intro-steps';
 
-export const leatherIntroDialogRoutes = (
-  <Route element={<LeatherIntroDialogContainer />}>
-    <Route path="we-have-a-new-name" element={<LeatherIntroDialogPart1 />} />
-    <Route path="introducing-leather" element={<LeatherIntroDialogPart2 />} />
+export const leatherIntroSheetRoutes = (
+  <Route element={<LeatherIntroSheetContainer />}>
+    <Route path="we-have-a-new-name" element={<LeatherIntroSheetPart1 />} />
+    <Route path="introducing-leather" element={<LeatherIntroSheetPart2 />} />
   </Route>
 );
 
@@ -27,15 +27,15 @@ interface IntroContextProps {
 }
 const introContext = createContext<IntroContextProps | null>(null);
 
-const { Provider: LeatherIntroDialogProvider } = introContext;
+const { Provider: LeatherIntroSheetProvider } = introContext;
 
-export function useLeatherIntroDialogContext() {
+export function useLeatherIntroSheetContext() {
   const context = useContext(introContext);
-  if (!context) throw new Error('useLeatherIntroDialogContext must be used within a Provider');
+  if (!context) throw new Error('useLeatherIntroSheetContext must be used within a Provider');
   return context;
 }
 
-function LeatherIntroDialogContainer() {
+function LeatherIntroSheetContainer() {
   const navigate = useNavigate();
   async function onRevealNewName() {
     void analytics.track('new_brand_reveal_name');
@@ -54,10 +54,10 @@ function LeatherIntroDialogContainer() {
   }
 
   return (
-    <LeatherIntroDialogProvider value={{ onRevealNewName, onAcceptTerms, onRejectAndUninstall }}>
-      <LeatherIntroDialog>
+    <LeatherIntroSheetProvider value={{ onRevealNewName, onAcceptTerms, onRejectAndUninstall }}>
+      <LeatherIntroSheet>
         <Outlet />
-      </LeatherIntroDialog>
-    </LeatherIntroDialogProvider>
+      </LeatherIntroSheet>
+    </LeatherIntroSheetProvider>
   );
 }

@@ -27,7 +27,7 @@ export function StacksTxSubmitAction({ canSubmit }: Props) {
     const formErrors = await validateForm();
 
     if (context.isHighFeeWithNoFormErrors(formErrors, values.fee))
-      return context.setShowHighFeeWarningDialog(true);
+      return context.setShowHighFeeWarningSheet(true);
 
     handleSubmit();
   }

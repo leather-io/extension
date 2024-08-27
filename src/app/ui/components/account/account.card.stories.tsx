@@ -1,7 +1,13 @@
 import type { Meta } from '@storybook/react';
 import { Flex } from 'leather-styles/jsx';
 
-import { ArrowDownIcon, ArrowUpIcon, IconButton, PlusIcon, SwapIcon } from '@leather.io/ui';
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  ArrowsRepeatLeftRightIcon,
+  IconButton,
+  PlusIcon,
+} from '@leather.io/ui';
 
 import { AccountCard as Component } from './account.card';
 
@@ -27,7 +33,7 @@ export function AccountCard() {
         <IconButton icon={<ArrowUpIcon />} label="Send" />
         <IconButton icon={<ArrowDownIcon />} label="Receive" />
         <IconButton icon={<PlusIcon />} label="Buy" />
-        <IconButton icon={<SwapIcon />} label="Swap" />
+        <IconButton icon={<ArrowsRepeatLeftRightIcon />} label="Swap" />
       </Flex>
     </Component>
   );
@@ -47,7 +53,7 @@ export function AccountCardLoading() {
         <IconButton icon={<ArrowUpIcon />} label="Send" />
         <IconButton icon={<ArrowDownIcon />} label="Receive" />
         <IconButton icon={<PlusIcon />} label="Buy" />
-        <IconButton icon={<SwapIcon />} label="Swap" />
+        <IconButton icon={<ArrowsRepeatLeftRightIcon />} label="Swap" />
       </Flex>
     </Component>
   );
@@ -67,7 +73,7 @@ export function AccountCardBnsNameLoading() {
         <IconButton icon={<ArrowUpIcon />} label="Send" />
         <IconButton icon={<ArrowDownIcon />} label="Receive" />
         <IconButton icon={<PlusIcon />} label="Buy" />
-        <IconButton icon={<SwapIcon />} label="Swap" />
+        <IconButton icon={<ArrowsRepeatLeftRightIcon />} label="Swap" />
       </Flex>
     </Component>
   );

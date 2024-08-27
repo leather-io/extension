@@ -25,6 +25,6 @@ export enum SendCryptoAssetSelectors {
   SendPageReady = 'send-page-ready',
 
   // stx high fee warning dialog
-  HighFeeWarningDialog = 'high-fee-warning-dialog',
-  HighFeeWarningDialogSubmit = 'high-fee-warning-dialog-submit',
+  HighFeeWarningSheet = 'high-fee-warning-sheet',
+  HighFeeWarningSheetSubmit = 'high-fee-warning-sheet-submit',
 }

@@ -1,7 +1,7 @@
 import { Flex, Grid, HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
-import { RefreshIcon, Spinner } from '@leather.io/ui';
+import { ArrowRotateRightLeftIcon, Spinner } from '@leather.io/ui';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
 
@@ -31,7 +31,11 @@ export function CollectiblesLayout({
           {isLoading ? (
             <Spinner color={token('colors.ink.text-primary')} opacity={0.5} />
           ) : (
-            <RefreshIcon cursor="pointer" onClick={() => onRefresh()} variant="small" />
+            <ArrowRotateRightLeftIcon
+              cursor="pointer"
+              onClick={() => onRefresh()}
+              variant="small"
+            />
           )}
         </HStack>
         {subHeader}
