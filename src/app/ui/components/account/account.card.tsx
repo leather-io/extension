@@ -6,8 +6,8 @@ import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import {
   ChevronDownIcon,
-  EyeIcon,
-  EyeSlashIcon,
+  Eye1Icon,
+  Eye1ClosedIcon,
   Link,
   Pressable,
   SkeletonLoader,
@@ -79,7 +79,7 @@ export function AccountCard({
             data-testid={SharedComponentsSelectors.AccountCardToggleHideBalanceBtn}
             onClick={toggleHideBlance}
           >
-            {hideBalance ? <EyeSlashIcon variant="small" /> : <EyeIcon variant="small" />}
+            {hideBalance ? <Eye1ClosedIcon variant="small" /> : <Eye1Icon variant="small" />}
           </Pressable>
         </Box>
       </Flex>
