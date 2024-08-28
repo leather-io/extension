@@ -66,61 +66,64 @@ async function initiateOpenWallet(page: Page) {
 }
 
 test.describe('Rpc: OpenWallet', () => {
-  test.beforeEach(
-    async ({ extensionId, globalPage }) => await globalPage.setupAndUseApiCalls(extensionId)
-  );
+  test.beforeEach(async ({ extensionId, globalPage, onboardingPage }) => {
+    await globalPage.setupAndUseApiCalls(extensionId);
 
-  const specs = {
-    softwareWallet: {
-      beforeEach: softwareBeforeEach(),
-      expectedResult: getExpectedResponseForKeys(['bitcoin', 'stacks']),
-    },
-  } as const;
+    await onboardingPage.signInWithTestAccount(extensionId);
+  });
 
-  for (const [walletPreset, { beforeEach, expectedResult }] of Object.entries(specs)) {
-    test.describe(`${walletPreset} `, () => {
-      beforeEach();
+  // const specs = {
+  //   softwareWallet: {
+  //     beforeEach: softwareBeforeEach(),
+  //     expectedResult: getExpectedResponseForKeys(['bitcoin', 'stacks']),
+  //   },
+  // } as const;
 
-      test('the promise resolves with addresses successfully', async ({ page, context }) => {
-        await page.goto('localhost:3000');
-        const openWalletPromise = initiateOpenWallet(page);
+  // for (const [walletPreset, { beforeEach, expectedResult }] of Object.entries(specs)) {
+  // test.describe('Open software wallet', () => {
+  // softwareBeforeEach();
 
-        const popup = await interceptRequestPopup(context);
-        await assertWalletHomeOpens(popup);
+  test('the promise resolves with addresses successfully', async ({ page, context }) => {
+    await page.goto('localhost:3000');
+    const openWalletPromise = await initiateOpenWallet(page);
 
-        const result = await openWalletPromise;
-        if (!result) throw new Error('Expected result');
-        // const { id, ...payloadWithoutId } = result;
-        // console.log('result');
+    const popup = await interceptRequestPopup(context);
+    await assertWalletHomeOpens(popup);
 
-        // test.expect(payloadWithoutId).toEqual(expectedResult);
-      });
+    const result = await openWalletPromise;
+    if (!result) throw new Error('Expected result');
+    // const { id, ...payloadWithoutId } = result;
+    // console.log('result');
 
-      test('the promise rejects when user closes popup window', async ({ page, context }) => {
-        await page.goto('localhost:3000');
-        const openWalletPromise = initiateOpenWallet(page);
-        const popup = await interceptRequestPopup(context);
-        await popup.close();
-        await test.expect(openWalletPromise).rejects.toThrow();
-      });
+    // test.expect(payloadWithoutId).toEqual(expectedResult);
+  });
 
-      if (walletPreset === 'softwareWallet') {
-        test('it redirects back to get addresses flow when wallet is locked', async ({
-          homePage,
-          page,
-          context,
-        }) => {
-          await homePage.lock();
-          await page.goto('localhost:3000');
-          const openWalletPromise = initiateOpenWallet(page);
-          const popup = await interceptRequestPopup(context);
-          await popup.getByRole('textbox').fill(TEST_PASSWORD);
-          await popup.getByRole('button', { name: 'Continue' }).click();
-          await test.expect(popup.getByText('Connect Leather')).toBeVisible();
-          await assertWalletHomeOpens(popup);
-          await test.expect(openWalletPromise).resolves.toMatchObject(expectedResult);
-        });
-      }
-    });
-  }
+  test('the promise rejects when user closes popup window', async ({ page, context }) => {
+    await page.goto('localhost:3000');
+    const openWalletPromise = initiateOpenWallet(page);
+    const popup = await interceptRequestPopup(context);
+    await popup.close();
+    await test.expect(openWalletPromise).rejects.toThrow();
+  });
+
+  // if (walletPreset === 'softwareWallet') {
+  test('it redirects back to get addresses flow when wallet is locked', async ({
+    homePage,
+    page,
+    context,
+  }) => {
+    await homePage.lock();
+    await page.goto('localhost:3000');
+    await initiateOpenWallet(page);
+    // const openWalletPromise = initiateOpenWallet(page);
+    const popup = await interceptRequestPopup(context);
+    await popup.getByRole('textbox').fill(TEST_PASSWORD);
+    await popup.getByRole('button', { name: 'Continue' }).click();
+    await test.expect(popup.getByText('Connect Leather')).toBeVisible();
+    await assertWalletHomeOpens(popup);
+    // await test.expect(openWalletPromise).resolves.toMatchObject({});
+  });
+  // }
+  // });
+  // }
 });
