@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { styled } from 'leather-styles/jsx';
 
-import { Dialog, DialogHeader, Link } from '@leather.io/ui';
+import { Link, Sheet, SheetHeader } from '@leather.io/ui';
 
 import { UnsupportedBrowserImg } from '@app/features/ledger/illustrations/ledger-illu-unsupported-browser';
 
@@ -13,7 +13,7 @@ export function UnsupportedBrowserLayout() {
   const navigate = useNavigate();
 
   return (
-    <Dialog header={<DialogHeader />} isShowing onClose={() => navigate(-1)}>
+    <Sheet header={<SheetHeader />} isShowing onClose={() => navigate(-1)}>
       <LedgerWrapper image={<UnsupportedBrowserImg />}>
         <LedgerTitle mb="space.03">Your browser isn't supported</LedgerTitle>
         <styled.span textStyle="label.03" color="ink.text-subdued">
@@ -28,6 +28,6 @@ export function UnsupportedBrowserLayout() {
           .
         </styled.span>
       </LedgerWrapper>
-    </Dialog>
+    </Sheet>
   );
 }

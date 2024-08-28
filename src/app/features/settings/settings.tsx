@@ -6,19 +6,19 @@ import { css } from 'leather-styles/css';
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 
 import {
+  ArrowsRepeatLeftRightIcon,
   Caption,
   DropdownMenu,
   ExitIcon,
   ExpandIcon,
   ExternalLinkIcon,
   Flag,
+  GlobeTiltedIcon,
   KeyIcon,
   LockIcon,
   MegaphoneIcon,
   SunInCloudIcon,
   SupportIcon,
-  SwapIcon,
-  WorldIcon,
 } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -32,13 +32,13 @@ import { truncateString } from '@app/common/utils';
 import { openInNewTab, openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { AppVersion } from '@app/components/app-version';
 import { Divider } from '@app/components/layout/divider';
-import { NetworkDialog } from '@app/features/settings/network/network';
+import { NetworkSheet } from '@app/features/settings/network/network';
 import { SignOut } from '@app/features/settings/sign-out/sign-out-confirm';
-import { ThemeDialog } from '@app/features/settings/theme/theme-dialog';
+import { ThemeSheet } from '@app/features/settings/theme/theme-dialog';
 import { useLedgerDeviceTargetId } from '@app/store/ledger/ledger.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
 
-import { openFeedbackDialog } from '../feedback-button/feedback-button';
+import { openFeedbackSheet } from '../feedback-button/feedback-button';
 import { extractDeviceNameFromKnownTargetIds } from '../ledger/utils/generic-ledger-utils';
 import { AdvancedMenuItems } from './components/advanced-menu-items';
 import { LedgerDeviceItemRow } from './components/ledger-item-row';
@@ -130,7 +130,7 @@ export function Settings({
                   data-testid={SettingsSelectors.SwitchAccountTrigger}
                   onSelect={toggleSwitchAccount}
                 >
-                  <Flag img={<SwapIcon />} textStyle="label.02">
+                  <Flag img={<ArrowsRepeatLeftRightIcon />} textStyle="label.02">
                     Switch account
                   </Flag>
                 </DropdownMenu.Item>
@@ -166,7 +166,7 @@ export function Settings({
                   setShowChangeNetwork(!showChangeNetwork);
                 }}
               >
-                <Flag img={<WorldIcon />}>
+                <Flag img={<GlobeTiltedIcon />}>
                   <Stack gap="space.00">
                     <styled.span textStyle="label.02">Change network</styled.span>
                     <Caption data-testid={SettingsSelectors.CurrentNetwork}>
@@ -205,7 +205,7 @@ export function Settings({
                   </Flex>
                 </Flag>
               </DropdownMenu.Item>
-              <DropdownMenu.Item onSelect={() => openFeedbackDialog()}>
+              <DropdownMenu.Item onSelect={() => openFeedbackSheet()}>
                 <Flag img={<MegaphoneIcon />} textStyle="label.02">
                   Give feedback
                 </Flag>
@@ -224,9 +224,9 @@ export function Settings({
         </DropdownMenu.Portal>
       </DropdownMenu.Root>
       {showSignOut && <SignOut onClose={() => setShowSignOut(!showSignOut)} />}
-      {showChangeTheme && <ThemeDialog onClose={() => setShowChangeTheme(!showChangeTheme)} />}
+      {showChangeTheme && <ThemeSheet onClose={() => setShowChangeTheme(!showChangeTheme)} />}
       {showChangeNetwork && (
-        <NetworkDialog onClose={() => setShowChangeNetwork(!showChangeNetwork)} />
+        <NetworkSheet onClose={() => setShowChangeNetwork(!showChangeNetwork)} />
       )}
     </>
   );

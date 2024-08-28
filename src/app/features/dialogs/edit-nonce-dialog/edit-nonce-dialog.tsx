@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useFormikContext } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
 
-import { Dialog, DialogHeader, Link } from '@leather.io/ui';
+import { Link, Sheet, SheetHeader } from '@leather.io/ui';
 
 import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 
@@ -15,7 +15,7 @@ import { EditNonceForm } from './components/edit-nonce-form';
 
 const url = 'https://leather.gitbook.io/guides/transactions/nonces';
 
-export function EditNonceDialog() {
+export function EditNonceSheet() {
   const { errors, setFieldError, setFieldValue, validateField, values } = useFormikContext<
     StacksSendFormValues | StacksTransactionFormValues
   >();
@@ -47,7 +47,7 @@ export function EditNonceDialog() {
   }, [loadedNextNonce, onGoBack, setFieldError, setFieldValue, values.nonce]);
 
   return (
-    <Dialog isShowing onClose={onClose} header={<DialogHeader title="Edit nonce" />}>
+    <Sheet isShowing onClose={onClose} header={<SheetHeader title="Edit nonce" />}>
       <Stack gap="space.05" pb="space.06" px="space.05">
         <styled.span textStyle="caption.01">
           If your transaction has been pending for a long time, its nonce might not be correct.
@@ -57,6 +57,6 @@ export function EditNonceDialog() {
         </styled.span>
         <EditNonceForm onBlur={onBlur} onClose={onClose} onSubmit={onSubmit} />
       </Stack>
-    </Dialog>
+    </Sheet>
   );
 }

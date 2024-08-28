@@ -189,10 +189,21 @@ export const config = {
         test: /\.svg$/,
         use: [
           {
-            loader: 'svg-url-loader',
+            loader: "@svgr/webpack",
             options: {
-              limit: 10000,
-            },
+              svgoConfig: {
+                plugins: [
+                  {
+                    name: 'preset-default',
+                    params: {
+                      overrides: {
+                        removeViewBox: false
+                      },
+                    },
+                  },
+                ]
+              }
+            }
           },
         ],
       },

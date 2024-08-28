@@ -4,7 +4,7 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { Dialog, DialogHeader, Tabs } from '@leather.io/ui';
+import { Sheet, SheetHeader, Tabs } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
@@ -18,7 +18,7 @@ import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/s
 import { ReceiveCollectibles } from './components/receive-collectibles';
 import { ReceiveTokens } from './components/receive-tokens';
 
-type ReceiveDialog = 'full' | 'collectible';
+type ReceiveSheet = 'full' | 'collectible';
 
 export const receiveTabStyle = {
   mt: 'space.03',
@@ -27,11 +27,11 @@ export const receiveTabStyle = {
   minHeight: '260px',
 };
 
-interface ReceiveDialogProps {
+interface ReceiveSheetProps {
   type?: 'full' | 'collectible';
 }
 
-export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
+export function ReceiveSheet({ type = 'full' }: ReceiveSheetProps) {
   useBackgroundLocationRedirect();
 
   const backgroundLocation = useLocationState<Location>('backgroundLocation');
@@ -83,9 +83,9 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
   }
 
   return (
-    <Dialog
+    <Sheet
       header={
-        <DialogHeader
+        <SheetHeader
           variant="large"
           title={title}
           onClose={() => navigate(backgroundLocation ?? '..')}
@@ -133,6 +133,6 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
           </Tabs.Content>
         </Tabs.Root>
       )}
-    </Dialog>
+    </Sheet>
   );
 }

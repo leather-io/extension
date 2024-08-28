@@ -1,4 +1,4 @@
-import { Flex } from 'leather-styles/jsx';
+import { Box, Flex } from 'leather-styles/jsx';
 
 import { Button, MegaphoneIcon } from '@leather.io/ui';
 
@@ -6,7 +6,7 @@ import { analytics, sentryFeedback } from '@shared/utils/analytics';
 
 import { useThemeSwitcher } from '@app/common/theme-provider';
 
-export async function openFeedbackDialog() {
+export async function openFeedbackSheet() {
   void analytics.track('user_clicked_feedback_button');
   const form = await sentryFeedback.createForm();
   if (!form) return null;
@@ -39,10 +39,12 @@ export function FeedbackButton() {
           : undefined
       }
       zIndex={9}
-      onClick={openFeedbackDialog}
+      onClick={openFeedbackSheet}
     >
       <Flex>
-        <MegaphoneIcon mr="space.01" mt="2px" variant="small" />
+        <Box mr="space.01" mt="2px">
+          <MegaphoneIcon variant="small" />
+        </Box>
         Give feedback
       </Flex>
     </Button>

@@ -2,7 +2,6 @@ import { Stack } from 'leather-styles/jsx';
 
 import { BtcAvatarIcon, StxAvatarIcon } from '@leather.io/ui';
 
-import { useWalletType } from '@app/common/use-wallet-type';
 import {
   BitcoinNativeSegwitAccountLoader,
   BitcoinTaprootAccountLoader,
@@ -35,7 +34,6 @@ interface AssetListProps {
   variant?: AssetListVariant;
 }
 export function AssetList({ onSelectAsset, variant = 'read-only' }: AssetListProps) {
-  const { whenWallet } = useWalletType();
   const currentAccount = useCurrentStacksAccount();
   const isLedger = useHasLedgerKeys();
 
@@ -117,14 +115,11 @@ export function AssetList({ onSelectAsset, variant = 'read-only' }: AssetListPro
           <BitcoinTaprootAccountLoader current>
             {taprootAccount => (
               <>
-                {whenWallet({
-                  software: (
-                    <Brc20TokensLoader>
-                      {tokens => <Brc20TokenAssetList tokens={tokens} variant={variant} />}
-                    </Brc20TokensLoader>
-                  ),
-                  ledger: null,
-                })}
+                {isReadOnly && (
+                  <Brc20TokensLoader>
+                    {tokens => <Brc20TokenAssetList tokens={tokens} variant={variant} />}
+                  </Brc20TokensLoader>
+                )}
                 {isReadOnly && (
                   <>
                     <Src20TokensLoader address={nativeSegwitAccount.address}>

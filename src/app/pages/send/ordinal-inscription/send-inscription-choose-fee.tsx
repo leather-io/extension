@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import type { BtcFeeType } from '@leather.io/models';
-import { Dialog, DialogHeader } from '@leather.io/ui';
+import { Sheet, SheetHeader } from '@leather.io/ui';
 import { createMoney } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -60,8 +60,8 @@ export function SendInscriptionChooseFee() {
 
   return (
     <>
-      <Dialog
-        header={<DialogHeader title="Choose fee" />}
+      <Sheet
+        header={<SheetHeader title="Choose fee" />}
         isShowing
         onGoBack={() => navigate(RouteUrls.Home)}
         onClose={() => navigate(RouteUrls.Home)}
@@ -89,7 +89,7 @@ export function SendInscriptionChooseFee() {
           showError={showInsufficientBalanceError}
           maxRecommendedFeeRate={feesList[0]?.feeRate}
         />
-      </Dialog>
+      </Sheet>
       <Outlet />
     </>
   );

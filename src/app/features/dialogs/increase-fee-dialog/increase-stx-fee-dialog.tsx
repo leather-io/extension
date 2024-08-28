@@ -12,7 +12,7 @@ import {
   useStacksRawTransaction,
   useStxAvailableUnlockedBalance,
 } from '@leather.io/query';
-import { Caption, Dialog, DialogHeader, Spinner } from '@leather.io/ui';
+import { Caption, Sheet, SheetHeader, Spinner } from '@leather.io/ui';
 import { microStxToStx, stxToMicroStx } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -31,7 +31,7 @@ import { useSubmittedTransactionsActions } from '@app/store/submitted-transactio
 import { IncreaseFeeActions } from './components/increase-fee-actions';
 import { IncreaseFeeField } from './components/increase-fee-field';
 
-export function IncreaseStxFeeDialog() {
+export function IncreaseStxFeeSheet() {
   const navigate = useNavigate();
   const location = useLocation();
   const { txid } = useParams();
@@ -83,10 +83,10 @@ export function IncreaseStxFeeDialog() {
       >
         {props => (
           <>
-            <Dialog
+            <Sheet
               isShowing={location.pathname === RouteUrls.IncreaseStxFee.replace(':txid', txid)}
               onClose={() => navigate(RouteUrls.Home)}
-              header={<DialogHeader title="Increase fee" />}
+              header={<SheetHeader title="Increase fee" />}
               footer={
                 <IncreaseFeeActions
                   isDisabled={stxToMicroStx(props.values.fee).isEqualTo(fee)}
@@ -124,7 +124,7 @@ export function IncreaseStxFeeDialog() {
                   </Stack>
                 </Suspense>
               </Stack>
-            </Dialog>
+            </Sheet>
             <Outlet />
           </>
         )}

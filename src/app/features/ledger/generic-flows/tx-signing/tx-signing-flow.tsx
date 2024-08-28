@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-import { Dialog, DialogHeader } from '@leather.io/ui';
+import { Sheet, SheetHeader } from '@leather.io/ui';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 
@@ -14,9 +14,9 @@ export function TxSigningFlow({ context, closeAction }: TxSigningFlowProps) {
   useScrollLock(true);
   return (
     <LedgerTxSigningProvider value={context}>
-      <Dialog isShowing header={<DialogHeader />} onClose={closeAction}>
+      <Sheet isShowing header={<SheetHeader />} onClose={closeAction}>
         <Outlet />
-      </Dialog>
+      </Sheet>
     </LedgerTxSigningProvider>
   );
 }

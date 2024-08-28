@@ -4,7 +4,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 
-import { SignOutDialog } from './sign-out';
+import { SignOutSheet } from './sign-out';
 
 interface SignOutProps {
   onClose(): void;
@@ -15,7 +15,7 @@ export function SignOut({ onClose }: SignOutProps) {
   const navigate = useNavigate();
 
   return (
-    <SignOutDialog
+    <SignOutSheet
       isShowing
       onUserDeleteWallet={() => {
         void signOut().finally(() => {

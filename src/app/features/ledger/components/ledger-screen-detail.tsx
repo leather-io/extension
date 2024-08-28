@@ -1,4 +1,4 @@
-import { Flex, styled } from 'leather-styles/jsx';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { Caption, InfoCircleIcon } from '@leather.io/ui';
 
@@ -19,12 +19,9 @@ export function LedgerScreenDetail(props: LedgerScreenDetailProps) {
           <BasicTooltip label={tooltipLabel} side="top">
             <Flex cursor="question" display="inline-flex">
               {title}
-              <InfoCircleIcon
-                color="ink.text-subdued"
-                ml="space.01"
-                mt="space.01"
-                variant="small"
-              />
+              <Box ml="space.01" mt="space.01">
+                <InfoCircleIcon color="ink.text-subdued" variant="small" />
+              </Box>
             </Flex>
           </BasicTooltip>
         ) : (

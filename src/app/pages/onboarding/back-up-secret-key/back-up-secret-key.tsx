@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { EyeSlashIcon, KeyIcon, LockIcon } from '@leather.io/ui';
+import { Eye1ClosedIcon, KeyIcon, LockIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -43,7 +43,7 @@ export const BackUpSecretKeyPage = memo(() => {
                 </styled.span>
               </HStack>
               <HStack alignItems="center">
-                <EyeSlashIcon />
+                <Eye1ClosedIcon />
                 <styled.span textStyle="caption.01">
                   Never share your <br /> Secret Key with anyone
                 </styled.span>

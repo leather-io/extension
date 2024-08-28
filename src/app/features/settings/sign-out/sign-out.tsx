@@ -2,17 +2,17 @@ import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { useFormik } from 'formik';
 import { Flex, HStack, styled } from 'leather-styles/jsx';
 
-import { Button, Callout, Dialog, DialogHeader } from '@leather.io/ui';
+import { Button, Callout, Sheet, SheetHeader } from '@leather.io/ui';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { ButtonRow } from '@app/components/layout';
 
-interface SignOutDialogProps {
+interface SignOutSheetProps {
   isShowing: boolean;
   onUserDeleteWallet(): void;
   onClose(): void;
 }
-export function SignOutDialog({ isShowing, onUserDeleteWallet, onClose }: SignOutDialogProps) {
+export function SignOutSheet({ isShowing, onUserDeleteWallet, onClose }: SignOutSheetProps) {
   const { whenWallet, walletType } = useWalletType();
   const form = useFormik({
     initialValues: {
@@ -34,8 +34,8 @@ export function SignOutDialog({ isShowing, onUserDeleteWallet, onClose }: SignOu
   }
 
   return (
-    <Dialog
-      header={<DialogHeader title="Sign out" />}
+    <Sheet
+      header={<SheetHeader title="Sign out" />}
       isShowing={isShowing}
       onClose={onClose}
       footer={
@@ -106,6 +106,6 @@ export function SignOutDialog({ isShowing, onUserDeleteWallet, onClose }: SignOu
           </styled.label>
         </form>
       </Flex>
-    </Dialog>
+    </Sheet>
   );
 }

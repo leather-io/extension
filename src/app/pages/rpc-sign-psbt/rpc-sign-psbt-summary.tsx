@@ -44,7 +44,7 @@ export function RpcSignPsbtSummary() {
         <InfoCardAssetValue
           fiatSymbol={txFiatValueSymbol}
           fiatValue={txFiatValue}
-          icon={<CheckmarkIcon width="lg" />}
+          icon={<CheckmarkIcon height={36} width={36} />}
           mb="space.05"
           value={txValue}
         />

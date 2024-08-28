@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
+import { EditNonceSheet } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerStacksMessageSigningRoutes } from '@app/features/ledger/flows/stacks-message-signing/ledger-stacks-sign-msg.routes';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
@@ -79,7 +79,7 @@ export const rpcRequestRoutes = (
       }
     >
       {ledgerStacksTxSigningRoutes}
-      <Route path={RouteUrls.EditNonce} element={<EditNonceDialog />} />
+      <Route path={RouteUrls.EditNonce} element={<EditNonceSheet />} />
     </Route>
   </>
 );

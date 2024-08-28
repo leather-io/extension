@@ -9,8 +9,8 @@ import { isEmpty } from '@leather.io/utils';
 import type { HasChildren } from '@app/common/has-children';
 
 interface StacksHighFeeWarningContext {
-  showHighFeeWarningDialog: boolean;
-  setShowHighFeeWarningDialog(val: boolean): void;
+  showHighFeeWarningSheet: boolean;
+  setShowHighFeeWarningSheet(val: boolean): void;
   hasBypassedFeeWarning: boolean;
   setHasBypassedFeeWarning(val: boolean): void;
   isHighFeeWithNoFormErrors(errors: FormikErrors<unknown>, fee: number | string): boolean;
@@ -27,7 +27,7 @@ export function useStacksHighFeeWarningContext() {
 const StacksHighFeeWarningProvider = stacksHighFeeWarningContext.Provider;
 
 export function StacksHighFeeWarningContainer({ children }: HasChildren) {
-  const [showHighFeeWarningDialog, setShowHighFeeWarningDialog] = useState(false);
+  const [showHighFeeWarningSheet, setShowHighFeeWarningSheet] = useState(false);
   const [hasBypassedFeeWarning, setHasBypassedFeeWarning] = useState(false);
 
   function isHighFeeWithNoFormErrors(errors: FormikErrors<unknown>, fee: number | string) {
@@ -38,8 +38,8 @@ export function StacksHighFeeWarningContainer({ children }: HasChildren) {
   return (
     <StacksHighFeeWarningProvider
       value={{
-        showHighFeeWarningDialog,
-        setShowHighFeeWarningDialog,
+        showHighFeeWarningSheet,
+        setShowHighFeeWarningSheet,
         hasBypassedFeeWarning,
         setHasBypassedFeeWarning,
         isHighFeeWithNoFormErrors,

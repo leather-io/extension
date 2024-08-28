@@ -14,7 +14,7 @@ import { analytics } from '@shared/utils/analytics';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { stacksValue } from '@app/common/stacks-utils';
-import { SwitchAccountDialog } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
+import { SwitchAccountSheet } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
 import { ErrorMessage } from '@app/features/stacks-transaction-request/transaction-error/error-message';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
@@ -34,7 +34,7 @@ function InsufficientFundsActionButtons({ eventName }: InsufficientFundsActionBu
 
   return (
     <>
-      <SwitchAccountDialog
+      <SwitchAccountSheet
         isShowing={isShowingSwitchAccount}
         onClose={() => setIsShowingSwitchAccount(false)}
       />

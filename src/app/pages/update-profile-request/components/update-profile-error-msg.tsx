@@ -1,6 +1,6 @@
 import { HStack } from 'leather-styles/jsx';
 
-import { Caption, ErrorIcon } from '@leather.io/ui';
+import { Caption, ErrorTriangleIcon } from '@leather.io/ui';
 
 interface ErrorMessageProps {
   errorMessage: string;
@@ -11,7 +11,7 @@ export function ErrorMessage(props: ErrorMessageProps) {
 
   return (
     <HStack alignItems="center" bg="#FCEEED" p="space.04" borderRadius="md">
-      <ErrorIcon />
+      <ErrorTriangleIcon />
       <Caption color="red.action-primary-default">{errorMessage}</Caption>
     </HStack>
   );
