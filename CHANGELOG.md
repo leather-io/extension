@@ -1,3 +1,27 @@
+## [6.47.0](https://github.com/leather-io/extension/compare/v6.46.0...v6.47.0) (2024-08-28)
+
+
+### Features
+
+* add link and unlink mono script ([29f2174](https://github.com/leather-io/extension/commit/29f21741fa526358c5533caf4c0532559122f8f4))
+* add mono link ui script ([717737c](https://github.com/leather-io/extension/commit/717737caa2d6d99d043f9d961af901a35a2be055))
+* mock hiro ft requests ([6987609](https://github.com/leather-io/extension/commit/69876097a566263a25feecadfef24511b3ace0d4))
+* mock nfts and txs hiro requests ([318378d](https://github.com/leather-io/extension/commit/318378d5ad0b3e2d6581517da6760de8e653d228))
+
+
+### Bug Fixes
+
+* disable brc-20 sends, ref leather-io/issues[#5773](https://github.com/leather-io/extension/issues/5773) ([aafd992](https://github.com/leather-io/extension/commit/aafd99216fd161321a35be33c52d50ca8a17768e))
+* rename dialog as sheet, closes ref leather-io/issues[#268](https://github.com/leather-io/extension/issues/268) ([ec64755](https://github.com/leather-io/extension/commit/ec64755288ae61b256bfc0f8d3988511d51c3d17))
+
+
+### Internal
+
+* add open API, ref leather-io/issues[#5800](https://github.com/leather-io/extension/issues/5800) ([3df62f7](https://github.com/leather-io/extension/commit/3df62f72659b172dadef1c0dd89189f285326b3b))
+* icons using ui lib svgs, closes leather-io/issues[#123](https://github.com/leather-io/extension/issues/123) ([3e8314e](https://github.com/leather-io/extension/commit/3e8314ea8bfc4b7ce4b2550b23531b42fe3a0f36))
+* post-release merge back ([56d021b](https://github.com/leather-io/extension/commit/56d021bbca81ffbc8bfc0156a609a82f07d1ad0d))
+* show BRC-20 tokens on ledger, ref [#5797](https://github.com/leather-io/extension/issues/5797) ([bcc40f7](https://github.com/leather-io/extension/commit/bcc40f775338c1c3d7378da1fd7d3ac4cf8ef4f4))
+
 ## [6.46.0](https://github.com/leather-io/extension/compare/v6.45.2...v6.46.0) (2024-08-26)
 
 
