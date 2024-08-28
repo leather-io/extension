@@ -14,7 +14,7 @@ export function rpcSupportedMethods(message: SupportedMethodsRequest, port: chro
         methods: [
           {
             name: 'open',
-            docsUrl: ['https://leather.gitbook.io/developers/bitcoin/connect-users/open-wallet'],
+            docsUrl: ['https://leather.gitbook.io/developers/bitcoin/connect-users/open'],
           },
           {
             name: 'getAddresses',
