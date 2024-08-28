@@ -127,7 +127,23 @@
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -195,7 +211,15 @@
 import { useFormikContext } from 'formik';
 import { HStack, Stack } from 'leather-styles/jsx';
 &nbsp;
-import { Button, Caption, Dialog, DialogHeader, ErrorIcon, Link, Title } from '@leather.io/ui';
+import {
+  Button,
+  Caption,
+  ErrorTriangleIcon,
+  Link,
+  Sheet,
+  SheetHeader,
+  Title,
+} from '@leather.io/ui';
 &nbsp;
 import { StacksSendFormValues } from '@shared/models/form.model';
 &nbsp;
@@ -204,23 +228,23 @@ import { ButtonRow } from '@app/components/layout';
 &nbsp;
 import { useStacksHighFeeWarningContext } from './stacks-high-fee-warning-container';
 &nbsp;
-interface HighFeeDialogProps {
+interface HighFeeSheetProps {
   learnMoreUrl: string;
 }
-export function <span class="fstat-no" title="function not covered" >HighFeeDialog({</span> learnMoreUrl }: HighFeeDialogProps) {
+export function <span class="fstat-no" title="function not covered" >HighFeeSheet({</span> learnMoreUrl }: HighFeeSheetProps) {
   const { handleSubmit, values } = <span class="cstat-no" title="statement not covered" >useFormikContext&lt;StacksSendFormValues&gt;();</span>
-  const { showHighFeeWarningDialog, setHasBypassedFeeWarning, setShowHighFeeWarningDialog } =
+  const { showHighFeeWarningSheet, setHasBypassedFeeWarning, setShowHighFeeWarningSheet } =
 <span class="cstat-no" title="statement not covered" >    useStacksHighFeeWarningContext();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Dialog
-      data-testid={SendCryptoAssetSelectors.HighFeeWarningDialog}
-      header={&lt;DialogHeader /&gt;}
-      isShowing={showHighFeeWarningDialog}
-      onClose={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etShowHighFeeWarningDialog(false)}</span>
+    &lt;Sheet
+      data-testid={SendCryptoAssetSelectors.HighFeeWarningSheet}
+      header={&lt;SheetHeader /&gt;}
+      isShowing={showHighFeeWarningSheet}
+      onClose={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etShowHighFeeWarningSheet(false)}</span>
       footer={
         &lt;ButtonRow flexDirection="row"&gt;
-          &lt;Button onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etShowHighFeeWarningDialog(false)} v</span>ariant="outline" flexGrow={1}&gt;
+          &lt;Button onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etShowHighFeeWarningSheet(false)} v</span>ariant="outline" flexGrow={1}&gt;
             Edit fee
           &lt;/Button&gt;
           &lt;Button
@@ -228,7 +252,7 @@ export function <span class="fstat-no" title="function not covered" >HighFeeDial
 <span class="cstat-no" title="statement not covered" >              setHasBypassedFeeWarning(true);</span>
 <span class="cstat-no" title="statement not covered" >              handleSubmit();</span>
             }}
-            data-testid={SendCryptoAssetSelectors.HighFeeWarningDialogSubmit}
+            data-testid={SendCryptoAssetSelectors.HighFeeWarningSheetSubmit}
             type="submit"
             flexGrow={1}
           &gt;
@@ -239,7 +263,7 @@ export function <span class="fstat-no" title="function not covered" >HighFeeDial
     &gt;
       &lt;Stack px="space.05" gap="space.05" pb="space.06"&gt;
         &lt;HStack&gt;
-          &lt;ErrorIcon color="red.action-primary-default" width="md" /&gt;
+          &lt;ErrorTriangleIcon color="red.action-primary-default" /&gt;
           &lt;Title&gt;
             Are you sure you want to pay {values.fee} {values.feeCurrency} in fees for this
             transaction?
@@ -252,7 +276,7 @@ export function <span class="fstat-no" title="function not covered" >HighFeeDial
           &lt;/Link&gt;
         &lt;/Caption&gt;
       &lt;/Stack&gt;
-    &lt;/Dialog&gt;
+    &lt;/Sheet&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -262,7 +286,7 @@ export function <span class="fstat-no" title="function not covered" >HighFeeDial
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-26T06:31:36.157Z
+                at 2024-08-28T14:54:00.811Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

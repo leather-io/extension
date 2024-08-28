@@ -537,19 +537,19 @@ import { css } from 'leather-styles/css';
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 &nbsp;
 import {
+  ArrowsRepeatLeftRightIcon,
   Caption,
   DropdownMenu,
   ExitIcon,
   ExpandIcon,
   ExternalLinkIcon,
   Flag,
+  GlobeTiltedIcon,
   KeyIcon,
   LockIcon,
   MegaphoneIcon,
   SunInCloudIcon,
   SupportIcon,
-  SwapIcon,
-  WorldIcon,
 } from '@leather.io/ui';
 &nbsp;
 import { RouteUrls } from '@shared/route-urls';
@@ -563,13 +563,13 @@ import { truncateString } from '@app/common/utils';
 import { openInNewTab, openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { AppVersion } from '@app/components/app-version';
 import { Divider } from '@app/components/layout/divider';
-import { NetworkDialog } from '@app/features/settings/network/network';
+import { NetworkSheet } from '@app/features/settings/network/network';
 import { SignOut } from '@app/features/settings/sign-out/sign-out-confirm';
-import { ThemeDialog } from '@app/features/settings/theme/theme-dialog';
+import { ThemeSheet } from '@app/features/settings/theme/theme-dialog';
 import { useLedgerDeviceTargetId } from '@app/store/ledger/ledger.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
 &nbsp;
-import { openFeedbackDialog } from '../feedback-button/feedback-button';
+import { openFeedbackSheet } from '../feedback-button/feedback-button';
 import { extractDeviceNameFromKnownTargetIds } from '../ledger/utils/generic-ledger-utils';
 import { AdvancedMenuItems } from './components/advanced-menu-items';
 import { LedgerDeviceItemRow } from './components/ledger-item-row';
@@ -661,7 +661,7 @@ export function <span class="fstat-no" title="function not covered" >Settings({<
                   data-testid={SettingsSelectors.SwitchAccountTrigger}
                   onSelect={toggleSwitchAccount}
                 &gt;
-                  &lt;Flag img={&lt;SwapIcon /&gt;} textStyle="label.02"&gt;
+                  &lt;Flag img={&lt;ArrowsRepeatLeftRightIcon /&gt;} textStyle="label.02"&gt;
                     Switch account
                   &lt;/Flag&gt;
                 &lt;/DropdownMenu.Item&gt;
@@ -697,7 +697,7 @@ export function <span class="fstat-no" title="function not covered" >Settings({<
 <span class="cstat-no" title="statement not covered" >                  setShowChangeNetwork(!showChangeNetwork);</span>
                 }}
               &gt;
-                &lt;Flag img={&lt;WorldIcon /&gt;}&gt;
+                &lt;Flag img={&lt;GlobeTiltedIcon /&gt;}&gt;
                   &lt;Stack gap="space.00"&gt;
                     &lt;styled.span textStyle="label.02"&gt;Change network&lt;/styled.span&gt;
                     &lt;Caption data-testid={SettingsSelectors.CurrentNetwork}&gt;
@@ -736,7 +736,7 @@ export function <span class="fstat-no" title="function not covered" >Settings({<
                   &lt;/Flex&gt;
                 &lt;/Flag&gt;
               &lt;/DropdownMenu.Item&gt;
-              &lt;DropdownMenu.Item onSelect={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penFeedbackDialog()}&gt;</span>
+              &lt;DropdownMenu.Item onSelect={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penFeedbackSheet()}&gt;</span>
                 &lt;Flag img={&lt;MegaphoneIcon /&gt;} textStyle="label.02"&gt;
                   Give feedback
                 &lt;/Flag&gt;
@@ -755,9 +755,9 @@ export function <span class="fstat-no" title="function not covered" >Settings({<
         &lt;/DropdownMenu.Portal&gt;
       &lt;/DropdownMenu.Root&gt;
       {showSignOut &amp;&amp; &lt;SignOut onClose={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etShowSignOut(!showSignOut)} /</span>&gt;}
-      {showChangeTheme &amp;&amp; &lt;ThemeDialog onClose={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etShowChangeTheme(!showChangeTheme)} /</span>&gt;}
+      {showChangeTheme &amp;&amp; &lt;ThemeSheet onClose={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etShowChangeTheme(!showChangeTheme)} /</span>&gt;}
       {showChangeNetwork &amp;&amp; (
-        &lt;NetworkDialog onClose={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etShowChangeNetwork(!showChangeNetwork)} /</span>&gt;
+        &lt;NetworkSheet onClose={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etShowChangeNetwork(!showChangeNetwork)} /</span>&gt;
       )}
     &lt;/&gt;
   );
@@ -769,7 +769,7 @@ export function <span class="fstat-no" title="function not covered" >Settings({<
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-26T06:31:36.157Z
+                at 2024-08-28T14:54:00.811Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

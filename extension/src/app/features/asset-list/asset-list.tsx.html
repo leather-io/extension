@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -215,12 +215,7 @@
 <a name='L150'></a><a href='#L150'>150</a>
 <a name='L151'></a><a href='#L151'>151</a>
 <a name='L152'></a><a href='#L152'>152</a>
-<a name='L153'></a><a href='#L153'>153</a>
-<a name='L154'></a><a href='#L154'>154</a>
-<a name='L155'></a><a href='#L155'>155</a>
-<a name='L156'></a><a href='#L156'>156</a>
-<a name='L157'></a><a href='#L157'>157</a>
-<a name='L158'></a><a href='#L158'>158</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L153'></a><a href='#L153'>153</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -256,8 +251,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -341,10 +334,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -381,7 +371,6 @@
 &nbsp;
 import { BtcAvatarIcon, StxAvatarIcon } from '@leather.io/ui';
 &nbsp;
-import { useWalletType } from '@app/common/use-wallet-type';
 import {
   BitcoinNativeSegwitAccountLoader,
   BitcoinTaprootAccountLoader,
@@ -414,7 +403,6 @@ interface AssetListProps {
   variant?: AssetListVariant;
 }
 export function <span class="fstat-no" title="function not covered" >AssetList({</span> onSelectAsset, variant = <span class="branch-0 cbranch-no" title="branch not covered" >'read-only' }</span>: AssetListProps) {
-  const { whenWallet } = <span class="cstat-no" title="statement not covered" >useWalletType();</span>
   const currentAccount = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccount();</span>
   const isLedger = <span class="cstat-no" title="statement not covered" >useHasLedgerKeys();</span>
 &nbsp;
@@ -496,14 +484,11 @@ export function <span class="fstat-no" title="function not covered" >AssetList({
 <span class="cstat-no" title="statement not covered" >          &lt;BitcoinTaprootAccountLoader current&gt;</span>
             {<span class="fstat-no" title="function not covered" >taprootAccount =&gt; (</span>
 <span class="cstat-no" title="statement not covered" >              &lt;&gt;</span>
-                {whenWallet({
-                  software: (
-                    &lt;Brc20TokensLoader&gt;
-                      {<span class="fstat-no" title="function not covered" >tokens =&gt; <span class="cstat-no" title="statement not covered" >&lt;</span>Brc20TokenAssetList tokens={tokens} variant={variant} /&gt;}</span>
-                    &lt;/Brc20TokensLoader&gt;
-                  ),
-                  ledger: null,
-                })}
+                {isReadOnly &amp;&amp; (
+                  &lt;Brc20TokensLoader&gt;
+                    {<span class="fstat-no" title="function not covered" >tokens =&gt; <span class="cstat-no" title="statement not covered" >&lt;</span>Brc20TokenAssetList tokens={tokens} variant={variant} /&gt;}</span>
+                  &lt;/Brc20TokensLoader&gt;
+                )}
                 {isReadOnly &amp;&amp; (
                   &lt;&gt;
                     &lt;Src20TokensLoader address={nativeSegwitAccount.address}&gt;
@@ -541,7 +526,7 @@ export function <span class="fstat-no" title="function not covered" >AssetList({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-26T06:31:36.157Z
+                at 2024-08-28T14:54:00.811Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
