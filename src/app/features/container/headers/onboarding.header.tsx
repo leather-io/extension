@@ -24,8 +24,7 @@ export function OnboardingHeader({ hideLogo = false }: OnboardingHeaderProps) {
   const navigate = useNavigate();
 
   return (
-    <>
-      <Header paddingLeft={{ base: undefined, sm: 0 }}>
+      <Header px='space.05'>
         <HeaderGrid
           leftCol={
             <>
@@ -47,6 +46,5 @@ export function OnboardingHeader({ hideLogo = false }: OnboardingHeaderProps) {
           }
         />
       </Header>
-    </>
   );
 }
