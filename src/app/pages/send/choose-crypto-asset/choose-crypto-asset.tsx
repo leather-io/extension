@@ -23,7 +23,14 @@ export function ChooseCryptoAsset() {
 
   return (
     <>
-      <PageHeader title="Send" isSettingsVisibleOnSm={false} />
+      <PageHeader
+        title={
+          <styled.span textStyle="heading.05" hideBelow="sm">
+            Send
+          </styled.span>
+        }
+        isSettingsVisibleOnSm={false}
+      />
       <Content>
         <Page>
           <Card

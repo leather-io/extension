@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
@@ -5,6 +6,7 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 import { styled } from 'leather-styles/jsx';
 
 import { ArrowLeftIcon, BarsTwoIcon, CloseIcon } from '@leather.io/ui';
+import { isString } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { SwitchAccountOutletContext } from '@shared/switch-account';
@@ -16,7 +18,7 @@ import { LogoBox } from '@app/components/layout/headers/logo-box';
 import { Settings } from '@app/features/settings/settings';
 
 interface PageHeaderProps {
-  title?: string;
+  title?: ReactNode;
   isSummaryPage?: boolean;
   isSettingsVisibleOnSm?: boolean;
   onBackLocation?: RouteUrls;
@@ -51,7 +53,13 @@ export function PageHeader({
             <LogoBox onClick={() => navigate(RouteUrls.Home)} />
           </>
         }
-        centerCol={title && <styled.span textStyle="heading.05">{title}</styled.span>}
+        centerCol={
+          title && isString(title) ? (
+            <styled.span textStyle="heading.05">{title}</styled.span>
+          ) : (
+            title
+          )
+        }
         rightCol={
           <HeaderGridRightCol>
             {isSummaryPage ? (
