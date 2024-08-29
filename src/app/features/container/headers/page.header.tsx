@@ -38,7 +38,7 @@ export function PageHeader({
   const canGoBack = !isSummaryPage;
 
   return (
-    <Header>
+    <Header px='space.00'>
       <HeaderGrid
         leftCol={
           <>
