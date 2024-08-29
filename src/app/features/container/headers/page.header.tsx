@@ -36,9 +36,8 @@ export function PageHeader({
   // pages with nested dialogs specify onBackLocation to prevent navigate(-1) re-opening the dialog
   const onGoBack = onBackLocation ? () => navigate(onBackLocation) : () => navigate(-1);
   const canGoBack = !isSummaryPage;
-
   return (
-    <Header px='space.00'>
+    <Header px={{ base: 'space.04', sm: 'space.00' }}>
       <HeaderGrid
         leftCol={
           <>
