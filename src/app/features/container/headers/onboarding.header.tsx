@@ -24,27 +24,27 @@ export function OnboardingHeader({ hideLogo = false }: OnboardingHeaderProps) {
   const navigate = useNavigate();
 
   return (
-      <Header px='space.05'>
-        <HeaderGrid
-          leftCol={
-            <>
-              <HeaderActionButton
-                icon={<ArrowLeftIcon />}
-                onAction={() => navigate(-1)}
-                dataTestId={SharedComponentsSelectors.HeaderBackBtn}
-              />
-              {!hideLogo && <LogoBox onClick={() => navigate(RouteUrls.Home)} />}
-            </>
-          }
-          rightCol={
-            <HeaderGridRightCol>
-              <Settings
-                triggerButton={<BarsTwoIcon data-testid={SettingsSelectors.SettingsMenuBtn} />}
-                toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
-              />
-            </HeaderGridRightCol>
-          }
-        />
-      </Header>
+    <Header px="space.05">
+      <HeaderGrid
+        leftCol={
+          <>
+            <HeaderActionButton
+              icon={<ArrowLeftIcon />}
+              onAction={() => navigate(-1)}
+              dataTestId={SharedComponentsSelectors.HeaderBackBtn}
+            />
+            {!hideLogo && <LogoBox onClick={() => navigate(RouteUrls.Home)} />}
+          </>
+        }
+        rightCol={
+          <HeaderGridRightCol>
+            <Settings
+              triggerButton={<BarsTwoIcon data-testid={SettingsSelectors.SettingsMenuBtn} />}
+              toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
+            />
+          </HeaderGridRightCol>
+        }
+      />
+    </Header>
   );
 }
