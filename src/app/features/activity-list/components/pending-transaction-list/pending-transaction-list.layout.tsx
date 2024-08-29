@@ -11,7 +11,7 @@ export function PendingTransactionListLayout({ children }: PendingTransactionLis
       <styled.span color="ink.text-subdued" textStyle="body.02">
         Pending
       </styled.span>
-      <Stack mt="space.04" pb="space.06">
+      <Stack pb="space.06">
         {children}
       </Stack>
     </>

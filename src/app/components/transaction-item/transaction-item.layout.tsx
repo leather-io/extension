@@ -25,7 +25,7 @@ export function TransactionItemLayout({
   txValue,
 }: TransactionItemLayoutProps) {
   return (
-    <Pressable onClick={openTxLink} my="space.02">
+    <Pressable onClick={openTxLink} p='space.03'>
       <ItemLayout
         flagImg={txIcon && txIcon}
         titleLeft={txTitle}
