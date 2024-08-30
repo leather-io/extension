@@ -55,18 +55,30 @@ export function SendInscriptionSummary() {
   return (
     <Sheet header={<SheetHeader title="Sent" />} isShowing onClose={() => navigate(RouteUrls.Home)}>
       <Card
+        border="unset"
         footer={
           <HStack gap="space.04" width="100%">
-            <InfoCardBtn onClick={onClickLink} icon={<ExternalLinkIcon />} label="View details" />
-            <InfoCardBtn onClick={onClickCopy} icon={<CopyIcon />} label="Copy ID" />
+            <InfoCardBtn
+              onClick={onClickLink}
+              icon={<ExternalLinkIcon color="ink.background-primary" />}
+              label="View details"
+            />
+            <InfoCardBtn
+              onClick={onClickCopy}
+              icon={<CopyIcon color="ink.background-primary" />}
+              label="Copy ID"
+            />
           </HStack>
         }
+        contentStyle={{
+          p: 'space.00',
+        }}
       >
         <Box mt="space.06" px="space.06">
           <InscriptionPreviewCard
             icon={
               <Box mt="space.01">
-                <CheckmarkIcon height={36} width={36} />
+                <CheckmarkIcon />
               </Box>
             }
             image={<InscriptionPreview inscription={inscription} />}

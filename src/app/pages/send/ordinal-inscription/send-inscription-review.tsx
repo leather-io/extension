@@ -80,12 +80,17 @@ export function SendInscriptionReview() {
       onClose={() => navigate(RouteUrls.Home)}
     >
       <Card
+        border="unset"
+        contentStyle={{
+          p: 'space.00',
+        }}
         footer={
           <Button
             variant="solid"
             disabled={isBroadcasting}
             aria-busy={isBroadcasting}
             onClick={sendInscription}
+            width="100%"
           >
             Confirm and send transaction
           </Button>
