@@ -6,7 +6,6 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 import { styled } from 'leather-styles/jsx';
 
 import { ArrowLeftIcon, BarsTwoIcon, CloseIcon } from '@leather.io/ui';
-import { isString } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { SwitchAccountOutletContext } from '@shared/switch-account';
@@ -53,13 +52,7 @@ export function PageHeader({
             <LogoBox onClick={() => navigate(RouteUrls.Home)} />
           </>
         }
-        centerCol={
-          title && isString(title) ? (
-            <styled.span textStyle="heading.05">{title}</styled.span>
-          ) : (
-            title
-          )
-        }
+        centerCol={title && <styled.span textStyle="heading.05">{title}</styled.span>}
         rightCol={
           <HeaderGridRightCol>
             {isSummaryPage ? (
