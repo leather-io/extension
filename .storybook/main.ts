@@ -92,19 +92,19 @@ const config: StorybookConfig = {
       })
     );
 
-    config.module ??= {};
-    config.module.rules ??= [];
-    const assetRule = config.module.rules.find(({ test }) => test.test(".svg"));
+    // config.module ??= {};
+    // config.module.rules ??= [];
+    // const assetRule = config.module.rules.find(({ test }) => test.test(".svg"));
 
-    const assetLoader = {
-      loader: assetRule?.loader,
-      options: assetRule?.options || assetRule?.query
-    };
-    // Merge our rule with existing assetLoader rules
-      config.module.rules.unshift({
-        test: /\.svg$/,
-        use: ["@svgr/webpack", assetLoader]
-      });
+    // const assetLoader = {
+    //   loader: assetRule?.loader,
+    //   options: assetRule?.options || assetRule?.query
+    // };
+    // // Merge our rule with existing assetLoader rules
+    //   config.module.rules.unshift({
+    //     test: /\.svg$/,
+    //     use: ["@svgr/webpack", assetLoader]
+    //   });
 
     // config.module ??= {};
     // config.module.rules ??= [];
