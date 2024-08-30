@@ -343,6 +343,7 @@
     "schema-inspector": "2.0.2",
     "speed-measure-webpack-plugin": "1.5.0",
     "storybook": "8.2.4",
+    "storybook-svgr-react-component": "^1.0.1",
     "stream-browserify": "3.0.0",
     "ts-node": "10.9.2",
     "ts-unused-exports": "10.0.1",
