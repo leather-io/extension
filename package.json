@@ -144,7 +144,7 @@
     "@leather.io/query": "2.7.0",
     "@leather.io/stacks": "1.0.2",
     "@leather.io/tokens": "0.9.0",
-    "@leather.io/ui": "file:../mono/packages/ui",
+    "@leather.io/ui": "1.16.0",
     "@leather.io/utils": "0.13.2",
     "@ledgerhq/hw-transport-webusb": "6.27.19",
     "@noble/hashes": "1.4.0",
@@ -372,12 +372,7 @@
   },
   "pnpm": {
     "overrides": {
-      "eslint": "8.56.0",
-      "@leather.io/rpc": "file:../mono/packages/rpc",
-      "@leather.io/constants": "file:../mono/packages/constants",
-      "@leather.io/models": "file:../mono/packages/models",
-      "@leather.io/tokens": "file:../mono/packages/tokens",
-      "@leather.io/utils": "file:../mono/packages/utils"
+      "eslint": "8.56.0"
     }
   },
   "keywords": [
