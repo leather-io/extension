@@ -55,8 +55,16 @@ export function RpcSignPsbtSummary() {
         </Stack>
         <InfoCardFooter>
           <HStack gap="space.04" width="100%">
-            <InfoCardBtn icon={<ExternalLinkIcon />} label="View details" onClick={onClickLink} />
-            <InfoCardBtn icon={<CopyIcon />} label="Copy ID" onClick={onClickCopy} />
+            <InfoCardBtn
+              icon={<ExternalLinkIcon color="ink.background-primary" />}
+              label="View details"
+              onClick={onClickLink}
+            />
+            <InfoCardBtn
+              icon={<CopyIcon color="ink.background-primary" />}
+              label="Copy ID"
+              onClick={onClickCopy}
+            />
           </HStack>
         </InfoCardFooter>
       </Card>

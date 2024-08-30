@@ -62,6 +62,7 @@ export function BitcoinChooseFee({
 
   return (
     <Card
+      border="unset"
       footer={
         <Box mt="space.05" width="100%">
           <AvailableBalance balance={formatMoney(balance.availableBalance)} />
