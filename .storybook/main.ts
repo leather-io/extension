@@ -145,16 +145,35 @@ const config: StorybookConfig = {
   
      // This modifies the existing image rule to exclude .svg files
   // since you want to handle those files with @svgr/webpack
-  const imageRule = config.module.rules.find((rule) => rule?.['test']?.test('.svg'));
-  if (imageRule) {
-    imageRule['exclude'] = /\.svg$/;
-  }
+  // const imageRule = config.module.rules.find((rule) => rule?.['test']?.test('.svg'));
+  // if (imageRule) {
+  //   imageRule['exclude'] = /\.svg$/;
+  // }
 
-  // Configure .svg files to be loaded with @svgr/webpack
-  config.module.rules.push({
-    test: /\.svg$/,
-    use: ['@svgr/webpack'],
-  });
+/** Trial and error
+ * 
+ * https://medium.com/@jgatjens/load-svg-files-as-components-nextjs-storybook-8e3b117e27f0
+ * https://duncanleung.com/import-svg-storybook-webpack-loader/
+ * 
+ * https://stackoverflow.com/questions/58757104/react-storybook-not-displaying-svg-icons
+ * https://storybook.js.org/docs/addons/writing-presets#webpack
+ */
+
+
+ const rules = [
+    ...(config.module?.rules || []),
+    {
+      test: /\.svg$/,
+      loader: require.resolve(`@svgr/webpack`),
+    },
+  ];
+  config.module.rules = rules;
+
+  // // Configure .svg files to be loaded with @svgr/webpack
+  // config.module.rules.push({
+  //   test: /\.svg$/,
+  //   use: ['@svgr/webpack'],
+  // });
 
     config.plugins ??= [];
     config.plugins.push(
