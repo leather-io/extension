@@ -18,6 +18,8 @@ import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useTogglePrivateMode } from '@app/store/settings/settings.actions';
+import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 import { AccountCard } from '@app/ui/components/account/account.card';
 
 import { AccountActions } from './components/account-actions';
@@ -30,6 +32,8 @@ export function Home() {
   const navigate = useNavigate();
   const account = useCurrentStacksAccount();
   const currentAccountIndex = useCurrentAccountIndex();
+  const isPrivateMode = useIsPrivateMode();
+  const togglePrivateMode = useTogglePrivateMode();
 
   const { data: name = '', isFetching: isFetchingBnsName } = useAccountDisplayName({
     address: account?.address || '',
@@ -66,6 +70,8 @@ export function Home() {
           isFetchingBnsName={isFetchingBnsName}
           isLoadingBalance={isLoading}
           isLoadingAdditionalData={isLoadingAdditionalData}
+          isBalancePrivate={isPrivateMode}
+          onShowBalance={togglePrivateMode}
         >
           <AccountActions />
         </AccountCard>

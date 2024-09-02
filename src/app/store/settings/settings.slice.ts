@@ -5,6 +5,7 @@ import { UserSelectedTheme } from '@app/common/theme-provider';
 interface InitialState {
   userSelectedTheme: UserSelectedTheme;
   dismissedMessages: string[];
+  isPrivateMode?: boolean;
 }
 
 const initialState: InitialState = {
@@ -25,6 +26,9 @@ export const settingsSlice = createSlice({
     },
     resetMessages(state) {
       state.dismissedMessages = [];
+    },
+    togglePrivateMode(state) {
+      state.isPrivateMode = !state.isPrivateMode;
     },
   },
 });

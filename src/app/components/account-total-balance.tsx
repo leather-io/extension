@@ -5,6 +5,7 @@ import { styled } from 'leather-styles/jsx';
 import { SkeletonLoader, shimmerStyles } from '@leather.io/ui';
 
 import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
+import { PrivateText } from '@app/components/privacy/private-text';
 
 interface AccountTotalBalanceProps {
   btcAddress: string;
@@ -26,7 +27,7 @@ export const AccountTotalBalance = memo(({ btcAddress, stxAddress }: AccountTota
         textStyle="label.02"
         data-state={isLoadingAdditionalData || isFetching ? 'loading' : undefined}
       >
-        {totalUsdBalance}
+        <PrivateText>{totalUsdBalance}</PrivateText>
       </styled.span>
     </SkeletonLoader>
   );

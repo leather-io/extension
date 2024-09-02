@@ -3,6 +3,9 @@ export enum SharedComponentsSelectors {
   AddressDisplayer = 'address-displayer',
   AddressDisplayerPart = 'address-displayer-part',
 
+  // AccountCard
+  AccountCardBalanceText = 'account-card-balance-text',
+
   // InfoCard
   InfoCardAssetValue = 'info-card-asset-value',
   InfoCardRowValue = 'info-card-row-value',

@@ -21,6 +21,7 @@ import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { IncreaseFeeButton } from '@app/components/stacks-transaction-item/increase-fee-button';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
 import { BitcoinTransactionIcon } from './bitcoin-transaction-icon';
@@ -33,6 +34,7 @@ interface BitcoinTransactionItemProps {
 export function BitcoinTransactionItem({ transaction }: BitcoinTransactionItemProps) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const isPrivate = useIsPrivateMode();
 
   const { data: inscriptionData } = useInscriptionByOutput(transaction);
 
@@ -98,6 +100,7 @@ export function BitcoinTransactionItem({ transaction }: BitcoinTransactionItemPr
       txStatus={<BitcoinTransactionStatus transaction={transaction} />}
       txTitle={<TransactionTitle title={title} />}
       txValue={value}
+      isPrivate={isPrivate}
     />
   );
 }

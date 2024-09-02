@@ -79,6 +79,23 @@ export function CardWithBalanceFooter() {
   );
 }
 
+export function CardWithPrivateBalanceFooter() {
+  return (
+    <Component
+      footer={
+        <ButtonRow>
+          <Button fullWidth onClick={() => null}>
+            Continue
+          </Button>
+          <AvailableBalance balance="$10" isPrivate />
+        </ButtonRow>
+      }
+    >
+      <Box height="40vh">Card content</Box>
+    </Component>
+  );
+}
+
 export function CardWithBigHeader() {
   return (
     <Component

@@ -1,8 +1,10 @@
 import { ReactNode } from 'react';
 
-import { HStack, styled } from 'leather-styles/jsx';
+import { HStack } from 'leather-styles/jsx';
 
 import { Caption, ItemLayout, Pressable } from '@leather.io/ui';
+
+import { PrivateTextLayout } from '@app/components/privacy/private-text.layout';
 
 interface TransactionItemLayoutProps {
   openTxLink(): void;
@@ -13,13 +15,14 @@ interface TransactionItemLayoutProps {
   txIcon?: ReactNode;
   txStatus?: ReactNode;
   children?: ReactNode;
+  isPrivate?: boolean;
 }
 
-function TxValue({ txValue }: { txValue: ReactNode }) {
+function TxValue({ txValue, isPrivate }: { txValue: ReactNode; isPrivate?: boolean }) {
   return (
-    <styled.span textStyle="label.02" px="space.02">
+    <PrivateTextLayout isPrivate={isPrivate} textStyle="label.02" px="space.02">
       {txValue}
-    </styled.span>
+    </PrivateTextLayout>
   );
 }
 
@@ -31,6 +34,7 @@ export function TransactionItemLayout({
   txStatus,
   txTitle,
   txValue,
+  isPrivate,
 }: TransactionItemLayoutProps) {
   return (
     <Pressable onClick={openTxLink} my="space.02">
@@ -49,7 +53,7 @@ export function TransactionItemLayout({
             {txStatus && txStatus}
           </HStack>
         }
-        titleRight={<TxValue txValue={txValue} />}
+        titleRight={<TxValue txValue={txValue} isPrivate={isPrivate} />}
         captionRight={rightElement}
       />
     </Pressable>
