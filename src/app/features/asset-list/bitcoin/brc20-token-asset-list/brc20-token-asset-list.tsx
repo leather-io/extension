@@ -8,6 +8,7 @@ import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 import type { AssetListVariant } from '@app/features/asset-list/asset-list';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 interface Brc20TokenAssetDetails {
   balance: CryptoAssetBalance;
@@ -30,6 +31,7 @@ function getBrc20TokenFiatBalance(token: Brc20TokenAssetDetails) {
 
 export function Brc20TokenAssetList({ tokens }: Brc20TokenAssetListProps) {
   const { isLoading } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
+  const isPrivate = useIsPrivateMode();
 
   if (!tokens.length) return null;
   return (
@@ -40,6 +42,7 @@ export function Brc20TokenAssetList({ tokens }: Brc20TokenAssetListProps) {
           captionLeft={token.info.name.toUpperCase()}
           icon={<Brc20AvatarIcon />}
           isLoading={isLoading}
+          isPrivate={isPrivate}
           key={token.info.symbol}
           titleLeft={token.info.symbol}
           fiatBalance={getBrc20TokenFiatBalance(token)}

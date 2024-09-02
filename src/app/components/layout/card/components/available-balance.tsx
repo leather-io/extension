@@ -2,15 +2,18 @@ import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
 
 import { InfoCircleIcon } from '@leather.io/ui';
 
+import { PrivateTextLayout } from '@app/components/privacy/private-text.layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface AvailableBalanceProps {
   balance: string;
   balanceTooltipLabel?: string;
+  isPrivate?: boolean;
 }
 
 export function AvailableBalance({
   balance,
+  isPrivate,
   balanceTooltipLabel = 'Amount that is immediately available for use after taking into account any pending transactions or holds placed on your account by the protocol.',
 }: AvailableBalanceProps) {
   return (
@@ -26,7 +29,7 @@ export function AvailableBalance({
         </BasicTooltip>
       </HStack>
       <styled.span color="ink.text-subdued" mr="space.02" textStyle="caption.01">
-        {balance}
+        <PrivateTextLayout isPrivate={isPrivate}>{balance}</PrivateTextLayout>
       </styled.span>
     </Flex>
   );

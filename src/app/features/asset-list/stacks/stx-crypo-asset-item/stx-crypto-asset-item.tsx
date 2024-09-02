@@ -14,13 +14,19 @@ import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-
 interface StxCryptoAssetItemProps {
   balance: StxCryptoAssetBalance;
   isLoading: boolean;
+  isPrivate?: boolean;
   onSelectAsset?(symbol: string): void;
 }
-export function StxCryptoAssetItem({ balance, isLoading, onSelectAsset }: StxCryptoAssetItemProps) {
+export function StxCryptoAssetItem({
+  balance,
+  isLoading,
+  isPrivate,
+  onSelectAsset,
+}: StxCryptoAssetItemProps) {
   const marketData = useCryptoCurrencyMarketDataMeanAverage('STX');
 
   const { availableBalance, lockedBalance } = balance;
-  const showLockedBalance = lockedBalance.amount.isGreaterThan(0);
+  const showLockedBalance = lockedBalance.amount.isGreaterThan(0) && !isPrivate;
 
   const fiatLockedBalance = i18nFormatCurrency(
     baseCurrencyAmountInQuote(lockedBalance, marketData)
@@ -41,6 +47,7 @@ export function StxCryptoAssetItem({ balance, isLoading, onSelectAsset }: StxCry
       fiatBalance={fiatAvailableBalance}
       icon={<StxAvatarIcon />}
       isLoading={isLoading}
+      isPrivate={isPrivate}
       onSelectAsset={onSelectAsset}
       titleLeft="Stacks"
       titleRightBulletInfo={showLockedBalance && titleRightBulletInfo}

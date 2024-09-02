@@ -1,4 +1,4 @@
-import { Box, Flex, styled } from 'leather-styles/jsx';
+import { Box, Flex } from 'leather-styles/jsx';
 
 import type { Money } from '@leather.io/models';
 import {
@@ -11,6 +11,7 @@ import {
 } from '@leather.io/ui';
 import { spamFilter } from '@leather.io/utils';
 
+import { PrivateTextLayout } from '@app/components/privacy/private-text.layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 import { parseCryptoAssetBalance } from './crypto-asset-item.layout.utils';
@@ -25,6 +26,7 @@ interface CryptoAssetItemLayoutProps {
   icon: React.ReactNode;
   isLoading?: boolean;
   isLoadingAdditionalData?: boolean;
+  isPrivate?: boolean;
   onSelectAsset?(symbol: string, contractId?: string): void;
   titleLeft: string;
   titleRightBulletInfo?: React.ReactNode;
@@ -39,6 +41,7 @@ export function CryptoAssetItemLayout({
   icon,
   isLoading = false,
   isLoadingAdditionalData = false,
+  isPrivate = false,
   onSelectAsset,
   titleLeft,
   titleRightBulletInfo,
@@ -50,17 +53,18 @@ export function CryptoAssetItemLayout({
     <SkeletonLoader width="126px" isLoading={isLoading}>
       <BasicTooltip
         asChild
-        label={formattedBalance.isAbbreviated ? availableBalanceString : undefined}
+        label={formattedBalance.isAbbreviated && !isPrivate ? availableBalanceString : undefined}
         side="left"
       >
         <Flex alignItems="center" gap="space.02" textStyle="label.02">
           <BulletSeparator>
-            <styled.span
+            <PrivateTextLayout
+              isPrivate={isPrivate}
               data-state={isLoadingAdditionalData ? 'loading' : undefined}
               className={shimmerStyles}
             >
               {formattedBalance.value} {balanceSuffix}
-            </styled.span>
+            </PrivateTextLayout>
             {titleRightBulletInfo}
           </BulletSeparator>
         </Flex>
@@ -76,7 +80,9 @@ export function CryptoAssetItemLayout({
             data-state={isLoadingAdditionalData ? 'loading' : undefined}
             className={shimmerStyles}
           >
-            {availableBalance.amount.toNumber() > 0 ? fiatBalance : null}
+            <PrivateTextLayout isPrivate={isPrivate}>
+              {availableBalance.amount.toNumber() > 0 ? fiatBalance : null}
+            </PrivateTextLayout>
           </Caption>
           {captionRightBulletInfo}
         </BulletSeparator>
