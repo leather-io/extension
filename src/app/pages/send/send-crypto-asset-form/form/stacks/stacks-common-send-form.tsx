@@ -18,6 +18,7 @@ import { AvailableBalance, ButtonRow, Card, Page } from '@app/components/layout'
 import { NonceSetter } from '@app/components/nonce-setter';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { HighFeeSheet } from '@app/features/stacks-high-fee-warning/stacks-high-fee-dialog';
+import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 import { MemoField } from '../../components/memo-field';
 import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field';
@@ -48,6 +49,7 @@ export function StacksCommonSendForm({
 }: StacksCommonSendFormProps) {
   const navigate = useNavigate();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
+  const isPrivate = useIsPrivateMode();
   return (
     <Page>
       <Formik
@@ -75,7 +77,10 @@ export function StacksCommonSendForm({
                       >
                         Continue
                       </Button>
-                      <AvailableBalance balance={formatMoney(availableTokenBalance)} />
+                      <AvailableBalance
+                        balance={formatMoney(availableTokenBalance)}
+                        isPrivate={isPrivate}
+                      />
                     </ButtonRow>
                   }
                 >

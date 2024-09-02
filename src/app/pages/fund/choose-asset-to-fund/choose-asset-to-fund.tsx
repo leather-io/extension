@@ -13,9 +13,11 @@ import { StxAssetItemBalanceLoader } from '@app/components/loaders/stx-balance-l
 import { BtcCryptoAssetItem } from '@app/features/asset-list/bitcoin/btc-crypto-asset-item/btc-crypto-asset-item';
 import { StxCryptoAssetItem } from '@app/features/asset-list/stacks/stx-crypo-asset-item/stx-crypto-asset-item';
 import { PageHeader } from '@app/features/container/headers/page.header';
+import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 export function ChooseCryptoAssetToFund() {
   const navigate = useNavigate();
+  const isPrivate = useIsPrivateMode();
   const navigateToFund = useCallback(
     (symbol: string) => navigate(RouteUrls.Fund.replace(':currency', symbol)),
     [navigate]
@@ -58,6 +60,7 @@ export function ChooseCryptoAssetToFund() {
                       <StxCryptoAssetItem
                         balance={balance}
                         isLoading={isLoading}
+                        isPrivate={isPrivate}
                         onSelectAsset={() => navigateToFund('STX')}
                       />
                     )}

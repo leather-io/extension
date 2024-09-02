@@ -20,3 +20,9 @@ const selectDismissedMessageIds = createSelector(
 export function useDismissedMessageIds() {
   return useSelector(selectDismissedMessageIds);
 }
+
+const selectIsPrivateMode = createSelector(selectSettings, state => state.isPrivateMode ?? false);
+
+export function useIsPrivateMode() {
+  return useSelector(selectIsPrivateMode);
+}

@@ -1,6 +1,7 @@
 import { TEST_PASSWORD } from '@tests/mocks/constants';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
 import { test } from '../../fixtures/fixtures';
 
@@ -69,5 +70,27 @@ test.describe('Settings menu', () => {
     await page.waitForTimeout(1000);
     const networkListItems = await page.getByTestId(SettingsSelectors.NetworkListItem).all();
     test.expect(networkListItems).toHaveLength(5);
+  });
+
+  test('that menu item can toggle privacy', async ({ page, homePage }) => {
+    const visibleBalanceText = await homePage.page
+      .getByTestId(SharedComponentsSelectors.AccountCardBalanceText)
+      .textContent();
+    test.expect(visibleBalanceText).toBeTruthy();
+
+    await homePage.clickSettingsButton();
+    await page.getByTestId(SettingsSelectors.TogglePrivacy).click();
+
+    // just checks that the balance text changed (don't care about the implementation)
+    await test
+      .expect(homePage.page.getByTestId(SharedComponentsSelectors.AccountCardBalanceText))
+      .not.toHaveText(visibleBalanceText!);
+
+    await homePage.clickSettingsButton();
+    await page.getByTestId(SettingsSelectors.TogglePrivacy).click();
+
+    await test
+      .expect(homePage.page.getByTestId(SharedComponentsSelectors.AccountCardBalanceText))
+      .toHaveText(visibleBalanceText!);
   });
 });

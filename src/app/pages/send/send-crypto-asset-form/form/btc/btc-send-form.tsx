@@ -11,6 +11,7 @@ import { formatMoney } from '@leather.io/utils';
 
 import { AvailableBalance, ButtonRow, Card, Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
+import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 import { AmountField } from '../../components/amount-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
@@ -25,6 +26,7 @@ const symbol: CryptoCurrency = 'BTC';
 
 export function BtcSendForm() {
   const routeState = useSendFormRouteState();
+  const isPrivate = useIsPrivateMode();
   const marketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const {
     balance,
@@ -73,7 +75,10 @@ export function BtcSendForm() {
                         >
                           Continue
                         </Button>
-                        <AvailableBalance balance={formatMoney(balance.availableBalance)} />
+                        <AvailableBalance
+                          balance={formatMoney(balance.availableBalance)}
+                          isPrivate={isPrivate}
+                        />
                       </ButtonRow>
                     }
                   >

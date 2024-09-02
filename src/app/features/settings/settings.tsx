@@ -12,6 +12,8 @@ import {
   ExitIcon,
   ExpandIcon,
   ExternalLinkIcon,
+  Eye1ClosedIcon,
+  Eye1Icon,
   Flag,
   GlobeTiltedIcon,
   KeyIcon,
@@ -37,6 +39,8 @@ import { SignOut } from '@app/features/settings/sign-out/sign-out-confirm';
 import { ThemeSheet } from '@app/features/settings/theme/theme-dialog';
 import { useLedgerDeviceTargetId } from '@app/store/ledger/ledger.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
+import { useTogglePrivateMode } from '@app/store/settings/settings.actions';
+import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 import { openFeedbackSheet } from '../feedback-button/feedback-button';
 import { extractDeviceNameFromKnownTargetIds } from '../ledger/utils/generic-ledger-utils';
@@ -66,6 +70,9 @@ export function Settings({
 
   const { walletType } = useWalletType();
   const targetId = useLedgerDeviceTargetId();
+
+  const isPrivateMode = useIsPrivateMode();
+  const togglePrivateMode = useTogglePrivateMode();
 
   const location = useLocation();
 
@@ -186,6 +193,20 @@ export function Settings({
                 <Flag img={<SunInCloudIcon />}>
                   <Flex justifyContent="space-between" textStyle="label.02">
                     Change theme
+                  </Flex>
+                </Flag>
+              </DropdownMenu.Item>
+
+              <DropdownMenu.Item
+                data-testid={SettingsSelectors.TogglePrivacy}
+                onSelect={() => {
+                  void analytics.track('click_toggle_privacy');
+                  togglePrivateMode();
+                }}
+              >
+                <Flag img={isPrivateMode ? <Eye1ClosedIcon /> : <Eye1Icon />}>
+                  <Flex justifyContent="space-between" textStyle="label.02">
+                    Toggle privacy
                   </Flex>
                 </Flag>
               </DropdownMenu.Item>
