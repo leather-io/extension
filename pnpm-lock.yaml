@@ -47,8 +47,8 @@ importers:
         specifier: 0.13.0
         version: 0.13.0
       '@leather.io/query':
-        specifier: 2.7.0
-        version: 2.7.0(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
+        specifier: 2.7.1
+        version: 2.7.1(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
       '@leather.io/stacks':
         specifier: 1.0.2
         version: 1.0.2(encoding@0.1.13)
@@ -2551,7 +2551,7 @@ packages:
 
   '@expo/bunyan@4.0.1':
     resolution: {integrity: sha512-+Lla7nYSiHZirgK+U/uYzsLv/X+HaJienbD5AKX1UQZHYfWaP+9uuQluRB4GrEVWF0GZ7vEVp/jzaOT9k/SQlg==}
-    engines: {node: '>=0.10.0'}
+    engines: {'0': node >=0.10.0}
 
   '@expo/cli@0.18.28':
     resolution: {integrity: sha512-fvbVPId6s6etindzP6Nzos/CS1NurMVy4JKozjebArHr63tBid5i/UY5Pp+4wTCAM20gB2SjRdwcwoL6HFC4Iw==}
@@ -2779,8 +2779,8 @@ packages:
   '@leather.io/prettier-config@0.6.0':
     resolution: {integrity: sha512-QBKtLanfxFxXBlR58U/j8a6lBI0xzJzqqi36fXpGVp+9mJoEf6Ro6xrtFrixjW6seY6EOva4OApVnnPBsvOC/w==}
 
-  '@leather.io/query@2.7.0':
-    resolution: {integrity: sha512-IWPJ+nYH2OR7Eb2WZ9Dkvs98/ffdJ1aXyIEomExuOLkTEmsxQvdZe4Bm0MtBwqFdzzmM1C7PSmbPuR521rpkHA==}
+  '@leather.io/query@2.7.1':
+    resolution: {integrity: sha512-TIew8kDeYGUbFOBVcWeFZuYCaSa2Pp2xfDUPxf/BicIsyYqXxFGoB5fclDqugratAWw9aZTTqsYcbMzg/+pwew==}
     peerDependencies:
       react: '*'
 
@@ -17635,7 +17635,7 @@ snapshots:
       - '@vue/compiler-sfc'
       - supports-color
 
-  '@leather.io/query@2.7.0(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)':
+  '@leather.io/query@2.7.1(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)':
     dependencies:
       '@fungible-systems/zone-file': 2.0.0
       '@hirosystems/token-metadata-api-client': 1.2.0(encoding@0.1.13)

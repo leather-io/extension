@@ -131,14 +131,3 @@ export function stacksFungibleTokenAmountValidator(balance: Money) {
       },
     });
 }
-
-export function tokenAmountValidator(balance: Money) {
-  const { amount } = balance;
-  return amountValidator().test({
-    message: formatInsufficientBalanceError(balance, sum => sum.amount.toString()),
-    test(value) {
-      if (!isNumber(value) || !amount) return false;
-      return new BigNumber(value).isLessThanOrEqualTo(amount);
-    },
-  });
-}

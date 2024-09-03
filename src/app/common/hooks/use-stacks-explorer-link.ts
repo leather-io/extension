@@ -5,7 +5,7 @@ import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { openInNewTab } from '../utils/open-in-new-tab';
 
-export interface HandleOpenStacksTxLinkArgs {
+interface HandleOpenStacksTxLinkArgs {
   searchParams?: URLSearchParams;
   txid: string;
 }
