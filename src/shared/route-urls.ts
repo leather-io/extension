@@ -61,10 +61,6 @@ export enum RouteUrls {
   SendStacksSip10Confirmation = '/send/:symbol/confirm',
   SentBtcTxSummary = '/sent/btc/:txId',
   SentStxTxSummary = '/sent/stx/:txId',
-  SendBrc20SendForm = '/send/brc20/:ticker',
-  SendBrc20ChooseFee = '/send/brc20/:ticker/choose-fee',
-  SendBrc20Confirmation = '/send/brc20/:ticker/confirm',
-  SentBrc20Summary = '/send/brc20/:ticker/summary',
 
   // Send ordinal inscriptions
   SendOrdinalInscription = 'send/ordinal-inscription',

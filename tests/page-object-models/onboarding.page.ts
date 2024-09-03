@@ -36,10 +36,7 @@ export const testSoftwareAccountDefaultWalletState = {
     },
   },
   networks: { ids: [], entities: {}, currentNetworkId: 'mainnet' },
-  ordinals: {
-    entities: {},
-    ids: [],
-  },
+  ordinals: {},
   settings: {
     userSelectedTheme: 'system',
     dismissedMessages: [],
