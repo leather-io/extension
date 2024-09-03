@@ -1,3 +1,23 @@
+## [6.47.1](https://github.com/leather-io/extension/compare/v6.47.0...v6.47.1) (2024-09-03)
+
+
+### Bug Fixes
+
+* adjust BigTitle padding and close, ref leather-io/extension[#5802](https://github.com/leather-io/extension/issues/5802) ([6b9566a](https://github.com/leather-io/extension/commit/6b9566ad5b3c983ea629cf139057030a4f456279))
+* don't show send in header ([d8ed76a](https://github.com/leather-io/extension/commit/d8ed76ab9dec573add48337ac21d88d8d513824d))
+* only show Send title above small view, ref [#5802](https://github.com/leather-io/extension/issues/5802) ([f45fedf](https://github.com/leather-io/extension/commit/f45fedf499c6305a0c6470269e6ff40f0c5c290c))
+* remove px for all page headers above sm, ref [#5802](https://github.com/leather-io/extension/issues/5802) ([dae0f47](https://github.com/leather-io/extension/commit/dae0f47bdc911a21f34c64f9a00dc22b8060389d))
+* send inscription formatting and InfoCardButton icon colour, ref leather-io/extension[#5828](https://github.com/leather-io/extension/issues/5828) ([afc50d5](https://github.com/leather-io/extension/commit/afc50d5a6433ff95e552062c54ad8f756ac7d0dc))
+* update padding of onboarding header to align buttons, ref [#5802](https://github.com/leather-io/extension/issues/5802) ([203629d](https://github.com/leather-io/extension/commit/203629d7028eeca076c12a10a7cc680ae98a529d))
+
+
+### Internal
+
+* fix padding of asset list items in activity, ref [#5802](https://github.com/leather-io/extension/issues/5802) ([3e4d8a2](https://github.com/leather-io/extension/commit/3e4d8a2f322628cbd8f18658f112076765e35324))
+* improve open API and add tests, ref leather-io/issues[#5800](https://github.com/leather-io/extension/issues/5800) ([9d52d9e](https://github.com/leather-io/extension/commit/9d52d9e026d2f001d5f4a30cedabc08df17a40fc))
+* post-release merge back ([e554376](https://github.com/leather-io/extension/commit/e5543766dd45a1ec24f1aa7a8b1356555cf2b744))
+* update link to docs on open, ref [#5800](https://github.com/leather-io/extension/issues/5800) ([003a6ad](https://github.com/leather-io/extension/commit/003a6ad3f88664a67611f47f880420bcdf30838a))
+
 ## [6.47.0](https://github.com/leather-io/extension/compare/v6.46.0...v6.47.0) (2024-08-28)
 
 
