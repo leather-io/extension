@@ -15,6 +15,14 @@ interface TransactionItemLayoutProps {
   children?: ReactNode;
 }
 
+function TxValue({ txValue }: { txValue: ReactNode }) {
+  return (
+    <styled.span textStyle="label.02" px="space.02">
+      {txValue}
+    </styled.span>
+  );
+}
+
 export function TransactionItemLayout({
   openTxLink,
   rightElement,
@@ -25,7 +33,7 @@ export function TransactionItemLayout({
   txValue,
 }: TransactionItemLayoutProps) {
   return (
-    <Pressable onClick={openTxLink} p="space.03">
+    <Pressable onClick={openTxLink} my="space.02">
       <ItemLayout
         flagImg={txIcon && txIcon}
         titleLeft={txTitle}
@@ -41,9 +49,8 @@ export function TransactionItemLayout({
             {txStatus && txStatus}
           </HStack>
         }
-        titleRight={
-          rightElement ? rightElement : <styled.span textStyle="label.02">{txValue}</styled.span>
-        }
+        titleRight={<TxValue txValue={txValue} />}
+        captionRight={rightElement}
       />
     </Pressable>
   );
