@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
@@ -16,7 +17,7 @@ import { LogoBox } from '@app/components/layout/headers/logo-box';
 import { Settings } from '@app/features/settings/settings';
 
 interface PageHeaderProps {
-  title?: string;
+  title?: ReactNode;
   isSummaryPage?: boolean;
   isSettingsVisibleOnSm?: boolean;
   onBackLocation?: RouteUrls;
@@ -36,9 +37,8 @@ export function PageHeader({
   // pages with nested dialogs specify onBackLocation to prevent navigate(-1) re-opening the dialog
   const onGoBack = onBackLocation ? () => navigate(onBackLocation) : () => navigate(-1);
   const canGoBack = !isSummaryPage;
-
   return (
-    <Header>
+    <Header px={{ base: 'space.04', sm: 'space.00' }}>
       <HeaderGrid
         leftCol={
           <>

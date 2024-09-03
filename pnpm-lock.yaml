@@ -27,7 +27,7 @@ importers:
         version: 0.7.0(encoding@0.1.13)
       '@coinbase/cbpay-js':
         specifier: 2.1.0
-        version: 2.1.0(regenerator-runtime@0.14.1)
+        version: 2.1.0(regenerator-runtime@0.13.11)
       '@fungible-systems/zone-file':
         specifier: 2.0.0
         version: 2.0.0
@@ -56,8 +56,8 @@ importers:
         specifier: 0.9.0
         version: 0.9.0
       '@leather.io/ui':
-        specifier: 1.14.3
-        version: 1.14.3(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(typescript@5.4.5)
+        specifier: 1.16.0
+        version: 1.16.0(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(typescript@5.4.5)
       '@leather.io/utils':
         specifier: 0.13.2
         version: 0.13.2
@@ -2793,8 +2793,8 @@ packages:
   '@leather.io/tokens@0.9.0':
     resolution: {integrity: sha512-Lj0UYS6W8r7IkINssb8LodfNsefkzBzugiAM2XwCoQNgyOn4KAc3rdL5vYrXh8ErC4AT81xDb+DGkyCzejjObQ==}
 
-  '@leather.io/ui@1.14.3':
-    resolution: {integrity: sha512-/nn6rCgMcBN8E5/HTrzS5jbg8B0Bs8tkqwfzW1RQRwjP+zcFUSEBLf2RNx030M00aL4GEs2cbzkdQNej3exjoA==}
+  '@leather.io/ui@1.16.0':
+    resolution: {integrity: sha512-vpt2uo2cUI8o6uUCccwab7oJF25tT0CwssyuhXRCYfIaKu22wLZaO7oIcwuivG/P76leJM0jL4QFFlKHw70DUA==}
 
   '@leather.io/utils@0.13.2':
     resolution: {integrity: sha512-68rsDNS/mA9OYCPpU0yGGY3OMGWxAMqq4yZWi6mFnzqMgTvOW0MvFJOo/V4DhPxbo3sKS6mcwwbAH/YLnyBwGA==}
@@ -16437,9 +16437,9 @@ snapshots:
       picocolors: 1.0.1
       sisteransi: 1.0.5
 
-  '@coinbase/cbpay-js@2.1.0(regenerator-runtime@0.14.1)':
+  '@coinbase/cbpay-js@2.1.0(regenerator-runtime@0.13.11)':
     optionalDependencies:
-      regenerator-runtime: 0.14.1
+      regenerator-runtime: 0.13.11
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -17687,7 +17687,7 @@ snapshots:
 
   '@leather.io/tokens@0.9.0': {}
 
-  '@leather.io/ui@1.14.3(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(typescript@5.4.5)':
+  '@leather.io/ui@1.16.0(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)(typescript@5.4.5)':
     dependencies:
       '@expo/vector-icons': 14.0.0
       '@leather.io/tokens': 0.9.0
@@ -19814,7 +19814,7 @@ snapshots:
       chalk: 4.1.2
       execa: 5.1.1
       metro: 0.80.10(encoding@0.1.13)
-      metro-config: 0.80.5(encoding@0.1.13)
+      metro-config: 0.80.10(encoding@0.1.13)
       metro-core: 0.80.10
       node-fetch: 2.7.0(encoding@0.1.13)
       querystring: 0.2.1
@@ -19903,7 +19903,7 @@ snapshots:
     dependencies:
       '@react-native/js-polyfills': 0.73.1
       '@react-native/metro-babel-transformer': 0.73.15(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))
-      metro-config: 0.80.5(encoding@0.1.13)
+      metro-config: 0.80.10(encoding@0.1.13)
       metro-runtime: 0.80.10
     transitivePeerDependencies:
       - '@babel/core'
