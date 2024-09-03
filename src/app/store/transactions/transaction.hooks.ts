@@ -7,14 +7,16 @@ import {
   FungibleConditionCode,
   PostCondition,
   StacksTransaction,
-  TransactionSigner,
   createAssetInfo,
-  createStacksPrivateKey,
   makeStandardFungiblePostCondition,
 } from '@stacks/transactions';
 import BN from 'bn.js';
 
 import { useNextNonce } from '@leather.io/query';
+import {
+  createStacksSignerFromExternalSigner,
+  createStacksSignerFromPrivateKey,
+} from '@leather.io/stacks';
 import { isUndefined, stxToMicroStx } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
@@ -131,7 +133,7 @@ function useUnsignedStacksTransaction(values: StacksTransactionFormValues) {
   return tx.result;
 }
 
-function useSignTransactionSoftwareWallet() {
+function useSignTransactionSoftwareSigner() {
   const toast = useToast();
   const account = useCurrentStacksAccount();
 
@@ -143,25 +145,29 @@ function useSignTransactionSoftwareWallet() {
         );
         return;
       }
-      const signer = new TransactionSigner(tx);
-      if (!account) return null;
-      signer.signOrigin(createStacksPrivateKey(account.stxPrivateKey));
-      return tx;
+
+      const stacksSigner = createStacksSignerFromPrivateKey(() => account.stxPrivateKey);
+      return stacksSigner.sign(tx);
     },
     [account, toast.error]
   );
 }
 
-export function useSignStacksTransaction() {
+export function useStacksTransactionSigner() {
   const { whenWallet } = useWalletType();
   const ledgerNavigate = useLedgerNavigate();
-  const signSoftwareTx = useSignTransactionSoftwareWallet();
+  const signSoftwareTx = useSignTransactionSoftwareSigner();
 
+  const ledgerSigner = createStacksSignerFromExternalSigner(async tx => {
+    ledgerNavigate.toConnectAndSignStacksTransactionStep(tx);
+    return listenForStacksTxLedgerSigning(bytesToHex(tx.serialize()));
+  });
+
+  // TODO: Return signer directly
   return (tx: StacksTransaction) =>
     whenWallet({
       async ledger(tx: StacksTransaction) {
-        ledgerNavigate.toConnectAndSignStacksTransactionStep(tx);
-        return listenForStacksTxLedgerSigning(bytesToHex(tx.serialize()));
+        return ledgerSigner.sign(tx);
       },
       async software(tx: StacksTransaction) {
         return signSoftwareTx(tx);

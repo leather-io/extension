@@ -2,14 +2,12 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { createSelector } from '@reduxjs/toolkit';
-import { HARDENED_OFFSET } from '@scure/bip32';
 import { Psbt } from 'bitcoinjs-lib';
 
 import {
   bitcoinSignerFactory,
   deriveTaprootAccount,
   ecdsaPublicKeyToSchnorr,
-  getTaprootAccountDerivationPath,
   getTaprootPaymentFromAddressIndex,
   lookUpLedgerKeysByPath,
   makeTaprootAccountDerivationPath,
@@ -31,7 +29,7 @@ import { useMakeBitcoinNetworkSignersForPaymentType } from './bitcoin-signer';
 
 const selectTaprootAccountBuilder = bitcoinAccountBuilderFactory(
   deriveTaprootAccount,
-  lookUpLedgerKeysByPath(getTaprootAccountDerivationPath)
+  lookUpLedgerKeysByPath(makeTaprootAccountDerivationPath)
 );
 
 const selectCurrentNetworkTaprootAccountBuilder = createSelector(

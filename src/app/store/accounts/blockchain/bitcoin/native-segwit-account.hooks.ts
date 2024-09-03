@@ -28,10 +28,7 @@ import {
   bitcoinAccountBuilderFactory,
   useBitcoinExtendedPublicKeyVersions,
 } from './bitcoin-keychain';
-import {
-  bitcoinAddressIndexSignerFactory,
-  useMakeBitcoinNetworkSignersForPaymentType,
-} from './bitcoin-signer';
+import { useMakeBitcoinNetworkSignersForPaymentType } from './bitcoin-signer';
 
 const selectNativeSegwitAccountBuilder = bitcoinAccountBuilderFactory(
   deriveNativeSegwitAccountFromRootKeychain,
@@ -66,6 +63,7 @@ export function useNativeSegwitNetworkSigners() {
   return useMakeBitcoinNetworkSignersForPaymentType(
     mainnetKeychain,
     testnetKeychain,
+    'p2wpkh',
     getNativeSegWitPaymentFromAddressIndex
   );
 }
@@ -115,7 +113,7 @@ export function useCurrentAccountNativeSegwitIndexZeroSignerNullable() {
  */
 export function useCurrentAccountNativeSegwitAddressIndexZero() {
   const signer = useCurrentAccountNativeSegwitSigner();
-  return useMemo(() => signer?.(0).payment.address, [signer]) as string;
+  return useMemo(() => signer?.(0).address, [signer]) as string;
 }
 
 /**
@@ -124,7 +122,7 @@ export function useCurrentAccountNativeSegwitAddressIndexZero() {
 export function useNativeSegwitAccountIndexAddressIndexZero(accountIndex: number) {
   const signer = useNativeSegwitSigner(accountIndex)?.(0);
   // could it be this?
-  return signer?.payment.address as string;
+  return signer?.address as string;
 }
 
 export function getNativeSegwitMainnetAddressFromMnemonic(secretKey: string) {

@@ -7,6 +7,8 @@ export type SoftwareStacksAccount = Account & {
   address: string;
   stxPublicKey: string;
   dataPublicKey: string;
+  descriptor: string;
+  derivationPath: string;
 };
 
 export interface HardwareStacksAccount {
@@ -15,6 +17,8 @@ export interface HardwareStacksAccount {
   address: string;
   stxPublicKey: string;
   dataPublicKey: string;
+  descriptor: string;
+  derivationPath: string;
 }
 
 export type StacksAccount = SoftwareStacksAccount | HardwareStacksAccount;

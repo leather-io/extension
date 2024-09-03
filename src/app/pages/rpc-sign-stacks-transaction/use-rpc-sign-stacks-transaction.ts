@@ -10,7 +10,7 @@ import { closeWindow } from '@shared/utils';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { initialSearchParams } from '@app/common/initial-search-params';
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
-import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
+import { useStacksTransactionSigner } from '@app/store/transactions/transaction.hooks';
 
 function useRpcSignStacksTransactionParams() {
   const { origin, tabId } = useDefaultRequestParams();
@@ -36,7 +36,7 @@ function useRpcSignStacksTransactionParams() {
 export function useRpcSignStacksTransaction() {
   const { origin, requestId, tabId, stacksTransaction, isMultisig, txSender } =
     useRpcSignStacksTransactionParams();
-  const signStacksTx = useSignStacksTransaction();
+  const signStacksTx = useStacksTransactionSigner();
   const wasSignedByOtherOwners =
     isMultisig &&
     (stacksTransaction.auth.spendingCondition as MultiSigSpendingCondition).fields?.length > 0;

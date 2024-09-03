@@ -16,7 +16,7 @@ import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-t
 import { stacksTransactionToHex } from '@app/common/transactions/stacks/transaction.utils';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useTransactionRequest } from '@app/store/transactions/requests.hooks';
-import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
+import { useStacksTransactionSigner } from '@app/store/transactions/transaction.hooks';
 
 import { useStacksTransactionSummary } from './use-stacks-transaction-summary';
 
@@ -35,7 +35,7 @@ export function useStacksBroadcastTransaction({
   decimals,
   isIncreaseFeeTransaction,
 }: UseStacksBroadcastTransactionArgs) {
-  const signStacksTransaction = useSignStacksTransaction();
+  const signStacksTransaction = useStacksTransactionSigner();
   const [isBroadcasting, setIsBroadcasting] = useState(false);
   const { tabId } = useDefaultRequestParams();
   const requestToken = useTransactionRequest();

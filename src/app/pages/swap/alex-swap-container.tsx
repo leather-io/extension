@@ -24,7 +24,7 @@ import { Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
-import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
+import { useStacksTransactionSigner } from '@app/store/transactions/transaction.hooks';
 
 import { SwapForm } from './components/swap-form';
 import { generateSwapRoutes } from './generate-swap-routes';
@@ -42,7 +42,7 @@ function AlexSwapContainer() {
   const { setIsLoading } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);
   const currentAccount = useCurrentStacksAccount();
   const generateUnsignedTx = useGenerateStacksContractCallUnsignedTx();
-  const signTx = useSignStacksTransaction();
+  const signTx = useStacksTransactionSigner();
 
   const {
     fetchQuoteAmount,

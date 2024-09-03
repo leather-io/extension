@@ -13,7 +13,8 @@ import {
 import { deriveStxPrivateKey, generateWallet } from '@stacks/wallet-sdk';
 import { atom } from 'jotai';
 
-import { whenStacksChainId } from '@leather.io/stacks';
+import { createDescriptor } from '@leather.io/crypto';
+import { makeStxDerivationPath, whenStacksChainId } from '@leather.io/stacks';
 import { createNullArrayOfLength } from '@leather.io/utils';
 
 import { DATA_DERIVATION_PATH, deriveStacksSalt } from '@shared/crypto/stacks/stacks-address-gen';
@@ -91,7 +92,17 @@ const softwareAccountsState = atom<SoftwareStacksAccount[] | undefined>(get => {
     const address = publicKeyToAddress(addressVersion, pubKeyfromPrivKey(account.stxPrivateKey));
     const stxPublicKey = derivePublicKey(account.stxPrivateKey);
     const dataPublicKey = derivePublicKey(account.dataPrivateKey);
-    return { ...account, type: 'software', address, stxPublicKey, dataPublicKey };
+    const derivationPath = makeStxDerivationPath(account.index);
+    const descriptor = createDescriptor(derivationPath, stxPublicKey);
+    return {
+      ...account,
+      type: 'software',
+      derivationPath,
+      descriptor,
+      address,
+      stxPublicKey,
+      dataPublicKey,
+    };
   });
 });
 
@@ -104,10 +115,14 @@ const ledgerAccountsState = atom<HardwareStacksAccount[] | undefined>(get => {
       addressVersion,
       createStacksPublicKey(publicKeys.stxPublicKey)
     );
+    const derivationPath = makeStxDerivationPath(index);
+    const descriptor = createDescriptor(derivationPath, publicKeys.stxPublicKey);
     return {
       ...publicKeys,
       type: 'ledger',
       address,
+      derivationPath,
+      descriptor,
       stxPublicKey: publicKeys.stxPublicKey,
       dataPublicKey: publicKeys.dataPublicKey,
       index,
