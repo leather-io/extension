@@ -15,8 +15,6 @@ export function IncreaseFeeButton(props: IncreaseFeeButtonProps) {
     <styled.button
       _hover={{ color: 'ink.text-subdued' }}
       bg="ink.background-primary"
-      maxWidth="110px"
-      ml="auto"
       onClick={e => {
         onIncreaseFee();
         e.stopPropagation();
@@ -25,7 +23,6 @@ export function IncreaseFeeButton(props: IncreaseFeeButtonProps) {
       pointerEvents={!isActive ? 'none' : 'all'}
       position="relative"
       px="space.02"
-      py="space.01"
       rounded="xs"
       zIndex={999}
     >
