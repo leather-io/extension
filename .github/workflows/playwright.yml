@@ -92,7 +92,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Download blob reports from GitHub Actions Artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: all-blob-reports
           path: all-blob-reports
