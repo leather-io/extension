@@ -11,7 +11,6 @@ import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state'
 import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { ActivityList } from '@app/features/activity-list/activity-list';
-import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
 import { Assets } from '@app/pages/home/components/assets';
 import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
@@ -70,7 +69,6 @@ export function Home() {
           <AccountActions />
         </AccountCard>
       </Box>
-      <FeedbackButton />
       <HomeTabs>
         <ModalBackgroundWrapper>
           <Route index element={<Assets />} />

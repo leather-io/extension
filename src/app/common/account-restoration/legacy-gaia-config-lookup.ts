@@ -5,7 +5,7 @@ import {
   getHubInfo,
 } from '@stacks/wallet-sdk';
 
-import { gaiaUrl as gaiaHubUrl } from '@shared/constants';
+import { gaiaUrl as gaiaHubUrl } from '@leather.io/constants';
 
 // This function replicates behaviour  wrapped in the `restoreWalletAccounts`
 // method of wallet-sdk. It checks for BNS names on Gaia-persisted accounts,

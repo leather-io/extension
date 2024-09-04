@@ -1,9 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { ORD_IO_URL } from '@leather.io/constants';
 import { type Inscription } from '@leather.io/models';
 import { OrdinalAvatarIcon } from '@leather.io/ui';
 
-import { ORD_IO_URL } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';

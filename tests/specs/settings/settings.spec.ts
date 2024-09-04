@@ -2,6 +2,8 @@ import { TEST_PASSWORD } from '@tests/mocks/constants';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
+import { LEATHER_SUPPORT_URL } from '@leather.io/constants';
+
 import { test } from '../../fixtures/fixtures';
 
 test.describe('Settings menu', () => {
@@ -10,7 +12,7 @@ test.describe('Settings menu', () => {
     await onboardingPage.signInWithTestAccount(extensionId);
   });
 
-  test('that menu item takes user to support page', async ({ page }) => {
+  test('that support menu item takes user to support page', async ({ page }) => {
     await page.getByTestId(SettingsSelectors.SettingsMenuBtn).click();
 
     const [supportPage] = await Promise.all([
@@ -18,9 +20,17 @@ test.describe('Settings menu', () => {
       page.getByTestId(SettingsSelectors.GetSupportMenuItem).click(),
     ]);
 
-    await test
-      .expect(supportPage)
-      .toHaveURL('https://leather.gitbook.io/guides/installing/contact-support');
+    await test.expect(supportPage).toHaveURL(LEATHER_SUPPORT_URL);
+  });
+  test('that feedback menu item takes user to support page', async ({ page }) => {
+    await page.getByTestId(SettingsSelectors.SettingsMenuBtn).click();
+
+    const [supportPage] = await Promise.all([
+      page.waitForEvent('popup'),
+      page.getByTestId(SettingsSelectors.FeedbackMenuItem).click(),
+    ]);
+
+    await test.expect(supportPage).toHaveURL(LEATHER_SUPPORT_URL);
   });
 
   test('that menu item can perform sign out', async ({ homePage, onboardingPage }) => {

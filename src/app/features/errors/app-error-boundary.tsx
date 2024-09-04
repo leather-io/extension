@@ -4,6 +4,7 @@ import BroadcastError from '@assets/images/unhappy-face-ui.png';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
 
+import { LEATHER_SUPPORT_URL } from '@leather.io/constants';
 import { Button, CopyIcon, Link } from '@leather.io/ui';
 import { isError } from '@leather.io/utils';
 
@@ -28,11 +29,7 @@ function ErroBoundaryBody() {
       textStyle="label.02"
     >
       Leather has crashed. If this problem persists, contact our{' '}
-      <Link
-        href="https://leather.gitbook.io/guides/installing/contact-support"
-        target="_blank"
-        textDecoration="underline"
-      >
+      <Link href={LEATHER_SUPPORT_URL} target="_blank" textDecoration="underline">
         <styled.span
           data-testid={SharedComponentsSelectors.BroadcastErrorTitle}
           textStyle="label.02"

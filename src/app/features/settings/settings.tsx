@@ -5,6 +5,7 @@ import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { css } from 'leather-styles/css';
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 
+import { LEATHER_SUPPORT_URL } from '@leather.io/constants';
 import {
   ArrowsRepeatLeftRightIcon,
   Caption,
@@ -38,7 +39,6 @@ import { ThemeSheet } from '@app/features/settings/theme/theme-dialog';
 import { useLedgerDeviceTargetId } from '@app/store/ledger/ledger.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
 
-import { openFeedbackSheet } from '../feedback-button/feedback-button';
 import { extractDeviceNameFromKnownTargetIds } from '../ledger/utils/generic-ledger-utils';
 import { AdvancedMenuItems } from './components/advanced-menu-items';
 import { LedgerDeviceItemRow } from './components/ledger-item-row';
@@ -194,9 +194,7 @@ export function Settings({
             <DropdownMenu.Group>
               <DropdownMenu.Item
                 data-testid={SettingsSelectors.GetSupportMenuItem}
-                onSelect={() => {
-                  openInNewTab('https://leather.gitbook.io/guides/installing/contact-support');
-                }}
+                onSelect={() => openInNewTab(LEATHER_SUPPORT_URL)}
               >
                 <Flag img={<SupportIcon />} textStyle="label.02">
                   <Flex justifyContent="space-between">
@@ -205,7 +203,10 @@ export function Settings({
                   </Flex>
                 </Flag>
               </DropdownMenu.Item>
-              <DropdownMenu.Item onSelect={() => openFeedbackSheet()}>
+              <DropdownMenu.Item
+                data-testid={SettingsSelectors.FeedbackMenuItem}
+                onSelect={() => openInNewTab(LEATHER_SUPPORT_URL)}
+              >
                 <Flag img={<MegaphoneIcon />} textStyle="label.02">
                   Give feedback
                 </Flag>

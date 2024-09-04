@@ -10,9 +10,7 @@ import { ripemd160 } from '@noble/hashes/ripemd160';
 import { sha256 } from '@noble/hashes/sha256';
 import { base58 } from '@scure/base';
 import { AnalyticsBrowser } from '@segment/analytics-next';
-import { feedbackIntegration } from '@sentry/browser';
 import * as Sentry from '@sentry/react';
-import { token } from 'leather-styles/tokens';
 
 import {
   IS_TEST_ENV,
@@ -69,37 +67,6 @@ export async function identifyUser(publicKey: Uint8Array) {
   return analytics.identify(deriveAnalyticsIdentifier(publicKey));
 }
 
-export const sentryFeedback = feedbackIntegration({
-  colorScheme: 'system',
-  isEmailRequired: false,
-  buttonLabel: 'Give feedback',
-  formTitle: 'Give feedback',
-  autoInject: false,
-  showEmail: false,
-  showName: false,
-  showBranding: false,
-  messageLabel: 'Feedback',
-  submitButtonLabel: 'Send feedback',
-  messagePlaceholder:
-    'This is not a support tool. To get help, follow the link in the main menu on the homepage.',
-  successMessageText: 'Thanks for helping make Leather better',
-  themeDark: {
-    background: token('colors.ink.background-primary'),
-    inputOutlineFocus: token('colors.ink.border-transparent'),
-    submitBackground: token('colors.ink.component-background-default'),
-    submitBackgroundHover: token('colors.ink.component-background-hover'),
-    submitOutlineFocus: token('colors.ink.border-transparent'),
-    submitBorder: token('colors.ink.component-background-default'),
-    cancelBackground: token('colors.colorPalette.action-primary-default'),
-    cancelBackgroundHover: token('colors.colorPalette.action-primary-hover'),
-  },
-  themeLight: {
-    submitBackground: token('colors.ink.text-primary'),
-    submitBackgroundHover: token('colors.ink.text-primary'),
-    submitOutlineFocus: token('colors.ink.text-primary'),
-  },
-});
-
 export function initSentry() {
   if (IS_TEST_ENV || !SENTRY_DSN) return;
 
@@ -116,7 +83,6 @@ export function initSentry() {
         createRoutesFromChildren,
         matchRoutes,
       }),
-      sentryFeedback,
     ],
     ignoreErrors: [
       // Harmless error
