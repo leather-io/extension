@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@noble/hashes/utils';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Box, Flex, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
@@ -75,6 +76,7 @@ export function SendInscriptionReview() {
       onClose={() => navigate(RouteUrls.Home)}
     >
       <Card
+        dataTestId={SendCryptoAssetSelectors.ConfirmationDetails}
         border="unset"
         contentStyle={{
           p: 'space.00',
@@ -109,7 +111,11 @@ export function SendInscriptionReview() {
           px="space.06"
         >
           <Stack width="100%" mb="36px">
-            <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
+            <InfoCardRow
+              data-testid={SendCryptoAssetSelectors.ConfirmationDetailsRecipient}
+              title="To"
+              value={<FormAddressDisplayer address={recipient} />}
+            />
             <InfoCardSeparator />
             {arrivesIn && <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />}
             <InfoCardRow title="Fee" value={feeRowValue} />
