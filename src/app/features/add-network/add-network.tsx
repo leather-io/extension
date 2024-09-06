@@ -20,13 +20,26 @@ export function AddNetwork() {
       <Content>
         <Page>
           <Formik initialValues={initialFormValues} onSubmit={onSubmit}>
-            {() => (
-              <Card>
+            {({ handleSubmit }) => (
+              <Card
+                footerBorder
+                footer={
+                  <Button
+                    fullWidth
+                    aria-busy={loading}
+                    data-testid={NetworkSelectors.AddNetworkBtn}
+                    type="submit"
+                    onClick={() => handleSubmit()}
+                  >
+                    Add network
+                  </Button>
+                }
+              >
                 <Form data-testid={NetworkSelectors.NetworkPageReady}>
                   <Stack
                     gap="space.05"
                     maxWidth="pageWidth"
-                    px={['space.05', 'space.04']}
+                    px={{ base: 'space.00', sm: 'space.04', md: 'space.05' }}
                     my="space.05"
                   >
                     <styled.span textStyle="body.02">
@@ -52,13 +65,6 @@ export function AddNetwork() {
                     {error ? (
                       <ErrorLabel data-testid={NetworkSelectors.ErrorText}>{error}</ErrorLabel>
                     ) : null}
-                    <Button
-                      aria-busy={loading}
-                      data-testid={NetworkSelectors.AddNetworkBtn}
-                      type="submit"
-                    >
-                      Add network
-                    </Button>
                   </Stack>
                 </Form>
               </Card>
