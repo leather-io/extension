@@ -51,34 +51,42 @@ export function useSendInscriptionForm() {
       setIsCheckingFees(true);
 
       try {
-        // Check tx with lowest fee for errors before routing and
-        // generating the final transaction with the chosen fee to send
-        const resp = coverFeeFromAdditionalUtxos(values);
-
-        if (!resp) {
-          setShowError(
-            'Insufficient funds to cover fee. Deposit some BTC to your Native Segwit address.'
-          );
-          return;
-        }
-
         if (Number(inscription.offset) !== 0) {
-          setShowError('Sending inscriptions at non-zero offsets is unsupported');
+          setShowError(FormErrorMessages.NonZeroOffsetInscription);
           return;
         }
 
         const numInscriptionsOnUtxo = getNumberOfInscriptionOnUtxo(utxo.txid, utxo.vout);
         if (numInscriptionsOnUtxo > 1) {
-          setShowError('Sending inscription from utxo with multiple inscriptions is unsupported');
+          setShowError(FormErrorMessages.UtxoWithMultipleInscriptions);
           return;
         }
+
+        // Check tx with lowest fee for errors before routing and
+        // generating the final transaction with the chosen fee to send
+        const resp = coverFeeFromAdditionalUtxos(values);
+
+        if (!resp) {
+          setShowError(FormErrorMessages.InsufficientFundsToCoverFee);
+          return;
+        }
+
+        navigate(
+          `/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionChooseFee}`,
+          {
+            state: {
+              inscription,
+              recipient: values.recipient,
+              utxo,
+              backgroundLocation: { pathname: RouteUrls.Home },
+            },
+          }
+        );
       } catch (error) {
         void analytics.track('ordinals_dot_com_unavailable', { error });
 
         if (error instanceof InsufficientFundsError) {
-          setShowError(
-            'Insufficient funds to cover fee. Deposit some BTC to your Native Segwit address.'
-          );
+          setShowError(FormErrorMessages.InsufficientFundsToCoverFee);
           return;
         }
 
@@ -90,18 +98,6 @@ export function useSendInscriptionForm() {
       } finally {
         setIsCheckingFees(false);
       }
-
-      navigate(
-        `/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionChooseFee}`,
-        {
-          state: {
-            inscription,
-            recipient: values.recipient,
-            utxo,
-            backgroundLocation: { pathname: RouteUrls.Home },
-          },
-        }
-      );
     },
 
     async reviewTransaction(
