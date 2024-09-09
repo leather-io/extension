@@ -30,7 +30,7 @@ importers:
         version: 0.7.0(encoding@0.1.13)
       '@coinbase/cbpay-js':
         specifier: 2.1.0
-        version: 2.1.0(regenerator-runtime@0.13.11)
+        version: 2.1.0(regenerator-runtime@0.14.1)
       '@fungible-systems/zone-file':
         specifier: 2.0.0
         version: 2.0.0
@@ -179,8 +179,8 @@ importers:
         specifier: 1.0.4
         version: 1.0.4(encoding@0.1.13)
       alex-sdk:
-        specifier: 2.1.3
-        version: 2.1.3(@stacks/network@6.13.0(encoding@0.1.13))(@stacks/transactions@6.15.0(encoding@0.1.13))
+        specifier: 2.1.4
+        version: 2.1.4(@stacks/network@6.13.0(encoding@0.1.13))(@stacks/transactions@6.15.0(encoding@0.1.13))
       are-passive-events-supported:
         specifier: 1.1.1
         version: 1.1.1
@@ -439,7 +439,7 @@ importers:
         version: 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
       '@storybook/addon-interactions':
         specifier: 8.2.4
-        version: 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6))
+        version: 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0))
       '@storybook/addon-links':
         specifier: 8.2.4
         version: 8.2.4(react@18.3.1)(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
@@ -460,7 +460,7 @@ importers:
         version: 8.2.4(@swc/core@1.7.18)(esbuild@0.23.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(typescript@5.4.5)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.1)(webpack@5.94.0))
       '@storybook/test':
         specifier: 8.2.4
-        version: 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6))
+        version: 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0))
       '@storybook/theming':
         specifier: 8.2.4
         version: 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
@@ -541,7 +541,7 @@ importers:
         version: 7.5.0(eslint@8.56.0)(typescript@5.4.5)
       '@vitest/coverage-istanbul':
         specifier: 2.0.5
-        version: 2.0.5(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6))
+        version: 2.0.5(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0))
       audit-ci:
         specifier: 6.6.1
         version: 6.6.1
@@ -667,7 +667,7 @@ importers:
         version: 5.4.5
       vitest:
         specifier: 2.0.5
-        version: 2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6)
+        version: 2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0)
       vm-browserify:
         specifier: 1.1.2
         version: 1.1.2
@@ -6769,6 +6769,13 @@ packages:
       '@stacks/network': ^6.3.0
       '@stacks/transactions': ^6.2.0
 
+  alex-sdk@2.1.4:
+    resolution: {integrity: sha512-fFFyk3iwioqRsNOiWQyVXl+5vjlIU0ez3Ko9JnE6JBt8F8pNLMAkPIBlZA/nW/EhdFrrTuyuT0CHxH22GumQ5w==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@stacks/network': ^6.3.0
+      '@stacks/transactions': ^6.2.0
+
   anser@1.4.10:
     resolution: {integrity: sha512-hCv9AqTQ8ycjpSd3upOJd7vFwW1JaoYQ7tpham03GJ1ca8/65rqn0RpaWpItOAd6ylW9wAw6luXYPJIyPFVOww==}
 
@@ -7535,6 +7542,12 @@ packages:
 
   clarity-codegen@0.5.2:
     resolution: {integrity: sha512-t0uvboeZTII7n2lgobAxcQnhyjXwbUKYdUKJA3yjoaOXPvtr5i2zFV7H1E6ZeDMfqd3vIksMPvpdFfXum9SoNQ==}
+    hasBin: true
+    peerDependencies:
+      '@stacks/transactions': '*'
+
+  clarity-codegen@0.5.3:
+    resolution: {integrity: sha512-SmcGEJVCsx2ljD7hGzcIv4W3lUzJl2k3zuH5kHDI0lgO2N6sTPRv+WyXzxmMsJvGCsdggkvVU9ebc2cR/Z+h+g==}
     hasBin: true
     peerDependencies:
       '@stacks/transactions': '*'
@@ -14181,6 +14194,11 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  terser@5.32.0:
+    resolution: {integrity: sha512-v3Gtw3IzpBJ0ugkxEX8U0W6+TnPKRRCWGh1jC/iM/e3Ki5+qvO1L1EAZ56bZasc64aXHwRHNIQEzm6//i5cemQ==}
+    engines: {node: '>=10'}
+    hasBin: true
+
   test-exclude@7.0.1:
     resolution: {integrity: sha512-pFYqmTw68LXVjeWJMST4+borgQP2AyMNbg1BpZh9LbyhUeNkeaPF9gzfPGUAnSMV3qPYdWUwDIjjCLiSDOl7vg==}
     engines: {node: '>=18'}
@@ -16582,9 +16600,9 @@ snapshots:
       picocolors: 1.0.1
       sisteransi: 1.0.5
 
-  '@coinbase/cbpay-js@2.1.0(regenerator-runtime@0.13.11)':
+  '@coinbase/cbpay-js@2.1.0(regenerator-runtime@0.14.1)':
     optionalDependencies:
-      regenerator-runtime: 0.13.11
+      regenerator-runtime: 0.14.1
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -21660,11 +21678,11 @@ snapshots:
       '@storybook/global': 5.0.0
       storybook: 8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2))
 
-  '@storybook/addon-interactions@8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6))':
+  '@storybook/addon-interactions@8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0))':
     dependencies:
       '@storybook/global': 5.0.0
       '@storybook/instrumenter': 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
-      '@storybook/test': 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6))
+      '@storybook/test': 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0))
       polished: 4.3.1
       storybook: 8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2))
       ts-dedent: 2.2.0
@@ -22089,12 +22107,12 @@ snapshots:
     optionalDependencies:
       typescript: 5.4.5
 
-  '@storybook/test@8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6))':
+  '@storybook/test@8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0))':
     dependencies:
       '@storybook/csf': 0.1.11
       '@storybook/instrumenter': 8.2.4(storybook@8.2.4(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
       '@testing-library/dom': 10.1.0
-      '@testing-library/jest-dom': 6.4.5(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6))
+      '@testing-library/jest-dom': 6.4.5(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0))
       '@testing-library/user-event': 14.5.2(@testing-library/dom@10.1.0)
       '@vitest/expect': 1.6.0
       '@vitest/spy': 1.6.0
@@ -22319,7 +22337,7 @@ snapshots:
       lz-string: 1.5.0
       pretty-format: 27.5.1
 
-  '@testing-library/jest-dom@6.4.5(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6))':
+  '@testing-library/jest-dom@6.4.5(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0))':
     dependencies:
       '@adobe/css-tools': 4.4.0
       '@babel/runtime': 7.25.4
@@ -22330,7 +22348,7 @@ snapshots:
       lodash: 4.17.21
       redent: 3.0.0
     optionalDependencies:
-      vitest: 2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6)
+      vitest: 2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0)
 
   '@testing-library/user-event@14.5.2(@testing-library/dom@10.1.0)':
     dependencies:
@@ -23245,7 +23263,7 @@ snapshots:
       graphql: 15.8.0
       wonka: 4.0.15
 
-  '@vitest/coverage-istanbul@2.0.5(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6))':
+  '@vitest/coverage-istanbul@2.0.5(vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0))':
     dependencies:
       '@istanbuljs/schema': 0.1.3
       debug: 4.3.6(supports-color@5.5.0)
@@ -23257,7 +23275,7 @@ snapshots:
       magicast: 0.3.4
       test-exclude: 7.0.1
       tinyrainbow: 1.2.0
-      vitest: 2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6)
+      vitest: 2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -23697,6 +23715,14 @@ snapshots:
       '@stacks/network': 6.13.0(encoding@0.1.13)
       '@stacks/transactions': 6.15.0(encoding@0.1.13)
       clarity-codegen: 0.5.2(@stacks/transactions@6.15.0(encoding@0.1.13))
+    transitivePeerDependencies:
+      - debug
+
+  alex-sdk@2.1.4(@stacks/network@6.13.0(encoding@0.1.13))(@stacks/transactions@6.15.0(encoding@0.1.13)):
+    dependencies:
+      '@stacks/network': 6.13.0(encoding@0.1.13)
+      '@stacks/transactions': 6.15.0(encoding@0.1.13)
+      clarity-codegen: 0.5.3(@stacks/transactions@6.15.0(encoding@0.1.13))
     transitivePeerDependencies:
       - debug
 
@@ -24623,6 +24649,17 @@ snapshots:
   cjs-module-lexer@1.3.1: {}
 
   clarity-codegen@0.5.2(@stacks/transactions@6.15.0(encoding@0.1.13)):
+    dependencies:
+      '@stacks/stacks-blockchain-api-types': 7.8.2
+      '@stacks/transactions': 6.15.0(encoding@0.1.13)
+      axios: 1.7.4
+      lodash: 4.17.21
+      yargs: 17.7.2
+      yqueue: 1.0.1
+    transitivePeerDependencies:
+      - debug
+
+  clarity-codegen@0.5.3(@stacks/transactions@6.15.0(encoding@0.1.13)):
     dependencies:
       '@stacks/stacks-blockchain-api-types': 7.8.2
       '@stacks/transactions': 6.15.0(encoding@0.1.13)
@@ -32757,6 +32794,14 @@ snapshots:
       commander: 2.20.3
       source-map-support: 0.5.21
 
+  terser@5.32.0:
+    dependencies:
+      '@jridgewell/source-map': 0.3.6
+      acorn: 8.12.1
+      commander: 2.20.3
+      source-map-support: 0.5.21
+    optional: true
+
   test-exclude@7.0.1:
     dependencies:
       '@istanbuljs/schema': 0.1.3
@@ -33438,13 +33483,13 @@ snapshots:
       bl: 1.2.3
       through2: 2.0.5
 
-  vite-node@2.0.5(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.31.6):
+  vite-node@2.0.5(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.32.0):
     dependencies:
       cac: 6.7.14
       debug: 4.3.6(supports-color@5.5.0)
       pathe: 1.1.2
       tinyrainbow: 1.2.0
-      vite: 5.4.2(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.31.6)
+      vite: 5.4.2(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.32.0)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -33456,7 +33501,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite@5.4.2(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.31.6):
+  vite@5.4.2(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.32.0):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.41
@@ -33465,9 +33510,9 @@ snapshots:
       '@types/node': 20.12.12
       fsevents: 2.3.3
       lightningcss: 1.26.0
-      terser: 5.31.6
+      terser: 5.32.0
 
-  vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.31.6):
+  vitest@2.0.5(@types/node@20.12.12)(jsdom@22.1.0)(lightningcss@1.26.0)(terser@5.32.0):
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@vitest/expect': 2.0.5
@@ -33485,8 +33530,8 @@ snapshots:
       tinybench: 2.9.0
       tinypool: 1.0.1
       tinyrainbow: 1.2.0
-      vite: 5.4.2(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.31.6)
-      vite-node: 2.0.5(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.31.6)
+      vite: 5.4.2(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.32.0)
+      vite-node: 2.0.5(@types/node@20.12.12)(lightningcss@1.26.0)(terser@5.32.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 20.12.12
