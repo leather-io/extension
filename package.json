@@ -368,6 +368,7 @@
     "wrap-ansi": "7.0.0",
     "webpack-dev-middleware": "5.3.4",
     "eslint": "8.56.0",
+    "path-to-regexp": "0.1.10",
     "ws": "8.17.1"
   },
   "pnpm": {
