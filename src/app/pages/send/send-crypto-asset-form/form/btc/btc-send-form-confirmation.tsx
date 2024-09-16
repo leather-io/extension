@@ -9,7 +9,7 @@ import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { decodeBitcoinTx } from '@leather.io/bitcoin';
-import type { CryptoCurrencies } from '@leather.io/models';
+import type { CryptoCurrency } from '@leather.io/models';
 import {
   useBitcoinBroadcastTransaction,
   useCryptoCurrencyMarketDataMeanAverage,
@@ -40,7 +40,7 @@ import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by
 
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 
-const symbol: CryptoCurrencies = 'BTC';
+const symbol: CryptoCurrency = 'BTC';
 
 function useBtcSendFormConfirmationState() {
   const location = useLocation();

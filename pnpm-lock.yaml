@@ -45,8 +45,8 @@ importers:
         specifier: 1.4.2
         version: 1.4.2
       '@leather.io/models':
-        specifier: 0.13.0
-        version: 0.13.0
+        specifier: 0.14.0
+        version: 0.14.0
       '@leather.io/query':
         specifier: 2.10.0
         version: 2.10.0(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
@@ -2796,6 +2796,9 @@ packages:
 
   '@leather.io/models@0.13.0':
     resolution: {integrity: sha512-5pgaKKXVjHD7CVb89r/MOwrTxNxVG/NVWll91q9MWjkfq/KEn+O6Ceg9wo2QJCaV/XD9rxozljAJ1WOJrWCyXg==}
+
+  '@leather.io/models@0.14.0':
+    resolution: {integrity: sha512-XGgXDmZMyFVNGPAtd3Pua3d2/12J1Nlw5GMZB2sieBNdDC1iSwVrfAjy3UEMlvYuZR4YKqliX3P97McGDxmCgg==}
 
   '@leather.io/panda-preset@0.3.8':
     resolution: {integrity: sha512-MEohMC7VA28v+um3uYxTeLYNOZ+XXg09MoAtgvHw+RJJFtO6bBXFcmgooSJv44aaBuhRb3Zx9erz4xErq3GzcQ==}
@@ -17693,6 +17696,12 @@ snapshots:
       - typescript
 
   '@leather.io/models@0.13.0':
+    dependencies:
+      '@stacks/stacks-blockchain-api-types': 7.8.2
+      bignumber.js: 9.1.2
+      zod: 3.23.6
+
+  '@leather.io/models@0.14.0':
     dependencies:
       '@stacks/stacks-blockchain-api-types': 7.8.2
       bignumber.js: 9.1.2

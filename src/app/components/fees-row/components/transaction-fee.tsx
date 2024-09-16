@@ -1,14 +1,14 @@
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { styled } from 'leather-styles/jsx';
 
-import type { CryptoCurrencies, Money } from '@leather.io/models';
+import type { CryptoCurrency, Money } from '@leather.io/models';
 import { formatDustUsdAmounts, i18nFormatCurrency } from '@leather.io/utils';
 
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface TransactionFeeProps {
   fee: string | number;
-  feeCurrencySymbol: CryptoCurrencies;
+  feeCurrencySymbol: CryptoCurrency;
   usdAmount: Money | null;
 }
 export function TransactionFee({ fee, feeCurrencySymbol, usdAmount }: TransactionFeeProps) {

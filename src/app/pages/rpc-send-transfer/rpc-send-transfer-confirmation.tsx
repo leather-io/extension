@@ -4,7 +4,7 @@ import { HStack, Stack, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { decodeBitcoinTx } from '@leather.io/bitcoin';
-import type { CryptoCurrencies } from '@leather.io/models';
+import type { CryptoCurrency } from '@leather.io/models';
 import {
   useBitcoinBroadcastTransaction,
   useCryptoCurrencyMarketDataMeanAverage,
@@ -34,7 +34,7 @@ import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accoun
 import { SendTransferConfirmationDetails } from './components/send-transfer-confirmation-details';
 import { useRpcSendTransferRequestParams } from './use-rpc-send-transfer';
 
-const symbol: CryptoCurrencies = 'BTC';
+const symbol: CryptoCurrency = 'BTC';
 
 function useRpcSendTransferConfirmationState() {
   const location = useLocation();
