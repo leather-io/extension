@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Grid } from 'leather-styles/jsx';
 
-import type { CryptoCurrencies } from '@leather.io/models';
+import type { CryptoCurrency } from '@leather.io/models';
 
 import { analytics } from '@shared/utils/analytics';
 
@@ -20,7 +20,7 @@ import { ReceiveFundsItem } from './components/receive-funds-item';
 interface FiatProvidersProps {
   address: string;
   route: string;
-  symbol: CryptoCurrencies;
+  symbol: CryptoCurrency;
 }
 export function FiatProvidersList(props: FiatProvidersProps) {
   const { address, route, symbol } = props;

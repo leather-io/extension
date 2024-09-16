@@ -3,7 +3,7 @@ import { Outlet, useParams } from 'react-router-dom';
 import type {
   Blockchains,
   BtcCryptoAssetBalance,
-  CryptoCurrencies,
+  CryptoCurrency,
   StxCryptoAssetBalance,
 } from '@leather.io/models';
 
@@ -23,7 +23,7 @@ interface FundCryptoCurrencyInfo {
   balance?: BtcCryptoAssetBalance | StxCryptoAssetBalance;
   blockchain: Blockchains;
   route: string;
-  symbol: CryptoCurrencies;
+  symbol: CryptoCurrency;
 }
 
 export function FundPage() {
@@ -31,7 +31,7 @@ export function FundPage() {
   const bitcoinSigner = useCurrentAccountNativeSegwitIndexZeroSignerNullable();
   const { currency = 'STX' } = useParams();
 
-  const fundCryptoCurrencyMap: Record<CryptoCurrencies, FundCryptoCurrencyInfo> = {
+  const fundCryptoCurrencyMap: Record<CryptoCurrency, FundCryptoCurrencyInfo> = {
     BTC: {
       address: bitcoinSigner?.address,
       blockchain: 'bitcoin',
@@ -46,8 +46,7 @@ export function FundPage() {
     },
   };
 
-  const { address, blockchain, route, symbol } =
-    fundCryptoCurrencyMap[currency as CryptoCurrencies];
+  const { address, blockchain, route, symbol } = fundCryptoCurrencyMap[currency as CryptoCurrency];
 
   if (!address) return <FullPageLoadingSpinner />;
 

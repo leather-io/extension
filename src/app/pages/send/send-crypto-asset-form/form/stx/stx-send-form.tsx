@@ -1,4 +1,4 @@
-import type { CryptoCurrencies } from '@leather.io/models';
+import type { CryptoCurrency } from '@leather.io/models';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import { StxAvatarIcon } from '@leather.io/ui';
 
@@ -12,7 +12,7 @@ import { SendMaxButton } from '../../components/send-max-button';
 import { StacksCommonSendForm } from '../stacks/stacks-common-send-form';
 import { useStxSendForm } from './use-stx-send-form';
 
-const symbol = 'STX' satisfies CryptoCurrencies;
+const symbol = 'STX' satisfies CryptoCurrency;
 
 export function StxSendForm() {
   const stxMarketData = useCryptoCurrencyMarketDataMeanAverage(symbol);

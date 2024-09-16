@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { AuthType, StacksTransaction } from '@stacks/transactions';
 
-import type { CryptoCurrencies } from '@leather.io/models';
+import type { CryptoCurrency } from '@leather.io/models';
 import { delay, isError, isString } from '@leather.io/utils';
 
 import { finalizeTxSignature } from '@shared/actions/finalize-tx-signature';
@@ -25,7 +25,7 @@ async function simulateShortDelayToAvoidUndefinedTabId() {
 }
 
 interface UseStacksBroadcastTransactionArgs {
-  token: CryptoCurrencies;
+  token: CryptoCurrency;
   decimals?: number;
   isIncreaseFeeTransaction?: boolean;
 }
