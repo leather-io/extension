@@ -16,6 +16,7 @@ import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/tr
 import { SwapSubmissionData, useSwapContext } from '@app/pages/swap/swap.context';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
+import { toCommaSeparatedWithAnd } from '../../swap.utils';
 import { SwapDetailLayout } from './swap-detail.layout';
 import { SwapDetailsLayout } from './swap-details.layout';
 
@@ -54,12 +55,21 @@ export function SwapDetails() {
     )
   );
 
+  const getFormattedPoweredBy = () => {
+    const uniqueDexList = Array.from(new Set(swapSubmissionData.dexPath));
+    const isOnlySwapProtocol =
+      uniqueDexList.length === 1 && uniqueDexList[0] === swapSubmissionData.protocol;
+    return isOnlySwapProtocol || !uniqueDexList.length
+      ? swapSubmissionData.protocol
+      : `${toCommaSeparatedWithAnd(uniqueDexList)} via ${swapSubmissionData.protocol}`;
+  };
+
   return (
     <SwapDetailsLayout>
       <SwapDetailLayout
         dataTestId={SwapSelectors.SwapDetailsProtocol}
         title="Powered by"
-        value={swapSubmissionData.protocol}
+        value={getFormattedPoweredBy()}
       />
       <SwapDetailLayout
         title="Route"
@@ -76,8 +86,7 @@ export function SwapDetails() {
       />
       <SwapDetailLayout
         title="Liquidity provider fee"
-        tooltipLabel="To receive a share of these fees, become a Liquidity Provider on app.alexlab.co."
-        value={`${swapSubmissionData.liquidityFee} ${swapSubmissionData.swapAssetBase.name}`}
+        value={`${swapSubmissionData.liquidityFee.toFixed(1)}%`}
       />
       <SwapDetailLayout
         title="Transaction fees"

@@ -3,6 +3,10 @@ name: Integration tests
 env:
   CI: true
   WALLET_ENVIRONMENT: testing
+  BITFLOW_API_HOST: ${{ secrets.BITFLOW_API_HOST }}
+  BITFLOW_API_KEY: ${{ secrets.BITFLOW_API_KEY }}
+  BITFLOW_STACKS_API_HOST: ${{ secrets.BITFLOW_STACKS_API_HOST }}
+  BITFLOW_READONLY_CALL_API_HOST: ${{ secrets.BITFLOW_READONLY_CALL_API_HOST }}
 
 on:
   push:

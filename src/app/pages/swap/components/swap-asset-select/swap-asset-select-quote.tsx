@@ -1,6 +1,11 @@
 import { useField } from 'formik';
 
-import { formatMoneyWithoutSymbol, i18nFormatCurrency, isDefined } from '@leather.io/utils';
+import {
+  formatMoneyWithoutSymbol,
+  i18nFormatCurrency,
+  isDefined,
+  isMoneyGreaterThanZero,
+} from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -38,7 +43,11 @@ export function SwapAssetSelectQuote() {
           <LoadingSpinner justifyContent="flex-end" size="sm" />
         ) : (
           <SwapAmountField
-            amountAsFiat={amountAsFiat ? i18nFormatCurrency(amountAsFiat) : ''}
+            amountAsFiat={
+              amountAsFiat && isMoneyGreaterThanZero(amountAsFiat)
+                ? i18nFormatCurrency(amountAsFiat)
+                : ''
+            }
             isDisabled
             name="swapAmountQuote"
           />

@@ -117,8 +117,10 @@ export const config = {
       vm: require.resolve('vm-browserify'),
       assert: require.resolve('assert'),
       'lottie-web': path.resolve('node_modules/lottie-web/build/player/lottie_light.js'),
-      fs: false,
-      path: false,
+      fs: require.resolve('browserify-fs'),
+      path: require.resolve('path-browserify'),
+      os: require.resolve('os-browserify/browser'),
+      process: require.resolve('process/browser'),
     },
   },
   externals: {
@@ -291,6 +293,7 @@ export const config = {
     }),
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
+      process: 'process/browser',
     }),
 
     new ProgressBarPlugin(),

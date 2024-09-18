@@ -197,7 +197,9 @@
     "bignumber.js": "9.1.2",
     "bitcoin-address-validation": "2.2.1",
     "bitcoinjs-lib": "6.1.5",
+    "bitflow-sdk": "1.6.1",
     "bn.js": "5.2.1",
+    "browserify-fs": "1.0.0",
     "c32check": "2.0.0",
     "chroma-js": "2.4.2",
     "coinselect": "3.1.13",
@@ -219,6 +221,7 @@
     "micro-packed": "0.3.2",
     "object-hash": "3.0.0",
     "observable-hooks": "4.2.3",
+    "os-browserify": "0.3.0",
     "p-queue": "8.0.1",
     "pino": "8.19.0",
     "postcss-preset-env": "9.5.4",
@@ -379,7 +382,8 @@
   },
   "pnpm": {
     "overrides": {
-      "eslint": "8.56.0"
+      "eslint": "8.56.0",
+      "levelup>semver": "5.7.2"
     }
   },
   "keywords": [

@@ -16,7 +16,12 @@ import { SwapFormValues } from './hooks/use-swap-form';
 import { useSwapContext } from './swap.context';
 
 export function Swap() {
-  const { isFetchingExchangeRate, swappableAssetsBase, swappableAssetsQuote } = useSwapContext();
+  const {
+    isFetchingExchangeRate,
+    isPreparingSwapReview,
+    swappableAssetsBase,
+    swappableAssetsQuote,
+  } = useSwapContext();
   const { dirty, isValid, setFieldValue, values, validateForm } =
     useFormikContext<SwapFormValues>();
   const { base, quote } = useParams();
@@ -51,7 +56,8 @@ export function Swap() {
       footer={
         <Button
           data-testid={SwapSelectors.SwapReviewBtn}
-          disabled={!(dirty && isValid) || isFetchingExchangeRate}
+          aria-busy={isPreparingSwapReview}
+          disabled={!(dirty && isValid) || isFetchingExchangeRate || isPreparingSwapReview}
           type="submit"
           fullWidth
         >
