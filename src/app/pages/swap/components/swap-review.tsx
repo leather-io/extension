@@ -22,6 +22,7 @@ export function SwapReview() {
         footer={
           <Button
             aria-busy={isLoading}
+            disabled={isLoading}
             data-testid={SwapSelectors.SwapSubmitBtn}
             type="button"
             onClick={onSubmitSwap}

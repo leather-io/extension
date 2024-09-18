@@ -42,7 +42,7 @@ import { RequestError } from '@app/pages/request-error/request-error';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { sendOrdinalRoutes } from '@app/pages/send/ordinal-inscription/ordinal-routes';
 import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
-import { alexSwapRoutes } from '@app/pages/swap/alex-swap-container';
+import { bitflowSwapRoutes } from '@app/pages/swap/bitflow-swap-container';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
 import { Unlock } from '@app/pages/unlock';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
@@ -192,7 +192,7 @@ function useAppRoutes() {
             }
           />
 
-          {alexSwapRoutes}
+          {bitflowSwapRoutes}
 
           {/* OnBoarding Routes */}
           <Route
