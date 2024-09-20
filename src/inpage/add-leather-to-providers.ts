@@ -29,7 +29,7 @@ export function addLeatherToProviders() {
     methods: [
       'getAddresses',
       'signMessage',
-      'sentTransfer',
+      'sendTransfer',
       'signPsbt',
       'stx_signMessage',
       'stx_signTransaction',
