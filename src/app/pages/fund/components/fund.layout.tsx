@@ -1,11 +1,11 @@
 import { Stack, styled } from 'leather-styles/jsx';
 
-import type { Blockchains, CryptoCurrency } from '@leather.io/models';
+import type { Blockchain, CryptoCurrency } from '@leather.io/models';
 
 import { HasChildren } from '@app/common/has-children';
 
 interface FundLayoutProps extends HasChildren {
-  blockchain: Blockchains;
+  blockchain: Blockchain;
   symbol: CryptoCurrency;
 }
 export function FundLayout({ blockchain, symbol, children }: FundLayoutProps) {

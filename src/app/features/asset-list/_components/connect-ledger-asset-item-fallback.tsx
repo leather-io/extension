@@ -1,6 +1,6 @@
 import type React from 'react';
 
-import type { Blockchains, Currency } from '@leather.io/models';
+import type { Blockchain, Currency } from '@leather.io/models';
 import { ItemLayout, Pressable } from '@leather.io/ui';
 
 import { capitalize } from '@app/common/utils';
@@ -10,7 +10,7 @@ import type { AssetListVariant } from '../asset-list';
 import { ConnectLedgerButton } from './connect-ledger-asset-button';
 
 interface ConnectLedgerAssetItemFallbackProps {
-  chain: Blockchains;
+  chain: Blockchain;
   icon: React.ReactNode;
   symbol: Currency;
   variant: AssetListVariant;
