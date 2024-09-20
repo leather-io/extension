@@ -1,14 +1,14 @@
 import { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
 
-import type { BitcoinTx, Blockchains } from '@leather.io/models';
+import type { BitcoinTx, Blockchain } from '@leather.io/models';
 
 export interface TransactionListBitcoinTx {
-  blockchain: Extract<Blockchains, 'bitcoin'>;
+  blockchain: Extract<Blockchain, 'bitcoin'>;
   transaction: BitcoinTx;
 }
 
 export interface TransactionListStacksTx {
-  blockchain: Extract<Blockchains, 'stacks'>;
+  blockchain: Extract<Blockchain, 'stacks'>;
   transaction: AddressTransactionWithTransfers;
 }
 

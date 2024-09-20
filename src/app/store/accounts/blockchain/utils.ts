@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import type { Blockchains } from '@leather.io/models';
+import type { Blockchain } from '@leather.io/models';
 
 import { useHasCurrentBitcoinAccount } from './bitcoin/bitcoin.hooks';
 import { useHasStacksLedgerKeychain } from './stacks/stacks.hooks';
@@ -12,7 +12,7 @@ export function useCheckLedgerBlockchainAvailable() {
   const hasStacksLedgerKeys = useHasStacksLedgerKeychain();
 
   return useCallback(
-    (chain: Blockchains) => {
+    (chain: Blockchain) => {
       if (chain === 'bitcoin') {
         return hasBitcoinLedgerKeys;
       }

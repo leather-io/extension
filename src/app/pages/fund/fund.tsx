@@ -1,7 +1,7 @@
 import { Outlet, useParams } from 'react-router-dom';
 
 import type {
-  Blockchains,
+  Blockchain,
   BtcCryptoAssetBalance,
   CryptoCurrency,
   StxCryptoAssetBalance,
@@ -21,7 +21,7 @@ import { FiatProvidersList } from './fiat-providers-list';
 interface FundCryptoCurrencyInfo {
   address?: string;
   balance?: BtcCryptoAssetBalance | StxCryptoAssetBalance;
-  blockchain: Blockchains;
+  blockchain: Blockchain;
   route: string;
   symbol: CryptoCurrency;
 }
