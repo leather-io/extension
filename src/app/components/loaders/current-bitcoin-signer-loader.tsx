@@ -1,5 +1,7 @@
 import type { P2Ret, P2TROut } from '@scure/btc-signer/payment';
 
+import type { BitcoinSigner } from '@leather.io/bitcoin';
+
 import { ZERO_INDEX } from '@shared/constants';
 
 import type { Signer } from '@app/store/accounts/blockchain/bitcoin/bitcoin-signer';
