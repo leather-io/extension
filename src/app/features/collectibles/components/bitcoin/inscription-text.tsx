@@ -1,11 +1,9 @@
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 
 import { useGetInscriptionTextContentQuery } from '@leather.io/query';
-import { OrdinalAvatarIcon } from '@leather.io/ui';
+import { CollectibleText, OrdinalAvatarIcon } from '@leather.io/ui';
 
 import { parseJson } from '@app/components/json';
-
-import { CollectibleText } from '../_collectible-types/collectible-text';
 
 interface InscriptionTextProps {
   contentSrc: string;

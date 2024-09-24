@@ -1,14 +1,6 @@
 import { Flex, FlexProps } from 'leather-styles/jsx';
 
-import { Spinner } from '@leather.io/ui';
-
-export function LoadingSpinner(props: { size?: string } & FlexProps) {
-  return (
-    <Flex alignItems="center" flexGrow={1} justifyContent="center" width="100%" {...props}>
-      <Spinner size={props.size} />
-    </Flex>
-  );
-}
+import { LoadingSpinner } from '@leather.io/ui';
 
 export function FullPageLoadingSpinner(props: FlexProps) {
   return (

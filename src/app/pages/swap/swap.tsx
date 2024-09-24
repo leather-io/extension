@@ -4,11 +4,10 @@ import { Outlet, useParams } from 'react-router-dom';
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { useFormikContext } from 'formik';
 
-import { Button } from '@leather.io/ui';
+import { Button, LoadingSpinner } from '@leather.io/ui';
 import { isUndefined } from '@leather.io/utils';
 
 import { Card } from '@app/components/layout';
-import { LoadingSpinner } from '@app/components/loading-spinner';
 
 import { SwapAssetSelectBase } from './components/swap-asset-select/swap-asset-select-base';
 import { SwapAssetSelectQuote } from './components/swap-asset-select/swap-asset-select-quote';

@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import { TransactionTypes } from '@stacks/connect';
 import { FungiblePostCondition, addressToString } from '@stacks/transactions';
 
+import { LoadingSpinner } from '@leather.io/ui';
 import { truncateMiddle } from '@leather.io/utils';
 
 import { ftDecimals, getSafeImageCanonicalUri } from '@app/common/stacks-utils';
@@ -15,7 +16,6 @@ import {
   getSymbolFromPostCondition,
 } from '@app/common/transactions/stacks/post-condition.utils';
 import { EventCard } from '@app/components/event-card';
-import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useAssetFromFungiblePostCondition } from '@app/store/transactions/post-conditions.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';

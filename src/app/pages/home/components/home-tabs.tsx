@@ -3,11 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, Stack } from 'leather-styles/jsx';
 
-import { Tabs } from '@leather.io/ui';
+import { LoadingSpinner, Tabs } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
-
-import { LoadingSpinner } from '@app/components/loading-spinner';
 
 interface HomeTabsProps {
   children: React.ReactNode;

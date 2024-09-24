@@ -5,7 +5,7 @@ import { Virtuoso } from 'react-virtuoso';
 import { Box, FlexProps, HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
-import { PlusIcon } from '@leather.io/ui';
+import { PlusIcon, usePressable } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -17,7 +17,6 @@ import { slugify } from '@app/common/utils';
 import { AccountTotalBalance } from '@app/components/account-total-balance';
 import { AcccountAddresses } from '@app/components/account/account-addresses';
 import { AccountListItemLayout } from '@app/components/account/account-list-item.layout';
-import { usePressable } from '@app/components/item-hover';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';

@@ -1,11 +1,11 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { PlusIcon } from '@leather.io/ui';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+
+import { CollectibleItemLayout, PlusIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
-
-import { CollectibleItemLayout } from './collectible-item.layout';
 
 export function AddCollectible() {
   const navigate = useNavigate();
@@ -25,6 +25,7 @@ export function AddCollectible() {
       showBorder
       subtitle="Collectible"
       title="Add new"
+      testId={SendCryptoAssetSelectors.InscriptionSendButton}
     >
       <PlusIcon height={36} width={36} />
     </CollectibleItemLayout>

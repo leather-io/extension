@@ -2,11 +2,9 @@ import { Suspense } from 'react';
 
 import { Box, Stack, StackProps } from 'leather-styles/jsx';
 
-import { Tabs } from '@leather.io/ui';
+import { LoadingSpinner, Tabs } from '@leather.io/ui';
 
 import { analytics } from '@shared/utils/analytics';
-
-import { LoadingSpinner } from '@app/components/loading-spinner';
 
 enum CustomFeeTabs {
   Recommended = 'recommended',

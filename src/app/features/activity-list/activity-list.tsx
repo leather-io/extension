@@ -9,8 +9,8 @@ import {
   useGetBitcoinTransactionsByAddressListQuery,
   useStacksPendingTransactions,
 } from '@leather.io/query';
+import { LoadingSpinner } from '@leather.io/ui';
 
-import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';

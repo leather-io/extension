@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
+import { LoadingSpinner } from '@leather.io/ui';
+
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
@@ -10,7 +12,6 @@ import {
   useInitalizeAnalytics,
 } from '@app/common/app-analytics';
 import { ContainerLayout } from '@app/components/layout';
-import { LoadingSpinner } from '@app/components/loading-spinner';
 import { SwitchAccountSheet } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
 import { InAppMessages } from '@app/features/hiro-messages/in-app-messages';
 import { useOnChangeAccount } from '@app/routes/hooks/use-on-change-account';

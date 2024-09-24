@@ -1,17 +1,19 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { type Inscription } from '@leather.io/models';
-import { OrdinalAvatarIcon } from '@leather.io/ui';
+import {
+  CollectibleAudio,
+  CollectibleIframe,
+  CollectibleImage,
+  CollectibleOther,
+  OrdinalAvatarIcon,
+} from '@leather.io/ui';
 
 import { ORD_IO_URL } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 
-import { CollectibleAudio } from '../_collectible-types/collectible-audio';
-import { CollectibleIframe } from '../_collectible-types/collectible-iframe';
-import { CollectibleImage } from '../_collectible-types/collectible-image';
-import { CollectibleOther } from '../_collectible-types/collectible-other';
 import { InscriptionText } from './inscription-text';
 
 interface InscriptionProps {
