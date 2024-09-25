@@ -16,6 +16,7 @@ export function useOnOriginTabClose(handler: () => void) {
       sendResponse: () => void
     ) => {
       if (message.method !== InternalMethods.OriginatingTabClosed) return;
+
       if (message.payload.tabId === tabId) {
         handler();
         void analytics.track('requesting_origin_tab_closed_with_pending_action');

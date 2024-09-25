@@ -5,7 +5,6 @@ import { ecdsaPublicKeyToSchnorr } from '@leather.io/bitcoin';
 
 import { logger } from '@shared/logger';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
-import { closeWindow } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
 
 import { useRpcRequestParams } from '@app/common/rpc-helpers';
@@ -22,13 +21,26 @@ export function useGetAddresses() {
   const createTaprootSigner = useCurrentAccountTaprootSigner();
   const stacksAccount = useCurrentStacksAccount();
 
+  function focusInitatingTab() {
+    void analytics.track('user_clicked_requested_by_link', { endpoint: 'getAddresses' });
+    chrome.tabs.update(tabId ?? 0, { active: true }, tab => {
+      if (!tab) return;
+      chrome.windows.update(tab.windowId, { focused: true });
+    });
+  }
+
   return {
     origin,
+    focusInitatingTab,
     onUserApproveGetAddresses() {
       if (!tabId || !origin) {
         logger.error('Cannot give app accounts: missing tabId, origin');
         return;
       }
+
+      void analytics.track('user_approved_get_addresses', { origin });
+
+      permissions.hasRequestedAccounts(origin);
 
       const keysToIncludeInResponse = [];
 
@@ -69,8 +81,6 @@ export function useGetAddresses() {
         keysToIncludeInResponse.push(stacksAddressResponse);
       }
 
-      void analytics.track('user_approved_get_addresses', { origin });
-      permissions.hasRequestedAccounts(origin);
       chrome.tabs.sendMessage(
         tabId,
         makeRpcSuccessResponse('getAddresses', {
@@ -78,7 +88,6 @@ export function useGetAddresses() {
           result: { addresses: keysToIncludeInResponse as any },
         })
       );
-      closeWindow();
     },
   };
 }

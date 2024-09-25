@@ -1,9 +1,8 @@
-import { Outlet, useOutletContext } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
-import { SwitchAccountOutletContext } from '@shared/switch-account';
+import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 
 export function SwitchAccountLayout() {
-  const { isShowingSwitchAccount, setIsShowingSwitchAccount } =
-    useOutletContext<SwitchAccountOutletContext>();
+  const { isShowingSwitchAccount, setIsShowingSwitchAccount } = useSwitchAccountSheet();
   return <Outlet context={{ isShowingSwitchAccount, setIsShowingSwitchAccount }} />;
 }

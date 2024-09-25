@@ -43,7 +43,7 @@ export function SubmittedTransactionItem({ transaction, txid }: SubmittedTransac
   return (
     <Pressable onClick={openTxLink} my="space.02">
       <ItemLayout
-        flagImg={<SubmittedTransactionIcon transaction={transaction} />}
+        img={<SubmittedTransactionIcon transaction={transaction} />}
         titleLeft={<TransactionTitle title={title} />}
         captionLeft={
           <HStack alignItems="center">

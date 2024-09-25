@@ -1,15 +1,15 @@
-import { Route, useNavigate, useOutletContext } from 'react-router-dom';
+import { Route, useNavigate } from 'react-router-dom';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box, Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
-import { SwitchAccountOutletContext } from '@shared/switch-account';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
+import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 import { ActivityList } from '@app/features/activity-list/activity-list';
 import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
 import { Assets } from '@app/pages/home/components/assets';
@@ -27,8 +27,7 @@ import { HomeTabs } from './components/home-tabs';
 
 export function Home() {
   const { decodedAuthRequest } = useOnboardingState();
-  const { isShowingSwitchAccount, setIsShowingSwitchAccount } =
-    useOutletContext<SwitchAccountOutletContext>();
+  const { toggleSwitchAccount } = useSwitchAccountSheet();
   const navigate = useNavigate();
   const account = useCurrentStacksAccount();
   const currentAccountIndex = useCurrentAccountIndex();
@@ -66,7 +65,7 @@ export function Home() {
         <AccountCard
           name={name}
           balance={totalUsdBalance}
-          toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
+          toggleSwitchAccount={() => toggleSwitchAccount()}
           isFetchingBnsName={isFetchingBnsName}
           isLoadingBalance={isLoading}
           isLoadingAdditionalData={isLoadingAdditionalData}

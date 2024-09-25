@@ -1,4 +1,4 @@
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
@@ -6,8 +6,8 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 import { ArrowLeftIcon, BarsTwoIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
-import { SwitchAccountOutletContext } from '@shared/switch-account';
 
+import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 import { Header } from '@app/components/layout/headers/header';
 import { HeaderActionButton } from '@app/components/layout/headers/header-action-button';
 import { HeaderGrid, HeaderGridRightCol } from '@app/components/layout/headers/header-grid';
@@ -19,8 +19,7 @@ interface OnboardingHeaderProps {
 }
 
 export function OnboardingHeader({ hideLogo = false }: OnboardingHeaderProps) {
-  const { isShowingSwitchAccount, setIsShowingSwitchAccount } =
-    useOutletContext<SwitchAccountOutletContext>();
+  const { isShowingSwitchAccount, setIsShowingSwitchAccount } = useSwitchAccountSheet();
   const navigate = useNavigate();
 
   return (

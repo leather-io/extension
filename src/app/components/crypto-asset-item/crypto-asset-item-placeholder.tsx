@@ -6,7 +6,7 @@ export function CryptoAssetItemPlaceholder() {
   return (
     <Box my="space.02">
       <ItemLayout
-        flagImg={<Circle bgColor="ink.text-non-interactive" size="36px" />}
+        img={<Circle bgColor="ink.text-non-interactive" size="36px" />}
         titleLeft={<SkeletonLoader isLoading height="20px" width="126px" />}
         captionLeft={<SkeletonLoader isLoading height="20px" width="78px" />}
         titleRight={<SkeletonLoader isLoading width="126px" />}

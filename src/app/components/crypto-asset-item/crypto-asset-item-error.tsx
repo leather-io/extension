@@ -18,7 +18,7 @@ export function CryptoAssetItemError({
   return (
     <Box my="space.02">
       <ItemLayout
-        flagImg={icon}
+        img={icon}
         titleLeft={title}
         captionLeft={caption}
         titleRight={

@@ -26,7 +26,7 @@ export function ConnectLedgerAssetItemFallback({
   return (
     <Pressable my="space.02">
       <ItemLayout
-        flagImg={icon}
+        img={icon}
         captionLeft={symbol}
         titleLeft={capitalize(chain)}
         titleRight={<ConnectLedgerButton chain={chain} />}

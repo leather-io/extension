@@ -131,6 +131,17 @@ const provider: LeatherProviderOverrides = {
   },
 
   authenticationRequest: async authenticationRequest => {
+    // eslint-disable-next-line no-console
+    console.warn(`
+        WARNING: Legacy Leather request detected
+
+        Leather now uses an RPC-style API, that can be used directly, 
+        rather than through libraries such as Stacks Connect. For example,
+        to get a user's addresses, you should use the 
+        LeatherProvider.request('getAddresses') method.
+
+        See our docs for more information https://leather.gitbook.io/
+      `);
     const event = new CustomEvent<AuthenticationRequestEventDetails>(
       DomEventName.authenticationRequest,
       {
