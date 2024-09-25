@@ -8,6 +8,10 @@
     "name": "Leather Wallet LLC"
   },
   "type": "module",
+  "engineStrict": true,
+  "engines": {
+    "node": ">=18.0.0 <22.0.0"
+  },
   "scripts": {
     "dev": "concurrently --raw \"node webpack/dev-server.js\" \"redux-devtools --hostname=localhost --port=8000\"",
     "dev:test-app": "webpack serve --config test-app/webpack/webpack.config.dev.cjs",
