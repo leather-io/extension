@@ -24,7 +24,6 @@ export const AccountListItem = memo(({ index, stacksAccount, onClose }: AccountL
   >();
   const stacksAddress = stacksAccount?.address || '';
   const { data: name = '' } = useAccountDisplayName({ address: stacksAddress, index });
-
   const bitcoinSigner = useNativeSegwitSigner(index);
   const bitcoinAddress = bitcoinSigner?.(0).address || '';
 

@@ -94,7 +94,7 @@ export function CryptoAssetItemLayout({
 
   const content = (
     <ItemLayout
-      flagImg={icon}
+      img={icon}
       titleLeft={spamFilter(titleLeft)}
       captionLeft={spamFilter(captionLeft)}
       titleRight={titleRight}

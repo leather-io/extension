@@ -19,7 +19,7 @@ export const AccountAvatar = memo(({ name, publicKey, index, ...props }: Account
   const text = getAccountNumber(index);
 
   return (
-    <DynamicColorCircle sizeParam="48" value={gradient} {...props}>
+    <DynamicColorCircle sizeParam="40" value={gradient} {...props}>
       <Box position="absolute">{text}</Box>
     </DynamicColorCircle>
   );

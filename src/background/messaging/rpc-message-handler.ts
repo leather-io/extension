@@ -5,7 +5,7 @@ import { WalletRequests, makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 import { queueAnalyticsRequest } from '@background/background-analytics';
 import { rpcSignStacksTransaction } from '@background/messaging/rpc-methods/sign-stacks-transaction';
 
-import { getTabIdFromPort } from './messaging-utils';
+import { getTabIdFromPort, listenForOriginTabClose } from './messaging-utils';
 import { rpcGetAddresses } from './rpc-methods/get-addresses';
 import { rpcOpen } from './rpc-methods/open';
 import { rpcSendTransfer } from './rpc-methods/send-transfer';
@@ -15,6 +15,8 @@ import { rpcSignStacksMessage } from './rpc-methods/sign-stacks-message';
 import { rpcSupportedMethods } from './rpc-methods/supported-methods';
 
 export async function rpcMessageHandler(message: WalletRequests, port: chrome.runtime.Port) {
+  listenForOriginTabClose({ tabId: port.sender?.tab?.id });
+
   switch (message.method) {
     case 'open': {
       await rpcOpen(message, port);
