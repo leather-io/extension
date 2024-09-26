@@ -44,14 +44,17 @@ const initialFormValues: AddNetworkFormValues = {
   bitcoinNetwork: 'mainnet',
 };
 
-function useInitialValues() {
+function useAddNetworkState() {
   const { state } = useLocation();
 
-  if (!state) {
-    return initialFormValues;
-  }
+  return {
+    isEditNetworkMode: state?.isEditNetworkMode,
+    network: state?.network as NetworkConfiguration | undefined,
+  };
+}
 
-  const network = state.network as NetworkConfiguration | undefined;
+function useInitialValues() {
+  const { network } = useAddNetworkState();
 
   if (!network) {
     return initialFormValues;
@@ -79,11 +82,13 @@ export function useAddNetwork() {
   const network = useCurrentStacksNetworkState();
   const networksActions = useNetworksActions();
   const initialValues = useInitialValues();
+  const { isEditNetworkMode } = useAddNetworkState();
 
   return {
     error,
     initialFormValues: initialValues,
     loading,
+    isEditNetworkMode,
     onSubmit: async (values: AddNetworkFormValues) => {
       const { name, stacksUrl, bitcoinUrl, key, bitcoinNetwork } = values;
 

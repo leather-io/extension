@@ -23,6 +23,7 @@ export enum RouteUrls {
   // Active wallet routes
   Home = '/',
   AddNetwork = '/add-network',
+  EditNetwork = '/edit-network',
   Fund = '/fund/:currency',
   FundChooseCurrency = '/fund-choose-currency',
   IncreaseStxFee = '/increase-fee/stx/:txid',

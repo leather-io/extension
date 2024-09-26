@@ -14,6 +14,7 @@ import { Content } from '@app/components/layout/layouts/content.layout';
 import { SwitchAccountLayout } from '@app/components/layout/layouts/switch-account.layout';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { AddNetwork } from '@app/features/add-network/add-network';
+import { EditNetwork } from '@app/features/add-network/edit-network';
 import { Container } from '@app/features/container/container';
 import { HomeHeader } from '@app/features/container/headers/home.header';
 import { IncreaseBtcFeeSheet } from '@app/features/dialogs/increase-fee-dialog/increase-btc-fee-dialog';
@@ -141,6 +142,15 @@ function useAppRoutes() {
             element={
               <AccountGate>
                 <AddNetwork />
+              </AccountGate>
+            }
+          />
+
+          <Route
+            path={RouteUrls.EditNetwork}
+            element={
+              <AccountGate>
+                <EditNetwork />
               </AccountGate>
             }
           />

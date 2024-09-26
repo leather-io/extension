@@ -93,4 +93,51 @@ test.describe('Networks tests', () => {
     const errorMessage = await errorMsgElement.innerText();
     test.expect(errorMessage).toEqual(NetworkSelectors.NoBitcoinNodeFetch);
   });
+
+  test('proper initial values on edit network', async ({ homePage, page, networkPage }) => {
+    await networkPage.inputNetworkNameField('Test network');
+    await networkPage.inputNetworkKeyField('test-network');
+    await networkPage.inputNetworkStacksAddressField('https://leather.granite.world');
+
+    await networkPage.clickAddNetwork();
+    await homePage.waitForHomePageReady();
+
+    await homePage.clickSettingsButton();
+
+    await page.getByTestId(SettingsSelectors.ChangeNetworkAction).click();
+
+    await networkPage.page.getByTestId(NetworkSelectors.NetworkMenuBtn).click({ force: true });
+    await networkPage.page.getByTestId(NetworkSelectors.EditNetworkMenuBtn).click();
+
+    const stacksInputText = await networkPage.page
+      .getByTestId(NetworkSelectors.NetworkStacksAddress)
+      .inputValue();
+
+    test.expect(stacksInputText).toEqual('https://leather.granite.world');
+  });
+
+  test('delete network', async ({ homePage, page, networkPage }) => {
+    const id = 'test-network';
+
+    await networkPage.inputNetworkNameField('Test network');
+    await networkPage.inputNetworkKeyField(id);
+    await networkPage.inputNetworkStacksAddressField('https://leather.granite.world');
+
+    await networkPage.clickAddNetwork();
+    await homePage.waitForHomePageReady();
+
+    await homePage.clickSettingsButton();
+
+    await page.getByTestId(SettingsSelectors.ChangeNetworkAction).click();
+    let networkEl = networkPage.page.getByTestId(id);
+
+    await test.expect(networkEl).toHaveCount(1);
+
+    await networkPage.page.getByTestId(NetworkSelectors.NetworkMenuBtn).click({ force: true });
+    await networkPage.page.getByTestId(NetworkSelectors.DeleteNetworkMenuBtn).click();
+
+    networkEl = networkPage.page.getByTestId(id);
+
+    await test.expect(networkEl).toHaveCount(0);
+  });
 });
