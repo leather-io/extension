@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 import { NetworkSelectors } from '@tests/selectors/network.selectors';
 import { useFormikContext } from 'formik';
@@ -17,6 +17,8 @@ import {
   SelectItemLayout,
   Title,
 } from '@leather.io/ui';
+
+import { useOnMount } from '@app/common/hooks/use-on-mount';
 
 import { type AddNetworkFormValues } from './use-add-network';
 
@@ -42,7 +44,11 @@ const networks: {
   },
 ];
 
-export function AddNetworkForm() {
+interface NetworkFormFieldsProps {
+  isEditNetworkMode?: boolean;
+}
+
+export function NetworkFormFields({ isEditNetworkMode }: NetworkFormFieldsProps) {
   const { handleChange, setFieldValue, values, initialValues } =
     useFormikContext<AddNetworkFormValues>();
 
@@ -60,8 +66,8 @@ export function AddNetworkForm() {
     [setFieldValue]
   );
 
-  useEffect(() => {
-    switch (values.bitcoinNetwork) {
+  function setNetworkUrls(value: BitcoinNetworkModes) {
+    switch (value) {
       case 'mainnet':
         setStacksUrl('https://api.hiro.so');
         setBitcoinUrl(BITCOIN_API_BASE_URL_MAINNET);
@@ -79,7 +85,15 @@ export function AddNetworkForm() {
         setBitcoinUrl('https://mempool.space/testnet/api');
         break;
     }
-  }, [setStacksUrl, setBitcoinUrl, values.bitcoinNetwork]);
+  }
+
+  useOnMount(() => {
+    if (isEditNetworkMode) {
+      return;
+    }
+
+    setNetworkUrls(values.bitcoinNetwork);
+  });
 
   return (
     <>
@@ -98,7 +112,8 @@ export function AddNetworkForm() {
 
       <Select.Root
         defaultValue={initialValues.bitcoinNetwork || networks[0].value}
-        onValueChange={value => {
+        onValueChange={(value: BitcoinNetworkModes) => {
+          setNetworkUrls(value);
           void setFieldValue('bitcoinNetwork', value);
         }}
       >

@@ -132,4 +132,10 @@ export class HomePage {
   async goToFundChooseCurrencyPage() {
     await this.fundAccountBtn.click();
   }
+
+  async waitForHomePageReady() {
+    await this.page.waitForSelector(createTestSelector(HomePageSelectors.HomePageContainer), {
+      state: 'attached',
+    });
+  }
 }
