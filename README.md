@@ -7,6 +7,8 @@
 
 Leather is the most popular and trusted wallet for apps built on Bitcoin. Connect to apps and manage assets secured by Bitcoin and Bitcoin L2s with battle-tested wallet for the Stacks blockchain.
 
+Test Linear
+
 [📚 See Leather Developer Documentation →](https://leather.gitbook.io/developers/home/welcome)
 
 [📩 Join the mailing list for updates →](https://forms.gle/sdZPu2jbX1AeQ8Fi9)
