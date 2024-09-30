@@ -5,6 +5,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { LeatherQueryProvider } from '@leather.io/query';
+import '@leather.io/ui/styles';
 
 import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
 import { BRANCH_NAME, WALLET_ENVIRONMENT } from '@shared/environment';
