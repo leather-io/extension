@@ -7,7 +7,7 @@ import { useHover } from 'use-events';
 
 import { CollectibleHover } from './collectible-hover';
 
-export interface CollectibleItemLayoutProps {
+interface CollectibleItemLayoutProps {
   children: ReactNode;
   hoverText?: string;
   onClickCallToAction?(): void;
