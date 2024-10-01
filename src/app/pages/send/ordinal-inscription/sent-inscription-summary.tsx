@@ -4,7 +4,14 @@ import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import type { Blockchain, Inscription } from '@leather.io/models';
-import { CheckmarkIcon, CopyIcon, ExternalLinkIcon, Sheet, SheetHeader } from '@leather.io/ui';
+import {
+  CheckmarkIcon,
+  CopyIcon,
+  ExternalLinkIcon,
+  InscriptionPreviewCard,
+  Sheet,
+  SheetHeader,
+} from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
@@ -13,11 +20,9 @@ import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-l
 import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { InfoCardBtn, InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
-import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
+import { InscriptionPreview } from '@app/components/inscription-preview-card/inscription-preview';
 import { Card } from '@app/components/layout';
 import { useToast } from '@app/features/toasts/use-toast';
-
-import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 
 function useSendInscriptionSummaryState() {
   const location = useLocation();

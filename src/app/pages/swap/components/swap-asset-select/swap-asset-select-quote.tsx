@@ -1,10 +1,9 @@
 import { useField } from 'formik';
 
+import { LoadingSpinner } from '@leather.io/ui';
 import { formatMoneyWithoutSymbol, i18nFormatCurrency, isDefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
-
-import { LoadingSpinner } from '@app/components/loading-spinner';
 
 import { useSwapNavigate } from '../../hooks/use-swap-navigate';
 import { useSwapContext } from '../../swap.context';

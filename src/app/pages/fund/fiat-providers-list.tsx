@@ -3,11 +3,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Grid } from 'leather-styles/jsx';
 
 import type { CryptoCurrency } from '@leather.io/models';
+import { LoadingSpinner } from '@leather.io/ui';
 
 import { analytics } from '@shared/utils/analytics';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { LoadingSpinner } from '@app/components/loading-spinner';
 import {
   useActiveFiatProviders,
   useHasFiatProviders,

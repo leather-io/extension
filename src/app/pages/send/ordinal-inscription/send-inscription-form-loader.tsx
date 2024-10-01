@@ -1,6 +1,6 @@
 import { Stack } from 'leather-styles/jsx';
 
-import { LoadingSpinner } from '@app/components/loading-spinner';
+import { LoadingSpinner } from '@leather.io/ui';
 
 interface SendInscriptionFormLoaderProps {
   children: React.JSX.Element;

@@ -1,9 +1,7 @@
 import { Flex, Grid, HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
-import { ArrowRotateRightLeftIcon, Spinner } from '@leather.io/ui';
-
-import { LoadingSpinner } from '@app/components/loading-spinner';
+import { ArrowRotateRightLeftIcon, LoadingSpinner, Spinner } from '@leather.io/ui';
 
 interface CollectiblesLayoutProps {
   title: string;

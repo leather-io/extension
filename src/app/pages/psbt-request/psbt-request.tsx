@@ -1,4 +1,5 @@
-import { LoadingSpinner } from '@app/components/loading-spinner';
+import { LoadingSpinner } from '@leather.io/ui';
+
 import { PsbtSigner } from '@app/features/psbt-signer/psbt-signer';
 
 import { usePsbtRequest } from './use-psbt-request';

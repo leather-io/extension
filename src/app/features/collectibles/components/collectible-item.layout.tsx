@@ -7,7 +7,7 @@ import { useHover } from 'use-events';
 
 import { CollectibleHover } from './collectible-hover';
 
-export interface CollectibleItemLayoutProps {
+interface CollectibleItemLayoutProps {
   children: ReactNode;
   hoverText?: string;
   onClickCallToAction?(): void;
@@ -88,6 +88,7 @@ export function CollectibleItemLayout({
           {subtitle}
         </styled.span>
       </Stack>
+
       {onClickSend ? (
         <Box p="space.02">
           <styled.button

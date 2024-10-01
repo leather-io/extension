@@ -8,11 +8,12 @@ import {
 
 import * as Sentry from '@sentry/react';
 
+import { LoadingSpinner } from '@leather.io/ui';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { Content } from '@app/components/layout/layouts/content.layout';
 import { SwitchAccountLayout } from '@app/components/layout/layouts/switch-account.layout';
-import { LoadingSpinner } from '@app/components/loading-spinner';
 import { AddNetwork } from '@app/features/add-network/add-network';
 import { EditNetwork } from '@app/features/add-network/edit-network';
 import { Container } from '@app/features/container/container';

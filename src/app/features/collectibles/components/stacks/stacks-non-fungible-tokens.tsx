@@ -1,11 +1,8 @@
 import { Metadata as StacksNftMetadata } from '@hirosystems/token-metadata-api-client';
 
-import { StxAvatarIcon } from '@leather.io/ui';
+import { CollectibleImage, ImageUnavailable, StxAvatarIcon } from '@leather.io/ui';
 
 import { isValidUrl } from '@shared/utils/validate-url';
-
-import { CollectibleImage } from '../_collectible-types/collectible-image';
-import { ImageUnavailable } from '../image-unavailable';
 
 interface StacksNonFungibleTokensProps {
   metadata: StacksNftMetadata;

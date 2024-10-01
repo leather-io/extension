@@ -4,20 +4,25 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
 import { Box, Flex } from 'leather-styles/jsx';
 
-import { Button, OrdinalAvatarIcon, Sheet, SheetHeader } from '@leather.io/ui';
+import {
+  Button,
+  InscriptionPreviewCard,
+  OrdinalAvatarIcon,
+  Sheet,
+  SheetHeader,
+} from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { ErrorLabel } from '@app/components/error-label';
 import { TextInputFieldError } from '@app/components/field-error';
-import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
-import { InscriptionPreviewCard } from '@app/components/inscription-preview-card/inscription-preview-card';
+import { InscriptionPreview } from '@app/components/inscription-preview-card/inscription-preview';
 
 import { RecipientAddressTypeField } from '../send-crypto-asset-form/components/recipient-address-type-field';
 import { CollectibleAsset } from './components/collectible-asset';
 import { useSendInscriptionState } from './components/send-inscription-container';
 import { useSendInscriptionForm } from './hooks/use-send-inscription-form';
-import { SendInscriptionFormLoader } from './send-indcription-form-loader';
+import { SendInscriptionFormLoader } from './send-inscription-form-loader';
 
 export const recipientFieldName = 'recipient';
 

@@ -4,7 +4,7 @@ import { OrdinalAvatarIcon } from '@leather.io/ui';
 import { isUndefined } from '@leather.io/utils';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
+import { InscriptionPreview } from '@app/components/inscription-preview-card/inscription-preview';
 
 import { PsbtAddressTotalItem } from './psbt-address-total-item';
 
