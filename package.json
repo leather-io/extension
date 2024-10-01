@@ -244,6 +244,7 @@
     "ts-debounce": "4.0.0",
     "url": "0.11.3",
     "url-join": "5.0.0",
+    "use-events": "1.4.2",
     "use-latest": "1.2.1",
     "valid-url": "1.0.9",
     "varuint-bitcoin": "1.1.2",
