@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Transport from '@ledgerhq/hw-transport-webusb';
 import {
   AddressVersion,
@@ -60,8 +61,14 @@ export const prepareLedgerDeviceStacksAppConnection = prepareLedgerDeviceForAppF
 ) as (args: PrepareLedgerDeviceConnectionArgs) => Promise<StacksApp>;
 
 export function signLedgerStacksTransaction(app: StacksApp) {
-  return async (payload: Buffer, accountIndex: number) =>
-    app.sign(stxDerivationWithAccount.replace('{account}', accountIndex.toString()), payload);
+  return async (payload: Buffer, accountIndex: number) => {
+    console.log('Logging serialised stacks transaction');
+    console.log(payload.toString('hex'));
+    return app.sign(
+      stxDerivationWithAccount.replace('{account}', accountIndex.toString()),
+      payload
+    );
+  };
 }
 
 export function signLedgerStacksUtf8Message(app: StacksApp) {
