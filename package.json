@@ -164,7 +164,7 @@
     "@scure/bip39": "1.4.0",
     "@scure/btc-signer": "1.4.0",
     "@segment/analytics-next": "1.70.0",
-    "@sentry/browser": "8.26.0",
+    "@sentry/browser": "8.33.0",
     "@sentry/tracing": "7.106.0",
     "@stacks/auth": "6.15.0",
     "@stacks/blockchain-api-client": "6.3.4",
