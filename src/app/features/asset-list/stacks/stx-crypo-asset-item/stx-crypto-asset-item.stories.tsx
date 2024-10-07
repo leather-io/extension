@@ -57,5 +57,17 @@ export const StxCryptoAssetItemWithLockedBalance: Story = {
       lockedBalance: { amount: new BigNumber(1000000000), decimals: 6, symbol },
     },
     isLoading: false,
+    isPrivate: true,
+  },
+};
+
+export const StxCryptoAssetItemWithPrivateBalance: Story = {
+  args: {
+    balance: {
+      ...stxCryptoAssetBalance,
+      lockedBalance: { amount: new BigNumber(1000000000), decimals: 6, symbol },
+    },
+    isPrivate: true,
+    isLoading: false,
   },
 };

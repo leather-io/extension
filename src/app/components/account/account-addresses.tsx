@@ -17,7 +17,7 @@ export function AcccountAddresses({ index }: AccountAddressesProps) {
           {account => <Caption>{truncateMiddle(account.address, 4)}</Caption>}
         </StacksAccountLoader>
         <BitcoinNativeSegwitAccountLoader index={index}>
-          {signer => <Caption>{truncateMiddle(signer.address, 5)}</Caption>}
+          {signer => <Caption>{truncateMiddle(signer.address, 4)}</Caption>}
         </BitcoinNativeSegwitAccountLoader>
       </BulletSeparator>
     </HStack>

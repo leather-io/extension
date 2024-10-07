@@ -1,3 +1,5 @@
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+
 import { useGetInscriptionTextContentQuery } from '@leather.io/query';
 import { OrdinalAvatarIcon } from '@leather.io/ui';
 
@@ -23,6 +25,7 @@ export function InscriptionText({
 
   return (
     <CollectibleText
+      data-testid={SendCryptoAssetSelectors.Inscription}
       icon={<OrdinalAvatarIcon size="lg" />}
       key={inscriptionNumber}
       onClickCallToAction={onClickCallToAction}

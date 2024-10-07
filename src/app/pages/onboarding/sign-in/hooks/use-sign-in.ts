@@ -58,7 +58,7 @@ export function useSignIn() {
 
       await simulateShortDelayToAvoidImmediateNavigation();
 
-      dispatch(inMemoryKeyActions.saveUsersSecretKeyToBeRestored(parsedKeyInput));
+      dispatch(inMemoryKeyActions.setDefaultKey(parsedKeyInput));
       void analytics.track('submit_valid_secret_key');
       navigate(RouteUrls.SetPassword);
       setIsIdle();

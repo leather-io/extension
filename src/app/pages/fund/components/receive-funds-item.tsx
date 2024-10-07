@@ -3,7 +3,7 @@ import React from 'react';
 import QRCodeIcon from '@assets/images/fund/qr-code-icon.png';
 import { FundPageSelectors } from '@tests/selectors/fund.selectors';
 
-import type { CryptoCurrencies } from '@leather.io/models';
+import type { CryptoCurrency } from '@leather.io/models';
 
 import { FundAccountTile } from './fund-account-tile';
 import { BitcoinIconComponent, StacksIconComponent } from './icon-components';
@@ -13,7 +13,7 @@ interface CryptoDescription {
   IconComponent(): React.JSX.Element;
 }
 
-const cryptoDescriptions: Record<CryptoCurrencies, CryptoDescription> = {
+const cryptoDescriptions: Record<CryptoCurrency, CryptoDescription> = {
   STX: {
     title: 'Receive STX from a friend or deposit from a separate wallet',
     IconComponent: StacksIconComponent,
@@ -25,7 +25,7 @@ const cryptoDescriptions: Record<CryptoCurrencies, CryptoDescription> = {
 };
 interface ReceiveStxItemProps {
   onReceive(): void;
-  symbol: CryptoCurrencies;
+  symbol: CryptoCurrency;
 }
 export function ReceiveFundsItem({ onReceive, symbol }: ReceiveStxItemProps) {
   return (

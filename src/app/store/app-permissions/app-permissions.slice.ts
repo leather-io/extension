@@ -27,9 +27,10 @@ export function useAppPermissions() {
   return useMemo(
     () => ({
       hasRequestedAccounts(origin: string) {
+        const url = new URL(origin).hostname;
         dispatch(
           appPermissionsSlice.actions.updatePermission({
-            origin,
+            origin: url,
             requestedAccounts: new Date().toISOString(),
           })
         );

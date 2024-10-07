@@ -10,7 +10,7 @@ import {
 } from '@leather.io/ui';
 import { formatMoneyWithoutSymbol } from '@leather.io/utils';
 
-import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
+import { convertSwapAssetBalanceToFiat } from '@app/pages/swap/swap.utils';
 
 interface SwapAssetItemProps {
   asset: SwapAsset;
@@ -22,12 +22,12 @@ export function SwapAssetItem({ asset, onClick }: SwapAssetItemProps) {
   const ftMetadataName = ftMetadata && isFtAsset(ftMetadata) ? ftMetadata.name : asset.name;
   const displayName = asset.displayName ?? ftMetadataName;
   const fallback = getAvatarFallback(asset.name);
-  const fiatBalance = convertAssetBalanceToFiat(asset);
+  const fiatBalance = convertSwapAssetBalanceToFiat(asset);
 
   return (
     <Pressable data-testid={SwapSelectors.SwapAssetListItem} onClick={onClick} my="space.02">
       <ItemLayout
-        flagImg={
+        img={
           <Avatar.Root>
             <Avatar.Image alt={fallback} src={asset.icon} />
             <Avatar.Fallback delayMs={defaultFallbackDelay}>{fallback}</Avatar.Fallback>

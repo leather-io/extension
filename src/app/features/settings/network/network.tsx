@@ -72,7 +72,7 @@ export function NetworkSheet({ onClose }: NetworkSheetProps) {
           }}
           onEditNetwork={() => {
             onClose();
-            navigate(RouteUrls.AddNetwork, {
+            navigate(RouteUrls.EditNetwork, {
               state: {
                 network: networks[id],
               },

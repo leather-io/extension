@@ -68,8 +68,7 @@ const browserSpecificConfig = {
 const manifest = {
   manifest_version: 3,
   author: 'Leather Wallet, LLC',
-  description:
-    'Leather is the only Bitcoin wallet you need to tap into the emerging Bitcoin economy.',
+  description: 'Leather Bitcoin Wallet - Your Bitcoin Wallet for DeFi, NFTs, Ordinals, and dApps',
   permissions: ['contextMenus', 'storage', 'unlimitedStorage'],
   commands: {
     _execute_browser_action: {

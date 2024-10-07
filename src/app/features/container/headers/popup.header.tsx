@@ -1,11 +1,8 @@
-import { useOutletContext } from 'react-router-dom';
-
 import { Box } from 'leather-styles/jsx';
 
 import { Flag, Logo } from '@leather.io/ui';
 
-import { SwitchAccountOutletContext } from '@shared/switch-account';
-
+import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 import { Header } from '@app/components/layout/headers/header';
 import { HeaderGrid, HeaderGridRightCol } from '@app/components/layout/headers/header-grid';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
@@ -18,8 +15,7 @@ interface PopupHeaderProps {
 }
 
 export function PopupHeader({ showSwitchAccount, balance }: PopupHeaderProps) {
-  const { isShowingSwitchAccount, setIsShowingSwitchAccount } =
-    useOutletContext<SwitchAccountOutletContext>();
+  const { isShowingSwitchAccount, setIsShowingSwitchAccount } = useSwitchAccountSheet();
 
   return (
     <Header>

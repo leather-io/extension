@@ -1,15 +1,15 @@
-import { Route, useNavigate, useOutletContext } from 'react-router-dom';
+import { Route, useNavigate } from 'react-router-dom';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box, Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
-import { SwitchAccountOutletContext } from '@shared/switch-account';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
+import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 import { ActivityList } from '@app/features/activity-list/activity-list';
 import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
 import { Assets } from '@app/pages/home/components/assets';
@@ -18,6 +18,8 @@ import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useTogglePrivateMode } from '@app/store/settings/settings.actions';
+import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 import { AccountCard } from '@app/ui/components/account/account.card';
 
 import { AccountActions } from './components/account-actions';
@@ -25,11 +27,12 @@ import { HomeTabs } from './components/home-tabs';
 
 export function Home() {
   const { decodedAuthRequest } = useOnboardingState();
-  const { isShowingSwitchAccount, setIsShowingSwitchAccount } =
-    useOutletContext<SwitchAccountOutletContext>();
+  const { toggleSwitchAccount } = useSwitchAccountSheet();
   const navigate = useNavigate();
   const account = useCurrentStacksAccount();
   const currentAccountIndex = useCurrentAccountIndex();
+  const isPrivateMode = useIsPrivateMode();
+  const togglePrivateMode = useTogglePrivateMode();
 
   const { data: name = '', isFetching: isFetchingBnsName } = useAccountDisplayName({
     address: account?.address || '',
@@ -62,10 +65,12 @@ export function Home() {
         <AccountCard
           name={name}
           balance={totalUsdBalance}
-          toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
+          toggleSwitchAccount={() => toggleSwitchAccount()}
           isFetchingBnsName={isFetchingBnsName}
           isLoadingBalance={isLoading}
           isLoadingAdditionalData={isLoadingAdditionalData}
+          isBalancePrivate={isPrivateMode}
+          onShowBalance={togglePrivateMode}
         >
           <AccountActions />
         </AccountCard>

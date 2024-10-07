@@ -7,6 +7,7 @@ import {
   formatMoneyWithoutSymbol,
   i18nFormatCurrency,
   isDefined,
+  isMoneyGreaterThanZero,
   isUndefined,
 } from '@leather.io/utils';
 
@@ -81,7 +82,11 @@ export function SwapAssetSelectBase() {
       showError={!!(showError && values.swapAssetQuote)}
       swapAmountInput={
         <SwapAmountField
-          amountAsFiat={amountAsFiat ? i18nFormatCurrency(amountAsFiat) : ''}
+          amountAsFiat={
+            amountAsFiat && isMoneyGreaterThanZero(amountAsFiat)
+              ? i18nFormatCurrency(amountAsFiat)
+              : ''
+          }
           isDisabled={!isSwapAssetBaseBalanceGreaterThanZero}
           name="swapAmountBase"
         />

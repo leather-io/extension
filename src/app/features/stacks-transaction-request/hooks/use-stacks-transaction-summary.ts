@@ -11,7 +11,7 @@ import {
 } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 
-import type { CryptoCurrencies } from '@leather.io/models';
+import type { CryptoCurrency } from '@leather.io/models';
 import {
   useCryptoCurrencyMarketDataMeanAverage,
   useGetStacksNetworkBlockTimeQuery,
@@ -30,7 +30,7 @@ import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/tr
 import { removeTrailingNullCharacters } from '@app/common/utils';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
-export function useStacksTransactionSummary(token: CryptoCurrencies) {
+export function useStacksTransactionSummary(token: CryptoCurrency) {
   // TODO: unsafe type assumption
   const tokenMarketData = useCryptoCurrencyMarketDataMeanAverage(token as 'BTC' | 'STX');
   const { isTestnet } = useCurrentNetworkState();

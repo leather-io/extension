@@ -1,17 +1,14 @@
-import { useNavigate } from 'react-router-dom';
-
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 import { Stack } from 'leather-styles/jsx';
 
 import type { Brc20CryptoAssetInfo, CryptoAssetBalance, MarketData } from '@leather.io/models';
 import { Brc20AvatarIcon } from '@leather.io/ui';
 
-import { RouteUrls } from '@shared/route-urls';
-
 import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 import type { AssetListVariant } from '@app/features/asset-list/asset-list';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 interface Brc20TokenAssetDetails {
   balance: CryptoAssetBalance;
@@ -32,24 +29,9 @@ function getBrc20TokenFiatBalance(token: Brc20TokenAssetDetails) {
   });
 }
 
-export function Brc20TokenAssetList({ tokens, variant }: Brc20TokenAssetListProps) {
-  const navigate = useNavigate();
-  const { balance, isLoading } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
-
-  const hasPositiveBtcBalanceForFees =
-    variant === 'interactive' && balance.availableBalance.amount.isGreaterThan(0);
-
-  function navigateToBrc20SendForm(token: Brc20TokenAssetDetails) {
-    const { balance, holderAddress, info, marketData } = token;
-    navigate(RouteUrls.SendBrc20SendForm.replace(':ticker', info.symbol), {
-      state: {
-        balance: balance.availableBalance,
-        holderAddress,
-        marketData,
-        ticker: info.symbol,
-      },
-    });
-  }
+export function Brc20TokenAssetList({ tokens }: Brc20TokenAssetListProps) {
+  const { isLoading } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
+  const isPrivate = useIsPrivateMode();
 
   if (!tokens.length) return null;
   return (
@@ -60,10 +42,8 @@ export function Brc20TokenAssetList({ tokens, variant }: Brc20TokenAssetListProp
           captionLeft={token.info.name.toUpperCase()}
           icon={<Brc20AvatarIcon />}
           isLoading={isLoading}
+          isPrivate={isPrivate}
           key={token.info.symbol}
-          onSelectAsset={
-            hasPositiveBtcBalanceForFees ? () => navigateToBrc20SendForm(token) : undefined
-          }
           titleLeft={token.info.symbol}
           fiatBalance={getBrc20TokenFiatBalance(token)}
         />

@@ -4,6 +4,7 @@ import { convertAmountToBaseUnit, createMoneyFromDecimal } from '@leather.io/uti
 
 import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
+import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 interface RuneTokenAssetDetails {
   balance: CryptoAssetBalance;
@@ -16,6 +17,8 @@ interface RunesAssetListProps {
 }
 
 export function RunesAssetList({ runes }: RunesAssetListProps) {
+  const isPrivate = useIsPrivateMode();
+
   return runes.map((rune, i) => (
     <CryptoAssetItemLayout
       availableBalance={createMoneyFromDecimal(
@@ -32,6 +35,7 @@ export function RunesAssetList({ runes }: RunesAssetListProps) {
         balance: rune.balance.availableBalance,
         marketData: rune.marketData,
       })}
+      isPrivate={isPrivate}
     />
   ));
 }

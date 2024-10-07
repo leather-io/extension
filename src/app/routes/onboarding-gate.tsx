@@ -3,12 +3,15 @@ import { Navigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
+import { useHasDefaultInMemoryWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
 import { useHasLedgerKeys } from '@app/store/ledger/ledger.selectors';
 import { useCurrentKeyDetails } from '@app/store/software-keys/software-key.selectors';
 
-function hasAlreadyMadeWalletAndPlaintextKeyInMemory(encryptedKey?: string, inMemoryKey?: string) {
-  return !!encryptedKey && !!inMemoryKey;
+function hasAlreadyMadeWalletAndPlaintextKeyInMemory(
+  hasInMemorySecretKey: boolean,
+  encryptedKey?: string
+) {
+  return hasInMemorySecretKey && !!encryptedKey;
 }
 
 function keyDetailsExistsWalletAlreadyCreatedSoPreventOnboarding(keyDetails: unknown) {
@@ -20,14 +23,14 @@ interface OnboardingGateProps {
 }
 export function OnboardingGate({ children }: OnboardingGateProps) {
   const keyDetails = useCurrentKeyDetails();
-  const currentInMemoryKey = useDefaultWalletSecretKey();
+  const hasInMemorySecretKey = useHasDefaultInMemoryWalletSecretKey();
   const isLedger = useHasLedgerKeys();
 
   if (
     (keyDetails?.type === 'software' &&
       hasAlreadyMadeWalletAndPlaintextKeyInMemory(
-        keyDetails.encryptedSecretKey,
-        currentInMemoryKey
+        hasInMemorySecretKey,
+        keyDetails.encryptedSecretKey
       )) ||
     isLedger
   ) {

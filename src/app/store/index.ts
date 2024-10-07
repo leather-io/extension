@@ -30,7 +30,6 @@ import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
 import { bitcoinKeysSlice } from './ledger/bitcoin/bitcoin-key.slice';
 import { stacksKeysSlice } from './ledger/stacks/stacks-key.slice';
 import { networksSlice } from './networks/networks.slice';
-import { ordinalsSlice } from './ordinals/ordinals.slice';
 import { settingsSlice } from './settings/settings.slice';
 import { keySlice } from './software-keys/software-key.slice';
 import { submittedTransactionsSlice } from './submitted-transactions/submitted-transactions.slice';
@@ -45,7 +44,6 @@ export interface RootState {
     bitcoin: ReturnType<typeof bitcoinKeysSlice.reducer>;
     stacks: ReturnType<typeof stacksKeysSlice.reducer>;
   };
-  ordinals: ReturnType<typeof ordinalsSlice.reducer>;
   inMemoryKeys: ReturnType<typeof inMemoryKeySlice.reducer>;
   softwareKeys: ReturnType<typeof keySlice.reducer>;
   networks: ReturnType<typeof networksSlice.reducer>;
@@ -62,9 +60,9 @@ const appReducer = combineReducers({
     bitcoin: bitcoinKeysSlice.reducer,
     stacks: stacksKeysSlice.reducer,
   }),
-  ordinals: ordinalsSlice.reducer,
   inMemoryKeys: inMemoryKeySlice.reducer,
   softwareKeys: keySlice.reducer,
+  ordinals: (state = {}) => state,
   networks: networksSlice.reducer,
   submittedTransactions: submittedTransactionsSlice.reducer,
   settings: settingsSlice.reducer,

@@ -1,6 +1,6 @@
 import type React from 'react';
 
-import type { Blockchains, Currencies } from '@leather.io/models';
+import type { Blockchain, Currency } from '@leather.io/models';
 import { ItemLayout, Pressable } from '@leather.io/ui';
 
 import { capitalize } from '@app/common/utils';
@@ -10,9 +10,9 @@ import type { AssetListVariant } from '../asset-list';
 import { ConnectLedgerButton } from './connect-ledger-asset-button';
 
 interface ConnectLedgerAssetItemFallbackProps {
-  chain: Blockchains;
+  chain: Blockchain;
   icon: React.ReactNode;
-  symbol: Currencies;
+  symbol: Currency;
   variant: AssetListVariant;
 }
 export function ConnectLedgerAssetItemFallback({
@@ -26,7 +26,7 @@ export function ConnectLedgerAssetItemFallback({
   return (
     <Pressable my="space.02">
       <ItemLayout
-        flagImg={icon}
+        img={icon}
         captionLeft={symbol}
         titleLeft={capitalize(chain)}
         titleRight={<ConnectLedgerButton chain={chain} />}

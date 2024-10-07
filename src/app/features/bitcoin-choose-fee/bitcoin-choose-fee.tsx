@@ -13,6 +13,7 @@ import { OnChooseFeeArgs } from '@app/components/bitcoin-fees-list/bitcoin-fees-
 import { AvailableBalance, Card } from '@app/components/layout';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 import { ChooseFeeAmount } from './components/choose-fee-amount';
 import { ChooseFeeSubtitle } from './components/choose-fee-subtitle';
@@ -51,6 +52,7 @@ export function BitcoinChooseFee({
   const { balance } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
   const hasAmount = amount.amount.isGreaterThan(0);
   const [customFeeInitialValue, setCustomFeeInitialValue] = useState(recommendedFeeRate);
+  const isPrivate = useIsPrivateMode();
 
   if (isLoading) {
     return (
@@ -65,7 +67,7 @@ export function BitcoinChooseFee({
       border="unset"
       footer={
         <Box mt="space.05" width="100%">
-          <AvailableBalance balance={formatMoney(balance.availableBalance)} />
+          <AvailableBalance balance={formatMoney(balance.availableBalance)} isPrivate={isPrivate} />
         </Box>
       }
       {...rest}

@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
 import { Box, Flex } from 'leather-styles/jsx';
 
@@ -8,6 +9,7 @@ import { Button, OrdinalAvatarIcon, Sheet, SheetHeader } from '@leather.io/ui';
 import { RouteUrls } from '@shared/route-urls';
 
 import { ErrorLabel } from '@app/components/error-label';
+import { TextInputFieldError } from '@app/components/field-error';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { InscriptionPreviewCard } from '@app/components/inscription-preview-card/inscription-preview-card';
 
@@ -44,7 +46,12 @@ export function SendInscriptionForm() {
               isShowing
               onClose={() => navigate(RouteUrls.Home)}
               footer={
-                <Button onClick={() => props.handleSubmit()} type="submit" fullWidth>
+                <Button
+                  data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
+                  onClick={() => props.handleSubmit()}
+                  type="submit"
+                  fullWidth
+                >
                   Continue
                 </Button>
               }
@@ -64,9 +71,14 @@ export function SendInscriptionForm() {
                         label="To"
                         placeholder="Enter recipient address"
                       />
+                      <TextInputFieldError name={recipientFieldName} />
                     </Flex>
                   </Box>
-                  {currentError && <ErrorLabel>{currentError}</ErrorLabel>}
+                  {currentError && (
+                    <ErrorLabel data-testid={SendCryptoAssetSelectors.FormFieldInputErrorLabel}>
+                      {currentError}
+                    </ErrorLabel>
+                  )}
                 </Box>
               </SendInscriptionFormLoader>
             </Sheet>

@@ -4,13 +4,14 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
 import { Box } from 'leather-styles/jsx';
 
-import type { CryptoCurrencies } from '@leather.io/models';
+import type { CryptoCurrency } from '@leather.io/models';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import { BtcAvatarIcon, Button, Callout, Link } from '@leather.io/ui';
 import { formatMoney } from '@leather.io/utils';
 
 import { AvailableBalance, ButtonRow, Card, Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
+import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 import { AmountField } from '../../components/amount-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
@@ -21,10 +22,11 @@ import { useSendFormRouteState } from '../../hooks/use-send-form-route-state';
 import { createDefaultInitialFormValues, defaultSendFormFormikProps } from '../../send-form.utils';
 import { useBtcSendForm } from './use-btc-send-form';
 
-const symbol: CryptoCurrencies = 'BTC';
+const symbol: CryptoCurrency = 'BTC';
 
 export function BtcSendForm() {
   const routeState = useSendFormRouteState();
+  const isPrivate = useIsPrivateMode();
   const marketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const {
     balance,
@@ -73,7 +75,10 @@ export function BtcSendForm() {
                         >
                           Continue
                         </Button>
-                        <AvailableBalance balance={formatMoney(balance.availableBalance)} />
+                        <AvailableBalance
+                          balance={formatMoney(balance.availableBalance)}
+                          isPrivate={isPrivate}
+                        />
                       </ButtonRow>
                     }
                   >

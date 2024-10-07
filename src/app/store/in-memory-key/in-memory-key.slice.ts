@@ -2,12 +2,13 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { logger } from '@shared/logger';
 import { defaultWalletKeyId } from '@shared/utils';
+import { encodeText } from '@shared/utils/text-encoding';
 
 import { keySlice } from '../software-keys/software-key.slice';
 
 interface InMemoryKeyState {
   hasRestoredKeys: boolean;
-  keys: Record<string, string | undefined>;
+  keys: Record<string, string>;
 }
 
 const initialState: InMemoryKeyState = {
@@ -25,15 +26,12 @@ export const inMemoryKeySlice = createSlice({
         logger.warn('Not generating another wallet, already exists.');
         return;
       }
-      state.keys[defaultWalletKeyId] = action.payload;
+
+      state.keys[defaultWalletKeyId] = encodeText(action.payload);
     },
 
-    saveUsersSecretKeyToBeRestored(state, action: PayloadAction<string>) {
-      state.keys[defaultWalletKeyId] = action.payload;
-    },
-
-    setKeysInMemory(state, action: PayloadAction<Record<string, string>>) {
-      return { ...state, hasRestoredKeys: true, keys: { ...state.keys, ...action.payload } };
+    setDefaultKey(state, action: PayloadAction<string>) {
+      state.keys[defaultWalletKeyId] = encodeText(action.payload);
     },
 
     lockWallet(state) {

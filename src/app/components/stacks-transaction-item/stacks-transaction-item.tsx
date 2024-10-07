@@ -17,6 +17,7 @@ import { whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
 import { IncreaseFeeButton } from './increase-fee-button';
@@ -41,6 +42,7 @@ export function StacksTransactionItem({
 }: StacksTransactionItemProps) {
   const { handleOpenStacksTxLink } = useStacksExplorerLink();
   const currentAccount = useCurrentStacksAccount();
+  const isPrivate = useIsPrivateMode();
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -96,6 +98,7 @@ export function StacksTransactionItem({
       txStatus={txStatus}
       txTitle={<TransactionTitle title={txTitle} />}
       txValue={txValue}
+      isPrivate={isPrivate}
     />
   );
 }

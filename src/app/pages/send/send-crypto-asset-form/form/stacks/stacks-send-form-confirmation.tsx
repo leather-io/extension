@@ -3,7 +3,7 @@ import { Outlet, useParams } from 'react-router-dom';
 import { deserializeTransaction } from '@stacks/transactions';
 import { Box, Stack } from 'leather-styles/jsx';
 
-import type { CryptoCurrencies } from '@leather.io/models';
+import type { CryptoCurrency } from '@leather.io/models';
 import { InfoCircleIcon } from '@leather.io/ui';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
@@ -29,14 +29,14 @@ export function StacksSendFormConfirmation() {
   const { symbol = 'STX' } = useParams();
 
   const { stacksBroadcastTransaction, isBroadcasting } = useStacksBroadcastTransaction({
-    token: symbol.toUpperCase() as CryptoCurrencies,
+    token: symbol.toUpperCase() as CryptoCurrency,
     decimals,
   });
 
   const stacksDeserializedTransaction = deserializeTransaction(tx);
 
   const { formReviewTxSummary } = useStacksTransactionSummary(
-    symbol.toUpperCase() as CryptoCurrencies
+    symbol.toUpperCase() as CryptoCurrency
   );
   const {
     txValue,

@@ -22,7 +22,6 @@ const defaultStaticAnalyticContext = {
   ip: '0.0.0.0',
   platform: 'web',
   product: 'extension',
-  route: location.pathname,
   version: VERSION,
   ...(flow && { flow }),
   ...(origin && { origin }),
@@ -47,6 +46,7 @@ function getDerivedStateAnalyticsContext() {
   const appState = getAnalyticsStateProps();
 
   return {
+    route: location.pathname,
     network: appState.currentNetwork.name.toLowerCase(),
     usingDefaultHiroApi: isHiroApiUrl(appState.currentNetwork.chain.stacks.url),
     walletType: appState.walletType,

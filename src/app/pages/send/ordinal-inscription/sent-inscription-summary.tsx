@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import type { Blockchains, Inscription } from '@leather.io/models';
+import type { Blockchain, Inscription } from '@leather.io/models';
 import { CheckmarkIcon, CopyIcon, ExternalLinkIcon, Sheet, SheetHeader } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -35,7 +35,7 @@ export function SendInscriptionSummary() {
   const toast = useToast();
   const navigate = useNavigate();
   const txLink = {
-    blockchain: 'bitcoin' as Blockchains,
+    blockchain: 'bitcoin' as Blockchain,
     txid,
   };
 

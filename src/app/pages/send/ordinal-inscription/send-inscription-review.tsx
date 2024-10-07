@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@noble/hashes/utils';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Box, Flex, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
@@ -15,8 +16,6 @@ import { InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-c
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { Card } from '@app/components/layout';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { useAppDispatch } from '@app/store';
-import { inscriptionSent } from '@app/store/ordinals/ordinals.slice';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 import { useSendInscriptionState } from './components/send-inscription-container';
@@ -33,7 +32,6 @@ function useSendInscriptionReviewState() {
 
 export function SendInscriptionReview() {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const { arrivesIn, signedTx, recipient, feeRowValue } = useSendInscriptionReviewState();
 
   const { inscription } = useSendInscriptionState();
@@ -47,8 +45,6 @@ export function SendInscriptionReview() {
       async onSuccess(txid: string) {
         void analytics.track('broadcast_ordinal_transaction');
         await filteredUtxosQuery.refetch();
-        // Might be a BRC-20 transfer, so we want to remove it from the pending
-        dispatch(inscriptionSent({ inscriptionId: inscription.id }));
         navigate(`/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionSent}`, {
           state: {
             inscription,
@@ -80,6 +76,7 @@ export function SendInscriptionReview() {
       onClose={() => navigate(RouteUrls.Home)}
     >
       <Card
+        dataTestId={SendCryptoAssetSelectors.ConfirmationDetails}
         border="unset"
         contentStyle={{
           p: 'space.00',
@@ -114,7 +111,11 @@ export function SendInscriptionReview() {
           px="space.06"
         >
           <Stack width="100%" mb="36px">
-            <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
+            <InfoCardRow
+              data-testid={SendCryptoAssetSelectors.ConfirmationDetailsRecipient}
+              title="To"
+              value={<FormAddressDisplayer address={recipient} />}
+            />
             <InfoCardSeparator />
             {arrivesIn && <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />}
             <InfoCardRow title="Fee" value={feeRowValue} />

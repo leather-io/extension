@@ -10,7 +10,7 @@ import OkxIcon from '@assets/images/fund/fiat-providers/okx-icon.png';
 import TransakIcon from '@assets/images/fund/fiat-providers/transak-icon.png';
 import { generateOnRampURL } from '@coinbase/cbpay-js';
 
-import type { CryptoCurrencies } from '@leather.io/models';
+import type { CryptoCurrency } from '@leather.io/models';
 
 import { COINBASE_APP_ID, MOONPAY_API_KEY, TRANSAK_API_KEY } from '@shared/environment';
 
@@ -43,7 +43,7 @@ export const activeFiatProviderIcons: Record<ActiveFiatProvider['name'], string>
   [ActiveFiatProviders.Transak]: TransakIcon,
 };
 
-function makeCoinbaseUrl(address: string, symbol: CryptoCurrencies) {
+function makeCoinbaseUrl(address: string, symbol: CryptoCurrency) {
   const code = symbol.toUpperCase();
 
   const onRampURL = generateOnRampURL({
@@ -58,12 +58,12 @@ function makeCoinbaseUrl(address: string, symbol: CryptoCurrencies) {
   return onRampURL;
 }
 
-function makeMoonPayUrl(address: string, symbol: CryptoCurrencies) {
+function makeMoonPayUrl(address: string, symbol: CryptoCurrency) {
   const code = symbol.toLowerCase();
   return `https://buy.moonpay.com?apiKey=${MOONPAY_API_KEY}&currencyCode=${code}&walletAddress=${address}`;
 }
 
-function makeTransakUrl(address: string, symbol: CryptoCurrencies) {
+function makeTransakUrl(address: string, symbol: CryptoCurrency) {
   const screenTitle = 'Buy Stacks';
   const code = symbol.toUpperCase();
 
@@ -82,7 +82,7 @@ interface GetProviderNameArgs {
   hasFastCheckoutProcess: boolean;
   key: string;
   name: string;
-  symbol: CryptoCurrencies;
+  symbol: CryptoCurrency;
 }
 export function getProviderUrl({
   address,

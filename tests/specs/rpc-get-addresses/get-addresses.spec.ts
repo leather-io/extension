@@ -67,7 +67,7 @@ async function initiateGetAddresses(page: Page) {
 }
 
 async function clickConnectLeatherButton(popup: Page) {
-  const button = popup.getByText('Connect Leather');
+  const button = popup.getByTestId('get-addresses-approve-button');
   await test.expect(button).toBeVisible();
   await button.click();
 }
@@ -134,9 +134,29 @@ test.describe('Rpc: GetAddresses', () => {
           const popup = await interceptRequestPopup(context);
           await popup.getByRole('textbox').fill(TEST_PASSWORD);
           await popup.getByRole('button', { name: 'Continue' }).click();
-          await test.expect(popup.getByText('Connect Leather')).toBeVisible();
+          await popup.getByText('Connect').isVisible();
+          await test.expect(popup.getByTestId('get-addresses-approve-button')).toBeVisible();
           await clickConnectLeatherButton(popup);
           await test.expect(getAddressesPromise).resolves.toMatchObject(expectedResult);
+        });
+
+        test('it returns the second accounts data after changing account', async ({
+          page,
+          context,
+        }) => {
+          await page.goto('localhost:3000');
+          const getAddressesPromise = initiateGetAddresses(page);
+          const popup = await interceptRequestPopup(context);
+          const switchAccountButton = popup.getByTestId('switch-account-item-0');
+          await switchAccountButton.click();
+          const secondAccountInListButton = popup.getByTestId('switch-account-item-1');
+          await secondAccountInListButton.click();
+          await test.expect(popup.getByText('Account 2')).toBeVisible();
+          await clickConnectLeatherButton(popup);
+          const result = await getAddressesPromise;
+          test
+            .expect(result.result.addresses[0].address)
+            .toEqual('bc1qr9wmz342txkcmxxq5ysmfqrd5rvmxtu6nldjgp');
         });
       }
     });

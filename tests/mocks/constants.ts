@@ -4,7 +4,16 @@ export const STANDARD_BIP_FAKE_MNEMONIC =
 export const TEST_ACCOUNT_1_NATIVE_SEGWIT_ADDRESS = 'bc1q530dz4h80kwlzywlhx2qn0k6vdtftd93c499yq';
 export const TEST_ACCOUNT_1_TAPROOT_ADDRESS =
   'bc1putuzj9lyfcm8fef9jpy85nmh33cxuq9u6wyuk536t9kemdk37yjqmkc0pg';
+export const TEST_ACCOUNT_2_TAPROOT_ADDRESS =
+  'bc1pmk2sacpfyy4v5phl8tq6eggu4e8laztep7fsgkkx0nc6m9vydjesaw0g2r';
+
+export const TEST_TESNET_ACCOUNT_1_NATIVE_SEGWIT_ADDRESS =
+  'tb1q4qgnjewwun2llgken94zqjrx5kpqqycaz5522d';
+
 export const TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS = 'tb1qr8me8t9gu9g6fu926ry5v44yp0wyljrespjtnz';
+
+export const TEST_TESTNET_ACCOUNT_2_TAPROOT_ADDRESS =
+  'tb1pve00jmp43whpqj2wpcxtc7m8wqhz0azq689y4r7h8tmj8ltaj87qj2nj6w';
 
 // Stacks test addresses
 export const TEST_ACCOUNT_1_STX_ADDRESS = 'SPS8CKF63P16J28AYF7PXW9E5AACH0NZNTEFWSFE';

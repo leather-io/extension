@@ -13,6 +13,10 @@ const TEST_ACCOUNT_SECRET_KEY = process.env.TEST_ACCOUNT_SECRET_KEY ?? '';
 // If default wallet state changes, we'll need to update this
 export const testSoftwareAccountDefaultWalletState = {
   chains: { stx: { default: { highestAccountIndex: 1, currentAccountIndex: 0 } } },
+  appPermissions: {
+    entities: {},
+    ids: [],
+  },
   softwareKeys: {
     ids: ['default'],
     entities: {
@@ -36,10 +40,7 @@ export const testSoftwareAccountDefaultWalletState = {
     },
   },
   networks: { ids: [], entities: {}, currentNetworkId: 'mainnet' },
-  ordinals: {
-    entities: {},
-    ids: [],
-  },
+  ordinals: {},
   settings: {
     userSelectedTheme: 'system',
     dismissedMessages: [],

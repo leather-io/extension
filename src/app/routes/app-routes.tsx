@@ -14,6 +14,7 @@ import { Content } from '@app/components/layout/layouts/content.layout';
 import { SwitchAccountLayout } from '@app/components/layout/layouts/switch-account.layout';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { AddNetwork } from '@app/features/add-network/add-network';
+import { EditNetwork } from '@app/features/add-network/edit-network';
 import { Container } from '@app/features/container/container';
 import { HomeHeader } from '@app/features/container/headers/home.header';
 import { IncreaseBtcFeeSheet } from '@app/features/dialogs/increase-fee-dialog/increase-btc-fee-dialog';
@@ -41,7 +42,7 @@ import { RequestError } from '@app/pages/request-error/request-error';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { sendOrdinalRoutes } from '@app/pages/send/ordinal-inscription/ordinal-routes';
 import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
-import { alexSwapRoutes } from '@app/pages/swap/alex-swap-container';
+import { bitflowSwapRoutes } from '@app/pages/swap/bitflow-swap-container';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
 import { Unlock } from '@app/pages/unlock';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
@@ -146,6 +147,15 @@ function useAppRoutes() {
           />
 
           <Route
+            path={RouteUrls.EditNetwork}
+            element={
+              <AccountGate>
+                <EditNetwork />
+              </AccountGate>
+            }
+          />
+
+          <Route
             path={RouteUrls.Fund}
             element={
               <AccountGate>
@@ -182,7 +192,7 @@ function useAppRoutes() {
             }
           />
 
-          {alexSwapRoutes}
+          {bitflowSwapRoutes}
 
           {/* OnBoarding Routes */}
           <Route

@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Box, Stack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 import { useHover } from 'use-events';
@@ -26,6 +27,7 @@ export function CollectibleItemLayout({
   showBorder,
   subtitle,
   title,
+  ...rest
 }: CollectibleItemLayoutProps) {
   const [isHovered, bind] = useHover();
 
@@ -42,6 +44,7 @@ export function CollectibleItemLayout({
       p="space.01"
       textAlign="inherit"
       width="100%"
+      {...rest}
       {...bind}
     >
       <Box height="0px" position="relative" pb="100%">
@@ -88,6 +91,7 @@ export function CollectibleItemLayout({
       {onClickSend ? (
         <Box p="space.02">
           <styled.button
+            data-testid={SendCryptoAssetSelectors.InscriptionSendButton}
             _focus={{ clipPath: 'none', outline: 'focus' }}
             _hover={{ bg: 'ink.background-primary' }}
             bg="ink.background-primary"
