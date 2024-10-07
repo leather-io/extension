@@ -32,14 +32,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/35</span>
+                <span class='fraction'>0/33</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -250,7 +250,12 @@
 <a name='L185'></a><a href='#L185'>185</a>
 <a name='L186'></a><a href='#L186'>186</a>
 <a name='L187'></a><a href='#L187'>187</a>
-<a name='L188'></a><a href='#L188'>188</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -300,13 +305,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -317,6 +319,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -331,8 +339,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -483,14 +493,17 @@ const initialFormValues: AddNetworkFormValues = <span class="cstat-no" title="st
   bitcoinNetwork: 'mainnet',
 };
 &nbsp;
-function <span class="fstat-no" title="function not covered" >useInitialValues() {</span>
+function <span class="fstat-no" title="function not covered" >useAddNetworkState() {</span>
   const { state } = <span class="cstat-no" title="statement not covered" >useLocation();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!state) {</span>
-<span class="cstat-no" title="statement not covered" >    return initialFormValues;</span>
-  }
+<span class="cstat-no" title="statement not covered" >  return {</span>
+    isEditNetworkMode: state?.isEditNetworkMode,
+    network: state?.network as NetworkConfiguration | undefined,
+  };
+}
 &nbsp;
-  const network = <span class="cstat-no" title="statement not covered" >state.network as NetworkConfiguration | undefined;</span>
+function <span class="fstat-no" title="function not covered" >useInitialValues() {</span>
+  const { network } = <span class="cstat-no" title="statement not covered" >useAddNetworkState();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!network) {</span>
 <span class="cstat-no" title="statement not covered" >    return initialFormValues;</span>
@@ -518,11 +531,13 @@ export function <span class="fstat-no" title="function not covered" >useAddNetwo
   const network = <span class="cstat-no" title="statement not covered" >useCurrentStacksNetworkState();</span>
   const networksActions = <span class="cstat-no" title="statement not covered" >useNetworksActions();</span>
   const initialValues = <span class="cstat-no" title="statement not covered" >useInitialValues();</span>
+  const { isEditNetworkMode } = <span class="cstat-no" title="statement not covered" >useAddNetworkState();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return {</span>
     error,
     initialFormValues: initialValues,
     loading,
+    isEditNetworkMode,
     onSubmit: <span class="fstat-no" title="function not covered" >async (v</span>alues: AddNetworkFormValues) =&gt; {
       const { name, stacksUrl, bitcoinUrl, key, bitcoinNetwork } = <span class="cstat-no" title="statement not covered" >values;</span>
 &nbsp;
@@ -631,7 +646,7 @@ export function <span class="fstat-no" title="function not covered" >useAddNetwo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-03T09:30:32.877Z
+                at 2024-10-07T08:39:49.674Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

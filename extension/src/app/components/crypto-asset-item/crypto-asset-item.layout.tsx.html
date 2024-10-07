@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -174,7 +174,16 @@
 <a name='L109'></a><a href='#L109'>109</a>
 <a name='L110'></a><a href='#L110'>110</a>
 <a name='L111'></a><a href='#L111'>111</a>
-<a name='L112'></a><a href='#L112'>112</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -245,23 +254,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -272,6 +264,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -285,7 +297,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Box, Flex, styled } from 'leather-styles/jsx';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Box, Flex } from 'leather-styles/jsx';
 &nbsp;
 import type { Money } from '@leather.io/models';
 import {
@@ -298,6 +310,7 @@ import {
 } from '@leather.io/ui';
 import { spamFilter } from '@leather.io/utils';
 &nbsp;
+import { PrivateTextLayout } from '@app/components/privacy/private-text.layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 &nbsp;
 import { parseCryptoAssetBalance } from './crypto-asset-item.layout.utils';
@@ -312,6 +325,7 @@ interface CryptoAssetItemLayoutProps {
   icon: React.ReactNode;
   isLoading?: boolean;
   isLoadingAdditionalData?: boolean;
+  isPrivate?: boolean;
   onSelectAsset?(symbol: string, contractId?: string): void;
   titleLeft: string;
   titleRightBulletInfo?: React.ReactNode;
@@ -326,6 +340,7 @@ export function <span class="fstat-no" title="function not covered" >CryptoAsset
   icon,
   isLoading = <span class="branch-0 cbranch-no" title="branch not covered" >false,</span>
   isLoadingAdditionalData = <span class="branch-0 cbranch-no" title="branch not covered" >false,</span>
+  isPrivate = <span class="branch-0 cbranch-no" title="branch not covered" >false,</span>
   onSelectAsset,
   titleLeft,
   titleRightBulletInfo,
@@ -337,17 +352,18 @@ export function <span class="fstat-no" title="function not covered" >CryptoAsset
 <span class="cstat-no" title="statement not covered" >    &lt;SkeletonLoader width="126px" isLoading={isLoading}&gt;</span>
       &lt;BasicTooltip
         asChild
-        label={formattedBalance.isAbbreviated ? availableBalanceString : undefined}
+        label={formattedBalance.isAbbreviated &amp;&amp; !isPrivate ? availableBalanceString : undefined}
         side="left"
       &gt;
         &lt;Flex alignItems="center" gap="space.02" textStyle="label.02"&gt;
           &lt;BulletSeparator&gt;
-            &lt;styled.span
+            &lt;PrivateTextLayout
+              isPrivate={isPrivate}
               data-state={isLoadingAdditionalData ? 'loading' : undefined}
               className={shimmerStyles}
             &gt;
               {formattedBalance.value} {balanceSuffix}
-            &lt;/styled.span&gt;
+            &lt;/PrivateTextLayout&gt;
             {titleRightBulletInfo}
           &lt;/BulletSeparator&gt;
         &lt;/Flex&gt;
@@ -363,7 +379,9 @@ export function <span class="fstat-no" title="function not covered" >CryptoAsset
             data-state={isLoadingAdditionalData ? 'loading' : undefined}
             className={shimmerStyles}
           &gt;
-            {availableBalance.amount.toNumber() &gt; 0 ? fiatBalance : null}
+            &lt;PrivateTextLayout isPrivate={isPrivate}&gt;
+              {availableBalance.amount.toNumber() &gt; 0 ? fiatBalance : null}
+            &lt;/PrivateTextLayout&gt;
           &lt;/Caption&gt;
           {captionRightBulletInfo}
         &lt;/BulletSeparator&gt;
@@ -375,7 +393,7 @@ export function <span class="fstat-no" title="function not covered" >CryptoAsset
 &nbsp;
   const content = (
 <span class="cstat-no" title="statement not covered" >    &lt;ItemLayout</span>
-      flagImg={icon}
+      img={icon}
       titleLeft={spamFilter(titleLeft)}
       captionLeft={spamFilter(captionLeft)}
       titleRight={titleRight}
@@ -403,7 +421,7 @@ export function <span class="fstat-no" title="function not covered" >CryptoAsset
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-03T09:30:32.877Z
+                at 2024-10-07T08:39:49.674Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

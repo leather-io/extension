@@ -118,7 +118,9 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,16 +149,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -170,10 +162,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { NetworkSelectors } from '@tests/selectors/network.selectors';
 import { css } from 'leather-styles/css';
 import { HStack, styled } from 'leather-styles/jsx';
 &nbsp;
@@ -187,8 +191,8 @@ interface Props {
 export function <span class="fstat-no" title="function not covered" >NetworkItemMenu({</span> onClickDeleteNetwork, onEditNetwork }: Props) {
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;DropdownMenu.Root&gt;
-      &lt;DropdownMenu.IconButton&gt;
-        &lt;EllipsisVIcon color="ink.text-primary" data-testid={SettingsSelectors.SettingsMenuBtn} /&gt;
+      &lt;DropdownMenu.IconButton data-testid={NetworkSelectors.NetworkMenuBtn}&gt;
+        &lt;EllipsisVIcon color="ink.text-primary" /&gt;
       &lt;/DropdownMenu.IconButton&gt;
       &lt;DropdownMenu.Portal&gt;
         &lt;DropdownMenu.Content
@@ -201,6 +205,7 @@ export function <span class="fstat-no" title="function not covered" >NetworkItem
         &gt;
           &lt;DropdownMenu.Group&gt;
             &lt;DropdownMenu.Item
+              data-testid={NetworkSelectors.EditNetworkMenuBtn}
               onClick={<span class="fstat-no" title="function not covered" >e =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                e.stopPropagation();</span>
 <span class="cstat-no" title="statement not covered" >                onEditNetwork();</span>
@@ -212,13 +217,14 @@ export function <span class="fstat-no" title="function not covered" >NetworkItem
               &lt;/HStack&gt;
             &lt;/DropdownMenu.Item&gt;
             &lt;DropdownMenu.Item
+              data-testid={NetworkSelectors.DeleteNetworkMenuBtn}
               onClick={<span class="fstat-no" title="function not covered" >e =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                e.stopPropagation();</span>
 <span class="cstat-no" title="statement not covered" >                onClickDeleteNetwork();</span>
               }}
             &gt;
               &lt;HStack color="red.action-primary-default"&gt;
-                &lt;TrashIcon /&gt;
+                &lt;TrashIcon color="red.action-primary-default" /&gt;
                 &lt;styled.span textStyle="label.02"&gt;Delete&lt;/styled.span&gt;
               &lt;/HStack&gt;
             &lt;/DropdownMenu.Item&gt;
@@ -235,7 +241,7 @@ export function <span class="fstat-no" title="function not covered" >NetworkItem
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-03T09:30:32.877Z
+                at 2024-10-07T08:39:49.674Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

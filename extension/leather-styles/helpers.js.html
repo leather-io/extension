@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/179</span>
+                <span class='fraction'>0/186</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/89</span>
+                <span class='fraction'>0/93</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/68</span>
+                <span class='fraction'>0/70</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/155</span>
+                <span class='fraction'>0/162</span>
             </div>
         
             
@@ -388,10 +388,21 @@
 <a name='L323'></a><a href='#L323'>323</a>
 <a name='L324'></a><a href='#L324'>324</a>
 <a name='L325'></a><a href='#L325'>325</a>
-<a name='L326'></a><a href='#L326'>326</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L326'></a><a href='#L326'>326</a>
+<a name='L327'></a><a href='#L327'>327</a>
+<a name='L328'></a><a href='#L328'>328</a>
+<a name='L329'></a><a href='#L329'>329</a>
+<a name='L330'></a><a href='#L330'>330</a>
+<a name='L331'></a><a href='#L331'>331</a>
+<a name='L332'></a><a href='#L332'>332</a>
+<a name='L333'></a><a href='#L333'>333</a>
+<a name='L334'></a><a href='#L334'>334</a>
+<a name='L335'></a><a href='#L335'>335</a>
+<a name='L336'></a><a href='#L336'>336</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -454,6 +465,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -666,9 +678,17 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -717,6 +737,7 @@
 function <span class="fstat-no" title="function not covered" >isObject(</span>value) {
 <span class="cstat-no" title="statement not covered" >  return typeof value === "object" &amp;&amp; value != null &amp;&amp; !Array.isArray(value);</span>
 }
+var isObjectOrArray = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(o</span>bj) =&gt; <span class="cstat-no" title="statement not covered" >typeof obj === "object" &amp;&amp; obj !== null;</span></span>
 &nbsp;
 // src/compact.ts
 function <span class="fstat-no" title="function not covered" >compact(</span>value) {
@@ -779,8 +800,9 @@ var memo = <span class="cstat-no" title="statement not covered" ><span class="fs
 &nbsp;
 // src/merge-props.ts
 function <span class="fstat-no" title="function not covered" >mergeProps(</span>...sources) {
-  const objects = <span class="cstat-no" title="statement not covered" >sources.filter(Boolean);</span>
-<span class="cstat-no" title="statement not covered" >  return objects.reduce(<span class="fstat-no" title="function not covered" >(p</span>rev, obj) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  return sources.reduce(<span class="fstat-no" title="function not covered" >(p</span>rev, obj) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (!obj)</span>
+<span class="cstat-no" title="statement not covered" >      return prev;</span>
 <span class="cstat-no" title="statement not covered" >    Object.keys(obj).forEach(<span class="fstat-no" title="function not covered" >(k</span>ey) =&gt; {</span>
       const prevValue = <span class="cstat-no" title="statement not covered" >prev[key];</span>
       const value = <span class="cstat-no" title="statement not covered" >obj[key];</span>
@@ -799,7 +821,7 @@ var isNotNullish = <span class="cstat-no" title="statement not covered" ><span c
 function <span class="fstat-no" title="function not covered" >walkObject(</span>target, predicate, options = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> {
   const { stop, getKey } = <span class="cstat-no" title="statement not covered" >options;</span>
   function <span class="fstat-no" title="function not covered" >inner(</span>value, path = <span class="branch-0 cbranch-no" title="branch not covered" >[])</span> {
-<span class="cstat-no" title="statement not covered" >    if (isObject(value) || Array.isArray(value)) {</span>
+<span class="cstat-no" title="statement not covered" >    if (isObjectOrArray(value)) {</span>
       const result = <span class="cstat-no" title="statement not covered" >{};</span>
 <span class="cstat-no" title="statement not covered" >      for (const [prop, child] of Object.entries(value)) {</span>
         const key = <span class="cstat-no" title="statement not covered" >getKey?.(prop, child) ?? prop;</span>
@@ -880,9 +902,9 @@ function <span class="fstat-no" title="function not covered" >createCss(</span>c
     const normalizedObject = <span class="cstat-no" title="statement not covered" >normalizeStyleObject(styleObject, context);</span>
     const classNames = /* @__PURE__ */ <span class="cstat-no" title="statement not covered" >new Set();</span>
 <span class="cstat-no" title="statement not covered" >    walkObject(normalizedObject, <span class="fstat-no" title="function not covered" >(v</span>alue, paths) =&gt; {</span>
-      const important = <span class="cstat-no" title="statement not covered" >isImportant(value);</span>
 <span class="cstat-no" title="statement not covered" >      if (value == null)</span>
 <span class="cstat-no" title="statement not covered" >        return;</span>
+      const important = <span class="cstat-no" title="statement not covered" >isImportant(value);</span>
       const [prop, ...allConditions] = <span class="cstat-no" title="statement not covered" >conds.shift(paths);</span>
       const conditions = <span class="cstat-no" title="statement not covered" >filterBaseConditions(allConditions);</span>
       const transformed = <span class="cstat-no" title="statement not covered" >utility.transform(prop, withoutImportant(sanitize(value)));</span>
@@ -993,7 +1015,15 @@ function <span class="fstat-no" title="function not covered" >splitProps(</span>
 }
 &nbsp;
 // src/uniq.ts
-var uniq = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(.</span>..items) =&gt; <span class="cstat-no" title="statement not covered" >items.filter(Boolean).reduce(<span class="fstat-no" title="function not covered" >(a</span>cc, item) =&gt; <span class="cstat-no" title="statement not covered" >Array.from(/* @__PURE__ */ new Set([...acc, ...item])),</span> []);</span></span>
+var uniq = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(.</span>..items) =&gt; {</span>
+  const set = <span class="cstat-no" title="statement not covered" >items.reduce(<span class="fstat-no" title="function not covered" >(a</span>cc, currItems) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (currItems) {</span>
+<span class="cstat-no" title="statement not covered" >      currItems.forEach(<span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >acc.add(item))</span>;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return acc;</span>
+  }, /* @__PURE__ */ new Set([]));
+<span class="cstat-no" title="statement not covered" >  return Array.from(set);</span>
+};
 export {
   compact,
   createCss,
@@ -1045,7 +1075,7 @@ export function <span class="fstat-no" title="function not covered" >__objRest(<
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-03T09:30:32.877Z
+                at 2024-10-07T08:39:49.674Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

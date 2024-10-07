@@ -141,7 +141,19 @@
 <a name='L76'></a><a href='#L76'>76</a>
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,23 +164,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -182,12 +177,41 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -221,6 +245,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useNavigate } from 'react-router-dom';
 &nbsp;
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
 import { Box, Flex } from 'leather-styles/jsx';
 &nbsp;
@@ -229,6 +254,7 @@ import { Button, OrdinalAvatarIcon, Sheet, SheetHeader } from '@leather.io/ui';
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 import { ErrorLabel } from '@app/components/error-label';
+import { TextInputFieldError } from '@app/components/field-error';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { InscriptionPreviewCard } from '@app/components/inscription-preview-card/inscription-preview-card';
 &nbsp;
@@ -265,7 +291,12 @@ export function <span class="fstat-no" title="function not covered" >SendInscrip
               isShowing
               onClose={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.Home)}</span>
               footer={
-                &lt;Button onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >p</span>rops.handleSubmit()} t</span>ype="submit" fullWidth&gt;
+                &lt;Button
+                  data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
+                  onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >p</span>rops.handleSubmit()}</span>
+                  type="submit"
+                  fullWidth
+                &gt;
                   Continue
                 &lt;/Button&gt;
               }
@@ -285,9 +316,14 @@ export function <span class="fstat-no" title="function not covered" >SendInscrip
                         label="To"
                         placeholder="Enter recipient address"
                       /&gt;
+                      &lt;TextInputFieldError name={recipientFieldName} /&gt;
                     &lt;/Flex&gt;
                   &lt;/Box&gt;
-                  {currentError &amp;&amp; &lt;ErrorLabel&gt;{currentError}&lt;/ErrorLabel&gt;}
+                  {currentError &amp;&amp; (
+                    &lt;ErrorLabel data-testid={SendCryptoAssetSelectors.FormFieldInputErrorLabel}&gt;
+                      {currentError}
+                    &lt;/ErrorLabel&gt;
+                  )}
                 &lt;/Box&gt;
               &lt;/SendInscriptionFormLoader&gt;
             &lt;/Sheet&gt;
@@ -304,7 +340,7 @@ export function <span class="fstat-no" title="function not covered" >SendInscrip
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-03T09:30:32.877Z
+                at 2024-10-07T08:39:49.674Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -116,30 +116,7 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -174,21 +151,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -200,7 +162,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -208,21 +169,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useNavigate } from 'react-router-dom';
-&nbsp;
-import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 import { Stack } from 'leather-styles/jsx';
 &nbsp;
 import type { Brc20CryptoAssetInfo, CryptoAssetBalance, MarketData } from '@leather.io/models';
 import { Brc20AvatarIcon } from '@leather.io/ui';
 &nbsp;
-import { RouteUrls } from '@shared/route-urls';
-&nbsp;
 import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 import type { AssetListVariant } from '@app/features/asset-list/asset-list';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 &nbsp;
 interface Brc20TokenAssetDetails {
   balance: CryptoAssetBalance;
@@ -243,24 +200,9 @@ function <span class="fstat-no" title="function not covered" >getBrc20TokenFiatB
   });
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >Brc20TokenAssetList({</span> tokens, variant }: Brc20TokenAssetListProps) {
-  const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
-  const { balance, isLoading } = <span class="cstat-no" title="statement not covered" >useCurrentBtcCryptoAssetBalanceNativeSegwit();</span>
-&nbsp;
-  const hasPositiveBtcBalanceForFees =
-<span class="cstat-no" title="statement not covered" >    variant === 'interactive' &amp;&amp; balance.availableBalance.amount.isGreaterThan(0);</span>
-&nbsp;
-  function <span class="fstat-no" title="function not covered" >navigateToBrc20SendForm(t</span>oken: Brc20TokenAssetDetails) {
-    const { balance, holderAddress, info, marketData } = <span class="cstat-no" title="statement not covered" >token;</span>
-<span class="cstat-no" title="statement not covered" >    navigate(RouteUrls.SendBrc20SendForm.replace(':ticker', info.symbol), {</span>
-      state: {
-        balance: balance.availableBalance,
-        holderAddress,
-        marketData,
-        ticker: info.symbol,
-      },
-    });
-  }
+export function <span class="fstat-no" title="function not covered" >Brc20TokenAssetList({</span> tokens }: Brc20TokenAssetListProps) {
+  const { isLoading } = <span class="cstat-no" title="statement not covered" >useCurrentBtcCryptoAssetBalanceNativeSegwit();</span>
+  const isPrivate = <span class="cstat-no" title="statement not covered" >useIsPrivateMode();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!tokens.length) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
@@ -271,10 +213,8 @@ export function <span class="fstat-no" title="function not covered" >Brc20TokenA
           captionLeft={token.info.name.toUpperCase()}
           icon={&lt;Brc20AvatarIcon /&gt;}
           isLoading={isLoading}
+          isPrivate={isPrivate}
           key={token.info.symbol}
-          onSelectAsset={
-            hasPositiveBtcBalanceForFees ? <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigateToBrc20SendForm(token) : u</span>ndefined
-          }
           titleLeft={token.info.symbol}
           fiatBalance={getBrc20TokenFiatBalance(token)}
         /&gt;
@@ -289,7 +229,7 @@ export function <span class="fstat-no" title="function not covered" >Brc20TokenA
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-03T09:30:32.877Z
+                at 2024-10-07T08:39:49.674Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

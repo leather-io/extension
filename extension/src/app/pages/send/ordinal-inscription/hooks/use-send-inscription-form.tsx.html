@@ -220,11 +220,7 @@
 <a name='L155'></a><a href='#L155'>155</a>
 <a name='L156'></a><a href='#L156'>156</a>
 <a name='L157'></a><a href='#L157'>157</a>
-<a name='L158'></a><a href='#L158'>158</a>
-<a name='L159'></a><a href='#L159'>159</a>
-<a name='L160'></a><a href='#L160'>160</a>
-<a name='L161'></a><a href='#L161'>161</a>
-<a name='L162'></a><a href='#L162'>162</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L158'></a><a href='#L158'>158</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -277,17 +273,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -299,21 +284,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -327,6 +303,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -438,34 +430,42 @@ export function <span class="fstat-no" title="function not covered" >useSendInsc
 <span class="cstat-no" title="statement not covered" >      setIsCheckingFees(true);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      try {</span>
-        // Check tx with lowest fee for errors before routing and
-        // generating the final transaction with the chosen fee to send
-        const resp = <span class="cstat-no" title="statement not covered" >coverFeeFromAdditionalUtxos(values);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >        if (!resp) {</span>
-<span class="cstat-no" title="statement not covered" >          setShowError(</span>
-            'Insufficient funds to cover fee. Deposit some BTC to your Native Segwit address.'
-          );
-<span class="cstat-no" title="statement not covered" >          return;</span>
-        }
-&nbsp;
 <span class="cstat-no" title="statement not covered" >        if (Number(inscription.offset) !== 0) {</span>
-<span class="cstat-no" title="statement not covered" >          setShowError('Sending inscriptions at non-zero offsets is unsupported');</span>
+<span class="cstat-no" title="statement not covered" >          setShowError(FormErrorMessages.NonZeroOffsetInscription);</span>
 <span class="cstat-no" title="statement not covered" >          return;</span>
         }
 &nbsp;
         const numInscriptionsOnUtxo = <span class="cstat-no" title="statement not covered" >getNumberOfInscriptionOnUtxo(utxo.txid, utxo.vout);</span>
 <span class="cstat-no" title="statement not covered" >        if (numInscriptionsOnUtxo &gt; 1) {</span>
-<span class="cstat-no" title="statement not covered" >          setShowError('Sending inscription from utxo with multiple inscriptions is unsupported');</span>
+<span class="cstat-no" title="statement not covered" >          setShowError(FormErrorMessages.UtxoWithMultipleInscriptions);</span>
 <span class="cstat-no" title="statement not covered" >          return;</span>
         }
+&nbsp;
+        // Check tx with lowest fee for errors before routing and
+        // generating the final transaction with the chosen fee to send
+        const resp = <span class="cstat-no" title="statement not covered" >coverFeeFromAdditionalUtxos(values);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (!resp) {</span>
+<span class="cstat-no" title="statement not covered" >          setShowError(FormErrorMessages.InsufficientFundsToCoverFee);</span>
+<span class="cstat-no" title="statement not covered" >          return;</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        navigate(</span>
+          `/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionChooseFee}`,
+          {
+            state: {
+              inscription,
+              recipient: values.recipient,
+              utxo,
+              backgroundLocation: { pathname: RouteUrls.Home },
+            },
+          }
+        );
       } catch (error) {
 <span class="cstat-no" title="statement not covered" >        void analytics.track('ordinals_dot_com_unavailable', { error });</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        if (error instanceof InsufficientFundsError) {</span>
-<span class="cstat-no" title="statement not covered" >          setShowError(</span>
-            'Insufficient funds to cover fee. Deposit some BTC to your Native Segwit address.'
-          );
+<span class="cstat-no" title="statement not covered" >          setShowError(FormErrorMessages.InsufficientFundsToCoverFee);</span>
 <span class="cstat-no" title="statement not covered" >          return;</span>
         }
 &nbsp;
@@ -477,18 +477,6 @@ export function <span class="fstat-no" title="function not covered" >useSendInsc
       } finally {
 <span class="cstat-no" title="statement not covered" >        setIsCheckingFees(false);</span>
       }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >      navigate(</span>
-        `/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionChooseFee}`,
-        {
-          state: {
-            inscription,
-            recipient: values.recipient,
-            utxo,
-            backgroundLocation: { pathname: RouteUrls.Home },
-          },
-        }
-      );
     },
 &nbsp;
 <span class="fstat-no" title="function not covered" >    async r</span>eviewTransaction(
@@ -553,7 +541,7 @@ export function <span class="fstat-no" title="function not covered" >useSendInsc
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-03T09:30:32.877Z
+                at 2024-10-07T08:39:49.674Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

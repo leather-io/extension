@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -113,7 +113,18 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -123,6 +134,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -162,12 +185,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ReactNode } from 'react';
 &nbsp;
-import { HStack, styled } from 'leather-styles/jsx';
+import { HStack } from 'leather-styles/jsx';
 &nbsp;
 import { Caption, ItemLayout, Pressable } from '@leather.io/ui';
+&nbsp;
+import { PrivateTextLayout } from '@app/components/privacy/private-text.layout';
 &nbsp;
 interface TransactionItemLayoutProps {
   openTxLink(): void;
@@ -178,6 +202,15 @@ interface TransactionItemLayoutProps {
   txIcon?: ReactNode;
   txStatus?: ReactNode;
   children?: ReactNode;
+  isPrivate?: boolean;
+}
+&nbsp;
+function <span class="fstat-no" title="function not covered" >TxValue({</span> txValue, isPrivate }: { txValue: ReactNode; isPrivate?: boolean }) {
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;PrivateTextLayout isPrivate={isPrivate} textStyle="label.02" px="space.02"&gt;
+      {txValue}
+    &lt;/PrivateTextLayout&gt;
+  );
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >TransactionItemLayout({</span>
@@ -188,11 +221,12 @@ export function <span class="fstat-no" title="function not covered" >Transaction
   txStatus,
   txTitle,
   txValue,
+  isPrivate,
 }: TransactionItemLayoutProps) {
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Pressable onClick={openTxLink} p="space.03"&gt;
+    &lt;Pressable onClick={openTxLink} my="space.02"&gt;
       &lt;ItemLayout
-        flagImg={txIcon &amp;&amp; txIcon}
+        img={txIcon &amp;&amp; txIcon}
         titleLeft={txTitle}
         captionLeft={
           &lt;HStack alignItems="center"&gt;
@@ -206,9 +240,8 @@ export function <span class="fstat-no" title="function not covered" >Transaction
             {txStatus &amp;&amp; txStatus}
           &lt;/HStack&gt;
         }
-        titleRight={
-          rightElement ? rightElement : &lt;styled.span textStyle="label.02"&gt;{txValue}&lt;/styled.span&gt;
-        }
+        titleRight={&lt;TxValue txValue={txValue} isPrivate={isPrivate} /&gt;}
+        captionRight={rightElement}
       /&gt;
     &lt;/Pressable&gt;
   );
@@ -220,7 +253,7 @@ export function <span class="fstat-no" title="function not covered" >Transaction
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-03T09:30:32.877Z
+                at 2024-10-07T08:39:49.674Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

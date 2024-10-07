@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -189,8 +189,8 @@
 <a name='L124'></a><a href='#L124'>124</a>
 <a name='L125'></a><a href='#L125'>125</a>
 <a name='L126'></a><a href='#L126'>126</a>
-<a name='L127'></a><a href='#L127'>127</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -225,7 +225,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -237,8 +236,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -269,6 +266,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -318,6 +320,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useLocation, useNavigate } from 'react-router-dom';
 &nbsp;
 import { bytesToHex } from '@noble/hashes/utils';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Box, Flex, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 &nbsp;
@@ -332,8 +335,6 @@ import { InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-c
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { Card } from '@app/components/layout';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { useAppDispatch } from '@app/store';
-import { inscriptionSent } from '@app/store/ordinals/ordinals.slice';
 &nbsp;
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 import { useSendInscriptionState } from './components/send-inscription-container';
@@ -350,7 +351,6 @@ function <span class="fstat-no" title="function not covered" >useSendInscription
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >SendInscriptionReview() {</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
-  const dispatch = <span class="cstat-no" title="statement not covered" >useAppDispatch();</span>
   const { arrivesIn, signedTx, recipient, feeRowValue } = <span class="cstat-no" title="statement not covered" >useSendInscriptionReviewState();</span>
 &nbsp;
   const { inscription } = <span class="cstat-no" title="statement not covered" >useSendInscriptionState();</span>
@@ -364,8 +364,6 @@ export function <span class="fstat-no" title="function not covered" >SendInscrip
 <span class="fstat-no" title="function not covered" >      async o</span>nSuccess(txid: string) {
 <span class="cstat-no" title="statement not covered" >        void analytics.track('broadcast_ordinal_transaction');</span>
 <span class="cstat-no" title="statement not covered" >        await filteredUtxosQuery.refetch();</span>
-        // Might be a BRC-20 transfer, so we want to remove it from the pending
-<span class="cstat-no" title="statement not covered" >        dispatch(inscriptionSent({ inscriptionId: inscription.id }));</span>
 <span class="cstat-no" title="statement not covered" >        navigate(`/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionSent}`, {</span>
           state: {
             inscription,
@@ -397,6 +395,7 @@ export function <span class="fstat-no" title="function not covered" >SendInscrip
       onClose={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.Home)}</span>
     &gt;
       &lt;Card
+        dataTestId={SendCryptoAssetSelectors.ConfirmationDetails}
         border="unset"
         contentStyle={{
           p: 'space.00',
@@ -431,7 +430,11 @@ export function <span class="fstat-no" title="function not covered" >SendInscrip
           px="space.06"
         &gt;
           &lt;Stack width="100%" mb="36px"&gt;
-            &lt;InfoCardRow title="To" value={&lt;FormAddressDisplayer address={recipient} /&gt;} /&gt;
+            &lt;InfoCardRow
+              data-testid={SendCryptoAssetSelectors.ConfirmationDetailsRecipient}
+              title="To"
+              value={&lt;FormAddressDisplayer address={recipient} /&gt;}
+            /&gt;
             &lt;InfoCardSeparator /&gt;
             {arrivesIn &amp;&amp; &lt;InfoCardRow title="Estimated confirmation time" value={arrivesIn} /&gt;}
             &lt;InfoCardRow title="Fee" value={feeRowValue} /&gt;
@@ -448,7 +451,7 @@ export function <span class="fstat-no" title="function not covered" >SendInscrip
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-03T09:30:32.877Z
+                at 2024-10-07T08:39:49.674Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>
