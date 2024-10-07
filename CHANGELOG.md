@@ -1,3 +1,39 @@
+## [6.48.0](https://github.com/leather-io/extension/compare/v6.47.1...v6.48.0) (2024-10-07)
+
+
+### Features
+
+* add inscription send flow testing, closes leather-io/issues[#191](https://github.com/leather-io/extension/issues/191) ([54fce3e](https://github.com/leather-io/extension/commit/54fce3e0bcb019d7375ab03334537c90dfbce4ee))
+* add option to hide balance, closes leather-io[#5096](https://github.com/leather-io/extension/issues/5096) ([32b064f](https://github.com/leather-io/extension/commit/32b064f7e4f0fef0bbc588ae09280fdeffb42ab6))
+* bitflow implemenation, closes leather-io/issues[#99](https://github.com/leather-io/extension/issues/99) ([9c0a6e8](https://github.com/leather-io/extension/commit/9c0a6e82ad579411c394b290629ae06dda12ba45))
+* redesign connection flow, closes leather.io/issues[#283](https://github.com/leather-io/extension/issues/283) ([0717b12](https://github.com/leather-io/extension/commit/0717b127fd00c9d5fab4e58c99774a48a4fbb462))
+
+
+### Bug Fixes
+
+* **analytics:** initial route only used in report analytics ([a253390](https://github.com/leather-io/extension/commit/a2533901962498eb6895a1c3ea9b8108ef6228dc))
+* broken styles ([cc6edb5](https://github.com/leather-io/extension/commit/cc6edb56997b3563783b1d4901bc7dde4e020320))
+* edit network urls, closes leather-io/extension[#5795](https://github.com/leather-io/extension/issues/5795) ([7256379](https://github.com/leather-io/extension/commit/7256379728d3fb04025c457447952fd722edcd8a))
+* path-to-regexp vulnerability GHSA-9wv6-86v2-598j ([36a84dc](https://github.com/leather-io/extension/commit/36a84dc5ea72044b918ea2ab20fdd26809580935))
+* refactor add network to use card footer, closes leather-io/issues[#313](https://github.com/leather-io/extension/issues/313) ([68de602](https://github.com/leather-io/extension/commit/68de602240f0fb83899babea56402f5dd28bd4b7))
+* secret key stored cleartext in memory ([e0bdec9](https://github.com/leather-io/extension/commit/e0bdec96f9414db28e741baba7f68c224d9339f6))
+* security audit failures ([d4c8b48](https://github.com/leather-io/extension/commit/d4c8b48c4cd072f59c9f64eeb323b5c12bd2e978))
+* show transaction amount above Increase Fee, closes [#5826](https://github.com/leather-io/extension/issues/5826) ([0a61651](https://github.com/leather-io/extension/commit/0a61651146c32ab0c1826c17a951e6bd3e9e4972))
+* storybook icons, closes leather-io/issues[#294](https://github.com/leather-io/extension/issues/294) ([a0b30eb](https://github.com/leather-io/extension/commit/a0b30ebac1632fe827209245148048b6463ee89e))
+* update manifest description, closes leather-io/issues[#310](https://github.com/leather-io/extension/issues/310) ([3450e0a](https://github.com/leather-io/extension/commit/3450e0aa26f9a41cad51f361bc392c576812d547))
+
+
+### Internal
+
+* blockchain model ([6bbb1fa](https://github.com/leather-io/extension/commit/6bbb1faba45f5d28bc44d87637c161cef9a191b8))
+* currency model imports ([54e2865](https://github.com/leather-io/extension/commit/54e286551601e77b82b2866cf67dc6b9c8bfc9e5))
+* pin node < v22 ([27f3b67](https://github.com/leather-io/extension/commit/27f3b67499eeb71c321784497c02f56476f41bbf))
+* post-release merge back ([2b6bc91](https://github.com/leather-io/extension/commit/2b6bc91d7a63fe8d6314dca982152f395c8abc97))
+* remove brc20 send flow code ([ad2d69f](https://github.com/leather-io/extension/commit/ad2d69f8d000b905dccffd02c355c28b31e143e1))
+* update wbip004 method name, closes [#5866](https://github.com/leather-io/extension/issues/5866) ([d0873e8](https://github.com/leather-io/extension/commit/d0873e8e9877b43afe15adb8b3e3919cc2761f93))
+* update webpack ([da58aa7](https://github.com/leather-io/extension/commit/da58aa74c716d52a67eae0648a03a51848901fc4))
+* upgrade pnpm ([fb5a46f](https://github.com/leather-io/extension/commit/fb5a46fe8d1e45562f67fb673a63beb2789cc4a3))
+
 ## [6.47.1](https://github.com/leather-io/extension/compare/v6.47.0...v6.47.1) (2024-09-03)
 
 
