@@ -28,11 +28,7 @@ function ErroBoundaryBody() {
       textStyle="label.02"
     >
       Leather has crashed. If this problem persists, contact our{' '}
-      <Link
-        href="https://leather.gitbook.io/guides/installing/contact-support"
-        target="_blank"
-        textDecoration="underline"
-      >
+      <Link href="https://leather.io/support" target="_blank" textDecoration="underline">
         <styled.span
           data-testid={SharedComponentsSelectors.BroadcastErrorTitle}
           textStyle="label.02"

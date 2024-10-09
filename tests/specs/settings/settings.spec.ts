@@ -19,9 +19,7 @@ test.describe('Settings menu', () => {
       page.getByTestId(SettingsSelectors.GetSupportMenuItem).click(),
     ]);
 
-    await test
-      .expect(supportPage)
-      .toHaveURL('https://leather.gitbook.io/guides/installing/contact-support');
+    await test.expect(supportPage).toHaveURL('https://leather.io/contact');
   });
 
   test('that menu item can perform sign out', async ({ homePage, onboardingPage }) => {
