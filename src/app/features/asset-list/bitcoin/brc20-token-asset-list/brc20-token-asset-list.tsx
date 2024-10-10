@@ -1,3 +1,5 @@
+import { type Dispatch, type SetStateAction, useEffect } from 'react';
+
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 import { Stack } from 'leather-styles/jsx';
 
@@ -5,8 +7,13 @@ import type { Brc20CryptoAssetInfo, CryptoAssetBalance, MarketData } from '@leat
 import { Brc20AvatarIcon } from '@leather.io/ui';
 
 import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
+import { useManageTokens } from '@app/common/hooks/use-manage-tokens';
+import { CryptoAssetItemToggleLayout } from '@app/components/crypto-asset-item/crypto-asset-item-toggle.layout';
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
-import type { AssetListVariant } from '@app/features/asset-list/asset-list';
+import type {
+  AssetListVariant,
+  AssetRightElementVariant,
+} from '@app/features/asset-list/asset-list';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
@@ -20,6 +27,9 @@ interface Brc20TokenAssetDetails {
 interface Brc20TokenAssetListProps {
   tokens: Brc20TokenAssetDetails[];
   variant?: AssetListVariant;
+  assetRightElementVariant?: AssetRightElementVariant;
+  preEnabledTokensIds: string[];
+  setHasManageableTokens?: Dispatch<SetStateAction<boolean>>;
 }
 
 function getBrc20TokenFiatBalance(token: Brc20TokenAssetDetails) {
@@ -29,25 +39,58 @@ function getBrc20TokenFiatBalance(token: Brc20TokenAssetDetails) {
   });
 }
 
-export function Brc20TokenAssetList({ tokens }: Brc20TokenAssetListProps) {
+export function Brc20TokenAssetList({
+  tokens,
+  assetRightElementVariant,
+  preEnabledTokensIds,
+  setHasManageableTokens,
+}: Brc20TokenAssetListProps) {
   const { isLoading } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
   const isPrivate = useIsPrivateMode();
+  const { isTokenEnabled } = useManageTokens();
+
+  useEffect(() => {
+    if (tokens.length > 0 && setHasManageableTokens) {
+      setHasManageableTokens(true);
+    }
+  }, [tokens, setHasManageableTokens]);
 
   if (!tokens.length) return null;
+
   return (
     <Stack data-testid={CryptoAssetSelectors.CryptoAssetList}>
-      {tokens.map(token => (
-        <CryptoAssetItemLayout
-          availableBalance={token.balance.availableBalance}
-          captionLeft={token.info.name.toUpperCase()}
-          icon={<Brc20AvatarIcon />}
-          isLoading={isLoading}
-          isPrivate={isPrivate}
-          key={token.info.symbol}
-          titleLeft={token.info.symbol}
-          fiatBalance={getBrc20TokenFiatBalance(token)}
-        />
-      ))}
+      {tokens.map(token => {
+        const key = token.info.symbol;
+        const captionLeft = token.info.name.toUpperCase();
+        const icon = <Brc20AvatarIcon />;
+        const titleLeft = token.info.symbol;
+
+        if (assetRightElementVariant === 'toggle') {
+          return (
+            <CryptoAssetItemToggleLayout
+              key={key}
+              captionLeft={captionLeft}
+              icon={icon}
+              titleLeft={titleLeft}
+              isCheckedByDefault={isTokenEnabled({ tokenId: key, preEnabledTokensIds })}
+              assetId={key}
+            />
+          );
+        }
+        return (
+          <CryptoAssetItemLayout
+            availableBalance={token.balance.availableBalance}
+            captionLeft={captionLeft}
+            icon={icon}
+            isLoading={isLoading}
+            isPrivate={isPrivate}
+            key={key}
+            titleLeft={titleLeft}
+            fiatBalance={getBrc20TokenFiatBalance(token)}
+            dataTestId={key}
+          />
+        );
+      })}
     </Stack>
   );
 }
