@@ -69,7 +69,7 @@ export async function identifyUser(publicKey: Uint8Array) {
   return analytics.identify(deriveAnalyticsIdentifier(publicKey));
 }
 
-export const sentryFeedback = feedbackIntegration({
+const sentryFeedback = feedbackIntegration({
   colorScheme: 'system',
   isEmailRequired: false,
   buttonLabel: 'Give feedback',
@@ -78,7 +78,8 @@ export const sentryFeedback = feedbackIntegration({
   showEmail: false,
   showName: false,
   showBranding: false,
-  messageLabel: 'Feedback',
+  messageLabel: 'How can we improve Leather?',
+  enableScreenshot: false,
   submitButtonLabel: 'Send feedback',
   messagePlaceholder:
     'This is not a support tool. To get help, follow the link in the main menu on the homepage.',
@@ -139,4 +140,15 @@ export function initSentry() {
       return event;
     },
   });
+
+  Sentry.setTag('app_version', VERSION);
+}
+
+export async function openFeedbackSheet() {
+  void analytics.track('user_clicked_feedback_button');
+  const form = await sentryFeedback.createForm();
+  if (!form) return null;
+  form.appendToDom();
+  form.open();
+  return;
 }
