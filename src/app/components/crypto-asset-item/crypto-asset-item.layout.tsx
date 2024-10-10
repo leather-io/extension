@@ -30,6 +30,7 @@ interface CryptoAssetItemLayoutProps {
   onSelectAsset?(symbol: string, contractId?: string): void;
   titleLeft: string;
   titleRightBulletInfo?: React.ReactNode;
+  dataTestId: string;
 }
 export function CryptoAssetItemLayout({
   availableBalance,
@@ -45,9 +46,9 @@ export function CryptoAssetItemLayout({
   onSelectAsset,
   titleLeft,
   titleRightBulletInfo,
+  dataTestId,
 }: CryptoAssetItemLayoutProps) {
-  const { availableBalanceString, dataTestId, formattedBalance } =
-    parseCryptoAssetBalance(availableBalance);
+  const { availableBalanceString, formattedBalance } = parseCryptoAssetBalance(availableBalance);
 
   const titleRight = (
     <SkeletonLoader width="126px" isLoading={isLoading}>
@@ -113,5 +114,9 @@ export function CryptoAssetItemLayout({
       </Pressable>
     );
 
-  return <Box my="space.02">{content}</Box>;
+  return (
+    <Box my="space.02" data-testid={dataTestId}>
+      {content}
+    </Box>
+  );
 }

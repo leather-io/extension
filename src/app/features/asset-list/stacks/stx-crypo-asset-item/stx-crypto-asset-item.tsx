@@ -9,19 +9,24 @@ import {
   i18nFormatCurrency,
 } from '@leather.io/utils';
 
+import { CryptoAssetItemToggleLayout } from '@app/components/crypto-asset-item/crypto-asset-item-toggle.layout';
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
+
+import type { AssetRightElementVariant } from '../../asset-list';
 
 interface StxCryptoAssetItemProps {
   balance: StxCryptoAssetBalance;
   isLoading: boolean;
   isPrivate?: boolean;
   onSelectAsset?(symbol: string): void;
+  assetRightElementVariant?: AssetRightElementVariant;
 }
 export function StxCryptoAssetItem({
   balance,
   isLoading,
   isPrivate,
   onSelectAsset,
+  assetRightElementVariant,
 }: StxCryptoAssetItemProps) {
   const marketData = useCryptoCurrencyMarketDataMeanAverage('STX');
 
@@ -39,6 +44,21 @@ export function StxCryptoAssetItem({
   );
   const captionRightBulletInfo = <Caption>{fiatLockedBalance} locked</Caption>;
 
+  const icon = <StxAvatarIcon />;
+  const captionLeft = 'STX';
+  const titleLeft = 'Stacks';
+
+  if (assetRightElementVariant === 'toggle') {
+    return (
+      <CryptoAssetItemToggleLayout
+        captionLeft={captionLeft}
+        icon={icon}
+        titleLeft={titleLeft}
+        assetId="STX"
+      />
+    );
+  }
+
   return (
     <CryptoAssetItemLayout
       availableBalance={balance.availableBalance}
@@ -51,6 +71,7 @@ export function StxCryptoAssetItem({
       onSelectAsset={onSelectAsset}
       titleLeft="Stacks"
       titleRightBulletInfo={showLockedBalance && titleRightBulletInfo}
+      dataTestId="STX"
     />
   );
 }

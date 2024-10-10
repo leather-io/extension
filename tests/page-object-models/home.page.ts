@@ -21,6 +21,9 @@ export class HomePage {
   readonly signOutSettingsListItem: Locator;
   readonly lockSettingsListItem: Locator;
   readonly fundAccountBtn: Locator;
+  readonly manageTokensBtn: Locator;
+  readonly assetList: Locator;
+  readonly manageTokensAssetsList: Locator;
 
   $signOutConfirmHasBackupCheckbox = createTestSelector(
     SettingsSelectors.SignOutConfirmHasBackupCheckbox
@@ -50,6 +53,9 @@ export class HomePage {
     this.signOutSettingsListItem = page.getByTestId(SettingsSelectors.SignOutListItem);
     this.lockSettingsListItem = page.getByTestId(SettingsSelectors.LockListItem);
     this.fundAccountBtn = page.getByTestId(HomePageSelectors.FundAccountBtn);
+    this.manageTokensBtn = page.getByTestId(HomePageSelectors.ManageTokensBtn);
+    this.assetList = page.getByTestId(HomePageSelectors.AssetList);
+    this.manageTokensAssetsList = page.getByTestId(HomePageSelectors.ManageTokensAssetsList);
   }
 
   async goToReceiveDialog() {
