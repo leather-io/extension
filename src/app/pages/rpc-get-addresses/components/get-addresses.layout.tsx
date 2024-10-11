@@ -21,7 +21,7 @@ import { FaviconDisplayer } from '@app/components/favicon-displayer/favicon-disp
 interface GetAddressesLayoutProps {
   requester: string;
   switchAccount: ReactNode;
-  onBeforeAnimation(): void;
+  onBeforeAnimation?(): void;
   onUserApprovesGetAddresses(): void;
   onClickRequestedByLink(): void;
 }
@@ -45,7 +45,7 @@ export function GetAddressesLayout({
   });
 
   async function userApprovesGetAddresses() {
-    onBeforeAnimation();
+    onBeforeAnimation?.();
     const yPos = window.innerHeight / 2 - 100;
     const xPos = Math.min(window.innerWidth / 2, 320) - 84;
     await contentDisappears.start({
