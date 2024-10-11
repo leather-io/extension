@@ -38,7 +38,6 @@ export function RpcGetAddresses() {
   return (
     <GetAddressesLayout
       requester={origin}
-      onBeforeAnimation={focusInitatingTab}
       onClickRequestedByLink={focusInitatingTab}
       switchAccount={
         <AccountListItemLayout

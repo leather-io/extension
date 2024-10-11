@@ -10,6 +10,7 @@ import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state'
 import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
+import { whenPageMode } from '@app/common/utils';
 import { ActivityList } from '@app/features/activity-list/activity-list';
 import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
 import { Assets } from '@app/pages/home/components/assets';
@@ -75,7 +76,7 @@ export function Home() {
           <AccountActions />
         </AccountCard>
       </Box>
-      <FeedbackButton />
+      {whenPageMode({ full: <FeedbackButton />, popup: null })}
       <HomeTabs>
         <ModalBackgroundWrapper>
           <Route index element={<Assets />} />

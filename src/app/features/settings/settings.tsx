@@ -24,7 +24,7 @@ import {
 } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
-import { analytics } from '@shared/utils/analytics';
+import { analytics, openFeedbackSheet } from '@shared/utils/analytics';
 
 import { useHasKeys } from '@app/common/hooks/auth/use-has-keys';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
@@ -42,7 +42,6 @@ import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
 import { useTogglePrivateMode } from '@app/store/settings/settings.actions';
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
-import { openFeedbackSheet } from '../feedback-button/feedback-button';
 import { extractDeviceNameFromKnownTargetIds } from '../ledger/utils/generic-ledger-utils';
 import { AdvancedMenuItems } from './components/advanced-menu-items';
 import { LedgerDeviceItemRow } from './components/ledger-item-row';

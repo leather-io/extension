@@ -2,18 +2,9 @@ import { Box, Flex } from 'leather-styles/jsx';
 
 import { Button, MegaphoneIcon } from '@leather.io/ui';
 
-import { analytics, sentryFeedback } from '@shared/utils/analytics';
+import { openFeedbackSheet } from '@shared/utils/analytics';
 
 import { useThemeSwitcher } from '@app/common/theme-provider';
-
-export async function openFeedbackSheet() {
-  void analytics.track('user_clicked_feedback_button');
-  const form = await sentryFeedback.createForm();
-  if (!form) return null;
-  form.appendToDom();
-  form.open();
-  return;
-}
 
 export function FeedbackButton() {
   const { theme } = useThemeSwitcher();
