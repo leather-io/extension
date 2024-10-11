@@ -1,3 +1,16 @@
+## [6.48.1](https://github.com/leather-io/extension/compare/v6.48.0...v6.48.1) (2024-10-11)
+
+
+### Bug Fixes
+
+* adjust feedback button display ([be3cf4d](https://github.com/leather-io/extension/commit/be3cf4d7f8ac1ed8af02949a5be448002516d994))
+* get addresses focus behaviour, closes [#5899](https://github.com/leather-io/extension/issues/5899) ([8090d45](https://github.com/leather-io/extension/commit/8090d455ec85efe0b937781e23656fe94db3c4d4))
+
+
+### Internal
+
+* post-release merge back ([749908e](https://github.com/leather-io/extension/commit/749908e80afa8e29d95132dfd44d363b3a47138c))
+
 ## [6.48.0](https://github.com/leather-io/extension/compare/v6.47.1...v6.48.0) (2024-10-07)
 
 
