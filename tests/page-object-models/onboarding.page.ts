@@ -45,6 +45,7 @@ export const testSoftwareAccountDefaultWalletState = {
     userSelectedTheme: 'system',
     dismissedMessages: [],
   },
+  manageTokens: { entities: {}, ids: [] },
   _persist: { version: 2, rehydrated: true },
 };
 

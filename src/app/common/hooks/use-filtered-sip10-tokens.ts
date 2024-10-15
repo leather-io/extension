@@ -14,13 +14,19 @@ interface UseSip10TokensArgs {
   filter?: Sip10CryptoAssetFilter;
 }
 // TODO: Migrate to mono
-export function useCombinedFilteredSip10Tokens({ address, filter = 'all' }: UseSip10TokensArgs) {
+export function useCombinedFilteredSip10Tokens({ address }: UseSip10TokensArgs) {
   const { isLoading, tokens = [] } = useFilteredSip10Tokens({ address });
   const { data: alexSwapAssets = [] } = useAlexSwappableAssets(address);
   const { data: bitflowSwapAssets = [] } = useBitflowSwappableAssets(address);
-  const filteredTokens = useMemo(
-    () => filterSip10Tokens([...alexSwapAssets, ...bitflowSwapAssets], tokens, filter),
-    [alexSwapAssets, bitflowSwapAssets, tokens, filter]
-  );
-  return { isLoading, tokens: filteredTokens };
+
+  const filteredTokens = useMemo(() => {
+    const assets = [...alexSwapAssets, ...bitflowSwapAssets];
+    return {
+      allTokens: filterSip10Tokens(assets, tokens, 'all'),
+      supportedTokens: filterSip10Tokens(assets, tokens, 'supported'),
+      unsupportedTokens: filterSip10Tokens(assets, tokens, 'unsupported'),
+    };
+  }, [alexSwapAssets, bitflowSwapAssets, tokens]);
+
+  return { isLoading, ...filteredTokens };
 }
