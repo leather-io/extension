@@ -1,3 +1,4 @@
+import { sanitize } from 'dompurify';
 import { Box, Flex } from 'leather-styles/jsx';
 
 import type { Money } from '@leather.io/models';
@@ -16,7 +17,7 @@ import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 import { parseCryptoAssetBalance } from './crypto-asset-item.layout.utils';
 
-interface CryptoAssetItemLayoutProps {
+export interface CryptoAssetItemLayoutProps {
   availableBalance: Money;
   balanceSuffix?: string;
   captionLeft: string;
@@ -30,6 +31,7 @@ interface CryptoAssetItemLayoutProps {
   onSelectAsset?(symbol: string, contractId?: string): void;
   titleLeft: string;
   titleRightBulletInfo?: React.ReactNode;
+  dataTestId: string;
 }
 export function CryptoAssetItemLayout({
   availableBalance,
@@ -45,9 +47,9 @@ export function CryptoAssetItemLayout({
   onSelectAsset,
   titleLeft,
   titleRightBulletInfo,
+  dataTestId,
 }: CryptoAssetItemLayoutProps) {
-  const { availableBalanceString, dataTestId, formattedBalance } =
-    parseCryptoAssetBalance(availableBalance);
+  const { availableBalanceString, formattedBalance } = parseCryptoAssetBalance(availableBalance);
 
   const titleRight = (
     <SkeletonLoader width="126px" isLoading={isLoading}>
@@ -113,5 +115,9 @@ export function CryptoAssetItemLayout({
       </Pressable>
     );
 
-  return <Box my="space.02">{content}</Box>;
+  return (
+    <Box my="space.02" data-testid={sanitize(dataTestId)}>
+      {content}
+    </Box>
+  );
 }

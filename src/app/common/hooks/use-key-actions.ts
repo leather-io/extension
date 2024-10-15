@@ -18,6 +18,7 @@ import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
 import { bitcoinKeysSlice } from '@app/store/ledger/bitcoin/bitcoin-key.slice';
 import { stacksKeysSlice } from '@app/store/ledger/stacks/stacks-key.slice';
+import { manageTokensSlice } from '@app/store/manage-tokens/manage-tokens.slice';
 import { networksSlice } from '@app/store/networks/networks.slice';
 import { clearWalletSession } from '@app/store/session-restore';
 import { keyActions } from '@app/store/software-keys/software-key.actions';
@@ -63,6 +64,7 @@ export function useKeyActions() {
         dispatch(keyActions.signOut());
         dispatch(bitcoinKeysSlice.actions.signOut());
         dispatch(stacksKeysSlice.actions.signOut());
+        dispatch(manageTokensSlice.actions.removeAllTokens());
         await clearChromeStorage();
         partiallyClearLocalStorage();
         void analytics.track('sign_out');

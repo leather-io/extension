@@ -51,6 +51,7 @@ export function StxCryptoAssetItem({
       onSelectAsset={onSelectAsset}
       titleLeft="Stacks"
       titleRightBulletInfo={showLockedBalance && titleRightBulletInfo}
+      dataTestId="STX"
     />
   );
 }

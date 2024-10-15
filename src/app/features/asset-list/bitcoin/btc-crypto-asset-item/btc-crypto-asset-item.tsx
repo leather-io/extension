@@ -35,6 +35,7 @@ export function BtcCryptoAssetItem({
       isPrivate={isPrivate}
       onSelectAsset={onSelectAsset}
       titleLeft="Bitcoin"
+      dataTestId="BTC"
     />
   );
 }

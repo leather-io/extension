@@ -1,5 +1,4 @@
 import { Locator, Page } from '@playwright/test';
-import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { createTestSelector } from '@tests/utils';
@@ -71,18 +70,14 @@ export class SendPage {
 
   async selectBtcAndGoToSendForm() {
     await this.page.waitForURL('**' + RouteUrls.SendCryptoAsset);
-    await this.page
-      .getByTestId(CryptoAssetSelectors.CryptoAssetListItem.replace('{symbol}', 'btc'))
-      .click();
+    await this.page.getByTestId('BTC').click();
     await this.page.waitForURL('**' + `${RouteUrls.SendCryptoAsset}/btc`);
     await this.page.getByTestId(SendCryptoAssetSelectors.SendForm).waitFor();
   }
 
   async selectStxAndGoToSendForm() {
     await this.page.waitForURL('**' + RouteUrls.SendCryptoAsset);
-    await this.page
-      .getByTestId(CryptoAssetSelectors.CryptoAssetListItem.replace('{symbol}', 'stx'))
-      .click();
+    await this.page.getByTestId('STX').click();
     await this.page.waitForURL('**' + `${RouteUrls.SendCryptoAsset}/stx`);
     await this.page.getByTestId(SendCryptoAssetSelectors.SendForm).waitFor();
   }
