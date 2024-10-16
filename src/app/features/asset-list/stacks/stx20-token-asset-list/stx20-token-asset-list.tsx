@@ -1,8 +1,13 @@
+import { type Dispatch, type SetStateAction, useEffect } from 'react';
+
 import type { CryptoAssetBalance, Stx20CryptoAssetInfo } from '@leather.io/models';
 
-import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
+import { useManageTokens } from '@app/common/hooks/use-manage-tokens';
+import { CryptoAssetItem } from '@app/components/crypto-asset-item/crypto-asset-item';
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 import { Stx20AvatarIcon } from '@app/ui/components/avatar/stx20-avatar-icon';
+
+import type { AssetRightElementVariant } from '../../asset-list';
 
 interface Stx20TokenAssetDetails {
   balance: CryptoAssetBalance;
@@ -11,18 +16,52 @@ interface Stx20TokenAssetDetails {
 
 interface Stx20TokenAssetListProps {
   tokens: Stx20TokenAssetDetails[];
+  assetRightElementVariant?: AssetRightElementVariant;
+  preEnabledTokensIds: string[];
+  setHasManageableTokens?: Dispatch<SetStateAction<boolean>>;
 }
-export function Stx20TokenAssetList({ tokens }: Stx20TokenAssetListProps) {
+export function Stx20TokenAssetList({
+  tokens,
+  assetRightElementVariant,
+  preEnabledTokensIds,
+  setHasManageableTokens,
+}: Stx20TokenAssetListProps) {
   const isPrivate = useIsPrivateMode();
+  const { isTokenEnabled } = useManageTokens();
 
-  return tokens.map((token, i) => (
-    <CryptoAssetItemLayout
-      availableBalance={token.balance.availableBalance}
-      captionLeft={token.info.name.toUpperCase()}
-      icon={<Stx20AvatarIcon />}
-      key={`${token.info.symbol}${i}`}
-      titleLeft={token.info.symbol}
-      isPrivate={isPrivate}
-    />
-  ));
+  useEffect(() => {
+    if (tokens.length > 0 && setHasManageableTokens) {
+      setHasManageableTokens(true);
+    }
+  }, [tokens, setHasManageableTokens]);
+
+  return tokens.map((token, i) => {
+    const key = `${token.info.symbol}${i}`;
+    const captionLeft = token.info.name.toUpperCase();
+    const icon = <Stx20AvatarIcon />;
+    const symbol = token.info.symbol;
+    const titleLeft = symbol;
+
+    return (
+      <CryptoAssetItem
+        key={key}
+        isToggleMode={assetRightElementVariant === 'toggle'}
+        toggleProps={{
+          captionLeft,
+          icon,
+          titleLeft,
+          assetId: symbol,
+          isCheckedByDefault: isTokenEnabled({ tokenId: symbol, preEnabledTokensIds }),
+        }}
+        itemProps={{
+          availableBalance: token.balance.availableBalance,
+          captionLeft,
+          icon,
+          isPrivate,
+          titleLeft,
+          dataTestId: symbol,
+        }}
+      />
+    );
+  });
 }

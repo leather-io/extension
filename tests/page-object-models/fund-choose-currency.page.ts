@@ -1,5 +1,4 @@
 import { Locator, Page } from '@playwright/test';
-import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -10,12 +9,8 @@ export class FundChooseCurrencyPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.stxButton = page.getByTestId(
-      CryptoAssetSelectors.CryptoAssetListItem.replace('{symbol}', 'stx')
-    );
-    this.btcButton = page.getByTestId(
-      CryptoAssetSelectors.CryptoAssetListItem.replace('{symbol}', 'btc')
-    );
+    this.stxButton = page.getByTestId('STX');
+    this.btcButton = page.getByTestId('BTC');
   }
 
   async goToFundBtcPage() {
