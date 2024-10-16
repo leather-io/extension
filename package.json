@@ -222,7 +222,6 @@
     "micro-packed": "0.3.2",
     "object-hash": "3.0.0",
     "os-browserify": "0.3.0",
-    "p-queue": "8.0.1",
     "pino": "8.19.0",
     "postcss-preset-env": "10.0.5",
     "prism-react-renderer": "2.3.1",
