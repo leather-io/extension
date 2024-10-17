@@ -54,8 +54,8 @@ importers:
         specifier: 2.14.1
         version: 2.14.1(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
       '@leather.io/stacks':
-        specifier: 1.1.5
-        version: 1.1.5(encoding@0.1.13)
+        specifier: 1.2.0
+        version: 1.2.0(encoding@0.1.13)
       '@leather.io/tokens':
         specifier: 0.9.0
         version: 0.9.0
@@ -3097,8 +3097,8 @@ packages:
   '@leather.io/rpc@2.1.7':
     resolution: {integrity: sha512-dwWxNE6q1XiIsuHiL1QsGOFhCZ9APSG8Ef6gSIt3jFfx67p0KlncAQdYqbiId/CMsfFO2E4KsU3rypdPpT3Bag==}
 
-  '@leather.io/stacks@1.1.5':
-    resolution: {integrity: sha512-Qj1tP691t8wO/5VsRco8QzcWNXhvf2L6GGFZR/fPqBfpKQLpMZqCEWbA/7kJtr/lg0yl2oo1/+P5YWjQHsZ/TQ==}
+  '@leather.io/stacks@1.2.0':
+    resolution: {integrity: sha512-me2Zi07ISfemtNhJkAy+LwwGt5n4ge/+rK2Jdp4qlJRaDHOeFAgOB+d+CqPVIMgn0+dC1J/MftjX51R7lp0xog==}
 
   '@leather.io/tokens@0.9.0':
     resolution: {integrity: sha512-Lj0UYS6W8r7IkINssb8LodfNsefkzBzugiAM2XwCoQNgyOn4KAc3rdL5vYrXh8ErC4AT81xDb+DGkyCzejjObQ==}
@@ -18864,11 +18864,11 @@ snapshots:
       '@leather.io/models': 0.14.0
       zod: 3.23.6
 
-  '@leather.io/stacks@1.1.5(encoding@0.1.13)':
+  '@leather.io/stacks@1.2.0(encoding@0.1.13)':
     dependencies:
-      '@leather.io/crypto': 1.6.2
+      '@leather.io/crypto': 1.6.3
       '@leather.io/models': 0.17.0
-      '@leather.io/utils': 0.16.2
+      '@leather.io/utils': 0.16.3
       '@noble/hashes': 1.5.0
       '@scure/bip32': 1.5.0
       '@stacks/encryption': 6.16.1
