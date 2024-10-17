@@ -2,8 +2,9 @@ import { ChainID } from '@stacks/transactions';
 
 import {
   BITCOIN_API_BASE_URL_MAINNET,
-  BITCOIN_API_BASE_URL_TESTNET,
+  BITCOIN_API_BASE_URL_TESTNET3,
   type NetworkConfiguration,
+  bitcoinNetworkToNetworkMode,
 } from '@leather.io/models';
 
 import { PersistedNetworkConfiguration } from './networks.slice';
@@ -44,17 +45,19 @@ function checkBitcoinNetworkProperties(
   network: PersistedNetworkConfiguration
 ): PersistedNetworkConfiguration {
   if (!network.bitcoinNetwork || !network.bitcoinUrl) {
+    const bitcoinNetwork = network.chainId === ChainID.Mainnet ? 'mainnet' : 'testnet3';
     return {
       id: network.id,
       name: network.name,
       chainId: network.chainId,
       subnetChainId: network.subnetChainId,
       url: network.url,
-      bitcoinNetwork: network.chainId === ChainID.Mainnet ? 'mainnet' : 'testnet',
+      bitcoinNetwork,
+      mode: bitcoinNetworkToNetworkMode(bitcoinNetwork),
       bitcoinUrl:
         network.chainId === ChainID.Mainnet
           ? BITCOIN_API_BASE_URL_MAINNET
-          : BITCOIN_API_BASE_URL_TESTNET,
+          : BITCOIN_API_BASE_URL_TESTNET3,
     };
   } else {
     return network;
@@ -85,8 +88,9 @@ export function transformNetworkStateToMultichainStucture(
               },
               bitcoin: {
                 blockchain: 'bitcoin',
-                bitcoinNetwork: bitcoinNetwork ? bitcoinNetwork : 'testnet',
-                bitcoinUrl: bitcoinUrl ? bitcoinUrl : BITCOIN_API_BASE_URL_TESTNET,
+                bitcoinNetwork: bitcoinNetwork ?? 'testnet',
+                mode: bitcoinNetworkToNetworkMode(bitcoinNetwork ?? 'testnet'),
+                bitcoinUrl: bitcoinUrl ?? BITCOIN_API_BASE_URL_TESTNET3,
               },
             },
           },

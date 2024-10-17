@@ -6,8 +6,9 @@ import { HStack, styled } from 'leather-styles/jsx';
 
 import {
   BITCOIN_API_BASE_URL_MAINNET,
-  BITCOIN_API_BASE_URL_TESTNET,
-  type BitcoinNetworkModes,
+  BITCOIN_API_BASE_URL_TESTNET3,
+  BITCOIN_API_BASE_URL_TESTNET4,
+  type BitcoinNetwork,
 } from '@leather.io/models';
 import {
   CheckmarkIcon,
@@ -24,15 +25,19 @@ import { type AddNetworkFormValues } from './use-add-network';
 
 const networks: {
   label: string;
-  value: BitcoinNetworkModes;
+  value: BitcoinNetwork;
 }[] = [
   {
     label: 'Mainnet',
     value: 'mainnet',
   },
   {
-    label: 'Testnet',
-    value: 'testnet',
+    label: 'Testnet3',
+    value: 'testnet3',
+  },
+  {
+    label: 'Testnet4',
+    value: 'testnet4',
   },
   {
     label: 'Signet',
@@ -66,15 +71,19 @@ export function NetworkFormFields({ isEditNetworkMode }: NetworkFormFieldsProps)
     [setFieldValue]
   );
 
-  function setNetworkUrls(value: BitcoinNetworkModes) {
+  function setNetworkUrls(value: BitcoinNetwork) {
     switch (value) {
       case 'mainnet':
         setStacksUrl('https://api.hiro.so');
         setBitcoinUrl(BITCOIN_API_BASE_URL_MAINNET);
         break;
-      case 'testnet':
+      case 'testnet3':
         setStacksUrl('https://api.testnet.hiro.so');
-        setBitcoinUrl(BITCOIN_API_BASE_URL_TESTNET);
+        setBitcoinUrl(BITCOIN_API_BASE_URL_TESTNET3);
+        break;
+      case 'testnet4':
+        setStacksUrl('https://api.testnet.hiro.so');
+        setBitcoinUrl(BITCOIN_API_BASE_URL_TESTNET4);
         break;
       case 'signet':
         setStacksUrl('https://api.testnet.hiro.so');
@@ -112,7 +121,7 @@ export function NetworkFormFields({ isEditNetworkMode }: NetworkFormFieldsProps)
 
       <Select.Root
         defaultValue={initialValues.bitcoinNetwork || networks[0].value}
-        onValueChange={(value: BitcoinNetworkModes) => {
+        onValueChange={(value: BitcoinNetwork) => {
           setNetworkUrls(value);
           void setFieldValue('bitcoinNetwork', value);
         }}

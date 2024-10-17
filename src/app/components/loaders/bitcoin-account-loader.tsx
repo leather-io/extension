@@ -45,7 +45,7 @@ export function BitcoinTaprootAccountLoader({ children, ...props }: BtcAccountLo
 
   const properIndex = 'current' in props ? currentAccountIndex : props.index;
 
-  const signer = useTaprootSigner(properIndex, network.chain.bitcoin.bitcoinNetwork);
+  const signer = useTaprootSigner(properIndex, network.chain.bitcoin.mode);
 
   if (!signer || !isBitcoinEnabled) return null;
   return children(signer(0));

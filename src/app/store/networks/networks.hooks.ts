@@ -4,7 +4,11 @@ import { useSelector } from 'react-redux';
 import { StacksNetwork } from '@stacks/network';
 import { ChainID, TransactionVersion } from '@stacks/transactions';
 
-import { HIRO_API_BASE_URL_NAKAMOTO_TESTNET, type NetworkModes } from '@leather.io/models';
+import {
+  type BitcoinNetworkModes,
+  HIRO_API_BASE_URL_NAKAMOTO_TESTNET,
+  bitcoinNetworkToNetworkMode,
+} from '@leather.io/models';
 import { whenStacksChainId } from '@leather.io/stacks';
 
 import { useAppDispatch } from '@app/store';
@@ -20,7 +24,7 @@ export function useCurrentNetworkState() {
     const isTestnet = currentNetwork.chain.stacks.chainId === ChainID.Testnet;
     const isNakamotoTestnet =
       currentNetwork.chain.stacks.url === HIRO_API_BASE_URL_NAKAMOTO_TESTNET;
-    const mode = (isTestnet ? 'testnet' : 'mainnet') as NetworkModes;
+    const mode = (isTestnet ? 'testnet' : 'mainnet') as BitcoinNetworkModes;
     return { ...currentNetwork, isTestnet, isNakamotoTestnet, mode };
   }, [currentNetwork]);
 }
@@ -69,6 +73,7 @@ export function useNetworksActions() {
             subnetChainId,
             url,
             bitcoinNetwork,
+            mode: bitcoinNetworkToNetworkMode(bitcoinNetwork),
             bitcoinUrl,
           })
         );
