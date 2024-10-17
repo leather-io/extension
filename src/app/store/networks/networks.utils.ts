@@ -2,7 +2,7 @@ import { ChainID } from '@stacks/transactions';
 
 import {
   BITCOIN_API_BASE_URL_MAINNET,
-  BITCOIN_API_BASE_URL_TESTNET,
+  BITCOIN_API_BASE_URL_TESTNET3,
   type NetworkConfiguration,
 } from '@leather.io/models';
 
@@ -54,7 +54,7 @@ function checkBitcoinNetworkProperties(
       bitcoinUrl:
         network.chainId === ChainID.Mainnet
           ? BITCOIN_API_BASE_URL_MAINNET
-          : BITCOIN_API_BASE_URL_TESTNET,
+          : BITCOIN_API_BASE_URL_TESTNET3,
     };
   } else {
     return network;
@@ -86,7 +86,7 @@ export function transformNetworkStateToMultichainStucture(
               bitcoin: {
                 blockchain: 'bitcoin',
                 bitcoinNetwork: bitcoinNetwork ? bitcoinNetwork : 'testnet',
-                bitcoinUrl: bitcoinUrl ? bitcoinUrl : BITCOIN_API_BASE_URL_TESTNET,
+                bitcoinUrl: bitcoinUrl ? bitcoinUrl : BITCOIN_API_BASE_URL_TESTNET3,
               },
             },
           },
