@@ -52,11 +52,12 @@ export const queryClient = new QueryClient({
 });
 
 export async function persistAndRenderApp(renderApp: () => void) {
-  if (!IS_TEST_ENV)
+  if (!IS_TEST_ENV) {
     void persistQueryClient({
       queryClient,
       persister: chromeStorageLocalPersister,
       buster: VERSION,
     });
+  }
   renderApp();
 }

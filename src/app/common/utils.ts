@@ -15,11 +15,6 @@ function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, match => '-' + match.toLowerCase());
 }
 
-interface MakeBitcoinTxExplorerLinkArgs {
-  txid: string;
-  bitcoin: BitcoinChainConfig;
-}
-
 interface MakeStacksTxExplorerLinkArgs {
   mode: BitcoinNetworkModes;
   searchParams?: URLSearchParams;
@@ -60,20 +55,27 @@ export function makeStacksAddressExplorerLink({
   return `${HIRO_EXPLORER_URL}/address/${address}?${searchParams.toString()}`;
 }
 
+interface MakeBitcoinTxExplorerLinkArgs {
+  txid: string;
+  bitcoin: BitcoinChainConfig;
+}
 export function makeBitcoinTxExplorerLink({
   txid,
   bitcoin: { bitcoinUrl, bitcoinNetwork },
 }: MakeBitcoinTxExplorerLinkArgs) {
+  const mempoolBaseUrl = 'https://mempool.space';
+
   switch (bitcoinNetwork) {
     case 'mainnet':
-    case 'testnet':
-      return `https://mempool.space/${
-        bitcoinNetwork !== 'mainnet' ? bitcoinNetwork + '/' : ''
-      }tx/${txid}`;
+      return `${mempoolBaseUrl}/tx/${txid}`;
+    case 'testnet3':
+      return `${mempoolBaseUrl}/testnet/tx/${txid}`;
+    case 'testnet4':
+      return `${mempoolBaseUrl}/testnet4/tx/${txid}`;
+    case 'signet':
+      return `${mempoolBaseUrl}/signet/tx/${txid}`;
     case 'regtest':
       return `${bitcoinUrl}/tx/${txid}`;
-    default:
-      return '';
   }
 }
 

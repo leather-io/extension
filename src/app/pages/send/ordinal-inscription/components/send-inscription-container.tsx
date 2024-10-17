@@ -50,7 +50,7 @@ export function SendInscriptionContainer() {
     setUtxo(
       createUtxoFromInscription({
         inscription: routeState.inscription,
-        network: network.chain.bitcoin.bitcoinNetwork,
+        network: network.chain.bitcoin.mode,
         accountIndex: currentAccountIndex,
         inscriptionAddressIdx: addressesMap[routeState.inscription.address],
       })

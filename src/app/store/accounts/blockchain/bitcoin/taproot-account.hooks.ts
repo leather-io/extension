@@ -12,7 +12,7 @@ import {
   lookUpLedgerKeysByPath,
 } from '@leather.io/bitcoin';
 import { extractAddressIndexFromPath } from '@leather.io/crypto';
-import type { BitcoinNetworkModes } from '@leather.io/models';
+import { type BitcoinNetworkModes } from '@leather.io/models';
 
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 
@@ -37,7 +37,7 @@ const selectTaprootAccountBuilder = bitcoinAccountBuilderFactory(
 const selectCurrentNetworkTaprootAccountBuilder = createSelector(
   selectTaprootAccountBuilder,
   selectCurrentNetwork,
-  (taprootKeychains, network) => taprootKeychains[network.chain.bitcoin.bitcoinNetwork]
+  (taprootKeychains, network) => taprootKeychains[network.chain.bitcoin.mode]
 );
 const selectCurrentTaprootAccount = createSelector(
   selectCurrentNetworkTaprootAccountBuilder,
@@ -95,7 +95,7 @@ export function useCurrentAccountTaprootIndexZeroSigner() {
 export function useCurrentAccountTaprootSigner() {
   const currentAccountIndex = useCurrentAccountIndex();
   const network = useCurrentNetwork();
-  return useTaprootSigner(currentAccountIndex, network.chain.bitcoin.bitcoinNetwork);
+  return useTaprootSigner(currentAccountIndex, network.chain.bitcoin.mode);
 }
 
 export function useUpdateLedgerSpecificTaprootInputPropsForAdddressIndexZero() {

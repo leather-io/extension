@@ -102,7 +102,7 @@ export function BtcSendForm() {
                     />
                     <SelectedAssetField icon={<BtcAvatarIcon />} name="Bitcoin" symbol={symbol} />
                     <TransferRecipientField />
-                    {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && (
+                    {currentNetwork.chain.bitcoin.mode === 'testnet' && (
                       <Callout variant="warning" title="Funds have no value" mt="space.04">
                         This is a Bitcoin testnet transaction.
                         <Link

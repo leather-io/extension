@@ -58,7 +58,7 @@ export function bitcoinAccountBuilderFactory(
 
 export function useBitcoinScureLibNetworkConfig() {
   const network = useCurrentNetwork();
-  return getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.bitcoinNetwork);
+  return getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.mode);
 }
 
 export function useBitcoinExtendedPublicKeyVersions(): Versions | undefined {
@@ -72,7 +72,7 @@ export function useBitcoinExtendedPublicKeyVersions(): Versions | undefined {
       return whenWallet({
         software: undefined,
         ledger: getHdKeyVersionsFromNetwork(
-          bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.bitcoinNetwork)
+          bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.mode)
         ),
       });
     } catch (e) {
