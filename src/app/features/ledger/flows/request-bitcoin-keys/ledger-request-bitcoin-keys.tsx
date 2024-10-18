@@ -35,15 +35,15 @@ function LedgerRequestBitcoinKeys() {
   const { requestKeys, latestDeviceResponse, awaitingDeviceConnection } =
     useRequestLedgerKeys<BitcoinApp>({
       chain,
-      connectApp: connectLedgerBitcoinApp(network.chain.bitcoin.bitcoinNetwork),
+      connectApp: connectLedgerBitcoinApp(network.chain.bitcoin.mode),
       getAppVersion: getBitcoinAppVersion,
-      isAppOpen: isBitcoinAppOpen({ network: network.chain.bitcoin.bitcoinNetwork }),
+      isAppOpen: isBitcoinAppOpen({ network: network.chain.bitcoin.mode }),
       onSuccess() {
         navigate('/', { replace: true });
       },
       async pullKeysFromDevice(app) {
         const { keys } = await pullBitcoinKeysFromLedgerDevice(app)({
-          network: bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.bitcoinNetwork),
+          network: bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.mode),
           onRequestKey(index) {
             const keyGroupFinalIndex = defaultNumberOfKeysToPullFromLedgerDevice - 1;
             const isNativeSegwitkey = index <= keyGroupFinalIndex;

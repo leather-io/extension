@@ -69,7 +69,7 @@ test.describe('Settings menu', () => {
     await page.getByTestId(SettingsSelectors.ChangeNetworkAction).click();
     await page.waitForTimeout(1000);
     const networkListItems = await page.getByTestId(SettingsSelectors.NetworkListItem).all();
-    test.expect(networkListItems).toHaveLength(5);
+    test.expect(networkListItems).toHaveLength(6);
   });
 
   test('that menu item can toggle privacy', async ({ page, homePage }) => {

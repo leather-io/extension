@@ -14,7 +14,7 @@ export function useHasBitcoinLedgerKeychain() {
   const hasNetworkKeys = accounts.some(v => {
     return (
       inferNetworkFromPath(v.path) ===
-      bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.bitcoinNetwork)
+      bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.mode)
     );
   });
 
@@ -28,7 +28,7 @@ export function useFilteredBitcoinAccounts() {
   return accounts.filter(v => {
     return (
       inferNetworkFromPath(v.path) ===
-      bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.bitcoinNetwork)
+      bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.mode)
     );
   });
 }

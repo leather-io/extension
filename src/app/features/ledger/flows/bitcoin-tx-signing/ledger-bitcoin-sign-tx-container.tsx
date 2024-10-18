@@ -68,9 +68,9 @@ function LedgerSignBitcoinTxContainer() {
   const { signTransaction, latestDeviceResponse, awaitingDeviceConnection } =
     useLedgerSignTx<BitcoinApp>({
       chain,
-      isAppOpen: isBitcoinAppOpen({ network: network.chain.bitcoin.bitcoinNetwork }),
+      isAppOpen: isBitcoinAppOpen({ network: network.chain.bitcoin.mode }),
       getAppVersion: getBitcoinAppVersion,
-      connectApp: connectLedgerBitcoinApp(network.chain.bitcoin.bitcoinNetwork),
+      connectApp: connectLedgerBitcoinApp(network.chain.bitcoin.mode),
       async signTransactionWithDevice(bitcoinApp) {
         if (!inputsToSign) {
           ledgerNavigate.cancelLedgerAction();

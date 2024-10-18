@@ -88,7 +88,7 @@ function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFac
         message,
         address,
         signPsbt,
-        network: network.chain.bitcoin.bitcoinNetwork,
+        network: network.chain.bitcoin.mode,
       });
 
       await shortPauseBeforeToast();
