@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 import { Stack } from 'leather-styles/jsx';
 
 import { BtcAvatarIcon, StxAvatarIcon } from '@leather.io/ui';
@@ -23,18 +25,31 @@ import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/s
 import { useHasLedgerKeys } from '@app/store/ledger/ledger.selectors';
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
+import type { AssetFilter } from '../../common/hooks/use-manage-tokens';
 import { ConnectLedgerAssetItemFallback } from './_components/connect-ledger-asset-item-fallback';
 import { BtcCryptoAssetItem } from './bitcoin/btc-crypto-asset-item/btc-crypto-asset-item';
 import { Sip10TokenAssetList } from './stacks/sip10-token-asset-list/sip10-token-asset-list';
-import { Sip10TokenAssetListUnsupported } from './stacks/sip10-token-asset-list/sip10-token-asset-list-unsupported';
 
 export type AssetListVariant = 'interactive' | 'read-only';
+export type AssetRightElementVariant = 'balance' | 'toggle';
 
 interface AssetListProps {
-  onSelectAsset?(symbol: string, contractId?: string): void;
+  filter?: AssetFilter;
   variant?: AssetListVariant;
+  assetRightElementVariant?: AssetRightElementVariant;
+  showUnmanageableTokens?: boolean;
+  onSelectAsset?(symbol: string, contractId?: string): void;
+  setHasManageableTokens?: Dispatch<SetStateAction<boolean>>;
 }
-export function AssetList({ onSelectAsset, variant = 'read-only' }: AssetListProps) {
+
+export function AssetList({
+  onSelectAsset,
+  variant = 'read-only',
+  assetRightElementVariant = 'balance',
+  showUnmanageableTokens = true,
+  setHasManageableTokens,
+  filter,
+}: AssetListProps) {
   const currentAccount = useCurrentStacksAccount();
   const isLedger = useHasLedgerKeys();
   const isPrivate = useIsPrivateMode();
@@ -43,34 +58,38 @@ export function AssetList({ onSelectAsset, variant = 'read-only' }: AssetListPro
 
   return (
     <Stack>
-      <BitcoinNativeSegwitAccountLoader
-        current
-        fallback={
-          <ConnectLedgerAssetItemFallback
-            chain="bitcoin"
-            icon={<BtcAvatarIcon />}
-            symbol="BTC"
-            variant={variant}
-          />
-        }
-      >
-        {nativeSegwitAccount => (
-          <BtcAssetItemBalanceLoader address={nativeSegwitAccount.address}>
-            {(balance, isLoading, isLoadingAdditionalData) => (
-              <BtcCryptoAssetItem
-                balance={balance}
-                isLoading={isLoading}
-                onSelectAsset={onSelectAsset}
-                isLoadingAdditionalData={isLoadingAdditionalData}
+      {showUnmanageableTokens && (
+        <BitcoinNativeSegwitAccountLoader
+          current
+          fallback={
+            showUnmanageableTokens && (
+              <ConnectLedgerAssetItemFallback
+                chain="bitcoin"
+                icon={<BtcAvatarIcon />}
+                symbol="BTC"
+                variant={variant}
               />
-            )}
-          </BtcAssetItemBalanceLoader>
-        )}
-      </BitcoinNativeSegwitAccountLoader>
+            )
+          }
+        >
+          {nativeSegwitAccount => (
+            <BtcAssetItemBalanceLoader address={nativeSegwitAccount.address}>
+              {(balance, isLoading, isLoadingAdditionalData) => (
+                <BtcCryptoAssetItem
+                  balance={balance}
+                  isLoading={isLoading}
+                  onSelectAsset={onSelectAsset}
+                  isLoadingAdditionalData={isLoadingAdditionalData}
+                />
+              )}
+            </BtcAssetItemBalanceLoader>
+          )}
+        </BitcoinNativeSegwitAccountLoader>
+      )}
 
       <CurrentStacksAccountLoader
         fallback={
-          !currentAccount && !isLedger ? null : (
+          (!currentAccount && !isLedger) || !showUnmanageableTokens ? null : (
             <ConnectLedgerAssetItemFallback
               chain="stacks"
               icon={<StxAvatarIcon />}
@@ -82,31 +101,40 @@ export function AssetList({ onSelectAsset, variant = 'read-only' }: AssetListPro
       >
         {account => (
           <>
-            <StxAssetItemBalanceLoader address={account.address}>
-              {(balance, isLoading) => (
-                <StxCryptoAssetItem
-                  balance={balance}
-                  isLoading={isLoading}
-                  isPrivate={isPrivate}
-                  onSelectAsset={onSelectAsset}
-                />
-              )}
-            </StxAssetItemBalanceLoader>
-            <Sip10TokensLoader
-              address={account.address}
-              filter={variant === 'interactive' ? 'all' : 'supported'}
-            >
-              {(isLoading, tokens) => (
+            {showUnmanageableTokens && (
+              <StxAssetItemBalanceLoader address={account.address}>
+                {(balance, isLoading) => (
+                  <StxCryptoAssetItem
+                    balance={balance}
+                    isLoading={isLoading}
+                    isPrivate={isPrivate}
+                    onSelectAsset={onSelectAsset}
+                  />
+                )}
+              </StxAssetItemBalanceLoader>
+            )}
+            <Sip10TokensLoader address={account.address} assetFilter={filter}>
+              {({ isLoading, tokens, preEnabledTokensIds }) => (
                 <Sip10TokenAssetList
                   isLoading={isLoading}
                   tokens={tokens}
                   onSelectAsset={onSelectAsset}
+                  assetRightElementVariant={assetRightElementVariant}
+                  preEnabledTokensIds={preEnabledTokensIds}
+                  setHasManageableTokens={setHasManageableTokens}
                 />
               )}
             </Sip10TokensLoader>
             {isReadOnly && (
-              <Stx20TokensLoader address={account.address}>
-                {tokens => <Stx20TokenAssetList tokens={tokens} />}
+              <Stx20TokensLoader address={account.address} filter={filter}>
+                {({ tokens, preEnabledTokensIds }) => (
+                  <Stx20TokenAssetList
+                    tokens={tokens}
+                    assetRightElementVariant={assetRightElementVariant}
+                    preEnabledTokensIds={preEnabledTokensIds}
+                    setHasManageableTokens={setHasManageableTokens}
+                  />
+                )}
               </Stx20TokensLoader>
             )}
           </>
@@ -119,17 +147,42 @@ export function AssetList({ onSelectAsset, variant = 'read-only' }: AssetListPro
             {taprootAccount => (
               <>
                 {isReadOnly && (
-                  <Brc20TokensLoader>
-                    {tokens => <Brc20TokenAssetList tokens={tokens} variant={variant} />}
+                  <Brc20TokensLoader filter={filter}>
+                    {({ tokens, preEnabledTokensIds }) => (
+                      <Brc20TokenAssetList
+                        tokens={tokens}
+                        variant={variant}
+                        assetRightElementVariant={assetRightElementVariant}
+                        preEnabledTokensIds={preEnabledTokensIds}
+                        setHasManageableTokens={setHasManageableTokens}
+                      />
+                    )}
                   </Brc20TokensLoader>
                 )}
                 {isReadOnly && (
                   <>
-                    <Src20TokensLoader address={nativeSegwitAccount.address}>
-                      {tokens => <Src20TokenAssetList tokens={tokens} />}
+                    <Src20TokensLoader filter={filter} address={nativeSegwitAccount.address}>
+                      {({ tokens, preEnabledTokensIds }) => (
+                        <Src20TokenAssetList
+                          tokens={tokens}
+                          assetRightElementVariant={assetRightElementVariant}
+                          preEnabledTokensIds={preEnabledTokensIds}
+                          setHasManageableTokens={setHasManageableTokens}
+                        />
+                      )}
                     </Src20TokensLoader>
-                    <RunesLoader addresses={[nativeSegwitAccount.address, taprootAccount.address]}>
-                      {runes => <RunesAssetList runes={runes} />}
+                    <RunesLoader
+                      addresses={[nativeSegwitAccount.address, taprootAccount.address]}
+                      filter={filter}
+                    >
+                      {({ tokens, preEnabledTokensIds }) => (
+                        <RunesAssetList
+                          runes={tokens}
+                          assetRightElementVariant={assetRightElementVariant}
+                          preEnabledTokensIds={preEnabledTokensIds}
+                          setHasManageableTokens={setHasManageableTokens}
+                        />
+                      )}
                     </RunesLoader>
                   </>
                 )}
@@ -138,18 +191,6 @@ export function AssetList({ onSelectAsset, variant = 'read-only' }: AssetListPro
           </BitcoinTaprootAccountLoader>
         )}
       </BitcoinNativeSegwitAccountLoader>
-
-      {isReadOnly && (
-        <CurrentStacksAccountLoader>
-          {account => (
-            <Sip10TokensLoader address={account.address} filter="unsupported">
-              {(isLoading, tokens) => (
-                <Sip10TokenAssetListUnsupported isLoading={isLoading} tokens={tokens} />
-              )}
-            </Sip10TokensLoader>
-          )}
-        </CurrentStacksAccountLoader>
-      )}
     </Stack>
   );
 }
