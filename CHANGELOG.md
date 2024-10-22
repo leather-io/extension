@@ -1,3 +1,16 @@
+## [6.49.0](https://github.com/leather-io/extension/compare/v6.48.1...v6.49.0) (2024-10-22)
+
+
+### Features
+
+* add manage tokens, closes [#5643](https://github.com/leather-io/extension/issues/5643) ([7d3ac6f](https://github.com/leather-io/extension/commit/7d3ac6faaf91cb82dd6dc7889804c10701ea85c2))
+
+
+### Internal
+
+* post-release merge back ([775adf8](https://github.com/leather-io/extension/commit/775adf8387ad81621da211284f904b861955ea22))
+* remove un-needed p-queue package, ref LEA-1500 ([1df5138](https://github.com/leather-io/extension/commit/1df5138e73a008bbbf8519c89381477e68b5fb1b))
+
 ## [6.48.1](https://github.com/leather-io/extension/compare/v6.48.0...v6.48.1) (2024-10-11)
 
 
