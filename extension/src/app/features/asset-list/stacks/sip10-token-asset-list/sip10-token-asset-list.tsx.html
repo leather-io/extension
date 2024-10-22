@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -103,7 +103,33 @@
 <a name='L38'></a><a href='#L38'>38</a>
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -124,6 +150,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -143,25 +175,42 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Stack } from 'leather-styles/jsx';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { type Dispatch, type SetStateAction, useEffect } from 'react';
+&nbsp;
+import { Stack } from 'leather-styles/jsx';
 &nbsp;
 import { type Sip10TokenAssetDetails, useAlexCurrencyPriceAsMarketData } from '@leather.io/query';
 &nbsp;
 import { getPrincipalFromContractId } from '@app/common/utils';
 &nbsp;
+import type { AssetRightElementVariant } from '../../asset-list';
 import { Sip10TokenAssetItem } from './sip10-token-asset-item';
 &nbsp;
 interface Sip10TokenAssetListProps {
   isLoading: boolean;
   tokens: Sip10TokenAssetDetails[];
+  assetRightElementVariant?: AssetRightElementVariant;
   onSelectAsset?(symbol: string, contractId?: string): void;
+  preEnabledTokensIds: string[];
+  setHasManageableTokens?: Dispatch&lt;SetStateAction&lt;boolean&gt;&gt;;
 }
 export function <span class="fstat-no" title="function not covered" >Sip10TokenAssetList({</span>
   isLoading,
   tokens,
   onSelectAsset,
+  assetRightElementVariant,
+  preEnabledTokensIds,
+  setHasManageableTokens,
 }: Sip10TokenAssetListProps) {
   const priceAsMarketData = <span class="cstat-no" title="statement not covered" >useAlexCurrencyPriceAsMarketData();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (tokens.length &gt; 0 &amp;&amp; setHasManageableTokens) {</span>
+<span class="cstat-no" title="statement not covered" >      setHasManageableTokens(true);</span>
+    }
+  }, [tokens, setHasManageableTokens]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!tokens.length) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
@@ -169,6 +218,7 @@ export function <span class="fstat-no" title="function not covered" >Sip10TokenA
     &lt;Stack&gt;
       {tokens.map(<span class="fstat-no" title="function not covered" >token =&gt; (</span>
 <span class="cstat-no" title="statement not covered" >        &lt;Sip10TokenAssetItem</span>
+          assetRightElementVariant={assetRightElementVariant}
           balance={token.balance}
           key={token.info.name + token.info.contractId}
           info={token.info}
@@ -178,6 +228,7 @@ export function <span class="fstat-no" title="function not covered" >Sip10TokenA
             token.balance.availableBalance.symbol
           )}
           onSelectAsset={onSelectAsset}
+          preEnabledTokensIds={preEnabledTokensIds}
         /&gt;
       ))}
     &lt;/Stack&gt;
@@ -190,7 +241,7 @@ export function <span class="fstat-no" title="function not covered" >Sip10TokenA
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-10-11T09:49:33.112Z
+                at 2024-10-22T07:04:50.774Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>
