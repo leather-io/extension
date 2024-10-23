@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">22% </span>
+                <span class="strong">21.35% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/100</span>
+                <span class='fraction'>22/103</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">13.97% </span>
+                <span class="strong">14.13% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>13/93</span>
+                <span class='fraction'>13/92</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">23.07% </span>
+                <span class="strong">22.34% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>21/91</span>
+                <span class='fraction'>21/94</span>
             </div>
         
             
@@ -357,7 +357,9 @@
 <a name='L292'></a><a href='#L292'>292</a>
 <a name='L293'></a><a href='#L293'>293</a>
 <a name='L294'></a><a href='#L294'>294</a>
-<a name='L295'></a><a href='#L295'>295</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L295'></a><a href='#L295'>295</a>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -387,11 +389,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -423,12 +420,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -668,11 +672,6 @@ function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, <span class="fstat-no" title="function not covered" >match =&gt; <span class="cstat-no" title="statement not covered" >'</span>-' + match.toLowerCase())</span>;
 }
 &nbsp;
-interface MakeBitcoinTxExplorerLinkArgs {
-  txid: string;
-  bitcoin: BitcoinChainConfig;
-}
-&nbsp;
 interface MakeStacksTxExplorerLinkArgs {
   mode: BitcoinNetworkModes;
   searchParams?: URLSearchParams;
@@ -713,20 +712,27 @@ export function <span class="fstat-no" title="function not covered" >makeStacksA
 <span class="cstat-no" title="statement not covered" >  return `${HIRO_EXPLORER_URL}/address/${address}?${searchParams.toString()}`;</span>
 }
 &nbsp;
+interface MakeBitcoinTxExplorerLinkArgs {
+  txid: string;
+  bitcoin: BitcoinChainConfig;
+}
 export function <span class="fstat-no" title="function not covered" >makeBitcoinTxExplorerLink({</span>
   txid,
   bitcoin: { bitcoinUrl, bitcoinNetwork },
 }: MakeBitcoinTxExplorerLinkArgs) {
+  const mempoolBaseUrl = <span class="cstat-no" title="statement not covered" >'https://mempool.space';</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  switch (bitcoinNetwork) {</span>
     case 'mainnet':
-    case 'testnet':
-<span class="cstat-no" title="statement not covered" >      return `https://mempool.space/${</span>
-        bitcoinNetwork !== 'mainnet' ? bitcoinNetwork + '/' : ''
-      }tx/${txid}`;
+<span class="cstat-no" title="statement not covered" >      return `${mempoolBaseUrl}/tx/${txid}`;</span>
+    case 'testnet3':
+<span class="cstat-no" title="statement not covered" >      return `${mempoolBaseUrl}/testnet/tx/${txid}`;</span>
+    case 'testnet4':
+<span class="cstat-no" title="statement not covered" >      return `${mempoolBaseUrl}/testnet4/tx/${txid}`;</span>
+    case 'signet':
+<span class="cstat-no" title="statement not covered" >      return `${mempoolBaseUrl}/signet/tx/${txid}`;</span>
     case 'regtest':
 <span class="cstat-no" title="statement not covered" >      return `${bitcoinUrl}/tx/${txid}`;</span>
-    default:
-<span class="cstat-no" title="statement not covered" >      return '';</span>
   }
 }
 &nbsp;
@@ -952,7 +958,7 @@ export function <span class="fstat-no" title="function not covered" >removeMinus
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-10-22T07:06:11.754Z
+                at 2024-10-23T12:35:57.828Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
