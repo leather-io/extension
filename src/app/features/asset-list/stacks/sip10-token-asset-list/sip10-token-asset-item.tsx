@@ -60,6 +60,7 @@ export function Sip10TokenAssetItem({
         isCheckedByDefault: isTokenEnabled({ tokenId: contractId, preEnabledTokensIds }),
       }}
       itemProps={{
+        contractId,
         availableBalance: balance.availableBalance,
         captionLeft,
         icon,
