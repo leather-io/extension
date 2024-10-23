@@ -1,3 +1,20 @@
+## [6.50.0](https://github.com/leather-io/extension/compare/v6.49.0...v6.50.0) (2024-10-23)
+
+
+### Features
+
+* support testnet 4, closes LEA-1406 ([399b185](https://github.com/leather-io/extension/commit/399b185c368cffe3d5df15fc0d83d9e78d770cf0))
+
+
+### Bug Fixes
+
+* contractid missing ([4de6b1e](https://github.com/leather-io/extension/commit/4de6b1e58e15af79446a65a0f77eb19119f643ae))
+
+
+### Internal
+
+* post-release merge back ([2128d41](https://github.com/leather-io/extension/commit/2128d416b36af2c73657c9fa4ec113f7517e97ae))
+
 ## [6.49.0](https://github.com/leather-io/extension/compare/v6.48.1...v6.49.0) (2024-10-22)
 
 
