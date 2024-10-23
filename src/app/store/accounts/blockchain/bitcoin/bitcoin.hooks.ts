@@ -7,11 +7,12 @@ import AppClient from 'ledger-bitcoin';
 import {
   getBitcoinJsLibNetworkConfigByMode,
   getInputPaymentType,
-  getNativeSegwitAccountDerivationPath,
-  getTaprootAccountDerivationPath,
   getTaprootAddress,
+  makeNativeSegwitAccountDerivationPath,
+  makeTaprootAccountDerivationPath,
 } from '@leather.io/bitcoin';
 import { extractAddressIndexFromPath } from '@leather.io/crypto';
+import { bitcoinNetworkToNetworkMode } from '@leather.io/models';
 import { isNumber, isUndefined } from '@leather.io/utils';
 
 import {
@@ -66,7 +67,7 @@ export function useZeroIndexTaprootAddress(accIndex?: number) {
   const address = getTaprootAddress({
     index: 0,
     keychain: account.keychain,
-    network: network.chain.bitcoin.bitcoinNetwork,
+    network: bitcoinNetworkToNetworkMode(network.chain.bitcoin.bitcoinNetwork),
   });
 
   return address;
@@ -116,6 +117,8 @@ export function useSignLedgerBitcoinTx() {
 
   const updateTaprootLedgerInputs = useUpdateLedgerSpecificTaprootInputPropsForAdddressIndexZero();
 
+  const bitcoinNetworkMode = network.chain.bitcoin.mode;
+
   return async (
     app: AppClient,
     rawPsbt: Uint8Array,
@@ -126,7 +129,7 @@ export function useSignLedgerBitcoinTx() {
     // BtcSigner not compatible with Ledger. Encoded format returns more terse
     // version. BitcoinJsLib works.
     const psbt = Psbt.fromBuffer(Buffer.from(rawPsbt), {
-      network: getBitcoinJsLibNetworkConfigByMode(network.chain.bitcoin.bitcoinNetwork),
+      network: getBitcoinJsLibNetworkConfigByMode(bitcoinNetworkMode),
     });
 
     const btcSignerPsbtClone = btc.Transaction.fromPSBT(psbt.toBuffer());
@@ -136,10 +139,7 @@ export function useSignLedgerBitcoinTx() {
       if (isUndefined(inputIndex)) throw new Error('Input must have an index for payment type');
       return [
         config,
-        getInputPaymentType(
-          btcSignerPsbtClone.getInput(config.index),
-          network.chain.bitcoin.bitcoinNetwork
-        ),
+        getInputPaymentType(btcSignerPsbtClone.getInput(config.index), bitcoinNetworkMode),
       ];
     }) as readonly [BitcoinInputSigningConfig, PaymentTypes][];
 
@@ -153,13 +153,13 @@ export function useSignLedgerBitcoinTx() {
       await updateTaprootLedgerInputs(psbt, fingerprint, taprootInputsToSign);
 
       const taprootExtendedPublicKey = await app.getExtendedPubkey(
-        getTaprootAccountDerivationPath(network.chain.bitcoin.bitcoinNetwork, accountIndex)
+        makeTaprootAccountDerivationPath(bitcoinNetworkMode, accountIndex)
       );
 
       const taprootPolicy = createTaprootDefaultWalletPolicy({
         fingerprint,
         accountIndex,
-        network: network.chain.bitcoin.bitcoinNetwork,
+        network: bitcoinNetworkMode,
         xpub: taprootExtendedPublicKey,
       });
 
@@ -176,7 +176,7 @@ export function useSignLedgerBitcoinTx() {
 
     if (nativeSegwitInputsToSign.length) {
       const nativeSegwitExtendedPublicKey = await app.getExtendedPubkey(
-        getNativeSegwitAccountDerivationPath(network.chain.bitcoin.bitcoinNetwork, accountIndex)
+        makeNativeSegwitAccountDerivationPath(bitcoinNetworkMode, accountIndex)
       );
 
       // Without adding the full non-witness data, the Ledger will present a
@@ -194,7 +194,7 @@ export function useSignLedgerBitcoinTx() {
       const nativeSegwitPolicy = createNativeSegwitDefaultWalletPolicy({
         fingerprint,
         accountIndex,
-        network: network.chain.bitcoin.bitcoinNetwork,
+        network: bitcoinNetworkMode,
         xpub: nativeSegwitExtendedPublicKey,
       });
 
@@ -249,7 +249,7 @@ export function useGetAssumedZeroIndexSigningConfig() {
   return (psbt: Uint8Array, indexesToSign?: number[]) =>
     getAssumedZeroIndexSigningConfig({
       psbt,
-      network: network.chain.bitcoin.bitcoinNetwork,
+      network: bitcoinNetworkToNetworkMode(network.chain.bitcoin.bitcoinNetwork),
       indexesToSign,
     }).forAccountIndex(accountIndex);
 }

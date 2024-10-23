@@ -74,12 +74,12 @@ export function useBtcSendForm() {
         .string()
         .defined(FormErrorMessages.AddressRequired)
         .concat(btcAddressValidator())
-        .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.bitcoinNetwork))
+        .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.mode))
         .concat(notCurrentAddressValidator(nativeSegwitSigner.address || ''))
         .concat(
           complianceValidator(
             btcAddressValidator(),
-            bitcoinNetworkModeToCoreNetworkMode(currentNetwork.chain.bitcoin.bitcoinNetwork)
+            bitcoinNetworkModeToCoreNetworkMode(currentNetwork.chain.bitcoin.mode)
           )
         ),
     }),

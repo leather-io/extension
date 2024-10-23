@@ -12,6 +12,7 @@ import {
   makeNativeSegwitAccountDerivationPath,
 } from '@leather.io/bitcoin';
 import { extractAddressIndexFromPath } from '@leather.io/crypto';
+import { bitcoinNetworkToNetworkMode } from '@leather.io/models';
 import { useBitcoinClient } from '@leather.io/query';
 import { reverseBytes } from '@leather.io/utils';
 
@@ -40,7 +41,8 @@ const selectNativeSegwitAccountBuilder = bitcoinAccountBuilderFactory(
 const selectCurrentNetworkNativeSegwitAccountBuilder = createSelector(
   selectNativeSegwitAccountBuilder,
   selectCurrentNetwork,
-  (nativeSegwitKeychains, network) => nativeSegwitKeychains[network.chain.bitcoin.bitcoinNetwork]
+  (nativeSegwitKeychains, network) =>
+    nativeSegwitKeychains[bitcoinNetworkToNetworkMode(network.chain.bitcoin.bitcoinNetwork)]
 );
 
 function useNativeSegwitAccountBuilder() {

@@ -148,10 +148,10 @@ export function useSendInscriptionForm() {
         .concat(
           complianceValidator(
             btcAddressValidator(),
-            bitcoinNetworkModeToCoreNetworkMode(currentNetwork.chain.bitcoin.bitcoinNetwork)
+            bitcoinNetworkModeToCoreNetworkMode(currentNetwork.chain.bitcoin.mode)
           )
         )
-        .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.bitcoinNetwork)),
+        .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.mode)),
     }),
   };
 }

@@ -26,7 +26,7 @@ interface UseParsedOutputsArgs {
 export function useParsedOutputs({ isPsbtMutable, outputs, network }: UseParsedOutputsArgs) {
   const bitcoinAddressNativeSegwit = useCurrentAccountNativeSegwitIndexZeroSigner().address;
   const { address: bitcoinAddressTaproot } = useCurrentAccountTaprootIndexZeroSigner();
-  const bitcoinNetwork = getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.bitcoinNetwork);
+  const bitcoinNetwork = getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.mode);
 
   return useMemo(
     () =>

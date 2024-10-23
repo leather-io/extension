@@ -1,7 +1,7 @@
 import { type UseQueryOptions, useQueries } from '@tanstack/react-query';
 import axios from 'axios';
 
-import type { BitcoinNetworkModes } from '@leather.io/models';
+import { type BitcoinNetworkModes } from '@leather.io/models';
 import { ensureArray, isEmptyString } from '@leather.io/utils';
 
 import { analytics } from '@shared/utils/analytics';
@@ -69,7 +69,7 @@ function useCheckAddressComplianceQueries(addresses: string[]) {
   return useQueries({
     queries: addresses
       .filter(address => !isEmptyString(address))
-      .map(address => makeComplianceQuery(address, network.chain.bitcoin.bitcoinNetwork)),
+      .map(address => makeComplianceQuery(address, network.chain.bitcoin.mode)),
   });
 }
 

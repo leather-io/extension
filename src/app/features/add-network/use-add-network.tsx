@@ -4,9 +4,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ChainID } from '@stacks/transactions';
 
 import {
-  type BitcoinNetworkModes,
+  type BitcoinNetwork,
   type DefaultNetworkConfigurations,
   type NetworkConfiguration,
+  bitcoinNetworkToNetworkMode,
   networkConfigurationSchema,
 } from '@leather.io/models';
 
@@ -33,7 +34,7 @@ export interface AddNetworkFormValues {
   name: string;
   stacksUrl: string;
   bitcoinUrl: string;
-  bitcoinNetwork: BitcoinNetworkModes;
+  bitcoinNetwork: BitcoinNetwork;
 }
 
 const initialFormValues: AddNetworkFormValues = {
@@ -72,6 +73,7 @@ function useInitialValues() {
     stacksUrl: network.chain.stacks.url,
     bitcoinUrl: network.chain.bitcoin.bitcoinUrl,
     bitcoinNetwork: network.chain.bitcoin.bitcoinNetwork,
+    mode: network.chain.bitcoin.mode,
   };
 }
 
@@ -169,6 +171,7 @@ export function useAddNetwork() {
           subnetChainId: chainId, // Used for signing transactions (via the network object, not to be confused with the NetworkConfigurations)
           url: stacksPath,
           bitcoinNetwork,
+          mode: bitcoinNetworkToNetworkMode(bitcoinNetwork),
           bitcoinUrl: bitcoinPath,
         });
         navigate(RouteUrls.Home);
@@ -180,6 +183,7 @@ export function useAddNetwork() {
           chainId: chainId,
           url: stacksPath,
           bitcoinNetwork,
+          mode: bitcoinNetworkToNetworkMode(bitcoinNetwork),
           bitcoinUrl: bitcoinPath,
         });
         navigate(RouteUrls.Home);

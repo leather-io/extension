@@ -16,7 +16,7 @@ export enum NetworkSelectors {
   // add network form
   AddNetworkBtn = 'add-network-btn',
   AddNetworkBitcoinAPISelector = 'add-network-bitcoin-api-selector',
-  BitcoinAPIOptionTestnet = 'bitcoin-api-option-testnet',
+  BitcoinApiOptionTestnet = 'bitcoin-api-option-testnet3',
 
   NetworkMenuBtn = 'network-menu-btn',
   EditNetworkMenuBtn = 'edit-network-menu-btn',

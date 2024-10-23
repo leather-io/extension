@@ -98,7 +98,7 @@ export function ReceiveTokens({
         }}
         title="SRC-20"
       />
-      {(network.chain.bitcoin.bitcoinNetwork === 'testnet' || runesEnabled) && (
+      {(network.chain.bitcoin.mode === 'testnet' || runesEnabled) && (
         <ReceiveItem
           address={btcAddressTaproot}
           icon={<RunesAvatarIcon />}
