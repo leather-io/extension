@@ -8,7 +8,7 @@ import {
 } from '@stacks/wallet-sdk';
 
 import { gaiaUrl } from '@leather.io/constants';
-import { useHiroApiRateLimiter } from '@leather.io/query';
+import { hiroApiRequestsPriorityLevels, useHiroApiRateLimiter } from '@leather.io/query';
 
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { logger } from '@shared/logger';
@@ -60,7 +60,7 @@ export function useFinishAuthRequest() {
           const gaiaHubConfig = await hiroLimiter.add(
             () => createWalletGaiaConfig({ gaiaHubUrl: gaiaUrl, wallet }),
             {
-              priority: 5,
+              priority: hiroApiRequestsPriorityLevels.createWalletGaiaConfig,
               throwOnTimeout: true,
             }
           );
@@ -99,7 +99,7 @@ export function useFinishAuthRequest() {
                 },
               });
             },
-            { priority: 5, throwOnTimeout: true }
+            { priority: hiroApiRequestsPriorityLevels.makeAuthResponse, throwOnTimeout: true }
           );
 
           keyActions.switchAccount(accountIndex);
