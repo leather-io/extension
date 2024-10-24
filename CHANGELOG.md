@@ -1,3 +1,15 @@
+## [6.51.0](https://github.com/leather-io/extension/compare/v6.50.0...v6.51.0) (2024-10-24)
+
+
+### Features
+
+* change gaia related requests priority levels ([0de2060](https://github.com/leather-io/extension/commit/0de206019f843203377ea05663ae14d0573c4b78))
+
+
+### Internal
+
+* post-release merge back ([6b95c08](https://github.com/leather-io/extension/commit/6b95c08b721c264d172de8e8a51dc7dd1ccb33ae))
+
 ## [6.50.0](https://github.com/leather-io/extension/compare/v6.49.0...v6.50.0) (2024-10-23)
 
 
