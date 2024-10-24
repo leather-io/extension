@@ -24,16 +24,18 @@ async function simulateShortDelayToAvoidUndefinedTabId() {
   await delay(1000);
 }
 
+export type StacksTransactionActionType = 'cancel' | 'increaseFee';
+
 interface UseStacksBroadcastTransactionArgs {
   token: CryptoCurrency;
   decimals?: number;
-  isIncreaseFeeTransaction?: boolean;
+  actionType?: StacksTransactionActionType;
 }
 
 export function useStacksBroadcastTransaction({
   token,
   decimals,
-  isIncreaseFeeTransaction,
+  actionType,
 }: UseStacksBroadcastTransactionArgs) {
   const signStacksTransaction = useSignStacksTransaction();
   const [isBroadcasting, setIsBroadcasting] = useState(false);
@@ -42,6 +44,9 @@ export function useStacksBroadcastTransaction({
   const { formSentSummaryTxState } = useStacksTransactionSummary(token);
   const navigate = useNavigate();
   const toast = useToast();
+
+  const isIncreaseFeeTransaction = actionType === 'increaseFee';
+  const isCancelTransaction = actionType === 'cancel';
 
   const broadcastTransactionFn = useSubmitTransactionCallback({
     loadingKey: LoadingKeys.SUBMIT_SEND_FORM_TRANSACTION,
@@ -60,7 +65,7 @@ export function useStacksBroadcastTransaction({
         });
       }
       if (txId) {
-        if (isIncreaseFeeTransaction) {
+        if (isIncreaseFeeTransaction || isCancelTransaction) {
           navigate(RouteUrls.Activity);
           return;
         }
@@ -97,6 +102,9 @@ export function useStacksBroadcastTransaction({
               handlePreviewSuccess(signedTx, txId);
               if (isIncreaseFeeTransaction) {
                 toast.success('Fee increased successfully');
+              }
+              if (isCancelTransaction) {
+                toast.success('Transaction cancelled successfully');
               }
             },
             replaceByFee: false,
@@ -137,5 +145,6 @@ export function useStacksBroadcastTransaction({
     broadcastTransactionFn,
     signStacksTransaction,
     isIncreaseFeeTransaction,
+    isCancelTransaction,
   ]);
 }
