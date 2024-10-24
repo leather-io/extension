@@ -148,7 +148,7 @@
     "@leather.io/query": "2.15.2",
     "@leather.io/stacks": "1.2.3",
     "@leather.io/tokens": "0.9.1",
-    "@leather.io/ui": "1.30.0",
+    "@leather.io/ui": "1.31.0",
     "@leather.io/utils": "0.16.6",
     "@ledgerhq/hw-transport-webusb": "6.27.19",
     "@noble/hashes": "1.5.0",
