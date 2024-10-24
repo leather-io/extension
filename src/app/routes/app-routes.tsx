@@ -17,9 +17,10 @@ import { AddNetwork } from '@app/features/add-network/add-network';
 import { EditNetwork } from '@app/features/add-network/edit-network';
 import { Container } from '@app/features/container/container';
 import { HomeHeader } from '@app/features/container/headers/home.header';
-import { IncreaseBtcFeeSheet } from '@app/features/dialogs/increase-fee-dialog/increase-btc-fee-dialog';
-import { IncreaseStxFeeSheet } from '@app/features/dialogs/increase-fee-dialog/increase-stx-fee-dialog';
 import { leatherIntroSheetRoutes } from '@app/features/dialogs/leather-intro-dialog/leather-intro-dialog';
+import { CancelStacksTransactionSheet } from '@app/features/dialogs/transaction-action-dialog/cancel-stacks-transaction-sheet';
+import { IncreaseBtcFeeSheet } from '@app/features/dialogs/transaction-action-dialog/increase-btc-fee-dialog';
+import { IncreaseStacksTransactionFeeSheet } from '@app/features/dialogs/transaction-action-dialog/increase-stacks-fee-sheet';
 import { RouterErrorBoundary } from '@app/features/errors/app-error-boundary';
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
@@ -105,11 +106,20 @@ function useAppRoutes() {
               path={RouteUrls.RetrieveTaprootFunds}
               element={<RetrieveTaprootToNativeSegwit />}
             />
-            <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeSheet />}>
+            <Route
+              path={RouteUrls.IncreaseStacksFee}
+              element={<IncreaseStacksTransactionFeeSheet />}
+            >
               {ledgerStacksTxSigningRoutes}
             </Route>
             <Route
-              path={`${RouteUrls.IncreaseStxFee}/${RouteUrls.TransactionBroadcastError}`}
+              path={RouteUrls.CancelStacksTransaction}
+              element={<CancelStacksTransactionSheet />}
+            >
+              {ledgerStacksTxSigningRoutes}
+            </Route>
+            <Route
+              path={`${RouteUrls.IncreaseStacksFee}/${RouteUrls.TransactionBroadcastError}`}
               element={<BroadcastError />}
             />
             <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeSheet />}>
@@ -124,11 +134,9 @@ function useAppRoutes() {
             path={RouteUrls.RetrieveTaprootFunds}
             element={<RetrieveTaprootToNativeSegwit />}
           />
-          <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeSheet />}>
-            {ledgerStacksTxSigningRoutes}
-          </Route>
+
           <Route
-            path={`${RouteUrls.IncreaseStxFee}/${RouteUrls.TransactionBroadcastError}`}
+            path={`${RouteUrls.IncreaseStacksFee}/${RouteUrls.TransactionBroadcastError}`}
             element={<BroadcastError />}
           />
           <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeSheet />}>

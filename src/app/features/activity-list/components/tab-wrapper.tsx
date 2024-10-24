@@ -1,3 +1,4 @@
+import { ActivitySelectors } from '@tests/selectors/activity.selectors';
 import { Box } from 'leather-styles/jsx';
 
 interface ActivityListTabWrapperProps {
@@ -10,7 +11,11 @@ export function ActivityListTabWrapper({
   padContent = false,
 }: ActivityListTabWrapperProps) {
   return (
-    <Box minHeight="dialogContentHeight" py={padContent ? 'space.11' : undefined}>
+    <Box
+      minHeight="dialogContentHeight"
+      py={padContent ? 'space.11' : undefined}
+      data-testid={ActivitySelectors.ActivityList}
+    >
       {children}
     </Box>
   );
