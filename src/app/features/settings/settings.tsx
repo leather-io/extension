@@ -215,7 +215,7 @@ export function Settings({
               <DropdownMenu.Item
                 data-testid={SettingsSelectors.GetSupportMenuItem}
                 onSelect={() => {
-                  openInNewTab('https://leather.gitbook.io/guides/installing/contact-support');
+                  openInNewTab('https://leather.io/support');
                 }}
               >
                 <Flag img={<SupportIcon />} textStyle="label.02">

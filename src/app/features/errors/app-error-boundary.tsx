@@ -29,7 +29,7 @@ function ErroBoundaryBody() {
     >
       Leather has crashed. If this problem persists, contact our{' '}
       <Link
-        href="https://leather.gitbook.io/guides/installing/contact-support"
+        href="https://leather.io/support"
         target="_blank"
         textDecoration="underline"
       >
