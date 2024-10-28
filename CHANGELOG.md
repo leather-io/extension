@@ -1,3 +1,17 @@
+## [6.51.1](https://github.com/leather-io/extension/compare/v6.51.0...v6.51.1) (2024-10-28)
+
+
+### Bug Fixes
+
+* ledger test ([6d18460](https://github.com/leather-io/extension/commit/6d1846086bad94869bea454ec1a5e6189b18b974))
+* update failing support test link ([a1d8a7f](https://github.com/leather-io/extension/commit/a1d8a7fde0e94f18bf40a0db1f559f78a01475fa))
+
+
+### Internal
+
+* post-release merge back ([bdabd61](https://github.com/leather-io/extension/commit/bdabd61c987da09b34c8d250ff8a0d15fb0ca2b0))
+* update query package ([68255a1](https://github.com/leather-io/extension/commit/68255a124b3b7e7c5d19ee9f166df0637498584b))
+
 ## [6.51.0](https://github.com/leather-io/extension/compare/v6.50.0...v6.51.0) (2024-10-24)
 
 
