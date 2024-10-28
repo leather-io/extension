@@ -1,4 +1,5 @@
 import { TEST_ACCOUNT_1_STX_ADDRESS } from '@tests/mocks/constants';
+import { mockMainnetTestAccountStacksConfirmedTxsRequests } from '@tests/mocks/mock-stacks-txs';
 import type { HomePage } from '@tests/page-object-models/home.page';
 import { makeLedgerTestAccountWalletState } from '@tests/page-object-models/onboarding.page';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
@@ -24,6 +25,7 @@ test.describe('App with Ledger', () => {
       test.beforeEach(async ({ extensionId, globalPage, onboardingPage }) => {
         await globalPage.setupAndUseApiCalls(extensionId);
         await onboardingPage.signInWithLedgerAccount(extensionId, state);
+        await mockMainnetTestAccountStacksConfirmedTxsRequests(globalPage.page);
       });
 
       test('that homepage renders correctly', async ({ homePage }) => {
