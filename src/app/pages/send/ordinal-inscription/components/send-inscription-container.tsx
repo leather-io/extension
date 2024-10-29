@@ -3,12 +3,16 @@ import { Outlet, useLocation, useOutletContext } from 'react-router-dom';
 
 import get from 'lodash.get';
 
+import { lookupDerivationByAddress } from '@leather.io/bitcoin';
+import { extractAddressIndexFromPath } from '@leather.io/crypto';
 import type { AverageBitcoinFeeRates, BtcFeeType, Inscription } from '@leather.io/models';
-import { type UtxoWithDerivationPath, useInscriptionsAddressesMap } from '@leather.io/query';
+import { type UtxoWithDerivationPath } from '@leather.io/query';
+
+import { analytics } from '@shared/utils/analytics';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentNativeSegwitAccount } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -37,22 +41,39 @@ export function SendInscriptionContainer() {
   const routeState = useSendInscriptionRouteState();
   const network = useCurrentNetwork();
   const currentAccountIndex = useCurrentAccountIndex();
-  const account = useCurrentTaprootAccount();
-  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
 
-  const addressesMap = useInscriptionsAddressesMap({
-    taprootKeychain: account?.keychain,
-    nativeSegwitAddress: nativeSegwitSigner.address,
-  });
+  const taprootAccount = useCurrentTaprootAccount();
+  const nativeSegwitAccount = useCurrentNativeSegwitAccount();
+
   useOnMount(() => {
     if (!routeState.inscription) return;
+
+    const result = lookupDerivationByAddress({
+      taprootXpub: taprootAccount?.keychain.publicExtendedKey!,
+      nativeSegwitXpub: nativeSegwitAccount?.keychain.publicExtendedKey!,
+      iterationLimit: 100,
+    })(routeState.inscription.address);
+
+    void analytics.track('recurse_addresses_to_find_derivation_path', {
+      duration: result.duration,
+    });
+
+    if (result.status !== 'success') {
+      void analytics.track('error_did_not_find_owner_path_of_inscription', {
+        inscription: routeState.inscription.id,
+      });
+      throw new Error('Unable to find key of owner inscription address');
+    }
+
+    const adddressIndex = extractAddressIndexFromPath(result.path);
+
     setInscription(routeState.inscription);
     setUtxo(
       createUtxoFromInscription({
         inscription: routeState.inscription,
         network: network.chain.bitcoin.mode,
         accountIndex: currentAccountIndex,
-        inscriptionAddressIdx: addressesMap[routeState.inscription.address],
+        inscriptionAddressIdx: adddressIndex,
       })
     );
   });

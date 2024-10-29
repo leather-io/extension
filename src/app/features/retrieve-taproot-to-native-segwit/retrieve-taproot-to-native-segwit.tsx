@@ -2,11 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Stack } from 'leather-styles/jsx';
 
-import {
-  useBitcoinBroadcastTransaction,
-  useCurrentTaprootAccountBalance,
-  useCurrentTaprootAccountUninscribedUtxos,
-} from '@leather.io/query';
+import { useBitcoinBroadcastTransaction } from '@leather.io/query';
 import { Link } from '@leather.io/ui';
 import { delay, formatMoneyPadded, truncateMiddle } from '@leather.io/utils';
 
@@ -16,12 +12,11 @@ import { analytics } from '@shared/utils/analytics';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { useToast } from '@app/features/toasts/use-toast';
-import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import {
-  useCurrentAccountNativeSegwitAddressIndexZero,
-  useCurrentAccountNativeSegwitIndexZeroSigner,
-} from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+  useCurrentTaprootAccountBalance,
+  useCurrentTaprootAccountUninscribedUtxos,
+} from '@app/query/bitcoin/ordinals/inscriptions/inscriptions.query';
+import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { RetrieveTaprootToNativeSegwitLayout } from './components/retrieve-taproot-to-native-segwit.layout';
 import { useGenerateRetrieveTaprootFundsTx } from './use-generate-retrieve-taproot-funds-tx';
@@ -30,20 +25,9 @@ export function RetrieveTaprootToNativeSegwit() {
   const toast = useToast();
   const navigate = useNavigate();
 
-  const currentAccountIndex = useCurrentAccountIndex();
-  const account = useCurrentTaprootAccount();
-  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const balance = useCurrentTaprootAccountBalance({
-    currentAccountIndex,
-    taprootKeychain: account?.keychain,
-    nativeSegwitAddress: nativeSegwitSigner.address,
-  });
+  const balance = useCurrentTaprootAccountBalance();
   const recipient = useCurrentAccountNativeSegwitAddressIndexZero();
-  const uninscribedUtxos = useCurrentTaprootAccountUninscribedUtxos({
-    taprootKeychain: account?.keychain,
-    nativeSegwitAddress: nativeSegwitSigner.address,
-    currentAccountIndex,
-  });
+  const uninscribedUtxos = useCurrentTaprootAccountUninscribedUtxos();
 
   const { generateRetrieveTaprootFundsTx, fee } = useGenerateRetrieveTaprootFundsTx();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();

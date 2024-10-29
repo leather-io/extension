@@ -4,41 +4,25 @@ import * as btc from '@scure/btc-signer';
 
 import { extractAddressIndexFromPath } from '@leather.io/crypto';
 import type { Money } from '@leather.io/models';
-import {
-  useAverageBitcoinFeeRates,
-  useCurrentTaprootAccountUninscribedUtxos,
-  useNumberOfInscriptionsOnUtxo,
-} from '@leather.io/query';
+import { useAverageBitcoinFeeRates } from '@leather.io/query';
 import { createMoney, sumNumbers } from '@leather.io/utils';
 
 import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-size-fee-estimator';
-import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import {
-  useCurrentAccountTaprootSigner,
-  useCurrentTaprootAccount,
-} from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+  useCurrentTaprootAccountUninscribedUtxos,
+  useNumberOfInscriptionsOnUtxo,
+} from '@app/query/bitcoin/ordinals/inscriptions/inscriptions.query';
+import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
+import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
 export function useGenerateRetrieveTaprootFundsTx() {
   const networkMode = useBitcoinScureLibNetworkConfig();
 
-  const currentAccountIndex = useCurrentAccountIndex();
-  const account = useCurrentTaprootAccount();
-  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-
-  const uninscribedUtxos = useCurrentTaprootAccountUninscribedUtxos({
-    taprootKeychain: account?.keychain,
-    nativeSegwitAddress: nativeSegwitSigner.address,
-    currentAccountIndex,
-  });
+  const uninscribedUtxos = useCurrentTaprootAccountUninscribedUtxos();
 
   const createSigner = useCurrentAccountTaprootSigner();
   const { data: feeRates } = useAverageBitcoinFeeRates();
-  const getNumberOfInscriptionOnUtxo = useNumberOfInscriptionsOnUtxo({
-    taprootKeychain: account?.keychain,
-    nativeSegwitAddress: nativeSegwitSigner.address,
-  });
+  const getNumberOfInscriptionOnUtxo = useNumberOfInscriptionsOnUtxo();
 
   const fee = useMemo(() => {
     if (!feeRates) return createMoney(0, 'BTC');
