@@ -1,4 +1,4 @@
-import { getNativeSegwitAddressIndexDerivationPath } from '@leather.io/bitcoin';
+import { makeNativeSegwitAddressIndexDerivationPath } from '@leather.io/bitcoin';
 import type { BitcoinNetworkModes, Inscription } from '@leather.io/models';
 import type { UtxoWithDerivationPath } from '@leather.io/query';
 
@@ -25,7 +25,7 @@ export function createUtxoFromInscription({
       block_time: genesisTimestamp,
     },
     value: Number(value),
-    derivationPath: getNativeSegwitAddressIndexDerivationPath(
+    derivationPath: makeNativeSegwitAddressIndexDerivationPath(
       network,
       accountIndex,
       inscriptionAddressIdx

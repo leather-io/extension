@@ -6,8 +6,8 @@ import * as btc from '@scure/btc-signer';
 import {
   BitcoinAccount,
   deriveAddressIndexKeychainFromAccount,
-  getNativeSegwitAddressIndexDerivationPath,
-  getTaprootAddressIndexDerivationPath,
+  makeNativeSegwitAddressIndexDerivationPath,
+  makeTaprootAddressIndexDerivationPath,
   whenPaymentType,
 } from '@leather.io/bitcoin';
 import type { BitcoinNetworkModes } from '@leather.io/models';
@@ -80,8 +80,8 @@ export function bitcoinAddressIndexSignerFactory<T extends BitcoinAddressIndexSi
       ),
       network,
       derivationPath: whenPaymentType(payment.type)({
-        p2wpkh: getNativeSegwitAddressIndexDerivationPath(network, accountIndex, addressIndex),
-        p2tr: getTaprootAddressIndexDerivationPath(network, accountIndex, addressIndex),
+        p2wpkh: makeNativeSegwitAddressIndexDerivationPath(network, accountIndex, addressIndex),
+        p2tr: makeTaprootAddressIndexDerivationPath(network, accountIndex, addressIndex),
         'p2wpkh-p2sh': 'Not supported',
         p2pkh: 'Not supported',
         p2sh: 'Not supported',

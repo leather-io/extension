@@ -1,11 +1,8 @@
-import { useCurrentTaprootAccountBalance } from '@leather.io/query';
 import { Link } from '@leather.io/ui';
 import { formatMoney } from '@leather.io/utils';
 
+import { useCurrentTaprootAccountBalance } from '@app/query/bitcoin/ordinals/inscriptions/inscriptions.query';
 import { useRecoverUninscribedTaprootUtxosFeatureEnabled } from '@app/query/common/remote-config/remote-config.query';
-import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 const taprootSpendNotSupportedYetMsg = `
@@ -17,15 +14,7 @@ interface TaprootBalanceDisplayerProps {
   onSelectRetrieveBalance(): void;
 }
 export function TaprootBalanceDisplayer({ onSelectRetrieveBalance }: TaprootBalanceDisplayerProps) {
-  const currentAccountIndex = useCurrentAccountIndex();
-  const account = useCurrentTaprootAccount();
-  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-
-  const balance = useCurrentTaprootAccountBalance({
-    currentAccountIndex,
-    taprootKeychain: account?.keychain,
-    nativeSegwitAddress: nativeSegwitSigner.address,
-  });
+  const balance = useCurrentTaprootAccountBalance();
   const isRecoverFeatureEnabled = useRecoverUninscribedTaprootUtxosFeatureEnabled();
   if (!isRecoverFeatureEnabled) return null;
   if (balance.amount.isLessThanOrEqualTo(0)) return null;

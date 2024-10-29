@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import { bitcoinNetworkModeToCoreNetworkMode } from '@leather.io/bitcoin';
-import { useNumberOfInscriptionsOnUtxo } from '@leather.io/query';
 import { isError } from '@leather.io/utils';
 
 import { FormErrorMessages } from '@shared/error-messages';
@@ -17,9 +16,8 @@ import { analytics } from '@shared/utils/analytics';
 import { formFeeRowValue } from '@app/common/send/utils';
 import { InsufficientFundsError } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { complianceValidator } from '@app/common/validation/forms/compliance-validators';
+import { useNumberOfInscriptionsOnUtxo } from '@app/query/bitcoin/ordinals/inscriptions/inscriptions.query';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useSendInscriptionState } from '../components/send-inscription-container';
@@ -35,13 +33,8 @@ export function useSendInscriptionForm() {
   const { inscription, utxo } = useSendInscriptionState();
   const currentNetwork = useCurrentNetwork();
 
-  const account = useCurrentTaprootAccount();
-  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const getNumberOfInscriptionOnUtxo = useNumberOfInscriptionsOnUtxo();
 
-  const getNumberOfInscriptionOnUtxo = useNumberOfInscriptionsOnUtxo({
-    taprootKeychain: account?.keychain,
-    nativeSegwitAddress: nativeSegwitSigner.address,
-  });
   const { coverFeeFromAdditionalUtxos } = useGenerateUnsignedOrdinalTx(utxo);
 
   return {
@@ -57,6 +50,7 @@ export function useSendInscriptionForm() {
         }
 
         const numInscriptionsOnUtxo = getNumberOfInscriptionOnUtxo(utxo.txid, utxo.vout);
+
         if (numInscriptionsOnUtxo > 1) {
           setShowError(FormErrorMessages.UtxoWithMultipleInscriptions);
           return;
