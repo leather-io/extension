@@ -2,7 +2,6 @@ import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import BigNumber from 'bignumber.js';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { useGetStacksNetworkBlockTimeQuery } from '@leather.io/query';
 import { ChevronRightIcon } from '@leather.io/ui';
 import {
   createMoneyFromDecimal,
@@ -12,9 +11,7 @@ import {
   microStxToStx,
 } from '@leather.io/utils';
 
-import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
 import { SwapSubmissionData, useSwapContext } from '@app/pages/swap/swap.context';
-import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { toCommaSeparatedWithAnd } from '../../swap.utils';
 import { SwapDetailLayout } from './swap-detail.layout';
@@ -37,8 +34,6 @@ const sponsoredFeeLabel =
 
 export function SwapDetails() {
   const { swapSubmissionData } = useSwapContext();
-  const { isTestnet } = useCurrentNetworkState();
-  const { data: blockTime } = useGetStacksNetworkBlockTimeQuery();
 
   if (
     isUndefined(swapSubmissionData) ||
@@ -96,10 +91,6 @@ export function SwapDetails() {
             ? 'Sponsored'
             : `${microStxToStx(swapSubmissionData.fee).toString()} STX`
         }
-      />
-      <SwapDetailLayout
-        title="Estimated confirmation time"
-        value={getEstimatedConfirmationTime(isTestnet, blockTime)}
       />
       <SwapDetailLayout title="Nonce" value={swapSubmissionData.nonce?.toString() ?? 'Unknown'} />
     </SwapDetailsLayout>

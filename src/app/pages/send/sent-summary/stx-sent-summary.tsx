@@ -28,7 +28,6 @@ export function StxSentSummary() {
     txFiatValueSymbol,
     symbol,
     txLink,
-    arrivesIn,
     fee,
     recipient,
     txId,
@@ -77,7 +76,6 @@ export function StxSentSummary() {
 
               <InfoCardRow title="Sending" value={sendingValue} />
               <InfoCardRow title="Fee" value={fee} />
-              <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />
             </Stack>
           </Card>
         </Page>

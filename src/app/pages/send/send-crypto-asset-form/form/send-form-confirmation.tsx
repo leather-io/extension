@@ -15,7 +15,6 @@ interface SendFormConfirmationProps {
   recipient: string;
   fee?: string;
   totalSpend: string;
-  arrivesIn: string;
   symbol: string;
   txValue: string | number;
   sendingValue: string;
@@ -35,7 +34,6 @@ export function SendFormConfirmation({
   fee,
   totalSpend,
   sendingValue,
-  arrivesIn,
   isLoading,
   onBroadcastTransaction,
   nonce,
@@ -96,7 +94,6 @@ export function SendFormConfirmation({
           data-testid={SendCryptoAssetSelectors.ConfirmationDetailsMemo}
         />
         <InfoCardRow title="Nonce" value={nonce} />
-        <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />
       </Stack>
     </Card>
   );
