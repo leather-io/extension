@@ -39,6 +39,9 @@ importers:
       '@hirosystems/token-metadata-api-client':
         specifier: 1.2.0
         version: 1.2.0(encoding@0.1.13)
+      '@hookform/resolvers':
+        specifier: 3.9.0
+        version: 3.9.0(react-hook-form@7.53.1(react@18.3.1))
       '@leather.io/bitcoin':
         specifier: 0.14.2
         version: 0.14.2(encoding@0.1.13)
@@ -318,6 +321,9 @@ importers:
       react-head:
         specifier: 3.4.2
         version: 3.4.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-hook-form:
+        specifier: 7.53.1
+        version: 7.53.1(react@18.3.1)
       react-intersection-observer:
         specifier: 9.5.2
         version: 9.5.2(react@18.3.1)
@@ -2976,6 +2982,11 @@ packages:
 
   '@hirosystems/token-metadata-api-client@1.2.0':
     resolution: {integrity: sha512-voIhvGV4yCOEE2BWbQeGV4S395OLTKg5VsV4HJBM4Ekf/hiu5fktF8R0T24JcZc06resf94hH6L9ybiLz6tpGQ==}
+
+  '@hookform/resolvers@3.9.0':
+    resolution: {integrity: sha512-bU0Gr4EepJ/EQsH/IwEzYLsT/PEj5C0ynLQ4m+GSHS+xKH4TfSelhluTgOaoc4kA5s7eCsQbM4wvZLzELmWzUg==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
 
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -13217,6 +13228,12 @@ packages:
       react: '>=16.3'
       react-dom: '>=16.3'
 
+  react-hook-form@7.53.1:
+    resolution: {integrity: sha512-6aiQeBda4zjcuaugWvim9WsGqisoUk+etmFEsSUMm451/Ic8L/UAb7sRtMj3V+Hdzm6mMjU1VhiSzYUZeBm0Vg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18 || ^19
+
   react-icons@4.12.0:
     resolution: {integrity: sha512-IBaDuHiShdZqmfc/TwHu6+d6k2ltNCf3AszxNmjJc1KUfXdEeRJOKyNvLmAHaarhzGmTSVygNdyu8/opXv2gaw==}
     peerDependencies:
@@ -18560,6 +18577,10 @@ snapshots:
       isomorphic-fetch: 3.0.0(encoding@0.1.13)
     transitivePeerDependencies:
       - encoding
+
+  '@hookform/resolvers@3.9.0(react-hook-form@7.53.1(react@18.3.1))':
+    dependencies:
+      react-hook-form: 7.53.1(react@18.3.1)
 
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
@@ -32098,6 +32119,10 @@ snapshots:
       '@babel/runtime': 7.25.4
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+
+  react-hook-form@7.53.1(react@18.3.1):
+    dependencies:
+      react: 18.3.1
 
   react-icons@4.12.0(react@18.3.1):
     dependencies:
