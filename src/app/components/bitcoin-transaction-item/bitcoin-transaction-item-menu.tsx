@@ -1,19 +1,15 @@
 import { ActivitySelectors } from '@tests/selectors/activity.selectors';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { ChevronsRightIcon, CloseIcon, DropdownMenu } from '@leather.io/ui';
+import { ChevronsRightIcon, DropdownMenu } from '@leather.io/ui';
 
 import { TransactionActionMenu } from '../transaction-item/transaction-action-menu';
 
-interface StacksTransactionActionMenuProps {
+interface BitcoinTransactionActionMenuProps {
   onIncreaseFee(): void;
-  onCancelTransaction(): void;
 }
 
-export function StacksTransactionActionMenu({
-  onIncreaseFee,
-  onCancelTransaction,
-}: StacksTransactionActionMenuProps) {
+export function BitcoinTransactionActionMenu({ onIncreaseFee }: BitcoinTransactionActionMenuProps) {
   return (
     <TransactionActionMenu>
       <DropdownMenu.Item
@@ -26,18 +22,6 @@ export function StacksTransactionActionMenu({
         <HStack>
           <ChevronsRightIcon variant="small" />
           <styled.span textStyle="label.02">Increase fee</styled.span>
-        </HStack>
-      </DropdownMenu.Item>
-      <DropdownMenu.Item
-        data-testid={ActivitySelectors.ActivityItemMenuCancelTransaction}
-        onClick={e => {
-          e.stopPropagation();
-          onCancelTransaction();
-        }}
-      >
-        <HStack>
-          <CloseIcon variant="small" />
-          <styled.span textStyle="label.02">Cancel transaction</styled.span>
         </HStack>
       </DropdownMenu.Item>
     </TransactionActionMenu>

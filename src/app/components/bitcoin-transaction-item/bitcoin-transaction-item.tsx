@@ -18,7 +18,6 @@ import {
   isBitcoinTxInbound,
 } from '@app/common/transactions/bitcoin/utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { IncreaseFeeButton } from '@app/components/stacks-transaction-item/increase-fee-button';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
@@ -26,6 +25,7 @@ import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
 import { BitcoinTransactionIcon } from './bitcoin-transaction-icon';
 import { InscriptionIcon } from './bitcoin-transaction-inscription-icon';
+import { BitcoinTransactionActionMenu } from './bitcoin-transaction-item-menu';
 import { BitcoinTransactionStatus } from './bitcoin-transaction-status';
 
 interface BitcoinTransactionItemProps {
@@ -75,18 +75,17 @@ export function BitcoinTransactionItem({ transaction }: BitcoinTransactionItemPr
   );
 
   const title = inscriptionData ? `Ordinal inscription #${inscriptionData.number}` : 'Bitcoin';
-  const increaseFeeButton = (
-    <IncreaseFeeButton
-      isEnabled={isEnabled}
-      isSelected={pathname === RouteUrls.IncreaseBtcFee}
-      onIncreaseFee={onIncreaseFee}
-    />
-  );
+
+  const isSelected = pathname === RouteUrls.IncreaseBtcFee;
+  const rightElement =
+    isEnabled && !isSelected ? (
+      <BitcoinTransactionActionMenu onIncreaseFee={onIncreaseFee} />
+    ) : undefined;
 
   return (
     <TransactionItemLayout
       openTxLink={openTxLink}
-      rightElement={isEnabled ? increaseFeeButton : undefined}
+      rightElement={rightElement}
       txCaption={txCaption}
       txIcon={
         <BitcoinTransactionIcon
