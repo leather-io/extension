@@ -129,3 +129,8 @@ export function getTxSenderAddress(tx: StacksTransaction): string | undefined {
 export function isPendingTx(tx: StacksTx) {
   return tx.tx_status === 'pending';
 }
+
+export enum StacksTransactionActionType {
+  Cancel = 'cancel',
+  IncreaseFee = 'increase-fee',
+}

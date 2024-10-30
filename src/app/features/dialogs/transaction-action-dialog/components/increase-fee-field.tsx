@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 
-import { useField } from 'formik';
+import { ActivitySelectors } from '@tests/selectors/activity.selectors';
 import { Stack, styled } from 'leather-styles/jsx';
 
 import { microStxToStx, stxToMicroStx } from '@leather.io/utils';
@@ -10,26 +11,28 @@ import { ErrorLabel } from '@app/components/error-label';
 import { FeeMultiplier } from './fee-multiplier';
 
 interface IncreaseFeeFieldProps {
-  currentFee: number;
+  initialFee: number;
 }
-export function IncreaseFeeField(props: IncreaseFeeFieldProps): React.JSX.Element {
-  const { currentFee } = props;
-  const [field, meta, helpers] = useField('fee');
+export function IncreaseFeeField({ initialFee }: IncreaseFeeFieldProps): React.JSX.Element {
   const [modified, setModified] = useState(false);
+  const { getValues, getFieldState, setValue, formState, register } = useFormContext();
+  const value = getValues('fee');
+  const fieldState = getFieldState('fee', formState);
+  const error = fieldState.error;
 
   const showResetMultiplier = useMemo(() => {
     if (modified) return true;
-    if (!currentFee) return false;
-    return stxToMicroStx(field.value).toNumber() !== currentFee;
-  }, [currentFee, modified, field.value]);
+    if (!value) return false;
+    return stxToMicroStx(value).toNumber() !== initialFee;
+  }, [modified, value, initialFee]);
 
   const onSelectMultiplier = useCallback(
     async (multiplier: number) => {
-      if (!currentFee) return;
+      if (!initialFee) return;
       setModified(multiplier !== 1);
-      await helpers.setValue(microStxToStx(currentFee * multiplier));
+      setValue('fee', microStxToStx(initialFee * multiplier).toNumber());
     },
-    [currentFee, helpers]
+    [initialFee, setModified, setValue]
   );
 
   return (
@@ -49,6 +52,7 @@ export function IncreaseFeeField(props: IncreaseFeeFieldProps): React.JSX.Elemen
           Fee
         </styled.label>
         <styled.input
+          data-testid={ActivitySelectors.TransactionActionFeeInput}
           _focus={{ border: 'focus' }}
           autoComplete="off"
           bg="transparent"
@@ -61,10 +65,10 @@ export function IncreaseFeeField(props: IncreaseFeeFieldProps): React.JSX.Elemen
           ring="none"
           textStyle="body.02"
           width="100%"
-          {...field}
+          {...register('fee')}
         />
       </Stack>
-      {meta.error && <ErrorLabel>{meta.error}</ErrorLabel>}
+      {error && <ErrorLabel>{error.message}</ErrorLabel>}
     </>
   );
 }
