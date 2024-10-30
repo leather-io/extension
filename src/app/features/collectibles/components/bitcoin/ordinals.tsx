@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
 
-import { useInscriptions } from '@leather.io/query';
-
 import { analytics } from '@shared/utils/analytics';
 
 import { useInscriptions } from '@app/query/bitcoin/ordinals/inscriptions/inscriptions.query';

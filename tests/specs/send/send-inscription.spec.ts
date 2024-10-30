@@ -11,11 +11,16 @@ import { FormErrorMessages } from '@shared/error-messages';
 
 import { test } from '../../fixtures/fixtures';
 
-test.describe('send inscription', () => {
+const mockInscriptionResp = {
+  ...mockInscriptionResponse3,
+  owner_wallet_addr: TEST_TESTNET_ACCOUNT_2_TAPROOT_ADDRESS,
+};
+
+test.describe('Send inscription', () => {
   test.beforeEach(async ({ extensionId, globalPage, onboardingPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
-    await mockTestnetTestAccountInscriptionsRequests(globalPage.page, [mockInscriptionResponse3]);
+    await mockTestnetTestAccountInscriptionsRequests(globalPage.page, [mockInscriptionResp]);
   });
 
   test.describe('valid send inscription data', () => {
@@ -73,7 +78,10 @@ test.describe('send inscription', () => {
       sendPage,
     }) => {
       await mockTestnetTestAccountInscriptionsRequests(globalPage.page, [
-        mockInscriptionResponseNonZeroOffset,
+        {
+          ...mockInscriptionResponseNonZeroOffset,
+          owner_wallet_addr: TEST_TESTNET_ACCOUNT_2_TAPROOT_ADDRESS,
+        },
       ]);
       await homePage.selectTestnet();
       await sendPage.selectInscription();
@@ -95,8 +103,8 @@ test.describe('send inscription', () => {
     sendPage,
   }) => {
     await mockTestnetTestAccountInscriptionsRequests(globalPage.page, [
-      mockInscriptionResponse3,
-      mockInscriptionResponse3,
+      mockInscriptionResp,
+      mockInscriptionResp,
     ]);
     await homePage.selectTestnet();
     await sendPage.selectInscription();
