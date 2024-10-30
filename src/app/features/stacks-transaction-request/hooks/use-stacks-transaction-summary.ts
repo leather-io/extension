@@ -12,10 +12,7 @@ import {
 import BigNumber from 'bignumber.js';
 
 import type { CryptoCurrency } from '@leather.io/models';
-import {
-  useCryptoCurrencyMarketDataMeanAverage,
-  useGetStacksNetworkBlockTimeQuery,
-} from '@leather.io/query';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import {
   baseCurrencyAmountInQuote,
   convertToMoneyTypeWithDefaultOfZero,
@@ -26,15 +23,11 @@ import {
   microStxToStx,
 } from '@leather.io/utils';
 
-import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
 import { removeTrailingNullCharacters } from '@app/common/utils';
-import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 export function useStacksTransactionSummary(token: CryptoCurrency) {
   // TODO: unsafe type assumption
   const tokenMarketData = useCryptoCurrencyMarketDataMeanAverage(token as 'BTC' | 'STX');
-  const { isTestnet } = useCurrentNetworkState();
-  const { data: blockTime } = useGetStacksNetworkBlockTimeQuery();
 
   function formSentSummaryTxState(txId: string, signedTx: StacksTransaction, decimals?: number) {
     return {
@@ -64,7 +57,6 @@ export function useStacksTransactionSummary(token: CryptoCurrency) {
       recipient: addressToString(payload.recipient.address),
       fee: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(fee))),
       totalSpend: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue + fee))),
-      arrivesIn: getEstimatedConfirmationTime(isTestnet, blockTime),
       symbol: 'STX',
       txValue: microStxToStx(Number(txValue)).toString(),
       sendingValue: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue))),
@@ -109,7 +101,6 @@ export function useStacksTransactionSummary(token: CryptoCurrency) {
 
     return {
       recipient: cvToString(payload.functionArgs[2]),
-      arrivesIn: getEstimatedConfirmationTime(isTestnet, blockTime),
       txValue: new BigNumber(txValue).shiftedBy(-decimals).toString(),
       nonce: String(tx.auth.spendingCondition.nonce),
       fee: feeValue,
