@@ -16,7 +16,6 @@ export function CollectiblesLayout({
   isLoading,
   onRefresh,
   subHeader,
-
   children,
 }: CollectiblesLayoutProps) {
   return (
