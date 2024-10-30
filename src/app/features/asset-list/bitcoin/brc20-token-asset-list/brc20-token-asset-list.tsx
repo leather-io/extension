@@ -58,7 +58,7 @@ export function Brc20TokenAssetList({
 
   return (
     <Stack data-testid={CryptoAssetSelectors.CryptoAssetList}>
-      {tokens.map(token => {
+      {tokens.map((token, i) => {
         const key = token.info.symbol;
         const captionLeft = token.info.name.toUpperCase();
         const icon = <Brc20AvatarIcon />;
@@ -66,7 +66,7 @@ export function Brc20TokenAssetList({
 
         return (
           <CryptoAssetItem
-            key={key}
+            key={key + i}
             isToggleMode={assetRightElementVariant === 'toggle'}
             toggleProps={{
               captionLeft,
