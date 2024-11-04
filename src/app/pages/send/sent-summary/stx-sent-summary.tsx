@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom';
 
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Stack } from 'leather-styles/jsx';
 
 import { analytics } from '@shared/utils/analytics';
@@ -54,6 +55,7 @@ export function StxSentSummary() {
       <Content>
         <Page>
           <Card
+            data-testid={SendCryptoAssetSelectors.SentTransactionSummary}
             contentStyle={{
               p: 'space.00',
             }}
