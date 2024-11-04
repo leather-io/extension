@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 import {
-  mockStacksBroadcastCancelTransaction,
+  mockStacksBroadcastTransaction,
   mockStacksPendingTransaction,
   mockStacksRawTx,
   mockTestAccountStacksTxsRequestsWithPendingTx,
@@ -9,13 +9,13 @@ import { ActivitySelectors } from '@tests/selectors/activity.selectors';
 
 import { test } from '../../fixtures/fixtures';
 
-test.describe('manage transaction', () => {
+test.describe('Manage transaction', () => {
   test.beforeEach(async ({ homePage, extensionId, globalPage, onboardingPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await mockTestAccountStacksTxsRequestsWithPendingTx(globalPage.page);
     await mockStacksRawTx(globalPage.page);
     await mockStacksPendingTransaction(globalPage.page);
-    await mockStacksBroadcastCancelTransaction(globalPage.page);
+    await mockStacksBroadcastTransaction(globalPage.page);
     await onboardingPage.signInWithTestAccount(extensionId);
 
     await homePage.clickActivityTab();
