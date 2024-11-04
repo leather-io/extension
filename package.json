@@ -177,7 +177,7 @@
     "@stacks/profile": "6.15.0",
     "@stacks/rpc-client": "1.0.3",
     "@stacks/storage": "6.15.0",
-    "@stacks/transactions": "6.15.0",
+    "@stacks/transactions": "6.17.0",
     "@stacks/wallet-sdk": "6.15.0",
     "@stitches/react": "1.2.8",
     "@storybook/addon-styling-webpack": "1.0.0",
