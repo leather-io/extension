@@ -14,6 +14,8 @@ import { feedbackIntegration } from '@sentry/browser';
 import * as Sentry from '@sentry/react';
 import { token } from 'leather-styles/tokens';
 
+import { configureAnalyticsClient } from '@leather.io/analytics';
+
 import {
   IS_TEST_ENV,
   SEGMENT_WRITE_KEY,
@@ -21,14 +23,21 @@ import {
   WALLET_ENVIRONMENT,
 } from '@shared/environment';
 
-export const analytics = new AnalyticsBrowser();
+const segmentClient = new AnalyticsBrowser();
+
+export const analytics = configureAnalyticsClient<AnalyticsBrowser>({
+  client: segmentClient,
+  defaultProperties: {
+    platform: 'mobile',
+  },
+});
 
 export function decorateAnalyticsEventsWithContext(
   getEventContextProperties: () => Record<string, unknown>
 ) {
-  void analytics.ready(
+  void analytics.client.ready(
     () =>
-      void analytics.addSourceMiddleware(({ payload, next }) => {
+      void analytics.client.addSourceMiddleware(({ payload, next }) => {
         Object.entries(getEventContextProperties()).forEach(([key, value]) => {
           payload.obj.context = payload.obj.context || {};
           payload.obj.context.ip = '0.0.0.0';
@@ -41,7 +50,7 @@ export function decorateAnalyticsEventsWithContext(
 }
 
 export function initAnalytics() {
-  return analytics.load(
+  return analytics.client.load(
     { writeKey: SEGMENT_WRITE_KEY },
     {
       integrations: {

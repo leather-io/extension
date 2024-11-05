@@ -184,9 +184,9 @@ export function useSignLedgerBitcoinTx() {
       // exist, and we want the user to proceed, despite the warning.
       try {
         await addNativeSegwitUtxoHexLedgerProps(psbt, nativeSegwitInputsToSign);
-        void analytics.track('successfully_added_native_segwit_tx_hex_to_ledger_tx');
+        void analytics.track('native_segwit_tx_hex_to_ledger_tx', { success: true });
       } catch (e) {
-        void analytics.track('failed_to_add_native_segwit_tx_hex_to_ledger_tx');
+        void analytics.track('native_segwit_tx_hex_to_ledger_tx', { success: false });
       }
 
       await addNativeSegwitBip32Derivation(psbt, fingerprint, nativeSegwitInputsToSign);

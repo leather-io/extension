@@ -25,7 +25,7 @@ export function StacksCryptoAssets({ address }: StacksCryptoAssetsProps) {
       void analytics.track('view_collectibles', {
         stacks_nfts_count: stacksNftsMetadataResp.length,
       });
-      void analytics.identify({ stacks_nfts_count: stacksNftsMetadataResp.length });
+      void analytics.client.identify({ stacks_nfts_count: stacksNftsMetadataResp.length });
     }
   }, [stacksNftsMetadataResp.length]);
 

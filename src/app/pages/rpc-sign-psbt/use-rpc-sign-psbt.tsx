@@ -53,7 +53,9 @@ export function useRpcSignPsbt() {
     fee,
     tx,
   }: BroadcastSignedPsbtTxArgs) {
-    void analytics.track('user_approved_sign_and_broadcast_psbt', { origin });
+    void analytics.track('user_approved_sign_and_broadcast_psbt', {
+      origin: origin || 'no_origin',
+    });
 
     const transferTotalAsMoney = sumMoney([addressNativeSegwitTotal, addressTaprootTotal]);
 

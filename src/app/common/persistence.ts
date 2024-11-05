@@ -36,7 +36,7 @@ export const queryClient = new QueryClient({
           hash: query.queryHash,
           error: error.toJSON(),
         };
-        void analytics.track('api_error', errorReport);
+        void analytics.untypedTrack('api_error', errorReport);
       }
 
       if (isZodError(error)) {

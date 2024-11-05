@@ -32,7 +32,7 @@ export function ReceiveBtcModal({ type = 'btc' }: ReceiveBtcModalType) {
     <ReceiveTokensLayout
       address={btcAddress}
       onCopyAddressToClipboard={async () => {
-        void analytics.track('copy_btc_address_to_clipboard');
+        void analytics.track('copy_btc_address_to_clipboard', { type });
         await copyToClipboard(btcAddress);
         toast.success('Copied to clipboard!');
       }}

@@ -84,7 +84,7 @@ export function useHandleQueuedBackgroundAnalytics() {
         if (!events.length) return;
         await chrome.storage.local.remove(analyticsEventKey);
         await Promise.all(
-          events.map(({ eventName, properties }) => analytics.track(eventName, properties))
+          events.map(({ eventName, properties }) => analytics.untypedTrack(eventName, properties))
         );
       } catch (e) {
         void analytics.track('background_analytics_schema_fail');

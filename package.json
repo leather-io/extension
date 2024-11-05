@@ -145,6 +145,7 @@
     "@fungible-systems/zone-file": "2.0.0",
     "@hirosystems/token-metadata-api-client": "1.2.0",
     "@hookform/resolvers": "3.9.1",
+    "@leather.io/analytics": "2.0.0",
     "@leather.io/bitcoin": "0.16.0",
     "@leather.io/constants": "0.13.0",
     "@leather.io/crypto": "1.6.7",

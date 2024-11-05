@@ -84,7 +84,7 @@ export function useBreakOnNonCompliantEntity(address: string | string[]) {
   ]);
 
   if (complianceReports.some(report => report.data?.isOnSanctionsList)) {
-    void analytics.track('non_compliant_entity_detected');
+    void analytics.track('non_compliant_entity_detected', { address });
     throw new Error(compliantErrorBody);
   }
 }
