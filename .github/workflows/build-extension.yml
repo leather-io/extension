@@ -78,19 +78,19 @@ jobs:
       - name: Extract and sanitize branch name
         id: extract_branch
         run: |
-          sanitized_branch=$(echo ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}} | sed 's/[^a-zA-Z0-9_-]/-/g')
+          sanitized_branch=$(echo ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
           echo "BRANCH_NAME=${sanitized_branch}" >> $GITHUB_ENV
 
       - name: Storybook parsed branch name
         id: storybook_branch
-        run: echo "STORYBOOK_BRANCH=${{ env.BRANCH_NAME }}" >> $GITHUB_ENV
+        run: echo "STORYBOOK_BRANCH=${{ env.BRANCH_NAME }}" | sed 's/[^a-zA-Z0-9_-]/-/g') >> $GITHUB_ENV
 
       - uses: kyranjamie/pull-request-fixed-header@v1.0.1
         env:
           EXTENSION_BUILD_LINK: '[Extension build](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})'
           TEST_REPORT_LINK: '[Test report](https://leather-io.github.io/playwright-reports/${{ env.BRANCH_NAME }})'
-          STORYBOOK_LINK: '[Storybook](https://${{ env.BRANCH_NAME }}--65982789c7e2278518f189e7.chromatic.com)'
-          CHROMATIC_LINK: '[Chromatic](https://www.chromatic.com/library?appId=65982789c7e2278518f189e7&branch=${{ env.BRANCH_NAME }})'
+          STORYBOOK_LINK: '[Storybook](https://${{ env.STORYBOOK_BRANCH }}--65982789c7e2278518f189e7.chromatic.com)'
+          CHROMATIC_LINK: '[Chromatic](https://www.chromatic.com/library?appId=65982789c7e2278518f189e7&branch=${{ env.STORYBOOK_BRANCH }})'
         with:
           GITHUB_TOKEN: ${{ secrets.LEATHER_BOT }}
           header: |
