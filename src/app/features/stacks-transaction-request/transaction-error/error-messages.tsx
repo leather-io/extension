@@ -27,7 +27,7 @@ function InsufficientFundsActionButtons({ eventName }: InsufficientFundsActionBu
   const [isShowingSwitchAccount, setIsShowingSwitchAccount] = useState(false);
 
   const onGetStx = () => {
-    void analytics.track(eventName);
+    void analytics.untypedTrack(eventName);
     closeWindow();
     void chrome.tabs.create({ url: 'index.html#/fund' });
   };

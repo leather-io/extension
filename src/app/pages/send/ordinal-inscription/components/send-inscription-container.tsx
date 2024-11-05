@@ -54,12 +54,12 @@ export function SendInscriptionContainer() {
       iterationLimit: 100,
     })(routeState.inscription.address);
 
-    void analytics.track('recurse_addresses_to_find_derivation_path', {
+    void analytics.untypedTrack('recurse_addresses_to_find_derivation_path', {
       duration: result.duration,
     });
 
     if (result.status !== 'success') {
-      void analytics.track('error_did_not_find_owner_path_of_inscription', {
+      void analytics.untypedTrack('error_did_not_find_owner_path_of_inscription', {
         inscription: routeState.inscription.id,
       });
       throw new Error('Unable to find key of owner inscription address');

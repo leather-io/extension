@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { decodeBitcoinTx } from '@leather.io/bitcoin';
 import type { CryptoCurrency } from '@leather.io/models';
 import {
   useBitcoinBroadcastTransaction,
@@ -56,7 +55,6 @@ export function RpcSendTransferConfirmation() {
   const { filteredUtxosQuery } = useCurrentNativeSegwitUtxos();
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
 
-  const psbt = decodeBitcoinTx(tx);
   const transferAmount = sumMoney(recipients.map(r => r.amount));
   const txFiatValue = i18nFormatCurrency(baseCurrencyAmountInQuote(transferAmount, btcMarketData));
   const txFiatValueSymbol = btcMarketData.price.symbol;
@@ -96,10 +94,7 @@ export function RpcSendTransferConfirmation() {
       async onSuccess(txid) {
         void analytics.track('broadcast_transaction', {
           symbol: 'btc',
-          amount: transferAmount,
-          fee,
-          inputs: psbt.inputs.length,
-          outputs: psbt.inputs.length,
+          amount: transferAmount.amount.toNumber(),
         });
         await filteredUtxosQuery.refetch();
 
