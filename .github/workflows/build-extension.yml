@@ -78,12 +78,14 @@ jobs:
       - name: Extract and sanitize branch name
         id: extract_branch
         run: |
-          sanitized_branch=$(echo ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+          sanitized_branch=$(echo ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}})
           echo "BRANCH_NAME=${sanitized_branch}" >> $GITHUB_ENV
 
       - name: Storybook parsed branch name
         id: storybook_branch
-        run: echo "STORYBOOK_BRANCH=${{ env.BRANCH_NAME }}" | sed 's/[^a-zA-Z0-9_-]/-/g') >> $GITHUB_ENV
+        run: |
+          sanitized_branch=$(echo ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}} | sed 's/[^a-zA-Z0-9_-]/-/g')
+          echo "STORYBOOK_BRANCH=${{ env.BRANCH_NAME }}" >> $GITHUB_ENV
 
       - uses: kyranjamie/pull-request-fixed-header@v1.0.1
         env:
