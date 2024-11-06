@@ -75,6 +75,7 @@ const selectStacksWalletState = createSelector(
   (keychain, chain) => {
     if (!keychain) return;
     const { highestAccountIndex, currentAccountIndex } = chain[defaultWalletKeyId];
+    // PETE check this as the place we need to get all accounts
     const numberOfAccountsToDerive = Math.max(highestAccountIndex, currentAccountIndex) + 1;
     return createNullArrayOfLength(numberOfAccountsToDerive).map((_, index) =>
       initalizeStacksAccount(keychain, index)

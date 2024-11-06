@@ -28,6 +28,7 @@ export const stxChainSlice = createSlice({
       state.default.highestAccountIndex += 1;
       state.default.currentAccountIndex = state.default.highestAccountIndex;
     },
+    // PETE check this as the place we need to get all accounts
     restoreAccountIndex(state, action: PayloadAction<number>) {
       state.default.highestAccountIndex = action.payload;
     },

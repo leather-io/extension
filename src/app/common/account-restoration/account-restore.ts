@@ -29,6 +29,10 @@ interface RecurseAccountsForActivityArgs {
   doesAddressHaveActivityFn(index: number): Promise<boolean>;
 }
 
+// PETE this is the nuts and bolts of the restore
+// must need to recurse all accounts to check for activity to then restore a set number of accounts
+// original pr was https://github.com/leather-io/extension/pull/3026
+
 /**
  * Used to recursively look for account activity. The use case is that, when
  * restoring an account, we want to know how many accounts to generate. This

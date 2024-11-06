@@ -71,6 +71,10 @@ function setWalletEncryptionPassword(args: {
       return resp.length > 0;
     }
 
+    // PETE this seems to be the nuts and bolts of the restore
+    // must need to recurse all accounts to check for activity to then restore a set number of accounts
+    // original pr was https://github.com/leather-io/extension/pull/3026
+
     // Performs a recursive check for account activity. When activity is found
     // at a higher index than what is found on Gaia (long-term wallet users), we
     // update the highest known account index that the wallet generates. This
