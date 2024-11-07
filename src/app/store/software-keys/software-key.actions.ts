@@ -104,7 +104,11 @@ function setWalletEncryptionPassword(args: {
           return hasStxBalance || hasNames || hasBtcBalance;
         },
       }).then(recursiveActivityIndex => {
-        logger.info('recursiveActivityIndex', recursiveActivityIndex, legacyAccountActivityLookup);
+        logger.info(
+          'Restore: recursiveActivityIndex',
+          recursiveActivityIndex,
+          legacyAccountActivityLookup
+        );
         if (recursiveActivityIndex <= legacyAccountActivityLookup) return;
         logger.info('Found account activity at higher index', { recursiveActivityIndex });
         console.log('Restore: Legacy recurseAccountsForActivity', legacyAccountActivityLookup);
@@ -124,11 +128,8 @@ function setWalletEncryptionPassword(args: {
     );
     // gets called after createSoftwareWalletComplete triggers and restores legacy accounts
     if (legacyAccountActivityLookup !== 0) {
-      console.log(
-        'Restore: Legacy createSoftwareWalletComplete legacyAccountActivityLookup !== 0',
-        legacyAccountActivityLookup
-      );
-      dispatch(stxChainSlice.actions.restoreAccountIndex(legacyAccountActivityLookup));
+      console.log('Restore: legacyAccountActivityLookup !== 0', legacyAccountActivityLookup);
+      // dispatch(stxChainSlice.actions.restoreAccountIndex(legacyAccountActivityLookup));
     }
   };
 }
