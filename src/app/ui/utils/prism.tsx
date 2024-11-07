@@ -1,5 +1,6 @@
 import { CSSProperties } from 'react';
 
+import { token } from 'leather-styles/tokens';
 import { PrismTheme } from 'prism-react-renderer';
 
 export interface GrammaticalToken {
@@ -89,74 +90,43 @@ export type Language =
 
 export const theme: PrismTheme = {
   plain: {
-    color: 'unset',
-    background: 'transparent',
+    color: token('colors.ink.text-primary'),
   },
   styles: [
     {
-      types: ['prolog'],
-      style: {
-        color: 'rgb(0, 0, 128)',
-      },
-    },
-    {
       types: ['comment', 'punctuation'],
       style: {
-        color: 'rgb(106, 153, 85)',
-      },
-    },
-    {
-      types: ['builtin', 'tag', 'changed', 'function', 'keyword'],
-      style: {
-        color: 'rgb(86, 156, 214)',
-      },
-    },
-    {
-      types: ['number', 'variable', 'inserted'],
-      style: {
-        color: '#A58FFF',
+        color: token('colors.ink.text-subdued'),
       },
     },
     {
       types: ['operator'],
       style: {
-        color: 'rgb(212, 212, 212)',
+        color: token('colors.ink.text-primary'),
       },
     },
     {
-      types: ['constant'],
+      types: ['builtin', 'tag', 'changed', 'keyword'],
       style: {
-        color: 'rgb(100, 102, 149)',
+        color: token('colors.yellow.action-primary-default'),
       },
     },
     {
-      types: ['attr-name'],
+      types: ['function'],
       style: {
-        color: 'rgb(156, 220, 254)',
+        color: token('colors.red.action-primary-default'),
       },
     },
     {
-      types: ['car'],
+      types: ['number', 'variable', 'inserted'],
       style: {
-        color: 'rgb(156, 220, 254)',
+        color: token('colors.yellow.action-primary-default'),
       },
     },
     {
-      types: ['deleted', 'string'],
+      types: ['deleted', 'string', 'symbol', 'char'],
       style: {
-        color: '#FF7B48',
-      },
-    },
-    {
-      types: ['class-name'],
-      style: {
-        color: 'rgb(78, 201, 176)',
-      },
-    },
-    {
-      types: ['char'],
-      style: {
-        color: '#FF7B48',
+        color: token('colors.green.action-primary-default'),
       },
     },
   ],

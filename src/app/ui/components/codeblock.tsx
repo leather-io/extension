@@ -12,7 +12,7 @@ export const CodeBlock = forwardRef(
     ref: React.Ref<HTMLDivElement>
   ) => (
     <Box
-      bg="invert"
+      bg="ink.background-primary"
       borderRadius={[0, 'lg']}
       overflowX="auto"
       p="space.04"
