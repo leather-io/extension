@@ -1,23 +1,18 @@
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { Box, BoxProps } from 'leather-styles/jsx';
 
-import { AddressDisplayer } from '@leather.io/ui';
+import { AddressDisplayer, type AddressDisplayerProps } from '@leather.io/ui';
 
-interface FormAddressDisplayerProps extends BoxProps {
-  address: string;
-}
+type FormAddressDisplayerProps = AddressDisplayerProps;
+
 export function FormAddressDisplayer({ address, ...rest }: FormAddressDisplayerProps) {
   return (
-    <Box
+    <AddressDisplayer
       data-testid={SharedComponentsSelectors.AddressDisplayer}
-      display="flex"
-      flexWrap="wrap"
-      justifyContent="end"
+      address={address}
       maxWidth="300px"
+      justifyContent="end"
       mr="-8px"
       {...rest}
-    >
-      <AddressDisplayer address={address} />
-    </Box>
+    />
   );
 }

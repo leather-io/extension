@@ -71,15 +71,13 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
               {accountName}
             </styled.span>
           )}
-          <Flex
+          <AddressDisplayer
             data-testid={SharedComponentsSelectors.AddressDisplayer}
-            flexWrap="wrap"
+            address={address}
             justifyContent="center"
             maxWidth="300px"
             mt="space.04"
-          >
-            <AddressDisplayer address={address} />
-          </Flex>
+          />
         </Flex>
       </Flex>
     </Sheet>
