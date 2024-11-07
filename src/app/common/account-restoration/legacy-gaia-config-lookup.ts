@@ -13,6 +13,7 @@ import { gaiaUrl as gaiaHubUrl } from '@shared/constants';
 // accounts. Here, we only care to find the number of accounts a user has
 // generated, with no other side effects.
 export async function checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex(secretKey: string) {
+  console.log('checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex', secretKey);
   try {
     const wallet = await generateWallet({ secretKey, password: '' });
     const hubInfo = await getHubInfo(gaiaHubUrl);

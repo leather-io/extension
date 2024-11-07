@@ -47,6 +47,9 @@ function setWalletEncryptionPassword(args: {
 
     const legacyAccountActivityLookup =
       await checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex(secretKey);
+    // maybe dev account has this legacy stuff - it does and this returns 123
+    // >PETE add this check on mobile as probably a load of legacy accounts we need
+    console.log('legacyAccountActivityLookup', legacyAccountActivityLookup);
 
     async function doesStacksAddressHaveBalance(address: string) {
       const controller = new AbortController();
@@ -80,7 +83,8 @@ function setWalletEncryptionPassword(args: {
     // update the highest known account index that the wallet generates. This
     // action is performed outside this Promise's execution, as it may be slow,
     // and the user shouldn't have to wait before being directed to homepage.
-    logger.info('Initiating recursive account activity lookup');
+    logger.info('Initiating recursive account activity lookup', legacyAccountActivityLookup);
+    logger.info('Greetings from software-key.actions.ts');
     try {
       void recurseAccountsForActivity({
         async doesAddressHaveActivityFn(index) {
@@ -90,6 +94,9 @@ function setWalletEncryptionPassword(args: {
           )(index);
           const hasStxBalance = await doesStacksAddressHaveBalance(stxAddress);
           const hasNames = await doesStacksAddressHaveBnsName(stxAddress);
+          // this recurses on after account creation but mine just seems to stop / not keep going
+          // >Pete here
+          console.log('Restore: hasStxBalance', stxAddress, hasStxBalance, hasNames);
 
           const btcAddress = getNativeSegwitMainnetAddressFromMnemonic(secretKey)(index);
           const hasBtcBalance = await doesBitcoinAddressHaveBalance(btcAddress.address!);
@@ -97,8 +104,10 @@ function setWalletEncryptionPassword(args: {
           return hasStxBalance || hasNames || hasBtcBalance;
         },
       }).then(recursiveActivityIndex => {
+        logger.info('recursiveActivityIndex', recursiveActivityIndex, legacyAccountActivityLookup);
         if (recursiveActivityIndex <= legacyAccountActivityLookup) return;
         logger.info('Found account activity at higher index', { recursiveActivityIndex });
+        console.log('Restore: Legacy recurseAccountsForActivity', legacyAccountActivityLookup);
         dispatch(stxChainSlice.actions.restoreAccountIndex(recursiveActivityIndex));
       });
     } catch (e) {
@@ -113,8 +122,14 @@ function setWalletEncryptionPassword(args: {
         encryptedSecretKey,
       })
     );
-    if (legacyAccountActivityLookup !== 0)
+    // gets called after createSoftwareWalletComplete triggers and restores legacy accounts
+    if (legacyAccountActivityLookup !== 0) {
+      console.log(
+        'Restore: Legacy createSoftwareWalletComplete legacyAccountActivityLookup !== 0',
+        legacyAccountActivityLookup
+      );
       dispatch(stxChainSlice.actions.restoreAccountIndex(legacyAccountActivityLookup));
+    }
   };
 }
 

@@ -17,6 +17,7 @@ import { networksActions } from './networks.actions';
 import { selectAppRequestedNetworkId, useCurrentNetwork } from './networks.selectors';
 import { PersistedNetworkConfiguration } from './networks.slice';
 
+// PETE this function is in the query package slightly modified (no nakamoto testnet)
 export function useCurrentNetworkState() {
   const currentNetwork = useCurrentNetwork();
 
