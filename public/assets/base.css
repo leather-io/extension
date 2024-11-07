@@ -22,26 +22,21 @@
 @font-face {
   font-family: 'Marche';
   src: url('./fonts/marche/marche-super-pro.woff2') format('woff2');
-  line-height: 44px;
   font-weight: 800;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Fira Code';
-  src:
-    url('./fonts/fira-code/woff2/FiraCode-Light.woff2') format('woff2'),
-    url('./fonts/fira-code/woff/FiraCode-Light.woff') format('woff');
-  font-weight: 300;
+  src: url('./fonts/fira-code/FiraCode-Retina.woff2') format('woff2');
+  font-weight: 450;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Fira Code';
-  src:
-    url('./fonts/fira-code/woff2/FiraCode-Regular.woff2') format('woff2'),
-    url('./fonts/fira-code/woff/FiraCode-Regular.woff') format('woff');
-  font-weight: 400;
+  src: url('./fonts/fira-code/FiraCode-Medium.woff2') format('woff2');
+  font-weight: 500;
   font-style: normal;
 }
 
