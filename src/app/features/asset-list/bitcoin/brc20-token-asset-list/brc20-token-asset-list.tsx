@@ -5,6 +5,7 @@ import { Stack } from 'leather-styles/jsx';
 
 import type { Brc20CryptoAssetInfo, CryptoAssetBalance, MarketData } from '@leather.io/models';
 import { Brc20AvatarIcon } from '@leather.io/ui';
+import { getAssetDisplayName } from '@leather.io/utils';
 
 import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
 import { useManageTokens } from '@app/common/hooks/use-manage-tokens';
@@ -60,7 +61,7 @@ export function Brc20TokenAssetList({
     <Stack data-testid={CryptoAssetSelectors.CryptoAssetList}>
       {tokens.map(token => {
         const key = token.info.symbol;
-        const captionLeft = token.info.name.toUpperCase();
+        const captionLeft = getAssetDisplayName(token.info).toUpperCase();
         const icon = <Brc20AvatarIcon />;
         const titleLeft = token.info.symbol;
 

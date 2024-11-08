@@ -55,11 +55,11 @@ importers:
         specifier: 1.6.7
         version: 1.6.7
       '@leather.io/models':
-        specifier: 0.18.3
-        version: 0.18.3
+        specifier: 0.19.0
+        version: 0.19.0
       '@leather.io/query':
-        specifier: 2.19.0
-        version: 2.19.0(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
+        specifier: 2.20.0
+        version: 2.20.0(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
       '@leather.io/stacks':
         specifier: 1.3.0
         version: 1.3.0(encoding@0.1.13)
@@ -70,8 +70,8 @@ importers:
         specifier: 1.32.1
         version: 1.32.1(@babel/core@7.26.0)(@babel/preset-env@7.25.4(@babel/core@7.26.0))(@emotion/is-prop-valid@1.3.1)(@types/react-dom@18.3.0)(@types/react@18.3.10)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)
       '@leather.io/utils':
-        specifier: 0.16.7
-        version: 0.16.7
+        specifier: 0.17.0
+        version: 0.17.0
       '@ledgerhq/hw-transport-webusb':
         specifier: 6.27.19
         version: 6.27.19
@@ -3076,6 +3076,9 @@ packages:
   '@leather.io/bitcoin@0.16.0':
     resolution: {integrity: sha512-rUAx9T7I7rQXDjEq1N1A17blwMGmopZ9DXZ9oMSmyLax/4AadPmyCxFzomdrz8awwLNk6S6/CMw+AhL3zzCgGQ==}
 
+  '@leather.io/bitcoin@0.16.1':
+    resolution: {integrity: sha512-GOOhJe9iHWS/bDJWoIuuR8nANf11DX/u86StkhY9PCcoQJ7yaklBvV4tZUOAp2BcX53XyTZ2rB08pLyxExIWPA==}
+
   '@leather.io/constants@0.13.0':
     resolution: {integrity: sha512-OiC7bx1ceheaDFWfH2omDng9qGGbd2Mb1Y3fZUvKrcCep58hGdO+a9W2eqTEKbVF/yTE93DtEbpfYcno5ma0gQ==}
 
@@ -3084,6 +3087,9 @@ packages:
 
   '@leather.io/crypto@1.6.7':
     resolution: {integrity: sha512-0Gs0DM92E+hZPNhu95a9a41KlSjva5uVqzLUKoNTDezioPMQHdKg4moIrQ/J4aSGUy40t1U8merBQxOKnBd3LA==}
+
+  '@leather.io/crypto@1.6.8':
+    resolution: {integrity: sha512-vPqIG+c6KEkJTc1A9/Kp0FXjaTAG6GWwJnXgTecdNz1wwHh3W2sEygxxP6jOZXNfhndwz8+rGWjy213g98MEEg==}
 
   '@leather.io/eslint-config@0.7.0':
     resolution: {integrity: sha512-4K7olfSC+mJnG90TSaLIlytp14yDprGXwe1+oP9TLQbuPFpJai3/+g5Bp/FeUC4NZ23UVbAlGXFCav2amBb77w==}
@@ -3100,8 +3106,8 @@ packages:
   '@leather.io/prettier-config@0.6.0':
     resolution: {integrity: sha512-QBKtLanfxFxXBlR58U/j8a6lBI0xzJzqqi36fXpGVp+9mJoEf6Ro6xrtFrixjW6seY6EOva4OApVnnPBsvOC/w==}
 
-  '@leather.io/query@2.19.0':
-    resolution: {integrity: sha512-/e01P/qk75FQRCnRCRCbm7tqkN3/BHaMDM53lq0XN5P7LaLje4y3HhzeQv4JhDYpxlyhspkN/HuaB00rSzYkNQ==}
+  '@leather.io/query@2.20.0':
+    resolution: {integrity: sha512-2mX81Nj5m7U9m+T67bfgqPs5yGRf02+w0MmK6ciw6PBqV5Kba4vqP2wGN0Hx6bcKzSrWOtLnHQA0GLPRVavs9Q==}
     peerDependencies:
       react: '*'
 
@@ -4937,6 +4943,9 @@ packages:
   '@stacks/auth@6.15.0':
     resolution: {integrity: sha512-foL5tXWGhOxtU8t/sGnQB+mFPYL22Zy+kZvdhce/qwev+whx/DhJJtwdF9xnFk3ZZ9XE0dQGwxiddE/q7GZ7Pw==}
 
+  '@stacks/auth@7.0.0':
+    resolution: {integrity: sha512-p0/FJy5jRRgtsVzGpWDgNE0fi/ioPCL3S1tZHRsvdKO7moquHWnTlBV/9yVkGbd+V0kD95Sd0euX5pwWA82MhA==}
+
   '@stacks/blockchain-api-client@6.3.4':
     resolution: {integrity: sha512-4O9qe7m2XKG8PNZ9n5cvhji95IDZ29WO1X2ICgeBPdGc5Y0WGmo0wgIFAROh37pGSkBJsuJjy15ICdP47iy8+w==}
 
@@ -4949,6 +4958,9 @@ packages:
   '@stacks/common@6.16.0':
     resolution: {integrity: sha512-PnzvhrdGRMVZvxTulitlYafSK4l02gPCBBoI9QEoTqgSnv62oaOXhYAUUkTMFKxdHW1seVEwZsrahuXiZPIAwg==}
 
+  '@stacks/common@7.0.0':
+    resolution: {integrity: sha512-/BKBK9S9GEuGjbnc2fBAwsG21f8cfNekG/9mXLSMwBqnh4qaQY2hxK+6wRI2YXJgpkXrpZilpZy2sdPGlVUdQA==}
+
   '@stacks/connect-react@22.2.0':
     resolution: {integrity: sha512-sH4yzndaTzQ+NrdNKYbpYFmBSeATYAwFJ6PZM81/m1iTh4DSQIVGR1nTIFpbuC0ynIMcLB45/hhyPO8O/fYr9Q==}
     peerDependencies:
@@ -4958,14 +4970,23 @@ packages:
   '@stacks/connect-ui@6.1.1':
     resolution: {integrity: sha512-iSo57djIynmqt0jGlFkRFu2nHY/Nk0LmXKdRf/Whw1w/YbZD+CQJweHRh77XQOtAVbXZ1+e/klszxABevcPtPg==}
 
+  '@stacks/connect-ui@6.5.0':
+    resolution: {integrity: sha512-iXSpl2NxrjERBqtGgkZp0tX1uJgdWZXmsNo3I0cJYYTTbieSAE/Al9nTYc1wLTPW5w5oVvZEkQKo90WIrHR8Rw==}
+
   '@stacks/connect@7.4.0':
     resolution: {integrity: sha512-2jhTHL6Wi7Y/B1AwUuumUUE5F+/X7AvtbJ3BzsNVP7yB+yswmtjC3ZO3jYEohBcuAay5ysfNWUYdjfiXvp0NDQ==}
+
+  '@stacks/connect@7.8.0':
+    resolution: {integrity: sha512-whwHygS69XyY/LMvlyp0Whu4mkWkFoJ4Z/Bva9aO1xLLyEVDbKLZnslGWmPs1Io/y76oGEorqVEh0MeLymTIjg==}
 
   '@stacks/encryption@6.15.0':
     resolution: {integrity: sha512-506BdBvWhbXY1jxCdUcdbBzcSJctO2nzgzfenQwUuoBABSc1N/MFwQdlR9ZusY+E31zBxQPLfbr36V05/p2cfQ==}
 
   '@stacks/encryption@6.16.1':
     resolution: {integrity: sha512-DtVNNW/iipyxxRDz73S9DbLfRmBMqQCCog89F1Q1i6JUnl2kBB1PR9SPQfYv9zcAJ37oHoNB4i4b2tJWYr01vg==}
+
+  '@stacks/encryption@7.0.0':
+    resolution: {integrity: sha512-kQhiurn8s0DV6OALqEy2Aqwp2DNJUD41S1bnD/+UESyEDD5XRqL84MEo7mCL8pTPr+FVdhT+diEIPeAfEtbTPQ==}
 
   '@stacks/network@4.3.5':
     resolution: {integrity: sha512-TC4+AkuT6qi3MoEGxTftA+4BNp99QvGnI+qtKQkoA1m0KDr8b9hSBUhugJHRhQbWuo7D6q0+JagYEGxLID29Kw==}
@@ -4976,8 +4997,14 @@ packages:
   '@stacks/network@6.17.0':
     resolution: {integrity: sha512-numHbfKjwco/rbkGPOEz8+FcJ2nBnS/tdJ8R422Q70h3SiA9eqk9RjSzB8p4JP8yW1SZvW+eihADHfMpBuZyfw==}
 
+  '@stacks/network@7.0.0':
+    resolution: {integrity: sha512-4diddT0ii85BQ4PW6ww3l4cS7Oo0a5VIsJ7umBcCPAArIc4Sm/MIOEXIg9joKK8fVHLnWyh1p4D+febJQFfa+Q==}
+
   '@stacks/profile@6.15.0':
     resolution: {integrity: sha512-+m11HYHU45+f98FySsVmofeLFWxnhnwZ5jbREoD2f53fmBulsSbJpDUVg3w4aPdj6hg4+o7rkg09gbirIXNWBw==}
+
+  '@stacks/profile@7.0.0':
+    resolution: {integrity: sha512-E9RDodVgcLBs6ZiV88lVQyDjA8ZDVPswbPpLNHeAA+evJ2GwRKMJrNnirjydMI37aWm3ZpYOEMLMbqdi38VR7w==}
 
   '@stacks/rpc-client@1.0.3':
     resolution: {integrity: sha512-lao7MKCq39VA86v2rJzmgjHKG5bg9LWdLSzvktuEy3lfatVki/hRm6sitkmNhYVcdUVp3YV9gyW6mvu7U9weWw==}
@@ -4993,6 +5020,9 @@ packages:
 
   '@stacks/transactions@6.17.0':
     resolution: {integrity: sha512-FUah2BRgV66ApLcEXGNGhwyFTRXqX5Zco3LpiM3essw8PF0NQlHwwdPgtDko5RfrJl3LhGXXe/30nwsfNnB3+g==}
+
+  '@stacks/transactions@7.0.0':
+    resolution: {integrity: sha512-9kGTnJLwRQPugLzbdJ8MmFED+eRhlJKIXpz2mshyy238hvBc4T0jynsoJMi4qGqvJYzsiRYCLDPJVkkUde85vA==}
 
   '@stacks/wallet-sdk@6.15.0':
     resolution: {integrity: sha512-VBMiWe5UAyDnvc2w8/XN7QuSkbXTnAJ5rvtzedb7yXKgIBMSjE+gQnUm0XasbNDRHc58Ag76IAMAIKh4ZAMC4w==}
@@ -7403,6 +7433,9 @@ packages:
 
   bn.js@5.2.1:
     resolution: {integrity: sha512-eXRvHzWyYPBuB4NBy0cmYQjGitUrtqwbvlzP3G6VFnNRbsZQIxQ10PbKKHt8gZ/HW/D/747aDl+QkDqg3KQLMQ==}
+
+  bns-v2-sdk@1.3.1:
+    resolution: {integrity: sha512-Z5YtlFn1ZjOOgSGc+bLq6HJclNfB75G2ahEdW2W9S1D1Ly9+rWKnVn1ZYVhF8CUVCRmv6mnykJFQRo4eKlF6zQ==}
 
   body-parser@1.20.3:
     resolution: {integrity: sha512-7rAxByjUMqQ3/bHJy7D6OGXvx/MMc4IqBn/X0fcM1QUcAItpZrBEYhWGem+tzXH90c+G01ypMcYJBO9Y30203g==}
@@ -12431,17 +12464,17 @@ packages:
     resolution: {integrity: sha512-/bjOqmgETBYB5BoEeGVea8dmvHb2m9GLy1E9W43yeyfP6QQCZGFNa+XRceJEuDB6zqr+gKpIAmlLebMpykw/MQ==}
     engines: {node: '>=10'}
 
-  p-queue@7.4.1:
-    resolution: {integrity: sha512-vRpMXmIkYF2/1hLBKisKeVYJZ8S2tZ0zEAmIJgdVKP2nq0nh4qCdf8bgw+ZgKrkh71AOCaqzwbJJk1WtdcF3VA==}
-    engines: {node: '>=12'}
+  p-queue@8.0.1:
+    resolution: {integrity: sha512-NXzu9aQJTAzbBqOt2hwsR63ea7yvxJc0PwN/zobNAudYfb1B7R08SzB4TsLeSbUCuG467NhnoT0oO6w1qRO+BA==}
+    engines: {node: '>=18'}
 
   p-retry@4.6.2:
     resolution: {integrity: sha512-312Id396EbJdvRONlngUx0NydfrIQ5lsYu0znKVUzVvArzEIt08V1qhtyESbGVd1FGX7UKtiFp5uwKZdM8wIuQ==}
     engines: {node: '>=8'}
 
-  p-timeout@5.1.0:
-    resolution: {integrity: sha512-auFDyzzzGZZZdHz3BtET9VEz0SE/uMEAx7uWfGPucfzEwwe/xH0iVeZibQmANYE/hp9T2+UUZT5m+BKyrDp3Ew==}
-    engines: {node: '>=12'}
+  p-timeout@6.1.3:
+    resolution: {integrity: sha512-UJUyfKbwvr/uZSV6btANfb+0t/mOhKV/KXcCUTp8FcQI+v/0d+wXqH4htrW0E4rR6WiEO/EPvUFiV9D5OI4vlw==}
+    engines: {node: '>=14.16'}
 
   p-try@2.2.0:
     resolution: {integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==}
@@ -18748,6 +18781,29 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
+  '@leather.io/bitcoin@0.16.1(encoding@0.1.13)':
+    dependencies:
+      '@bitcoinerlab/secp256k1': 1.0.2
+      '@leather.io/constants': 0.13.1
+      '@leather.io/crypto': 1.6.8
+      '@leather.io/models': 0.19.0
+      '@leather.io/utils': 0.17.0
+      '@noble/hashes': 1.5.0
+      '@noble/secp256k1': 2.1.0
+      '@scure/base': 1.1.9
+      '@scure/bip32': 1.5.0
+      '@scure/bip39': 1.4.0
+      '@scure/btc-signer': 1.4.0
+      '@stacks/common': 6.13.0
+      '@stacks/transactions': 6.17.0(encoding@0.1.13)
+      bip32: 4.0.0
+      bitcoinjs-lib: 6.1.5
+      ecpair: 2.1.0
+      just-memoize: 2.2.0
+      varuint-bitcoin: 1.1.2
+    transitivePeerDependencies:
+      - encoding
+
   '@leather.io/constants@0.13.0':
     dependencies:
       '@leather.io/models': 0.18.3
@@ -18759,6 +18815,13 @@ snapshots:
   '@leather.io/crypto@1.6.7':
     dependencies:
       '@leather.io/utils': 0.16.7
+      '@scure/bip32': 1.5.0
+      '@scure/bip39': 1.4.0
+      just-memoize: 2.2.0
+
+  '@leather.io/crypto@1.6.8':
+    dependencies:
+      '@leather.io/utils': 0.17.0
       '@scure/bip32': 1.5.0
       '@scure/bip39': 1.4.0
       just-memoize: 2.2.0
@@ -18800,15 +18863,15 @@ snapshots:
       - '@vue/compiler-sfc'
       - supports-color
 
-  '@leather.io/query@2.19.0(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)':
+  '@leather.io/query@2.20.0(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)':
     dependencies:
       '@fungible-systems/zone-file': 2.0.0
       '@hirosystems/token-metadata-api-client': 1.2.0(encoding@0.1.13)
-      '@leather.io/bitcoin': 0.16.0(encoding@0.1.13)
-      '@leather.io/constants': 0.13.0
-      '@leather.io/models': 0.18.3
-      '@leather.io/rpc': 2.1.14
-      '@leather.io/utils': 0.16.7
+      '@leather.io/bitcoin': 0.16.1(encoding@0.1.13)
+      '@leather.io/constants': 0.13.1
+      '@leather.io/models': 0.19.0
+      '@leather.io/rpc': 2.1.15
+      '@leather.io/utils': 0.17.0
       '@noble/hashes': 1.5.0
       '@scure/base': 1.1.9
       '@scure/bip32': 1.5.0
@@ -18822,8 +18885,9 @@ snapshots:
       alex-sdk: 2.1.4(@stacks/network@6.13.0(encoding@0.1.13))(@stacks/transactions@6.17.0(encoding@0.1.13))
       axios: 1.7.4
       bignumber.js: 9.1.2
+      bns-v2-sdk: 1.3.1(encoding@0.1.13)
       lodash.get: 4.4.2
-      p-queue: 7.4.1
+      p-queue: 8.0.1
       react: 18.3.1
       url-join: 5.0.0
       uuid: 10.0.0
@@ -21887,6 +21951,18 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
+  '@stacks/auth@7.0.0(encoding@0.1.13)':
+    dependencies:
+      '@noble/secp256k1': 1.7.1
+      '@stacks/common': 7.0.0
+      '@stacks/encryption': 7.0.0
+      '@stacks/network': 7.0.0(encoding@0.1.13)
+      '@stacks/profile': 7.0.0(encoding@0.1.13)
+      cross-fetch: 3.1.8(encoding@0.1.13)
+      jsontokens: 4.0.1
+    transitivePeerDependencies:
+      - encoding
+
   '@stacks/blockchain-api-client@6.3.4(encoding@0.1.13)':
     dependencies:
       '@stacks/stacks-blockchain-api-types': 7.8.2
@@ -21918,6 +21994,8 @@ snapshots:
       '@types/bn.js': 5.1.6
       '@types/node': 18.19.56
 
+  '@stacks/common@7.0.0': {}
+
   '@stacks/connect-react@22.2.0(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@stacks/connect': 7.4.0(encoding@0.1.13)
@@ -21931,6 +22009,10 @@ snapshots:
     dependencies:
       '@stencil/core': 2.22.3
 
+  '@stacks/connect-ui@6.5.0':
+    dependencies:
+      '@stencil/core': 2.22.3
+
   '@stacks/connect@7.4.0(encoding@0.1.13)':
     dependencies:
       '@stacks/auth': 6.15.0(encoding@0.1.13)
@@ -21938,6 +22020,20 @@ snapshots:
       '@stacks/network': 6.13.0(encoding@0.1.13)
       '@stacks/profile': 6.15.0(encoding@0.1.13)
       '@stacks/transactions': 6.17.0(encoding@0.1.13)
+      jsontokens: 4.0.1
+    transitivePeerDependencies:
+      - encoding
+
+  '@stacks/connect@7.8.0(encoding@0.1.13)':
+    dependencies:
+      '@stacks/auth': 7.0.0(encoding@0.1.13)
+      '@stacks/common': 7.0.0
+      '@stacks/connect-ui': 6.5.0
+      '@stacks/network': 7.0.0(encoding@0.1.13)
+      '@stacks/network-v6': '@stacks/network@6.17.0(encoding@0.1.13)'
+      '@stacks/profile': 7.0.0(encoding@0.1.13)
+      '@stacks/transactions': 7.0.0(encoding@0.1.13)
+      '@stacks/transactions-v6': '@stacks/transactions@6.17.0(encoding@0.1.13)'
       jsontokens: 4.0.1
     transitivePeerDependencies:
       - encoding
@@ -21966,6 +22062,17 @@ snapshots:
       ripemd160-min: 0.0.6
       varuint-bitcoin: 1.1.2
 
+  '@stacks/encryption@7.0.0':
+    dependencies:
+      '@noble/hashes': 1.1.5
+      '@noble/secp256k1': 1.7.1
+      '@scure/bip39': 1.1.0
+      '@stacks/common': 7.0.0
+      base64-js: 1.5.1
+      bs58: 5.0.0
+      ripemd160-min: 0.0.6
+      varuint-bitcoin: 1.1.2
+
   '@stacks/network@4.3.5(encoding@0.1.13)':
     dependencies:
       '@stacks/common': 4.3.5
@@ -21987,11 +22094,29 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
+  '@stacks/network@7.0.0(encoding@0.1.13)':
+    dependencies:
+      '@stacks/common': 7.0.0
+      cross-fetch: 3.1.8(encoding@0.1.13)
+    transitivePeerDependencies:
+      - encoding
+
   '@stacks/profile@6.15.0(encoding@0.1.13)':
     dependencies:
       '@stacks/common': 6.13.0
       '@stacks/network': 6.13.0(encoding@0.1.13)
       '@stacks/transactions': 6.17.0(encoding@0.1.13)
+      jsontokens: 4.0.1
+      schema-inspector: 2.0.2
+      zone-file: 2.0.0-beta.3
+    transitivePeerDependencies:
+      - encoding
+
+  '@stacks/profile@7.0.0(encoding@0.1.13)':
+    dependencies:
+      '@stacks/common': 7.0.0
+      '@stacks/network': 7.0.0(encoding@0.1.13)
+      '@stacks/transactions': 7.0.0(encoding@0.1.13)
       jsontokens: 4.0.1
       schema-inspector: 2.0.2
       zone-file: 2.0.0-beta.3
@@ -22040,6 +22165,17 @@ snapshots:
       '@noble/secp256k1': 1.7.1
       '@stacks/common': 6.16.0
       '@stacks/network': 6.17.0(encoding@0.1.13)
+      c32check: 2.0.0
+      lodash.clonedeep: 4.5.0
+    transitivePeerDependencies:
+      - encoding
+
+  '@stacks/transactions@7.0.0(encoding@0.1.13)':
+    dependencies:
+      '@noble/hashes': 1.1.5
+      '@noble/secp256k1': 1.7.1
+      '@stacks/common': 7.0.0
+      '@stacks/network': 7.0.0(encoding@0.1.13)
       c32check: 2.0.0
       lodash.clonedeep: 4.5.0
     transitivePeerDependencies:
@@ -25118,6 +25254,13 @@ snapshots:
   bn.js@4.12.0: {}
 
   bn.js@5.2.1: {}
+
+  bns-v2-sdk@1.3.1(encoding@0.1.13):
+    dependencies:
+      '@stacks/connect': 7.8.0(encoding@0.1.13)
+      dotenv: 16.4.5
+    transitivePeerDependencies:
+      - encoding
 
   body-parser@1.20.3:
     dependencies:
@@ -31262,17 +31405,17 @@ snapshots:
     dependencies:
       aggregate-error: 3.1.0
 
-  p-queue@7.4.1:
+  p-queue@8.0.1:
     dependencies:
       eventemitter3: 5.0.1
-      p-timeout: 5.1.0
+      p-timeout: 6.1.3
 
   p-retry@4.6.2:
     dependencies:
       '@types/retry': 0.12.0
       retry: 0.13.1
 
-  p-timeout@5.1.0: {}
+  p-timeout@6.1.3: {}
 
   p-try@2.2.0: {}
 

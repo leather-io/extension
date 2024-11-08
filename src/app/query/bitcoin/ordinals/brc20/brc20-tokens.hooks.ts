@@ -41,9 +41,11 @@ export function useBrc20FeatureFlag() {
 
 function createBrc20CryptoAssetInfo(decimals: number, ticker: string): Brc20CryptoAssetInfo {
   return {
+    chain: 'bitcoin',
+    category: 'fungible',
+    protocol: 'brc20',
     decimals,
     hasMemo: false,
-    name: 'brc-20',
     symbol: ticker,
   };
 }
