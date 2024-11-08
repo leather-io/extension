@@ -57,9 +57,8 @@ function setWalletEncryptionPassword(args: {
     async function doesStacksAddressHaveBnsName(address: string) {
       const controller = new AbortController();
       const resp = await fetchNamesForAddress({
-        client: stxClient,
         address,
-        isTestnet: false,
+        network: 'mainnet',
         signal: controller.signal,
       });
       queryClient.setQueryData([StacksQueryPrefixes.GetBnsNamesByAddress, address], resp);
