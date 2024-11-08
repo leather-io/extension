@@ -26,9 +26,17 @@ export const stxChainSlice = createSlice({
     },
     createNewAccount(state) {
       state.default.highestAccountIndex += 1;
+      // debugger;
+      console.log(
+        'createNewAccount',
+        state.default.highestAccountIndex,
+        (state.default.highestAccountIndex += 1)
+      );
       state.default.currentAccountIndex = state.default.highestAccountIndex;
     },
     restoreAccountIndex(state, action: PayloadAction<number>) {
+      // debugger;
+      console.log('restoreAccountIndex', action.payload);
       state.default.highestAccountIndex = action.payload;
     },
   },

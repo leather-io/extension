@@ -76,30 +76,39 @@ function setWalletEncryptionPassword(args: {
     // update the highest known account index that the wallet generates. This
     // action is performed outside this Promise's execution, as it may be slow,
     // and the user shouldn't have to wait before being directed to homepage.
-    logger.info('Initiating recursive account activity lookup');
-    try {
-      void recurseAccountsForActivity({
-        async doesAddressHaveActivityFn(index) {
-          const stxAddress = getStacksAddressByIndex(
-            secretKey,
-            AddressVersion.MainnetSingleSig
-          )(index);
-          const hasStxBalance = await doesStacksAddressHaveBalance(stxAddress);
-          const hasNames = await doesStacksAddressHaveBnsName(stxAddress);
+    // logger.info('Initiating recursive account activity lookup');
+    // try {
+    //   void recurseAccountsForActivity({
+    //     async doesAddressHaveActivityFn(index) {
+    //       const stxAddress = getStacksAddressByIndex(
+    //         secretKey,
+    //         AddressVersion.MainnetSingleSig
+    //       )(index);
+    //       const hasStxBalance = await doesStacksAddressHaveBalance(stxAddress);
+    //       const hasNames = await doesStacksAddressHaveBnsName(stxAddress);
 
-          const btcAddress = getNativeSegwitMainnetAddressFromMnemonic(secretKey)(index);
-          const hasBtcBalance = await doesBitcoinAddressHaveBalance(btcAddress.address!);
-          // TODO: add inscription check here also?
-          return hasStxBalance || hasNames || hasBtcBalance;
-        },
-      }).then(recursiveActivityIndex => {
-        if (recursiveActivityIndex <= legacyAccountActivityLookup) return;
-        logger.info('Found account activity at higher index', { recursiveActivityIndex });
-        dispatch(stxChainSlice.actions.restoreAccountIndex(recursiveActivityIndex));
-      });
-    } catch (e) {
-      // Errors during account restore are non-critical and can fail silently
-    }
+    //       const btcAddress = getNativeSegwitMainnetAddressFromMnemonic(secretKey)(index);
+    //       const hasBtcBalance = await doesBitcoinAddressHaveBalance(btcAddress.address!);
+    //       console.log('recurseAccountsForActivity', {
+    //         index,
+    //         stxAddress,
+    //         hasStxBalance,
+    //         hasNames,
+    //         btcAddress,
+    //         hasBtcBalance,
+    //       });
+    //       // TODO: add inscription check here also?
+    //       return hasStxBalance || hasNames || hasBtcBalance;
+    //     },
+    //   }).then(recursiveActivityIndex => {
+    //     // debugger;
+    //     if (recursiveActivityIndex <= legacyAccountActivityLookup) return;
+    //     logger.info('Found account activity at higher index', { recursiveActivityIndex });
+    //     dispatch(stxChainSlice.actions.restoreAccountIndex(recursiveActivityIndex));
+    //   });
+    // } catch (e) {
+    //   // Errors during account restore are non-critical and can fail silently
+    // }
 
     dispatch(
       keySlice.actions.createSoftwareWalletComplete({
@@ -109,8 +118,10 @@ function setWalletEncryptionPassword(args: {
         encryptedSecretKey,
       })
     );
-    if (legacyAccountActivityLookup !== 0)
+    if (legacyAccountActivityLookup !== 0) {
+      // debugger;
       dispatch(stxChainSlice.actions.restoreAccountIndex(legacyAccountActivityLookup));
+    }
   };
 }
 

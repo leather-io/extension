@@ -45,6 +45,7 @@ export async function recurseAccountsForActivity({
 
     while (activity.length === 0 || activity[activity.length - 1].hasActivity) {
       const index = fibonacci.next().value;
+      console.log('fibonacci', index);
       const hasActivity = await doesAddressHaveActivityFn(index);
       activity.push({ index, hasActivity });
       yield;
