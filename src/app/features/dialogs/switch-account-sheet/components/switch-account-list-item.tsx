@@ -1,5 +1,7 @@
 import { memo } from 'react';
 
+import { getSwitchAccountSheetAccountNameSelector } from '@tests/selectors/account.selectors';
+
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useSwitchAccount } from '@app/common/hooks/account/use-switch-account';
 import { useLoading } from '@app/common/hooks/use-loading';
@@ -43,7 +45,14 @@ export const SwitchAccountListItem = memo(
     return (
       <AccountListItemLayout
         accountAddresses={<AcccountAddresses index={index} />}
-        accountName={<AccountNameLayout isLoading={isFetchingBnsName}>{name}</AccountNameLayout>}
+        accountName={
+          <AccountNameLayout
+            data-testid={getSwitchAccountSheetAccountNameSelector(index)}
+            isLoading={isFetchingBnsName}
+          >
+            {name}
+          </AccountNameLayout>
+        }
         avatar={
           <AccountAvatarItem
             index={index}
