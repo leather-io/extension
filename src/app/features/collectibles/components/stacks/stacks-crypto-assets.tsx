@@ -16,7 +16,7 @@ interface StacksCryptoAssetsProps {
   address: string;
 }
 export function StacksCryptoAssets({ address }: StacksCryptoAssetsProps) {
-  const names = useGetBnsNamesOwnedByAddressQuery(address).data?.names;
+  const bnsNames = useGetBnsNamesOwnedByAddressQuery(address).data?.names;
 
   const stacksNftsMetadataResp = useStacksNonFungibleTokensMetadata(address);
 
@@ -29,13 +29,23 @@ export function StacksCryptoAssets({ address }: StacksCryptoAssetsProps) {
     }
   }, [stacksNftsMetadataResp.length]);
 
+  function isBnsV2Collectible(name: string) {
+    return bnsNames?.includes(name);
+  }
+
   return (
     <>
-      {(names ?? []).map(name => (
+      {(bnsNames ?? []).map(name => (
         <StacksBnsName bnsName={parseIfValidPunycode(name)} key={name} />
       ))}
+
       {stacksNftsMetadataResp.map((nft, i) => {
         if (!nft || !nft.metadata) return null;
+
+        if (isBnsV2Collectible(nft.metadata?.name ?? '')) {
+          return null;
+        }
+
         return <StacksNonFungibleTokens key={i} metadata={nft.metadata} />;
       })}
     </>
