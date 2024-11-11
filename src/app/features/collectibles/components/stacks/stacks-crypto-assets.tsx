@@ -29,8 +29,8 @@ export function StacksCryptoAssets({ address }: StacksCryptoAssetsProps) {
     }
   }, [stacksNftsMetadataResp.length]);
 
-  function isBnsV2Collectible(name: string) {
-    return bnsNames?.includes(name);
+  function hideBnsCollectible(name: string) {
+    return bnsNames?.includes(name) || name === 'BNS - Archive';
   }
 
   return (
@@ -42,7 +42,7 @@ export function StacksCryptoAssets({ address }: StacksCryptoAssetsProps) {
       {stacksNftsMetadataResp.map((nft, i) => {
         if (!nft || !nft.metadata) return null;
 
-        if (isBnsV2Collectible(nft.metadata?.name ?? '')) {
+        if (hideBnsCollectible(nft.metadata?.name ?? '')) {
           return null;
         }
 
