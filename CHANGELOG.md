@@ -1,3 +1,37 @@
+## [6.52.0](https://github.com/leather-io/extension/compare/v6.51.1...v6.52.0) (2024-11-11)
+
+
+### Features
+
+* add bash script to run code checks simultaneously ([e38af3e](https://github.com/leather-io/extension/commit/e38af3e57bcca2e8f36dedb835785c098052a9d3))
+* add bns v2 names integration test ([fb8cf66](https://github.com/leather-io/extension/commit/fb8cf66c2399f8b0e6106f691872dc3330f41e0e))
+* add cancel transaction, ref LEA-958 ([7e16463](https://github.com/leather-io/extension/commit/7e164630277b124966c33c57f115615a333e8b9f))
+* add error analytics ([8625fe7](https://github.com/leather-io/extension/commit/8625fe7d9b29386e39839df05d26122ca7b9aa69))
+* add sip10 tokens send test ([2b5a954](https://github.com/leather-io/extension/commit/2b5a954e07c2ecc9a8a316d05df8668d9a4ea9ad))
+* fetch bns name from bns v2 api, closes LEA-1659 ([f7aaec3](https://github.com/leather-io/extension/commit/f7aaec39c7aab80698f8fba1164b3435cc586ece))
+* hide bns archive collectible ([7ef1703](https://github.com/leather-io/extension/commit/7ef170372a8ce2c23d2de983c412f4940325896e))
+* remove stacks tx estimated time, LEA-1686 ([fe2a20b](https://github.com/leather-io/extension/commit/fe2a20baaf8af1930cd85ea5db197f402e7258dd))
+
+
+### Bug Fixes
+
+* codeblock colors ([5cd2b81](https://github.com/leather-io/extension/commit/5cd2b81eeefa35ca01a9c2350fc5a2f898942253))
+* manage tokens performance ([e2c4ed8](https://github.com/leather-io/extension/commit/e2c4ed846481f97807f82e203d88c521148255c9))
+* multisig transfer send amount, closes [#5941](https://github.com/leather-io/extension/issues/5941) ([e464419](https://github.com/leather-io/extension/commit/e464419a4df67655445c7fa0f47f6923ed2d27a8))
+* polyfill storybook webpack node deps ([4ffef3b](https://github.com/leather-io/extension/commit/4ffef3b5cc5591be6df328413b7b60476f1e3de4))
+* propagate contract preview handler, closes [#5059](https://github.com/leather-io/extension/issues/5059) ([1da243a](https://github.com/leather-io/extension/commit/1da243a928f0105ff5b160740bff942d0c3b1943))
+* update AddressDisplayer occurrences to reflect changes from the ui library ([3e09e9e](https://github.com/leather-io/extension/commit/3e09e9e0747f2ee6a56a3a39b8c2372376f95dc1))
+* use correct Fira Code weights ([ddbafe8](https://github.com/leather-io/extension/commit/ddbafe843bd45f2a7f73dad2f3424fe41947f14d))
+
+
+### Internal
+
+* apply mono package updates ([ec1f44b](https://github.com/leather-io/extension/commit/ec1f44ba12ae99128f0020caad4d6e4feb28f603))
+* **ordinals:** remove use of recursive look up of inscriptions ([5a77d53](https://github.com/leather-io/extension/commit/5a77d537ce8092e9390887fa2a8f23933d468971))
+* post-release merge back ([27e05c4](https://github.com/leather-io/extension/commit/27e05c497a3d1dbf3bc3b0b8d02becd191d1eef4))
+* update deps and type issues ([632a554](https://github.com/leather-io/extension/commit/632a5549d4194cacf9ee9602bb4e4092edf5a403))
+* upgrade playwright ([a20ef73](https://github.com/leather-io/extension/commit/a20ef734480d56f7c58dbd67f771e376d15703ea))
+
 ## [6.51.1](https://github.com/leather-io/extension/compare/v6.51.0...v6.51.1) (2024-10-28)
 
 
