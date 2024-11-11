@@ -85,6 +85,11 @@ const config: StorybookConfig = {
   },
   webpackFinal: config => {
     config.resolve ??= {};
+    config.resolve.fallback ??= {};
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      os: require.resolve('os-browserify/browser'),
+    };
     config.resolve.plugins ??= [];
     config.resolve.plugins.push(
       new TsconfigPathsPlugin({
