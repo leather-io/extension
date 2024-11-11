@@ -25,6 +25,7 @@ export function ContractPreviewLayout({
       gap="space.04"
       alignItems="center"
       border="default"
+      onClick={onClick}
       _hover={
         onClick
           ? {
