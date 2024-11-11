@@ -1,14 +1,9 @@
 import { expect } from '@playwright/test';
 
 import { test } from '../../fixtures/fixtures';
+import { MockedTokensSelectors } from '../../selectors/mocked-tokens.selectors';
 
-const sip10TokenTestId = 'SP265WBWD4NH7TVPYQTVD23X3607NNK4484DTXQZ3.longcoin::longcoin';
-const brc20TokenTestId = 'doge';
-const src20TokenTestId = 'pxl';
-const stx20TokenTestId = 'MEME';
-const runeTokenTestId = 'DOGGOTOTHEMOON';
-
-test.describe('manage tokens', () => {
+test.describe('Manage tokens', () => {
   test.beforeEach(async ({ extensionId, globalPage, onboardingPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
@@ -16,7 +11,7 @@ test.describe('manage tokens', () => {
 
   test('that supported sip10 token is shown', async ({ homePage }) => {
     await homePage.manageTokensBtn.click();
-    const sip10Token = homePage.assetList.getByTestId(sip10TokenTestId);
+    const sip10Token = homePage.assetList.getByTestId(MockedTokensSelectors.Sip10TokenTestId);
     await expect(sip10Token).toBeAttached();
   });
 
@@ -24,25 +19,34 @@ test.describe('manage tokens', () => {
     await homePage.manageTokensBtn.click();
 
     // sip10 token
-    const sip10InAssetList = homePage.assetList.getByTestId(sip10TokenTestId);
-    const sip10TokenInManageTokensList =
-      homePage.manageTokensAssetsList.getByTestId(sip10TokenTestId);
+    const sip10InAssetList = homePage.assetList.getByTestId(MockedTokensSelectors.Sip10TokenTestId);
+    const sip10TokenInManageTokensList = homePage.manageTokensAssetsList.getByTestId(
+      MockedTokensSelectors.Sip10TokenTestId
+    );
 
     // brc20 token
-    const brc20InAssetList = homePage.assetList.getByTestId(brc20TokenTestId);
-    const brc20InManageTokensList = homePage.manageTokensAssetsList.getByTestId(brc20TokenTestId);
+    const brc20InAssetList = homePage.assetList.getByTestId(MockedTokensSelectors.Brc20TokenTestId);
+    const brc20InManageTokensList = homePage.manageTokensAssetsList.getByTestId(
+      MockedTokensSelectors.Brc20TokenTestId
+    );
 
     // src20 token
-    const src20InAssetList = homePage.assetList.getByTestId(src20TokenTestId);
-    const src20InManageTokensList = homePage.manageTokensAssetsList.getByTestId(src20TokenTestId);
+    const src20InAssetList = homePage.assetList.getByTestId(MockedTokensSelectors.Src20TokenTestId);
+    const src20InManageTokensList = homePage.manageTokensAssetsList.getByTestId(
+      MockedTokensSelectors.Src20TokenTestId
+    );
 
     // rune token
-    const runeInAssetList = homePage.assetList.getByTestId(runeTokenTestId);
-    const runeInManageTokensList = homePage.manageTokensAssetsList.getByTestId(runeTokenTestId);
+    const runeInAssetList = homePage.assetList.getByTestId(MockedTokensSelectors.RuneTokenTestId);
+    const runeInManageTokensList = homePage.manageTokensAssetsList.getByTestId(
+      MockedTokensSelectors.RuneTokenTestId
+    );
 
     // stx20 token (disabled by default)
-    const stx20InAssetList = homePage.assetList.getByTestId(stx20TokenTestId);
-    const stx20InManageTokensList = homePage.manageTokensAssetsList.getByTestId(stx20TokenTestId);
+    const stx20InAssetList = homePage.assetList.getByTestId(MockedTokensSelectors.Stx20TokenTestId);
+    const stx20InManageTokensList = homePage.manageTokensAssetsList.getByTestId(
+      MockedTokensSelectors.Stx20TokenTestId
+    );
 
     // disable tokens that are enabled by default
     await sip10TokenInManageTokensList.click();

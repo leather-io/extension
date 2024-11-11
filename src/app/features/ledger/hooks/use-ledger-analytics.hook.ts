@@ -6,7 +6,7 @@ export function useLedgerAnalytics() {
   return useMemo(
     () => ({
       trackDeviceVersionInfo(info: object) {
-        void analytics.track('ledger_app_version_info', info);
+        void analytics.track('ledger_app_version_info', { info });
       },
       transactionSignedOnLedgerSuccessfully() {
         void analytics.track('ledger_transaction_signed_approved');

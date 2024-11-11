@@ -75,7 +75,7 @@ function TransactionRequestBase() {
     await stacksBroadcastTransaction(unsignedTx);
 
     void analytics.track('submit_fee_for_transaction', {
-      calculation: stxFees?.calculation,
+      calculation: stxFees?.calculation || 'unknown',
       fee: values.fee,
       type: values.feeType,
     });

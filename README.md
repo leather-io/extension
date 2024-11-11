@@ -99,6 +99,14 @@ Unit tests can be run with vitest using:
 pnpm test:unit
 ```
 
+### Code checks
+
+Code checks and unit tests can be run simultaneously:
+
+```bash
+pnpm checks
+```
+
 ## Production
 
 [See instructions on Leather.io to install from source](https://leather.io/install-extension)

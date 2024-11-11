@@ -46,7 +46,6 @@ export function StacksSendFormConfirmation() {
     fee,
     totalSpend,
     sendingValue,
-    arrivesIn,
     nonce,
     memoDisplayText,
   } = formReviewTxSummary(stacksDeserializedTransaction, symbol, decimals);
@@ -80,7 +79,6 @@ export function StacksSendFormConfirmation() {
             fee={fee}
             totalSpend={totalSpend}
             sendingValue={sendingValue}
-            arrivesIn={arrivesIn}
             nonce={nonce}
             memoDisplayText={memoDisplayText}
             symbol={symbol.toUpperCase()}

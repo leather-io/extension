@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useTransition } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { sanitize } from 'dompurify';
@@ -28,18 +28,29 @@ export function CryptoAssetItemToggle({
   const accountIndex = useCurrentAccountIndex();
   const dispatch = useDispatch();
 
-  const [isChecked, setIsChecked] = useState(isCheckedByDefault);
+  const switchRef = useRef<HTMLButtonElement>(null);
+  const [_isPending, transition] = useTransition();
 
   function handleSelection(enabled: boolean) {
-    setIsChecked(enabled);
-    dispatch(
-      manageTokensSlice.actions.userTogglesTokenVisibility({ id: assetId, enabled, accountIndex })
-    );
+    transition(() => {
+      dispatch(
+        manageTokensSlice.actions.userTogglesTokenVisibility({
+          id: assetId,
+          enabled,
+          accountIndex,
+        })
+      );
+    });
   }
 
   const toggle = (
     <VStack h="100%" justifyContent="center">
-      <Switch.Root onCheckedChange={handleSelection} checked={isChecked} id={assetId}>
+      <Switch.Root
+        ref={switchRef}
+        defaultChecked={isCheckedByDefault}
+        onCheckedChange={handleSelection}
+        id={assetId}
+      >
         <Switch.Thumb />
       </Switch.Root>
     </VStack>
@@ -47,7 +58,7 @@ export function CryptoAssetItemToggle({
 
   return (
     <Box my="space.02">
-      <Pressable onClick={() => handleSelection(!isChecked)} data-testid={sanitize(assetId)}>
+      <Pressable onClick={() => switchRef.current?.click()} data-testid={sanitize(assetId)}>
         <ItemLayout
           img={icon}
           titleLeft={spamFilter(titleLeft)}

@@ -1,6 +1,7 @@
 import { type Dispatch, type SetStateAction, useEffect } from 'react';
 
 import { Src20AvatarIcon } from '@leather.io/ui';
+import { getAssetDisplayName } from '@leather.io/utils';
 
 import { useManageTokens } from '@app/common/hooks/use-manage-tokens';
 import { CryptoAssetItem } from '@app/components/crypto-asset-item/crypto-asset-item';
@@ -32,7 +33,7 @@ export function Src20TokenAssetList({
 
   return tokens.map((token, i) => {
     const key = `${token.info.id}${i}`;
-    const captionLeft = token.info.name.toUpperCase();
+    const captionLeft = getAssetDisplayName(token.info).toUpperCase();
     const icon = <Src20AvatarIcon />;
     const titleLeft = token.info.symbol.toUpperCase();
     const symbol = token.info.symbol;

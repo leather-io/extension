@@ -6,8 +6,7 @@ import { test } from '../../fixtures/fixtures';
 
 function mockChainalysisEntityRegistrationRequest(context: BrowserContext) {
   return async (routeHandler: (route: Route) => void) => {
-    console.log('Mocking entity registration');
-    context.route('https://api.chainalysis.com/api/risk/v2/entities', async route =>
+    return context.route('https://api.chainalysis.com/api/risk/v2/entities', async route =>
       routeHandler(route)
     );
   };
@@ -15,8 +14,7 @@ function mockChainalysisEntityRegistrationRequest(context: BrowserContext) {
 
 function mockChainalysisEntityCheckRequest(context: BrowserContext) {
   return async (routeHandler: (route: Route) => void) => {
-    console.log('Mocking entity check');
-    context.route('https://api.chainalysis.com/api/risk/v2/entities/*', async route =>
+    return context.route('https://api.chainalysis.com/api/risk/v2/entities/*', async route =>
       routeHandler(route)
     );
   };

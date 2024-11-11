@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useMatch, useNavigate } from 'react-router-dom';
 
 import { StacksTx } from '@leather.io/models';
 
@@ -7,6 +7,7 @@ import { analytics } from '@shared/utils/analytics';
 
 import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
 import {
+  StacksTransactionActionType,
   getTxCaption,
   getTxTitle,
   getTxValue,
@@ -20,7 +21,7 @@ import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/s
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
-import { IncreaseFeeButton } from './increase-fee-button';
+import { StacksTransactionActionMenu } from './stacks-transaction-action-menu';
 import { StacksTransactionIcon } from './stacks-transaction-icon';
 import { StacksTransactionStatus } from './stacks-transaction-status';
 
@@ -44,11 +45,14 @@ export function StacksTransactionItem({
   const currentAccount = useCurrentStacksAccount();
   const isPrivate = useIsPrivateMode();
 
-  const { pathname } = useLocation();
   const navigate = useNavigate();
   const { whenWallet } = useWalletType();
 
+  const cancelTransactionMatch = useMatch(RouteUrls.CancelStacksTransaction);
+  const increaseFeeMatch = useMatch(RouteUrls.IncreaseStacksFee);
+
   const hasTransferDetailsData = !!caption && !!title && !!value && !!link;
+
   if (!transaction && !hasTransferDetailsData) return null;
 
   const openTxLink = () => {
@@ -58,10 +62,21 @@ export function StacksTransactionItem({
     });
   };
 
-  const onIncreaseFee = () => {
+  const isOriginator = transaction?.sender_address === currentAccount?.address;
+  const isPending = transaction && isPendingTx(transaction);
+
+  const txCaption = transaction ? getTxCaption(transaction) : caption || '';
+  const txIcon = transaction ? <StacksTransactionIcon transaction={transaction} /> : icon;
+  const txTitle = transaction ? getTxTitle(transaction) : title || '';
+  const txValue = transaction ? getTxValue(transaction, isOriginator) : value;
+
+  function handleTransactionAction(action: StacksTransactionActionType) {
     if (!transaction) return;
 
-    const routeUrl = RouteUrls.IncreaseStxFee.replace(':txid', transaction.tx_id);
+    const routeUrl =
+      action === StacksTransactionActionType.IncreaseFee
+        ? RouteUrls.IncreaseStacksFee.replace(':txid', transaction.tx_id)
+        : RouteUrls.CancelStacksTransaction.replace(':txid', transaction.tx_id);
 
     whenWallet({
       ledger: () =>
@@ -71,28 +86,24 @@ export function StacksTransactionItem({
         })(),
       software: () => navigate(routeUrl),
     })();
-  };
+  }
 
-  const isOriginator = transaction?.sender_address === currentAccount?.address;
-  const isPending = transaction && isPendingTx(transaction);
+  const isTransactionActionRoute = !!cancelTransactionMatch || !!increaseFeeMatch;
 
-  const txCaption = transaction ? getTxCaption(transaction) : caption || '';
-  const txIcon = transaction ? <StacksTransactionIcon transaction={transaction} /> : icon;
-  const txTitle = transaction ? getTxTitle(transaction) : title || '';
-  const txValue = transaction ? getTxValue(transaction, isOriginator) : value;
-  const increaseFeeButton = (
-    <IncreaseFeeButton
-      isEnabled={isOriginator && isPending}
-      isSelected={pathname === RouteUrls.IncreaseStxFee}
-      onIncreaseFee={onIncreaseFee}
-    />
-  );
   const txStatus = transaction && <StacksTransactionStatus transaction={transaction} />;
+
+  const rightElement =
+    isOriginator && isPending && !isTransactionActionRoute ? (
+      <StacksTransactionActionMenu
+        onIncreaseFee={() => handleTransactionAction(StacksTransactionActionType.IncreaseFee)}
+        onCancelTransaction={() => handleTransactionAction(StacksTransactionActionType.Cancel)}
+      />
+    ) : undefined;
 
   return (
     <TransactionItemLayout
       openTxLink={openTxLink}
-      rightElement={isOriginator && isPending ? increaseFeeButton : undefined}
+      rightElement={rightElement}
       txCaption={txCaption}
       txIcon={txIcon}
       txStatus={txStatus}

@@ -25,7 +25,7 @@ export function useUpdateSubmittedTransactions() {
   );
 }
 
-export function useSubmittedTransactionsActions() {
+function useSubmittedTransactionsActions() {
   const dispatch = useAppDispatch();
 
   return useMemo(

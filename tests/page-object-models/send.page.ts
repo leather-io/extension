@@ -1,4 +1,5 @@
 import { Locator, Page } from '@playwright/test';
+import { MockedTokensSelectors } from '@tests/selectors/mocked-tokens.selectors';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { createTestSelector } from '@tests/utils';
@@ -82,6 +83,12 @@ export class SendPage {
     await this.page.getByTestId(SendCryptoAssetSelectors.SendForm).waitFor();
   }
 
+  async selectSIP10AndGoToSendForm() {
+    await this.page.waitForURL('**' + RouteUrls.SendCryptoAsset);
+    await this.page.getByTestId(MockedTokensSelectors.Sip10TokenTestId).click();
+    await this.page.getByTestId(SendCryptoAssetSelectors.SendForm).waitFor();
+  }
+
   async waitForSendPageReady() {
     await this.page.waitForSelector(createTestSelector(SendCryptoAssetSelectors.SendPageReady), {
       state: 'attached',
@@ -118,5 +125,9 @@ export class SendPage {
       await inscriptions.nth(0).hover();
       await sendButton.nth(0).click({ force: true });
     }
+  }
+
+  async confirmSendTransaction() {
+    await this.page.getByTestId(SendCryptoAssetSelectors.ConfirmSendTxBtn).click();
   }
 }

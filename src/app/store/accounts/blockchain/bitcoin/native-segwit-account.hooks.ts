@@ -7,7 +7,7 @@ import { Psbt } from 'bitcoinjs-lib';
 import {
   deriveAddressIndexZeroFromAccount,
   deriveNativeSegwitAccountFromRootKeychain,
-  getNativeSegWitPaymentFromAddressIndex,
+  getNativeSegwitPaymentFromAddressIndex,
   lookUpLedgerKeysByPath,
   makeNativeSegwitAccountDerivationPath,
 } from '@leather.io/bitcoin';
@@ -67,7 +67,7 @@ export function useNativeSegwitNetworkSigners() {
   return useMakeBitcoinNetworkSignersForPaymentType(
     mainnetKeychain,
     testnetKeychain,
-    getNativeSegWitPaymentFromAddressIndex
+    getNativeSegwitPaymentFromAddressIndex
   );
 }
 
@@ -80,7 +80,7 @@ export function useNativeSegwitSigner(accountIndex: number) {
     return bitcoinAddressIndexSignerFactory({
       accountIndex,
       accountKeychain: account.keychain,
-      paymentFn: getNativeSegWitPaymentFromAddressIndex,
+      paymentFn: getNativeSegwitPaymentFromAddressIndex,
       network: account.network,
       extendedPublicKeyVersions,
     });
@@ -131,7 +131,7 @@ export function getNativeSegwitMainnetAddressFromMnemonic(secretKey: string) {
   return (accountIndex: number) => {
     const rootNode = mnemonicToRootNode(secretKey);
     const account = deriveNativeSegwitAccountFromRootKeychain(rootNode, 'mainnet')(accountIndex);
-    return getNativeSegWitPaymentFromAddressIndex(
+    return getNativeSegwitPaymentFromAddressIndex(
       deriveAddressIndexZeroFromAccount(account.keychain),
       'mainnet'
     );
@@ -157,9 +157,13 @@ export function useUpdateLedgerSpecificNativeSegwitUtxoHexForAdddressIndexZero()
         tx.updateInput(index, {
           nonWitnessUtxo: Buffer.from(inputsTxHex[index], 'hex'),
         });
-        void analytics.track('ledger_nativesegwit_add_nonwitnessutxo');
+        void analytics.track('ledger_nativesegwit_add_nonwitnessutxo', {
+          action: 'add_nonwitness_utxo',
+        });
       } else {
-        void analytics.track('ledger_nativesegwit_skip_add_nonwitnessutxo');
+        void analytics.track('ledger_nativesegwit_add_nonwitnessutxo', {
+          action: 'skip_add_nonwitness_utxo',
+        });
       }
     });
   };

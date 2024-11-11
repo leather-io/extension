@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Box, Stack, styled } from 'leather-styles/jsx';
@@ -31,8 +32,11 @@ export function CollectibleItemLayout({
 }: CollectibleItemLayoutProps) {
   const [isHovered, bind] = useHover();
 
+  const { ref, inView } = useInView();
+
   return (
     <Box
+      ref={ref}
       _focus={{
         outline: onClickLayout ? 'focus' : 'unset',
         outlineOffset: onClickLayout ? '-4px' : 'unset',
@@ -71,7 +75,7 @@ export function CollectibleItemLayout({
           top="0px"
           width="100%"
         >
-          {children}
+          {inView ? children : null}
         </Box>
       </Box>
       <Stack gap="space.01" mt="space.04" pl="space.02" textAlign="left">

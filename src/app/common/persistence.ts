@@ -1,6 +1,7 @@
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
 import { QueryCache, QueryClient } from '@tanstack/react-query';
 import { persistQueryClient } from '@tanstack/react-query-persist-client';
+import { isAxiosError } from 'axios';
 import { ZodError } from 'zod';
 
 import { PERSISTENCE_CACHE_TIME } from '@leather.io/constants';
@@ -28,6 +29,16 @@ function isZodError(error: Error): error is ZodError {
 export const queryClient = new QueryClient({
   queryCache: new QueryCache({
     onError(error, query) {
+      if (isAxiosError(error)) {
+        const errorReport = {
+          statusCode: error.response?.status,
+          query: query.queryKey[0],
+          hash: query.queryHash,
+          error: error.toJSON(),
+        };
+        void analytics.untypedTrack('api_error', errorReport);
+      }
+
       if (isZodError(error)) {
         const zodErrorReport = {
           query: query.queryKey[0],

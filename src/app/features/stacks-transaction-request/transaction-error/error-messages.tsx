@@ -14,7 +14,7 @@ import { analytics } from '@shared/utils/analytics';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { stacksValue } from '@app/common/stacks-utils';
-import { SwitchAccountSheet } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
+import { SwitchAccountSheet } from '@app/features/dialogs/switch-account-sheet/switch-account-sheet';
 import { ErrorMessage } from '@app/features/stacks-transaction-request/transaction-error/error-message';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
@@ -27,7 +27,7 @@ function InsufficientFundsActionButtons({ eventName }: InsufficientFundsActionBu
   const [isShowingSwitchAccount, setIsShowingSwitchAccount] = useState(false);
 
   const onGetStx = () => {
-    void analytics.track(eventName);
+    void analytics.untypedTrack(eventName);
     closeWindow();
     void chrome.tabs.create({ url: 'index.html#/fund' });
   };

@@ -3,8 +3,6 @@ import { token } from 'leather-styles/tokens';
 
 import { ArrowRotateRightLeftIcon, Spinner } from '@leather.io/ui';
 
-import { LoadingSpinner } from '@app/components/loading-spinner';
-
 interface CollectiblesLayoutProps {
   title: string;
   isLoading: boolean;
@@ -18,7 +16,6 @@ export function CollectiblesLayout({
   isLoading,
   onRefresh,
   subHeader,
-  isLoadingMore,
   children,
 }: CollectiblesLayoutProps) {
   return (
@@ -48,7 +45,6 @@ export function CollectiblesLayout({
       >
         {children}
       </Grid>
-      {isLoadingMore && <LoadingSpinner />}
     </>
   );
 }

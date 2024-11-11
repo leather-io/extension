@@ -17,7 +17,7 @@ import { BitcoinTransactionItem } from '@app/components/bitcoin-transaction-item
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
-import { IncreaseFeeActions } from './components/increase-fee-actions';
+import { TransactionActions } from './components/transaction-actions';
 import { useBtcIncreaseFee } from './hooks/use-btc-increase-fee';
 
 export function IncreaseBtcFeeSheet() {
@@ -65,7 +65,7 @@ export function IncreaseBtcFeeSheet() {
             onClose={onClose}
             header={<SheetHeader title="Increase fee" />}
             footer={
-              <IncreaseFeeActions
+              <TransactionActions
                 isDisabled={isBroadcasting}
                 isBroadcasting={isBroadcasting}
                 onCancel={() => navigate(RouteUrls.Home)}

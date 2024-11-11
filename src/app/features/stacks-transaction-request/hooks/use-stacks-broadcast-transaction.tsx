@@ -13,7 +13,10 @@ import { RouteUrls } from '@shared/route-urls';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
-import { stacksTransactionToHex } from '@app/common/transactions/stacks/transaction.utils';
+import {
+  StacksTransactionActionType,
+  stacksTransactionToHex,
+} from '@app/common/transactions/stacks/transaction.utils';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useTransactionRequest } from '@app/store/transactions/requests.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
@@ -27,13 +30,13 @@ async function simulateShortDelayToAvoidUndefinedTabId() {
 interface UseStacksBroadcastTransactionArgs {
   token: CryptoCurrency;
   decimals?: number;
-  isIncreaseFeeTransaction?: boolean;
+  actionType?: StacksTransactionActionType;
 }
 
 export function useStacksBroadcastTransaction({
   token,
   decimals,
-  isIncreaseFeeTransaction,
+  actionType,
 }: UseStacksBroadcastTransactionArgs) {
   const signStacksTransaction = useSignStacksTransaction();
   const [isBroadcasting, setIsBroadcasting] = useState(false);
@@ -42,6 +45,9 @@ export function useStacksBroadcastTransaction({
   const { formSentSummaryTxState } = useStacksTransactionSummary(token);
   const navigate = useNavigate();
   const toast = useToast();
+
+  const isIncreaseFeeTransaction = actionType === StacksTransactionActionType.IncreaseFee;
+  const isCancelTransaction = actionType === StacksTransactionActionType.Cancel;
 
   const broadcastTransactionFn = useSubmitTransactionCallback({
     loadingKey: LoadingKeys.SUBMIT_SEND_FORM_TRANSACTION,
@@ -60,7 +66,7 @@ export function useStacksBroadcastTransaction({
         });
       }
       if (txId) {
-        if (isIncreaseFeeTransaction) {
+        if (isIncreaseFeeTransaction || isCancelTransaction) {
           navigate(RouteUrls.Activity);
           return;
         }
@@ -97,6 +103,9 @@ export function useStacksBroadcastTransaction({
               handlePreviewSuccess(signedTx, txId);
               if (isIncreaseFeeTransaction) {
                 toast.success('Fee increased successfully');
+              }
+              if (isCancelTransaction) {
+                toast.success('Transaction cancelled successfully');
               }
             },
             replaceByFee: false,
@@ -137,5 +146,6 @@ export function useStacksBroadcastTransaction({
     broadcastTransactionFn,
     signStacksTransaction,
     isIncreaseFeeTransaction,
+    isCancelTransaction,
   ]);
 }

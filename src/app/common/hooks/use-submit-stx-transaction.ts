@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 
-import { bytesToHex } from '@stacks/common';
 import { StacksTransaction, broadcastTransaction } from '@stacks/transactions';
 
 import { delay, isError } from '@leather.io/utils';
@@ -14,7 +13,6 @@ import { useLoading } from '@app/common/hooks/use-loading';
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
-import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 
 const timeForApiToUpdate = 250;
 
@@ -27,7 +25,6 @@ interface UseSubmitTransactionCallbackArgs {
   onError(error: Error | string): void;
 }
 export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactionArgs) {
-  const submittedTransactionsActions = useSubmittedTransactionsActions();
   const toast = useToast();
   const refreshAccountData = useRefreshAllAccountData();
 
@@ -47,14 +44,12 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
             setIsIdle();
           } else {
             logger.info('Transaction broadcast', response);
-            submittedTransactionsActions.newTransactionSubmitted({
-              rawTx: bytesToHex(transaction.serialize()),
-              txid: safelyFormatHexTxid(response.txid),
-            });
 
             await delay(500);
 
-            void analytics.track('broadcast_transaction', { symbol: 'stx' });
+            void analytics.track('broadcast_transaction', {
+              symbol: 'stx',
+            });
             onSuccess(safelyFormatHexTxid(response.txid));
             setIsIdle();
             await refreshAccountData(timeForApiToUpdate);
@@ -65,13 +60,6 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
           setIsIdle();
         }
       },
-    [
-      setIsLoading,
-      stacksNetwork,
-      toast,
-      setIsIdle,
-      submittedTransactionsActions,
-      refreshAccountData,
-    ]
+    [setIsLoading, stacksNetwork, toast, setIsIdle, refreshAccountData]
   );
 }

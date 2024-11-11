@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom';
 
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Stack } from 'leather-styles/jsx';
 
 import { analytics } from '@shared/utils/analytics';
@@ -28,7 +29,6 @@ export function StxSentSummary() {
     txFiatValueSymbol,
     symbol,
     txLink,
-    arrivesIn,
     fee,
     recipient,
     txId,
@@ -55,6 +55,7 @@ export function StxSentSummary() {
       <Content>
         <Page>
           <Card
+            data-testid={SendCryptoAssetSelectors.SentTransactionSummary}
             contentStyle={{
               p: 'space.00',
             }}
@@ -77,7 +78,6 @@ export function StxSentSummary() {
 
               <InfoCardRow title="Sending" value={sendingValue} />
               <InfoCardRow title="Fee" value={fee} />
-              <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />
             </Stack>
           </Card>
         </Page>

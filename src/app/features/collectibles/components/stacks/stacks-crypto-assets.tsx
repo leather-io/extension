@@ -16,7 +16,7 @@ interface StacksCryptoAssetsProps {
   address: string;
 }
 export function StacksCryptoAssets({ address }: StacksCryptoAssetsProps) {
-  const names = useGetBnsNamesOwnedByAddressQuery(address).data?.names;
+  const bnsNames = useGetBnsNamesOwnedByAddressQuery(address).data?.names;
 
   const stacksNftsMetadataResp = useStacksNonFungibleTokensMetadata(address);
 
@@ -25,17 +25,27 @@ export function StacksCryptoAssets({ address }: StacksCryptoAssetsProps) {
       void analytics.track('view_collectibles', {
         stacks_nfts_count: stacksNftsMetadataResp.length,
       });
-      void analytics.identify({ stacks_nfts_count: stacksNftsMetadataResp.length });
+      void analytics.client.identify({ stacks_nfts_count: stacksNftsMetadataResp.length });
     }
   }, [stacksNftsMetadataResp.length]);
 
+  function hideBnsCollectible(name: string) {
+    return bnsNames?.includes(name) || name === 'BNS - Archive';
+  }
+
   return (
     <>
-      {(names ?? []).map(name => (
+      {(bnsNames ?? []).map(name => (
         <StacksBnsName bnsName={parseIfValidPunycode(name)} key={name} />
       ))}
+
       {stacksNftsMetadataResp.map((nft, i) => {
         if (!nft || !nft.metadata) return null;
+
+        if (hideBnsCollectible(nft.metadata?.name ?? '')) {
+          return null;
+        }
+
         return <StacksNonFungibleTokens key={i} metadata={nft.metadata} />;
       })}
     </>

@@ -88,7 +88,7 @@ function Line({
         hideLineHover
           ? undefined
           : {
-              bg: ['unset', 'unset', 'ink.text-primary'],
+              bg: ['unset', 'unset', 'ink.background-secondary'],
               borderColor: ['ink.text-primary', 'ink.text-primary', 'ink.text-subdued'],
             }
       }
