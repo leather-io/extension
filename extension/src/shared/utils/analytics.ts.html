@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.67% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/31</span>
+                <span class='fraction'>4/32</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.11% </span>
+                <span class="strong">14.28% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/27</span>
+                <span class='fraction'>4/28</span>
             </div>
         
             
@@ -217,7 +217,18 @@
 <a name='L152'></a><a href='#L152'>152</a>
 <a name='L153'></a><a href='#L153'>153</a>
 <a name='L154'></a><a href='#L154'>154</a>
-<a name='L155'></a><a href='#L155'>155</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -241,6 +252,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -387,6 +405,8 @@ import { feedbackIntegration } from '@sentry/browser';
 import * as Sentry from '@sentry/react';
 import { token } from 'leather-styles/tokens';
 &nbsp;
+import { configureAnalyticsClient } from '@leather.io/analytics';
+&nbsp;
 import {
   IS_TEST_ENV,
   SEGMENT_WRITE_KEY,
@@ -394,14 +414,21 @@ import {
   WALLET_ENVIRONMENT,
 } from '@shared/environment';
 &nbsp;
-export const analytics = new AnalyticsBrowser();
+const segmentClient = new AnalyticsBrowser();
+&nbsp;
+export const analytics = configureAnalyticsClient&lt;AnalyticsBrowser&gt;({
+  client: segmentClient,
+  defaultProperties: {
+    platform: 'mobile',
+  },
+});
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >decorateAnalyticsEventsWithContext(</span>
   getEventContextProperties: () =&gt; Record&lt;string, unknown&gt;
 ) {
-<span class="cstat-no" title="statement not covered" >  void analytics.ready(</span>
+<span class="cstat-no" title="statement not covered" >  void analytics.client.ready(</span>
 <span class="fstat-no" title="function not covered" >    () =&gt;</span>
-<span class="cstat-no" title="statement not covered" >      void analytics.addSourceMiddleware(<span class="fstat-no" title="function not covered" >({</span> payload, next }) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      void analytics.client.addSourceMiddleware(<span class="fstat-no" title="function not covered" >({</span> payload, next }) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        Object.entries(getEventContextProperties()).forEach(<span class="fstat-no" title="function not covered" >([</span>key, value]) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >          payload.obj.context = payload.obj.context || {};</span>
 <span class="cstat-no" title="statement not covered" >          payload.obj.context.ip = '0.0.0.0';</span>
@@ -414,7 +441,7 @@ export function <span class="fstat-no" title="function not covered" >decorateAna
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >initAnalytics() {</span>
-<span class="cstat-no" title="statement not covered" >  return analytics.load(</span>
+<span class="cstat-no" title="statement not covered" >  return analytics.client.load(</span>
     { writeKey: SEGMENT_WRITE_KEY },
     {
       integrations: {
@@ -532,7 +559,7 @@ export async function <span class="fstat-no" title="function not covered" >openF
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-10-28T14:09:01.409Z
+                at 2024-11-11T19:45:04.436Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

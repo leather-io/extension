@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>0/24</span>
             </div>
         
             
@@ -132,7 +132,32 @@
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -171,6 +196,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,8 +207,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -206,12 +248,16 @@ import { Outlet, useLocation, useOutletContext } from 'react-router-dom';
 &nbsp;
 import get from 'lodash.get';
 &nbsp;
+import { lookupDerivationByAddress } from '@leather.io/bitcoin';
+import { extractAddressIndexFromPath } from '@leather.io/crypto';
 import type { AverageBitcoinFeeRates, BtcFeeType, Inscription } from '@leather.io/models';
-import { type UtxoWithDerivationPath, useInscriptionsAddressesMap } from '@leather.io/query';
+import { type UtxoWithDerivationPath } from '@leather.io/query';
+&nbsp;
+import { analytics } from '@shared/utils/analytics';
 &nbsp;
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentNativeSegwitAccount } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 &nbsp;
@@ -240,22 +286,39 @@ export function <span class="fstat-no" title="function not covered" >SendInscrip
   const routeState = <span class="cstat-no" title="statement not covered" >useSendInscriptionRouteState();</span>
   const network = <span class="cstat-no" title="statement not covered" >useCurrentNetwork();</span>
   const currentAccountIndex = <span class="cstat-no" title="statement not covered" >useCurrentAccountIndex();</span>
-  const account = <span class="cstat-no" title="statement not covered" >useCurrentTaprootAccount();</span>
-  const nativeSegwitSigner = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitIndexZeroSigner();</span>
 &nbsp;
-  const addressesMap = <span class="cstat-no" title="statement not covered" >useInscriptionsAddressesMap({</span>
-    taprootKeychain: account?.keychain,
-    nativeSegwitAddress: nativeSegwitSigner.address,
-  });
+  const taprootAccount = <span class="cstat-no" title="statement not covered" >useCurrentTaprootAccount();</span>
+  const nativeSegwitAccount = <span class="cstat-no" title="statement not covered" >useCurrentNativeSegwitAccount();</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  useOnMount(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    if (!routeState.inscription) <span class="cstat-no" title="statement not covered" >return;</span></span>
+&nbsp;
+    const result = <span class="cstat-no" title="statement not covered" >lookupDerivationByAddress({</span>
+      taprootXpub: taprootAccount?.keychain.publicExtendedKey!,
+      nativeSegwitXpub: nativeSegwitAccount?.keychain.publicExtendedKey!,
+      iterationLimit: 100,
+    })(routeState.inscription.address);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    void analytics.untypedTrack('recurse_addresses_to_find_derivation_path', {</span>
+      duration: result.duration,
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (result.status !== 'success') {</span>
+<span class="cstat-no" title="statement not covered" >      void analytics.untypedTrack('error_did_not_find_owner_path_of_inscription', {</span>
+        inscription: routeState.inscription.id,
+      });
+<span class="cstat-no" title="statement not covered" >      throw new Error('Unable to find key of owner inscription address');</span>
+    }
+&nbsp;
+    const adddressIndex = <span class="cstat-no" title="statement not covered" >extractAddressIndexFromPath(result.path);</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >    setInscription(routeState.inscription);</span>
 <span class="cstat-no" title="statement not covered" >    setUtxo(</span>
       createUtxoFromInscription({
         inscription: routeState.inscription,
         network: network.chain.bitcoin.mode,
         accountIndex: currentAccountIndex,
-        inscriptionAddressIdx: addressesMap[routeState.inscription.address],
+        inscriptionAddressIdx: adddressIndex,
       })
     );
   });
@@ -277,7 +340,7 @@ export function <span class="fstat-no" title="function not covered" >SendInscrip
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-10-28T14:09:01.409Z
+                at 2024-11-11T19:45:04.436Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/46</span>
+                <span class='fraction'>0/44</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/46</span>
+                <span class='fraction'>0/44</span>
             </div>
         
             
@@ -214,15 +214,7 @@
 <a name='L149'></a><a href='#L149'>149</a>
 <a name='L150'></a><a href='#L150'>150</a>
 <a name='L151'></a><a href='#L151'>151</a>
-<a name='L152'></a><a href='#L152'>152</a>
-<a name='L153'></a><a href='#L153'>153</a>
-<a name='L154'></a><a href='#L154'>154</a>
-<a name='L155'></a><a href='#L155'>155</a>
-<a name='L156'></a><a href='#L156'>156</a>
-<a name='L157'></a><a href='#L157'>157</a>
-<a name='L158'></a><a href='#L158'>158</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L152'></a><a href='#L152'>152</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -258,11 +250,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -279,6 +266,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -383,7 +371,6 @@ import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 &nbsp;
 import { bitcoinNetworkModeToCoreNetworkMode } from '@leather.io/bitcoin';
-import { useNumberOfInscriptionsOnUtxo } from '@leather.io/query';
 import { isError } from '@leather.io/utils';
 &nbsp;
 import { FormErrorMessages } from '@shared/error-messages';
@@ -396,9 +383,8 @@ import { analytics } from '@shared/utils/analytics';
 import { formFeeRowValue } from '@app/common/send/utils';
 import { InsufficientFundsError } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { complianceValidator } from '@app/common/validation/forms/compliance-validators';
+import { useNumberOfInscriptionsOnUtxo } from '@app/query/bitcoin/ordinals/inscriptions/inscriptions.query';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 &nbsp;
 import { useSendInscriptionState } from '../components/send-inscription-container';
@@ -414,13 +400,8 @@ export function <span class="fstat-no" title="function not covered" >useSendInsc
   const { inscription, utxo } = <span class="cstat-no" title="statement not covered" >useSendInscriptionState();</span>
   const currentNetwork = <span class="cstat-no" title="statement not covered" >useCurrentNetwork();</span>
 &nbsp;
-  const account = <span class="cstat-no" title="statement not covered" >useCurrentTaprootAccount();</span>
-  const nativeSegwitSigner = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitIndexZeroSigner();</span>
+  const getNumberOfInscriptionOnUtxo = <span class="cstat-no" title="statement not covered" >useNumberOfInscriptionsOnUtxo();</span>
 &nbsp;
-  const getNumberOfInscriptionOnUtxo = <span class="cstat-no" title="statement not covered" >useNumberOfInscriptionsOnUtxo({</span>
-    taprootKeychain: account?.keychain,
-    nativeSegwitAddress: nativeSegwitSigner.address,
-  });
   const { coverFeeFromAdditionalUtxos } = <span class="cstat-no" title="statement not covered" >useGenerateUnsignedOrdinalTx(utxo);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return {</span>
@@ -436,6 +417,7 @@ export function <span class="fstat-no" title="function not covered" >useSendInsc
         }
 &nbsp;
         const numInscriptionsOnUtxo = <span class="cstat-no" title="statement not covered" >getNumberOfInscriptionOnUtxo(utxo.txid, utxo.vout);</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >        if (numInscriptionsOnUtxo &gt; 1) {</span>
 <span class="cstat-no" title="statement not covered" >          setShowError(FormErrorMessages.UtxoWithMultipleInscriptions);</span>
 <span class="cstat-no" title="statement not covered" >          return;</span>
@@ -541,7 +523,7 @@ export function <span class="fstat-no" title="function not covered" >useSendInsc
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-10-28T14:09:01.409Z
+                at 2024-11-11T19:45:04.436Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/features/dialogs/increase-fee-dialog/components/fee-multiplier.tsx</title>
+    <title>Code coverage report for extension/src/app/features/dialogs/switch-account-sheet/components/account-list-unavailable.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/features/dialogs/increase-fee-dialog/components</a> fee-multiplier.tsx</h1>
+        <h1><a href="../../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/features/dialogs/switch-account-sheet/components</a> account-list-unavailable.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
@@ -84,20 +84,7 @@
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -108,58 +95,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { HStack, HstackProps } from 'leather-styles/jsx';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Box, Flex, styled } from 'leather-styles/jsx';
 &nbsp;
-import { FeeMultiplierButton } from './fee-multiplier-button';
-&nbsp;
-const multipliers = <span class="cstat-no" title="statement not covered" >[2, 5, 10];</span>
-&nbsp;
-interface FeeMultiplierProps extends HstackProps {
-  onSelectMultiplier(multiplier: number): void;
-  showReset?: boolean;
-}
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >FeeMultiplier(p</span>rops: FeeMultiplierProps) {
-  const { onSelectMultiplier, showReset, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
-&nbsp;
+export function <span class="fstat-no" title="function not covered" >AccountListUnavailable() {</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;HStack alignItems="center" {...rest}&gt;
-      {showReset &amp;&amp; (
-        &lt;FeeMultiplierButton
-          multiplier={1}
-          key={`multiply-1`}
-          onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>nSelectMultiplier(1)}</span>
-        /&gt;
-      )}
-      {multipliers.map(<span class="fstat-no" title="function not covered" >multiplier =&gt; (</span>
-<span class="cstat-no" title="statement not covered" >        &lt;FeeMultiplierButton</span>
-          multiplier={multiplier}
-          onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>nSelectMultiplier(multiplier)}</span>
-          key={`multiply-${multiplier}`}
-        /&gt;
-      ))}
-    &lt;/HStack&gt;
+    &lt;Flex
+      flexDirection="column"
+      justifyContent="center"
+      minHeight="120px"
+      mb="space.06"
+      px="space.05"
+    &gt;
+      &lt;Box&gt;
+        &lt;styled.span textStyle="label.01"&gt;Unable to load account information&lt;/styled.span&gt;
+        &lt;styled.span mt="space.03" textStyle="body.02"&gt;
+          We're unable to load information about your accounts. This may be a problem with the
+          wallet's API. If this problem persists, contact support.
+        &lt;/styled.span&gt;
+      &lt;/Box&gt;
+    &lt;/Flex&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -169,7 +133,7 @@ export function <span class="fstat-no" title="function not covered" >FeeMultipli
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-10-28T14:09:01.409Z
+                at 2024-11-11T19:45:04.436Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>
