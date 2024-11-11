@@ -15,10 +15,8 @@ import {
   serializeCV,
   serializePostCondition,
 } from '@stacks/transactions';
-import BigNumber from 'bignumber.js';
 import { createUnsecuredToken } from 'jsontokens';
 
-import { STX_DECIMALS } from '@leather.io/constants';
 import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -68,10 +66,7 @@ const transactionPayloadToTransactionRequest = (
     case PayloadType.TokenTransfer:
       transactionRequest.txType = TransactionTypes.STXTransfer;
       transactionRequest.recipient = cvToValue(stacksTransaction.payload.recipient, true);
-      transactionRequest.amount = new BigNumber(Number(stacksTransaction.payload.amount))
-        .shiftedBy(-STX_DECIMALS)
-        .toNumber()
-        .toLocaleString('en-US', { maximumFractionDigits: STX_DECIMALS });
+      transactionRequest.amount = stacksTransaction.payload.amount.toString();
       transactionRequest.memo = cleanMemoString(stacksTransaction.payload.memo.content);
       break;
     case PayloadType.ContractCall:
