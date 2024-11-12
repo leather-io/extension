@@ -70,7 +70,6 @@ export function BtcSendForm() {
                         <Button
                           aria-busy={props.isValidating}
                           data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
-                          onClick={() => props.handleSubmit()}
                           type="submit"
                         >
                           Continue
