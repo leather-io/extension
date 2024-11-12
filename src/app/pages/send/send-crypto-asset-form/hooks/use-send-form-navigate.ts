@@ -36,16 +36,12 @@ export function useSendFormNavigate() {
 
   return useMemo(
     () => ({
-      backToSendForm(state: any) {
-        return navigate('../', { relative: 'path', replace: true, state });
-      },
       toChooseTransactionFee(
         isSendingMax: boolean,
         utxos: UtxoResponseItem[],
         values: BitcoinSendFormValues
       ) {
         return navigate(RouteUrls.SendBtcChooseFee, {
-          replace: true,
           state: {
             isSendingMax,
             utxos,
@@ -72,7 +68,6 @@ export function useSendFormNavigate() {
       },
       toConfirmAndSignStxTransaction(tx: StacksTransaction, showFeeChangeWarning: boolean) {
         return navigate(RouteUrls.SendStxConfirmation, {
-          replace: true,
           state: {
             tx: bytesToHex(tx.serialize()),
             showFeeChangeWarning,
