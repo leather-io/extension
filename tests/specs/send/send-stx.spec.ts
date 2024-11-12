@@ -4,6 +4,7 @@ import {
   TEST_BNS_RESOLVED_ADDRESS,
   TEST_TESTNET_ACCOUNT_2_STX_ADDRESS,
 } from '@tests/mocks/constants';
+import { createSuccessfulBnsV2ZoneFileLookupMock } from '@tests/mocks/mock-stacks-bns';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { getDisplayerAddress } from '@tests/utils';
@@ -207,6 +208,11 @@ test.describe('send stx: tests on mainnet', () => {
 
   test.describe('send form input fields', () => {
     test('that recipient address matches bns name', async ({ sendPage }) => {
+      await createSuccessfulBnsV2ZoneFileLookupMock(
+        TEST_BNS_NAME,
+        TEST_BNS_RESOLVED_ADDRESS,
+        'unused-btc-address'
+      )(sendPage.page);
       await sendPage.amountInput.fill('.0001');
       await sendPage.amountInput.blur();
       await sendPage.recipientSelectRecipientTypeDropdown.click();
