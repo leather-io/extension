@@ -32,7 +32,7 @@ export function CollectibleItemLayout({
 }: CollectibleItemLayoutProps) {
   const [isHovered, bind] = useHover();
 
-  const { ref, inView } = useInView();
+  const { ref, inView } = useInView({ triggerOnce: true });
 
   return (
     <Box
