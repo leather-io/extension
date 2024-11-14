@@ -54,12 +54,8 @@ function createSuccessfulBnsV2ZoneFileLookupMockResponse(owner: string, btcAddre
   });
 }
 
-export function createSuccessfulBnsV2ZoneFileLookupMock(
-  name: string,
-  owner: string,
-  btcAddress: string
-) {
-  return (page: Page) =>
+export function mockBnsV2ZoneFileLookup(page: Page) {
+  return ({ name, owner, btcAddress }: { name: string; owner: string; btcAddress: string }) =>
     page.route(`**/api.bnsv2.com/resolve-name/${name}`, route =>
       route.fulfill({ json: createSuccessfulBnsV2ZoneFileLookupMockResponse(owner, btcAddress) })
     );
