@@ -5,8 +5,11 @@ import * as yup from 'yup';
 
 import { bitcoinNetworkModeToCoreNetworkMode } from '@leather.io/bitcoin';
 
-import { FormErrorMessages } from '@shared/error-messages';
-import { btcAddressNetworkValidator, btcAddressValidator } from '@shared/forms/address-validators';
+import {
+  btcAddressNetworkValidator,
+  btcAddressValidator,
+  nonEmptyStringValidator,
+} from '@shared/forms/address-validators';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 
 import { formatPrecisionError } from '@app/common/error-formatters';
@@ -70,9 +73,7 @@ export function useBtcSendForm() {
             utxos,
           })
         ),
-      recipient: yup
-        .string()
-        .defined(FormErrorMessages.AddressRequired)
+      recipient: nonEmptyStringValidator()
         .concat(btcAddressValidator())
         .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.mode))
         .concat(notCurrentAddressValidator(nativeSegwitSigner.address || ''))
@@ -88,7 +89,7 @@ export function useBtcSendForm() {
       values: BitcoinSendFormValues,
       formikHelpers: FormikHelpers<BitcoinSendFormValues>
     ) {
-      // Validate and check high fee warning firsts
+      // Validate and check high fee warning first
       await formikHelpers.validateForm();
       sendFormNavigate.toChooseTransactionFee(isSendingMax, utxos, values);
     },

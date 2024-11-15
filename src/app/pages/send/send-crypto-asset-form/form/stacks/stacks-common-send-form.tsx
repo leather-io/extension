@@ -71,7 +71,6 @@ export function StacksCommonSendForm({
                       <Button
                         aria-busy={props.isValidating}
                         data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
-                        onClick={() => props.handleSubmit()}
                         type="submit"
                         fullWidth
                       >

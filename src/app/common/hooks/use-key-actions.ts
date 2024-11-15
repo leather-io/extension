@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { generateSecretKey } from '@stacks/wallet-sdk';
 
-import { useBitcoinClient } from '@leather.io/query';
+import { useBitcoinClient, useBnsV2Client } from '@leather.io/query';
 
 import { logger } from '@shared/logger';
 import { InternalMethods } from '@shared/message-types';
@@ -29,11 +29,14 @@ export function useKeyActions() {
   const defaultKeyDetails = useCurrentKeyDetails();
   const btcClient = useBitcoinClient();
   const stxClient = useStacksClient();
+  const bnsV2Client = useBnsV2Client();
 
   return useMemo(
     () => ({
       async setPassword(password: string) {
-        return dispatch(keyActions.setWalletEncryptionPassword({ password, stxClient, btcClient }));
+        return dispatch(
+          keyActions.setWalletEncryptionPassword({ password, stxClient, btcClient, bnsV2Client })
+        );
       },
 
       generateWalletKey() {
@@ -76,6 +79,6 @@ export function useKeyActions() {
         return dispatch(inMemoryKeyActions.lockWallet());
       },
     }),
-    [btcClient, defaultKeyDetails, dispatch, stxClient]
+    [bnsV2Client, btcClient, defaultKeyDetails, dispatch, stxClient]
   );
 }

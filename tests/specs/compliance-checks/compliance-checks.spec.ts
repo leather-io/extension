@@ -87,7 +87,7 @@ test.describe('Compliance checks', () => {
     // Please forgive this timeout, we need to give the page time in order to
     // make the request, to be sure it was made. If this test ends up failing
     // due to a race condition, please let the author know.
-    await delay(1500);
+    await delay(2000);
 
     const userAndRecipientAddressCount = 2;
 

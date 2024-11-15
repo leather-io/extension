@@ -2,8 +2,9 @@ import { AddressVersion } from '@stacks/transactions';
 
 import {
   type BitcoinClient,
+  type BnsV2Client,
+  BnsV2QueryPrefixes,
   type StacksClient,
-  StacksQueryPrefixes,
   fetchNamesForAddress,
 } from '@leather.io/query';
 
@@ -31,8 +32,9 @@ function setWalletEncryptionPassword(args: {
   password: string;
   stxClient: StacksClient;
   btcClient: BitcoinClient;
+  bnsV2Client: BnsV2Client;
 }): AppThunk {
-  const { password, stxClient, btcClient } = args;
+  const { password, stxClient, btcClient, bnsV2Client } = args;
 
   return async (dispatch, getState) => {
     const secretKey = selectDefaultWalletKey(getState());
@@ -57,11 +59,12 @@ function setWalletEncryptionPassword(args: {
     async function doesStacksAddressHaveBnsName(address: string) {
       const controller = new AbortController();
       const resp = await fetchNamesForAddress({
-        address,
+        client: bnsV2Client,
+        address: address,
         network: 'mainnet',
         signal: controller.signal,
       });
-      queryClient.setQueryData([StacksQueryPrefixes.GetBnsNamesByAddress, address], resp);
+      queryClient.setQueryData([BnsV2QueryPrefixes.GetBnsNamesByAddress, address], resp);
       return resp.names.length > 0;
     }
 
