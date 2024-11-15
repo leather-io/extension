@@ -1,4 +1,5 @@
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+import { styled } from 'leather-styles/jsx';
 
 import { ChevronDownIcon, DropdownMenu, Flag } from '@leather.io/ui';
 
@@ -37,7 +38,7 @@ export function RecipientIdentifierTypeDropdown(props: RecipientIdentifierTypeDr
                 onSelect={() => onSelectRecipientIdentifierType(type.key)}
                 data-testid={`recipient-select-field-${type.key}`}
               >
-                {type.label}
+                <styled.span textStyle="label.03">{type.label}</styled.span>
               </DropdownMenu.Item>
             ))}
           </DropdownMenu.Group>

@@ -8,6 +8,8 @@ import { FormErrorMessages } from '@shared/error-messages';
 import { logger } from '@shared/logger';
 import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form.model';
 
+import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+
 // Handles validating the BNS name lookup
 export function useRecipientBnsName() {
   const { setFieldError, setFieldValue, values } = useFormikContext<
@@ -15,6 +17,7 @@ export function useRecipientBnsName() {
   >();
   const [bnsAddress, setBnsAddress] = useState('');
 
+  const currentStacksAddress = useCurrentStacksAccountAddress();
   const client = useBnsV2Client();
 
   const getBnsAddressAndValidate = useCallback(
@@ -28,6 +31,11 @@ export function useRecipientBnsName() {
         const owner = await fetchFn(client, values.recipientBnsName);
 
         if (owner) {
+          if (owner === currentStacksAddress) {
+            setFieldError('recipientBnsName', FormErrorMessages.SameAddress);
+            return;
+          }
+
           setBnsAddress(owner);
           setFieldError('recipient', undefined);
           await setFieldValue('recipient', owner);
@@ -39,7 +47,7 @@ export function useRecipientBnsName() {
         logger.error('Error fetching bns address', e);
       }
     },
-    [client, setFieldError, setFieldValue, values.recipientBnsName]
+    [client, currentStacksAddress, setFieldError, setFieldValue, values.recipientBnsName]
   );
 
   return { bnsAddress, getBnsAddressAndValidate, setBnsAddress };
