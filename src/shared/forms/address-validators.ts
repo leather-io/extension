@@ -6,6 +6,13 @@ import { isEmptyString, isUndefined } from '@leather.io/utils';
 
 import { FormErrorMessages } from '@shared/error-messages';
 
+export function nonEmptyStringValidator(message = FormErrorMessages.AddressRequired) {
+  return yup.string().test({
+    message,
+    test: value => value !== undefined && value.trim() !== '',
+  });
+}
+
 export function btcAddressValidator() {
   return yup.string().test({
     message: FormErrorMessages.InvalidAddress,

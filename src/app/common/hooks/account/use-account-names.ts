@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { bitcoinNetworkModeToCoreNetworkMode } from '@leather.io/bitcoin';
-import { createGetBnsNamesOwnedByAddressQueryOptions } from '@leather.io/query';
+import { createGetBnsNamesOwnedByAddressQueryOptions, useBnsV2Client } from '@leather.io/query';
 import { isUndefined } from '@leather.io/utils';
 
 import { parseIfValidPunycode } from '@app/common/utils';
@@ -18,9 +18,10 @@ export function useCurrentAccountDisplayName() {
   const address = useCurrentStacksAccountAddress();
   const { chain } = useCurrentNetworkState();
   const network = bitcoinNetworkModeToCoreNetworkMode(chain.bitcoin.mode);
+  const client = useBnsV2Client();
 
   return useQuery({
-    ...createGetBnsNamesOwnedByAddressQueryOptions({ address, network }),
+    ...createGetBnsNamesOwnedByAddressQueryOptions({ address, network, client }),
     select: resp => {
       if (isUndefined(account?.index) && (!account || typeof account?.index !== 'number'))
         return 'Account';
@@ -34,11 +35,12 @@ export function useCurrentAccountDisplayName() {
 export function useAccountDisplayName({ address, index }: { index: number; address: string }) {
   const { chain } = useCurrentNetworkState();
   const network = bitcoinNetworkModeToCoreNetworkMode(chain.bitcoin.mode);
-
+  const client = useBnsV2Client();
   const query = useQuery({
     ...createGetBnsNamesOwnedByAddressQueryOptions({
       address,
       network,
+      client,
     }),
     select: resp => {
       const names = resp.names ?? [];

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useFormikContext } from 'formik';
 
-import type { StacksClient } from '@leather.io/query';
+import type { BnsV2Client } from '@leather.io/query';
 
 import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form.model';
 
@@ -12,7 +12,7 @@ import { RecipientAddressDisplayer } from './components/recipient-address-displa
 import { useRecipientBnsName } from './hooks/use-recipient-bns-name';
 
 interface RecipientBnsNameTypeFieldProps {
-  fetchFn(client: StacksClient, name: string, isTestnet?: boolean): Promise<string | null>;
+  fetchFn(client: BnsV2Client, name: string, isTestnet?: boolean): Promise<string | null>;
   topInputOverlay: React.JSX.Element;
   rightLabel: React.JSX.Element;
 }
