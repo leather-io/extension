@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -107,10 +107,7 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -126,14 +123,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,52 +151,47 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+import { motion } from 'framer-motion';
+import { HStack } from 'leather-styles/jsx';
 &nbsp;
-import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
-import { HStack, styled } from 'leather-styles/jsx';
-&nbsp;
-import { CopyIcon } from '@leather.io/ui';
+import { AddressDisplayer, CopyIcon } from '@leather.io/ui';
 &nbsp;
 import { analytics } from '@shared/utils/analytics';
 &nbsp;
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
+import { useToast } from '@app/features/toasts/use-toast';
 &nbsp;
 interface RecipientAddressDisplayerProps {
   address: string;
 }
 export function <span class="fstat-no" title="function not covered" >RecipientAddressDisplayer({</span> address }: RecipientAddressDisplayerProps) {
-  const { onCopy, hasCopied } = <span class="cstat-no" title="statement not covered" >useClipboard(address);</span>
+  const { onCopy } = <span class="cstat-no" title="statement not covered" >useClipboard(address);</span>
+  const toast = <span class="cstat-no" title="statement not covered" >useToast();</span>
 &nbsp;
-  const copyToClipboard = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
+  function <span class="fstat-no" title="function not covered" >copyToClipboard() {</span>
+<span class="cstat-no" title="statement not covered" >    toast.success('Copied to clipboard!');</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >    void analytics.track('copy_recipient_bns_address_to_clipboard');</span>
 <span class="cstat-no" title="statement not covered" >    onCopy();</span>
-  }, [onCopy]);
+  }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;HStack mb="space.04" width="100%" px="space.04" mt="space.02"&gt;
-      &lt;styled.span
-        textStyle="caption.01"
-        data-testid={SendCryptoAssetSelectors.RecipientBnsAddressLabel}
-      &gt;
-        {address}
-      &lt;/styled.span&gt;
-      {/** TODO: We need to persist the tooltip after it is clicked.
-           Current implementation of radix-ui tooltip doesn't allow that, ref: https://github.com/radix-ui/primitives/issues/2029 */}
-      &lt;BasicTooltip label={hasCopied ? 'Copied!' : 'Copy address'} side="right" asChild&gt;
-        &lt;styled.button
-          _hover={{ cursor: 'pointer' }}
-          data-testid={SendCryptoAssetSelectors.RecipientBnsAddressCopyToClipboard}
-          onClick={copyToClipboard}
+    &lt;HStack mb="space.04" width="100%" mt="space.02"&gt;
+      &lt;HStack onClick={copyToClipboard} cursor="pointer"&gt;
+        &lt;AddressDisplayer
+          data-testid={SendCryptoAssetSelectors.RecipientBnsAddressLabel}
+          address={address}
+        /&gt;
+&nbsp;
+        &lt;motion.button
           type="button"
+          whileTap={{ scale: 0.85 }}
+          data-testid={SendCryptoAssetSelectors.RecipientBnsAddressCopyToClipboard}
         &gt;
           &lt;CopyIcon /&gt;
-        &lt;/styled.button&gt;
-      &lt;/BasicTooltip&gt;
+        &lt;/motion.button&gt;
+      &lt;/HStack&gt;
     &lt;/HStack&gt;
   );
 }
@@ -208,7 +202,7 @@ export function <span class="fstat-no" title="function not covered" >RecipientAd
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-11T19:46:31.782Z
+                at 2024-11-15T15:28:35.176Z
             </div>
         <script src="../../../../../../../../../prettify.js"></script>
         <script>

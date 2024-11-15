@@ -159,7 +159,8 @@
 <a name='L94'></a><a href='#L94'>94</a>
 <a name='L95'></a><a href='#L95'>95</a>
 <a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -188,24 +189,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,8 +197,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -262,8 +264,11 @@ import * as yup from 'yup';
 &nbsp;
 import { bitcoinNetworkModeToCoreNetworkMode } from '@leather.io/bitcoin';
 &nbsp;
-import { FormErrorMessages } from '@shared/error-messages';
-import { btcAddressNetworkValidator, btcAddressValidator } from '@shared/forms/address-validators';
+import {
+  btcAddressNetworkValidator,
+  btcAddressValidator,
+  nonEmptyStringValidator,
+} from '@shared/forms/address-validators';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 &nbsp;
 import { formatPrecisionError } from '@app/common/error-formatters';
@@ -327,9 +332,7 @@ export function <span class="fstat-no" title="function not covered" >useBtcSendF
             utxos,
           })
         ),
-      recipient: yup
-        .string()
-        .defined(FormErrorMessages.AddressRequired)
+      recipient: nonEmptyStringValidator()
         .concat(btcAddressValidator())
         .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.mode))
         .concat(notCurrentAddressValidator(nativeSegwitSigner.address || ''))
@@ -345,7 +348,7 @@ export function <span class="fstat-no" title="function not covered" >useBtcSendF
       values: BitcoinSendFormValues,
       formikHelpers: FormikHelpers&lt;BitcoinSendFormValues&gt;
     ) {
-      // Validate and check high fee warning firsts
+      // Validate and check high fee warning first
 <span class="cstat-no" title="statement not covered" >      await formikHelpers.validateForm();</span>
 <span class="cstat-no" title="statement not covered" >      sendFormNavigate.toChooseTransactionFee(isSendingMax, utxos, values);</span>
     },
@@ -358,7 +361,7 @@ export function <span class="fstat-no" title="function not covered" >useBtcSendF
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-11T19:46:31.782Z
+                at 2024-11-15T15:28:35.176Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

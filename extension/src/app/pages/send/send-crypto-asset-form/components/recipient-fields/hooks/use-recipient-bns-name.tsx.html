@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -110,7 +110,14 @@
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -128,19 +135,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -161,13 +175,13 @@
 &nbsp;
 import { useFormikContext } from 'formik';
 &nbsp;
-import { type StacksClient, useStacksClient } from '@leather.io/query';
+import { type BnsV2Client, useBnsV2Client } from '@leather.io/query';
 &nbsp;
 import { FormErrorMessages } from '@shared/error-messages';
 import { logger } from '@shared/logger';
 import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form.model';
 &nbsp;
-import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 &nbsp;
 // Handles validating the BNS name lookup
 export function <span class="fstat-no" title="function not covered" >useRecipientBnsName() {</span>
@@ -175,19 +189,26 @@ export function <span class="fstat-no" title="function not covered" >useRecipien
     BitcoinSendFormValues | StacksSendFormValues
   &gt;();
   const [bnsAddress, setBnsAddress] = <span class="cstat-no" title="statement not covered" >useState('');</span>
-  const currentNetwork = <span class="cstat-no" title="statement not covered" >useCurrentNetworkState();</span>
-  const client = <span class="cstat-no" title="statement not covered" >useStacksClient();</span>
+&nbsp;
+  const currentStacksAddress = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccountAddress();</span>
+  const client = <span class="cstat-no" title="statement not covered" >useBnsV2Client();</span>
 &nbsp;
   const getBnsAddressAndValidate = <span class="cstat-no" title="statement not covered" >useCallback(</span>
 <span class="fstat-no" title="function not covered" >    async (</span>
-      fetchFn: (client: StacksClient, name: string, isTestnet?: boolean) =&gt; Promise&lt;string | null&gt;
+      fetchFn: (client: BnsV2Client, name: string, isTestnet?: boolean) =&gt; Promise&lt;string | null&gt;
     ) =&gt; {
 <span class="cstat-no" title="statement not covered" >      setBnsAddress('');</span>
 <span class="cstat-no" title="statement not covered" >      if (!values.recipientBnsName) <span class="cstat-no" title="statement not covered" >return;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      try {</span>
-        const owner = <span class="cstat-no" title="statement not covered" >await fetchFn(client, values.recipientBnsName, currentNetwork.isTestnet);</span>
+        const owner = <span class="cstat-no" title="statement not covered" >await fetchFn(client, values.recipientBnsName);</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >        if (owner) {</span>
+<span class="cstat-no" title="statement not covered" >          if (owner === currentStacksAddress) {</span>
+<span class="cstat-no" title="statement not covered" >            setFieldError('recipientBnsName', FormErrorMessages.SameAddress);</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+          }
+&nbsp;
 <span class="cstat-no" title="statement not covered" >          setBnsAddress(owner);</span>
 <span class="cstat-no" title="statement not covered" >          setFieldError('recipient', undefined);</span>
 <span class="cstat-no" title="statement not covered" >          await setFieldValue('recipient', owner);</span>
@@ -199,7 +220,7 @@ export function <span class="fstat-no" title="function not covered" >useRecipien
 <span class="cstat-no" title="statement not covered" >        logger.error('Error fetching bns address', e);</span>
       }
     },
-    [client, currentNetwork.isTestnet, setFieldError, setFieldValue, values.recipientBnsName]
+    [client, currentStacksAddress, setFieldError, setFieldValue, values.recipientBnsName]
   );
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return { bnsAddress, getBnsAddressAndValidate, setBnsAddress };</span>
@@ -211,7 +232,7 @@ export function <span class="fstat-no" title="function not covered" >useRecipien
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-11T19:46:31.782Z
+                at 2024-11-15T15:28:35.176Z
             </div>
         <script src="../../../../../../../../../prettify.js"></script>
         <script>
