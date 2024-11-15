@@ -1,3 +1,23 @@
+## [6.53.0](https://github.com/leather-io/extension/compare/v6.52.0...v6.53.0) (2024-11-15)
+
+
+### Features
+
+* change stacks bns name owner fetch fn ([efb409c](https://github.com/leather-io/extension/commit/efb409ca3de5ece98050c24f4065272827afb215))
+* fetch zonefile data from bns v2 api ([a677d4f](https://github.com/leather-io/extension/commit/a677d4fccf4f8a9e5b3592984ec49d5bcaa79d14))
+
+
+### Bug Fixes
+
+* bns overflow issue ([542ee27](https://github.com/leather-io/extension/commit/542ee27354b6f01a90b2ee5bd0e56ad9807c573b))
+* do not dismount inscription content on viewport exit ([c7fb8ac](https://github.com/leather-io/extension/commit/c7fb8acaad200bfdc3be0a82e7c94e9cf53e17c7))
+* go back from btc and stx choose fee step ([e3cfac7](https://github.com/leather-io/extension/commit/e3cfac7c84bdca6fe22af29eccf9bbcdd7ce857d))
+
+
+### Internal
+
+* post-release merge back ([744820e](https://github.com/leather-io/extension/commit/744820ed7acbeeb3c6610bf56c235f5c4886e76c))
+
 ## [6.52.0](https://github.com/leather-io/extension/compare/v6.51.1...v6.52.0) (2024-11-11)
 
 
