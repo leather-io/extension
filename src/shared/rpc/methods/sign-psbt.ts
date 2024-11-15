@@ -1,5 +1,5 @@
 import { SigHash } from '@scure/btc-signer/transaction';
-import * as yup from 'yup';
+import { z } from 'zod';
 
 import { WalletDefaultNetworkConfigurationIds } from '@leather.io/models';
 import {
@@ -31,16 +31,20 @@ export const allSighashTypes = [
   BtcKitSignatureHash.SINGLE_ANYONECANPAY,
 ];
 
-const rpcSignPsbtParamsSchema = yup.object().shape({
-  account: accountSchema,
-  allowedSighash: yup.array(),
-  broadcast: yup.boolean(),
-  hex: yup.string().required(),
-  network: yup.string().oneOf(Object.values(WalletDefaultNetworkConfigurationIds)),
-  signAtIndex: yup.mixed<number | number[]>().test(testIsNumberOrArrayOfNumbers),
+const rpcSignPsbtParamsSchema = z.object({
+  account: accountSchema.optional(),
+  allowedSighash: z.array(z.any()).optional(),
+  broadcast: z.boolean().optional(),
+  hex: z.string(),
+  network: z
+    .enum(Object.values(WalletDefaultNetworkConfigurationIds) as [string, ...string[]])
+    .optional(),
+  signAtIndex: z
+    .union([z.number(), z.array(z.number())])
+    .optional()
+    .refine(testIsNumberOrArrayOfNumbers),
 });
 
-// TODO: Import param types from btckit when updated
 export function validateRpcSignPsbtParams(obj: unknown) {
   return validateRpcParams(obj, rpcSignPsbtParamsSchema);
 }
@@ -49,7 +53,7 @@ export function getRpcSignPsbtParamErrors(obj: unknown) {
   return formatValidationErrors(getRpcParamErrors(obj, rpcSignPsbtParamsSchema));
 }
 
-type SignPsbtRequestParams = yup.InferType<typeof rpcSignPsbtParamsSchema>;
+type SignPsbtRequestParams = z.infer<typeof rpcSignPsbtParamsSchema>;
 
 export type SignPsbtRequest = RpcRequest<'signPsbt', SignPsbtRequestParams>;
 

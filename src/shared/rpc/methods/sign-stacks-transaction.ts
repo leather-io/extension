@@ -1,14 +1,14 @@
 import { DefineRpcMethod, RpcRequest, RpcResponse } from '@btckit/types';
 import { StacksNetworks } from '@stacks/network';
-import * as yup from 'yup';
+import { z } from 'zod';
 
 import { formatValidationErrors, getRpcParamErrors, validateRpcParams } from './validation.utils';
 
-const rpcSignStacksTransactionParamsSchema = yup.object().shape({
-  stxAddress: yup.string(),
-  txHex: yup.string().required(),
-  attachment: yup.string(),
-  network: yup.string().oneOf(StacksNetworks),
+const rpcSignStacksTransactionParamsSchema = z.object({
+  stxAddress: z.string().optional(),
+  txHex: z.string(),
+  attachment: z.string().optional(),
+  network: z.enum(StacksNetworks).optional(),
 });
 
 export function validateRpcSignStacksTransactionParams(obj: unknown) {
@@ -19,9 +19,7 @@ export function getRpcSignStacksTransactionParamErrors(obj: unknown) {
   return formatValidationErrors(getRpcParamErrors(obj, rpcSignStacksTransactionParamsSchema));
 }
 
-type SignStacksTransactionRequestParams = yup.InferType<
-  typeof rpcSignStacksTransactionParamsSchema
->;
+type SignStacksTransactionRequestParams = z.infer<typeof rpcSignStacksTransactionParamsSchema>;
 
 export type SignStacksTransactionRequest = RpcRequest<
   'stx_signTransaction',

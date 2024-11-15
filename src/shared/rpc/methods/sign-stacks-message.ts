@@ -1,16 +1,17 @@
 import { DefineRpcMethod, RpcRequest, RpcResponse } from '@btckit/types';
 import { StacksNetworks } from '@stacks/network';
-import * as yup from 'yup';
+import { z } from 'zod';
 
 import { formatValidationErrors, getRpcParamErrors, validateRpcParams } from './validation.utils';
 
 const SignedMessageTypeArray = ['utf8', 'structured'] as const;
 
-const rpcSignStacksMessageParamsSchema = yup.object().shape({
-  network: yup.string().oneOf(StacksNetworks),
-  message: yup.string().required(),
-  domain: yup.string(),
-  messageType: yup.string().oneOf(SignedMessageTypeArray).required(),
+// TODO: refactor to use .discriminatedUnion
+const rpcSignStacksMessageParamsSchema = z.object({
+  network: z.enum(StacksNetworks).optional(),
+  message: z.string(),
+  domain: z.string().optional(),
+  messageType: z.enum(SignedMessageTypeArray),
 });
 
 export function validateRpcSignStacksMessageParams(obj: unknown) {
@@ -21,7 +22,7 @@ export function getRpcSignStacksMessageParamErrors(obj: unknown) {
   return formatValidationErrors(getRpcParamErrors(obj, rpcSignStacksMessageParamsSchema));
 }
 
-type SignStacksMessageRequestParams = yup.InferType<typeof rpcSignStacksMessageParamsSchema>;
+type SignStacksMessageRequestParams = z.infer<typeof rpcSignStacksMessageParamsSchema>;
 
 export type SignStacksMessageRequest = RpcRequest<
   'stx_signMessage',

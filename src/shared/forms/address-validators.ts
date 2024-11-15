@@ -1,4 +1,4 @@
-import { Network, validate } from 'bitcoin-address-validation';
+import { Network, getAddressInfo, validate } from 'bitcoin-address-validation';
 import * as yup from 'yup';
 
 import type { BitcoinNetworkModes } from '@leather.io/models';
@@ -23,6 +23,10 @@ export function btcAddressValidator() {
   });
 }
 
+export function getNetworkTypeFromAddress(address: string) {
+  return getAddressInfo(address).network as BitcoinNetworkModes;
+}
+
 function btcAddressNetworkValidatorFactory(network: BitcoinNetworkModes) {
   function getAddressNetworkType(network: BitcoinNetworkModes): Network {
     // Signet uses testnet address format, this parsing is to please the
@@ -30,7 +34,6 @@ function btcAddressNetworkValidatorFactory(network: BitcoinNetworkModes) {
     if (network === 'signet') return Network.testnet;
     return network as Network;
   }
-
   return (value?: string) => {
     if (isUndefined(value) || isEmptyString(value)) return true;
     return validate(value, getAddressNetworkType(network));

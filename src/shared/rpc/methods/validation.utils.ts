@@ -1,38 +1,34 @@
-import * as yup from 'yup';
+import { z } from 'zod';
+import { fromError } from 'zod-validation-error';
 
 import { isNumber, isUndefined } from '@leather.io/utils';
 
-export const accountSchema = yup.number().integer();
+export const accountSchema = z.number().int();
 
-export function validateRpcParams(
-  obj: unknown,
-  validator: yup.ObjectSchema<yup.Maybe<yup.AnyObject>>
-) {
+export function validateRpcParams(obj: unknown, validator: z.ZodSchema) {
   try {
-    validator.validateSync(obj, { abortEarly: false });
+    validator.parse(obj);
     return true;
   } catch (e) {
     return false;
   }
 }
 
-export function getRpcParamErrors(
-  obj: unknown,
-  validator: yup.ObjectSchema<yup.Maybe<yup.AnyObject>>
-) {
+export function getRpcParamErrors(obj: unknown, validator: z.ZodTypeAny) {
   try {
-    validator.validateSync(obj, { abortEarly: false });
+    validator.parse(obj);
     return [];
   } catch (e) {
-    if (e instanceof yup.ValidationError) return e.inner;
+    if (e instanceof z.ZodError) return [e];
     return [];
   }
 }
 
-export function formatValidationErrors(errors: yup.ValidationError[]) {
-  return (
-    'Invalid parameters: ' + errors.map(e => `Error in path ${e.path}, ${e.message}.`).join(' ')
-  );
+export function formatValidationErrors(errors: z.ZodError[]) {
+  return errors
+    .map(error => fromError(error))
+    .join('. ')
+    .trim();
 }
 
 export function testIsNumberOrArrayOfNumbers(value: unknown) {
