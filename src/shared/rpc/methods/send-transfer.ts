@@ -1,7 +1,7 @@
 import type { SendTransferRequestParams } from '@btckit/types';
 import { z } from 'zod';
 
-import { type BitcoinNetworkModes, WalletDefaultNetworkConfigurationIds } from '@leather.io/models';
+import { type BitcoinNetworkModes } from '@leather.io/models';
 import { uniqueArray } from '@leather.io/utils';
 
 import { FormErrorMessages } from '@shared/error-messages';
@@ -11,6 +11,7 @@ import {
 } from '@shared/forms/address-validators';
 import { checkIfDigitsOnly } from '@shared/forms/amount-validators';
 
+import { defaultNetworksSchema } from '../rpc-schemas';
 import {
   accountSchema,
   formatValidationErrors,
@@ -24,17 +25,13 @@ export const rpcSendTransferParamsSchemaLegacy = z.object({
   account: accountSchema.optional(),
   address: z.string(),
   amount: z.string(),
-  network: z
-    .enum(Object.values(WalletDefaultNetworkConfigurationIds) as [string, ...string[]])
-    .optional(),
+  network: defaultNetworksSchema.optional(),
 });
 
 export const rpcSendTransferParamsSchema = z
   .object({
     account: accountSchema.optional(),
-    network: z
-      .enum(Object.values(WalletDefaultNetworkConfigurationIds) as [string, ...string[]])
-      .optional(),
+    network: defaultNetworksSchema.optional(),
     recipients: z
       .array(
         z.object({
