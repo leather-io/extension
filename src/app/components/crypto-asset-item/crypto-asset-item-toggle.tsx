@@ -43,6 +43,10 @@ export function CryptoAssetItemToggle({
     });
   }
 
+  function onClick() {
+    switchRef.current?.click();
+  }
+
   const toggle = (
     <VStack h="100%" justifyContent="center">
       <Switch.Root
@@ -50,6 +54,7 @@ export function CryptoAssetItemToggle({
         defaultChecked={isCheckedByDefault}
         onCheckedChange={handleSelection}
         id={assetId}
+        onClick={onClick}
       >
         <Switch.Thumb />
       </Switch.Root>
@@ -58,7 +63,7 @@ export function CryptoAssetItemToggle({
 
   return (
     <Box my="space.02">
-      <Pressable onClick={() => switchRef.current?.click()} data-testid={sanitize(assetId)}>
+      <Pressable onClick={onClick} data-testid={sanitize(assetId)}>
         <ItemLayout
           img={icon}
           titleLeft={spamFilter(titleLeft)}
