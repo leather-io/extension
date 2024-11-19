@@ -19,7 +19,7 @@ interface AccountListItemProps {
   onClose(): void;
 }
 export const AccountListItem = memo(({ index, stacksAccount, onClose }: AccountListItemProps) => {
-  const { setFieldValue, values, setFieldTouched } = useFormikContext<
+  const { setFieldValue, values } = useFormikContext<
     BitcoinSendFormValues | StacksSendFormValues
   >();
   const stacksAddress = stacksAccount?.address || '';
@@ -30,7 +30,6 @@ export const AccountListItem = memo(({ index, stacksAccount, onClose }: AccountL
   const onSelectAccount = () => {
     const isBitcoin = values.symbol === 'BTC';
     void setFieldValue('recipient', isBitcoin ? bitcoinAddress : stacksAddress, false);
-    void setFieldTouched('recipient', false);
     onClose();
   };
 

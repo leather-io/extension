@@ -123,20 +123,25 @@ export function getBitcoinTxValue(address: string, transaction?: BitcoinTx) {
   return '';
 }
 
+interface GetSpendableAmountArgs {
+  utxos: UtxoResponseItem[];
+  feeRate: number;
+  recipients: TransferRecipient[];
+  isSendMax?: boolean;
+}
+
 export function getSpendableAmount({
   utxos,
   feeRate,
   recipients,
-}: {
-  utxos: UtxoResponseItem[];
-  feeRate: number;
-  recipients: TransferRecipient[];
-}) {
+  isSendMax,
+}: GetSpendableAmountArgs) {
   const balance = utxos.map(utxo => utxo.value).reduce((prevVal, curVal) => prevVal + curVal, 0);
 
   const size = getSizeInfo({
     inputLength: utxos.length,
     recipients,
+    isSendMax,
   });
   const fee = Math.ceil(size.txVBytes * feeRate);
   const bigNumberBalance = BigNumber(balance);
@@ -168,6 +173,11 @@ export function getSizeInfo(payload: {
   }
 
   const outputTypesCount = getTxOutputsLengthByPaymentType();
+
+  // If no outputs, e.g. when recipient is not provided, set default output to p2wpkh
+  if (Object.values(outputTypesCount).length === 0) {
+    outputTypesCount[AddressType.p2wpkh] = 1;
+  }
 
   // Add a change address if not sending max (defaults to p2wpkh)
   if (!isSendMax) {

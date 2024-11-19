@@ -38,6 +38,7 @@ export function calculateMaxBitcoinSpend({
     utxos: filteredUtxos,
     feeRate: currentFeeRate,
     recipients: [{ address, amount: createMoney(0, 'BTC') }],
+    isSendMax: true,
   });
 
   return {
