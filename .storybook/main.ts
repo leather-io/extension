@@ -59,9 +59,7 @@ const config: StorybookConfig = {
     '@storybook/addon-webpack5-compiler-swc',
     '@chromatic-com/storybook',
   ],
-  docs: {
-    autodocs: 'tag',
-  },
+  docs: {},
   framework: {
     name: '@storybook/react-webpack5',
     options: {

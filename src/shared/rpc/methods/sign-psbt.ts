@@ -1,7 +1,6 @@
 import { SigHash } from '@scure/btc-signer/transaction';
 import { z } from 'zod';
 
-import { WalletDefaultNetworkConfigurationIds } from '@leather.io/models';
 import {
   SignatureHash as BtcKitSignatureHash,
   DefineRpcMethod,
