@@ -8,7 +8,7 @@ import {
   RpcResponse,
 } from '@leather.io/rpc';
 
-import { defaultNetworksSchema } from '../rpc-schemas';
+import { defaultNetworkIdSchema } from '../rpc-schemas';
 import {
   accountSchema,
   formatValidationErrors,
@@ -36,7 +36,7 @@ const rpcSignPsbtParamsSchema = z.object({
   allowedSighash: z.array(z.any()).optional(),
   broadcast: z.boolean().optional(),
   hex: z.string(),
-  network: defaultNetworksSchema.optional(),
+  network: defaultNetworkIdSchema.optional(),
   signAtIndex: z
     .union([z.number(), z.array(z.number())])
     .optional()
