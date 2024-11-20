@@ -1,7 +1,7 @@
 import type { SendTransferRequestParams } from '@btckit/types';
 import { z } from 'zod';
 
-import { type BitcoinNetworkModes } from '@leather.io/models';
+import { type BitcoinNetworkModes, type DefaultNetworkConfigurations } from '@leather.io/models';
 import { uniqueArray } from '@leather.io/utils';
 
 import { FormErrorMessages } from '@shared/error-messages';
@@ -11,7 +11,7 @@ import {
 } from '@shared/forms/address-validators';
 import { checkIfDigitsOnly } from '@shared/forms/amount-validators';
 
-import { defaultNetworksSchema } from '../rpc-schemas';
+import { defaultNetworkIdSchema } from '../rpc-schemas';
 import {
   accountSchema,
   formatValidationErrors,
@@ -21,17 +21,35 @@ import {
 
 export const defaultRpcSendTransferNetwork = 'mainnet';
 
+function defaultNetworkIdToBitcoinNetworkMode(
+  networkId: DefaultNetworkConfigurations
+): BitcoinNetworkModes {
+  switch (networkId) {
+    case 'mainnet':
+      return 'mainnet';
+    case 'testnet':
+    case 'testnet4':
+      return 'testnet';
+    case 'sbtcTestnet':
+    case 'sbtcDevenv':
+    case 'devnet':
+      return 'regtest';
+    case 'signet':
+      return 'signet';
+  }
+}
+
 export const rpcSendTransferParamsSchemaLegacy = z.object({
   account: accountSchema.optional(),
   address: z.string(),
   amount: z.string(),
-  network: defaultNetworksSchema.optional(),
+  network: defaultNetworkIdSchema.optional(),
 });
 
 export const rpcSendTransferParamsSchema = z
   .object({
     account: accountSchema.optional(),
-    network: defaultNetworksSchema.optional(),
+    network: defaultNetworkIdSchema.optional(),
     recipients: z
       .array(
         z.object({
@@ -54,8 +72,12 @@ export const rpcSendTransferParamsSchema = z
   })
   .refine(
     ({ network, recipients }) => {
+      if (!network) return true;
+
       const addressNetworks = recipients.map(recipient =>
-        btcAddressNetworkValidator(network as BitcoinNetworkModes).isValidSync(recipient.address)
+        btcAddressNetworkValidator(defaultNetworkIdToBitcoinNetworkMode(network)).isValidSync(
+          recipient.address
+        )
       );
 
       return !addressNetworks.some(val => val === false);
