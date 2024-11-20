@@ -5,8 +5,11 @@ import {
   WalletDefaultNetworkConfigurationIds,
 } from '@leather.io/models';
 
-type NonEmptyNetworkList = [DefaultNetworkConfigurations, ...DefaultNetworkConfigurations[]];
+type NonEmptyDefaultNetworkIdList = [
+  DefaultNetworkConfigurations,
+  ...DefaultNetworkConfigurations[],
+];
 
-export const defaultNetworksSchema = z.enum(
-  Object.values(WalletDefaultNetworkConfigurationIds) as NonEmptyNetworkList
+export const defaultNetworkIdSchema = z.enum(
+  Object.values(WalletDefaultNetworkConfigurationIds) as NonEmptyDefaultNetworkIdList
 );

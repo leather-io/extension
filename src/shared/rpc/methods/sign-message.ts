@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import type { PaymentTypes } from '@leather.io/rpc';
 
-import { defaultNetworksSchema } from '../rpc-schemas';
+import { defaultNetworkIdSchema } from '../rpc-schemas';
 import {
   accountSchema,
   formatValidationErrors,
@@ -14,7 +14,7 @@ const rpcSignMessageParamsSchema = z.object({
   type: z.enum(['bip322']).optional(),
   account: accountSchema.optional(),
   message: z.string(),
-  network: defaultNetworksSchema.optional(),
+  network: defaultNetworkIdSchema.optional(),
   paymentType: z.enum(['p2tr', 'p2wpkh'] as [PaymentTypes, PaymentTypes]).optional(),
 });
 
