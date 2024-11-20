@@ -3,6 +3,8 @@ import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
+import { WalletDefaultNetworkConfigurationIds } from '@leather.io/models';
+
 import { test } from '../../fixtures/fixtures';
 
 test.describe('Settings menu', () => {
@@ -67,7 +69,9 @@ test.describe('Settings menu', () => {
     await page.getByTestId(SettingsSelectors.ChangeNetworkAction).click();
     await page.waitForTimeout(1000);
     const networkListItems = await page.getByTestId(SettingsSelectors.NetworkListItem).all();
-    test.expect(networkListItems).toHaveLength(6);
+    test
+      .expect(networkListItems)
+      .toHaveLength(Object.keys(WalletDefaultNetworkConfigurationIds).length);
   });
 
   test('that menu item can toggle privacy', async ({ page, homePage }) => {
