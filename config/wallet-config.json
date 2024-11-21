@@ -83,6 +83,7 @@
     "minValues": [2500, 3000, 3500],
     "minValuesEnabled": true
   },
+  "tokenTransferFeeEstimations": [200, 400, 800],
   "nftMetadataEnabled": true,
   "ordinalsbot": {
     "integrationEnabled": true,
