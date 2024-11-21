@@ -40,10 +40,27 @@ const mockedAlexPools = [
   },
 ];
 
-export async function mockMainnetTestAccountAlexAssetsRequest(page: Page) {
+const mockedAlexTokenPrices = [
+  {
+    contract_id: 'SP265WBWD4NH7TVPYQTVD23X3607NNK4484DTXQZ3.longcoin',
+    last_price_usd: 4.23105713004e-7,
+  },
+  {
+    contract_id: 'SP32AEEF6WW5Y0NMJ1S8SBSZDAY8R5J32NBZFPKKZ.nope',
+    last_price_usd: 0.000046211724535772,
+  },
+];
+
+export async function mockMainnetAlexAssetsRequest(page: Page) {
   await page.route('https://alex-sdk-api.alexlab.co/', route =>
     route.fulfill({
       json: { pools: mockedAlexPools, tokens: mockedAlexTokens },
     })
+  );
+}
+
+export async function mockMainnetAlexTokenPricesRequest(page: Page) {
+  await page.route('https://api.alexgo.io/v2/public/token-prices', route =>
+    route.fulfill({ json: { data: mockedAlexTokenPrices } })
   );
 }

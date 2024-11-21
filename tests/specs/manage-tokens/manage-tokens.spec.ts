@@ -7,7 +7,6 @@ test.describe('Manage tokens', () => {
   test.beforeEach(async ({ extensionId, globalPage, onboardingPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
-    await globalPage.page.waitForLoadState('networkidle');
   });
 
   test('that supported sip10 token is shown', async ({ homePage }) => {
