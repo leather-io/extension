@@ -1,7 +1,10 @@
 import { Page } from '@playwright/test';
 import { json } from '@tests/utils';
 
-import { mockMainnetTestAccountAlexAssetsRequest } from './mock-alex-assets';
+import {
+  mockMainnetAlexAssetsRequest,
+  mockMainnetAlexTokenPricesRequest,
+} from './mock-alex-assets';
 import { mockMainnetTestAccountBrc20TokensRequest } from './mock-brc20';
 import { mockMainnetTestAccountRunesOutputsRequest } from './mock-runes';
 import { mockMainnetTestAccountStampchainRequest } from './mock-src20';
@@ -27,7 +30,8 @@ export async function setupMockApis(page: Page) {
     mockMainnetTestAccountStacksNFTsRequest(page),
     mockMainnetTestAccountStacksFTsRequest(page),
     mockMainnetTestAccountStacksBalancesRequest(page),
-    mockMainnetTestAccountAlexAssetsRequest(page),
+    mockMainnetAlexAssetsRequest(page),
+    mockMainnetAlexTokenPricesRequest(page),
 
     mockMainnetTestAccountStampchainRequest(page),
     mockMainnetTestAccountBrc20TokensRequest(page),
