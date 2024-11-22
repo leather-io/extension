@@ -85,7 +85,7 @@ function AddAccountAction() {
     <Box mx="space.05" py="space.02" onClick={onCreateAccount} {...bind}>
       <HStack alignItems="center">
         <PlusIcon />
-        Generate new account
+        <styled.span textStyle="label.02">Generate new account</styled.span>
       </HStack>
       {component}
     </Box>
