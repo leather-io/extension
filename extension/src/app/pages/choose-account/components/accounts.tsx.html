@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/28</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -192,19 +192,7 @@
 <a name='L127'></a><a href='#L127'>127</a>
 <a name='L128'></a><a href='#L128'>128</a>
 <a name='L129'></a><a href='#L129'>129</a>
-<a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a>
-<a name='L132'></a><a href='#L132'>132</a>
-<a name='L133'></a><a href='#L133'>133</a>
-<a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a>
-<a name='L136'></a><a href='#L136'>136</a>
-<a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L130'></a><a href='#L130'>130</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -278,13 +266,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -317,8 +301,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -343,10 +325,9 @@
 import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 &nbsp;
-import { Box, FlexProps, HStack, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
+import { Box, Flex, FlexProps, HStack, Stack, styled } from 'leather-styles/jsx';
 &nbsp;
-import { PlusIcon } from '@leather.io/ui';
+import { PlusIcon, Pressable } from '@leather.io/ui';
 &nbsp;
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
@@ -358,12 +339,10 @@ import { slugify } from '@app/common/utils';
 import { AccountTotalBalance } from '@app/components/account-total-balance';
 import { AcccountAddresses } from '@app/components/account/account-addresses';
 import { AccountListItemLayout } from '@app/components/account/account-list-item.layout';
-import { usePressable } from '@app/components/item-hover';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { AccountAvatar } from '@app/ui/components/account/account-avatar/account-avatar';
-import { VirtuosoWrapper } from '@app/ui/components/virtuoso';
 &nbsp;
 interface AccountTitlePlaceholderProps {
   account: StacksAccount;
@@ -415,21 +394,17 @@ const ChooseAccountItem = <span class="cstat-no" title="statement not covered" >
 );
 &nbsp;
 function <span class="fstat-no" title="function not covered" >AddAccountAction() {</span>
-  const [component, bind] = <span class="cstat-no" title="statement not covered" >usePressable(true);</span>
   const createAccount = <span class="cstat-no" title="statement not covered" >useCreateAccount();</span>
 &nbsp;
-  const onCreateAccount = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
-<span class="cstat-no" title="statement not covered" >    createAccount();</span>
-  };
-&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Box mx="space.05" py="space.02" onClick={onCreateAccount} {...bind}&gt;
-      &lt;HStack alignItems="center"&gt;
-        &lt;PlusIcon /&gt;
-        Generate new account
-      &lt;/HStack&gt;
-      {component}
-    &lt;/Box&gt;
+    &lt;Flex mx="space.05"&gt;
+      &lt;Pressable onClick={createAccount} py="space.02"&gt;
+        &lt;HStack alignItems="center"&gt;
+          &lt;PlusIcon /&gt;
+          &lt;styled.span textStyle="label.02"&gt;Generate new account&lt;/styled.span&gt;
+        &lt;/HStack&gt;
+      &lt;/Pressable&gt;
+    &lt;/Flex&gt;
   );
 }
 &nbsp;
@@ -455,13 +430,11 @@ export function <span class="fstat-no" title="function not covered" >ChooseAccou
 <span class="cstat-no" title="statement not covered" >  if (!accounts) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Box mt="space.05" mb="space.06" width="100%"&gt;
+    &lt;Stack width="100%" height="100%" mt="space.05"&gt;
       {whenWallet({ software: &lt;AddAccountAction /&gt;, ledger: &lt;&gt;&lt;/&gt; })}
-      &lt;VirtuosoWrapper isPopup&gt;
+&nbsp;
+      &lt;Box height="100%"&gt;
         &lt;Virtuoso
-          style={{
-            background: token('colors.ink.background-primary'),
-          }}
           data={accounts}
           itemContent={<span class="fstat-no" title="function not covered" >(i</span>ndex, account) =&gt; (
 <span class="cstat-no" title="statement not covered" >            &lt;Box key={index} my="space.05" px="space.05"&gt;</span>
@@ -473,8 +446,8 @@ export function <span class="fstat-no" title="function not covered" >ChooseAccou
             &lt;/Box&gt;
           )}
         /&gt;
-      &lt;/VirtuosoWrapper&gt;
-    &lt;/Box&gt;
+      &lt;/Box&gt;
+    &lt;/Stack&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -484,7 +457,7 @@ export function <span class="fstat-no" title="function not covered" >ChooseAccou
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-15T15:30:01.290Z
+                at 2024-11-25T14:52:15.586Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>
