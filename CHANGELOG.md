@@ -1,3 +1,26 @@
+## [6.54.0](https://github.com/leather-io/extension/compare/v6.53.0...v6.54.0) (2024-11-25)
+
+
+### Features
+
+* add default set fees, closes [#5930](https://github.com/leather-io/extension/issues/5930) ([95cc7c9](https://github.com/leather-io/extension/commit/95cc7c9430dfdbb727c75dd78c638252a40db203))
+* add mock alex prices ([56502b7](https://github.com/leather-io/extension/commit/56502b7fe6b67fb048c6769a6a519780d9172e4c))
+
+
+### Bug Fixes
+
+* insufficient funds in send max btc flow ([531fd94](https://github.com/leather-io/extension/commit/531fd942a81d8daf7f34f626b0e6d9ac84b0d9c3))
+* manage tokens toggle, closes [#5974](https://github.com/leather-io/extension/issues/5974) ([b515bd9](https://github.com/leather-io/extension/commit/b515bd93f0dd38d34c0ed8633c7e73d010ec975d))
+* support regtest address validation ([33715d1](https://github.com/leather-io/extension/commit/33715d1d984613c2b8a83512c69a3723f217fa01))
+* virtuoso list fixed height, closes [#5975](https://github.com/leather-io/extension/issues/5975) ([2987bde](https://github.com/leather-io/extension/commit/2987bde02dc7f5de1eafd639ebdde285c0e7b807))
+
+
+### Internal
+
+* generic network name validator ([64a6aac](https://github.com/leather-io/extension/commit/64a6aac951e2285663ca6c895ac7a757337eaf08))
+* upgrade storybook ([359a17d](https://github.com/leather-io/extension/commit/359a17d7bddbc277406f162746d5e64a23f479ad))
+* use zod for rpc validation ([6bbd9b1](https://github.com/leather-io/extension/commit/6bbd9b1eb9211f6f0176e3aa0b2e8407d3fd6c87))
+
 ## [6.53.0](https://github.com/leather-io/extension/compare/v6.52.0...v6.53.0) (2024-11-15)
 
 
