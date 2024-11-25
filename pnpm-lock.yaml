@@ -69,8 +69,8 @@ importers:
         specifier: 0.12.1
         version: 0.12.1
       '@leather.io/ui':
-        specifier: 1.36.1
-        version: 1.36.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@emotion/is-prop-valid@1.3.1)(@types/react-dom@18.3.0)(@types/react@18.3.10)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)
+        specifier: 1.37.0
+        version: 1.37.0(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@emotion/is-prop-valid@1.3.1)(@types/react-dom@18.3.0)(@types/react@18.3.10)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)
       '@leather.io/utils':
         specifier: 0.19.1
         version: 0.19.1
@@ -3015,7 +3015,7 @@ packages:
 
   '@expo/bunyan@4.0.1':
     resolution: {integrity: sha512-+Lla7nYSiHZirgK+U/uYzsLv/X+HaJienbD5AKX1UQZHYfWaP+9uuQluRB4GrEVWF0GZ7vEVp/jzaOT9k/SQlg==}
-    engines: {'0': node >=0.10.0}
+    engines: {node: '>=0.10.0'}
 
   '@expo/cli@0.18.28':
     resolution: {integrity: sha512-fvbVPId6s6etindzP6Nzos/CS1NurMVy4JKozjebArHr63tBid5i/UY5Pp+4wTCAM20gB2SjRdwcwoL6HFC4Iw==}
@@ -3287,6 +3287,9 @@ packages:
   '@leather.io/constants@0.13.4':
     resolution: {integrity: sha512-Cot8qwwLWeIMr0LFHtzVkeJZ/a+MSMuNPhrXKm5Psaqb2jyjkq5RrlCLtm9/cjwmkBTZeokWubaQUzyPMlQK4w==}
 
+  '@leather.io/constants@0.13.5':
+    resolution: {integrity: sha512-FOh/F/g8WepB8HfoTXsMB/BYcm/F6INPEpyEZc3ljzaN0mLwVLO1kwgMTFU9Pq7tQlITvyWiyGHcB7OYovLoUQ==}
+
   '@leather.io/crypto@1.6.12':
     resolution: {integrity: sha512-ZEhUVhdq/m2pIhi8PwvRKyjwYdcmXcRJBOLSO1RMSu8N93GTEqfvxkqTlu88c2ReNt5C62+TwWM6hbZkU2BV6Q==}
 
@@ -3301,6 +3304,9 @@ packages:
 
   '@leather.io/models@0.21.0':
     resolution: {integrity: sha512-cy/WToOVy0ZGHxza5kJL2aeKKnBXL4lSK/j3iig/rDWAgx5Vy7M8sCjFBbo4hlinskb8VgM5woGe7hIFjFZcmA==}
+
+  '@leather.io/models@0.22.0':
+    resolution: {integrity: sha512-MmFmWdKN3T+L9euo+rq8JCr5Ku0mNulzVa0mYqXclB9vLa4NyhUsGHA3lWz8e05cMW9CsrPNg+eWpVg6AKTkeQ==}
 
   '@leather.io/panda-preset@0.5.2':
     resolution: {integrity: sha512-JxPGX7hEUKWLp4gYc2S5irK6QXVMFEGn2F7bXEv2cr8324DYa07i5iUF6/UVeRhrzVivcXEdd/6u0wlKc39Rcw==}
@@ -3319,20 +3325,26 @@ packages:
   '@leather.io/rpc@2.1.19':
     resolution: {integrity: sha512-IUcXnmIuPyu5TK3x46ReSw+2/As2cWa6mzA+tofe/e59K9E5SMpEXZAg+WhvgPRFaXWaA3W8BzeH0BVEoRwEtw==}
 
+  '@leather.io/rpc@2.1.20':
+    resolution: {integrity: sha512-BE56W5yzdOPdVWHo2G+ZrXsEt3Jki47/noMxy+9On0sNW5B90M+pULm65szp5/vzqJuY7xIrQJ1AOyG22cd82g==}
+
   '@leather.io/stacks@1.3.5':
     resolution: {integrity: sha512-yqOX6CTcg0Shj3A5ymYtho054PJ2xU+HlyRfwXca8yJ1U2chMSq7jTinJktgI+1liTHsqmtRnrgmufxWY41J7A==}
 
   '@leather.io/tokens@0.12.1':
     resolution: {integrity: sha512-XoP9PT7uuzHIk9HFFkGTuMeG8KL94PVHQfdWtvb19qQC9YVMzwj+QSK45KUFYtXyfI+Ejsn7EFZmZ/C4vStDrg==}
 
-  '@leather.io/ui@1.36.1':
-    resolution: {integrity: sha512-I5pTkt8imlEBk2jnd81UdbnlwOEdvs1eEpsxM7GlH1nTbCV+X76xXeIk5zn+bDOxrqnJ7HU2Qu2KZn7SkNsV9Q==}
+  '@leather.io/ui@1.37.0':
+    resolution: {integrity: sha512-ryylwG9m9hjA7MUhXcN0idCtXZYwfhLHd+4T+/vXCvXEaSpFro4DF+ih7msJGCv+B0R0y/PaQvu+KJDgLhrYrA==}
 
   '@leather.io/utils@0.19.1':
     resolution: {integrity: sha512-bwD3/4Rt3UOL3pvettqNon+zqS5S8K6z3AoAEwkcYS77DI/q4kzH5T/3nOOGpcWda1/R453mqRCIObRxecIWFA==}
 
   '@leather.io/utils@0.19.2':
     resolution: {integrity: sha512-oLEasUP5BDeDbrB9vxH0C0zrZWcG2bj12KHaI9illCtIqEe9pLM/5R5Ee6vVH1Ft+vCg/HI7WHNu79o0NHFdgQ==}
+
+  '@leather.io/utils@0.20.0':
+    resolution: {integrity: sha512-Ot0oOYMku4oy3218W3Tt0ip0xjMyegOxFONqOyt/WSZe9xzTiXXUq0u3D8jwa851ZEOSCB7TgOO5RMzWK0lkLg==}
 
   '@ledgerhq/devices@8.4.2':
     resolution: {integrity: sha512-oWNTp3jCMaEvRHsXNYE/yo+PFMgXAJGFHLOU1UdE4/fYkniHbD9wdxwyZrZvrxr9hNw4/9wHiThyITwPtMzG7g==}
@@ -18484,8 +18496,8 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.26.0
       '@expo/code-signing-certificates': 0.0.5
-      '@expo/config': 9.0.3
-      '@expo/config-plugins': 8.0.8
+      '@expo/config': 9.0.4
+      '@expo/config-plugins': 8.0.11
       '@expo/devcert': 1.1.4
       '@expo/env': 0.3.0
       '@expo/image-utils': 0.5.1(encoding@0.1.13)
@@ -18616,7 +18628,7 @@ snapshots:
   '@expo/config@9.0.3':
     dependencies:
       '@babel/code-frame': 7.10.4
-      '@expo/config-plugins': 8.0.8
+      '@expo/config-plugins': 8.0.11
       '@expo/config-types': 51.0.3
       '@expo/json-file': 8.3.3
       getenv: 1.0.0
@@ -18705,7 +18717,7 @@ snapshots:
       '@babel/generator': 7.26.2
       '@babel/parser': 7.26.2
       '@babel/types': 7.26.0
-      '@expo/config': 9.0.3
+      '@expo/config': 9.0.4
       '@expo/env': 0.3.0
       '@expo/json-file': 8.3.3
       '@expo/spawn-async': 1.7.2
@@ -18768,8 +18780,8 @@ snapshots:
 
   '@expo/prebuild-config@7.0.8(encoding@0.1.13)(expo-modules-autolinking@1.11.1)':
     dependencies:
-      '@expo/config': 9.0.3
-      '@expo/config-plugins': 8.0.8
+      '@expo/config': 9.0.4
+      '@expo/config-plugins': 8.0.11
       '@expo/config-types': 51.0.3
       '@expo/image-utils': 0.5.1(encoding@0.1.13)
       '@expo/json-file': 8.3.3
@@ -19076,6 +19088,10 @@ snapshots:
     dependencies:
       '@leather.io/models': 0.21.0
 
+  '@leather.io/constants@0.13.5':
+    dependencies:
+      '@leather.io/models': 0.22.0
+
   '@leather.io/crypto@1.6.12':
     dependencies:
       '@leather.io/utils': 0.19.1
@@ -19107,6 +19123,12 @@ snapshots:
       zod: 3.23.8
 
   '@leather.io/models@0.21.0':
+    dependencies:
+      '@stacks/stacks-blockchain-api-types': 7.8.2
+      bignumber.js: 9.1.2
+      zod: 3.23.8
+
+  '@leather.io/models@0.22.0':
     dependencies:
       '@stacks/stacks-blockchain-api-types': 7.8.2
       bignumber.js: 9.1.2
@@ -19170,6 +19192,11 @@ snapshots:
       '@leather.io/models': 0.21.0
       zod: 3.23.8
 
+  '@leather.io/rpc@2.1.20':
+    dependencies:
+      '@leather.io/models': 0.22.0
+      zod: 3.23.8
+
   '@leather.io/stacks@1.3.5(encoding@0.1.13)':
     dependencies:
       '@leather.io/crypto': 1.6.12
@@ -19184,12 +19211,12 @@ snapshots:
 
   '@leather.io/tokens@0.12.1': {}
 
-  '@leather.io/ui@1.36.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@emotion/is-prop-valid@1.3.1)(@types/react-dom@18.3.0)(@types/react@18.3.10)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)':
+  '@leather.io/ui@1.37.0(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@emotion/is-prop-valid@1.3.1)(@types/react-dom@18.3.0)(@types/react@18.3.10)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)':
     dependencies:
       '@expo/vector-icons': 14.0.0
       '@gorhom/bottom-sheet': 4.6.3(@types/react@18.3.10)(react-native-gesture-handler@2.16.1(react-native@0.74.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.2.0))(react-native-reanimated@3.10.1(@babel/core@7.26.0)(react-native@0.74.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)
       '@leather.io/tokens': 0.12.1
-      '@leather.io/utils': 0.19.1
+      '@leather.io/utils': 0.20.0
       '@radix-ui/react-accessible-icon': 1.0.3(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-accordion': 1.1.2(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-avatar': 1.0.4(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -19201,8 +19228,8 @@ snapshots:
       '@radix-ui/react-toast': 1.1.5(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-tooltip': 1.0.7(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@react-native/assets-registry': 0.73.1
-      '@react-native/metro-config': 0.73.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(encoding@0.1.13)
-      '@rnx-kit/metro-config': 1.3.14(@react-native/metro-config@0.73.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(encoding@0.1.13))(react-native@0.74.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)
+      '@react-native/metro-config': 0.73.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))
+      '@rnx-kit/metro-config': 1.3.14(@react-native/metro-config@0.73.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0)))(react-native@0.74.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)
       '@rnx-kit/metro-resolver-symlinks': 0.1.35
       '@shopify/restyle': 2.4.2(react-native@0.74.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)
       dompurify: 3.1.4
@@ -19254,6 +19281,13 @@ snapshots:
       '@leather.io/constants': 0.13.4
       '@leather.io/models': 0.21.0
       '@leather.io/rpc': 2.1.19
+      bignumber.js: 9.1.2
+
+  '@leather.io/utils@0.20.0':
+    dependencies:
+      '@leather.io/constants': 0.13.5
+      '@leather.io/models': 0.22.0
+      '@leather.io/rpc': 2.1.20
       bignumber.js: 9.1.2
 
   '@ledgerhq/devices@8.4.2':
@@ -21407,7 +21441,7 @@ snapshots:
       chalk: 4.1.2
       execa: 5.1.1
       metro: 0.80.12
-      metro-config: 0.80.5(encoding@0.1.13)
+      metro-config: 0.80.12
       metro-core: 0.80.12
       node-fetch: 2.7.0(encoding@0.1.13)
       querystring: 0.2.1
@@ -21492,17 +21526,16 @@ snapshots:
       - '@babel/preset-env'
       - supports-color
 
-  '@react-native/metro-config@0.73.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(encoding@0.1.13)':
+  '@react-native/metro-config@0.73.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))':
     dependencies:
       '@react-native/js-polyfills': 0.73.1
       '@react-native/metro-babel-transformer': 0.73.15(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))
-      metro-config: 0.80.5(encoding@0.1.13)
+      metro-config: 0.80.12
       metro-runtime: 0.80.12
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/preset-env'
       - bufferutil
-      - encoding
       - supports-color
       - utf-8-validate
 
@@ -21859,7 +21892,7 @@ snapshots:
 
   '@rnx-kit/console@1.1.0': {}
 
-  '@rnx-kit/metro-config@1.3.14(@react-native/metro-config@0.73.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(encoding@0.1.13))(react-native@0.74.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)':
+  '@rnx-kit/metro-config@1.3.14(@react-native/metro-config@0.73.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0)))(react-native@0.74.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@rnx-kit/console': 1.1.0
       '@rnx-kit/tools-node': 2.1.2
@@ -21868,7 +21901,7 @@ snapshots:
       react: 18.2.0
       react-native: 0.74.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.10)(encoding@0.1.13)(react@18.3.1)
     optionalDependencies:
-      '@react-native/metro-config': 0.73.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(encoding@0.1.13)
+      '@react-native/metro-config': 0.73.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))
 
   '@rnx-kit/metro-resolver-symlinks@0.1.35':
     dependencies:
