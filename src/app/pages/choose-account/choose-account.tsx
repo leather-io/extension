@@ -33,7 +33,7 @@ export function ChooseAccount() {
 
   return (
     <>
-      <Flex alignItems="center" flexDirection="column" pt="space.07" width="100%">
+      <Flex alignItems="center" flexDirection="column" pt="space.07" width="100%" height="100%">
         <Stack gap="space.05" textAlign="center" alignItems="center">
           {url && <RequesterFlag requester={url.toString()} />}
           <LeatherLogomarkIcon height={58} width={248} />

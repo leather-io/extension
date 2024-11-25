@@ -8,7 +8,7 @@ import { Sheet, SheetHeader } from '@leather.io/ui';
 
 import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { VirtuosoWrapper } from '@app/ui/components/virtuoso';
+import { VirtuosoWrapperSheet } from '@app/ui/components/virtuoso-wrapper-sheet';
 
 import { AccountListItem } from './account-list-item';
 
@@ -31,13 +31,10 @@ export function RecipientAccountsSheet() {
       onClose={onGoBack}
       wrapChildren={false}
     >
-      <VirtuosoWrapper>
+      <VirtuosoWrapperSheet>
         <Virtuoso
-          style={{
-            height: '100%',
-          }}
           itemContent={index => (
-            <Box key={index} my="space.05" px="space.05">
+            <Box key={index} py="space.03" px="space.05">
               <AccountListItem
                 stacksAccount={stacksAccounts[index]}
                 onClose={onGoBack}
@@ -47,7 +44,7 @@ export function RecipientAccountsSheet() {
           )}
           totalCount={accountNum}
         />
-      </VirtuosoWrapper>
+      </VirtuosoWrapperSheet>
     </Sheet>
   );
 }

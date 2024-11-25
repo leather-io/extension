@@ -2,10 +2,9 @@ import { Suspense, memo, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 
-import { Box, FlexProps, HStack, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
+import { Box, Flex, FlexProps, HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { PlusIcon } from '@leather.io/ui';
+import { PlusIcon, Pressable } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -17,12 +16,10 @@ import { slugify } from '@app/common/utils';
 import { AccountTotalBalance } from '@app/components/account-total-balance';
 import { AcccountAddresses } from '@app/components/account/account-addresses';
 import { AccountListItemLayout } from '@app/components/account/account-list-item.layout';
-import { usePressable } from '@app/components/item-hover';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { AccountAvatar } from '@app/ui/components/account/account-avatar/account-avatar';
-import { VirtuosoWrapper } from '@app/ui/components/virtuoso';
 
 interface AccountTitlePlaceholderProps {
   account: StacksAccount;
@@ -74,21 +71,17 @@ const ChooseAccountItem = memo(
 );
 
 function AddAccountAction() {
-  const [component, bind] = usePressable(true);
   const createAccount = useCreateAccount();
 
-  const onCreateAccount = () => {
-    createAccount();
-  };
-
   return (
-    <Box mx="space.05" py="space.02" onClick={onCreateAccount} {...bind}>
-      <HStack alignItems="center">
-        <PlusIcon />
-        Generate new account
-      </HStack>
-      {component}
-    </Box>
+    <Flex mx="space.05">
+      <Pressable onClick={createAccount} py="space.02">
+        <HStack alignItems="center">
+          <PlusIcon />
+          <styled.span textStyle="label.02">Generate new account</styled.span>
+        </HStack>
+      </Pressable>
+    </Flex>
   );
 }
 
@@ -114,13 +107,11 @@ export function ChooseAccountsList() {
   if (!accounts) return null;
 
   return (
-    <Box mt="space.05" mb="space.06" width="100%">
+    <Stack width="100%" height="100%" mt="space.05">
       {whenWallet({ software: <AddAccountAction />, ledger: <></> })}
-      <VirtuosoWrapper isPopup>
+
+      <Box height="100%">
         <Virtuoso
-          style={{
-            background: token('colors.ink.background-primary'),
-          }}
           data={accounts}
           itemContent={(index, account) => (
             <Box key={index} my="space.05" px="space.05">
@@ -132,7 +123,7 @@ export function ChooseAccountsList() {
             </Box>
           )}
         />
-      </VirtuosoWrapper>
-    </Box>
+      </Box>
+    </Stack>
   );
 }

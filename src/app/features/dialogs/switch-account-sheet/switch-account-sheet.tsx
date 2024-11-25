@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
-import { Box } from 'leather-styles/jsx';
+import { Box, Flex } from 'leather-styles/jsx';
 
 import { Button, Sheet, SheetHeader } from '@leather.io/ui';
 
@@ -10,7 +10,7 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { VirtuosoWrapper } from '@app/ui/components/virtuoso';
+import { VirtuosoWrapperSheet } from '@app/ui/components/virtuoso-wrapper-sheet';
 
 import { AccountListUnavailable } from './components/account-list-unavailable';
 import { SwitchAccountListItem } from './components/switch-account-list-item';
@@ -50,33 +50,39 @@ export const SwitchAccountSheet = memo(({ isShowing, onClose }: SwitchAccountShe
       isShowing={isShowing}
       onClose={onClose}
       wrapChildren={false}
-      footer={whenWallet({
-        software: (
-          <Button fullWidth onClick={() => onCreateAccount()}>
-            Create new account
-          </Button>
-        ),
-        ledger: null,
-      })}
     >
-      <VirtuosoWrapper hasFooter={whenWallet({ ledger: false, software: true })}>
-        <Virtuoso
-          style={{
-            height: '100%',
-          }}
-          initialTopMostItemIndex={whenWallet({ ledger: 0, software: currentAccountIndex })}
-          totalCount={accountNum}
-          itemContent={index => (
-            <Box key={index} py="space.03" px="space.05">
-              <SwitchAccountListItem
-                handleClose={onClose}
-                currentAccountIndex={currentAccountIndex}
-                index={index}
-              />
-            </Box>
-          )}
-        />
-      </VirtuosoWrapper>
+      <VirtuosoWrapperSheet>
+        <Box flex="1">
+          <Virtuoso
+            initialTopMostItemIndex={whenWallet({ ledger: 0, software: currentAccountIndex })}
+            totalCount={accountNum}
+            itemContent={index => (
+              <Box key={index} py="space.03" px="space.05">
+                <SwitchAccountListItem
+                  handleClose={onClose}
+                  currentAccountIndex={currentAccountIndex}
+                  index={index}
+                />
+              </Box>
+            )}
+          />
+        </Box>
+        {whenWallet({
+          software: (
+            <Flex
+              borderBottomRadius="md"
+              bg="ink.background-primary"
+              borderTop="default"
+              p="space.05"
+            >
+              <Button fullWidth onClick={() => onCreateAccount()}>
+                Create new account
+              </Button>
+            </Flex>
+          ),
+          ledger: null,
+        })}
+      </VirtuosoWrapperSheet>
     </Sheet>
   );
 });
