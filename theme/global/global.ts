@@ -42,6 +42,9 @@ export const globalCss = defineGlobalStyles({
       maxWidth: tokens.sizes.popupMaxWidth.value,
       margin: '0 auto',
     },
+    '#app, .radix-themes': {
+      height: '100%',
+    },
   },
   '.mode__action-popup': {
     'html,body': {
