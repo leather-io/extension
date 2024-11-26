@@ -8,6 +8,9 @@ import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin
 import { ledgerStacksMessageSigningRoutes } from '@app/features/ledger/flows/stacks-message-signing/ledger-stacks-sign-msg.routes';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
 import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
+import { RpcSendTransfer } from '@app/pages/rpc-send-transfer/rpc-send-transfer';
+import { RpcSendTransferChooseFee } from '@app/pages/rpc-send-transfer/rpc-send-transfer-choose-fee';
+import { RpcSendTransferApproverContainer } from '@app/pages/rpc-send-transfer/rpc-send-transfer-container';
 import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-transfer.routes';
 import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
 import { RpcSignPsbtSummary } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt-summary';
@@ -27,7 +30,22 @@ export const rpcRequestRoutes = (
         </AccountGate>
       }
     />
-    {rpcSendTransferRoutes}
+
+    {/* {rpcSendTransferRoutes} */}
+
+    <Route
+      element={
+        <AccountGate>
+          <RpcSendTransferApproverContainer />
+        </AccountGate>
+      }
+    >
+      <Route path={RouteUrls.RpcSendTransfer} element={<RpcSendTransfer />} />
+      <Route path={RouteUrls.RpcSendTransferChooseFee} element={<RpcSendTransferChooseFee />}>
+        {ledgerBitcoinTxSigningRoutes}
+      </Route>
+    </Route>
+
     <Route
       path={RouteUrls.RpcSignBip322Message}
       lazy={async () => {

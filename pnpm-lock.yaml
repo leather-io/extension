@@ -69,8 +69,8 @@ importers:
         specifier: 0.12.1
         version: 0.12.1
       '@leather.io/ui':
-        specifier: 1.37.0
-        version: 1.37.0(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@emotion/is-prop-valid@1.3.1)(@types/react-dom@18.3.0)(@types/react@18.3.10)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)
+        specifier: 1.38.0
+        version: 1.38.0(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@emotion/is-prop-valid@1.3.1)(@types/react-dom@18.3.0)(@types/react@18.3.10)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)
       '@leather.io/utils':
         specifier: 0.19.1
         version: 0.19.1
@@ -3334,8 +3334,8 @@ packages:
   '@leather.io/tokens@0.12.1':
     resolution: {integrity: sha512-XoP9PT7uuzHIk9HFFkGTuMeG8KL94PVHQfdWtvb19qQC9YVMzwj+QSK45KUFYtXyfI+Ejsn7EFZmZ/C4vStDrg==}
 
-  '@leather.io/ui@1.37.0':
-    resolution: {integrity: sha512-ryylwG9m9hjA7MUhXcN0idCtXZYwfhLHd+4T+/vXCvXEaSpFro4DF+ih7msJGCv+B0R0y/PaQvu+KJDgLhrYrA==}
+  '@leather.io/ui@1.38.0':
+    resolution: {integrity: sha512-gQ29rmFmtI7DKRAiwj/dd7ylxNGXDdW29XSd55kaT45/YEpu1fjaWxYKxMHtymnQqsd3rTMY/WglmEysO1P5gQ==}
 
   '@leather.io/utils@0.19.1':
     resolution: {integrity: sha512-bwD3/4Rt3UOL3pvettqNon+zqS5S8K6z3AoAEwkcYS77DI/q4kzH5T/3nOOGpcWda1/R453mqRCIObRxecIWFA==}
@@ -3828,6 +3828,15 @@ packages:
       '@types/react':
         optional: true
 
+  '@radix-ui/react-context@1.1.1':
+    resolution: {integrity: sha512-UASk9zi+crv9WteK/NU4PLvOoL3OuE6BWVKNF6hPRBtYBDXQ2u5iu3O59zUlJiTVvkyuycnqrztsHVJwcK9K+Q==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
   '@radix-ui/react-dialog@1.0.5':
     resolution: {integrity: sha512-GjWJX/AUpB703eEBanuBnIWdIXg6NvJFCXcNlSZk4xdszCdhrJgBoUd1cGk67vFO+WdA2pfI/plOpqz/5GUP6Q==}
     peerDependencies:
@@ -4248,6 +4257,19 @@ packages:
 
   '@radix-ui/react-slider@1.2.0':
     resolution: {integrity: sha512-dAHCDA4/ySXROEPaRtaMV5WHL8+JB/DbtyTbJjYkY0RXmKMO2Ln8DFZhywG5/mVQ4WqHDBc8smc14yPXPqZHYA==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+
+  '@radix-ui/react-slider@1.2.1':
+    resolution: {integrity: sha512-bEzQoDW0XP+h/oGbutF5VMWJPAl/UU8IJjr7h02SOHDIIIxq+cep8nItVNoBV+OMmahCdqdF38FTpmXoqQUGvw==}
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
@@ -19211,7 +19233,7 @@ snapshots:
 
   '@leather.io/tokens@0.12.1': {}
 
-  '@leather.io/ui@1.37.0(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@emotion/is-prop-valid@1.3.1)(@types/react-dom@18.3.0)(@types/react@18.3.10)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)':
+  '@leather.io/ui@1.38.0(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@emotion/is-prop-valid@1.3.1)(@types/react-dom@18.3.0)(@types/react@18.3.10)(encoding@0.1.13)(expo-modules-autolinking@1.11.1)':
     dependencies:
       '@expo/vector-icons': 14.0.0
       '@gorhom/bottom-sheet': 4.6.3(@types/react@18.3.10)(react-native-gesture-handler@2.16.1(react-native@0.74.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.2.0))(react-native-reanimated@3.10.1(@babel/core@7.26.0)(react-native@0.74.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)
@@ -19223,6 +19245,7 @@ snapshots:
       '@radix-ui/react-dialog': 1.0.5(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-dropdown-menu': 2.0.6(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-select': 2.0.0(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@radix-ui/react-slider': 1.2.1(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-switch': 1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-tabs': 1.0.4(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-toast': 1.1.5(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -19877,6 +19900,18 @@ snapshots:
       '@types/react': 18.3.10
       '@types/react-dom': 18.3.0
 
+  '@radix-ui/react-collection@1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+    dependencies:
+      '@radix-ui/react-compose-refs': 1.1.0(@types/react@18.3.10)(react@18.2.0)
+      '@radix-ui/react-context': 1.1.0(@types/react@18.3.10)(react@18.2.0)
+      '@radix-ui/react-primitive': 2.0.0(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@radix-ui/react-slot': 1.1.0(@types/react@18.3.10)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    optionalDependencies:
+      '@types/react': 18.3.10
+      '@types/react-dom': 18.3.0
+
   '@radix-ui/react-collection@1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@radix-ui/react-compose-refs': 1.1.0(@types/react@18.3.10)(react@18.3.1)
@@ -19952,6 +19987,12 @@ snapshots:
   '@radix-ui/react-context@1.1.0(@types/react@18.3.10)(react@18.3.1)':
     dependencies:
       react: 18.3.1
+    optionalDependencies:
+      '@types/react': 18.3.10
+
+  '@radix-ui/react-context@1.1.1(@types/react@18.3.10)(react@18.2.0)':
+    dependencies:
+      react: 18.2.0
     optionalDependencies:
       '@types/react': 18.3.10
 
@@ -20034,6 +20075,12 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.26.0
       react: 18.3.1
+    optionalDependencies:
+      '@types/react': 18.3.10
+
+  '@radix-ui/react-direction@1.1.0(@types/react@18.3.10)(react@18.2.0)':
+    dependencies:
+      react: 18.2.0
     optionalDependencies:
       '@types/react': 18.3.10
 
@@ -20666,6 +20713,25 @@ snapshots:
       '@radix-ui/react-use-size': 1.1.0(@types/react@18.3.10)(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+    optionalDependencies:
+      '@types/react': 18.3.10
+      '@types/react-dom': 18.3.0
+
+  '@radix-ui/react-slider@1.2.1(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+    dependencies:
+      '@radix-ui/number': 1.1.0
+      '@radix-ui/primitive': 1.1.0
+      '@radix-ui/react-collection': 1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@radix-ui/react-compose-refs': 1.1.0(@types/react@18.3.10)(react@18.2.0)
+      '@radix-ui/react-context': 1.1.1(@types/react@18.3.10)(react@18.2.0)
+      '@radix-ui/react-direction': 1.1.0(@types/react@18.3.10)(react@18.2.0)
+      '@radix-ui/react-primitive': 2.0.0(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@radix-ui/react-use-controllable-state': 1.1.0(@types/react@18.3.10)(react@18.2.0)
+      '@radix-ui/react-use-layout-effect': 1.1.0(@types/react@18.3.10)(react@18.2.0)
+      '@radix-ui/react-use-previous': 1.1.0(@types/react@18.3.10)(react@18.2.0)
+      '@radix-ui/react-use-size': 1.1.0(@types/react@18.3.10)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     optionalDependencies:
       '@types/react': 18.3.10
       '@types/react-dom': 18.3.0
@@ -24995,7 +25061,7 @@ snapshots:
 
   aria-hidden@1.2.4:
     dependencies:
-      tslib: 2.7.0
+      tslib: 2.8.1
 
   aria-query@5.3.0:
     dependencies:

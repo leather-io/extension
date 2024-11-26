@@ -443,7 +443,7 @@ export const Bitcoin = () => {
                 amount: '800',
               },
               {
-                address: 'bc1qps90ws94pvk548y9jg03gn5lwjqnyud4lg6y56',
+                address: 'bc1qyrtw5v0rkmytg0gu34f06fxpyfk24x7jevtvx3',
                 amount: '10000',
               },
             ],
