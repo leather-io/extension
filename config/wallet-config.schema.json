@@ -149,6 +149,39 @@
     "swapsEnabled": {
       "type": "boolean",
       "description": "Determines whether or not the swaps feature is enabled"
+    },
+    "sbtc": {
+      "type": "object",
+      "description": "Configuration for SBTC",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Determines whether or not SBTC is enabled"
+        },
+        "contracts": {
+          "type": "object",
+          "properties": {
+            "mainnet": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "string",
+                  "description": "Mainnet contract address"
+                }
+              }
+            },
+            "testnet": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "string",
+                  "description": "Testnet contract address"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "$defs": {
