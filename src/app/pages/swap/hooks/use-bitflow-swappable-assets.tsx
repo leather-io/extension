@@ -8,7 +8,6 @@ import type { Token } from 'bitflow-sdk';
 import { createMarketData, createMarketPair } from '@leather.io/models';
 import {
   type SwapAsset,
-  useAlexCurrencyPriceAsMarketData,
   useAlexSdkLatestPricesQuery,
   useStxAvailableUnlockedBalance,
   useTransferableSip10Tokens,
@@ -20,6 +19,7 @@ import {
   isDefined,
 } from '@leather.io/utils';
 
+import { useSip10FiatMarketData } from '@app/common/hooks/use-calculate-sip10-fiat-value';
 import { createGetBitflowAvailableTokensQueryOptions } from '@app/query/bitflow-sdk/bitflow-available-tokens.query';
 
 import { sortSwapAssets } from '../swap.utils';
@@ -29,7 +29,7 @@ const USD_DECIMAL_PRECISION = 2;
 
 function useCreateSwapAsset(address: string) {
   const { data: prices } = useAlexSdkLatestPricesQuery();
-  const priceAsMarketData = useAlexCurrencyPriceAsMarketData();
+  const { getTokenMarketData } = useSip10FiatMarketData();
   const availableUnlockedBalance = useStxAvailableUnlockedBalance(address);
   const sip10Tokens = useTransferableSip10Tokens(address);
 
@@ -70,11 +70,11 @@ function useCreateSwapAsset(address: string) {
         ...swapAsset,
         balance: availableBalance ?? createMoney(0, token.symbol, token.tokenDecimals),
         marketData: availableBalance
-          ? priceAsMarketData(swapAsset.principal, availableBalance.symbol)
-          : priceAsMarketData(swapAsset.principal, token.symbol),
+          ? getTokenMarketData(swapAsset.principal, availableBalance.symbol)
+          : getTokenMarketData(swapAsset.principal, token.symbol),
       };
     },
-    [availableUnlockedBalance, priceAsMarketData, prices, sip10Tokens]
+    [availableUnlockedBalance, getTokenMarketData, prices, sip10Tokens]
   );
 }
 

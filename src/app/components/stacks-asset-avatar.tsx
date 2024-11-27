@@ -3,8 +3,8 @@ import { Box, BoxProps } from 'leather-styles/jsx';
 import { Avatar, DynamicColorCircle, StxAvatarIcon, defaultFallbackDelay } from '@leather.io/ui';
 
 interface StacksAssetAvatarProps extends BoxProps {
-  gradientString?: string;
   imageCanonicalUri?: string;
+  gradientString: string;
   isStx?: boolean;
   size?: string;
 }
