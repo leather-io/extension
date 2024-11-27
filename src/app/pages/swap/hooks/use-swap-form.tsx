@@ -1,34 +1,56 @@
+import { useMemo } from 'react';
+
+import { cvToValue, hexToCV } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
-import { FeeTypes } from '@leather.io/models';
-import { type SwapAsset, useNextNonce } from '@leather.io/query';
-import { convertAmountToFractionalUnit, createMoney } from '@leather.io/utils';
+import { BTC_DECIMALS } from '@leather.io/constants';
+import { type SwapAsset } from '@leather.io/query';
+import {
+  convertAmountToBaseUnit,
+  convertAmountToFractionalUnit,
+  createMoney,
+} from '@leather.io/utils';
 
 import { FormErrorMessages } from '@shared/error-messages';
-import { StacksTransactionFormValues } from '@shared/models/form.model';
+import { type SwapFormValues } from '@shared/models/form.model';
 
-import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import {
+  defaultSbtcLimits,
+  useGetCurrentSbtcSupply,
+  useGetSbtcLimits,
+} from '@app/query/sbtc/sbtc-limits.query';
 
 import { useSwapContext } from '../swap.context';
 
-export interface SwapFormValues extends StacksTransactionFormValues {
-  swapAmountBase: string;
-  swapAmountQuote: string;
-  swapAssetBase?: SwapAsset;
-  swapAssetQuote?: SwapAsset;
-}
-
 export function useSwapForm() {
-  const { isFetchingExchangeRate } = useSwapContext();
-  const stxAddress = useCurrentStacksAccountAddress();
-  const { data: nextNonce } = useNextNonce(stxAddress);
+  const { isCrossChainSwap, isFetchingExchangeRate } = useSwapContext();
+  const { data: sBtcLimits } = useGetSbtcLimits();
+  const { data: supply } = useGetCurrentSbtcSupply();
+
+  const remainingSbtcPegCapSupply = useMemo(() => {
+    const sBtcPegCap = sBtcLimits?.pegCap;
+    if (!sBtcPegCap) return;
+    const currentSupplyValue = supply?.result && cvToValue(hexToCV(supply?.result));
+    return convertAmountToFractionalUnit(
+      createMoney(new BigNumber(Number(sBtcPegCap - currentSupplyValue)), 'BTC', BTC_DECIMALS)
+    );
+  }, [sBtcLimits?.pegCap, supply?.result]);
+
+  const sBtcDepositCapMin = createMoney(
+    new BigNumber(sBtcLimits?.perDepositMinimum ?? defaultSbtcLimits.perDepositMinimum),
+    'BTC'
+  );
+  const sBtcDepositCapMax = createMoney(
+    new BigNumber(sBtcLimits?.perDepositCap ?? defaultSbtcLimits.perDepositCap),
+    'BTC'
+  );
 
   const initialValues: SwapFormValues = {
     fee: '0',
-    feeCurrency: 'STX',
-    feeType: FeeTypes[FeeTypes.Middle],
-    nonce: nextNonce?.nonce,
+    feeCurrency: '',
+    feeType: '',
+    nonce: 0,
     swapAmountBase: '',
     swapAmountQuote: '',
     swapAssetBase: undefined,
@@ -53,6 +75,55 @@ export function useSwapForm() {
             )
           );
           if (swapAssetBase.balance.amount.isLessThan(valueInFractionalUnit)) return false;
+          return true;
+        },
+      })
+      .test({
+        message: `Min amount is ${convertAmountToBaseUnit(sBtcDepositCapMin).toString()} BTC`,
+        test(value) {
+          if (!isCrossChainSwap) return true;
+          const { swapAssetBase } = this.parent;
+          const valueInFractionalUnit = convertAmountToFractionalUnit(
+            createMoney(
+              new BigNumber(Number(value)),
+              swapAssetBase.balance.symbol,
+              swapAssetBase.balance.decimals
+            )
+          );
+          if (valueInFractionalUnit.isLessThan(sBtcDepositCapMin.amount)) return false;
+          return true;
+        },
+      })
+      .test({
+        message: `Max amount is ${convertAmountToBaseUnit(sBtcDepositCapMax).toString()} BTC`,
+        test(value) {
+          if (!isCrossChainSwap) return true;
+          const { swapAssetBase } = this.parent;
+          const valueInFractionalUnit = convertAmountToFractionalUnit(
+            createMoney(
+              new BigNumber(Number(value)),
+              swapAssetBase.balance.symbol,
+              swapAssetBase.balance.decimals
+            )
+          );
+          if (valueInFractionalUnit.isGreaterThan(sBtcDepositCapMax.amount)) return false;
+          return true;
+        },
+      })
+      .test({
+        message: 'Amount exceeds capped supply',
+        test(value) {
+          if (!isCrossChainSwap) return true;
+          const { swapAssetBase } = this.parent;
+          const valueInFractionalUnit = convertAmountToFractionalUnit(
+            createMoney(
+              new BigNumber(Number(value)),
+              swapAssetBase.balance.symbol,
+              swapAssetBase.balance.decimals
+            )
+          );
+          if (!remainingSbtcPegCapSupply) return true;
+          if (valueInFractionalUnit.isGreaterThan(remainingSbtcPegCapSupply)) return false;
           return true;
         },
       })

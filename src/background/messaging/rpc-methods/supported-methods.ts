@@ -39,6 +39,10 @@ export function rpcSupportedMethods(message: SupportedMethodsRequest, port: chro
             docsUrl:
               'https://leather.gitbook.io/developers/bitcoin/sign-transactions/partially-signed-bitcoin-transactions-psbts',
           },
+          {
+            name: 'openSwap',
+            docsUrl: 'https://leather.gitbook.io/developers/bitcoin/swaps/open-swap',
+          },
         ],
       },
     })

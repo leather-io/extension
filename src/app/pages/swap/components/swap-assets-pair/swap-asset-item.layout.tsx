@@ -1,18 +1,35 @@
+import type React from 'react';
+
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
+import { sanitize } from 'dompurify';
 import { HStack, styled } from 'leather-styles/jsx';
 
+import type { Money } from '@leather.io/models';
 import { Flag } from '@leather.io/ui';
+import { formatMoneyWithoutSymbol, isString } from '@leather.io/utils';
 
 interface SwapAssetItemLayoutProps {
   caption: string;
-  icon: string;
+  icon: React.ReactNode;
   symbol: string;
-  value: string;
+  value: Money;
 }
 export function SwapAssetItemLayout({ caption, icon, symbol, value }: SwapAssetItemLayoutProps) {
   return (
     <Flag
-      img={<styled.img src={icon} borderRadius="50%" width="48px" height="48px" alt="Swap asset" />}
+      img={
+        isString(icon) ? (
+          <styled.img
+            src={sanitize(icon)}
+            borderRadius="50%"
+            width="48px"
+            height="48px"
+            alt="Swap asset"
+          />
+        ) : (
+          icon
+        )
+      }
       spacing="space.03"
       width="100%"
     >
@@ -24,7 +41,7 @@ export function SwapAssetItemLayout({ caption, icon, symbol, value }: SwapAssetI
           {symbol}
         </styled.span>
         <styled.span data-testid={SwapSelectors.SwapDetailsAmount} textStyle="heading.05">
-          {value}
+          {formatMoneyWithoutSymbol(value)}
         </styled.span>
       </HStack>
     </Flag>

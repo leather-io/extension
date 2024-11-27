@@ -8,7 +8,7 @@ import {
   formatMoneyPadded,
   isDefined,
   isUndefined,
-  microStxToStx,
+  satToBtc,
 } from '@leather.io/utils';
 
 import { SwapSubmissionData, useSwapContext } from '@app/pages/swap/swap.context';
@@ -42,9 +42,13 @@ export function SwapDetails() {
   )
     return null;
 
+  const maxSignerFee = satToBtc(swapSubmissionData.maxSignerFee ?? 0);
+
   const formattedMinToReceive = formatMoneyPadded(
     createMoneyFromDecimal(
-      new BigNumber(swapSubmissionData.swapAmountQuote).times(1 - swapSubmissionData.slippage),
+      new BigNumber(swapSubmissionData.swapAmountQuote)
+        .times(1 - swapSubmissionData.slippage)
+        .minus(maxSignerFee),
       swapSubmissionData.swapAssetQuote.balance.symbol,
       swapSubmissionData.swapAssetQuote.balance.decimals
     )
@@ -75,6 +79,7 @@ export function SwapDetails() {
         }
       />
       <SwapDetailLayout title="Min to receive" value={formattedMinToReceive} />
+
       <SwapDetailLayout
         title="Slippage tolerance"
         value={`${swapSubmissionData.slippage * 100}%`}
@@ -83,16 +88,21 @@ export function SwapDetails() {
         title="Liquidity provider fee"
         value={`${swapSubmissionData.liquidityFee.toFixed(1)}%`}
       />
+      {maxSignerFee ? (
+        <SwapDetailLayout title="Max signer fee" value={maxSignerFee.toString()} />
+      ) : null}
       <SwapDetailLayout
         title="Transaction fees"
         tooltipLabel={swapSubmissionData.sponsored ? sponsoredFeeLabel : undefined}
         value={
           swapSubmissionData.sponsored
             ? 'Sponsored'
-            : `${microStxToStx(swapSubmissionData.fee).toString()} STX`
+            : `${swapSubmissionData.fee.toString()} ${swapSubmissionData.feeCurrency}`
         }
       />
-      <SwapDetailLayout title="Nonce" value={swapSubmissionData.nonce?.toString() ?? 'Unknown'} />
+      {Number(swapSubmissionData?.nonce) >= 0 ? (
+        <SwapDetailLayout title="Nonce" value={swapSubmissionData.nonce?.toString()} />
+      ) : null}
     </SwapDetailsLayout>
   );
 }
