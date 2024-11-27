@@ -18,7 +18,7 @@ import { SwapAmountField } from './components/swap-amount-field';
 import { SwapAssetSelectLayout } from './components/swap-asset-select.layout';
 
 export function SwapAssetSelectQuote() {
-  const { isFetchingExchangeRate } = useSwapContext();
+  const { isCrossChainSwap, isFetchingExchangeRate } = useSwapContext();
   const [amountField] = useField('swapAmountQuote');
   const [assetField] = useField('swapAssetQuote');
   const navigate = useSwapNavigate();
@@ -37,7 +37,7 @@ export function SwapAssetSelectQuote() {
       icon={assetField.value?.icon}
       name="swapAmountQuote"
       onSelectAsset={() => navigate(RouteUrls.SwapAssetSelectQuote)}
-      showToggle
+      showToggle={!isCrossChainSwap}
       swapAmountInput={
         isFetchingExchangeRate ? (
           <LoadingSpinner justifyContent="flex-end" size="sm" />

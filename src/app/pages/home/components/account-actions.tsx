@@ -74,7 +74,16 @@ export function AccountActions() {
             </Box>
           </BasicTooltip>
         ),
-        [ChainID.Testnet]: null,
+        // Temporary for sBTC testing
+        [ChainID.Testnet]: (
+          <IconButton
+            data-testid={HomePageSelectors.SwapBtn}
+            disabled={swapsBtnDisabled}
+            icon={<ArrowsRepeatLeftRightIcon />}
+            label="Swap"
+            onClick={() => navigate(RouteUrls.Swap.replace(':base', 'STX').replace(':quote', ''))}
+          />
+        ),
       })}
     </Flex>
   );

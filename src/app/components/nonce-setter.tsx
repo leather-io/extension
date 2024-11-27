@@ -4,13 +4,17 @@ import { useFormikContext } from 'formik';
 
 import { useNextNonce } from '@leather.io/query';
 
-import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
+import {
+  StacksSendFormValues,
+  StacksTransactionFormValues,
+  type SwapFormValues,
+} from '@shared/models/form.model';
 
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 export function NonceSetter() {
   const { setFieldValue, touched, values } = useFormikContext<
-    StacksSendFormValues | StacksTransactionFormValues
+    StacksSendFormValues | StacksTransactionFormValues | SwapFormValues
   >();
   const stxAddress = useCurrentStacksAccountAddress();
   const { data: nextNonce } = useNextNonce(stxAddress);

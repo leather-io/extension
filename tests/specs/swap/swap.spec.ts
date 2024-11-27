@@ -1,11 +1,12 @@
+import { expect } from '@playwright/test';
+import { mockStacksBroadcastTransaction } from '@tests/mocks/mock-stacks-txs';
+
 import { test } from '../../fixtures/fixtures';
 
-const hiroApiPostRoute = '*/**/v2/transactions';
-
-// Skip as swaps feature is disabled
-test.skip('Swaps', () => {
+test.describe('Swaps', () => {
   test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, swapPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
+    await mockStacksBroadcastTransaction(globalPage.page);
     await onboardingPage.signInWithTestAccount(extensionId);
     await homePage.swapButton.click();
     await swapPage.waitForSwapPageReady();
@@ -21,7 +22,7 @@ test.skip('Swaps', () => {
     await swapPage.swapReviewBtn.click({ delay: 2000 });
 
     const swapProtocol = await swapPage.swapDetailsProtocol.innerText();
-    test.expect(swapProtocol).toEqual('ALEX');
+    test.expect(swapProtocol).toContain('Bitflow');
 
     const swapAssets = await swapPage.swapDetailsSymbol.all();
     const swapAssetBase = await swapAssets[0].innerText();
@@ -34,25 +35,29 @@ test.skip('Swaps', () => {
     test.expect(swapAmountBase).toEqual('1');
   });
 
-  // This test isn't working bc there are multiple requests being made
-  // to the same endpoint. We need to know why this happening before
-  // enabling it again bc swaps keep occurring which create insufficient
-  // balance errors in our integration tests.
-  test.skip('that the swap is broadcast', async ({ swapPage }) => {
-    const requestPromise = swapPage.page.waitForRequest(hiroApiPostRoute);
-
-    await swapPage.page.route(hiroApiPostRoute, async route => {
-      await route.abort();
-    });
-
+  test('that the swap is broadcast', async ({ swapPage }) => {
     await swapPage.inputSwapAmountBase();
     await swapPage.selectAssetToReceive();
 
     await swapPage.swapReviewBtn.click({ delay: 2000 });
     await swapPage.swapSubmitBtn.click();
 
-    const request = await requestPromise;
-    const requestBody = request.postDataBuffer();
-    test.expect(requestBody).toBeDefined();
+    const toastMessage = 'Transaction submitted!';
+    const toast = swapPage.page.getByText(toastMessage, { exact: true });
+    await expect(toast).toBeVisible();
+  });
+
+  test('that it preselects cross chain swap assets and restricts quote list', async ({
+    swapPage,
+  }) => {
+    await swapPage.selectBtcAsBaseAsset();
+
+    const quoteAsset = await swapPage.page.locator('text="sBTC"').innerText();
+    test.expect(quoteAsset).toEqual('sBTC');
+
+    await swapPage.selectQuoteAsset();
+    await swapPage.page.locator(swapPage.chooseAssetList).waitFor();
+    const quoteAssets = await swapPage.page.locator(swapPage.chooseAssetListItem).all();
+    test.expect(quoteAssets.length).toEqual(1);
   });
 });

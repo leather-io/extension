@@ -75,7 +75,7 @@ function useCheckAddressComplianceQueries(addresses: string[]) {
 
 export const compliantErrorBody = 'Unable to handle request, errorCode: 1398';
 
-export function useBreakOnNonCompliantEntity(address: string | string[]) {
+export function useBreakOnNonCompliantEntity(address: string | string[] = '') {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSignerNullable();
 
   const complianceReports = useCheckAddressComplianceQueries([

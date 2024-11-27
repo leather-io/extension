@@ -158,6 +158,10 @@
           "type": "boolean",
           "description": "Determines whether or not SBTC is enabled"
         },
+        "emilyApiUrl": {
+          "type": "string",
+          "description": "URL for the Emily API"
+        },
         "showPromoLinkOnNetworks": {
           "type": "array",
           "description": "Networks on which the promo link should be shown",

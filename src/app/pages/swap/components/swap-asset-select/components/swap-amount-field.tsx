@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import BigNumber from 'bignumber.js';
@@ -13,9 +13,10 @@ import {
   isUndefined,
 } from '@leather.io/utils';
 
+import type { SwapFormValues } from '@shared/models/form.model';
+
 import { useShowFieldError } from '@app/common/form-utils';
 
-import { SwapFormValues } from '../../../hooks/use-swap-form';
 import { useSwapContext } from '../../../swap.context';
 
 function getPlaceholderValue(name: string, values: SwapFormValues) {
@@ -34,6 +35,13 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
   const { setFieldError, setFieldValue, values } = useFormikContext<SwapFormValues>();
   const [field] = useField(name);
   const showError = useShowFieldError(name) && name === 'swapAmountBase' && values.swapAssetQuote;
+
+  useEffect(() => {
+    // Clear quote amount if quote asset is reset
+    if (isUndefined(values.swapAssetQuote)) {
+      void setFieldValue('swapAmountQuote', '');
+    }
+  }, [setFieldValue, values]);
 
   async function onBlur(event: ChangeEvent<HTMLInputElement>) {
     const { swapAssetBase, swapAssetQuote } = values;
