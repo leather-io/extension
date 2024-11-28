@@ -76,7 +76,7 @@ export function Home() {
         >
           <AccountActions />
         </AccountCard>
-        <SbtcPromoCard mt="space.05" />
+        <SbtcPromoCard mt="space.05" onClick={() => navigate('test-deposit-sbtc')} />
       </Box>
       {whenPageMode({ full: <FeedbackButton />, popup: null })}
       <HomeTabs>
