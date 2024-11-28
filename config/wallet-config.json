@@ -102,7 +102,8 @@
       "testnet": {
         "address": "SNGWPN3XDAQE673MXYXF81016M50NHF5X5PWWM70.sbtc-token::sbtc-token"
       }
-    }
+    },
+    "showPromoLinkOnNetworks": ["testnet", "sbtcTestnet"]
   },
   "tokensEnabledByDefault": [
     "DOGGOTOTHEMOON",
