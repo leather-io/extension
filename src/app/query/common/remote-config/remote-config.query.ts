@@ -5,6 +5,7 @@ import { getPrincipalFromContractId } from '@leather.io/utils';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useHasCurrentBitcoinAccount } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 export {
   HiroMessage,
@@ -43,15 +44,17 @@ export function useConfigSbtc() {
   const config = useRemoteConfig();
   // TODO: Update with new mono version
   const sbtc = config?.sbtc;
-  return useMemo(
-    () => ({
+  const network = useCurrentNetwork();
+  return useMemo(() => {
+    const displayPromoCardOnNetworks = (sbtc as any)?.showPromoLinkOnNetworks ?? [];
+    return {
       isSbtcContract(contract: string) {
         return (
           contract === getPrincipalFromContractId(sbtc?.contracts.mainnet.address ?? '') ||
           contract === getPrincipalFromContractId(sbtc?.contracts.testnet.address ?? '')
         );
       },
-    }),
-    [sbtc]
-  );
+      shouldDisplayPromoCard: displayPromoCardOnNetworks.includes(network.id),
+    };
+  }, [network.id, sbtc]);
 }

@@ -13,6 +13,7 @@ import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-acc
 import { whenPageMode } from '@app/common/utils';
 import { ActivityList } from '@app/features/activity-list/activity-list';
 import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
+import { SbtcPromoCard } from '@app/features/sbtc-promo-card/sbtc-promo-card';
 import { Assets } from '@app/pages/home/components/assets';
 import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
@@ -75,6 +76,7 @@ export function Home() {
         >
           <AccountActions />
         </AccountCard>
+        <SbtcPromoCard mt="space.05" />
       </Box>
       {whenPageMode({ full: <FeedbackButton />, popup: null })}
       <HomeTabs>
