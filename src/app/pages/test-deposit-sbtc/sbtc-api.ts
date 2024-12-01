@@ -1,20 +1,144 @@
+/* eslint-disable */
 import * as btc from '@scure/btc-signer';
 import { TransactionInput } from '@scure/btc-signer/psbt';
 import {
-  BufferCV,
+  type NetworkClientParam,
+  STACKS_TESTNET,
+  clientFromNetwork,
+  networkFrom,
+} from '@stacks/network';
+import {
   Cl,
+  type ClarityType,
   ClarityValue,
   SomeCV,
   UIntCV,
-  fetchCallReadOnlyFunction,
+  cvToHex,
+  cvToValue,
+  hexToCV,
 } from '@stacks/transactions';
+import { REGTEST } from 'sbtc';
 
-import { wrapLazyProxy } from './utils';
+import type { sbtcDepositHelper } from './deposit';
+
+export const READONLY_FUNCTION_CALL_PATH = '/v2/contracts/call-read';
+
+export interface BufferCV {
+  readonly type: ClarityType.Buffer;
+  readonly value: string;
+}
+// interface BufferCV {
+//   readonly type: ClarityType.Buffer;
+//   readonly buffer: Uint8Array;
+// }
+
+/**
+ * Read only function response object
+ *
+ * @param {Boolean} okay - the status of the response
+ * @param {string} result - serialized hex clarity value
+ */
+export interface ReadOnlyFunctionSuccessResponse {
+  okay: true;
+  result: string;
+}
+
+export interface ReadOnlyFunctionErrorResponse {
+  okay: false;
+  cause: string;
+}
+
+export type ReadOnlyFunctionResponse =
+  | ReadOnlyFunctionSuccessResponse
+  | ReadOnlyFunctionErrorResponse;
+
+/**
+ * Converts the response of a read-only function call into its Clarity Value
+ * @param param
+ */
+export const parseReadOnlyResponse = (response: ReadOnlyFunctionResponse): ClarityValue => {
+  if (response.okay) {
+    console.log('parse', hexToCV(response.result));
+    return hexToCV(response.result);
+  }
+  throw new Error(response.cause);
+};
+
+export async function fetchCallReadOnlyFunction({
+  contractName,
+  contractAddress,
+  functionName,
+  functionArgs,
+  senderAddress,
+  network = 'mainnet',
+  client: _client,
+}: {
+  contractName: string;
+  contractAddress: string;
+  functionName: string;
+  functionArgs: ClarityValue[];
+  /** address of the sender */
+  senderAddress: string;
+} & NetworkClientParam): Promise<ClarityValue> {
+  const json = {
+    sender: senderAddress,
+    arguments: functionArgs.map(arg => cvToHex(arg)),
+  };
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(json),
+  };
+
+  const name = encodeURIComponent(functionName);
+
+  const client = Object.assign({}, clientFromNetwork(networkFrom(network)), _client);
+  const url = `${client.baseUrl}${READONLY_FUNCTION_CALL_PATH}/${contractAddress}/${contractName}/${name}`;
+  const response = await client.fetch(url, options);
+
+  if (!response.ok) {
+    const msg = await response.text().catch(() => '');
+    throw new Error(
+      `Error calling read-only function. Response ${response.status}: ${response.statusText}. Attempted to fetch ${url} and failed with the message: "${msg}"`
+    );
+  }
+
+  return await response.json().then(parseReadOnlyResponse);
+}
+
+type LazyLoadable<T extends object, K extends string> = T & Record<K, any>;
+
+/** @internal */
+export function wrapLazyProxy<
+  T extends {
+    [key: string]: any;
+  },
+  K extends string,
+  R,
+>(target: T, key: K, resolution: () => R | Promise<R>): LazyLoadable<T, K> {
+  return new Proxy(target, {
+    get(obj, prop: string) {
+      if (prop === key && obj[prop] === undefined) {
+        (obj as any)[prop] = Promise.resolve(resolution()).catch(error => {
+          delete obj[prop];
+          throw error;
+        });
+      }
+      return obj[prop];
+    },
+    has(obj, prop) {
+      if (prop === key) return true;
+      return prop in obj;
+    },
+  });
+}
 
 /** todo */
 // https://blockstream.info/api/address/1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY/utxo
 // [{"txid":"033e44b535c5709d30234921608219ee5ca1e320fa9def44715eaeb2b7ad52d3","vout":0,"status":{"confirmed":false},"value":42200}]
-export interface MempoolApiUtxo {
+export type MempoolApiUtxo = {
   txid: string;
   vout: number;
   value: number;
@@ -22,7 +146,7 @@ export interface MempoolApiUtxo {
     confirmed: boolean;
     block_height: number;
   };
-}
+};
 
 /** todo */
 export type UtxoWithTx = MempoolApiUtxo & {
@@ -34,19 +158,19 @@ export type SpendableUtxo = MempoolApiUtxo & {
   vsize?: number | Promise<number>;
 };
 
-export interface MempoolFeeEstimates {
+export type MempoolFeeEstimates = {
   fastestFee: number;
   halfHourFee: number;
   hourFee: number;
   // economyFee: number;
   // minimumFee: number;
-}
+};
 
 export interface BaseClientConfig {
   sbtcContract: string;
 
   sbtcApiUrl: string;
-  btcMempoolApiUrl: string;
+  btcApiUrl: string;
   stxApiUrl: string;
 }
 
@@ -55,7 +179,7 @@ export class SbtcApiClient {
 
   async fetchUtxos(address: string): Promise<UtxoWithTx[]> {
     return (
-      fetch(`${this.config.btcMempoolApiUrl}/address/${address}/utxo`)
+      fetch(`${this.config.btcApiUrl}/address/${address}/utxo`)
         .then(res => res.json())
         // .then((utxos: MempoolApiUtxo[]) =>
         //   utxos.sort((a, b) => a.status.block_height - b.status.block_height)
@@ -67,11 +191,11 @@ export class SbtcApiClient {
   }
 
   async fetchTxHex(txid: string): Promise<string> {
-    return fetch(`${this.config.btcMempoolApiUrl}/api/tx/${txid}/hex`).then(res => res.text());
+    return fetch(`${this.config.btcApiUrl}/tx/${txid}/hex`).then(res => res.text());
   }
 
   async fetchFeeRates(): Promise<MempoolFeeEstimates> {
-    return fetch(`${this.config.btcMempoolApiUrl}/api/v1/fees/recommended`).then(res => res.json());
+    return fetch(`${this.config.btcApiUrl}/api/v1/fees/recommended`).then(res => res.json());
   }
 
   async fetchFeeRate(target: 'low' | 'medium' | 'high'): Promise<number> {
@@ -81,25 +205,52 @@ export class SbtcApiClient {
   }
 
   async broadcastTx(tx: btc.Transaction): Promise<string> {
-    return await fetch(`${this.config.btcMempoolApiUrl}/tx`, {
+    return await fetch(`${this.config.btcApiUrl}/tx`, {
       method: 'POST',
       body: tx.hex,
     }).then(res => res.text());
   }
 
+  async notifySbtc(depositInfo: Awaited<ReturnType<typeof sbtcDepositHelper>>) {
+    return (await fetch(`${this.config.sbtcApiUrl}/deposit`, {
+      method: 'POST',
+      body: JSON.stringify({
+        bitcoinTxid: depositInfo.transaction.id,
+        bitcoinTxOutputIndex: 0,
+        depositScript: depositInfo.depositScript,
+        reclaimScript: depositInfo.reclaimScript,
+      }),
+    }).then(res => res.json())) as {
+      bitcoinTxid: string;
+      bitcoinTxOutputIndex: number;
+      recipient: string;
+      amount: number;
+      lastUpdateHeight: number;
+      lastUpdateBlockHash: string;
+      status: string;
+      statusMessage: string;
+      parameters: {
+        maxFee: number;
+        lockTime: number;
+      };
+      reclaimScript: string;
+      depositScript: string;
+    };
+  }
+
   async fetchSignersPublicKey(contractAddress?: string): Promise<string> {
-    const res = (await fetchCallReadOnlyFunction({
+    const res = await fetchCallReadOnlyFunction({
       contractAddress: contractAddress ?? this.config.sbtcContract,
       contractName: 'sbtc-registry',
       functionName: 'get-current-aggregate-pubkey',
       functionArgs: [],
-      senderAddress: STACKS_DEVNET.bootAddress, // zero address
+      senderAddress: STACKS_TESTNET.bootAddress, // zero address
       client: {
         baseUrl: this.config.stxApiUrl,
       },
-    })) as BufferCV;
+    });
 
-    return res.value.slice(2);
+    return cvToValue(res).slice(2);
   }
 
   async fetchSignersAddress(contractAddress?: string): Promise<string> {
@@ -111,7 +262,7 @@ export class SbtcApiClient {
     contractAddress,
     functionName,
     args = [],
-    sender = STACKS_DEVNET.bootAddress, // zero address
+    sender = STACKS_TESTNET.bootAddress, // zero address
   }: {
     contractAddress: string;
     functionName: string;
@@ -139,7 +290,7 @@ export class SbtcApiClient {
   /** Get BTC balance (in satoshis) */
   async fetchBalance(address: string): Promise<number> {
     // todo: check if better endpoints now exist
-    const addressInfo = await fetch(`${this.config.btcMempoolApiUrl}/address/${address}`).then(r =>
+    const addressInfo = await fetch(`${this.config.btcApiUrl}/address/${address}`).then(r =>
       r.json()
     );
 
@@ -147,50 +298,29 @@ export class SbtcApiClient {
   }
 
   async fetchSbtcBalance(stacksAddress: string) {
-    const [address, name] = stacksAddress.split('.');
-
     const balance = (await this.fetchCallReadOnly({
       contractAddress: this.config.sbtcContract,
       functionName: 'get-balance',
-      args: [name ? Cl.contractPrincipal(address, name) : Cl.standardPrincipal(address)],
+      args: [Cl.address(stacksAddress)],
     })) as SomeCV<UIntCV>;
 
     return balance?.value?.value ?? 0;
   }
 }
-
+/** todo */
 export class SbtcApiClientTestnet extends SbtcApiClient {
   constructor(config?: Partial<BaseClientConfig>) {
     super(
       Object.assign(
         {
-          sbtcApiUrl: 'https://beta.sbtc.tech', // todo: get real url
-          btcMempoolApiUrl: 'https://blockstream.info/testnet/api', // todo: mempool it
-          stxApiUrl: 'https://stacks-node-api.testnet.stacks.co',
-          sbtcContract: 'SN3R84XZYA63QS28932XQF3G1J8R9PC3W76P9CSQS', // todo: find final value
+          sbtcApiUrl: 'https://beta.sbtc-emily.com', // todo: get real url
+          btcApiUrl: 'https://beta.sbtc-mempool.tech/api/proxy', // todo: replace with functioning regtest testnet deployment
+          stxApiUrl: 'https://api.testnet.hiro.so',
+          /** ⚠︎ Attention: This contract address might still change over the course of the sBTC contract on Testnet */
+          sbtcContract: 'SNGWPN3XDAQE673MXYXF81016M50NHF5X5PWWM70',
         },
         config
       )
     );
   }
-}
-
-export class SbtcApiClientDevenv extends SbtcApiClient {
-  constructor(config?: Partial<BaseClientConfig>) {
-    super(
-      Object.assign(
-        {
-          sbtcApiUrl: 'http://localhost:3031', // todo: get real url
-          btcMempoolApiUrl: 'http://localhost:8083',
-          stxApiUrl: 'http://localhost:3999',
-          sbtcContract: 'SN3R84XZYA63QS28932XQF3G1J8R9PC3W76P9CSQS',
-        },
-        config
-      )
-    );
-  }
-}
-
-export function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
 }
