@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import type { RouteQuote } from 'bitflow-sdk';
 
-import { type SwapAsset } from '@leather.io/query';
+import type { SwapAsset } from '@leather.io/query';
 
 import { logger } from '@shared/logger';
 import { bitflow } from '@shared/utils/bitflow-sdk';
@@ -17,7 +17,7 @@ export function useBitflowSwap() {
   const [slippage, _setSlippage] = useState(0.04);
   const [isFetchingExchangeRate, setIsFetchingExchangeRate] = useState(false);
   const address = useCurrentStacksAccountAddress();
-  const { data: swapAssets = [] } = useBitflowSwappableAssets(address);
+  const { data: bitflowSwapAssets = [] } = useBitflowSwappableAssets(address);
 
   async function fetchRouteQuote(
     base: SwapAsset,
@@ -27,8 +27,8 @@ export function useBitflowSwap() {
     if (!baseAmount || !base || !quote) return;
     try {
       const result = await bitflow.getQuoteForRoute(
-        base.currency,
-        quote.currency,
+        base.tokenId,
+        quote.tokenId,
         Number(baseAmount)
       );
       if (!result.bestRoute) {
@@ -47,6 +47,7 @@ export function useBitflowSwap() {
     quote: SwapAsset,
     baseAmount: string
   ): Promise<string | undefined> {
+    if (base.name === 'BTC' || quote.name === 'sBTC') return baseAmount;
     setIsFetchingExchangeRate(true);
     const routeQuote = await fetchRouteQuote(base, quote, baseAmount);
     setIsFetchingExchangeRate(false);
@@ -61,7 +62,7 @@ export function useBitflowSwap() {
     onSetIsFetchingExchangeRate: (value: boolean) => setIsFetchingExchangeRate(value),
     onSetSwapSubmissionData: (value: SwapSubmissionData) => setSwapSubmissionData(value),
     slippage,
-    swapAssets,
+    bitflowSwapAssets,
     swapSubmissionData,
   };
 }

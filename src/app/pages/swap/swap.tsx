@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { useFormikContext } from 'formik';
 
 import { Button } from '@leather.io/ui';
 import { isUndefined } from '@leather.io/utils';
+
+import { RouteUrls } from '@shared/route-urls';
 
 import { Card } from '@app/components/layout';
 import { LoadingSpinner } from '@app/components/loading-spinner';
@@ -25,8 +27,16 @@ export function Swap() {
   const { dirty, isValid, setFieldValue, values, validateForm } =
     useFormikContext<SwapFormValues>();
   const { base, quote } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // Handle if same asset selected; reset assets
+    // Should not happen bc of list filtering
+    if (base === quote) {
+      void setFieldValue('swapAssetQuote', undefined);
+      void setFieldValue('swapAmountQuote', '');
+      return navigate(RouteUrls.Swap.replace(':base', 'STX').replace(':quote', ''));
+    }
     if (base)
       void setFieldValue(
         'swapAssetBase',
@@ -40,6 +50,7 @@ export function Swap() {
     void validateForm();
   }, [
     base,
+    navigate,
     quote,
     setFieldValue,
     swappableAssetsBase,

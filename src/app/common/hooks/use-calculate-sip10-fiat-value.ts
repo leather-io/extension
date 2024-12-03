@@ -11,7 +11,7 @@ import { useConfigSbtc } from '@app/query/common/remote-config/remote-config.que
 
 import { getPrincipalFromContractId } from '../utils';
 
-function castBitcoinMarketDataToSbtcMarketData(bitcoinMarketData: MarketData) {
+export function castBitcoinMarketDataToSbtcMarketData(bitcoinMarketData: MarketData) {
   return createMarketData(
     createMarketPair('sBTC', 'USD'),
     createMoney(bitcoinMarketData.price.amount.toNumber(), 'USD')
