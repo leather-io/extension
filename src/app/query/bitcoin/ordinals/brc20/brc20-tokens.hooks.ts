@@ -1,18 +1,13 @@
 import BigNumber from 'bignumber.js';
 
-import {
-  type Brc20CryptoAssetInfo,
-  createCryptoAssetBalance,
-  createMarketData,
-  createMarketPair,
-} from '@leather.io/models';
+import { type Brc20CryptoAssetInfo, createMarketData, createMarketPair } from '@leather.io/models';
 import {
   isFetchedWithSuccess,
   useCalculateBitcoinFiatValue,
   useConfigOrdinalsbot,
   useGetBrc20TokensQuery,
 } from '@leather.io/query';
-import { createMoney, unitToFractionalUnit } from '@leather.io/utils';
+import { createBaseCryptoAssetBalance, createMoney, unitToFractionalUnit } from '@leather.io/utils';
 
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
@@ -72,7 +67,7 @@ export function useBrc20Tokens() {
       createMoney(new BigNumber(token.balance.min_listed_unit_price ?? 0), 'BTC')
     );
     return {
-      balance: createCryptoAssetBalance(
+      balance: createBaseCryptoAssetBalance(
         createMoney(
           unitToFractionalUnit(token.info.decimals)(new BigNumber(token.balance.overall_balance)),
           token.balance.ticker,

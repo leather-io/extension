@@ -11,13 +11,17 @@ import {
 } from '@stacks/transactions';
 
 import { defaultSwapFee } from '@leather.io/query';
-import { isDefined, isError, isUndefined } from '@leather.io/utils';
+import {
+  isDefined,
+  isError,
+  isUndefined,
+  migratePositiveAssetBalancesToTop,
+} from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 import { bitflow } from '@shared/utils/bitflow-sdk';
 
-import { migratePositiveAssetBalancesToTop } from '@app/common/asset-utils';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
@@ -29,6 +33,7 @@ import { estimateLiquidityFee, formatDexPathItem } from './bitflow-swap.utils';
 import { SwapForm } from './components/swap-form';
 import { generateSwapRoutes } from './generate-swap-routes';
 import { useBitflowSwap } from './hooks/use-bitflow-swap';
+import { useBtcSwapAsset, useSBtcSwapAsset } from './hooks/use-sbtc-bridge-assets';
 import { useStacksBroadcastSwap } from './hooks/use-stacks-broadcast-swap';
 import { SwapFormValues } from './hooks/use-swap-form';
 import { useSwapNavigate } from './hooks/use-swap-navigate';
@@ -38,6 +43,7 @@ export const bitflowSwapRoutes = generateSwapRoutes(<BitflowSwapContainer />);
 
 function BitflowSwapContainer() {
   const [isSendingMax, setIsSendingMax] = useState(false);
+  const [isPreparingSwapReview, setIsPreparingSwapReview] = useState(false);
   const navigate = useNavigate();
   const swapNavigate = useSwapNavigate();
   const { setIsLoading, setIsIdle, isLoading } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);
@@ -45,7 +51,11 @@ function BitflowSwapContainer() {
   const generateUnsignedTx = useGenerateStacksContractCallUnsignedTx();
   const signTx = useSignStacksTransaction();
   const broadcastStacksSwap = useStacksBroadcastSwap();
-  const [isPreparingSwapReview, setIsPreparingSwapReview] = useState(false);
+
+  // Bridge assets
+  const btcAsset = useBtcSwapAsset();
+  const sBtcAsset = useSBtcSwapAsset();
+
   const {
     fetchRouteQuote,
     fetchQuoteAmount,
@@ -53,7 +63,7 @@ function BitflowSwapContainer() {
     onSetIsFetchingExchangeRate,
     onSetSwapSubmissionData,
     slippage,
-    swapAssets,
+    bitflowSwapAssets,
     swapSubmissionData,
   } = useBitflowSwap();
 
@@ -81,7 +91,7 @@ function BitflowSwapContainer() {
         protocol: 'Bitflow',
         dexPath: routeQuote.route.dex_path.map(formatDexPathItem),
         router: routeQuote.route.token_path
-          .map(x => swapAssets.find(asset => asset.currency === x))
+          .map(x => bitflowSwapAssets.find(asset => asset.tokenId === x))
           .filter(isDefined),
         slippage,
         sponsored: false,
@@ -185,8 +195,8 @@ function BitflowSwapContainer() {
     onSetIsSendingMax: value => setIsSendingMax(value),
     onSubmitSwapForReview,
     onSubmitSwap,
-    swappableAssetsBase: migratePositiveAssetBalancesToTop(swapAssets),
-    swappableAssetsQuote: swapAssets,
+    swappableAssetsBase: [...[btcAsset], ...migratePositiveAssetBalancesToTop(bitflowSwapAssets)],
+    swappableAssetsQuote: [...[sBtcAsset], ...bitflowSwapAssets],
     swapSubmissionData,
   };
 
