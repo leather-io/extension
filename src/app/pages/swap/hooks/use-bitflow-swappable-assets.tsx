@@ -1,11 +1,10 @@
 import { useCallback } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
-import { Currency } from 'alex-sdk';
 import BigNumber from 'bignumber.js';
 import type { Token } from 'bitflow-sdk';
 
-import { createMarketData, createMarketPair } from '@leather.io/models';
+import { type Currency, createMarketData, createMarketPair } from '@leather.io/models';
 import {
   type SwapAsset,
   useAlexSdkLatestPricesQuery,
@@ -24,8 +23,9 @@ import { createGetBitflowAvailableTokensQueryOptions } from '@app/query/bitflow-
 
 import { sortSwapAssets } from '../swap.utils';
 
-const BITFLOW_STX_CURRENCY: Currency = 'token-stx' as Currency;
-const USD_DECIMAL_PRECISION = 2;
+const alexStxTokenId: Currency = 'token-wstx';
+const bitflowStxTokenId: Currency = 'token-stx';
+const usdDecimalPrecision = 2;
 
 function useCreateSwapAsset(address: string) {
   const { data: prices } = useAlexSdkLatestPricesQuery();
@@ -36,9 +36,11 @@ function useCreateSwapAsset(address: string) {
   return useCallback(
     (token?: Token): SwapAsset | undefined => {
       if (!prices || !token || !token.tokenContract) return;
+      const pricesKeyedByCurrency = prices as Record<Currency, number>;
+      const stxPrice = pricesKeyedByCurrency[alexStxTokenId] ?? 0;
 
       const swapAsset = {
-        currency: token.tokenId as Currency,
+        tokenId: token.tokenId,
         fallback: token.symbol.slice(0, 2),
         icon: token.icon,
         name: token.symbol,
@@ -46,11 +48,8 @@ function useCreateSwapAsset(address: string) {
         principal: token.tokenContract,
       };
 
-      if (token.tokenId === BITFLOW_STX_CURRENCY) {
-        const price = convertAmountToFractionalUnit(
-          new BigNumber(prices[Currency.STX] ?? 0),
-          USD_DECIMAL_PRECISION
-        );
+      if (token.tokenId === bitflowStxTokenId) {
+        const price = convertAmountToFractionalUnit(new BigNumber(stxPrice), usdDecimalPrecision);
         return {
           ...swapAsset,
           balance: availableUnlockedBalance,

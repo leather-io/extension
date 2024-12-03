@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import BigNumber from 'bignumber.js';
@@ -35,6 +35,13 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
   const [field] = useField(name);
   const showError = useShowFieldError(name) && name === 'swapAmountBase' && values.swapAssetQuote;
 
+  useEffect(() => {
+    // Clear quote amount if quote asset is reset
+    if (isUndefined(values.swapAssetQuote)) {
+      void setFieldValue('swapAmountQuote', '');
+    }
+  }, [name, setFieldValue, values]);
+
   async function onBlur(event: ChangeEvent<HTMLInputElement>) {
     const { swapAssetBase, swapAssetQuote } = values;
     if (isUndefined(swapAssetBase) || isUndefined(swapAssetQuote)) return;
@@ -42,7 +49,7 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
     const value = event.currentTarget.value;
     const toAmount = await fetchQuoteAmount(swapAssetBase, swapAssetQuote, value);
     if (isUndefined(toAmount)) {
-      await setFieldValue('swapAmountQuote', '');
+      void setFieldValue('swapAmountQuote', '');
       return;
     }
     const toAmountAsMoney = createMoney(
@@ -53,7 +60,7 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
       values.swapAssetQuote?.balance.symbol ?? '',
       values.swapAssetQuote?.balance.decimals
     );
-    await setFieldValue('swapAmountQuote', formatMoneyWithoutSymbol(toAmountAsMoney));
+    void setFieldValue('swapAmountQuote', formatMoneyWithoutSymbol(toAmountAsMoney));
     setFieldError('swapAmountQuote', undefined);
   }
 

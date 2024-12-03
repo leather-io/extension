@@ -5,12 +5,6 @@ import {
   isMoneyGreaterThanZero,
 } from '@leather.io/utils';
 
-export function migratePositiveAssetBalancesToTop<T extends { balance: Money }[]>(assets: T) {
-  const assetsWithPositiveBalance = assets.filter(asset => asset.balance.amount.isGreaterThan(0));
-  const assetsWithZeroBalance = assets.filter(asset => asset.balance.amount.isEqualTo(0));
-  return [...assetsWithPositiveBalance, ...assetsWithZeroBalance] as T;
-}
-
 export function convertAssetBalanceToFiat<
   T extends { balance: Money | null; marketData: MarketData | null },
 >(asset: T) {
