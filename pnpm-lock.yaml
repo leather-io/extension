@@ -141,8 +141,8 @@ importers:
         specifier: 6.15.0
         version: 6.15.0
       '@stacks/network':
-        specifier: 7.0.2
-        version: 7.0.2(encoding@0.1.13)
+        specifier: 6.13.0
+        version: 6.13.0(encoding@0.1.13)
       '@stacks/profile':
         specifier: 6.15.0
         version: 6.15.0(encoding@0.1.13)
@@ -190,7 +190,7 @@ importers:
         version: 1.0.4(encoding@0.1.13)
       alex-sdk:
         specifier: 2.1.4
-        version: 2.1.4(@stacks/network@7.0.2(encoding@0.1.13))(@stacks/transactions@6.17.0(encoding@0.1.13))
+        version: 2.1.4(@stacks/network@6.13.0(encoding@0.1.13))(@stacks/transactions@6.17.0(encoding@0.1.13))
       are-passive-events-supported:
         specifier: 1.1.1
         version: 1.1.1
@@ -282,8 +282,8 @@ importers:
         specifier: 4.7.0
         version: 4.7.0
       micro-packed:
-        specifier: 0.6.3
-        version: 0.6.3
+        specifier: 0.3.2
+        version: 0.3.2
       object-hash:
         specifier: 3.0.0
         version: 3.0.0
@@ -357,8 +357,8 @@ importers:
         specifier: 7.8.1
         version: 7.8.1
       sbtc:
-        specifier: 0.2.1
-        version: 0.2.1(encoding@0.1.13)
+        specifier: 0.2.2
+        version: 0.2.2(encoding@0.1.13)
       style-loader:
         specifier: 3.3.4
         version: 3.3.4(webpack@5.94.0(@swc/core@1.9.3)(esbuild@0.24.0)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.1)(webpack@5.94.0)))
@@ -11089,6 +11089,9 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
+  micro-packed@0.3.2:
+    resolution: {integrity: sha512-D1Bq0/lVOzdxhnX5vylCxZpdw5LylH7Vd81py0DfRsKUP36XYpwvy8ZIsECVo3UfnoROn8pdKqkOzL7Cd82sGA==}
+
   micro-packed@0.6.3:
     resolution: {integrity: sha512-VmVkyc7lIzAq/XCPFuLc/CwQ7Ehs5XDK3IwqsZHiBIDttAI9Gs7go6Lv4lNRuAIKrGKcRTtthFKUNyHS0S4wJQ==}
 
@@ -13221,8 +13224,8 @@ packages:
     resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
     engines: {node: '>=v12.22.7'}
 
-  sbtc@0.2.1:
-    resolution: {integrity: sha512-yNjNSWBiL6m5kNxKaVKNfIqE2nEFb2vBvvNtbOn2uVIOegryTDM6ZcuWVAoj9nhWYtbre/Fnj/xoltkp9WrXvg==}
+  sbtc@0.2.2:
+    resolution: {integrity: sha512-TsRXLR5crL2ORfJxiEA/CQANtTDu53pT5HjkTG0cJyC/rwl2wxtRV+mF4FFLj8bH7aLMRAr9SM68ihHxUOpmgw==}
 
   sc-errors@3.0.0:
     resolution: {integrity: sha512-rIqv2HTPb9DVreZwK/DV0ytRUqyw2DbDcoB9XTKjEQL7oMEQKsfPA8V8dGGr7p8ZYfmvaRIGZ4Wu5qwvs/hGDA==}
@@ -20534,7 +20537,7 @@ snapshots:
     dependencies:
       '@stacks/common': 6.13.0
       '@stacks/encryption': 6.15.0
-      '@stacks/network': 6.17.0(encoding@0.1.13)
+      '@stacks/network': 6.13.0(encoding@0.1.13)
       '@stacks/profile': 6.15.0(encoding@0.1.13)
       cross-fetch: 3.1.8(encoding@0.1.13)
       jsontokens: 4.0.1
@@ -20591,7 +20594,7 @@ snapshots:
     dependencies:
       '@stacks/auth': 6.15.0(encoding@0.1.13)
       '@stacks/connect-ui': 6.1.1
-      '@stacks/network': 6.17.0(encoding@0.1.13)
+      '@stacks/network': 6.13.0(encoding@0.1.13)
       '@stacks/profile': 6.15.0(encoding@0.1.13)
       '@stacks/transactions': 6.17.0(encoding@0.1.13)
       jsontokens: 4.0.1
@@ -20664,7 +20667,7 @@ snapshots:
   '@stacks/profile@6.15.0(encoding@0.1.13)':
     dependencies:
       '@stacks/common': 6.13.0
-      '@stacks/network': 6.17.0(encoding@0.1.13)
+      '@stacks/network': 6.13.0(encoding@0.1.13)
       '@stacks/transactions': 6.17.0(encoding@0.1.13)
       jsontokens: 4.0.1
       schema-inspector: 2.0.2
@@ -20686,7 +20689,7 @@ snapshots:
       '@stacks/auth': 6.15.0(encoding@0.1.13)
       '@stacks/common': 6.13.0
       '@stacks/encryption': 6.15.0
-      '@stacks/network': 6.17.0(encoding@0.1.13)
+      '@stacks/network': 6.13.0(encoding@0.1.13)
       base64-js: 1.5.1
       jsontokens: 4.0.1
     transitivePeerDependencies:
@@ -20737,7 +20740,7 @@ snapshots:
       '@stacks/auth': 6.15.0(encoding@0.1.13)
       '@stacks/common': 6.13.0
       '@stacks/encryption': 6.15.0
-      '@stacks/network': 6.17.0(encoding@0.1.13)
+      '@stacks/network': 6.13.0(encoding@0.1.13)
       '@stacks/profile': 6.15.0(encoding@0.1.13)
       '@stacks/storage': 6.15.0(encoding@0.1.13)
       '@stacks/transactions': 6.17.0(encoding@0.1.13)
@@ -23197,14 +23200,6 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  alex-sdk@2.1.4(@stacks/network@7.0.2(encoding@0.1.13))(@stacks/transactions@6.17.0(encoding@0.1.13)):
-    dependencies:
-      '@stacks/network': 7.0.2(encoding@0.1.13)
-      '@stacks/transactions': 6.17.0(encoding@0.1.13)
-      clarity-codegen: 0.5.3(@stacks/transactions@6.17.0(encoding@0.1.13))
-    transitivePeerDependencies:
-      - debug
-
   anser@1.4.10: {}
 
   anser@2.3.0: {}
@@ -23633,7 +23628,7 @@ snapshots:
 
   bitflow-sdk@1.6.1(encoding@0.1.13):
     dependencies:
-      '@stacks/network': 6.17.0(encoding@0.1.13)
+      '@stacks/network': 6.13.0(encoding@0.1.13)
       '@stacks/transactions': 6.17.0(encoding@0.1.13)
       dotenv: 16.4.5
     transitivePeerDependencies:
@@ -28737,6 +28732,10 @@ snapshots:
       - supports-color
       - utf-8-validate
 
+  micro-packed@0.3.2:
+    dependencies:
+      '@scure/base': 1.1.9
+
   micro-packed@0.6.3:
     dependencies:
       '@scure/base': 1.1.9
@@ -31326,7 +31325,7 @@ snapshots:
     dependencies:
       xmlchars: 2.2.0
 
-  sbtc@0.2.1(encoding@0.1.13):
+  sbtc@0.2.2(encoding@0.1.13):
     dependencies:
       '@btc-helpers/rpc': 2.0.0(encoding@0.1.13)
       '@noble/secp256k1': 2.1.0
