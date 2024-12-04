@@ -1,4 +1,5 @@
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
+import { sanitize } from 'dompurify';
 
 import { type SwapAsset, isFtAsset, useGetFungibleTokenMetadataQuery } from '@leather.io/query';
 import {
@@ -30,7 +31,7 @@ export function SwapAssetItem({ asset, onClick }: SwapAssetItemProps) {
         img={
           isString(asset.icon) ? (
             <Avatar.Root>
-              <Avatar.Image alt={fallback} src={asset.icon} />
+              <Avatar.Image alt={fallback} src={sanitize(asset.icon)} />
               <Avatar.Fallback delayMs={defaultFallbackDelay}>{fallback}</Avatar.Fallback>
             </Avatar.Root>
           ) : (
