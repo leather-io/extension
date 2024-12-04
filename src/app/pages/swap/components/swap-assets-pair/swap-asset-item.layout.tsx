@@ -1,6 +1,7 @@
 import type React from 'react';
 
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
+import { sanitize } from 'dompurify';
 import { HStack, styled } from 'leather-styles/jsx';
 
 import { Flag } from '@leather.io/ui';
@@ -17,7 +18,13 @@ export function SwapAssetItemLayout({ caption, icon, symbol, value }: SwapAssetI
     <Flag
       img={
         isString(icon) ? (
-          <styled.img src={icon} borderRadius="50%" width="48px" height="48px" alt="Swap asset" />
+          <styled.img
+            src={sanitize(icon)}
+            borderRadius="50%"
+            width="48px"
+            height="48px"
+            alt="Swap asset"
+          />
         ) : (
           icon
         )

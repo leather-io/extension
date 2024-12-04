@@ -15,6 +15,16 @@ import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/s
 
 const client = new SbtcApiClientTestnet();
 
+const sBtcApiUrl = 'https://beta.sbtc-mempool.tech/api/proxy';
+// Temporary function to broadcast the transaction, not sure about correct api?
+// It does return a txid, but the notify function returns an error
+async function broadcastTx(tx: btc.Transaction): Promise<string> {
+  return await fetch(`${sBtcApiUrl}/tx`, {
+    method: 'POST',
+    body: tx.hex,
+  }).then(res => res.text());
+}
+
 // Demo component to create the swap deposit transaction
 export function TestDepositSbtc() {
   const stacksAccount = useCurrentStacksAccount();
@@ -37,7 +47,7 @@ export function TestDepositSbtc() {
         reclaimLockTime: 6_000,
       });
 
-      const { inputs } = determineUtxosForSpend({
+      const { inputs, outputs } = determineUtxosForSpend({
         feeRate: feeRates?.halfHourFee.toNumber() ?? 0,
         recipients: [
           {
@@ -47,7 +57,8 @@ export function TestDepositSbtc() {
         ],
         utxos,
       });
-
+      console.log('inputs', inputs);
+      console.log('outputs', outputs);
       const p2wpkh = btc.p2wpkh(signer.publicKey, networkMode);
 
       for (const input of inputs) {
@@ -63,11 +74,23 @@ export function TestDepositSbtc() {
         });
       }
 
+      outputs.forEach(output => {
+        // Add change output
+        if (!output.address) {
+          deposit.transaction.addOutputAddress(signer.address, BigInt(output.value), networkMode);
+          return;
+        }
+      });
+
       signer.sign(deposit.transaction);
       deposit.transaction.finalize();
 
       console.log('deposit tx', deposit.transaction);
       console.log('tx hex', deposit.transaction.hex);
+
+      const txid = await broadcastTx(deposit.transaction);
+      console.log('broadcasted tx', txid);
+      await client.notifySbtc(deposit);
     } catch (error) {
       console.error(error);
     }
