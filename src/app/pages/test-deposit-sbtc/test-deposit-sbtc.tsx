@@ -1,61 +1,75 @@
 /* eslint-disable */
-// import { STACKS_TESTNET } from '@stacks/network';
-// import { cvToValue } from '@stacks/transactions';
+import * as btc from '@scure/btc-signer';
 import { styled } from 'leather-styles/jsx';
-import { REGTEST } from 'sbtc';
+import { REGTEST, SbtcApiClientTestnet, buildSbtcDepositTx } from 'sbtc';
 
+import { useAverageBitcoinFeeRates } from '@leather.io/query';
 import { Button, Input } from '@leather.io/ui';
+import { createMoney } from '@leather.io/utils';
 
+import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
+import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-
-import { sbtcDepositHelper } from './deposit';
-import { SbtcApiClientTestnet, wrapLazyProxy } from './sbtc-api';
 
 const client = new SbtcApiClientTestnet();
 
-// Demo component to create the swap tx, without diving into whatever is needed
-// to change Swaps
+// Demo component to create the swap deposit transaction
 export function TestDepositSbtc() {
   const stacksAccount = useCurrentStacksAccount();
   const { data: utxos } = useCurrentNativeSegwitUtxos();
-  const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
+  const { data: feeRates } = useAverageBitcoinFeeRates();
+  const signer = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const networkMode = useBitcoinScureLibNetworkConfig();
 
   async function onSubmit() {
-    console.log('submitting tx');
+    if (!stacksAccount) throw new Error('no stacks account');
+    if (!utxos) throw new Error('no utxos');
+
     try {
-      if (!stacksAccount) throw new Error('no stacks account');
-      if (!utxos) throw new Error('no utxos');
-
-      const utxosWithTx = utxos
-        .map(u => ({
-          txid: u.txid,
-          vout: u.vout,
-          value: Math.round(u.value * 1e8),
-          status: u.status,
-        }))
-        .map(u => wrapLazyProxy(u, 'tx', async () => client.fetchTxHex(u.txid)));
-      console.log('utxos with tx', utxosWithTx);
-
-      // const keys = await client.fetchCallReadOnly({
-      //   contractAddress: 'SNGWPN3XDAQE673MXYXF81016M50NHF5X5PWWM70.sbtc-registry',
-      //   functionName: 'get-current-aggregate-pubkey',
-      //   sender: STACKS_TESTNET.bootAddress,
-      // });
-      // console.log('keys', cvToValue(keys));
-      const deposit = await sbtcDepositHelper({
+      const deposit = buildSbtcDepositTx({
         amountSats: 100_000,
         network: REGTEST,
-        bitcoinChangeAddress: btcAddress,
-        feeRate: 1, // await client.fetchFeeRate('low'),
-        signersPublicKey: await client.fetchSignersPublicKey(), // cvToValue(keys).slice(2),
         stacksAddress: stacksAccount.address,
-        utxos: utxosWithTx,
+        signersPublicKey: await client.fetchSignersPublicKey(),
+        maxSignerFee: 80_000,
+        reclaimLockTime: 6_000,
       });
-      console.log(deposit);
-    } catch (e) {
-      console.error(e);
+
+      const { inputs } = determineUtxosForSpend({
+        feeRate: feeRates?.halfHourFee.toNumber() ?? 0,
+        recipients: [
+          {
+            address: deposit.address,
+            amount: createMoney(Number(deposit.transaction.getOutput(0).amount), 'BTC'),
+          },
+        ],
+        utxos,
+      });
+
+      const p2wpkh = btc.p2wpkh(signer.publicKey, networkMode);
+
+      for (const input of inputs) {
+        deposit.transaction.addInput({
+          txid: input.txid,
+          index: input.vout,
+          sequence: 0,
+          witnessUtxo: {
+            // script = 0014 + pubKeyHash
+            script: p2wpkh.script,
+            amount: BigInt(input.value),
+          },
+        });
+      }
+
+      signer.sign(deposit.transaction);
+      deposit.transaction.finalize();
+
+      console.log('deposit tx', deposit.transaction);
+      console.log('tx hex', deposit.transaction.hex);
+    } catch (error) {
+      console.error(error);
     }
   }
 
