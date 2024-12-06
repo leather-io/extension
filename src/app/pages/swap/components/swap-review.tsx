@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 
-import { Button } from '@leather.io/ui';
+import { Button, Callout } from '@leather.io/ui';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { Card } from '@app/components/layout';
@@ -12,7 +12,7 @@ import { SwapAssetsPair } from './swap-assets-pair/swap-assets-pair';
 import { SwapDetails } from './swap-details/swap-details';
 
 export function SwapReview() {
-  const { onSubmitSwap } = useSwapContext();
+  const { isCrossChainSwap, onSubmitSwap } = useSwapContext();
   const { isLoading } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);
 
   return (
@@ -32,6 +32,11 @@ export function SwapReview() {
           </Button>
         }
       >
+        {isCrossChainSwap && (
+          <Callout borderRadius="4px" variant="warning" width="100%">
+            Note that bridging from sBTC back to BTC is currently unavailable.
+          </Callout>
+        )}
         <SwapAssetsPair />
         <SwapDetails />
       </Card>
