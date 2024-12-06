@@ -7,6 +7,7 @@ import { logger } from '@shared/logger';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { analytics } from '@shared/utils/analytics';
 
+import { focusTabAndWindow } from '@app/common/focus-tab';
 import { useRpcRequestParams } from '@app/common/rpc-helpers';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
@@ -23,10 +24,7 @@ export function useGetAddresses() {
 
   function focusInitatingTab() {
     void analytics.track('user_clicked_requested_by_link', { endpoint: 'getAddresses' });
-    chrome.tabs.update(tabId ?? 0, { active: true }, tab => {
-      if (!tab) return;
-      chrome.windows.update(tab.windowId, { focused: true });
-    });
+    focusTabAndWindow(tabId);
   }
 
   return {

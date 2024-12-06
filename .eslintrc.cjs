@@ -25,16 +25,13 @@ module.exports = {
     'plugin:storybook/csf',
   ],
   ignorePatterns: ['./leather-styles'],
-  plugins: ['react', 'react-hooks', '@typescript-eslint', 'deprecation'],
+  plugins: ['react', 'react-hooks', '@typescript-eslint'],
   settings: {
     react: {
       version: 'detect',
     },
   },
   rules: {
-    // This rule helps highlight areas of the code that use deprecated
-    // methods, such as implicit use of signed transactions
-    'deprecation/deprecation': 'warn',
     'no-console': ['error'],
     'no-duplicate-imports': ['error'],
     'prefer-const': [
