@@ -40,7 +40,7 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
     if (isUndefined(values.swapAssetQuote)) {
       void setFieldValue('swapAmountQuote', '');
     }
-  }, [name, setFieldValue, values]);
+  }, [setFieldValue, values]);
 
   async function onBlur(event: ChangeEvent<HTMLInputElement>) {
     const { swapAssetBase, swapAssetQuote } = values;
@@ -49,7 +49,7 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
     const value = event.currentTarget.value;
     const toAmount = await fetchQuoteAmount(swapAssetBase, swapAssetQuote, value);
     if (isUndefined(toAmount)) {
-      void setFieldValue('swapAmountQuote', '');
+      await setFieldValue('swapAmountQuote', '');
       return;
     }
     const toAmountAsMoney = createMoney(
@@ -60,7 +60,7 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
       values.swapAssetQuote?.balance.symbol ?? '',
       values.swapAssetQuote?.balance.decimals
     );
-    void setFieldValue('swapAmountQuote', formatMoneyWithoutSymbol(toAmountAsMoney));
+    await setFieldValue('swapAmountQuote', formatMoneyWithoutSymbol(toAmountAsMoney));
     setFieldError('swapAmountQuote', undefined);
   }
 

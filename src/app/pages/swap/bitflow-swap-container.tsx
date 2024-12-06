@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@stacks/common';
@@ -10,13 +10,7 @@ import {
   serializePostCondition,
 } from '@stacks/transactions';
 
-import { defaultSwapFee } from '@leather.io/query';
-import {
-  isDefined,
-  isError,
-  isUndefined,
-  migratePositiveAssetBalancesToTop,
-} from '@leather.io/utils';
+import { isError, isUndefined } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
@@ -29,11 +23,11 @@ import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/s
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
 
-import { estimateLiquidityFee, formatDexPathItem } from './bitflow-swap.utils';
+import { getCrossChainSwapSubmissionData, getSwapSubmissionData } from './bitflow-swap.utils';
 import { SwapForm } from './components/swap-form';
 import { generateSwapRoutes } from './generate-swap-routes';
 import { useBitflowSwap } from './hooks/use-bitflow-swap';
-import { useBtcSwapAsset, useSBtcSwapAsset } from './hooks/use-sbtc-bridge-assets';
+import { useSBtcDepositTransaction } from './hooks/use-sbtc-deposit-transaction';
 import { useStacksBroadcastSwap } from './hooks/use-stacks-broadcast-swap';
 import { SwapFormValues } from './hooks/use-swap-form';
 import { useSwapNavigate } from './hooks/use-swap-navigate';
@@ -51,63 +45,66 @@ function BitflowSwapContainer() {
   const generateUnsignedTx = useGenerateStacksContractCallUnsignedTx();
   const signTx = useSignStacksTransaction();
   const broadcastStacksSwap = useStacksBroadcastSwap();
-
-  // Bridge assets
-  const btcAsset = useBtcSwapAsset();
-  const sBtcAsset = useSBtcSwapAsset();
+  const { onDepositSBtc } = useSBtcDepositTransaction();
 
   const {
     fetchRouteQuote,
     fetchQuoteAmount,
+    isCrossChainSwap,
     isFetchingExchangeRate,
+    onSetIsCrossChainSwap,
     onSetIsFetchingExchangeRate,
     onSetSwapSubmissionData,
     slippage,
     bitflowSwapAssets,
+    swappableAssetsBase,
+    swappableAssetsQuote,
     swapSubmissionData,
   } = useBitflowSwap();
 
-  async function onSubmitSwapForReview(values: SwapFormValues) {
-    try {
-      setIsPreparingSwapReview(true);
-      if (isUndefined(values.swapAssetBase) || isUndefined(values.swapAssetQuote)) {
-        logger.error('Error submitting swap for review');
-        return;
+  const onSubmitSwapForReview = useCallback(
+    async (values: SwapFormValues) => {
+      try {
+        setIsPreparingSwapReview(true);
+        if (isUndefined(values.swapAssetBase) || isUndefined(values.swapAssetQuote)) {
+          logger.error('Error submitting swap for review');
+          return;
+        }
+
+        // TODO: Handle cross-chain swaps
+        if (isCrossChainSwap) {
+          onSetSwapSubmissionData(getCrossChainSwapSubmissionData(values));
+          swapNavigate(RouteUrls.SwapReview);
+          return;
+        }
+
+        const routeQuote = await fetchRouteQuote(
+          values.swapAssetBase,
+          values.swapAssetQuote,
+          values.swapAmountBase
+        );
+
+        if (!routeQuote) return;
+
+        onSetSwapSubmissionData(
+          getSwapSubmissionData({ bitflowSwapAssets, routeQuote, slippage, values })
+        );
+        swapNavigate(RouteUrls.SwapReview);
+      } finally {
+        setIsPreparingSwapReview(false);
       }
+    },
+    [
+      bitflowSwapAssets,
+      fetchRouteQuote,
+      isCrossChainSwap,
+      onSetSwapSubmissionData,
+      slippage,
+      swapNavigate,
+    ]
+  );
 
-      const routeQuote = await fetchRouteQuote(
-        values.swapAssetBase,
-        values.swapAssetQuote,
-        values.swapAmountBase
-      );
-      if (!routeQuote) return;
-
-      onSetSwapSubmissionData({
-        fee: defaultSwapFee.amount.toString(),
-        feeCurrency: values.feeCurrency,
-        feeType: values.feeType,
-        liquidityFee: estimateLiquidityFee(routeQuote.route.dex_path),
-        nonce: values.nonce,
-        protocol: 'Bitflow',
-        dexPath: routeQuote.route.dex_path.map(formatDexPathItem),
-        router: routeQuote.route.token_path
-          .map(x => bitflowSwapAssets.find(asset => asset.tokenId === x))
-          .filter(isDefined),
-        slippage,
-        sponsored: false,
-        swapAmountBase: values.swapAmountBase,
-        swapAmountQuote: values.swapAmountQuote,
-        swapAssetBase: values.swapAssetBase,
-        swapAssetQuote: values.swapAssetQuote,
-        timestamp: new Date().toISOString(),
-      });
-      swapNavigate(RouteUrls.SwapReview);
-    } finally {
-      setIsPreparingSwapReview(false);
-    }
-  }
-
-  async function onSubmitSwap() {
+  const onSubmitSwap = useCallback(async () => {
     if (isLoading) return;
 
     if (isUndefined(currentAccount) || isUndefined(swapSubmissionData)) {
@@ -125,12 +122,18 @@ function BitflowSwapContainer() {
 
     setIsLoading();
 
+    // TODO: Handle cross-chain swaps
+    if (isCrossChainSwap) {
+      return await onDepositSBtc();
+    }
+
     try {
       const routeQuote = await fetchRouteQuote(
         swapSubmissionData.swapAssetBase,
         swapSubmissionData.swapAssetQuote,
         swapSubmissionData.swapAmountBase
       );
+
       if (!routeQuote) return;
 
       const swapExecutionData = {
@@ -184,19 +187,34 @@ function BitflowSwapContainer() {
     } finally {
       setIsIdle();
     }
-  }
+  }, [
+    broadcastStacksSwap,
+    currentAccount,
+    fetchRouteQuote,
+    generateUnsignedTx,
+    isCrossChainSwap,
+    isLoading,
+    navigate,
+    onDepositSBtc,
+    setIsIdle,
+    setIsLoading,
+    signTx,
+    swapSubmissionData,
+  ]);
 
   const swapContextValue: SwapContext = {
     fetchQuoteAmount,
+    isCrossChainSwap,
     isFetchingExchangeRate,
     isSendingMax,
     isPreparingSwapReview,
+    onSetIsCrossChainSwap,
     onSetIsFetchingExchangeRate,
     onSetIsSendingMax: value => setIsSendingMax(value),
     onSubmitSwapForReview,
     onSubmitSwap,
-    swappableAssetsBase: [...[btcAsset], ...migratePositiveAssetBalancesToTop(bitflowSwapAssets)],
-    swappableAssetsQuote: [...[sBtcAsset], ...bitflowSwapAssets],
+    swappableAssetsBase,
+    swappableAssetsQuote,
     swapSubmissionData,
   };
 
