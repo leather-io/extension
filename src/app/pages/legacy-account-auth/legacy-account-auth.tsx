@@ -1,9 +1,9 @@
 import { closeWindow } from '@shared/utils';
 
-// import { useCancelAuthRequest } from '@app/common/authentication/use-cancel-auth-request';
+import { useCancelAuthRequest } from '@app/common/authentication/use-cancel-auth-request';
 import { useFinishAuthRequest } from '@app/common/authentication/use-finish-auth-request';
 import { useAppDetails } from '@app/common/hooks/auth/use-app-details';
-// import { useOnMount } from '@app/common/hooks/use-on-mount';
+import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { CurrentAccountDisplayer } from '@app/features/current-account/current-account-displayer';
@@ -20,10 +20,10 @@ export function LegacyAccountAuth() {
 
   useOnOriginTabClose(() => closeWindow());
 
-  // const cancelAuthentication = useCancelAuthRequest();
+  const cancelAuthentication = useCancelAuthRequest();
 
-  // const handleUnmount = async () => cancelAuthentication();
-  // useOnMount(() => window.addEventListener('beforeunload', handleUnmount));
+  const handleUnmount = async () => cancelAuthentication();
+  useOnMount(() => window.addEventListener('beforeunload', handleUnmount));
 
   if (!url) throw new Error('No app details found');
 
