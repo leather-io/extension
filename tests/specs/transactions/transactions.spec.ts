@@ -3,7 +3,7 @@ import { TestAppPage } from '@tests/page-object-models/test-app.page';
 import { TransactionRequestPage } from '@tests/page-object-models/transaction-request.page';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 
-import { stxToMicroStx } from '@leather.io/utils';
+import { delay, stxToMicroStx } from '@leather.io/utils';
 
 import { test } from '../../fixtures/fixtures';
 
@@ -26,7 +26,9 @@ test.describe('Transaction signing', () => {
       const newPagePromise = context.waitForEvent('page');
       await testAppPage.page.getByTestId(OnboardingSelectors.SignUpBtn).click();
       const accountsPage = await newPagePromise;
+      await accountsPage.getByTestId('switch-account-item-0').click({ force: true });
       await accountsPage.getByTestId('switch-account-item-1').click({ force: true });
+      await accountsPage.getByRole('button').getByText('Confirm').click({ force: true });
       await testAppPage.page.bringToFront();
       await testAppPage.page.click('text=Debugger', {
         timeout: 30000,
@@ -48,7 +50,8 @@ test.describe('Transaction signing', () => {
       const newPagePromise = context.waitForEvent('page');
       await testAppPage.page.getByTestId(OnboardingSelectors.SignUpBtn).click();
       const accountsPage = await newPagePromise;
-      await accountsPage.getByTestId('switch-account-item-0').click({ force: true });
+      await accountsPage.getByRole('button').getByText('Confirm').click({ force: true });
+      await delay(2000);
       await testAppPage.page.bringToFront();
       await testAppPage.page.click('text=Debugger', {
         timeout: 30000,

@@ -18,20 +18,20 @@ import { closeWindow } from '@shared/utils';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { FaviconDisplayer } from '@app/components/favicon-displayer/favicon-displayer';
 
-interface GetAddressesLayoutProps {
+interface ConnectAccountLayoutProps {
   requester: string;
   switchAccount: ReactNode;
   onBeforeAnimation?(): void;
-  onUserApprovesGetAddresses(): void;
+  onUserApprovesGetAddresses(): void | Promise<void>;
   onClickRequestedByLink(): void;
 }
-export function GetAddressesLayout({
+export function ConnectAccountLayout({
   requester,
   switchAccount,
   onBeforeAnimation,
   onUserApprovesGetAddresses,
   onClickRequestedByLink,
-}: GetAddressesLayoutProps) {
+}: ConnectAccountLayoutProps) {
   const originLogoAnimation = useAnimationControls();
   const contentDisappears = useAnimationControls();
   const checkmarkEnters = useAnimationControls();
@@ -61,7 +61,7 @@ export function GetAddressesLayout({
     });
     await checkmarkEnters.start({ scale: 0.5, dur: 0.32 });
     await delay(280);
-    onUserApprovesGetAddresses();
+    await onUserApprovesGetAddresses();
     await delay(280);
     await originLogoAnimation.start({
       scale: 0,
