@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { useFormikContext } from 'formik';
@@ -12,41 +11,15 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 
 import { SwapAssetSelectBase } from './components/swap-asset-select/swap-asset-select-base';
 import { SwapAssetSelectQuote } from './components/swap-asset-select/swap-asset-select-quote';
+import { useSwapAssetsFromRoute } from './hooks/use-swap-assets-from-route';
 import { SwapFormValues } from './hooks/use-swap-form';
 import { useSwapContext } from './swap.context';
 
 export function Swap() {
-  const {
-    isFetchingExchangeRate,
-    isPreparingSwapReview,
-    swappableAssetsBase,
-    swappableAssetsQuote,
-  } = useSwapContext();
-  const { dirty, isValid, setFieldValue, values, validateForm } =
-    useFormikContext<SwapFormValues>();
-  const { base, quote } = useParams();
+  const { isFetchingExchangeRate, isPreparingSwapReview, onSubmitSwapForReview } = useSwapContext();
+  const { dirty, isValid, values, submitForm } = useFormikContext<SwapFormValues>();
 
-  useEffect(() => {
-    if (base)
-      void setFieldValue(
-        'swapAssetBase',
-        swappableAssetsBase.find(asset => asset.name === base)
-      );
-    if (quote)
-      void setFieldValue(
-        'swapAssetQuote',
-        swappableAssetsQuote.find(asset => asset.name === quote)
-      );
-    void validateForm();
-  }, [
-    base,
-    quote,
-    setFieldValue,
-    swappableAssetsBase,
-    swappableAssetsQuote,
-    validateForm,
-    values.swapAssetBase,
-  ]);
+  useSwapAssetsFromRoute();
 
   if (isUndefined(values.swapAssetBase)) return <LoadingSpinner height="300px" />;
 
@@ -58,6 +31,10 @@ export function Swap() {
           data-testid={SwapSelectors.SwapReviewBtn}
           aria-busy={isPreparingSwapReview}
           disabled={!(dirty && isValid) || isFetchingExchangeRate || isPreparingSwapReview}
+          onClick={async () => {
+            await submitForm(); // Validate form
+            await onSubmitSwapForReview(values);
+          }}
           type="submit"
           fullWidth
         >

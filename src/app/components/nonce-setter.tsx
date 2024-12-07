@@ -6,11 +6,12 @@ import { useNextNonce } from '@leather.io/query';
 
 import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 
+import type { SwapFormValues } from '@app/pages/swap/hooks/use-swap-form';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 export function NonceSetter() {
   const { setFieldValue, touched, values } = useFormikContext<
-    StacksSendFormValues | StacksTransactionFormValues
+    StacksSendFormValues | StacksTransactionFormValues | SwapFormValues
   >();
   const stxAddress = useCurrentStacksAccountAddress();
   const { data: nextNonce } = useNextNonce(stxAddress);

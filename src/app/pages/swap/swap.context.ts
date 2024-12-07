@@ -8,17 +8,19 @@ export interface SwapSubmissionData extends SwapFormValues {
   liquidityFee: number;
   protocol: string;
   router: SwapAsset[];
-  dexPath: string[];
+  dexPath?: string[];
   slippage: number;
-  sponsored: boolean;
+  sponsored?: boolean;
   timestamp: string;
 }
 
 export interface SwapContext {
   fetchQuoteAmount(from: SwapAsset, to: SwapAsset, fromAmount: string): Promise<string | undefined>;
+  isCrossChainSwap: boolean;
   isFetchingExchangeRate: boolean;
   isSendingMax: boolean;
   isPreparingSwapReview: boolean;
+  onSetIsCrossChainSwap(value: boolean): void;
   onSetIsFetchingExchangeRate(value: boolean): void;
   onSetIsSendingMax(value: boolean): void;
   onSubmitSwapForReview(values: SwapFormValues): Promise<void> | void;
