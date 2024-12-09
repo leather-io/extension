@@ -1,14 +1,11 @@
 import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
-import { FeeTypes } from '@leather.io/models';
-import { type SwapAsset, useNextNonce } from '@leather.io/query';
+import { type SwapAsset } from '@leather.io/query';
 import { convertAmountToFractionalUnit, createMoney } from '@leather.io/utils';
 
 import { FormErrorMessages } from '@shared/error-messages';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
-
-import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useSwapContext } from '../swap.context';
 
@@ -21,14 +18,12 @@ export interface SwapFormValues extends StacksTransactionFormValues {
 
 export function useSwapForm() {
   const { isFetchingExchangeRate } = useSwapContext();
-  const stxAddress = useCurrentStacksAccountAddress();
-  const { data: nextNonce } = useNextNonce(stxAddress);
 
   const initialValues: SwapFormValues = {
     fee: '0',
-    feeCurrency: 'STX',
-    feeType: FeeTypes[FeeTypes.Middle],
-    nonce: nextNonce?.nonce,
+    feeCurrency: '',
+    feeType: '',
+    nonce: 0,
     swapAmountBase: '',
     swapAmountQuote: '',
     swapAssetBase: undefined,

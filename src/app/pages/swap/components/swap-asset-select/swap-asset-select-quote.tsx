@@ -37,7 +37,7 @@ export function SwapAssetSelectQuote() {
       icon={assetField.value?.icon}
       name="swapAmountQuote"
       onSelectAsset={() => navigate(RouteUrls.SwapAssetSelectQuote)}
-      showToggle
+      showToggle={assetField.value?.name !== 'sBTC'}
       swapAmountInput={
         isFetchingExchangeRate ? (
           <LoadingSpinner justifyContent="flex-end" size="sm" />

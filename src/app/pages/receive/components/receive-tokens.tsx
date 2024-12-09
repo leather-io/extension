@@ -14,6 +14,7 @@ import {
   StxAvatarIcon,
   defaultFallbackDelay,
 } from '@leather.io/ui';
+import { isString } from '@leather.io/utils';
 
 import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { useToast } from '@app/features/toasts/use-toast';
@@ -116,10 +117,14 @@ export function ReceiveTokens({
           key={asset.name}
           address={asset.address}
           icon={
-            <Avatar.Root>
-              <Avatar.Image alt={asset.fallback} src={asset.icon} />
-              <Avatar.Fallback delayMs={defaultFallbackDelay}>{asset.fallback}</Avatar.Fallback>
-            </Avatar.Root>
+            isString(asset.icon) ? (
+              <Avatar.Root>
+                <Avatar.Image alt={asset.fallback} src={asset.icon} />
+                <Avatar.Fallback delayMs={defaultFallbackDelay}>{asset.fallback}</Avatar.Fallback>
+              </Avatar.Root>
+            ) : (
+              asset.icon
+            )
           }
           // onClickQrCode={() => null}
           onCopyAddress={async () => {

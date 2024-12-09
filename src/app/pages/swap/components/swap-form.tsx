@@ -5,16 +5,15 @@ import { HasChildren } from '@app/common/has-children';
 import { NonceSetter } from '@app/components/nonce-setter';
 
 import { useSwapForm } from '../hooks/use-swap-form';
-import { useSwapContext } from '../swap.context';
 
 export function SwapForm({ children }: HasChildren) {
   const { initialValues, validationSchema } = useSwapForm();
-  const { onSubmitSwapForReview } = useSwapContext();
 
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={onSubmitSwapForReview}
+      // Called explicitly in Swap
+      onSubmit={() => {}}
       validateOnChange={false}
       validateOnMount
       validationSchema={validationSchema}
