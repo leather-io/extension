@@ -124,7 +124,7 @@ function BitflowSwapContainer() {
 
     // TODO: Handle cross-chain swaps
     if (isCrossChainSwap) {
-      return await onDepositSBtc();
+      return await onDepositSBtc(swapSubmissionData);
     }
 
     try {
