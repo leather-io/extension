@@ -1,25 +1,23 @@
 import { Box } from 'leather-styles/jsx';
 
-import { closeWindow } from '@shared/utils';
+import { Approver } from '@leather.io/ui';
 
-import { focusInitatingTab } from '@app/common/focus-tab';
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
-import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 import { AccountTotalBalance } from '@app/components/account-total-balance';
-import { AcccountAddresses } from '@app/components/account/account-addresses';
 import { AccountListItemLayout } from '@app/components/account/account-list-item.layout';
 import { AccountNameLayout } from '@app/components/account/account-name';
-import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { AccountAvatarItem } from '@app/ui/components/account/account-avatar/account-avatar-item';
 
-import { GetAddressesLayout } from './components/get-addresses.layout';
-import { useGetAddresses } from './use-get-addresses';
+import { AcccountAddresses } from '../account/account-addresses';
 
-export function RpcGetAddresses() {
-  const { origin, tabId, onUserApproveGetAddresses } = useGetAddresses();
+interface RpcSwitchAccountProps {
+  toggleSwitchAccount(): void;
+}
+
+export function RpcSwitchAccount({ toggleSwitchAccount }: RpcSwitchAccountProps) {
   const index = useCurrentAccountIndex();
   const stacksAccounts = useStacksAccounts();
   const stxAddress = stacksAccounts[index]?.address || '';
@@ -27,20 +25,10 @@ export function RpcGetAddresses() {
   const bitcoinSigner = useNativeSegwitSigner(index);
   const bitcoinAddress = bitcoinSigner?.(0).address || '';
 
-  useOnOriginTabClose(() => closeWindow());
-
-  const { toggleSwitchAccount } = useSwitchAccountSheet();
-
-  if (origin === null) {
-    closeWindow();
-    throw new Error('Origin is null');
-  }
-
   return (
-    <GetAddressesLayout
-      requester={origin}
-      onClickRequestedByLink={() => focusInitatingTab(tabId)}
-      switchAccount={
+    <Approver.Section>
+      <Approver.Subheader>With account</Approver.Subheader>
+      <Box mb="space.03">
         <AccountListItemLayout
           withChevron
           accountAddresses={<AcccountAddresses index={index} />}
@@ -63,8 +51,7 @@ export function RpcGetAddresses() {
           isSelected={false}
           onSelectAccount={() => toggleSwitchAccount()}
         />
-      }
-      onUserApprovesGetAddresses={onUserApproveGetAddresses}
-    />
+      </Box>
+    </Approver.Section>
   );
 }

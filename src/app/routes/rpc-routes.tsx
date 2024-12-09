@@ -27,7 +27,9 @@ export const rpcRequestRoutes = (
         </AccountGate>
       }
     />
+
     {rpcSendTransferRoutes}
+
     <Route
       path={RouteUrls.RpcSignBip322Message}
       lazy={async () => {
