@@ -93,3 +93,7 @@ export async function notifySbtc({
     depositScript: string;
   };
 }
+
+export async function getDepositStatus(txid: string, index: number) {
+  return fetch(`${emilyUrl}/${txid}/${index}`).then(res => res.json());
+}

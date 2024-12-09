@@ -5,7 +5,7 @@ import * as btc from '@scure/btc-signer';
 import { REGTEST, SbtcApiClientTestnet, buildSbtcDepositTx } from 'sbtc';
 
 import { useAverageBitcoinFeeRates } from '@leather.io/query';
-import { createMoney } from '@leather.io/utils';
+import { btcToSat, createMoney } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -16,6 +16,8 @@ import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+
+import type { SwapSubmissionData } from '../swap.context';
 
 const client = new SbtcApiClientTestnet();
 
@@ -30,13 +32,13 @@ export function useSBtcDepositTransaction() {
   const navigate = useNavigate();
 
   return {
-    async onDepositSBtc() {
-      if (!stacksAccount) throw new Error('no stacks account');
-      if (!utxos) throw new Error('no utxos');
-
+    async onDepositSBtc(swapSubmissionData: SwapSubmissionData) {
+      if (!stacksAccount) throw new Error('No stacks account');
+      if (!utxos) throw new Error('No utxos');
+      console.log('amount', btcToSat(swapSubmissionData.swapAmountQuote).toNumber());
       try {
         const deposit = buildSbtcDepositTx({
-          amountSats: 100_000,
+          amountSats: btcToSat(swapSubmissionData.swapAmountQuote).toNumber(),
           network: REGTEST,
           stacksAddress: stacksAccount.address,
           signersPublicKey: await client.fetchSignersPublicKey(),
@@ -92,7 +94,10 @@ export function useSBtcDepositTransaction() {
         setIsIdle();
         navigate(RouteUrls.Activity);
       } catch (error) {
+        setIsIdle();
         console.error(error);
+      } finally {
+        setIsIdle();
       }
     },
   };
