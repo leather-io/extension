@@ -136,6 +136,7 @@ export function RpcSendTransfer() {
         <SkeletonLoader key="skeleton" isLoading height="40px" />,
       ];
     }
+
     if (isInsufficientBalance) {
       return [];
     }
@@ -148,12 +149,12 @@ export function RpcSendTransfer() {
       ];
     }
 
-    if (isLoading) {
+    if (isSubmitted) {
       return [
         <Button key="submitting" fullWidth variant="success" disabled>
           <HStack justifyContent="center" alignItems="center" gap="space.02">
-            <CheckmarkIcon variant="small" />
-            Submitted
+            <CheckmarkIcon color="ink.text-primary" variant="small" />
+            <styled.span textStyle="label.02">Submitted</styled.span>
           </HStack>
         </Button>,
       ];
