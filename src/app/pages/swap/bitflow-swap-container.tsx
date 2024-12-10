@@ -10,7 +10,7 @@ import {
   serializePostCondition,
 } from '@stacks/transactions';
 
-import { isError, isUndefined } from '@leather.io/utils';
+import { isError, isUndefined, satToBtc } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import type { SwapFormValues } from '@shared/models/form.model';
@@ -24,7 +24,7 @@ import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/s
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
 
-import { getCrossChainSwapSubmissionData, getSwapSubmissionData } from './bitflow-swap.utils';
+import { getCrossChainSwapSubmissionData, getStacksSwapSubmissionData } from './bitflow-swap.utils';
 import { SwapForm } from './components/swap-form';
 import { generateSwapRoutes } from './generate-swap-routes';
 import { useBitflowSwap } from './hooks/use-bitflow-swap';
@@ -45,7 +45,7 @@ function BitflowSwapContainer() {
   const generateUnsignedTx = useGenerateStacksContractCallUnsignedTx();
   const signTx = useSignStacksTransaction();
   const broadcastStacksSwap = useStacksBroadcastSwap();
-  const { onDepositSbtc } = useSbtcDepositTransaction();
+  const { onDepositSbtc, onReviewDepositSbtc } = useSbtcDepositTransaction();
 
   const {
     fetchRouteQuote,
@@ -71,9 +71,14 @@ function BitflowSwapContainer() {
           return;
         }
 
-        // TODO: Handle cross-chain swaps
         if (isCrossChainSwap) {
-          onSetSwapSubmissionData(getCrossChainSwapSubmissionData(values));
+          const swapData = getCrossChainSwapSubmissionData(values);
+          const sBtcDepositData = await onReviewDepositSbtc(swapData);
+          onSetSwapSubmissionData({
+            ...swapData,
+            fee: satToBtc(sBtcDepositData?.fee ?? 0).toNumber(),
+            txData: sBtcDepositData?.deposit,
+          });
           swapNavigate(RouteUrls.SwapReview);
           return;
         }
@@ -87,7 +92,7 @@ function BitflowSwapContainer() {
         if (!routeQuote) return;
 
         onSetSwapSubmissionData(
-          getSwapSubmissionData({ bitflowSwapAssets, routeQuote, slippage, values })
+          getStacksSwapSubmissionData({ bitflowSwapAssets, routeQuote, slippage, values })
         );
         swapNavigate(RouteUrls.SwapReview);
       } finally {
@@ -98,6 +103,7 @@ function BitflowSwapContainer() {
       bitflowSwapAssets,
       fetchRouteQuote,
       isCrossChainSwap,
+      onReviewDepositSbtc,
       onSetSwapSubmissionData,
       slippage,
       swapNavigate,
@@ -122,7 +128,6 @@ function BitflowSwapContainer() {
 
     setIsLoading();
 
-    // TODO: Handle cross-chain swaps
     if (isCrossChainSwap) {
       return await onDepositSbtc(swapSubmissionData);
     }

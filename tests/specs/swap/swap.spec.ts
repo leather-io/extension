@@ -47,7 +47,7 @@ test.describe('Swaps', () => {
     await expect(toast).toBeVisible();
   });
 
-  test.only('that it preselects cross chain swap assets', async ({ swapPage }) => {
+  test('that it preselects cross chain swap assets', async ({ swapPage }) => {
     await swapPage.selectBtcAsBaseAsset();
 
     const quoteAsset = await swapPage.page.locator('text="sBTC"').innerText();

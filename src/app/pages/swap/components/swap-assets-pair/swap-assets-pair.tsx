@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useFormikContext } from 'formik';
 
-import { isUndefined } from '@leather.io/utils';
+import { createMoneyFromDecimal, formatMoneyWithoutSymbol, isUndefined } from '@leather.io/utils';
 
 import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
@@ -21,6 +21,14 @@ export function SwapAssetsPair() {
     return null;
   }
 
+  const formattedSwapAmountBase = formatMoneyWithoutSymbol(
+    createMoneyFromDecimal(
+      Number(swapAmountBase),
+      swapAssetBase.name,
+      swapAssetBase.balance.decimals
+    )
+  );
+
   return (
     <SwapAssetsPairLayout
       swapAssetBase={
@@ -28,7 +36,7 @@ export function SwapAssetsPair() {
           caption="You will swap"
           icon={swapAssetBase.icon}
           symbol={swapAssetBase.name}
-          value={swapAmountBase}
+          value={formattedSwapAmountBase}
         />
       }
       swapAssetQuote={
