@@ -53,6 +53,7 @@ export function useGetSBtcDeposits(stxAddress: string, status: string) {
   });
 }
 
+// Possibly also include status `accepted` here, but need to test when testnet is working
 export function useSBtcPendingDeposits(stxAddress: string) {
   const { data: pendingDeposits = [], isLoading: isLoadingStatusPending } = useGetSBtcDeposits(
     stxAddress,
