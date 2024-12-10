@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react';
 
 import type { SwapAsset } from '@leather.io/query';
 
-import { SwapFormValues } from './hooks/use-swap-form';
+import type { SwapFormValues } from '@shared/models/form.model';
 
 export interface SwapSubmissionData extends SwapFormValues {
   liquidityFee: number;

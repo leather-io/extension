@@ -11,7 +11,7 @@ import { bitflow } from '@shared/utils/bitflow-sdk';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { SwapSubmissionData } from '../swap.context';
-import { useBtcSwapAsset, useSBtcSwapAsset } from './use-bitcoin-bridge-assets';
+import { useBtcSwapAsset, useSbtcSwapAsset } from './use-bitcoin-bridge-assets';
 import { useBitflowSwappableAssets } from './use-bitflow-swappable-assets';
 
 export function useBitflowSwap() {
@@ -24,15 +24,15 @@ export function useBitflowSwap() {
 
   // Bridge assets
   const createBtcAsset = useBtcSwapAsset();
-  const createSBtcAsset = useSBtcSwapAsset();
+  const createSbtcAsset = useSbtcSwapAsset();
 
   const swappableAssetsBase = useMemo(
     () => [createBtcAsset(), ...migratePositiveAssetBalancesToTop(bitflowSwapAssets)],
     [bitflowSwapAssets, createBtcAsset]
   );
   const swappableAssetsQuote = useMemo(
-    () => [createSBtcAsset(), ...bitflowSwapAssets],
-    [bitflowSwapAssets, createSBtcAsset]
+    () => [createSbtcAsset(), ...bitflowSwapAssets],
+    [bitflowSwapAssets, createSbtcAsset]
   );
 
   const fetchRouteQuote = useCallback(

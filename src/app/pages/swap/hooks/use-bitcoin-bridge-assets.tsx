@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import BtcAvatarIconSrc from '@assets/avatars/btc-avatar-icon.png';
-import SBtcAvatarIconSrc from '@assets/avatars/sbtc-avatar-icon.png';
+import SbtcAvatarIconSrc from '@assets/avatars/sbtc-avatar-icon.png';
 
 import { BTC_DECIMALS } from '@leather.io/constants';
 import {
@@ -37,12 +37,12 @@ export function useBtcSwapAsset() {
 }
 
 // Testnet only
-const tempContractIdForSBtcTesting =
+const tempContractIdForSbtcTesting =
   'SNGWPN3XDAQE673MXYXF81016M50NHF5X5PWWM70.sbtc-token::sbtc-token';
 
-export function useSBtcSwapAsset() {
+export function useSbtcSwapAsset() {
   const stxAddress = useCurrentStacksAccountAddress();
-  const token = useSip10Token(stxAddress, tempContractIdForSBtcTesting);
+  const token = useSip10Token(stxAddress, tempContractIdForSbtcTesting);
   const bitcoinMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
 
   return useCallback((): SwapAsset => {
@@ -51,7 +51,7 @@ export function useSBtcSwapAsset() {
       tokenId: 'token-sbtc',
       displayName: 'sBTC',
       fallback: 'SB',
-      icon: SBtcAvatarIconSrc,
+      icon: SbtcAvatarIconSrc,
       name: 'sBTC',
       marketData: castBitcoinMarketDataToSbtcMarketData(bitcoinMarketData),
       principal: getPrincipalFromContractId(token?.info.contractId ?? ''),

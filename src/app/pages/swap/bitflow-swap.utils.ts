@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 import type { RouteQuote } from 'bitflow-sdk';
-import { P } from 'pino';
 
 import { BtcFeeType, FeeTypes } from '@leather.io/models';
 import { type SwapAsset, defaultSwapFee } from '@leather.io/query';
@@ -9,11 +8,11 @@ import { capitalize, isDefined, microStxToStx } from '@leather.io/utils';
 import type { SwapFormValues } from './hooks/use-swap-form';
 import type { SwapSubmissionData } from './swap.context';
 
-export function estimateLiquidityFee(dexPath: string[]) {
+function estimateLiquidityFee(dexPath: string[]) {
   return new BigNumber(dexPath.length).times(0.3).toNumber();
 }
 
-export function formatDexPathItem(dex: string) {
+function formatDexPathItem(dex: string) {
   const name = dex.split('_')[0];
   return name === 'ALEX' ? name : capitalize(name.toLowerCase());
 }

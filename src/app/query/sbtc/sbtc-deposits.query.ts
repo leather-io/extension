@@ -3,7 +3,7 @@ import { BytesReader, addressToString, deserializeAddress } from '@stacks/transa
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-export enum SBtcStatus {
+enum SbtcStatus {
   Pending = 'pending',
   Reprocessing = 'reprocessing',
   Accepted = 'accepted',
@@ -11,7 +11,7 @@ export enum SBtcStatus {
   Failed = 'failed',
 }
 
-export interface SBtcDepositInfo {
+export interface SbtcDepositInfo {
   amount: number;
   bitcoinTxOutputIndex: number;
   bitcoinTxid: string;
@@ -20,17 +20,17 @@ export interface SBtcDepositInfo {
   lastUpdateHeight: number;
   recipient: string; // Stacks address
   reclaimScript: string;
-  status: SBtcStatus;
+  status: SbtcStatus;
 }
 
-interface GetSBtcDepositsResponse {
-  deposits: SBtcDepositInfo[];
+interface GetSbtcDepositsResponse {
+  deposits: SbtcDepositInfo[];
   nextToken?: string;
 }
 
 const emilyUrl = 'https://beta.sbtc-emily.com/deposit';
 
-async function getSBtcDeposits(status: string): Promise<GetSBtcDepositsResponse> {
+async function getSbtcDeposits(status: string): Promise<GetSbtcDepositsResponse> {
   const resp = await axios.get(`${emilyUrl}?status=${status}`, {
     headers: {
       'Content-Type': 'application/json',
@@ -39,10 +39,10 @@ async function getSBtcDeposits(status: string): Promise<GetSBtcDepositsResponse>
   return resp.data;
 }
 
-export function useGetSBtcDeposits(stxAddress: string, status: string) {
+function useGetSbtcDeposits(stxAddress: string, status: string) {
   return useQuery({
     queryKey: ['get-sbtc-deposits', stxAddress, status],
-    queryFn: () => getSBtcDeposits(status),
+    queryFn: () => getSbtcDeposits(status),
     select: resp =>
       resp.deposits.filter(deposit => {
         const recipient = addressToString(
@@ -54,16 +54,16 @@ export function useGetSBtcDeposits(stxAddress: string, status: string) {
 }
 
 // Possibly also include status `accepted` here, but need to test when testnet is working
-export function useSBtcPendingDeposits(stxAddress: string) {
-  const { data: pendingDeposits = [], isLoading: isLoadingStatusPending } = useGetSBtcDeposits(
+export function useSbtcPendingDeposits(stxAddress: string) {
+  const { data: pendingDeposits = [], isLoading: isLoadingStatusPending } = useGetSbtcDeposits(
     stxAddress,
     'pending'
   );
   const { data: reprocessingDeposits = [], isLoading: isLoadingStatusReprocessing } =
-    useGetSBtcDeposits(stxAddress, 'reprocessing');
+    useGetSbtcDeposits(stxAddress, 'reprocessing');
 
   return {
     isLoading: isLoadingStatusPending || isLoadingStatusReprocessing,
-    pendingSBtcDeposits: [...pendingDeposits, ...reprocessingDeposits],
+    pendingSbtcDeposits: [...pendingDeposits, ...reprocessingDeposits],
   };
 }

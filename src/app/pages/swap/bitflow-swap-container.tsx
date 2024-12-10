@@ -13,6 +13,7 @@ import {
 import { isError, isUndefined } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
+import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 import { bitflow } from '@shared/utils/bitflow-sdk';
 
@@ -27,9 +28,8 @@ import { getCrossChainSwapSubmissionData, getSwapSubmissionData } from './bitflo
 import { SwapForm } from './components/swap-form';
 import { generateSwapRoutes } from './generate-swap-routes';
 import { useBitflowSwap } from './hooks/use-bitflow-swap';
-import { useSBtcDepositTransaction } from './hooks/use-sbtc-deposit-transaction';
+import { useSbtcDepositTransaction } from './hooks/use-sbtc-deposit-transaction';
 import { useStacksBroadcastSwap } from './hooks/use-stacks-broadcast-swap';
-import { SwapFormValues } from './hooks/use-swap-form';
 import { useSwapNavigate } from './hooks/use-swap-navigate';
 import { SwapContext, SwapProvider } from './swap.context';
 
@@ -45,7 +45,7 @@ function BitflowSwapContainer() {
   const generateUnsignedTx = useGenerateStacksContractCallUnsignedTx();
   const signTx = useSignStacksTransaction();
   const broadcastStacksSwap = useStacksBroadcastSwap();
-  const { onDepositSBtc } = useSBtcDepositTransaction();
+  const { onDepositSbtc } = useSbtcDepositTransaction();
 
   const {
     fetchRouteQuote,
@@ -124,7 +124,7 @@ function BitflowSwapContainer() {
 
     // TODO: Handle cross-chain swaps
     if (isCrossChainSwap) {
-      return await onDepositSBtc(swapSubmissionData);
+      return await onDepositSbtc(swapSubmissionData);
     }
 
     try {
@@ -195,7 +195,7 @@ function BitflowSwapContainer() {
     isCrossChainSwap,
     isLoading,
     navigate,
-    onDepositSBtc,
+    onDepositSbtc,
     setIsIdle,
     setIsLoading,
     signTx,

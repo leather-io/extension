@@ -1,4 +1,4 @@
-import SBtcAvatarIconSrc from '@assets/avatars/sbtc-avatar-icon.png';
+import SbtcAvatarIconSrc from '@assets/avatars/sbtc-avatar-icon.png';
 
 import { Avatar, Caption, Title } from '@leather.io/ui';
 import { truncateMiddle } from '@leather.io/utils';
@@ -6,14 +6,14 @@ import { truncateMiddle } from '@leather.io/utils';
 import { analytics } from '@shared/utils/analytics';
 
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
-import type { SBtcDepositInfo } from '@app/query/sbtc/sbtc-deposits.query';
+import type { SbtcDepositInfo } from '@app/query/sbtc/sbtc-deposits.query';
 
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
 
-interface SBtcDepositTransactionItemProps {
-  deposit: SBtcDepositInfo;
+interface SbtcDepositTransactionItemProps {
+  deposit: SbtcDepositInfo;
 }
-export function SBtcDepositTransactionItem({ deposit }: SBtcDepositTransactionItemProps) {
+export function SbtcDepositTransactionItem({ deposit }: SbtcDepositTransactionItemProps) {
   const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
 
   const openTxLink = () => {
@@ -28,7 +28,7 @@ export function SBtcDepositTransactionItem({ deposit }: SBtcDepositTransactionIt
       txIcon={
         // Replace with sBTC avatar icon
         <Avatar.Root>
-          <Avatar.Image alt="ST" src={SBtcAvatarIconSrc} />
+          <Avatar.Image alt="ST" src={SbtcAvatarIconSrc} />
         </Avatar.Root>
       }
       txStatus={<Caption color="yellow.action-primary-default">Pending</Caption>}

@@ -21,7 +21,7 @@ import type { SwapSubmissionData } from '../swap.context';
 
 const client = new SbtcApiClientTestnet();
 
-export function useSBtcDepositTransaction() {
+export function useSbtcDepositTransaction() {
   const toast = useToast();
   const { setIsIdle } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);
   const stacksAccount = useCurrentStacksAccount();
@@ -32,7 +32,7 @@ export function useSBtcDepositTransaction() {
   const navigate = useNavigate();
 
   return {
-    async onDepositSBtc(swapSubmissionData: SwapSubmissionData) {
+    async onDepositSbtc(swapSubmissionData: SwapSubmissionData) {
       if (!stacksAccount) throw new Error('No stacks account');
       if (!utxos) throw new Error('No utxos');
       console.log('amount', btcToSat(swapSubmissionData.swapAmountQuote).toNumber());
