@@ -3,10 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { useFormikContext } from 'formik';
 
+import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useSwapContext } from '../swap.context';
-import type { SwapFormValues } from './use-swap-form';
 
 export function useSwapAssetsFromRoute() {
   const { swappableAssetsBase, swappableAssetsQuote } = useSwapContext();

@@ -11,11 +11,11 @@ import {
   isUndefined,
 } from '@leather.io/utils';
 
+import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useShowFieldError } from '@app/common/form-utils';
 
-import { SwapFormValues } from '../../hooks/use-swap-form';
 import { useSwapNavigate } from '../../hooks/use-swap-navigate';
 import { useSwapContext } from '../../swap.context';
 import { convertInputAmountValueToFiat } from '../../swap.utils';

@@ -12,7 +12,7 @@ import {
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
-import { useSBtcPendingDeposits } from '@app/query/sbtc/sbtc-deposits.query';
+import { useSbtcPendingDeposits } from '@app/query/sbtc/sbtc-deposits.query';
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -64,8 +64,8 @@ export function ActivityList() {
     [nsPendingTxs, trPendingTxs]
   );
 
-  const { isLoading: isLoadingSBtcDeposits, pendingSBtcDeposits } =
-    useSBtcPendingDeposits(stxAddress);
+  const { isLoading: isLoadingSbtcDeposits, pendingSbtcDeposits } =
+    useSbtcPendingDeposits(stxAddress);
 
   const { isLoading: isLoadingStacksTransactions, data: stacksTransactionsWithTransfers } =
     useGetAccountTransactionsWithTransfersQuery(stxAddress);
@@ -85,7 +85,7 @@ export function ActivityList() {
     isLoadingTrBitcoinTransactions ||
     isLoadingStacksTransactions ||
     isLoadingStacksPendingTransactions ||
-    isLoadingSBtcDeposits;
+    isLoadingSbtcDeposits;
 
   const transactionListBitcoinTxs = useMemo(() => {
     return convertBitcoinTxsToListType(
@@ -106,7 +106,7 @@ export function ActivityList() {
   const hasPendingTransactions =
     bitcoinPendingTxs.length > 0 ||
     stacksPendingTransactions.length > 0 ||
-    pendingSBtcDeposits.length > 0;
+    pendingSbtcDeposits.length > 0;
   const hasTransactions =
     transactionListBitcoinTxs.length > 0 || transactionListStacksTxs.length > 0;
 
@@ -135,7 +135,7 @@ export function ActivityList() {
         {hasPendingTransactions && (
           <PendingTransactionList
             bitcoinTxs={isBitcoinEnabled ? bitcoinPendingTxs : []}
-            sBtcDeposits={pendingSBtcDeposits}
+            sBtcDeposits={pendingSbtcDeposits}
             stacksTxs={stacksPendingTransactions}
           />
         )}

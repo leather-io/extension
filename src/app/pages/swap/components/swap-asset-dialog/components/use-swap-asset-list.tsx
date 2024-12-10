@@ -12,9 +12,9 @@ import {
   isUndefined,
 } from '@leather.io/utils';
 
+import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import type { SwapFormValues } from '@app/pages/swap/hooks/use-swap-form';
 import { useSwapContext } from '@app/pages/swap/swap.context';
 
 import type { SwapAssetListProps } from './swap-asset-list';

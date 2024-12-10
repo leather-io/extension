@@ -6,13 +6,14 @@ import { useFormikContext } from 'formik';
 import { Button } from '@leather.io/ui';
 import { isUndefined } from '@leather.io/utils';
 
+import type { SwapFormValues } from '@shared/models/form.model';
+
 import { Card } from '@app/components/layout';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 
 import { SwapAssetSelectBase } from './components/swap-asset-select/swap-asset-select-base';
 import { SwapAssetSelectQuote } from './components/swap-asset-select/swap-asset-select-quote';
 import { useSwapAssetsFromRoute } from './hooks/use-swap-assets-from-route';
-import { SwapFormValues } from './hooks/use-swap-form';
 import { useSwapContext } from './swap.context';
 
 export function Swap() {
