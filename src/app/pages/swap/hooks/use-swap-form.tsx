@@ -5,16 +5,9 @@ import { type SwapAsset } from '@leather.io/query';
 import { convertAmountToFractionalUnit, createMoney } from '@leather.io/utils';
 
 import { FormErrorMessages } from '@shared/error-messages';
-import { StacksTransactionFormValues } from '@shared/models/form.model';
+import { type SwapFormValues } from '@shared/models/form.model';
 
 import { useSwapContext } from '../swap.context';
-
-export interface SwapFormValues extends StacksTransactionFormValues {
-  swapAmountBase: string;
-  swapAmountQuote: string;
-  swapAssetBase?: SwapAsset;
-  swapAssetQuote?: SwapAsset;
-}
 
 export function useSwapForm() {
   const { isFetchingExchangeRate } = useSwapContext();

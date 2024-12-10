@@ -12,6 +12,7 @@ export interface SwapSubmissionData extends SwapFormValues {
   slippage: number;
   sponsored?: boolean;
   timestamp: string;
+  txData?: Record<string, any>;
 }
 
 export interface SwapContext {

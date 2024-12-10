@@ -5,7 +5,8 @@ import { BtcFeeType, FeeTypes } from '@leather.io/models';
 import { type SwapAsset, defaultSwapFee } from '@leather.io/query';
 import { capitalize, isDefined, microStxToStx } from '@leather.io/utils';
 
-import type { SwapFormValues } from './hooks/use-swap-form';
+import type { SwapFormValues } from '@shared/models/form.model';
+
 import type { SwapSubmissionData } from './swap.context';
 
 function estimateLiquidityFee(dexPath: string[]) {
@@ -17,18 +18,18 @@ function formatDexPathItem(dex: string) {
   return name === 'ALEX' ? name : capitalize(name.toLowerCase());
 }
 
-interface GetSwapSubmissionDataArgs {
+interface getStacksSwapSubmissionDataArgs {
   bitflowSwapAssets: SwapAsset[];
   routeQuote: RouteQuote;
   slippage: number;
   values: SwapFormValues;
 }
-export function getSwapSubmissionData({
+export function getStacksSwapSubmissionData({
   bitflowSwapAssets,
   routeQuote,
   slippage,
   values,
-}: GetSwapSubmissionDataArgs): SwapSubmissionData {
+}: getStacksSwapSubmissionDataArgs): SwapSubmissionData {
   return {
     fee: microStxToStx(defaultSwapFee.amount).toNumber(),
     feeCurrency: 'STX',
@@ -55,7 +56,7 @@ export function getCrossChainSwapSubmissionData(values: SwapFormValues): SwapSub
     feeCurrency: 'BTC',
     feeType: BtcFeeType.Standard,
     liquidityFee: 0,
-    protocol: 'sBTC',
+    protocol: 'Bitcoin L2 Labs',
     dexPath: [],
     router: [values.swapAssetBase, values.swapAssetQuote].filter(isDefined),
     slippage: 0,
