@@ -51,10 +51,7 @@ export function Sip10TokenSendFormContainer({
     <SelectedAssetField
       icon={
         avatar ? (
-          <StacksAssetAvatar
-            gradientString={avatar.avatar}
-            imageCanonicalUri={avatar.imageCanonicalUri}
-          />
+          <StacksAssetAvatar gradientString={avatar.avatar} img={avatar.imageCanonicalUri} />
         ) : (
           <StxAvatarIcon />
         )

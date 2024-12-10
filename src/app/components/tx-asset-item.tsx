@@ -18,7 +18,7 @@ export function TxAssetItem(props: TxAssetItemProps) {
       <HStack>
         <StacksAssetAvatar
           gradientString={iconString}
-          imageCanonicalUri={imageCanonicalUri}
+          img={imageCanonicalUri}
           isStx={iconString === 'STX'}
           size="32"
         />

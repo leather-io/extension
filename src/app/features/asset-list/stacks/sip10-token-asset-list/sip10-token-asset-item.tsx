@@ -1,3 +1,5 @@
+import SbtcAvatarIconSrc from '@assets/avatars/sbtc-avatar-icon.png';
+
 import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather.io/models';
 
 import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
@@ -35,15 +37,18 @@ export function Sip10TokenAssetItem({
   const { isTokenEnabled } = useManageTokens();
 
   const { contractId, imageCanonicalUri, name, symbol } = info;
+  const isSbtc = symbol === 'sBTC';
 
   const icon = (
-    <StacksAssetAvatar
-      color="white"
-      gradientString={contractId}
-      imageCanonicalUri={getSafeImageCanonicalUri(imageCanonicalUri, name)}
-    >
-      {name[0]}
-    </StacksAssetAvatar>
+    <>
+      <StacksAssetAvatar
+        color="white"
+        gradientString={contractId}
+        img={isSbtc ? SbtcAvatarIconSrc : getSafeImageCanonicalUri(imageCanonicalUri, name)}
+      >
+        {name[0]}
+      </StacksAssetAvatar>
+    </>
   );
 
   const captionLeft = symbol;

@@ -1,4 +1,5 @@
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
+import { sanitize } from 'dompurify';
 
 import { type SwapAsset, isFtAsset, useGetFungibleTokenMetadataQuery } from '@leather.io/query';
 import {
@@ -8,7 +9,7 @@ import {
   defaultFallbackDelay,
   getAvatarFallback,
 } from '@leather.io/ui';
-import { formatMoneyWithoutSymbol } from '@leather.io/utils';
+import { formatMoneyWithoutSymbol, isString } from '@leather.io/utils';
 
 import { convertSwapAssetBalanceToFiat } from '@app/pages/swap/swap.utils';
 
@@ -28,10 +29,14 @@ export function SwapAssetItem({ asset, onClick }: SwapAssetItemProps) {
     <Pressable data-testid={SwapSelectors.SwapAssetListItem} onClick={onClick} my="space.02">
       <ItemLayout
         img={
-          <Avatar.Root>
-            <Avatar.Image alt={fallback} src={asset.icon} />
-            <Avatar.Fallback delayMs={defaultFallbackDelay}>{fallback}</Avatar.Fallback>
-          </Avatar.Root>
+          isString(asset.icon) ? (
+            <Avatar.Root>
+              <Avatar.Image alt={fallback} src={sanitize(asset.icon)} />
+              <Avatar.Fallback delayMs={defaultFallbackDelay}>{fallback}</Avatar.Fallback>
+            </Avatar.Root>
+          ) : (
+            asset.icon
+          )
         }
         titleLeft={displayName}
         captionLeft={asset.name}

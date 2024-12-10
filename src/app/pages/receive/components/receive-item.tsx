@@ -4,7 +4,7 @@ import { truncateMiddle } from '@leather.io/utils';
 interface ReceiveItemProps {
   address?: string;
   dataTestId?: string;
-  icon: React.JSX.Element;
+  icon: React.ReactNode;
   onCopyAddress(): void;
   onClickQrCode?(): void;
   title: string;

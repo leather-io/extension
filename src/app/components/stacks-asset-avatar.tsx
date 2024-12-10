@@ -3,15 +3,15 @@ import { Box, BoxProps } from 'leather-styles/jsx';
 import { Avatar, DynamicColorCircle, StxAvatarIcon, defaultFallbackDelay } from '@leather.io/ui';
 
 interface StacksAssetAvatarProps extends BoxProps {
-  gradientString?: string;
-  imageCanonicalUri?: string;
+  img?: string;
+  gradientString: string;
   isStx?: boolean;
   size?: string;
 }
 export function StacksAssetAvatar({
   children,
   gradientString,
-  imageCanonicalUri,
+  img,
   isStx,
   size = '36',
   ...props
@@ -20,10 +20,10 @@ export function StacksAssetAvatar({
 
   const { color } = props;
 
-  if (imageCanonicalUri)
+  if (img)
     return (
       <Avatar.Root>
-        <Avatar.Image alt="FT" src={encodeURI(imageCanonicalUri)} />
+        <Avatar.Image alt="FT" src={encodeURI(img)} />
         <Avatar.Fallback delayMs={defaultFallbackDelay}>FT</Avatar.Fallback>
       </Avatar.Root>
     );

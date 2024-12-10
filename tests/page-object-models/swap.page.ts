@@ -33,11 +33,26 @@ export class SwapPage {
     const swapAssetSelectors = await this.page.locator(this.selectAssetBtn).all();
     await swapAssetSelectors[1].click();
     await this.page.locator(this.chooseAssetList).waitFor();
-    await this.page.locator('text="ALEX Token"').click();
+    await this.page.locator('text="ALEX"').click();
   }
 
   async inputSwapAmountBase() {
     const swapAmountInputs = await this.page.locator(this.swapAmountInput).all();
     await swapAmountInputs[0].fill('1');
+  }
+
+  async selectBtcAsBaseAsset() {
+    const swapAssetSelectors = await this.page.locator(this.selectAssetBtn).all();
+    await swapAssetSelectors[0].click();
+    await this.page.locator(this.chooseAssetList).waitFor();
+    await this.page.locator('text="BTC"').click();
+  }
+
+  async selectSbtcAsQuoteAsset() {
+    const swapAssetSelectors = await this.page.locator(this.selectAssetBtn).all();
+    await swapAssetSelectors[1].click();
+    await this.page.locator(this.chooseAssetList).waitFor();
+    const quoteAssets = await this.page.locator(this.chooseAssetListItem).all();
+    await quoteAssets[0].click();
   }
 }

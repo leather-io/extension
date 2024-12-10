@@ -1,10 +1,11 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
 import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather.io/models';
-import { useAlexCurrencyPriceAsMarketData, useSip10Token } from '@leather.io/query';
+import { useSip10Token } from '@leather.io/query';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { useSip10FiatMarketData } from '@app/common/hooks/use-calculate-sip10-fiat-value';
 import { Content } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 import { useToast } from '@app/features/toasts/use-toast';
@@ -23,7 +24,7 @@ function Sip10TokenSendFormLoader({ children }: Sip10TokenSendFormLoaderProps) {
   const { contractId } = useParams();
   const stxAddress = useCurrentStacksAccountAddress();
   const token = useSip10Token(stxAddress, contractId ?? '');
-  const priceAsMarketData = useAlexCurrencyPriceAsMarketData();
+  const { getTokenMarketData } = useSip10FiatMarketData();
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -37,7 +38,7 @@ function Sip10TokenSendFormLoader({ children }: Sip10TokenSendFormLoaderProps) {
 
   return children({
     ...token,
-    marketData: priceAsMarketData(token.info.contractId, token.balance.availableBalance.symbol),
+    marketData: getTokenMarketData(token.info.contractId, token.balance.availableBalance.symbol),
   });
 }
 

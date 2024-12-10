@@ -4,9 +4,9 @@ import { useFormikContext } from 'formik';
 
 import { isUndefined } from '@leather.io/utils';
 
+import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import { SwapFormValues } from '../../hooks/use-swap-form';
 import { SwapAssetItemLayout } from './swap-asset-item.layout';
 import { SwapAssetsPairLayout } from './swap-assets-pair.layout';
 

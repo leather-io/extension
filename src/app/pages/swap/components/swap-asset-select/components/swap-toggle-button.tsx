@@ -6,9 +6,9 @@ import { styled } from 'leather-styles/jsx';
 import { ArrowsRepeatLeftRightIcon } from '@leather.io/ui';
 import { isDefined, isUndefined } from '@leather.io/utils';
 
+import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import { SwapFormValues } from '../../../hooks/use-swap-form';
 import { useSwapContext } from '../../../swap.context';
 
 export function SwapToggleButton() {

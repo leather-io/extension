@@ -1,4 +1,5 @@
 import type { Inscription, Money } from '@leather.io/models';
+import type { SwapAsset } from '@leather.io/query';
 
 export interface BitcoinSendFormValues {
   amount: number | string;
@@ -41,4 +42,11 @@ export interface StacksTransactionFormValues {
 export interface TransferRecipient {
   address: string;
   amount: Money;
+}
+
+export interface SwapFormValues extends StacksTransactionFormValues {
+  swapAmountBase: string;
+  swapAmountQuote: string;
+  swapAssetBase?: SwapAsset;
+  swapAssetQuote?: SwapAsset;
 }

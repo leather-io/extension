@@ -8,7 +8,6 @@ import {
   formatMoneyPadded,
   isDefined,
   isUndefined,
-  microStxToStx,
 } from '@leather.io/utils';
 
 import { SwapSubmissionData, useSwapContext } from '@app/pages/swap/swap.context';
@@ -89,10 +88,12 @@ export function SwapDetails() {
         value={
           swapSubmissionData.sponsored
             ? 'Sponsored'
-            : `${microStxToStx(swapSubmissionData.fee).toString()} STX`
+            : `${swapSubmissionData.fee.toString()} ${swapSubmissionData.feeCurrency}`
         }
       />
-      <SwapDetailLayout title="Nonce" value={swapSubmissionData.nonce?.toString() ?? 'Unknown'} />
+      {Number(swapSubmissionData?.nonce) >= 0 ? (
+        <SwapDetailLayout title="Nonce" value={swapSubmissionData.nonce?.toString()} />
+      ) : null}
     </SwapDetailsLayout>
   );
 }
