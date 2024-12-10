@@ -12,7 +12,7 @@ import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { initialSearchParams } from '@app/common/initial-search-params';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 
-export function useRpcSendTransferRequestParams() {
+function useRpcSendTransferRequestParams() {
   const defaultParams = useDefaultRequestParams();
   return useMemo(
     () => ({
@@ -27,7 +27,8 @@ export function useRpcSendTransferRequestParams() {
 
 export function useRpcSendTransfer() {
   const navigate = useNavigate();
-  const { origin, recipientsAddresses, amounts } = useRpcSendTransferRequestParams();
+  const { origin, recipientsAddresses, amounts, tabId, requestId } =
+    useRpcSendTransferRequestParams();
   const { data: utxos = [], filteredUtxosQuery } = useCurrentNativeSegwitUtxos();
   const totalAmount = sumNumbers(amounts.map(Number));
   const amountAsMoney = createMoney(new BigNumber(totalAmount), 'BTC');
@@ -43,6 +44,8 @@ export function useRpcSendTransfer() {
   }));
 
   return {
+    requestId,
+    tabId,
     recipients,
     origin,
     utxos,

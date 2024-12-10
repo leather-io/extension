@@ -87,7 +87,7 @@ export function useGenerateUnsignedNativeSegwitTx() {
       } catch (e) {
         // eslint-disable-next-line no-console
         console.log('Error signing bitcoin transaction', e);
-        return null;
+        throw e;
       }
     },
     [networkMode, signer.address, signer.publicKey]

@@ -21,17 +21,9 @@ export function useGetAddresses() {
   const createTaprootSigner = useCurrentAccountTaprootSigner();
   const stacksAccount = useCurrentStacksAccount();
 
-  function focusInitatingTab() {
-    void analytics.track('user_clicked_requested_by_link', { endpoint: 'getAddresses' });
-    chrome.tabs.update(tabId ?? 0, { active: true }, tab => {
-      if (!tab) return;
-      chrome.windows.update(tab.windowId, { focused: true });
-    });
-  }
-
   return {
     origin,
-    focusInitatingTab,
+    tabId,
     onUserApproveGetAddresses() {
       if (!tabId || !origin) {
         logger.error('Cannot give app accounts: missing tabId, origin');
