@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 
 import type { RouteQuote } from 'bitflow-sdk';
 
-import type { SwapAsset } from '@leather.io/query';
+import { type SwapAsset } from '@leather.io/query';
 import { migratePositiveAssetBalancesToTop } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
@@ -22,17 +22,19 @@ export function useBitflowSwap() {
   const address = useCurrentStacksAccountAddress();
   const { data: bitflowSwapAssets = [] } = useBitflowSwappableAssets(address);
 
-  // Bridge assets
+  // Bridge assets; to remove once supported by Bitflow api
   const createBtcAsset = useBtcSwapAsset();
   const createSbtcAsset = useSbtcSwapAsset();
+  const btcAsset = createBtcAsset();
+  const sbtcAsset = createSbtcAsset();
 
   const swappableAssetsBase = useMemo(
-    () => [createBtcAsset(), ...migratePositiveAssetBalancesToTop(bitflowSwapAssets)],
-    [bitflowSwapAssets, createBtcAsset]
+    () => [btcAsset, sbtcAsset, ...migratePositiveAssetBalancesToTop(bitflowSwapAssets)],
+    [bitflowSwapAssets, btcAsset, sbtcAsset]
   );
   const swappableAssetsQuote = useMemo(
-    () => [createSbtcAsset(), ...bitflowSwapAssets],
-    [bitflowSwapAssets, createSbtcAsset]
+    () => [sbtcAsset, ...bitflowSwapAssets],
+    [bitflowSwapAssets, sbtcAsset]
   );
 
   const fetchRouteQuote = useCallback(
@@ -42,10 +44,20 @@ export function useBitflowSwap() {
       baseAmount: string
     ): Promise<RouteQuote | undefined> => {
       if (!baseAmount || !base || !quote || isCrossChainSwap) return;
+      let baseTokenId = base.tokenId;
+      let quoteTokenId = quote.tokenId;
+      // Temporarily handle sBTC exchange rate; force as BTC
+      // TODO: Remove once Bitflow supports sBTC exchange rate
+      if (base.tokenId === 'token-sbtc') {
+        baseTokenId = 'token-xbtc';
+      }
+      if (quote.tokenId === 'token-sbtc') {
+        quoteTokenId = 'token-xbtc';
+      }
       try {
         const result = await bitflow.getQuoteForRoute(
-          base.tokenId,
-          quote.tokenId,
+          baseTokenId,
+          quoteTokenId,
           Number(baseAmount)
         );
         if (!result.bestRoute) {
