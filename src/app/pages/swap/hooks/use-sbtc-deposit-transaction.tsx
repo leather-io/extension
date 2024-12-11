@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 import * as btc from '@scure/btc-signer';
 import type { P2TROut } from '@scure/btc-signer/payment';
-import { REGTEST, SbtcApiClientTestnet, buildSbtcDepositTx } from 'sbtc';
+import { MAINNET, REGTEST, SbtcApiClientTestnet, TESTNET, buildSbtcDepositTx } from 'sbtc';
 
+import type { BitcoinNetworkModes } from '@leather.io/models';
 import { useAverageBitcoinFeeRates } from '@leather.io/query';
 import { btcToSat, createMoney } from '@leather.io/utils';
 
@@ -19,6 +20,7 @@ import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-check
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import type { SwapSubmissionData } from '../swap.context';
 
@@ -36,6 +38,17 @@ interface SbtcDeposit {
 // Check network for correct client
 const client = new SbtcApiClientTestnet();
 
+function getSbtcNetworkConfig(network: BitcoinNetworkModes) {
+  const networkMap = {
+    mainnet: MAINNET,
+    testnet: TESTNET,
+    regtest: REGTEST,
+    // Signet supported not tested, but likely uses same values as testnet
+    signet: TESTNET,
+  };
+  return networkMap[network];
+}
+
 export function useSbtcDepositTransaction() {
   const toast = useToast();
   const { setIsIdle } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);
@@ -45,6 +58,7 @@ export function useSbtcDepositTransaction() {
   const signer = useCurrentAccountNativeSegwitIndexZeroSigner();
   const networkMode = useBitcoinScureLibNetworkConfig();
   const navigate = useNavigate();
+  const network = useCurrentNetwork();
 
   // Check if the signer is compliant
   useBreakOnNonCompliantEntity();
@@ -56,7 +70,7 @@ export function useSbtcDepositTransaction() {
       try {
         const deposit: SbtcDeposit = buildSbtcDepositTx({
           amountSats: btcToSat(swapData.swapAmountQuote).toNumber(),
-          network: REGTEST, // TODO: Use current network, should be set by default on client
+          network: getSbtcNetworkConfig(network.chain.bitcoin.mode),
           stacksAddress: stacksAccount.address,
           signersPublicKey: await client.fetchSignersPublicKey(),
           maxSignerFee,
