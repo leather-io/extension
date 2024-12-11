@@ -4,6 +4,7 @@ import { WalletRequests, makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
 import { queueAnalyticsRequest } from '@background/background-analytics';
 import { rpcSignStacksTransaction } from '@background/messaging/rpc-methods/sign-stacks-transaction';
+import { rpcSwap } from '@background/messaging/rpc-methods/swap';
 
 import { getTabIdFromPort, listenForOriginTabClose } from './messaging-utils';
 import { rpcGetAddresses } from './rpc-methods/get-addresses';
@@ -20,6 +21,10 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
   switch (message.method) {
     case 'open': {
       await rpcOpen(message, port);
+      break;
+    }
+    case 'swap': {
+      await rpcSwap(message, port);
       break;
     }
     case 'getAddresses': {

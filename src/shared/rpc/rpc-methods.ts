@@ -8,10 +8,12 @@ import { Open } from './methods/open';
 import { SignPsbt } from './methods/sign-psbt';
 import { SignStacksMessage } from './methods/sign-stacks-message';
 import { SupportedMethods } from './methods/supported-methods';
+import { Swap } from './methods/swap';
 
 // Supports BtcKit methods, as well as custom Leather methods
 export type WalletMethodMap = BtcKitMethodMap &
   Open &
+  Swap &
   SupportedMethods &
   SignPsbt &
   SignStacksTransaction &

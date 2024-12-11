@@ -1,6 +1,9 @@
+import type { To } from 'react-router-dom';
+
 import { InternalMethods } from '@shared/message-types';
 import { sendMessage } from '@shared/messages';
 import { RouteUrls } from '@shared/route-urls';
+import type { SwapRequestParams } from '@shared/rpc/methods/swap';
 
 import { popup } from '@background/popup';
 
@@ -16,7 +19,7 @@ function getOriginFromPort(port: chrome.runtime.Port) {
 //
 // Playwright does not currently support Chrome extension popup testing:
 // https://github.com/microsoft/playwright/issues/5593
-async function openRequestInFullPage(path: string, urlParams: URLSearchParams) {
+async function openRequestInFullPage(path: string | To, urlParams: URLSearchParams) {
   return chrome.tabs.create({
     url: chrome.runtime.getURL(`index.html#${path}?${urlParams.toString()}`),
   });
@@ -68,4 +71,11 @@ const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 export async function triggerRequestWindowOpen(path: RouteUrls, urlParams: URLSearchParams) {
   if (IS_TEST_ENV) return openRequestInFullPage(path, urlParams);
   return popup({ url: `/popup.html#${path}?${urlParams.toString()}` });
+}
+
+export async function triggerSwapWindowOpen(path: To, urlParams: URLSearchParams) {
+  console.log('triggerSwapWindowOpen', path, urlParams);
+
+  if (IS_TEST_ENV) return openRequestInFullPage(path, urlParams);
+  return popup({ url: `/index.html#${path}?${urlParams.toString()}` });
 }
