@@ -47,16 +47,17 @@ test.describe('Swaps', () => {
     await expect(toast).toBeVisible();
   });
 
-  test('that it preselects cross chain swap assets', async ({ swapPage }) => {
+  test('that it preselects cross chain swap assets and restricts quote list', async ({
+    swapPage,
+  }) => {
     await swapPage.selectBtcAsBaseAsset();
 
     const quoteAsset = await swapPage.page.locator('text="sBTC"').innerText();
     test.expect(quoteAsset).toEqual('sBTC');
 
-    await swapPage.selectAssetToReceive();
-    await swapPage.selectSbtcAsQuoteAsset();
-
-    const baseAsset = await swapPage.page.locator('text="BTC"').innerText();
-    test.expect(baseAsset).toEqual('BTC');
+    await swapPage.selectQuoteAsset();
+    await swapPage.page.locator(swapPage.chooseAssetList).waitFor();
+    const quoteAssets = await swapPage.page.locator(swapPage.chooseAssetListItem).all();
+    test.expect(quoteAssets.length).toEqual(1);
   });
 });

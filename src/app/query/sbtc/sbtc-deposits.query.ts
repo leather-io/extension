@@ -28,6 +28,7 @@ interface GetSbtcDepositsResponse {
   nextToken?: string;
 }
 
+// TODO: Verify this is correct for mainnet launch
 const emilyUrl = 'https://beta.sbtc-emily.com/deposit';
 
 async function getSbtcDeposits(status: string): Promise<GetSbtcDepositsResponse> {
@@ -53,7 +54,6 @@ function useGetSbtcDeposits(stxAddress: string, status: string) {
   });
 }
 
-// Possibly also include status `accepted` here, but need to test when testnet is working
 export function useSbtcPendingDeposits(stxAddress: string) {
   const { data: pendingDeposits = [], isLoading: isLoadingStatusPending } = useGetSbtcDeposits(
     stxAddress,
@@ -61,9 +61,13 @@ export function useSbtcPendingDeposits(stxAddress: string) {
   );
   const { data: reprocessingDeposits = [], isLoading: isLoadingStatusReprocessing } =
     useGetSbtcDeposits(stxAddress, 'reprocessing');
+  const { data: acceptedDeposits = [], isLoading: isLoadingStatusAccepted } = useGetSbtcDeposits(
+    stxAddress,
+    'accepted'
+  );
 
   return {
-    isLoading: isLoadingStatusPending || isLoadingStatusReprocessing,
-    pendingSbtcDeposits: [...pendingDeposits, ...reprocessingDeposits],
+    isLoading: isLoadingStatusPending || isLoadingStatusReprocessing || isLoadingStatusAccepted,
+    pendingSbtcDeposits: [...pendingDeposits, ...reprocessingDeposits, ...acceptedDeposits],
   };
 }

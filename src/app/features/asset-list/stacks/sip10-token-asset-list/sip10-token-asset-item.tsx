@@ -37,6 +37,7 @@ export function Sip10TokenAssetItem({
   const { isTokenEnabled } = useManageTokens();
 
   const { contractId, imageCanonicalUri, name, symbol } = info;
+  // This can be removed once an img is available directly from the sip10 token
   const isSbtc = symbol === 'sBTC';
 
   const icon = (

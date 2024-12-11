@@ -13,6 +13,7 @@ import { createMoney, getPrincipalFromContractId } from '@leather.io/utils';
 
 import { castBitcoinMarketDataToSbtcMarketData } from '@app/common/hooks/use-calculate-sip10-fiat-value';
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useConfigSbtc } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
@@ -36,13 +37,10 @@ export function useBtcSwapAsset() {
   }, [balance.availableBalance, bitcoinMarketData]);
 }
 
-// Testnet only
-const tempContractIdForSbtcTesting =
-  'SNGWPN3XDAQE673MXYXF81016M50NHF5X5PWWM70.sbtc-token::sbtc-token';
-
 export function useSbtcSwapAsset() {
   const stxAddress = useCurrentStacksAccountAddress();
-  const token = useSip10Token(stxAddress, tempContractIdForSbtcTesting);
+  const { contractId } = useConfigSbtc();
+  const token = useSip10Token(stxAddress, contractId);
   const bitcoinMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
 
   return useCallback((): SwapAsset => {
@@ -54,7 +52,7 @@ export function useSbtcSwapAsset() {
       icon: SbtcAvatarIconSrc,
       name: 'sBTC',
       marketData: castBitcoinMarketDataToSbtcMarketData(bitcoinMarketData),
-      principal: getPrincipalFromContractId(token?.info.contractId ?? ''),
+      principal: getPrincipalFromContractId(contractId),
     };
-  }, [bitcoinMarketData, token?.balance.availableBalance, token?.info.contractId]);
+  }, [bitcoinMarketData, contractId, token?.balance.availableBalance]);
 }

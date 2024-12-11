@@ -42,19 +42,23 @@ export function useConfigBitcoinSendEnabled() {
 
 export function useConfigSbtc() {
   const config = useRemoteConfig();
-  // TODO: Update with new mono version
-  const sbtc = config?.sbtc;
   const network = useCurrentNetwork();
+  const sbtc = config?.sbtc;
+
   return useMemo(() => {
     const displayPromoCardOnNetworks = (sbtc as any)?.showPromoLinkOnNetworks ?? [];
+    const contractIdMainnet = sbtc?.contracts.mainnet.address ?? '';
+    const contractIdTestnet = sbtc?.contracts.testnet.address ?? '';
     return {
+      enabled: sbtc?.enabled ?? false,
+      contractId: network.chain.bitcoin.mode === 'mainnet' ? contractIdMainnet : contractIdTestnet,
       isSbtcContract(contract: string) {
         return (
-          contract === getPrincipalFromContractId(sbtc?.contracts.mainnet.address ?? '') ||
-          contract === getPrincipalFromContractId(sbtc?.contracts.testnet.address ?? '')
+          contract === getPrincipalFromContractId(contractIdMainnet) ||
+          contract === getPrincipalFromContractId(contractIdTestnet)
         );
       },
       shouldDisplayPromoCard: displayPromoCardOnNetworks.includes(network.id),
     };
-  }, [network.id, sbtc]);
+  }, [network.chain.bitcoin.mode, network.id, sbtc]);
 }

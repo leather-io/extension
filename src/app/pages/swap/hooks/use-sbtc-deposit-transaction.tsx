@@ -1,9 +1,18 @@
 /* eslint-disable */
+// TODO: Enable eslint and remove test logs
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import * as btc from '@scure/btc-signer';
 import type { P2TROut } from '@scure/btc-signer/payment';
-import { MAINNET, REGTEST, SbtcApiClientTestnet, TESTNET, buildSbtcDepositTx } from 'sbtc';
+import {
+  MAINNET,
+  REGTEST,
+  SbtcApiClient,
+  SbtcApiClientTestnet,
+  TESTNET,
+  buildSbtcDepositTx,
+} from 'sbtc';
 
 import type { BitcoinNetworkModes } from '@leather.io/models';
 import { useAverageBitcoinFeeRates } from '@leather.io/query';
@@ -24,6 +33,7 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import type { SwapSubmissionData } from '../swap.context';
 
+// Suggested to use as defaults
 const maxSignerFee = 80_000;
 const reclaimLockTime = 6_000;
 
@@ -34,9 +44,6 @@ interface SbtcDeposit {
   transaction: btc.Transaction;
   trOut: P2TROut;
 }
-
-// Check network for correct client
-const client = new SbtcApiClientTestnet();
 
 function getSbtcNetworkConfig(network: BitcoinNetworkModes) {
   const networkMap = {
@@ -49,6 +56,15 @@ function getSbtcNetworkConfig(network: BitcoinNetworkModes) {
   return networkMap[network];
 }
 
+// TODO: Set config paths, or likely remove when defaults are published
+const clientMainnet = new SbtcApiClient({
+  sbtcContract: '',
+  btcApiUrl: '',
+  stxApiUrl: '',
+  sbtcApiUrl: '',
+});
+const clientTestnet = new SbtcApiClientTestnet();
+
 export function useSbtcDepositTransaction() {
   const toast = useToast();
   const { setIsIdle } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);
@@ -59,6 +75,11 @@ export function useSbtcDepositTransaction() {
   const networkMode = useBitcoinScureLibNetworkConfig();
   const navigate = useNavigate();
   const network = useCurrentNetwork();
+
+  const client = useMemo(
+    () => (network.chain.bitcoin.mode === 'mainnet' ? clientMainnet : clientTestnet),
+    [network]
+  );
 
   // Check if the signer is compliant
   useBreakOnNonCompliantEntity();

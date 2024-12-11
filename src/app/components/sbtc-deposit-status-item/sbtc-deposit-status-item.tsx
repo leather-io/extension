@@ -26,7 +26,6 @@ export function SbtcDepositTransactionItem({ deposit }: SbtcDepositTransactionIt
       openTxLink={openTxLink}
       txCaption={truncateMiddle(deposit.bitcoinTxid, 4)}
       txIcon={
-        // Replace with sBTC avatar icon
         <Avatar.Root>
           <Avatar.Image alt="ST" src={SbtcAvatarIconSrc} />
         </Avatar.Root>

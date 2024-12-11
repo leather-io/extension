@@ -77,10 +77,9 @@ function BitflowSwapContainer() {
           onSetSwapSubmissionData({
             ...swapData,
             fee: satToBtc(sBtcDepositData?.fee ?? 0).toNumber(),
-            txData: sBtcDepositData?.deposit,
+            txData: { deposit: sBtcDepositData?.deposit },
           });
-          swapNavigate(RouteUrls.SwapReview);
-          return;
+          return swapNavigate(RouteUrls.SwapReview);
         }
 
         const routeQuote = await fetchRouteQuote(

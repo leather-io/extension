@@ -15,7 +15,6 @@ import {
 import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
-// import { bitflow } from '@shared/utils/bitflow-sdk';
 import { useSwapContext } from '@app/pages/swap/swap.context';
 
 import type { SwapAssetListProps } from './swap-asset-list';
@@ -28,13 +27,6 @@ export function useSwapAssetList({ assets, type }: SwapAssetListProps) {
 
   const isBaseList = type === 'base';
   const isQuoteList = type === 'quote';
-
-  // async function getBtcToken() {
-  //   // const tokens = await bitflow.getAvailableTokens();
-  //   // console.log(tokens.filter(token => token.tokenId === 'token-xbtc'));
-  //   const result = await bitflow.getQuoteForRoute('token-stx', 'token-xbtc', 1);
-  //   console.log(result);
-  // }
 
   // Filter out selected asset from selectable assets
   const selectableAssets = assets
@@ -77,9 +69,8 @@ export function useSwapAssetList({ assets, type }: SwapAssetListProps) {
 
   const onFetchQuoteAmount = useCallback(
     async (baseAsset: SwapAsset, quoteAsset: SwapAsset) => {
-      // await getBtcToken();
       const quoteAmount = await fetchQuoteAmount(baseAsset, quoteAsset, values.swapAmountBase);
-      // Handle race condition; make sure quote amount is 1:1 for BTC swap
+      // Handle race condition; make sure quote amount is 1:1
       if (baseAsset.name === 'BTC') {
         void setFieldValue('swapAmountQuote', values.swapAmountBase);
         return;

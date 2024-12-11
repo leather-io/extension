@@ -44,20 +44,10 @@ export function useBitflowSwap() {
       baseAmount: string
     ): Promise<RouteQuote | undefined> => {
       if (!baseAmount || !base || !quote || isCrossChainSwap) return;
-      let baseTokenId = base.tokenId;
-      let quoteTokenId = quote.tokenId;
-      // Temporarily handle sBTC exchange rate; force as BTC
-      // TODO: Remove once Bitflow supports sBTC exchange rate
-      if (base.tokenId === 'token-sbtc') {
-        baseTokenId = 'token-xbtc';
-      }
-      if (quote.tokenId === 'token-sbtc') {
-        quoteTokenId = 'token-xbtc';
-      }
       try {
         const result = await bitflow.getQuoteForRoute(
-          baseTokenId,
-          quoteTokenId,
+          base.tokenId,
+          quote.tokenId,
           Number(baseAmount)
         );
         if (!result.bestRoute) {
