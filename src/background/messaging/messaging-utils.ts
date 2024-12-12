@@ -74,8 +74,6 @@ export async function triggerRequestWindowOpen(path: RouteUrls, urlParams: URLSe
 }
 
 export async function triggerSwapWindowOpen(path: To, urlParams: URLSearchParams) {
-  console.log('triggerSwapWindowOpen', path, urlParams);
-
   if (IS_TEST_ENV) return openRequestInFullPage(path, urlParams);
   return popup({ url: `/index.html#${path}?${urlParams.toString()}` });
 }
