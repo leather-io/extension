@@ -69,6 +69,7 @@ export interface GlobalAppEvents {
   ledgerStacksMessageSigningCancelled: {
     unsignedMessage: UnsignedMessage;
   };
+  ledgerJwtMessageSigningComplete: unknown;
 }
 
 export const appEvents = createPublishSubscribe<GlobalAppEvents>();
