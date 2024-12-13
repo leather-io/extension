@@ -582,6 +582,9 @@ importers:
       chromatic:
         specifier: 11.4.1
         version: 11.4.1
+      chrome-types:
+        specifier: ^0.1.325
+        version: 0.1.325
       chrome-webstore-upload-cli:
         specifier: 2.2.2
         version: 2.2.2
@@ -7943,6 +7946,9 @@ packages:
   chrome-trace-event@1.0.4:
     resolution: {integrity: sha512-rNjApaLzuwaOTjCiT8lSDdGN1APCiqkChLMJxJPWLunPAt5fy8xgU9/jNOchV84wfIxrA0lRQB7oCT8jrn/wrQ==}
     engines: {node: '>=6.0'}
+
+  chrome-types@0.1.325:
+    resolution: {integrity: sha512-ZBYwAoUa/piEK3RSFuN21PP0gXmtlkTfaq1UdowkRQTmoNT4w31MbmwckVYnyrUV36YCGAtpLFqVphIQtBqYFQ==}
 
   chrome-webstore-upload-cli@2.2.2:
     resolution: {integrity: sha512-Y6q5gZ3xp+b9rPgw0SNmW7tOgx0qhHpz2NloaoDe8/f45GiqZiH3gAhyYeekY75RcwG3LT1wNmbjMdSKf7n8fg==}
@@ -25849,6 +25855,8 @@ snapshots:
       - supports-color
 
   chrome-trace-event@1.0.4: {}
+
+  chrome-types@0.1.325: {}
 
   chrome-webstore-upload-cli@2.2.2:
     dependencies:
