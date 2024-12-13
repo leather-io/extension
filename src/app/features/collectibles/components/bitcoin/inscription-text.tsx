@@ -5,7 +5,7 @@ import { OrdinalAvatarIcon } from '@leather.io/ui';
 
 import { parseJson } from '@app/components/json';
 
-import { CollectibleText } from '../_collectible-types/collectible-text';
+import { CollectibleText } from '../../../../components/collectibles/collectible-text';
 
 interface InscriptionTextProps {
   contentSrc: string;

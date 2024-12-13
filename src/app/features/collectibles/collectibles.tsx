@@ -9,10 +9,10 @@ import { CurrentBitcoinSignerLoader } from '@app/components/loaders/current-bitc
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
 import { useConfigNftMetadataEnabled } from '@app/query/common/remote-config/remote-config.query';
 
+import { CollectiblesLayout } from '../../components/collectibles/collectible.layout';
 import { AddCollectible } from './components/add-collectible';
 import { Ordinals } from './components/bitcoin/ordinals';
 import { Stamps } from './components/bitcoin/stamps';
-import { CollectiblesLayout } from './components/collectible.layout';
 import { StacksCryptoAssets } from './components/stacks/stacks-crypto-assets';
 import { TaprootBalanceDisplayer } from './components/taproot-balance-displayer';
 import { useIsFetchingCollectiblesRelatedQuery } from './hooks/use-is-fetching-collectibles';

@@ -4,8 +4,8 @@ import { StxAvatarIcon } from '@leather.io/ui';
 
 import { isValidUrl } from '@shared/utils/validate-url';
 
-import { CollectibleImage } from '../_collectible-types/collectible-image';
-import { ImageUnavailable } from '../image-unavailable';
+import { CollectibleImage } from '../../../../components/collectibles/collectible-image';
+import { ImageUnavailable } from '../../../../components/collectibles/image-unavailable';
 
 interface StacksNonFungibleTokensProps {
   metadata: StacksNftMetadata;

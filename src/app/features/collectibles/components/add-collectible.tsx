@@ -5,7 +5,7 @@ import { PlusIcon } from '@leather.io/ui';
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
 
-import { CollectibleItemLayout } from './collectible-item.layout';
+import { CollectibleItemLayout } from '../../../components/collectibles/collectible-item.layout';
 
 export function AddCollectible() {
   const navigate = useNavigate();
