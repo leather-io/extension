@@ -2,8 +2,8 @@ import { ReactNode, useState } from 'react';
 
 import { Iframe } from '@app/ui/components/iframe';
 
-import { CollectibleItemLayout, CollectibleItemLayoutProps } from '../collectible-item.layout';
-import { ImageUnavailable } from '../image-unavailable';
+import { CollectibleItemLayout, CollectibleItemLayoutProps } from './collectible-item.layout';
+import { ImageUnavailable } from './image-unavailable';
 
 interface CollectibleIframeProps extends Omit<CollectibleItemLayoutProps, 'children'> {
   icon: ReactNode;

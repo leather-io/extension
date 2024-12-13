@@ -1,4 +1,4 @@
-import { CollectibleItemLayout, CollectibleItemLayoutProps } from '../collectible-item.layout';
+import { CollectibleItemLayout, CollectibleItemLayoutProps } from './collectible-item.layout';
 import { CollectibleTextLayout } from './collectible-text.layout';
 
 interface CollectibleTextProps extends Omit<CollectibleItemLayoutProps, 'children'> {

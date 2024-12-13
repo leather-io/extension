@@ -2,7 +2,7 @@ import { styled } from 'leather-styles/jsx';
 
 import { Eye1ClosedIcon } from '@leather.io/ui';
 
-import { CollectiblePlaceholderLayout } from './_collectible-types/collectible-placeholder.layout';
+import { CollectiblePlaceholderLayout } from './collectible-placeholder.layout';
 
 export function ImageUnavailable() {
   return (

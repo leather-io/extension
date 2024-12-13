@@ -1,7 +1,7 @@
 import { ReactNode, useState } from 'react';
 
-import { CollectibleItemLayout, CollectibleItemLayoutProps } from '../collectible-item.layout';
-import { ImageUnavailable } from '../image-unavailable';
+import { CollectibleItemLayout, CollectibleItemLayoutProps } from './collectible-item.layout';
+import { ImageUnavailable } from './image-unavailable';
 
 interface CollectibleImageProps extends Omit<CollectibleItemLayoutProps, 'children'> {
   alt?: string;

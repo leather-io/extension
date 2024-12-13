@@ -23,10 +23,10 @@ import { useHoverWithChildren } from '@app/common/hooks/use-hover-with-children'
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { useDiscardedInscriptions } from '@app/store/settings/settings.selectors';
 
-import { CollectibleAudio } from '../_collectible-types/collectible-audio';
-import { CollectibleIframe } from '../_collectible-types/collectible-iframe';
-import { CollectibleImage } from '../_collectible-types/collectible-image';
-import { CollectibleOther } from '../_collectible-types/collectible-other';
+import { CollectibleAudio } from '../../../../components/collectibles/collectible-audio';
+import { CollectibleIframe } from '../../../../components/collectibles/collectible-iframe';
+import { CollectibleImage } from '../../../../components/collectibles/collectible-image';
+import { CollectibleOther } from '../../../../components/collectibles/collectible-other';
 import { HighSatValueUtxoWarning } from './high-sat-value-utxo';
 import { InscriptionText } from './inscription-text';
 

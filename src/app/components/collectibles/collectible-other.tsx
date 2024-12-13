@@ -1,6 +1,6 @@
 import { Box } from 'leather-styles/jsx';
 
-import { CollectibleItemLayout, CollectibleItemLayoutProps } from '../collectible-item.layout';
+import { CollectibleItemLayout, CollectibleItemLayoutProps } from './collectible-item.layout';
 
 interface CollectibleOtherProps extends Omit<CollectibleItemLayoutProps, 'children'> {
   children: React.JSX.Element;
