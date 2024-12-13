@@ -1,4 +1,3 @@
-import { RpcErrorCode } from '@btckit/types';
 import { bytesToHex } from '@stacks/common';
 import { TransactionTypes } from '@stacks/connect';
 import {
@@ -17,11 +16,11 @@ import {
 } from '@stacks/transactions';
 import { createUnsecuredToken } from 'jsontokens';
 
+import { RpcErrorCode, type StxSignTransactionRequest } from '@leather.io/rpc';
 import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import {
-  SignStacksTransactionRequest,
   getRpcSignStacksTransactionParamErrors,
   validateRpcSignStacksTransactionParams,
 } from '@shared/rpc/methods/sign-stacks-transaction';
@@ -106,7 +105,7 @@ function validateStacksTransaction(txHex: string) {
 }
 
 export async function rpcSignStacksTransaction(
-  message: SignStacksTransactionRequest,
+  message: StxSignTransactionRequest,
   port: chrome.runtime.Port
 ) {
   if (isUndefined(message.params)) {
@@ -137,7 +136,7 @@ export async function rpcSignStacksTransaction(
     return;
   }
 
-  if (!validateStacksTransaction(message.params.txHex!)) {
+  if (!validateStacksTransaction(message.params.txHex)) {
     void trackRpcRequestError({ endpoint: message.method, error: 'Invalid Stacks transaction' });
 
     chrome.tabs.sendMessage(
@@ -150,7 +149,7 @@ export async function rpcSignStacksTransaction(
     return;
   }
 
-  const stacksTransaction = deserializeTransaction(message.params.txHex!);
+  const stacksTransaction = deserializeTransaction(message.params.txHex);
   const request = transactionPayloadToTransactionRequest(
     stacksTransaction,
     message.params.stxAddress,

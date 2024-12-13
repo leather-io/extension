@@ -1,4 +1,3 @@
-import { DefineRpcMethod, RpcRequest, RpcResponse } from '@btckit/types';
 import { StacksNetworks } from '@stacks/network';
 import { z } from 'zod';
 
@@ -8,10 +7,10 @@ const SignedMessageTypeArray = ['utf8', 'structured'] as const;
 
 // TODO: refactor to use .discriminatedUnion
 const rpcSignStacksMessageParamsSchema = z.object({
-  network: z.enum(StacksNetworks).optional(),
   message: z.string(),
-  domain: z.string().optional(),
   messageType: z.enum(SignedMessageTypeArray),
+  network: z.enum(StacksNetworks).optional(),
+  domain: z.string().optional(),
 });
 
 export function validateRpcSignStacksMessageParams(obj: unknown) {
@@ -21,17 +20,3 @@ export function validateRpcSignStacksMessageParams(obj: unknown) {
 export function getRpcSignStacksMessageParamErrors(obj: unknown) {
   return formatValidationErrors(getRpcParamErrors(obj, rpcSignStacksMessageParamsSchema));
 }
-
-type SignStacksMessageRequestParams = z.infer<typeof rpcSignStacksMessageParamsSchema>;
-
-export type SignStacksMessageRequest = RpcRequest<
-  'stx_signMessage',
-  SignStacksMessageRequestParams
->;
-
-type SignStacksMessageResponse = RpcResponse<{ signature: string }>;
-
-export type SignStacksMessage = DefineRpcMethod<
-  SignStacksMessageRequest,
-  SignStacksMessageResponse
->;
