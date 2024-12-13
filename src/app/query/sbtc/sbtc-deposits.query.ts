@@ -3,6 +3,8 @@ import { BytesReader, addressToString, deserializeAddress } from '@stacks/transa
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
+import { useConfigSbtc } from '../common/remote-config/remote-config.query';
+
 enum SbtcStatus {
   Pending = 'pending',
   Reprocessing = 'reprocessing',
@@ -28,11 +30,8 @@ interface GetSbtcDepositsResponse {
   nextToken?: string;
 }
 
-// TODO: Verify this is correct for mainnet launch
-const emilyUrl = 'https://beta.sbtc-emily.com/deposit';
-
-async function getSbtcDeposits(status: string): Promise<GetSbtcDepositsResponse> {
-  const resp = await axios.get(`${emilyUrl}?status=${status}`, {
+async function getSbtcDeposits(apiUrl: string, status: string): Promise<GetSbtcDepositsResponse> {
+  const resp = await axios.get(`${apiUrl}/deposit?status=${status}`, {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -41,9 +40,10 @@ async function getSbtcDeposits(status: string): Promise<GetSbtcDepositsResponse>
 }
 
 function useGetSbtcDeposits(stxAddress: string, status: string) {
+  const { emilyApiUrl } = useConfigSbtc();
   return useQuery({
     queryKey: ['get-sbtc-deposits', stxAddress, status],
-    queryFn: () => getSbtcDeposits(status),
+    queryFn: () => getSbtcDeposits(emilyApiUrl, status),
     select: resp =>
       resp.deposits.filter(deposit => {
         const recipient = addressToString(

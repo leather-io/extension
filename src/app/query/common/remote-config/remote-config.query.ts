@@ -40,17 +40,28 @@ export function useConfigBitcoinSendEnabled() {
   });
 }
 
+// Update in mono repo
+interface SbtcConfig {
+  enabled: boolean;
+  contracts: Record<'mainnet' | 'testnet', { address: string }>;
+  emilyApiUrl: string;
+  swapsEnabled: boolean;
+}
+
 export function useConfigSbtc() {
   const config = useRemoteConfig();
   const network = useCurrentNetwork();
-  const sbtc = config?.sbtc;
+  const sbtc = config?.sbtc as SbtcConfig;
 
   return useMemo(() => {
     const displayPromoCardOnNetworks = (sbtc as any)?.showPromoLinkOnNetworks ?? [];
     const contractIdMainnet = sbtc?.contracts.mainnet.address ?? '';
     const contractIdTestnet = sbtc?.contracts.testnet.address ?? '';
+
     return {
-      enabled: sbtc?.enabled ?? false,
+      isSbtcEnabled: sbtc?.enabled ?? false,
+      isSbtcSwapsEnabled: (sbtc?.enabled && sbtc?.swapsEnabled) ?? false,
+      emilyApiUrl: sbtc?.emilyApiUrl ?? '',
       contractId: network.chain.bitcoin.mode === 'mainnet' ? contractIdMainnet : contractIdTestnet,
       isSbtcContract(contract: string) {
         return (

@@ -3,16 +3,28 @@ import { useCallback, useMemo, useState } from 'react';
 import type { RouteQuote } from 'bitflow-sdk';
 
 import { type SwapAsset } from '@leather.io/query';
-import { migratePositiveAssetBalancesToTop } from '@leather.io/utils';
+import { isDefined, migratePositiveAssetBalancesToTop } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { bitflow } from '@shared/utils/bitflow-sdk';
 
+import { useConfigSbtc } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { SwapSubmissionData } from '../swap.context';
 import { useBtcSwapAsset, useSbtcSwapAsset } from './use-bitcoin-bridge-assets';
 import { useBitflowSwappableAssets } from './use-bitflow-swappable-assets';
+
+const bitflowSBtcTokenId = 'token-sbtc';
+
+function getBitflowSwappableAssetsWithSbtcAtTop(assets: SwapAsset[]) {
+  const bitflowSbtcAsset = assets.find(asset => asset.tokenId === bitflowSBtcTokenId);
+  const bitflowAssetsWithSbtcRemoved = assets.filter(asset => asset.tokenId !== bitflowSBtcTokenId);
+  return [
+    bitflowSbtcAsset,
+    ...migratePositiveAssetBalancesToTop(bitflowAssetsWithSbtcRemoved),
+  ].filter(isDefined);
+}
 
 export function useBitflowSwap() {
   const [isCrossChainSwap, setIsCrossChainSwap] = useState(false);
@@ -21,21 +33,26 @@ export function useBitflowSwap() {
   const [isFetchingExchangeRate, setIsFetchingExchangeRate] = useState(false);
   const address = useCurrentStacksAccountAddress();
   const { data: bitflowSwapAssets = [] } = useBitflowSwappableAssets(address);
+  const { isSbtcEnabled, isSbtcSwapsEnabled } = useConfigSbtc();
 
-  // Bridge assets; to remove once supported by Bitflow api
   const createBtcAsset = useBtcSwapAsset();
-  const createSbtcAsset = useSbtcSwapAsset();
   const btcAsset = createBtcAsset();
+  // TODO: Remove once supported by Bitflow
+  const createSbtcAsset = useSbtcSwapAsset();
   const sbtcAsset = createSbtcAsset();
 
-  const swappableAssetsBase = useMemo(
-    () => [btcAsset, sbtcAsset, ...migratePositiveAssetBalancesToTop(bitflowSwapAssets)],
-    [bitflowSwapAssets, btcAsset, sbtcAsset]
-  );
-  const swappableAssetsQuote = useMemo(
-    () => [sbtcAsset, ...bitflowSwapAssets],
-    [bitflowSwapAssets, sbtcAsset]
-  );
+  const swappableAssetsBase = useMemo(() => {
+    if (!isSbtcEnabled) return migratePositiveAssetBalancesToTop(bitflowSwapAssets);
+    if (isSbtcSwapsEnabled)
+      return [btcAsset, ...getBitflowSwappableAssetsWithSbtcAtTop(bitflowSwapAssets)];
+    return [btcAsset, sbtcAsset, ...migratePositiveAssetBalancesToTop(bitflowSwapAssets)];
+  }, [bitflowSwapAssets, btcAsset, isSbtcEnabled, isSbtcSwapsEnabled, sbtcAsset]);
+
+  const swappableAssetsQuote = useMemo(() => {
+    if (!isSbtcEnabled) return bitflowSwapAssets;
+    if (isSbtcSwapsEnabled) return getBitflowSwappableAssetsWithSbtcAtTop(bitflowSwapAssets);
+    return [sbtcAsset, ...bitflowSwapAssets];
+  }, [bitflowSwapAssets, isSbtcEnabled, isSbtcSwapsEnabled, sbtcAsset]);
 
   const fetchRouteQuote = useCallback(
     async (

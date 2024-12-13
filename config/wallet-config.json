@@ -95,6 +95,9 @@
   "swapsEnabled": true,
   "sbtc": {
     "enabled": true,
+    "swapsEnabled": false,
+    "emilyApiUrl": "https://beta.sbtc-emily.com",
+    "showPromoLinkOnNetworks": ["testnet", "sbtcTestnet"],
     "contracts": {
       "mainnet": {
         "address": "SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token::sbtc-token"
@@ -102,8 +105,7 @@
       "testnet": {
         "address": "SNGWPN3XDAQE673MXYXF81016M50NHF5X5PWWM70.sbtc-token::sbtc-token"
       }
-    },
-    "showPromoLinkOnNetworks": ["testnet", "sbtcTestnet"]
+    }
   },
   "tokensEnabledByDefault": [
     "DOGGOTOTHEMOON",
