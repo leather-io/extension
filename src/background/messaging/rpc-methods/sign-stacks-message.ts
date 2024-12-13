@@ -1,10 +1,12 @@
-import { RpcErrorCode } from '@btckit/types';
-
+import {
+  RpcErrorCode,
+  type StxSignMessageRequest,
+  type StxSignMessageRequestParamsStructured,
+} from '@leather.io/rpc';
 import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import {
-  SignStacksMessageRequest,
   getRpcSignStacksMessageParamErrors,
   validateRpcSignStacksMessageParams,
 } from '@shared/rpc/methods/sign-stacks-message';
@@ -20,7 +22,7 @@ import {
 import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-message-handler';
 
 export async function rpcSignStacksMessage(
-  message: SignStacksMessageRequest,
+  message: StxSignMessageRequest,
   port: chrome.runtime.Port
 ) {
   if (isUndefined(message.params)) {
@@ -63,7 +65,10 @@ export async function rpcSignStacksMessage(
   }
 
   if (isDefined(message.params.domain)) {
-    requestParams.push(['domain', message.params.domain.toString()]);
+    requestParams.push([
+      'domain',
+      (message.params as StxSignMessageRequestParamsStructured).domain.toString(),
+    ]);
   }
 
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);

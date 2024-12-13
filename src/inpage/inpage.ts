@@ -1,5 +1,6 @@
-import { RpcRequest } from '@btckit/types';
 import type { StacksProvider } from '@stacks/connect';
+
+import { type LeatherRpcMethodMap, type RpcParameter, RpcRequest } from '@leather.io/rpc';
 
 import { BRANCH, COMMIT_SHA } from '@shared/environment';
 import {
@@ -20,7 +21,7 @@ import {
   SignatureResponseMessage,
   TransactionResponseMessage,
 } from '@shared/message-types';
-import type { WalletMethodMap, WalletMethodNames, WalletResponses } from '@shared/rpc/rpc-methods';
+import type { WalletMethodNames, WalletResponses } from '@shared/rpc/rpc-methods';
 
 import { addLeatherToProviders } from './add-leather-to-providers';
 
@@ -244,14 +245,14 @@ const provider: LeatherProviderOverrides = {
 
   request<T extends WalletMethodNames>(
     method: T,
-    params?: Record<string, any>
-  ): Promise<WalletMethodMap[T]['response']> {
-    const id = crypto.randomUUID();
-    const rpcRequest: RpcRequest<T> = {
+    params?: RpcParameter
+  ): Promise<LeatherRpcMethodMap[T]['response']> {
+    const id: string = crypto.randomUUID();
+    const rpcRequest = {
       jsonrpc: '2.0',
       id,
       method,
-      params,
+      params: params ?? {},
     };
     document.dispatchEvent(new CustomEvent(DomEventName.request, { detail: rpcRequest }));
     return new Promise((resolve, reject) => {

@@ -1,5 +1,6 @@
+import type { OpenRequest } from '@leather.io/rpc';
+
 import { RouteUrls } from '@shared/route-urls';
-import { OpenRequest } from '@shared/rpc/methods/open';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
 import { makeSearchParamsWithDefaults, triggerRequestWindowOpen } from '../messaging-utils';

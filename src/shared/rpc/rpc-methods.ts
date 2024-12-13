@@ -1,38 +1,26 @@
-import { BtcKitMethodMap, ExtractErrorResponse, ExtractSuccessResponse } from '@btckit/types';
-
 import type { ValueOf } from '@leather.io/models';
+import {
+  type ExtractErrorResponse,
+  type ExtractSuccessResponse,
+  type LeatherRpcMethodMap,
+} from '@leather.io/rpc';
 
-import { SignStacksTransaction } from '@shared/rpc/methods/sign-stacks-transaction';
+export type WalletRequests = ValueOf<LeatherRpcMethodMap>['request'];
+export type WalletResponses = ValueOf<LeatherRpcMethodMap>['response'];
 
-import { Open } from './methods/open';
-import { SignPsbt } from './methods/sign-psbt';
-import { SignStacksMessage } from './methods/sign-stacks-message';
-import { SupportedMethods } from './methods/supported-methods';
-
-// Supports BtcKit methods, as well as custom Leather methods
-export type WalletMethodMap = BtcKitMethodMap &
-  Open &
-  SupportedMethods &
-  SignPsbt &
-  SignStacksTransaction &
-  SignStacksMessage;
-
-export type WalletRequests = ValueOf<WalletMethodMap>['request'];
-export type WalletResponses = ValueOf<WalletMethodMap>['response'];
-
-export type WalletMethodNames = keyof WalletMethodMap;
+export type WalletMethodNames = keyof LeatherRpcMethodMap;
 
 export function makeRpcSuccessResponse<T extends WalletMethodNames>(
   _method: T,
-  response: Omit<ExtractSuccessResponse<WalletMethodMap[T]['response']>, 'jsonrpc'>
-): WalletMethodMap[T]['response'] {
+  response: Omit<ExtractSuccessResponse<LeatherRpcMethodMap[T]['response']>, 'jsonrpc'>
+): LeatherRpcMethodMap[T]['response'] {
   // typecasting as there's a error stating jsonrpc prop is already there
-  return { jsonrpc: '2.0', ...response } as WalletMethodMap[T]['response'];
+  return { jsonrpc: '2.0', ...response } as LeatherRpcMethodMap[T]['response'];
 }
 
 export function makeRpcErrorResponse<T extends WalletMethodNames>(
   _method: T,
-  response: Omit<ExtractErrorResponse<WalletMethodMap[T]['response']>, 'jsonrpc'>
+  response: Omit<ExtractErrorResponse<LeatherRpcMethodMap[T]['response']>, 'jsonrpc'>
 ) {
-  return { jsonrpc: '2.0', ...response } as WalletMethodMap[T]['response'];
+  return { jsonrpc: '2.0', ...response } as LeatherRpcMethodMap[T]['response'];
 }

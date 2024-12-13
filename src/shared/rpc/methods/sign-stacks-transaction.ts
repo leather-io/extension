@@ -1,4 +1,3 @@
-import { DefineRpcMethod, RpcRequest, RpcResponse } from '@btckit/types';
 import { StacksNetworks } from '@stacks/network';
 import { z } from 'zod';
 
@@ -18,17 +17,3 @@ export function validateRpcSignStacksTransactionParams(obj: unknown) {
 export function getRpcSignStacksTransactionParamErrors(obj: unknown) {
   return formatValidationErrors(getRpcParamErrors(obj, rpcSignStacksTransactionParamsSchema));
 }
-
-type SignStacksTransactionRequestParams = z.infer<typeof rpcSignStacksTransactionParamsSchema>;
-
-export type SignStacksTransactionRequest = RpcRequest<
-  'stx_signTransaction',
-  SignStacksTransactionRequestParams
->;
-
-type SignStacksTransactionResponse = RpcResponse<{ txHex: string }>;
-
-export type SignStacksTransaction = DefineRpcMethod<
-  SignStacksTransactionRequest,
-  SignStacksTransactionResponse
->;

@@ -1,7 +1,7 @@
-import { SignPsbtRequestParams } from '@btckit/types';
 import { BrowserContext, Page } from '@playwright/test';
 
 import { WalletDefaultNetworkConfigurationIds } from '@leather.io/models';
+import { SignPsbtRequestParams } from '@leather.io/rpc';
 
 import { test } from '../../fixtures/fixtures';
 
@@ -55,6 +55,7 @@ test.describe('Sign PSBT', () => {
   const signAllParams = {
     hex: unsignedPsbtHexWithThreeInputs,
     network: WalletDefaultNetworkConfigurationIds.testnet,
+    broadcast: false,
   };
 
   function initiatePsbtSigning(page: Page) {

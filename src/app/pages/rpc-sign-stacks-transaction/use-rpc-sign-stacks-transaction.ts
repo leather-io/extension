@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 
-import { RpcErrorCode } from '@btckit/types';
 import { bytesToHex } from '@stacks/common';
 import { MultiSigSpendingCondition, deserializeTransaction } from '@stacks/transactions';
+
+import { RpcErrorCode } from '@leather.io/rpc';
 
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { closeWindow } from '@shared/utils';

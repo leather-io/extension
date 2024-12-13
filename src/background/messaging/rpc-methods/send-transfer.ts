@@ -1,11 +1,13 @@
-import { RpcErrorCode, type RpcRequest, type SendTransferRequestParams } from '@btckit/types';
-
+import {
+  RpcErrorCode,
+  type RpcSendTransferParams,
+  type RpcSendTransferParamsLegacy,
+  type SendTransferRequest,
+} from '@leather.io/rpc';
 import { isUndefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import {
-  type RpcSendTransferParams,
-  type RpcSendTransferParamsLegacy,
   convertRpcSendTransferLegacyParamsToNew,
   defaultRpcSendTransferNetwork,
   getRpcSendTransferParamErrors,
@@ -23,10 +25,7 @@ import {
 } from '../messaging-utils';
 import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-message-handler';
 
-export async function rpcSendTransfer(
-  message: RpcRequest<'sendTransfer', RpcSendTransferParams | SendTransferRequestParams>,
-  port: chrome.runtime.Port
-) {
+export async function rpcSendTransfer(message: SendTransferRequest, port: chrome.runtime.Port) {
   if (isUndefined(message.params)) {
     void trackRpcRequestError({ endpoint: 'sendTransfer', error: 'Undefined parameters' });
 

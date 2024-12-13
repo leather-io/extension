@@ -1,8 +1,9 @@
-import { RpcErrorCode } from '@btckit/types';
+import { RpcErrorCode } from '@leather.io/rpc';
 
 import { WalletRequests, makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
 import { queueAnalyticsRequest } from '@background/background-analytics';
+import { rpcSwap } from '@background/messaging/rpc-methods/open-swap';
 import { rpcSignStacksTransaction } from '@background/messaging/rpc-methods/sign-stacks-transaction';
 
 import { getTabIdFromPort, listenForOriginTabClose } from './messaging-utils';
@@ -20,6 +21,10 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
   switch (message.method) {
     case 'open': {
       await rpcOpen(message, port);
+      break;
+    }
+    case 'openSwap': {
+      await rpcSwap(message, port);
       break;
     }
     case 'getAddresses': {
