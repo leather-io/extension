@@ -326,7 +326,6 @@
     "blns": "2.0.4",
     "browserslist": "4.23.0",
     "chromatic": "11.4.1",
-    "chrome-types": "^0.1.325",
     "chrome-webstore-upload-cli": "2.2.2",
     "clean-webpack-plugin": "4.0.0",
     "concurrently": "8.2.2",
