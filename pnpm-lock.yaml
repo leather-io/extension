@@ -415,8 +415,8 @@ importers:
         specifier: 0.6.0
         version: 0.6.0(@vue/compiler-sfc@3.5.13)
       '@leather.io/rpc':
-        specifier: 2.3.0
-        version: link:../mono/packages/rpc
+        specifier: 2.4.0
+        version: 2.4.0(encoding@0.1.13)
       '@ls-lint/ls-lint':
         specifier: 2.2.3
         version: 2.2.3
@@ -582,9 +582,6 @@ importers:
       chromatic:
         specifier: 11.4.1
         version: 11.4.1
-      chrome-types:
-        specifier: ^0.1.325
-        version: 0.1.325
       chrome-webstore-upload-cli:
         specifier: 2.2.2
         version: 2.2.2
@@ -3311,6 +3308,9 @@ packages:
   '@leather.io/models@0.22.0':
     resolution: {integrity: sha512-MmFmWdKN3T+L9euo+rq8JCr5Ku0mNulzVa0mYqXclB9vLa4NyhUsGHA3lWz8e05cMW9CsrPNg+eWpVg6AKTkeQ==}
 
+  '@leather.io/models@0.24.1':
+    resolution: {integrity: sha512-BRjiX7N/LUlg5MMe3r5mkjUGLGtGRSpd21LPgo0lhUUSO1cBMAdp7rLACGM9LFPw+/dnUw1yMpT2hURC3pe3Gg==}
+
   '@leather.io/panda-preset@0.5.2':
     resolution: {integrity: sha512-JxPGX7hEUKWLp4gYc2S5irK6QXVMFEGn2F7bXEv2cr8324DYa07i5iUF6/UVeRhrzVivcXEdd/6u0wlKc39Rcw==}
 
@@ -3330,6 +3330,9 @@ packages:
 
   '@leather.io/rpc@2.1.20':
     resolution: {integrity: sha512-BE56W5yzdOPdVWHo2G+ZrXsEt3Jki47/noMxy+9On0sNW5B90M+pULm65szp5/vzqJuY7xIrQJ1AOyG22cd82g==}
+
+  '@leather.io/rpc@2.4.0':
+    resolution: {integrity: sha512-S9PYtyOnZ9LJL8ZYsEPHUWmVkVL/E7oAfNLunFY7zVI0tJUl45OXJVCOjYRRKDKOqdx2pRpdqzeUSxRZvJdyVA==}
 
   '@leather.io/stacks@1.3.5':
     resolution: {integrity: sha512-yqOX6CTcg0Shj3A5ymYtho054PJ2xU+HlyRfwXca8yJ1U2chMSq7jTinJktgI+1liTHsqmtRnrgmufxWY41J7A==}
@@ -7946,9 +7949,6 @@ packages:
   chrome-trace-event@1.0.4:
     resolution: {integrity: sha512-rNjApaLzuwaOTjCiT8lSDdGN1APCiqkChLMJxJPWLunPAt5fy8xgU9/jNOchV84wfIxrA0lRQB7oCT8jrn/wrQ==}
     engines: {node: '>=6.0'}
-
-  chrome-types@0.1.325:
-    resolution: {integrity: sha512-ZBYwAoUa/piEK3RSFuN21PP0gXmtlkTfaq1UdowkRQTmoNT4w31MbmwckVYnyrUV36YCGAtpLFqVphIQtBqYFQ==}
 
   chrome-webstore-upload-cli@2.2.2:
     resolution: {integrity: sha512-Y6q5gZ3xp+b9rPgw0SNmW7tOgx0qhHpz2NloaoDe8/f45GiqZiH3gAhyYeekY75RcwG3LT1wNmbjMdSKf7n8fg==}
@@ -19140,6 +19140,12 @@ snapshots:
       bignumber.js: 9.1.2
       zod: 3.23.8
 
+  '@leather.io/models@0.24.1':
+    dependencies:
+      '@stacks/stacks-blockchain-api-types': 7.8.2
+      bignumber.js: 9.1.2
+      zod: 3.23.8
+
   '@leather.io/panda-preset@0.5.2(jsdom@22.1.0)(typescript@5.4.5)':
     dependencies:
       '@pandacss/dev': 0.46.1(jsdom@22.1.0)(typescript@5.4.5)
@@ -19202,6 +19208,14 @@ snapshots:
     dependencies:
       '@leather.io/models': 0.22.0
       zod: 3.23.8
+
+  '@leather.io/rpc@2.4.0(encoding@0.1.13)':
+    dependencies:
+      '@leather.io/models': 0.24.1
+      '@stacks/network': 6.13.0(encoding@0.1.13)
+      zod: 3.23.8
+    transitivePeerDependencies:
+      - encoding
 
   '@leather.io/stacks@1.3.5(encoding@0.1.13)':
     dependencies:
@@ -25855,8 +25869,6 @@ snapshots:
       - supports-color
 
   chrome-trace-event@1.0.4: {}
-
-  chrome-types@0.1.325: {}
 
   chrome-webstore-upload-cli@2.2.2:
     dependencies:
