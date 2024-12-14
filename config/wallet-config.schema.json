@@ -166,6 +166,10 @@
           "type": "string",
           "description": "URL for the Emily API"
         },
+        "leatherSponsorApiUrl": {
+          "type": "string",
+          "description": "URL for the Leather Sponsor API"
+        },
         "showPromoLinkOnNetworks": {
           "type": "array",
           "description": "Networks on which the promo link should be shown",

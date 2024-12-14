@@ -20,12 +20,14 @@ function formatDexPathItem(dex: string) {
 
 interface getStacksSwapSubmissionDataArgs {
   bitflowSwapAssets: SwapAsset[];
+  isEligibleForSponsor: boolean;
   routeQuote: RouteQuote;
   slippage: number;
   values: SwapFormValues;
 }
 export function getStacksSwapSubmissionData({
   bitflowSwapAssets,
+  isEligibleForSponsor,
   routeQuote,
   slippage,
   values,
@@ -42,6 +44,7 @@ export function getStacksSwapSubmissionData({
       .map(x => bitflowSwapAssets.find(asset => asset.tokenId === x))
       .filter(isDefined),
     slippage,
+    sponsored: isEligibleForSponsor,
     swapAmountBase: values.swapAmountBase,
     swapAmountQuote: values.swapAmountQuote,
     swapAssetBase: values.swapAssetBase,

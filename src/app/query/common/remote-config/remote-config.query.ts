@@ -45,6 +45,7 @@ interface SbtcConfig {
   enabled: boolean;
   contracts: Record<'mainnet' | 'testnet', { address: string }>;
   emilyApiUrl: string;
+  leatherSponsorApiUrl: string;
   swapsEnabled: boolean;
 }
 
@@ -62,6 +63,7 @@ export function useConfigSbtc() {
       isSbtcEnabled: sbtc?.enabled ?? false,
       isSbtcSwapsEnabled: (sbtc?.enabled && sbtc?.swapsEnabled) ?? false,
       emilyApiUrl: sbtc?.emilyApiUrl ?? '',
+      leatherSponsorApiUrl: sbtc?.leatherSponsorApiUrl ?? '',
       contractId: network.chain.bitcoin.mode === 'mainnet' ? contractIdMainnet : contractIdTestnet,
       isSbtcContract(contract: string) {
         return (

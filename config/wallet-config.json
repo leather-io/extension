@@ -95,8 +95,9 @@
   "swapsEnabled": true,
   "sbtc": {
     "enabled": true,
-    "swapsEnabled": false,
+    "swapsEnabled": true,
     "emilyApiUrl": "https://beta.sbtc-emily.com",
+    "leatherSponsorApiUrl": "http://testnet-13-60-14-218.nip.io",
     "showPromoLinkOnNetworks": ["testnet", "sbtcTestnet"],
     "contracts": {
       "mainnet": {

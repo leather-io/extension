@@ -29,6 +29,7 @@ import { SwapForm } from './components/swap-form';
 import { generateSwapRoutes } from './generate-swap-routes';
 import { useBitflowSwap } from './hooks/use-bitflow-swap';
 import { useSbtcDepositTransaction } from './hooks/use-sbtc-deposit-transaction';
+import { useSponsorTransactionFees } from './hooks/use-sponsor-tx-fees';
 import { useStacksBroadcastSwap } from './hooks/use-stacks-broadcast-swap';
 import { useSwapNavigate } from './hooks/use-swap-navigate';
 import { SwapContext, SwapProvider } from './swap.context';
@@ -46,6 +47,9 @@ function BitflowSwapContainer() {
   const signTx = useSignStacksTransaction();
   const broadcastStacksSwap = useStacksBroadcastSwap();
   const { onDepositSbtc, onReviewDepositSbtc } = useSbtcDepositTransaction();
+
+  const { isEligibleForSponsor, checkEligibilityForSponsor, verifyAndSubmitSponsorTx } =
+    useSponsorTransactionFees();
 
   const {
     fetchRouteQuote,
@@ -90,8 +94,16 @@ function BitflowSwapContainer() {
 
         if (!routeQuote) return;
 
+        checkEligibilityForSponsor(values);
+
         onSetSwapSubmissionData(
-          getStacksSwapSubmissionData({ bitflowSwapAssets, routeQuote, slippage, values })
+          getStacksSwapSubmissionData({
+            bitflowSwapAssets,
+            isEligibleForSponsor,
+            routeQuote,
+            slippage,
+            values,
+          })
         );
         swapNavigate(RouteUrls.SwapReview);
       } finally {
@@ -100,8 +112,10 @@ function BitflowSwapContainer() {
     },
     [
       bitflowSwapAssets,
+      checkEligibilityForSponsor,
       fetchRouteQuote,
       isCrossChainSwap,
+      isEligibleForSponsor,
       onReviewDepositSbtc,
       onSetSwapSubmissionData,
       slippage,
@@ -180,6 +194,7 @@ function BitflowSwapContainer() {
       const signedTx = await signTx(unsignedTx);
       if (!signedTx)
         return logger.error('Attempted to generate raw tx, but signed tx is undefined');
+      if (isEligibleForSponsor) return await verifyAndSubmitSponsorTx(signedTx);
       return await broadcastStacksSwap(signedTx);
     } catch (e) {
       navigate(RouteUrls.SwapError, {
@@ -197,6 +212,7 @@ function BitflowSwapContainer() {
     fetchRouteQuote,
     generateUnsignedTx,
     isCrossChainSwap,
+    isEligibleForSponsor,
     isLoading,
     navigate,
     onDepositSbtc,
@@ -204,6 +220,7 @@ function BitflowSwapContainer() {
     setIsLoading,
     signTx,
     swapSubmissionData,
+    verifyAndSubmitSponsorTx,
   ]);
 
   const swapContextValue: SwapContext = {
