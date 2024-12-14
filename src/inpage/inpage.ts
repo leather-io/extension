@@ -243,12 +243,12 @@ const provider: LeatherProviderOverrides = {
     };
   },
 
-  request<T extends WalletMethodNames>(
-    method: T,
+  request(
+    method: WalletMethodNames,
     params?: RpcParameter
-  ): Promise<LeatherRpcMethodMap[T]['response']> {
+  ): Promise<LeatherRpcMethodMap[WalletMethodNames]['response']> {
     const id: string = crypto.randomUUID();
-    const rpcRequest = {
+    const rpcRequest: RpcRequest<WalletMethodNames> = {
       jsonrpc: '2.0',
       id,
       method,
