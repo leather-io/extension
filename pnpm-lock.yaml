@@ -354,8 +354,8 @@ importers:
         specifier: 7.8.1
         version: 7.8.1
       sbtc:
-        specifier: 0.2.5
-        version: 0.2.5(encoding@0.1.13)
+        specifier: 0.3.0
+        version: 0.3.0(encoding@0.1.13)
       style-loader:
         specifier: 3.3.4
         version: 3.3.4(webpack@5.94.0(@swc/core@1.9.3)(esbuild@0.24.0)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.1)(webpack@5.94.0)))
@@ -13239,8 +13239,8 @@ packages:
     resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
     engines: {node: '>=v12.22.7'}
 
-  sbtc@0.2.5:
-    resolution: {integrity: sha512-CXdgh4xq/86VqmvtHtFGQlL0R2ZjKdnuVgUh3mzya1blBNm0qlKYrC/woUgA0Gxth8uBUQh1cn+dduihxNoFvg==}
+  sbtc@0.3.0:
+    resolution: {integrity: sha512-nB6lAEdm+c12RteLeDmdzEqZ57KEB/yPZUiKjeYVTN2VtipXj7wNyudwiT786Qux40LROLUbL2x5yrKYriU0Zg==}
 
   sc-errors@3.0.0:
     resolution: {integrity: sha512-rIqv2HTPb9DVreZwK/DV0ytRUqyw2DbDcoB9XTKjEQL7oMEQKsfPA8V8dGGr7p8ZYfmvaRIGZ4Wu5qwvs/hGDA==}
@@ -31394,7 +31394,7 @@ snapshots:
     dependencies:
       xmlchars: 2.2.0
 
-  sbtc@0.2.5(encoding@0.1.13):
+  sbtc@0.3.0(encoding@0.1.13):
     dependencies:
       '@btc-helpers/rpc': 2.0.0(encoding@0.1.13)
       '@noble/secp256k1': 2.1.0

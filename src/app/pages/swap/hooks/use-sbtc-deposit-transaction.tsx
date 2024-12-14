@@ -3,12 +3,13 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { bytesToHex } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 import type { P2TROut } from '@scure/btc-signer/payment';
 import {
   MAINNET,
   REGTEST,
-  SbtcApiClient,
+  SbtcApiClientMainnet,
   SbtcApiClientTestnet,
   TESTNET,
   buildSbtcDepositTx,
@@ -57,12 +58,7 @@ function getSbtcNetworkConfig(network: BitcoinNetworkModes) {
 }
 
 // TODO: Set config paths, or likely remove when defaults are published
-const clientMainnet = new SbtcApiClient({
-  sbtcContract: '',
-  btcApiUrl: '',
-  stxApiUrl: '',
-  sbtcApiUrl: '',
-});
+const clientMainnet = new SbtcApiClientMainnet();
 const clientTestnet = new SbtcApiClientTestnet();
 
 export function useSbtcDepositTransaction() {
@@ -96,6 +92,7 @@ export function useSbtcDepositTransaction() {
           signersPublicKey: await client.fetchSignersPublicKey(),
           maxSignerFee,
           reclaimLockTime,
+          reclaimPublicKey: bytesToHex(signer.publicKey).slice(2),
         });
 
         const { inputs, outputs, fee } = determineUtxosForSpend({
