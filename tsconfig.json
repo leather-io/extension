@@ -34,7 +34,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["vitest/globals", "chrome-types"]
+    "types": ["vitest/globals", "chrome"]
   },
   "include": ["./src/**/*", "./tests/**/*", "./scripts-ts/**/*", "leather-styles", "theme"],
   "exclude": ["test-app"],
