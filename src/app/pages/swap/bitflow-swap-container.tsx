@@ -20,6 +20,7 @@ import { bitflow } from '@shared/utils/bitflow-sdk';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
+import type { TransactionBase } from '@app/query/sbtc/sponsored-transactions.query';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
@@ -37,6 +38,7 @@ import { SwapContext, SwapProvider } from './swap.context';
 export const bitflowSwapRoutes = generateSwapRoutes(<BitflowSwapContainer />);
 
 function BitflowSwapContainer() {
+  const [unsignedTx, setUnsignedTx] = useState<TransactionBase | undefined>();
   const [isSendingMax, setIsSendingMax] = useState(false);
   const [isPreparingSwapReview, setIsPreparingSwapReview] = useState(false);
   const navigate = useNavigate();
@@ -48,7 +50,7 @@ function BitflowSwapContainer() {
   const broadcastStacksSwap = useStacksBroadcastSwap();
   const { onDepositSbtc, onReviewDepositSbtc } = useSbtcDepositTransaction();
 
-  const { isEligibleForSponsor, checkEligibilityForSponsor, verifyAndSubmitSponsorTx } =
+  const { isEligibleForSponsor, checkEligibilityForSponsor, submitSponsoredTx } =
     useSponsorTransactionFees();
 
   const {
@@ -70,7 +72,11 @@ function BitflowSwapContainer() {
     async (values: SwapFormValues) => {
       try {
         setIsPreparingSwapReview(true);
-        if (isUndefined(values.swapAssetBase) || isUndefined(values.swapAssetQuote)) {
+        if (
+          isUndefined(currentAccount) ||
+          isUndefined(values.swapAssetBase) ||
+          isUndefined(values.swapAssetQuote)
+        ) {
           logger.error('Error submitting swap for review');
           return;
         }
@@ -94,17 +100,57 @@ function BitflowSwapContainer() {
 
         if (!routeQuote) return;
 
-        checkEligibilityForSponsor(values);
+        const stacksSwapData = getStacksSwapSubmissionData({
+          bitflowSwapAssets,
+          isEligibleForSponsor,
+          routeQuote,
+          slippage,
+          values,
+        });
+        onSetSwapSubmissionData(stacksSwapData);
 
-        onSetSwapSubmissionData(
-          getStacksSwapSubmissionData({
-            bitflowSwapAssets,
-            isEligibleForSponsor,
-            routeQuote,
-            slippage,
-            values,
-          })
+        const swapExecutionData = {
+          route: routeQuote.route,
+          amount: Number(stacksSwapData.swapAmountBase),
+          tokenXDecimals: routeQuote.tokenXDecimals,
+          tokenYDecimals: routeQuote.tokenYDecimals,
+        };
+
+        const swapParams = await bitflow.getSwapParams(
+          swapExecutionData,
+          currentAccount.address,
+          slippage
         );
+
+        const formValues = {
+          fee: stacksSwapData.fee,
+          feeCurrency: stacksSwapData.feeCurrency,
+          feeType: stacksSwapData.feeType,
+          nonce: stacksSwapData.nonce,
+        };
+
+        const payload: ContractCallPayload = {
+          anchorMode: AnchorMode.Any,
+          contractAddress: swapParams.contractAddress,
+          contractName: swapParams.contractName,
+          functionName: swapParams.functionName,
+          functionArgs: swapParams.functionArgs.map(x => bytesToHex(serializeCV(x))),
+          postConditionMode: PostConditionMode.Deny,
+          postConditions: swapParams.postConditions.map(pc =>
+            bytesToHex(serializePostCondition(pc))
+          ),
+          publicKey: currentAccount?.stxPublicKey,
+          sponsored: false,
+          txType: TransactionTypes.ContractCall,
+        };
+
+        const unsignedTx = await generateUnsignedTx(payload, formValues);
+        if (!unsignedTx)
+          return logger.error('Attempted to generate unsigned tx, but tx is undefined');
+
+        setUnsignedTx(unsignedTx);
+        checkEligibilityForSponsor(values, unsignedTx);
+
         swapNavigate(RouteUrls.SwapReview);
       } finally {
         setIsPreparingSwapReview(false);
@@ -113,7 +159,9 @@ function BitflowSwapContainer() {
     [
       bitflowSwapAssets,
       checkEligibilityForSponsor,
+      currentAccount,
       fetchRouteQuote,
+      generateUnsignedTx,
       isCrossChainSwap,
       isEligibleForSponsor,
       onReviewDepositSbtc,
@@ -146,55 +194,14 @@ function BitflowSwapContainer() {
     }
 
     try {
-      const routeQuote = await fetchRouteQuote(
-        swapSubmissionData.swapAssetBase,
-        swapSubmissionData.swapAssetQuote,
-        swapSubmissionData.swapAmountBase
-      );
+      if (isEligibleForSponsor) return await submitSponsoredTx();
 
-      if (!routeQuote) return;
+      if (!unsignedTx?.transaction) return logger.error('No unsigned tx to sign');
 
-      const swapExecutionData = {
-        route: routeQuote.route,
-        amount: Number(swapSubmissionData.swapAmountBase),
-        tokenXDecimals: routeQuote.tokenXDecimals,
-        tokenYDecimals: routeQuote.tokenYDecimals,
-      };
-
-      const swapParams = await bitflow.getSwapParams(
-        swapExecutionData,
-        currentAccount.address,
-        swapSubmissionData.slippage
-      );
-
-      const tempFormValues = {
-        fee: swapSubmissionData.fee,
-        feeCurrency: swapSubmissionData.feeCurrency,
-        feeType: swapSubmissionData.feeType,
-        nonce: swapSubmissionData.nonce,
-      };
-
-      const payload: ContractCallPayload = {
-        anchorMode: AnchorMode.Any,
-        contractAddress: swapParams.contractAddress,
-        contractName: swapParams.contractName,
-        functionName: swapParams.functionName,
-        functionArgs: swapParams.functionArgs.map(x => bytesToHex(serializeCV(x))),
-        postConditionMode: PostConditionMode.Deny,
-        postConditions: swapParams.postConditions.map(pc => bytesToHex(serializePostCondition(pc))),
-        publicKey: currentAccount?.stxPublicKey,
-        sponsored: swapSubmissionData.sponsored,
-        txType: TransactionTypes.ContractCall,
-      };
-
-      const unsignedTx = await generateUnsignedTx(payload, tempFormValues);
-      if (!unsignedTx)
-        return logger.error('Attempted to generate unsigned tx, but tx is undefined');
-
-      const signedTx = await signTx(unsignedTx);
+      const signedTx = await signTx(unsignedTx.transaction);
       if (!signedTx)
         return logger.error('Attempted to generate raw tx, but signed tx is undefined');
-      if (isEligibleForSponsor) return await verifyAndSubmitSponsorTx(signedTx);
+
       return await broadcastStacksSwap(signedTx);
     } catch (e) {
       navigate(RouteUrls.SwapError, {
@@ -209,8 +216,6 @@ function BitflowSwapContainer() {
   }, [
     broadcastStacksSwap,
     currentAccount,
-    fetchRouteQuote,
-    generateUnsignedTx,
     isCrossChainSwap,
     isEligibleForSponsor,
     isLoading,
@@ -219,8 +224,9 @@ function BitflowSwapContainer() {
     setIsIdle,
     setIsLoading,
     signTx,
+    submitSponsoredTx,
     swapSubmissionData,
-    verifyAndSubmitSponsorTx,
+    unsignedTx,
   ]);
 
   const swapContextValue: SwapContext = {

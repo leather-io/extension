@@ -38,10 +38,8 @@ import { PostConditions } from '@app/features/stacks-transaction-request/post-co
 import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx-transfer-details/stx-transfer-details';
 import { StacksTxSubmitAction } from '@app/features/stacks-transaction-request/submit-action';
 import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
-import {
-  submitSponsoredSbtcTransaction,
-  useCheckSbtcSponsorshipEligible,
-} from '@app/query/sbtc/sponsored-transactions';
+import { useCheckSbtcSponsorshipEligible } from '@app/query/sbtc/sponsored-transactions.hooks';
+import { submitSponsoredSbtcTransaction } from '@app/query/sbtc/sponsored-transactions.query';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import {
@@ -64,7 +62,7 @@ function TransactionRequestBase() {
   const { data: nextNonce, status: nonceQueryStatus } = useNextNonce(stxAddress);
 
   const { isVerifying: isVerifyingSbtcSponsorship, result: sbtcSponsorshipEligibility } =
-    useCheckSbtcSponsorshipEligible(unsignedTx, nextNonce, stxFees);
+    useCheckSbtcSponsorshipEligible(unsignedTx, nextNonce?.nonce, stxFees);
 
   const canSubmit =
     filteredBalanceQuery.status === 'success' &&

@@ -7,7 +7,7 @@ import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { isTxSponsored } from '@app/common/transactions/stacks/transaction.utils';
 import { FeesRow } from '@app/components/fees-row/fees-row';
 import { LoadingRectangle } from '@app/components/loading-rectangle';
-import type { SbtcSponsorshipEligibility } from '@app/query/sbtc/sponsored-transactions';
+import type { SbtcSponsorshipEligibility } from '@app/query/sbtc/sponsored-transactions.query';
 import { useUnsignedPrepareTransactionDetails } from '@app/store/transactions/transaction.hooks';
 
 interface FeeFormProps {
