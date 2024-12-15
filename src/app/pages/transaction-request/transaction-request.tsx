@@ -13,6 +13,7 @@ import {
   useStxCryptoAssetBalance,
 } from '@leather.io/query';
 import { Link } from '@leather.io/ui';
+import { isString } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
@@ -37,10 +38,15 @@ import { PostConditions } from '@app/features/stacks-transaction-request/post-co
 import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx-transfer-details/stx-transfer-details';
 import { StacksTxSubmitAction } from '@app/features/stacks-transaction-request/submit-action';
 import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
+import {
+  submitSponsoredSbtcTransaction,
+  useCheckSbtcSponsorshipEligible,
+} from '@app/query/sbtc/sponsored-transactions';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import {
   useGenerateUnsignedStacksTransaction,
+  useSignStacksTransaction,
   useUnsignedStacksTransactionBaseState,
 } from '@app/store/transactions/transaction.hooks';
 
@@ -51,14 +57,23 @@ function TransactionRequestBase() {
 
   const generateUnsignedTx = useGenerateUnsignedStacksTransaction();
   const stxAddress = useCurrentStacksAccountAddress();
+
   const { filteredBalanceQuery } = useStxCryptoAssetBalance(stxAddress);
   const availableUnlockedBalance = filteredBalanceQuery.data?.availableUnlockedBalance;
 
   const { data: nextNonce, status: nonceQueryStatus } = useNextNonce(stxAddress);
-  const canSubmit = filteredBalanceQuery.status === 'success' && nonceQueryStatus === 'success';
+
+  const { isVerifying: isVerifyingSbtcSponsorship, result: sbtcSponsorshipEligibility } =
+    useCheckSbtcSponsorshipEligible(unsignedTx, nextNonce, stxFees);
+
+  const canSubmit =
+    filteredBalanceQuery.status === 'success' &&
+    nonceQueryStatus === 'success' &&
+    !isVerifyingSbtcSponsorship;
 
   const navigate = useNavigate();
   const { stacksBroadcastTransaction } = useStacksBroadcastTransaction({ token: 'STX' });
+  const signStacksTransaction = useSignStacksTransaction();
 
   useOnMount(() => void analytics.track('view_transaction_signing'));
 
@@ -67,12 +82,27 @@ function TransactionRequestBase() {
     formikHelpers: FormikHelpers<StacksTransactionFormValues>
   ) {
     formikHelpers.setSubmitting(true);
-    const unsignedTx = await generateUnsignedTx(values);
+    if (sbtcSponsorshipEligibility?.isEligible) {
+      try {
+        const signedSponsoredTx = await signStacksTransaction(
+          sbtcSponsorshipEligibility.unsignedSponsoredTx!
+        );
+        if (!signedSponsoredTx) throw new Error('Unable to sign sponsored transaction!');
+        const result = await submitSponsoredSbtcTransaction(signedSponsoredTx);
+        if (!result.txId)
+          navigate(RouteUrls.TransactionBroadcastError, { state: { message: result.error } });
+      } catch (e: any) {
+        const message = isString(e) ? e : e.message;
+        navigate(RouteUrls.TransactionBroadcastError, { state: { message } });
+      }
+    } else {
+      const unsignedTx = await generateUnsignedTx(values);
 
-    if (!unsignedTx)
-      return logger.error('Failed to generate unsigned transaction in transaction-request');
+      if (!unsignedTx)
+        return logger.error('Failed to generate unsigned transaction in transaction-request');
 
-    await stacksBroadcastTransaction(unsignedTx);
+      await stacksBroadcastTransaction(unsignedTx);
+    }
 
     void analytics.track('submit_fee_for_transaction', {
       calculation: stxFees?.calculation || 'unknown',
@@ -128,7 +158,7 @@ function TransactionRequestBase() {
               {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
 
               <NonceSetter />
-              <FeeForm fees={stxFees} />
+              <FeeForm fees={stxFees} sbtcSponsorshipEligibility={sbtcSponsorshipEligibility} />
               <Link
                 alignSelf="flex-end"
                 my="space.04"
