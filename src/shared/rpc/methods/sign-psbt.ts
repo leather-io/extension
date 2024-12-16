@@ -1,12 +1,7 @@
 import { SigHash } from '@scure/btc-signer/transaction';
 import { z } from 'zod';
 
-import {
-  SignatureHash as BtcKitSignatureHash,
-  DefineRpcMethod,
-  RpcRequest,
-  RpcResponse,
-} from '@leather.io/rpc';
+import { SignatureHash as BtcKitSignatureHash, RpcRequest } from '@leather.io/rpc';
 
 import { defaultNetworkIdSchema } from '../rpc-schemas';
 import {
@@ -54,7 +49,3 @@ export function getRpcSignPsbtParamErrors(obj: unknown) {
 type SignPsbtRequestParams = z.infer<typeof rpcSignPsbtParamsSchema>;
 
 export type SignPsbtRequest = RpcRequest<'signPsbt', SignPsbtRequestParams>;
-
-type SignPsbtResponse = RpcResponse<{ hex: string }>;
-
-export type SignPsbt = DefineRpcMethod<SignPsbtRequest, SignPsbtResponse>;
