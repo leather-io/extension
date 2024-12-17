@@ -59,51 +59,54 @@ export function IncreaseBtcFeeSheet() {
         validateOnMount={false}
         validationSchema={validationSchema}
       >
-        <>
-          <Sheet
-            isShowing={location.pathname === RouteUrls.IncreaseBtcFee}
-            onClose={onClose}
-            header={<SheetHeader title="Increase fee" />}
-            footer={
-              <TransactionActions
-                isDisabled={isBroadcasting}
-                isBroadcasting={isBroadcasting}
-                onCancel={() => navigate(RouteUrls.Home)}
-              />
-            }
-          >
-            <Stack gap="space.05" px="space.05" pb="space.05">
-              <Suspense
-                fallback={
-                  <Flex alignItems="center" justifyContent="center" p="space.06">
-                    <Spinner />
-                  </Flex>
-                }
-              >
-                <Caption>
-                  If your transaction is pending for a long time, its fee might not be high enough
-                  to be included in a block. Update the fee for a higher value and try again.
-                </Caption>
-                <Stack gap="space.06">
-                  {btcTx && <BitcoinTransactionItem transaction={btcTx} />}
-                  <Stack gap="space.04">
-                    <Stack gap="space.01">
-                      <BitcoinCustomFeeInput
-                        isSendingMax={false}
-                        recipients={recipients}
-                        hasInsufficientBalanceError={false}
-                        customFeeInitialValue={initialFeeRate}
-                      />
-                    </Stack>
+        {({ submitForm }) => (
+          <>
+            <Sheet
+              isShowing={location.pathname === RouteUrls.IncreaseBtcFee}
+              onClose={onClose}
+              header={<SheetHeader title="Increase fee" />}
+              footer={
+                <TransactionActions
+                  isDisabled={isBroadcasting}
+                  isBroadcasting={isBroadcasting}
+                  onSubmit={submitForm}
+                  onCancel={() => navigate(RouteUrls.Home)}
+                />
+              }
+            >
+              <Stack gap="space.05" px="space.05" pb="space.05">
+                <Suspense
+                  fallback={
+                    <Flex alignItems="center" justifyContent="center" p="space.06">
+                      <Spinner />
+                    </Flex>
+                  }
+                >
+                  <Caption>
+                    If your transaction is pending for a long time, its fee might not be high enough
+                    to be included in a block. Update the fee for a higher value and try again.
+                  </Caption>
+                  <Stack gap="space.06">
+                    {btcTx && <BitcoinTransactionItem transaction={btcTx} />}
+                    <Stack gap="space.04">
+                      <Stack gap="space.01">
+                        <BitcoinCustomFeeInput
+                          isSendingMax={false}
+                          recipients={recipients}
+                          hasInsufficientBalanceError={false}
+                          customFeeInitialValue={initialFeeRate}
+                        />
+                      </Stack>
 
-                    {balance && <Caption>Balance: {btcBalance}</Caption>}
+                      {balance && <Caption>Balance: {btcBalance}</Caption>}
+                    </Stack>
                   </Stack>
-                </Stack>
-              </Suspense>
-            </Stack>
-          </Sheet>
-          <Outlet />
-        </>
+                </Suspense>
+              </Stack>
+            </Sheet>
+            <Outlet />
+          </>
+        )}
       </Formik>
     </>
   );
