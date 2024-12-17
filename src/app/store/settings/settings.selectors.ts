@@ -26,3 +26,7 @@ const selectIsPrivateMode = createSelector(selectSettings, state => state.isPriv
 export function useIsPrivateMode() {
   return useSelector(selectIsPrivateMode);
 }
+
+export function useHasUserBypassedInscriptionChecks() {
+  return useSelector(selectSettings, state => state.bypassInscriptionChecks ?? false);
+}
