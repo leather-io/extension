@@ -6,11 +6,14 @@ interface InitialState {
   userSelectedTheme: UserSelectedTheme;
   dismissedMessages: string[];
   isPrivateMode?: boolean;
+  bypassInscriptionChecks?: boolean;
+  discardedInscriptions: string[];
 }
 
 const initialState: InitialState = {
   userSelectedTheme: 'system',
   dismissedMessages: [],
+  discardedInscriptions: [],
 };
 
 export const settingsSlice = createSlice({
@@ -29,6 +32,21 @@ export const settingsSlice = createSlice({
     },
     togglePrivateMode(state) {
       state.isPrivateMode = !state.isPrivateMode;
+    },
+    dangerouslyChosenToBypassAllInscriptionChecks(state) {
+      state.bypassInscriptionChecks = true;
+    },
+    discardInscription(state, action: PayloadAction<string>) {
+      if (!Array.isArray(state.discardedInscriptions)) state.discardedInscriptions = [];
+      state.discardedInscriptions.push(action.payload);
+    },
+    recoverInscription(state, action: PayloadAction<string>) {
+      state.discardedInscriptions = state.discardedInscriptions.filter(
+        inscriptionId => inscriptionId !== action.payload
+      );
+    },
+    resetInscriptionState(state) {
+      state.discardedInscriptions = [];
     },
   },
 });

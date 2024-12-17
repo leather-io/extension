@@ -42,6 +42,7 @@ export const testSoftwareAccountDefaultWalletState = {
   networks: { ids: [], entities: {}, currentNetworkId: 'mainnet' },
   ordinals: {},
   settings: {
+    discardedInscriptions: [],
     userSelectedTheme: 'system',
     dismissedMessages: [],
   },
