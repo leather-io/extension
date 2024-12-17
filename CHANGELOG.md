@@ -1,3 +1,10 @@
+## [6.55.0](https://github.com/leather-io/extension/compare/v6.54.0...v6.55.0) (2024-12-17)
+
+
+### Features
+
+* **sbtc:** update contracts with mainnet addresses ([cd58bce](https://github.com/leather-io/extension/commit/cd58bce6ac63e01495c985971a52cf40bed0b641))
+
 ## [6.54.0](https://github.com/leather-io/extension/compare/v6.53.0...v6.54.0) (2024-11-25)
 
 
