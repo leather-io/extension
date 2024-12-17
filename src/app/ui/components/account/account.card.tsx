@@ -69,7 +69,7 @@ export function AccountCard({
       </Flex>
       <Flex flexDir={{ base: 'column', md: 'row' }} justify="space-between">
         <Box mb="space.05" mt="space.04">
-          <SkeletonLoader width="200px" height="38px" isLoading={isLoadingBalance}>
+          <SkeletonLoader width="200px" height="46px" isLoading={isLoadingBalance}>
             <styled.h1
               textStyle="heading.02"
               data-state={isLoadingAdditionalData ? 'loading' : undefined}
