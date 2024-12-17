@@ -1,4 +1,3 @@
-import illustration from '@assets/illustrations/stack-of-coins-with-hands-coming-out.png';
 import { Box, styled } from 'leather-styles/jsx';
 
 import { Flag, type FlagProps } from '@leather.io/ui';
@@ -14,18 +13,26 @@ function SbtcPromoCardLayout(props: SbtcPromoCardContentProps) {
 
   return (
     <Flag
+      cursor="pointer"
       reverse
-      img={<styled.img src={illustration} width={100} filter={invertStyle} mr="space.03" />}
+      img={
+        <styled.img
+          src="assets/illustrations/sbtc-earn-promo.svg"
+          width={100}
+          filter={invertStyle}
+          mr="space.03"
+        />
+      }
       background="ink.background-secondary"
       borderRadius={8}
       {...props}
     >
-      <Box px="space.04">
+      <Box pl="space.04" py="space.04">
         <styled.h3 textStyle="heading.05" fontSize="17px" lineHeight={1.4}>
-          Bridge BTC → sBTC
+          Earn rewards in BTC
         </styled.h3>
         <styled.p textStyle="label.03" mt="space.01">
-          And receive yields of 5%
+          Enroll your sBTC to unlock yields through the protocol.
         </styled.p>
       </Box>
     </Flag>
