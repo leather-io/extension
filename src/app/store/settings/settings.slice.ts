@@ -6,6 +6,7 @@ interface InitialState {
   userSelectedTheme: UserSelectedTheme;
   dismissedMessages: string[];
   isPrivateMode?: boolean;
+  bypassInscriptionChecks?: boolean;
 }
 
 const initialState: InitialState = {
@@ -29,6 +30,9 @@ export const settingsSlice = createSlice({
     },
     togglePrivateMode(state) {
       state.isPrivateMode = !state.isPrivateMode;
+    },
+    dangerouslyChosenToBypassAllInscriptionChecks(state) {
+      state.bypassInscriptionChecks = true;
     },
   },
 });
