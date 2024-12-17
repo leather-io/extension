@@ -7,7 +7,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
+import { useBalances } from '@app/common/hooks/balance/use-balances';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 import { whenPageMode } from '@app/common/utils';
@@ -45,7 +45,7 @@ export function Home() {
   });
 
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const { totalUsdBalance, isPending, isLoadingAdditionalData } = useTotalBalance({
+  const { totalUsdBalance, availableUsdBalance, isPending, isLoadingAdditionalData } = useBalances({
     btcAddress,
     stxAddress: account?.address || '',
   });
@@ -69,7 +69,8 @@ export function Home() {
       <Box px={{ base: 'space.05', md: 0 }} pb={{ base: 'space.05', md: 0 }}>
         <AccountCard
           name={name}
-          balance={totalUsdBalance}
+          availableBalance={availableUsdBalance}
+          totalBalance={totalUsdBalance}
           toggleSwitchAccount={() => toggleSwitchAccount()}
           isFetchingBnsName={isFetchingBnsName}
           isLoadingBalance={isPending}
