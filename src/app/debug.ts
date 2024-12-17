@@ -57,6 +57,9 @@ const debug = {
     chrome.storage.local.clear();
     chrome.storage.session.clear();
   },
+  bypassInscriptionChecks() {
+    store.dispatch(settingsSlice.actions.dangerouslyChosenToBypassAllInscriptionChecks());
+  },
 };
 
 export function setDebugOnGlobal() {
