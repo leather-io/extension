@@ -47,7 +47,9 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
     return {
       isFetching: isFetchingStxBalance || isFetchingBtcBalance,
       isLoading: isLoadingStxBalance || isLoadingBtcBalance,
-      isPending: isPendingStxBalance || isPendingBtcBalance,
+      isPending:
+        (isPendingStxBalance && Boolean(stxAddress)) ||
+        (isPendingBtcBalance && Boolean(btcAddress)),
       totalBalance,
       totalUsdBalance: i18nFormatCurrency(
         totalBalance,
@@ -69,5 +71,7 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
     stxMarketData,
     isLoadingAdditionalDataBtcBalance,
     isLoadingAdditionalDataStxBalance,
+    stxAddress,
+    btcAddress,
   ]);
 }
