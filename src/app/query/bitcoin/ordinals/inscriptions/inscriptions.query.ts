@@ -1,19 +1,25 @@
 import { useCallback, useMemo } from 'react';
 
-import { useQueries } from '@tanstack/react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 
 import {
+  type UtxoResponseItem,
   combineInscriptionResults,
+  createBestInSlotInscription,
   createInscriptionByXpubQuery,
   createNumberOfInscriptionsFn,
   filterUninscribedUtxosToRecoverFromTaproot,
+  filterUtxosWithInscriptions,
   useBitcoinClient,
   useGetTaprootUtxosByAddressQuery,
   utxosToBalance,
 } from '@leather.io/query';
 
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useCurrentBitcoinAccountXpubs } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
+import {
+  useCurrentBitcoinAccountNativeSegwitXpub,
+  useCurrentBitcoinAccountXpubs,
+} from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
 interface UseInscriptionArgs {
@@ -37,6 +43,17 @@ export function useNumberOfInscriptionsOnUtxo() {
   );
 }
 
+export function useCurrentNativeSegwitInscriptions() {
+  const client = useBitcoinClient();
+  const nativeSegwitXpub = useCurrentBitcoinAccountNativeSegwitXpub();
+  return useQuery({
+    ...createInscriptionByXpubQuery(client, nativeSegwitXpub),
+    select(data) {
+      return data.data.map(createBestInSlotInscription);
+    },
+  });
+}
+
 export function useCurrentTaprootAccountUninscribedUtxos() {
   const taprootAccount = useCurrentTaprootAccount();
   const currentAccountIndex = useCurrentAccountIndex();
@@ -54,4 +71,15 @@ export function useCurrentTaprootAccountUninscribedUtxos() {
 export function useCurrentTaprootAccountBalance() {
   const uninscribedUtxos = useCurrentTaprootAccountUninscribedUtxos();
   return useMemo(() => utxosToBalance(uninscribedUtxos), [uninscribedUtxos]);
+}
+
+export function useFilterNativeSegwitInscriptions() {
+  const { data: inscriptions } = useCurrentNativeSegwitInscriptions();
+
+  const filterOutInscriptions = useCallback(
+    (utxos: UtxoResponseItem[]) => utxos.filter(filterUtxosWithInscriptions(inscriptions ?? [])),
+    [inscriptions]
+  );
+
+  return { filterOutInscriptions };
 }

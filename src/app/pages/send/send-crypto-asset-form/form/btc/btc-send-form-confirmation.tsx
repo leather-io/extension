@@ -36,6 +36,7 @@ import {
 } from '@app/components/info-card/info-card';
 import { Card, Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
+import { useInscribedSpendableUtxos } from '@app/features/discarded-inscriptions/use-inscribed-spendable-utxos';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
@@ -81,8 +82,11 @@ export function BtcSendFormConfirmation() {
   const sendingValue = formatMoneyPadded(createMoneyFromDecimal(Number(transferAmount), symbol));
   const summaryFee = formatMoneyPadded(createMoney(Number(fee), symbol));
 
+  const utxosOfSpendableInscriptions = useInscribedSpendableUtxos();
+
   async function initiateTransaction() {
     await broadcastTx({
+      skipSpendableCheckUtxoIds: utxosOfSpendableInscriptions.map(utxo => utxo.txid),
       tx: transaction.hex,
       async onSuccess(txid) {
         void analytics.track('broadcast_transaction', {

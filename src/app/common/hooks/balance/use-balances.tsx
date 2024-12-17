@@ -10,11 +10,13 @@ import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance
 
 import { useSip10ManagedTokensBalance } from './use-sip10-balance';
 
-interface UseTotalBalanceArgs {
+const highBalance = createMoney(100_000, 'USD');
+
+interface UseBalanceArgs {
   btcAddress: string;
   stxAddress: string;
 }
-export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs) {
+export function useBalances({ btcAddress, stxAddress }: UseBalanceArgs) {
   // get market data
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const stxMarketData = useCryptoCurrencyMarketDataMeanAverage('STX');
@@ -46,12 +48,24 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
   return useMemo(() => {
     // calculate total balance
     const stxUsdAmount = baseCurrencyAmountInQuote(stxBalance, stxMarketData);
-    const btcUsdAmount = baseCurrencyAmountInQuote(btcBalance.availableBalance, btcMarketData);
+
+    const availableBtcUsdAmount = baseCurrencyAmountInQuote(
+      btcBalance.availableBalance,
+      btcMarketData
+    );
+
+    const totalBtcUsdAmount = baseCurrencyAmountInQuote(btcBalance.totalBalance, btcMarketData);
 
     const totalBalance = {
       ...stxUsdAmount,
-      amount: stxUsdAmount.amount.plus(btcUsdAmount.amount).plus(sip10BalanceUsd.amount),
+      amount: stxUsdAmount.amount.plus(totalBtcUsdAmount.amount).plus(sip10BalanceUsd.amount),
     };
+
+    const availableBalance = {
+      ...stxUsdAmount,
+      amount: stxUsdAmount.amount.plus(availableBtcUsdAmount.amount).plus(sip10BalanceUsd.amount),
+    };
+
     return {
       isFetching: isFetchingStxBalance || isFetchingBtcBalance,
       isLoading: isLoadingStxBalance || isLoadingBtcBalance,
@@ -59,28 +73,34 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
         (isPendingStxBalance && Boolean(stxAddress)) ||
         (isPendingBtcBalance && Boolean(btcAddress)),
       totalBalance,
+      availableBalance,
+      availableUsdBalance: i18nFormatCurrency(
+        availableBalance,
+        availableBalance.amount.isGreaterThanOrEqualTo(highBalance.amount) ? 0 : 2
+      ),
       totalUsdBalance: i18nFormatCurrency(
         totalBalance,
-        totalBalance.amount.isGreaterThanOrEqualTo(100_000) ? 0 : 2
+        totalBalance.amount.isGreaterThanOrEqualTo(highBalance.amount) ? 0 : 2
       ),
       isLoadingAdditionalData:
         isLoadingAdditionalDataStxBalance || isLoadingAdditionalDataBtcBalance,
     };
   }, [
-    btcBalance.availableBalance,
-    btcMarketData,
-    isFetchingBtcBalance,
-    isFetchingStxBalance,
-    isLoadingBtcBalance,
-    isLoadingStxBalance,
-    isPendingBtcBalance,
-    isPendingStxBalance,
     stxBalance,
     stxMarketData,
-    isLoadingAdditionalDataBtcBalance,
-    isLoadingAdditionalDataStxBalance,
+    btcBalance.availableBalance,
+    btcBalance.totalBalance,
+    btcMarketData,
+    sip10BalanceUsd.amount,
+    isFetchingStxBalance,
+    isFetchingBtcBalance,
+    isLoadingStxBalance,
+    isLoadingBtcBalance,
+    isPendingStxBalance,
     stxAddress,
+    isPendingBtcBalance,
     btcAddress,
-    sip10BalanceUsd,
+    isLoadingAdditionalDataStxBalance,
+    isLoadingAdditionalDataBtcBalance,
   ]);
 }

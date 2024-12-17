@@ -287,12 +287,19 @@ export function useSignBitcoinTx() {
   };
 }
 
-export function useCurrentBitcoinAccountXpubs() {
-  const taprootAccount = useCurrentTaprootAccount();
+export function useCurrentBitcoinAccountNativeSegwitXpub() {
   const nativeSegwitAccount = useCurrentNativeSegwitAccount();
+  return `wpkh(${nativeSegwitAccount?.keychain.publicExtendedKey})`;
+}
 
-  return [
-    `wpkh(${nativeSegwitAccount?.keychain.publicExtendedKey})`,
-    `tr(${taprootAccount?.keychain.publicExtendedKey})`,
-  ];
+function useCurrentBitcoinAccountTaprootXpub() {
+  const taprootAccount = useCurrentTaprootAccount();
+  return `tr(${taprootAccount?.keychain.publicExtendedKey})`;
+}
+
+export function useCurrentBitcoinAccountXpubs() {
+  const taprootXpub = useCurrentBitcoinAccountTaprootXpub();
+  const nativeSegwitXpub = useCurrentBitcoinAccountNativeSegwitXpub();
+
+  return [taprootXpub, nativeSegwitXpub];
 }
