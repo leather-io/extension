@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import { useConfigSbtc } from '../common/remote-config/remote-config.query';
 
-enum SbtcStatus {
+export enum SbtcStatus {
   Pending = 'pending',
   Reprocessing = 'reprocessing',
   Accepted = 'accepted',
