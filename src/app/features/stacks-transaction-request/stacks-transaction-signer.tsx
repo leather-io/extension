@@ -124,6 +124,7 @@ export function StacksTransactionSigner({
             {!isNonceAlreadySet && <NonceSetter />}
             <FeeForm
               fees={stxFees}
+              sbtcSponsorshipEligibility={{ isEligible: false }}
               defaultFeeValue={Number(transactionRequest?.fee || 0)}
               disableFeeSelection={disableFeeSelection}
             />
