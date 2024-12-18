@@ -10,6 +10,7 @@ import { ORD_IO_URL } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
+import { useDiscardedInscriptions } from '@app/store/settings/settings.selectors';
 
 import { CollectibleAudio } from '../_collectible-types/collectible-audio';
 import { CollectibleIframe } from '../_collectible-types/collectible-iframe';
@@ -29,6 +30,7 @@ function openInscriptionUrl(num: number) {
 export function Inscription({ inscription }: InscriptionProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  const { hasBeenDiscarded, discardInscription, recoverInscription } = useDiscardedInscriptions();
 
   const openSendInscriptionModal = useCallback(() => {
     navigate(RouteUrls.SendOrdinalInscription, {
@@ -112,6 +114,19 @@ export function Inscription({ inscription }: InscriptionProps) {
     <Box position="relative">
       {content}
       <HighSatValueUtxoWarning inscription={inscription} />
+      IsDiscarded: {String(hasBeenDiscarded(inscription.id))}
+      <br />
+      value: {inscription.value}
+      <br />
+      <button
+        onClick={() => {
+          hasBeenDiscarded(inscription.id)
+            ? recoverInscription(inscription.id)
+            : discardInscription(inscription.id);
+        }}
+      >
+        toggle safe to spend
+      </button>
     </Box>
   );
 }
