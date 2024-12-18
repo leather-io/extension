@@ -45,5 +45,8 @@ export const settingsSlice = createSlice({
         inscriptionId => inscriptionId !== action.payload
       );
     },
+    resetInscriptionState(state) {
+      state.discardedInscriptions = [];
+    },
   },
 });

@@ -60,6 +60,9 @@ const debug = {
   bypassInscriptionChecks() {
     store.dispatch(settingsSlice.actions.dangerouslyChosenToBypassAllInscriptionChecks());
   },
+  resetInscriptionState() {
+    store.dispatch(settingsSlice.actions.resetInscriptionState());
+  },
 };
 
 export function setDebugOnGlobal() {
