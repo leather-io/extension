@@ -18,12 +18,14 @@ function createBtcCryptoAssetBalance(balance: Money): BtcCryptoAssetBalance {
 
 export function useBtcCryptoAssetBalanceNativeSegwit(address: string) {
   const runesEnabled = useRunesEnabled();
+  console.log({ runesEnabled });
 
+  // Force filtering off here too
   const query = useNativeSegwitUtxosByAddress({
     address,
-    filterInscriptionUtxos: true,
+    filterInscriptionUtxos: false,
     filterPendingTxsUtxos: true,
-    filterRunesUtxos: runesEnabled,
+    filterRunesUtxos: false,
   });
 
   const balance = useMemo(() => {
