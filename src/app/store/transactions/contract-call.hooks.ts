@@ -30,7 +30,8 @@ export function useGenerateStacksContractCallUnsignedTx() {
         fee: values.fee ?? 0,
         txData: { ...payload, network },
       };
-      return generateUnsignedTransaction(options);
+      const transaction = await generateUnsignedTransaction(options);
+      return { transaction, options };
     },
     [account, network, nextNonce?.nonce]
   );

@@ -3,7 +3,7 @@ import type { RouteQuote } from 'bitflow-sdk';
 
 import { BtcFeeType, FeeTypes } from '@leather.io/models';
 import { type SwapAsset, defaultSwapFee } from '@leather.io/query';
-import { capitalize, isDefined, microStxToStx } from '@leather.io/utils';
+import { capitalize, isDefined } from '@leather.io/utils';
 
 import type { SwapFormValues } from '@shared/models/form.model';
 
@@ -31,7 +31,7 @@ export function getStacksSwapSubmissionData({
   values,
 }: getStacksSwapSubmissionDataArgs): SwapSubmissionData {
   return {
-    fee: microStxToStx(defaultSwapFee.amount).toNumber(),
+    fee: defaultSwapFee.amount.toString(),
     feeCurrency: 'STX',
     feeType: FeeTypes[FeeTypes.Middle],
     liquidityFee: estimateLiquidityFee(routeQuote.route.dex_path),

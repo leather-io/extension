@@ -158,9 +158,26 @@
           "type": "boolean",
           "description": "Determines whether or not SBTC is enabled"
         },
+        "sponsorshipsEnabled": {
+          "type": "boolean",
+          "description": "Determines whether or not sponsored sBTC transactions are enabled"
+        },
         "emilyApiUrl": {
           "type": "string",
           "description": "URL for the Emily API"
+        },
+        "sponsorshipApiUrl": {
+          "type": "object",
+          "properties": {
+            "mainnet": {
+              "type": "string",
+              "description": "Mainnet URL for the Leather Sponsor API"
+            },
+            "testnet": {
+              "type": "string",
+              "description": "Testnet URL for the Leather Sponsor API"
+            }
+          }
         },
         "showPromoLinkOnNetworks": {
           "type": "array",
