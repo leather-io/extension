@@ -1,3 +1,49 @@
+## [6.56.0](https://github.com/leather-io/extension/compare/v6.55.0...v6.56.0) (2024-12-18)
+
+
+### Features
+
+* add default set fees, closes [#5930](https://github.com/leather-io/extension/issues/5930) ([e5fb4a8](https://github.com/leather-io/extension/commit/e5fb4a8e1b7b713186b4dd4bd806b3ad9a38a110))
+* add mock alex prices ([e096ff2](https://github.com/leather-io/extension/commit/e096ff27bb97c0d27414cdbf886103f63b6211f0))
+* adds BNS punycode support gobally ([5c7f1e1](https://github.com/leather-io/extension/commit/5c7f1e1798f45081391ff450a231bb73906ee4b6))
+* convert rpc-methods to [@leather](https://github.com/leather).io/rpc types ([238cb11](https://github.com/leather-io/extension/commit/238cb11880297f9f08ec115e230b8706fe5f3416))
+* migrate legacy auth request to approver ux ([5153b22](https://github.com/leather-io/extension/commit/5153b2227ea1aee15521b3645860a84f7d55c87b))
+* redesign send rpc transfer flow ([9c95c58](https://github.com/leather-io/extension/commit/9c95c5851a77f84915b5f3500df00f2089e03119))
+* sbtc integration ([fc1897a](https://github.com/leather-io/extension/commit/fc1897a0d8c3fb2be5df711c6ce5a46a4e82bb6b))
+* sponsored sbtc txns ([2fc9629](https://github.com/leather-io/extension/commit/2fc9629524ee0af0f4da651ee42d37a0ebe652c9))
+
+
+### Bug Fixes
+
+* broken integration test ([3a2535b](https://github.com/leather-io/extension/commit/3a2535b8fb0bd77b092e1189833a299ce746b6cb))
+* disable ledger btc swap ([cff46da](https://github.com/leather-io/extension/commit/cff46da739b54078926d81bf1f5e84d6e474ba90))
+* endless loading in ledger mode ([33881cc](https://github.com/leather-io/extension/commit/33881cc5595cbf161e9552a3574b7357e86fca14))
+* insufficient funds in send max btc flow ([41d75da](https://github.com/leather-io/extension/commit/41d75dab4601a4a4925ec2a2bef9524055fda633))
+* **ledger:** increase fee ([d92081e](https://github.com/leather-io/extension/commit/d92081e873309a706a4d5a44eed3e68c492263bb))
+* **ledger:** legacy auth flow ([788ba20](https://github.com/leather-io/extension/commit/788ba200218642cd7714be8c6c19e0a6e69f4923))
+* manage tokens toggle, closes [#5974](https://github.com/leather-io/extension/issues/5974) ([e25f351](https://github.com/leather-io/extension/commit/e25f3512a76c16e16c597d68ffe684791d2d8b81))
+* review screen errors ([f96b3b6](https://github.com/leather-io/extension/commit/f96b3b6516df9d9809615148f0d6f8602b8660ce))
+* show loading state until total balance is fully loaded ([91cf37f](https://github.com/leather-io/extension/commit/91cf37f44335b3b89033589ccc8dfe5747262719))
+* support regtest address validation ([720fa86](https://github.com/leather-io/extension/commit/720fa86e740d47e388a2b027de82db213c7f9adf))
+* update earn banner ([d0c2efc](https://github.com/leather-io/extension/commit/d0c2efc30ec6c5debcc579866d36e5d3f82f7e5d))
+* virtuoso list fixed height, closes [#5975](https://github.com/leather-io/extension/issues/5975) ([6704ac5](https://github.com/leather-io/extension/commit/6704ac569d8070c63a7ac1dc864798aa8110f475))
+
+
+### Internal
+
+* activity list deposit status ([1f61746](https://github.com/leather-io/extension/commit/1f617461a046b676ac1aeef36539b3fe9ea5cbf8))
+* fix chrome eslint warning ([50ab064](https://github.com/leather-io/extension/commit/50ab06482893c67118a56478b713630037302408))
+* fix links in readme ([742b38d](https://github.com/leather-io/extension/commit/742b38d1015c3ec997896541ebc590787c3d8502))
+* fix unused exports ([90ec152](https://github.com/leather-io/extension/commit/90ec1525a0044485f68d5d66503a53a4b545431a))
+* generic network name validator ([dda886f](https://github.com/leather-io/extension/commit/dda886f0752b5ccba78de23cfb56325db51efbc9))
+* post-release merge back ([0afa9ce](https://github.com/leather-io/extension/commit/0afa9ce6d543b1477a612ca10bb9bc45ccdbf640))
+* post-release merge back ([2fb0203](https://github.com/leather-io/extension/commit/2fb020390ed5d50694f61182e7bdf176d80391dc))
+* post-release merge back ([490d5c7](https://github.com/leather-io/extension/commit/490d5c7c89f5223fcae67cd09fec100be55e3e21))
+* restore @chrome/types ([2533000](https://github.com/leather-io/extension/commit/2533000984fc846440acff314a0c75f30d36e087))
+* update version of leather/rpc ([cae6c9a](https://github.com/leather-io/extension/commit/cae6c9a8bd83fbd2bc5ebee80bc78121aa883012))
+* upgrade storybook ([678b033](https://github.com/leather-io/extension/commit/678b0333a7fdb01dc5035eb02d4abd78b13084b0))
+* use zod for rpc validation ([c38725a](https://github.com/leather-io/extension/commit/c38725aeec071f7bdf983372b7ceb6ba63dc44cb))
+
 ## [6.55.0](https://github.com/leather-io/extension/compare/v6.54.0...v6.55.0) (2024-12-17)
 
 
