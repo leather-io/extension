@@ -20,7 +20,14 @@ interface GenerateNativeSegwitTxValues {
   recipients: TransferRecipient[];
 }
 
-export function useGenerateUnsignedNativeSegwitTx() {
+interface UseGenerateUnsignedNativeSegwitTxProps {
+  throwError?: boolean;
+}
+
+// temp arg before refactoring all flows to new design
+export function useGenerateUnsignedNativeSegwitTx({
+  throwError = false,
+}: UseGenerateUnsignedNativeSegwitTxProps = {}) {
   const signer = useCurrentAccountNativeSegwitIndexZeroSigner();
 
   const networkMode = useBitcoinScureLibNetworkConfig();
@@ -87,9 +94,10 @@ export function useGenerateUnsignedNativeSegwitTx() {
       } catch (e) {
         // eslint-disable-next-line no-console
         console.log('Error signing bitcoin transaction', e);
+        if (throwError) throw e;
         return null;
       }
     },
-    [networkMode, signer.address, signer.publicKey]
+    [networkMode, signer.address, signer.publicKey, throwError]
   );
 }

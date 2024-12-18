@@ -40,7 +40,7 @@ export function determineUtxosForSpendAll({
       throw new Error('Cannot calculate spend of invalid address type');
   });
   const filteredUtxos = filterUneconomicalUtxos({ utxos, feeRate, recipients });
-
+  if (!filteredUtxos.length) throw new InsufficientFundsError();
   const sizeInfo = getSizeInfo({
     inputLength: filteredUtxos.length,
     isSendMax: true,
