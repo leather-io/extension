@@ -3,6 +3,8 @@ import { Route, useNavigate } from 'react-router-dom';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box, Stack } from 'leather-styles/jsx';
 
+import { Switch } from '@leather.io/ui';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
@@ -74,6 +76,10 @@ export function Home() {
           onShowBalance={togglePrivateMode}
         >
           <AccountActions />
+          Globally toggle inscription protection
+          <Switch.Root onCheckedChange={val => console.log(val)}>
+            <Switch.Thumb />
+          </Switch.Root>
         </AccountCard>
       </Box>
       {whenPageMode({ full: <FeedbackButton />, popup: null })}
