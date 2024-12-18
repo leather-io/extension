@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import type { P2Ret } from '@scure/btc-signer/payment';
 import { bytesToHex } from '@stacks/common';
 import { type ContractCallPayload, TransactionTypes } from '@stacks/connect';
 import {
@@ -19,11 +20,13 @@ import { bitflow } from '@shared/utils/bitflow-sdk';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { Content, Page } from '@app/components/layout';
+import { BitcoinNativeSegwitAccountLoader } from '@app/components/loaders/bitcoin-account-loader';
 import { PageHeader } from '@app/features/container/headers/page.header';
 import type {
   SbtcSponsorshipEligibility,
   TransactionBase,
 } from '@app/query/sbtc/sponsored-transactions.query';
+import type { Signer } from '@app/store/accounts/blockchain/bitcoin/bitcoin-signer';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
@@ -38,9 +41,17 @@ import { useStacksBroadcastSwap } from './hooks/use-stacks-broadcast-swap';
 import { useSwapNavigate } from './hooks/use-swap-navigate';
 import { SwapContext, SwapProvider } from './swap.context';
 
-export const bitflowSwapRoutes = generateSwapRoutes(<BitflowSwapContainer />);
+// TODO: Refactor coupled Bitflow and Bitcoin swap containers, they should be separate
+export const bitflowSwapRoutes = generateSwapRoutes(
+  <BitcoinNativeSegwitAccountLoader current fallback={<BitflowSwapContainer />}>
+    {signer => <BitflowSwapContainer btcSigner={signer} />}
+  </BitcoinNativeSegwitAccountLoader>
+);
 
-function BitflowSwapContainer() {
+interface BitflowSwapContainerProps {
+  btcSigner?: Signer<P2Ret>;
+}
+function BitflowSwapContainer({ btcSigner }: BitflowSwapContainerProps) {
   const [unsignedTx, setUnsignedTx] = useState<TransactionBase | undefined>();
   const [isSendingMax, setIsSendingMax] = useState(false);
   const [isPreparingSwapReview, setIsPreparingSwapReview] = useState(false);
@@ -51,7 +62,7 @@ function BitflowSwapContainer() {
   const generateUnsignedTx = useGenerateStacksContractCallUnsignedTx();
   const signTx = useSignStacksTransaction();
   const broadcastStacksSwap = useStacksBroadcastSwap();
-  const { onDepositSbtc, onReviewDepositSbtc } = useSbtcDepositTransaction();
+  const { onDepositSbtc, onReviewDepositSbtc } = useSbtcDepositTransaction(btcSigner);
 
   const [sponsorshipEligibility, setSponsorshipEligibility] = useState<
     SbtcSponsorshipEligibility | undefined
@@ -72,7 +83,7 @@ function BitflowSwapContainer() {
     swappableAssetsBase,
     swappableAssetsQuote,
     swapSubmissionData,
-  } = useBitflowSwap();
+  } = useBitflowSwap(btcSigner);
 
   const onSubmitSwapForReview = useCallback(
     async (values: SwapFormValues) => {

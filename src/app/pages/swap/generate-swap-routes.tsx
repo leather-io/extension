@@ -2,6 +2,7 @@ import { Route } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
 import { AccountGate } from '@app/routes/account-gate';
 
@@ -20,6 +21,7 @@ export function generateSwapRoutes(container: React.ReactNode) {
       </Route>
       <Route path={RouteUrls.SwapError} element={<SwapError />} />
       <Route path={RouteUrls.SwapReview} element={<SwapReview />}>
+        {ledgerBitcoinTxSigningRoutes}
         {ledgerStacksTxSigningRoutes}
       </Route>
     </Route>

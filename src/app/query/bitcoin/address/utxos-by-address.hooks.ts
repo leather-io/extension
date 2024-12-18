@@ -1,6 +1,6 @@
 import { useNativeSegwitUtxosByAddress } from '@leather.io/query';
 
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 const defaultArgs = {
   filterInscriptionUtxos: true,
@@ -15,8 +15,8 @@ const defaultArgs = {
 export function useCurrentNativeSegwitUtxos(args = defaultArgs) {
   const { filterInscriptionUtxos, filterPendingTxsUtxos, filterRunesUtxos } = args;
 
-  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const address = nativeSegwitSigner.address;
+  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSignerNullable();
+  const address = nativeSegwitSigner?.address ?? '';
 
   return useNativeSegwitUtxosByAddress({
     address,

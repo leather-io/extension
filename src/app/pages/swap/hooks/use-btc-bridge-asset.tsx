@@ -1,15 +1,15 @@
 import { useCallback } from 'react';
 
 import BtcAvatarIconSrc from '@assets/avatars/btc-avatar-icon.png';
+import type { P2Ret } from '@scure/btc-signer/payment';
 
 import { type SwapAsset, useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import type { Signer } from '@app/store/accounts/blockchain/bitcoin/bitcoin-signer';
 
-export function useBtcSwapAsset() {
-  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const currentBitcoinAddress = nativeSegwitSigner.address;
+export function useBtcSwapAsset(btcSigner?: Signer<P2Ret>) {
+  const currentBitcoinAddress = btcSigner?.address ?? '';
   const { balance } = useBtcCryptoAssetBalanceNativeSegwit(currentBitcoinAddress);
   const bitcoinMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
 

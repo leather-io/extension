@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 
+import type { P2Ret } from '@scure/btc-signer/payment';
 import type { RouteQuote } from 'bitflow-sdk';
 
 import { type SwapAsset } from '@leather.io/query';
@@ -9,7 +10,9 @@ import { logger } from '@shared/logger';
 import { bitflow } from '@shared/utils/bitflow-sdk';
 
 import { useConfigSbtc } from '@app/query/common/remote-config/remote-config.query';
+import type { Signer } from '@app/store/accounts/blockchain/bitcoin/bitcoin-signer';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useHasLedgerKeys } from '@app/store/ledger/ledger.selectors';
 
 import { SwapSubmissionData } from '../swap.context';
 import { useBitflowSwappableAssets } from './use-bitflow-swappable-assets';
@@ -26,7 +29,7 @@ function getBitflowSwappableAssetsWithSbtcAtTop(assets: SwapAsset[]) {
   ].filter(isDefined);
 }
 
-export function useBitflowSwap() {
+export function useBitflowSwap(btcSigner?: Signer<P2Ret>) {
   const [isCrossChainSwap, setIsCrossChainSwap] = useState(false);
   const [swapSubmissionData, setSwapSubmissionData] = useState<SwapSubmissionData>();
   const [slippage, _setSlippage] = useState(0.04);
@@ -34,14 +37,16 @@ export function useBitflowSwap() {
   const address = useCurrentStacksAccountAddress();
   const { data: bitflowSwapAssets = [] } = useBitflowSwappableAssets(address);
   const { isSbtcEnabled } = useConfigSbtc();
+  const isLedger = useHasLedgerKeys();
 
-  const createBtcAsset = useBtcSwapAsset();
+  const createBtcAsset = useBtcSwapAsset(btcSigner);
   const btcAsset = createBtcAsset();
 
   const swappableAssetsBase = useMemo(() => {
-    if (!isSbtcEnabled) return migratePositiveAssetBalancesToTop(bitflowSwapAssets);
+    if (!isSbtcEnabled || !btcSigner || isLedger)
+      return migratePositiveAssetBalancesToTop(bitflowSwapAssets);
     return [btcAsset, ...getBitflowSwappableAssetsWithSbtcAtTop(bitflowSwapAssets)];
-  }, [bitflowSwapAssets, btcAsset, isSbtcEnabled]);
+  }, [bitflowSwapAssets, btcAsset, btcSigner, isLedger, isSbtcEnabled]);
 
   const swappableAssetsQuote = useMemo(() => {
     if (!isSbtcEnabled) return bitflowSwapAssets;
