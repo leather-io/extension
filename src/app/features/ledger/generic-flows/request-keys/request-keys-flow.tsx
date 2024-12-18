@@ -1,10 +1,11 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Sheet, SheetHeader } from '@leather.io/ui';
 
+import { RouteUrls } from '@shared/route-urls';
+
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 
-import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { LedgerRequestKeysContext, LedgerRequestKeysProvider } from './ledger-request-keys.context';
 
 interface RequestKeysFlowProps {
@@ -12,17 +13,15 @@ interface RequestKeysFlowProps {
   isActionCancellableByUser: boolean;
 }
 export function RequestKeysFlow({ context, isActionCancellableByUser }: RequestKeysFlowProps) {
-  const ledgerNavigate = useLedgerNavigate();
   useScrollLock(true);
-
-  const onCancelConnectLedger = ledgerNavigate.cancelLedgerAction;
+  const navigate = useNavigate();
 
   return (
     <LedgerRequestKeysProvider value={context}>
       <Sheet
         isShowing
         header={<SheetHeader />}
-        onClose={isActionCancellableByUser ? onCancelConnectLedger : undefined}
+        onClose={isActionCancellableByUser ? () => navigate(RouteUrls.Home) : undefined}
       >
         <Outlet />
       </Sheet>
