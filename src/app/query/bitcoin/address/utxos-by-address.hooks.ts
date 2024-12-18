@@ -6,10 +6,14 @@ export function useCurrentNativeSegwitUtxos() {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const address = nativeSegwitSigner.address;
 
-  return useNativeSegwitUtxosByAddress({
+  const query = useNativeSegwitUtxosByAddress({
     address,
     filterInscriptionUtxos: false,
     filterPendingTxsUtxos: true,
     filterRunesUtxos: false,
   });
+
+  console.log(query.data);
+
+  return query;
 }
