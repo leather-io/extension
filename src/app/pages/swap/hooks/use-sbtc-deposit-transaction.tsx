@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
-import type { P2TROut } from '@scure/btc-signer/payment';
+import type { P2Ret, P2TROut } from '@scure/btc-signer/payment';
 import {
   MAINNET,
   REGTEST,
@@ -29,7 +29,7 @@ import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import type { Signer } from '@app/store/accounts/blockchain/bitcoin/bitcoin-signer';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -61,16 +61,17 @@ function getSbtcNetworkConfig(network: BitcoinNetworkModes) {
 const clientMainnet = new SbtcApiClientMainnet();
 const clientTestnet = new SbtcApiClientTestnet();
 
-export function useSbtcDepositTransaction() {
+export function useSbtcDepositTransaction(btcSigner?: Signer<P2Ret>) {
   const toast = useToast();
   const { setIsIdle } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);
   const stacksAccount = useCurrentStacksAccount();
   const { data: utxos } = useCurrentNativeSegwitUtxos();
   const { data: feeRates } = useAverageBitcoinFeeRates();
-  const signer = useCurrentAccountNativeSegwitIndexZeroSigner();
   const networkMode = useBitcoinScureLibNetworkConfig();
   const navigate = useNavigate();
   const network = useCurrentNetwork();
+  // TODO: Use with Ledger integration
+  // const sign = useSignBitcoinTx();
 
   const client = useMemo(
     () => (network.chain.bitcoin.mode === 'mainnet' ? clientMainnet : clientTestnet),
@@ -82,7 +83,7 @@ export function useSbtcDepositTransaction() {
 
   return {
     async onReviewDepositSbtc(swapData: SwapSubmissionData, isSendingMax: boolean) {
-      if (!stacksAccount || !utxos) return;
+      if (!stacksAccount || !utxos || !btcSigner) return;
 
       try {
         const deposit: SbtcDeposit = buildSbtcDepositTx({
@@ -92,7 +93,7 @@ export function useSbtcDepositTransaction() {
           signersPublicKey: await client.fetchSignersPublicKey(),
           maxSignerFee,
           reclaimLockTime,
-          reclaimPublicKey: bytesToHex(signer.publicKey).slice(2),
+          reclaimPublicKey: bytesToHex(btcSigner.publicKey).slice(2),
         });
 
         const determineUtxosArgs = {
@@ -110,7 +111,7 @@ export function useSbtcDepositTransaction() {
           ? determineUtxosForSpendAll(determineUtxosArgs)
           : determineUtxosForSpend(determineUtxosArgs);
 
-        const p2wpkh = btc.p2wpkh(signer.publicKey, networkMode);
+        const p2wpkh = btc.p2wpkh(btcSigner.publicKey, networkMode);
 
         for (const input of inputs) {
           deposit.transaction.addInput({
@@ -128,7 +129,11 @@ export function useSbtcDepositTransaction() {
         outputs.forEach(output => {
           // Add change output
           if (!output.address) {
-            deposit.transaction.addOutputAddress(signer.address, BigInt(output.value), networkMode);
+            deposit.transaction.addOutputAddress(
+              btcSigner.address,
+              BigInt(output.value),
+              networkMode
+            );
             return;
           }
         });
@@ -140,11 +145,11 @@ export function useSbtcDepositTransaction() {
       }
     },
     async onDepositSbtc(swapSubmissionData: SwapSubmissionData) {
-      if (!stacksAccount) return;
+      if (!stacksAccount || !btcSigner) return;
       const sBtcDeposit = swapSubmissionData.txData?.deposit as SbtcDeposit;
 
       try {
-        signer.sign(sBtcDeposit.transaction);
+        btcSigner.sign(sBtcDeposit.transaction);
         sBtcDeposit.transaction.finalize();
         logger.info('Deposit', { deposit: sBtcDeposit });
 
