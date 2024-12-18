@@ -15,7 +15,7 @@ import { SwapSubmissionData } from '../swap.context';
 import { useBitflowSwappableAssets } from './use-bitflow-swappable-assets';
 import { useBtcSwapAsset } from './use-btc-bridge-asset';
 
-const bitflowSBtcTokenId = 'token-sbtcmain';
+const bitflowSBtcTokenId = 'token-sbtc';
 
 function getBitflowSwappableAssetsWithSbtcAtTop(assets: SwapAsset[]) {
   const bitflowSbtcAsset = assets.find(asset => asset.tokenId === bitflowSBtcTokenId);
