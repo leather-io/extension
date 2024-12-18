@@ -8,16 +8,16 @@ import { useHasCurrentBitcoinAccount } from '@app/store/accounts/blockchain/bitc
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 export {
-  HiroMessage,
-  AvailableRegions,
   ActiveFiatProvider,
-  useRemoteLeatherMessages,
+  AvailableRegions,
+  HiroMessage,
   useActiveFiatProviders,
-  useHasFiatProviders,
-  useRecoverUninscribedTaprootUtxosFeatureEnabled,
   useConfigNftMetadataEnabled,
   useConfigRunesEnabled,
   useConfigSwapsEnabled,
+  useHasFiatProviders,
+  useRecoverUninscribedTaprootUtxosFeatureEnabled,
+  useRemoteLeatherMessages,
 } from '@leather.io/query';
 
 export function useConfigBitcoinEnabled() {
@@ -45,7 +45,12 @@ interface SbtcConfig {
   enabled: boolean;
   contracts: Record<'mainnet' | 'testnet', { address: string }>;
   emilyApiUrl: string;
+  sponsorshipApiUrl: {
+    mainnet: string;
+    testnet: string;
+  };
   swapsEnabled: boolean;
+  sponsorshipsEnabled: boolean;
 }
 
 export function useConfigSbtc() {
@@ -57,11 +62,16 @@ export function useConfigSbtc() {
     const displayPromoCardOnNetworks = (sbtc as any)?.showPromoLinkOnNetworks ?? [];
     const contractIdMainnet = sbtc?.contracts.mainnet.address ?? '';
     const contractIdTestnet = sbtc?.contracts.testnet.address ?? '';
+    const apiUrlMainnet = sbtc?.sponsorshipApiUrl.mainnet ?? '';
+    const apiUrlTestnet = sbtc?.sponsorshipApiUrl.testnet ?? '';
 
     return {
+      configLoading: !sbtc,
       isSbtcEnabled: sbtc?.enabled ?? false,
+      isSbtcSponsorshipsEnabled: (sbtc?.enabled && sbtc?.sponsorshipsEnabled) ?? false,
       emilyApiUrl: sbtc?.emilyApiUrl ?? '',
       contractId: network.chain.bitcoin.mode === 'mainnet' ? contractIdMainnet : contractIdTestnet,
+      sponsorshipApiUrl: network.chain.bitcoin.mode === 'mainnet' ? apiUrlMainnet : apiUrlTestnet,
       isSbtcContract(contract: string) {
         return (
           contract === getPrincipalFromContractId(contractIdMainnet) ||

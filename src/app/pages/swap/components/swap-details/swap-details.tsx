@@ -4,6 +4,8 @@ import { HStack, styled } from 'leather-styles/jsx';
 
 import { ChevronRightIcon } from '@leather.io/ui';
 import {
+  convertAmountToBaseUnit,
+  createMoney,
   createMoneyFromDecimal,
   formatMoneyPadded,
   isDefined,
@@ -97,7 +99,9 @@ export function SwapDetails() {
         value={
           swapSubmissionData.sponsored
             ? 'Sponsored'
-            : `${swapSubmissionData.fee.toString()} ${swapSubmissionData.feeCurrency}`
+            : `${convertAmountToBaseUnit(
+                createMoney(new BigNumber(swapSubmissionData.fee), swapSubmissionData.feeCurrency)
+              ).toString()} ${swapSubmissionData.feeCurrency}`
         }
       />
       {Number(swapSubmissionData?.nonce) >= 0 ? (

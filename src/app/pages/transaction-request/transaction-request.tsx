@@ -13,13 +13,17 @@ import {
   useStxCryptoAssetBalance,
 } from '@leather.io/query';
 import { Link } from '@leather.io/ui';
+import { isString } from '@leather.io/utils';
 
+import { finalizeTxSignature } from '@shared/actions/finalize-tx-signature';
 import { logger } from '@shared/logger';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
 
+import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
+import { stacksTransactionToHex } from '@app/common/transactions/stacks/transaction.utils';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { NonceSetter } from '@app/components/nonce-setter';
@@ -37,28 +41,48 @@ import { PostConditions } from '@app/features/stacks-transaction-request/post-co
 import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx-transfer-details/stx-transfer-details';
 import { StacksTxSubmitAction } from '@app/features/stacks-transaction-request/submit-action';
 import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
+import { useConfigSbtc } from '@app/query/common/remote-config/remote-config.query';
+import { useCheckSbtcSponsorshipEligible } from '@app/query/sbtc/sponsored-transactions.hooks';
+import { submitSponsoredSbtcTransaction } from '@app/query/sbtc/sponsored-transactions.query';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import {
+  useTransactionRequest,
+  useTransactionRequestState,
+} from '@app/store/transactions/requests.hooks';
 import {
   useGenerateUnsignedStacksTransaction,
+  useSignStacksTransaction,
   useUnsignedStacksTransactionBaseState,
 } from '@app/store/transactions/transaction.hooks';
 
 function TransactionRequestBase() {
+  const sbtcConfig = useConfigSbtc();
+  const { tabId } = useDefaultRequestParams();
+  const requestToken = useTransactionRequest();
+
   const transactionRequest = useTransactionRequestState();
   const unsignedTx = useUnsignedStacksTransactionBaseState();
   const { data: stxFees } = useCalculateStacksTxFees(unsignedTx.transaction);
 
   const generateUnsignedTx = useGenerateUnsignedStacksTransaction();
   const stxAddress = useCurrentStacksAccountAddress();
+
   const { filteredBalanceQuery } = useStxCryptoAssetBalance(stxAddress);
   const availableUnlockedBalance = filteredBalanceQuery.data?.availableUnlockedBalance;
 
   const { data: nextNonce, status: nonceQueryStatus } = useNextNonce(stxAddress);
-  const canSubmit = filteredBalanceQuery.status === 'success' && nonceQueryStatus === 'success';
+
+  const { isVerifying: isVerifyingSbtcSponsorship, result: sbtcSponsorshipEligibility } =
+    useCheckSbtcSponsorshipEligible(unsignedTx, nextNonce, stxFees);
+
+  const canSubmit =
+    filteredBalanceQuery.status === 'success' &&
+    nonceQueryStatus === 'success' &&
+    !isVerifyingSbtcSponsorship;
 
   const navigate = useNavigate();
   const { stacksBroadcastTransaction } = useStacksBroadcastTransaction({ token: 'STX' });
+  const signStacksTransaction = useSignStacksTransaction();
 
   useOnMount(() => void analytics.track('view_transaction_signing'));
 
@@ -67,12 +91,42 @@ function TransactionRequestBase() {
     formikHelpers: FormikHelpers<StacksTransactionFormValues>
   ) {
     formikHelpers.setSubmitting(true);
-    const unsignedTx = await generateUnsignedTx(values);
+    if (sbtcSponsorshipEligibility?.isEligible) {
+      try {
+        const signedSponsoredTx = await signStacksTransaction(
+          sbtcSponsorshipEligibility.unsignedSponsoredTx!
+        );
+        if (!signedSponsoredTx) throw new Error('Unable to sign sponsored transaction!');
+        const result = await submitSponsoredSbtcTransaction(
+          sbtcConfig.sponsorshipApiUrl,
+          signedSponsoredTx
+        );
+        if (!result.txid) {
+          navigate(RouteUrls.TransactionBroadcastError, { state: { message: result.error } });
+          return;
+        }
+        if (requestToken && tabId) {
+          finalizeTxSignature({
+            requestPayload: requestToken,
+            tabId: tabId,
+            data: {
+              txRaw: stacksTransactionToHex(signedSponsoredTx),
+              txId: result.txid,
+            },
+          });
+        }
+      } catch (e: any) {
+        const message = isString(e) ? e : e.message;
+        navigate(RouteUrls.TransactionBroadcastError, { state: { message } });
+      }
+    } else {
+      const unsignedTx = await generateUnsignedTx(values);
 
-    if (!unsignedTx)
-      return logger.error('Failed to generate unsigned transaction in transaction-request');
+      if (!unsignedTx)
+        return logger.error('Failed to generate unsigned transaction in transaction-request');
 
-    await stacksBroadcastTransaction(unsignedTx);
+      await stacksBroadcastTransaction(unsignedTx);
+    }
 
     void analytics.track('submit_fee_for_transaction', {
       calculation: stxFees?.calculation || 'unknown',
@@ -128,7 +182,7 @@ function TransactionRequestBase() {
               {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
 
               <NonceSetter />
-              <FeeForm fees={stxFees} />
+              <FeeForm fees={stxFees} sbtcSponsorshipEligibility={sbtcSponsorshipEligibility} />
               <Link
                 alignSelf="flex-end"
                 my="space.04"
