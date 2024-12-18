@@ -1,100 +1,105 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import type { BtcFeeType, Money } from '@leather.io/models';
-import type { UtxoResponseItem } from '@leather.io/query';
+import { Center, styled } from 'leather-styles/jsx';
 
-import { logger } from '@shared/logger';
-import type { TransferRecipient } from '@shared/models/form.model';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
+import { Approver, Button } from '@leather.io/ui';
+
 import { RouteUrls } from '@shared/route-urls';
 
-import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
-import { useGenerateUnsignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
-import {
-  BitcoinFeesList,
-  OnChooseFeeArgs,
-} from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
-import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list-multiple-recipients';
-import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
-import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
-import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
+import { type RawFee } from '@app/components/bitcoin-fees-list/bitcoin-fees.utils';
+import { formatBitcoinFeeForDisplay } from '@app/components/bitcoin-fees-list/format-bitcoin-fee';
+import { Fees } from '@app/components/fees/fees';
+import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 
-import { formFeeRowValue } from '../../common/send/utils';
 import { useRpcSendTransferState } from './rpc-send-transfer-container';
 
-function useRpcSendTransferFeeState() {
-  const amountAsMoney = useLocationStateWithCache('amountAsMoney') as Money;
-  const recipients = useLocationStateWithCache('recipients') as TransferRecipient[];
-  const utxos = useLocationStateWithCache('utxos') as UtxoResponseItem[];
-
-  return { amountAsMoney, utxos, recipients };
-}
-
 export function RpcSendTransferChooseFee() {
-  const { selectedFeeType, setSelectedFeeType } = useRpcSendTransferState();
-  const { amountAsMoney, utxos, recipients } = useRpcSendTransferFeeState();
-
+  const {
+    fees,
+    selectedFeeType,
+    setSelectedFeeType,
+    editFeeSelected,
+    setEditFeeSelected,
+    selectedFeeData,
+    customFeeRate,
+    setCustomFeeRate,
+    getCustomFeeData,
+  } = useRpcSendTransferState();
   const navigate = useNavigate();
+  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
 
-  const generateTx = useGenerateUnsignedNativeSegwitTx();
-  const signTransaction = useSignBitcoinTx();
-  const { feesList, isLoading } = useBitcoinFeesList({
-    amount: amountAsMoney,
-    recipients,
-    utxos,
-  });
-  const recommendedFeeRate = feesList[1]?.feeRate.toString() || '';
+  const btcBalance = useCurrentBtcCryptoAssetBalanceNativeSegwit();
+  const insufficientBalance = btcBalance.balance.availableBalance.amount.isLessThan(
+    selectedFeeData?.baseUnitsValue ?? 0
+  );
 
-  const { showInsufficientBalanceError, onValidateBitcoinFeeSpend } = useValidateBitcoinSpend();
+  function onCancel() {
+    navigate(RouteUrls.RpcSendTransfer);
+    setCustomFeeRate(selectedFeeData?.feeRate.toString() || '');
+    setEditFeeSelected(selectedFeeType);
+  }
 
-  async function previewTransfer({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs) {
-    const resp = await generateTx({ amount: amountAsMoney, recipients }, feeRate, utxos);
+  function onSave() {
+    setSelectedFeeType(editFeeSelected);
+    if (editFeeSelected !== 'custom') {
+      setCustomFeeRate(selectedFeeData?.feeRate.toString() || '');
+    }
+    navigate(RouteUrls.RpcSendTransfer);
+  }
 
-    if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
+  function getFeeItemProps(rawFee: RawFee) {
+    const { type } = rawFee;
 
-    const tx = await signTransaction(resp.psbt);
+    const { feeType, titleLeft, captionLeft, titleRight, captionRight } =
+      formatBitcoinFeeForDisplay({ rawFee, marketData: btcMarketData });
 
-    tx.finalize();
-
-    const feeRowValue = formFeeRowValue(feeRate, isCustomFee);
-
-    navigate(RouteUrls.RpcSendTransferConfirmation, {
-      state: {
-        fee: feeValue,
-        recipients,
-        time,
-        tx: tx.hex,
-        feeRowValue,
+    return {
+      feeType,
+      isSelected: editFeeSelected === type,
+      isInsufficientBalance: insufficientBalance,
+      onSelect: () => {
+        setEditFeeSelected(type);
       },
-    });
+      titleLeft,
+      captionLeft,
+      titleRight,
+      captionRight,
+    };
   }
 
   return (
-    <>
-      <Outlet />
-      <BitcoinChooseFee
-        amount={amountAsMoney}
-        defaultToCustomFee={!feesList.length}
-        feesList={
-          <BitcoinFeesList
-            feesList={feesList}
-            isLoading={isLoading}
-            onChooseFee={previewTransfer}
-            onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
-            onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
-            selectedFeeType={selectedFeeType}
+    <Approver height="100%" width="100%" requester={origin}>
+      <Approver.Section mt="0" py="space.05">
+        <Center>
+          <styled.span textStyle="heading.05">Edit fee</styled.span>
+        </Center>
+      </Approver.Section>
+
+      <Approver.Section>
+        <Fees>
+          <Fees.Item {...getFeeItemProps(fees.slow)} />
+          <Fees.Item {...getFeeItemProps(fees.standard)} />
+          <Fees.Item {...getFeeItemProps(fees.fast)} />
+
+          <Fees.CustomItem
+            {...getFeeItemProps(getCustomFeeData(Number(customFeeRate)))}
+            fee={customFeeRate}
+            setFee={setCustomFeeRate}
           />
-        }
-        isLoading={isLoading}
-        isSendingMax={false}
-        onChooseFee={previewTransfer}
-        onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
-        onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
-        recipients={recipients}
-        recommendedFeeRate={recommendedFeeRate}
-        showError={showInsufficientBalanceError}
-        maxRecommendedFeeRate={feesList[0]?.feeRate}
-        px="0"
+        </Fees>
+      </Approver.Section>
+
+      <Approver.Actions
+        actions={[
+          <Button key="cancel" onClick={onCancel} fullWidth variant="outline">
+            Back
+          </Button>,
+          <Button key="save" onClick={onSave} fullWidth>
+            Save
+          </Button>,
+        ]}
       />
-    </>
+    </Approver>
   );
 }

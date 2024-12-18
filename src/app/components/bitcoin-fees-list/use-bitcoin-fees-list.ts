@@ -42,6 +42,7 @@ interface UseBitcoinFeesListArgs {
   recipient: string;
   utxos: UtxoResponseItem[];
 }
+
 export function useBitcoinFeesList({
   amount,
   isSendingMax,
