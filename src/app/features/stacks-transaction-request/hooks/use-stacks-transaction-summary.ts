@@ -1,5 +1,6 @@
 import { bytesToUtf8 } from '@stacks/common';
 import {
+  type Address,
   ClarityType,
   ContractCallPayload,
   IntCV,
@@ -24,6 +25,14 @@ import {
 } from '@leather.io/utils';
 
 import { removeTrailingNullCharacters } from '@app/common/utils';
+
+function safeAddressToString(address: Address) {
+  try {
+    return addressToString(address);
+  } catch (error) {
+    return '';
+  }
+}
 
 export function useStacksTransactionSummary(token: CryptoCurrency) {
   // TODO: unsafe type assumption
@@ -54,9 +63,11 @@ export function useStacksTransactionSummary(token: CryptoCurrency) {
     const memoDisplayText = removeTrailingNullCharacters(memoContent) || 'No memo';
 
     return {
-      recipient: addressToString(payload.recipient.address),
+      recipient: safeAddressToString(payload?.recipient?.address),
       fee: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(fee))),
-      totalSpend: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue + fee))),
+      totalSpend: formatMoney(
+        convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue) + Number(fee))
+      ),
       symbol: 'STX',
       txValue: microStxToStx(Number(txValue)).toString(),
       sendingValue: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue))),
