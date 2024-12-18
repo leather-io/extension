@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -173,7 +173,10 @@
 <a name='L108'></a><a href='#L108'>108</a>
 <a name='L109'></a><a href='#L109'>109</a>
 <a name='L110'></a><a href='#L110'>110</a>
-<a name='L111'></a><a href='#L111'>111</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -235,6 +238,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -244,6 +249,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -344,51 +350,54 @@ export function <span class="fstat-no" title="function not covered" >IncreaseBtc
         validateOnMount={false}
         validationSchema={validationSchema}
       &gt;
-        &lt;&gt;
-          &lt;Sheet
-            isShowing={location.pathname === RouteUrls.IncreaseBtcFee}
-            onClose={onClose}
-            header={&lt;SheetHeader title="Increase fee" /&gt;}
-            footer={
-              &lt;TransactionActions
-                isDisabled={isBroadcasting}
-                isBroadcasting={isBroadcasting}
-                onCancel={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.Home)}</span>
-              /&gt;
-            }
-          &gt;
-            &lt;Stack gap="space.05" px="space.05" pb="space.05"&gt;
-              &lt;Suspense
-                fallback={
-                  &lt;Flex alignItems="center" justifyContent="center" p="space.06"&gt;
-                    &lt;Spinner /&gt;
-                  &lt;/Flex&gt;
-                }
-              &gt;
-                &lt;Caption&gt;
-                  If your transaction is pending for a long time, its fee might not be high enough
-                  to be included in a block. Update the fee for a higher value and try again.
-                &lt;/Caption&gt;
-                &lt;Stack gap="space.06"&gt;
-                  {btcTx &amp;&amp; &lt;BitcoinTransactionItem transaction={btcTx} /&gt;}
-                  &lt;Stack gap="space.04"&gt;
-                    &lt;Stack gap="space.01"&gt;
-                      &lt;BitcoinCustomFeeInput
-                        isSendingMax={false}
-                        recipients={recipients}
-                        hasInsufficientBalanceError={false}
-                        customFeeInitialValue={initialFeeRate}
-                      /&gt;
-                    &lt;/Stack&gt;
+        {<span class="fstat-no" title="function not covered" >({</span> submitForm }) =&gt; (
+<span class="cstat-no" title="statement not covered" >          &lt;&gt;</span>
+            &lt;Sheet
+              isShowing={location.pathname === RouteUrls.IncreaseBtcFee}
+              onClose={onClose}
+              header={&lt;SheetHeader title="Increase fee" /&gt;}
+              footer={
+                &lt;TransactionActions
+                  isDisabled={isBroadcasting}
+                  isBroadcasting={isBroadcasting}
+                  onSubmit={submitForm}
+                  onCancel={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.Home)}</span>
+                /&gt;
+              }
+            &gt;
+              &lt;Stack gap="space.05" px="space.05" pb="space.05"&gt;
+                &lt;Suspense
+                  fallback={
+                    &lt;Flex alignItems="center" justifyContent="center" p="space.06"&gt;
+                      &lt;Spinner /&gt;
+                    &lt;/Flex&gt;
+                  }
+                &gt;
+                  &lt;Caption&gt;
+                    If your transaction is pending for a long time, its fee might not be high enough
+                    to be included in a block. Update the fee for a higher value and try again.
+                  &lt;/Caption&gt;
+                  &lt;Stack gap="space.06"&gt;
+                    {btcTx &amp;&amp; &lt;BitcoinTransactionItem transaction={btcTx} /&gt;}
+                    &lt;Stack gap="space.04"&gt;
+                      &lt;Stack gap="space.01"&gt;
+                        &lt;BitcoinCustomFeeInput
+                          isSendingMax={false}
+                          recipients={recipients}
+                          hasInsufficientBalanceError={false}
+                          customFeeInitialValue={initialFeeRate}
+                        /&gt;
+                      &lt;/Stack&gt;
 &nbsp;
-                    {balance &amp;&amp; &lt;Caption&gt;Balance: {btcBalance}&lt;/Caption&gt;}
+                      {balance &amp;&amp; &lt;Caption&gt;Balance: {btcBalance}&lt;/Caption&gt;}
+                    &lt;/Stack&gt;
                   &lt;/Stack&gt;
-                &lt;/Stack&gt;
-              &lt;/Suspense&gt;
-            &lt;/Stack&gt;
-          &lt;/Sheet&gt;
-          &lt;Outlet /&gt;
-        &lt;/&gt;
+                &lt;/Suspense&gt;
+              &lt;/Stack&gt;
+            &lt;/Sheet&gt;
+            &lt;Outlet /&gt;
+          &lt;/&gt;
+        )}
       &lt;/Formik&gt;
     &lt;/&gt;
   );
@@ -400,7 +409,7 @@ export function <span class="fstat-no" title="function not covered" >IncreaseBtc
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-17T17:33:12.547Z
+                at 2024-12-18T17:04:10.606Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

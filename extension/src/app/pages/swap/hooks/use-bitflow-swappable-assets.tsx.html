@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -149,9 +149,7 @@
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,6 +176,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -188,6 +187,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -200,9 +201,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -240,14 +238,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback } from 'react';
 &nbsp;
 import { useQuery } from '@tanstack/react-query';
-import { Currency } from 'alex-sdk';
 import BigNumber from 'bignumber.js';
 import type { Token } from 'bitflow-sdk';
 &nbsp;
-import { createMarketData, createMarketPair } from '@leather.io/models';
+import { type Currency, createMarketData, createMarketPair } from '@leather.io/models';
 import {
   type SwapAsset,
-  useAlexCurrencyPriceAsMarketData,
   useAlexSdkLatestPricesQuery,
   useStxAvailableUnlockedBalance,
   useTransferableSip10Tokens,
@@ -259,25 +255,29 @@ import {
   isDefined,
 } from '@leather.io/utils';
 &nbsp;
+import { useSip10FiatMarketData } from '@app/common/hooks/use-calculate-sip10-fiat-value';
 import { createGetBitflowAvailableTokensQueryOptions } from '@app/query/bitflow-sdk/bitflow-available-tokens.query';
 &nbsp;
 import { sortSwapAssets } from '../swap.utils';
 &nbsp;
-const BITFLOW_STX_CURRENCY: Currency = <span class="cstat-no" title="statement not covered" >'token-stx' as Currency;</span>
-const USD_DECIMAL_PRECISION = <span class="cstat-no" title="statement not covered" >2;</span>
+const alexStxTokenId: Currency = <span class="cstat-no" title="statement not covered" >'token-wstx';</span>
+const bitflowStxTokenId: Currency = <span class="cstat-no" title="statement not covered" >'token-stx';</span>
+const usdDecimalPrecision = <span class="cstat-no" title="statement not covered" >2;</span>
 &nbsp;
 function <span class="fstat-no" title="function not covered" >useCreateSwapAsset(a</span>ddress: string) {
   const { data: prices } = <span class="cstat-no" title="statement not covered" >useAlexSdkLatestPricesQuery();</span>
-  const priceAsMarketData = <span class="cstat-no" title="statement not covered" >useAlexCurrencyPriceAsMarketData();</span>
+  const { getTokenMarketData } = <span class="cstat-no" title="statement not covered" >useSip10FiatMarketData();</span>
   const availableUnlockedBalance = <span class="cstat-no" title="statement not covered" >useStxAvailableUnlockedBalance(address);</span>
   const sip10Tokens = <span class="cstat-no" title="statement not covered" >useTransferableSip10Tokens(address);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useCallback(</span>
 <span class="fstat-no" title="function not covered" >    (t</span>oken?: Token): SwapAsset | undefined =&gt; {
 <span class="cstat-no" title="statement not covered" >      if (!prices || !token || !token.tokenContract) <span class="cstat-no" title="statement not covered" >return;</span></span>
+      const pricesKeyedByCurrency = <span class="cstat-no" title="statement not covered" >prices as Record&lt;Currency, number&gt;;</span>
+      const stxPrice = <span class="cstat-no" title="statement not covered" >pricesKeyedByCurrency[alexStxTokenId] ?? 0;</span>
 &nbsp;
       const swapAsset = <span class="cstat-no" title="statement not covered" >{</span>
-        currency: token.tokenId as Currency,
+        tokenId: token.tokenId,
         fallback: token.symbol.slice(0, 2),
         icon: token.icon,
         name: token.symbol,
@@ -285,11 +285,8 @@ function <span class="fstat-no" title="function not covered" >useCreateSwapAsset
         principal: token.tokenContract,
       };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (token.tokenId === BITFLOW_STX_CURRENCY) {</span>
-        const price = <span class="cstat-no" title="statement not covered" >convertAmountToFractionalUnit(</span>
-          new BigNumber(prices[Currency.STX] ?? 0),
-          USD_DECIMAL_PRECISION
-        );
+<span class="cstat-no" title="statement not covered" >      if (token.tokenId === bitflowStxTokenId) {</span>
+        const price = <span class="cstat-no" title="statement not covered" >convertAmountToFractionalUnit(new BigNumber(stxPrice), usdDecimalPrecision);</span>
 <span class="cstat-no" title="statement not covered" >        return {</span>
           ...swapAsset,
           balance: availableUnlockedBalance,
@@ -309,11 +306,11 @@ function <span class="fstat-no" title="function not covered" >useCreateSwapAsset
         ...swapAsset,
         balance: availableBalance ?? createMoney(0, token.symbol, token.tokenDecimals),
         marketData: availableBalance
-          ? priceAsMarketData(swapAsset.principal, availableBalance.symbol)
-          : priceAsMarketData(swapAsset.principal, token.symbol),
+          ? getTokenMarketData(swapAsset.principal, availableBalance.symbol)
+          : getTokenMarketData(swapAsset.principal, token.symbol),
       };
     },
-    [availableUnlockedBalance, priceAsMarketData, prices, sip10Tokens]
+    [availableUnlockedBalance, getTokenMarketData, prices, sip10Tokens]
   );
 }
 &nbsp;
@@ -331,7 +328,7 @@ export function <span class="fstat-no" title="function not covered" >useBitflowS
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-17T17:33:12.547Z
+                at 2024-12-18T17:04:10.606Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

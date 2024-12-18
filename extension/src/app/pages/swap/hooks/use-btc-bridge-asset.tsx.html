@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/components/requester-flag.tsx</title>
+    <title>Code coverage report for extension/src/app/pages/swap/hooks/use-btc-bridge-asset.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">extension/src/app/components</a> requester-flag.tsx</h1>
+        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/pages/swap/hooks</a> use-btc-bridge-asset.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -88,7 +88,10 @@
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -99,6 +102,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -111,32 +119,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { styled } from 'leather-styles/jsx';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback } from 'react';
 &nbsp;
-import { Flag } from '@leather.io/ui';
+import BtcAvatarIconSrc from '@assets/avatars/btc-avatar-icon.png';
+import type { P2Ret } from '@scure/btc-signer/payment';
 &nbsp;
-import { Favicon } from './favicon';
+import { type SwapAsset, useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 &nbsp;
-interface RequesterFlagProps {
-  requester: string;
-}
+import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import type { Signer } from '@app/store/accounts/blockchain/bitcoin/bitcoin-signer';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >RequesterFlag({</span> requester }: RequesterFlagProps) {
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Flag
-      img={&lt;Favicon origin={requester} /&gt;}
-      align="middle"
-      justifyContent="center"
-      py="space.04"
-      px="space.02"
-      borderRadius="sm"
-      width="fit-content"
-    &gt;
-      &lt;styled.span textStyle="label.02"&gt;{requester}&lt;/styled.span&gt;
-    &lt;/Flag&gt;
-  );
+export function <span class="fstat-no" title="function not covered" >useBtcSwapAsset(b</span>tcSigner?: Signer&lt;P2Ret&gt;) {
+  const currentBitcoinAddress = <span class="cstat-no" title="statement not covered" >btcSigner?.address ?? '';</span>
+  const { balance } = <span class="cstat-no" title="statement not covered" >useBtcCryptoAssetBalanceNativeSegwit(currentBitcoinAddress);</span>
+  const bitcoinMarketData = <span class="cstat-no" title="statement not covered" >useCryptoCurrencyMarketDataMeanAverage('BTC');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return useCallback(<span class="fstat-no" title="function not covered" >(): SwapAsset =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      balance: balance.availableBalance,
+      tokenId: 'token-btc',
+      displayName: 'Bitcoin',
+      fallback: 'BT',
+      icon: BtcAvatarIconSrc,
+      name: 'BTC',
+      marketData: bitcoinMarketData,
+      principal: '',
+    };
+  }, [balance.availableBalance, bitcoinMarketData]);
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -145,16 +154,16 @@ export function <span class="fstat-no" title="function not covered" >RequesterFl
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-17T17:33:12.547Z
+                at 2024-12-18T17:04:10.606Z
             </div>
-        <script src="../../../../prettify.js"></script>
+        <script src="../../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../sorter.js"></script>
-        <script src="../../../../block-navigation.js"></script>
+        <script src="../../../../../../sorter.js"></script>
+        <script src="../../../../../../block-navigation.js"></script>
     </body>
 </html>
     

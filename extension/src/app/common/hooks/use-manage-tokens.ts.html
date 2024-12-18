@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -112,7 +112,20 @@
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -131,23 +144,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,6 +187,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useConfigTokensEnabledByDefault } from '@leather.io/query';
 &nbsp;
+import { useConfigSbtc } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useUserAllTokens } from '@app/store/manage-tokens/manage-tokens.slice';
 &nbsp;
@@ -180,6 +205,7 @@ interface FilterTokensArgs&lt;T&gt; {
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useManageTokens() {</span>
   const configEnabledTokens = <span class="cstat-no" title="statement not covered" >useConfigTokensEnabledByDefault();</span>
+  const { contractId: sbtcContractId, isSbtcEnabled } = <span class="cstat-no" title="statement not covered" >useConfigSbtc();</span>
 &nbsp;
   const accountIndex = <span class="cstat-no" title="statement not covered" >useCurrentAccountIndex();</span>
   const userTokensList = <span class="cstat-no" title="statement not covered" >useUserAllTokens();</span>
@@ -192,6 +218,14 @@ export function <span class="fstat-no" title="function not covered" >useManageTo
 <span class="cstat-no" title="statement not covered" >    return token?.enabled ?? isEnabledByDefault;</span>
   }
 &nbsp;
+  function <span class="fstat-no" title="function not covered" >sortTokens(t</span>okens: any[]) {
+<span class="cstat-no" title="statement not covered" >    return tokens.sort(<span class="fstat-no" title="function not covered" >(a</span>, b) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      if (a.info.contractId === sbtcContractId) <span class="cstat-no" title="statement not covered" >return -1;</span></span>
+<span class="cstat-no" title="statement not covered" >      if (b.info.contractId === sbtcContractId) <span class="cstat-no" title="statement not covered" >return 1;</span></span>
+<span class="cstat-no" title="statement not covered" >      return 0;</span>
+    });
+  }
+&nbsp;
   function <span class="fstat-no" title="function not covered" >filterTokens&lt;T&gt;({</span>
     tokens,
     filter = <span class="branch-0 cbranch-no" title="branch not covered" >'all',</span>
@@ -200,7 +234,9 @@ export function <span class="fstat-no" title="function not covered" >useManageTo
   }: FilterTokensArgs&lt;T&gt;): T[] {
 <span class="cstat-no" title="statement not covered" >    if (filter === 'all') <span class="cstat-no" title="statement not covered" >return tokens;</span></span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return tokens.filter(<span class="fstat-no" title="function not covered" >t =&gt; {</span></span>
+    const sortedTokens = <span class="cstat-no" title="statement not covered" >isSbtcEnabled ? sortTokens(tokens) : tokens;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return sortedTokens.filter(<span class="fstat-no" title="function not covered" >t =&gt; {</span></span>
       const tokenId = <span class="cstat-no" title="statement not covered" >getTokenId(t);</span>
       const tokenEnabled = <span class="cstat-no" title="statement not covered" >isTokenEnabled({ tokenId, preEnabledTokensIds });</span>
 &nbsp;
@@ -217,7 +253,7 @@ export function <span class="fstat-no" title="function not covered" >useManageTo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-17T17:33:12.547Z
+                at 2024-12-18T17:04:10.606Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

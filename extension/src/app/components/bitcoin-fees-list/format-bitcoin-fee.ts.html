@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/pages/rpc-send-transfer/components/send-transfer-details.tsx</title>
+    <title>Code coverage report for extension/src/app/components/bitcoin-fees-list/format-bitcoin-fee.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/pages/rpc-send-transfer/components</a> send-transfer-details.tsx</h1>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/components/bitcoin-fees-list</a> format-bitcoin-fee.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -99,26 +99,7 @@
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,6 +115,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -143,45 +132,44 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { HStack, Stack, styled } from 'leather-styles/jsx';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
+  baseCurrencyAmountInQuote,
+  capitalize,
+  createMoney,
+  i18nFormatCurrency,
+} from '@leather.io/utils';
 &nbsp;
-import { formatMoney, truncateMiddle } from '@leather.io/utils';
+import type { FeeDisplayInfo, FormatFeeForDisplayArgs } from '@app/common/fees/use-fees';
 &nbsp;
-import type { TransferRecipient } from '@shared/models/form.model';
+import { getBtcFeeValue } from './bitcoin-fees.utils';
 &nbsp;
-interface SendTransferDetailsProps {
-  recipients: TransferRecipient[];
-  currentAddress: string;
-}
+export function formatBitcoinFeeForDisplay({
+  rawFee,
+  marketData,
+}: FormatFeeForDisplayArgs): FeeDisplayInfo {
+  function getFiatFeeValue(fee: number) {
+    return i18nFormatCurrency(
+      baseCurrencyAmountInQuote(createMoney(Math.ceil(fee), 'BTC'), marketData)
+    );
+  }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >SendTransferDetails({</span> recipients, currentAddress }: SendTransferDetailsProps) {
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Stack width="100%"&gt;
-      {recipients.map(<span class="fstat-no" title="function not covered" >({</span> address, amount }, index) =&gt; (
-<span class="cstat-no" title="statement not covered" >        &lt;Stack</span>
-          key={address + index}
-          border="active"
-          borderRadius="sm"
-          gap="space.04"
-          p="space.05"
-          width="100%"
-        &gt;
-          &lt;HStack alignItems="center" gap="space.04" justifyContent="space-between"&gt;
-            &lt;styled.span textStyle="caption.01"&gt;From&lt;/styled.span&gt;
-            &lt;styled.span textStyle="label.01"&gt;{truncateMiddle(currentAddress)}&lt;/styled.span&gt;
-          &lt;/HStack&gt;
-          &lt;HStack alignItems="center" gap="space.04" justifyContent="space-between"&gt;
-            &lt;styled.span textStyle="caption.01"&gt;To&lt;/styled.span&gt;
-            &lt;styled.span textStyle="label.01"&gt;{truncateMiddle(address)}&lt;/styled.span&gt;
-          &lt;/HStack&gt;
-          &lt;HStack alignItems="center" gap="space.04" justifyContent="space-between"&gt;
-            &lt;styled.span textStyle="caption.01"&gt;Amount&lt;/styled.span&gt;
-            &lt;styled.span textStyle="label.01"&gt;{formatMoney(amount)}&lt;/styled.span&gt;
-          &lt;/HStack&gt;
-        &lt;/Stack&gt;
-      ))}
-    &lt;/Stack&gt;
-  );
+  const { type, baseUnitsFeeValue, feeRate, time } = rawFee;
+&nbsp;
+  return {
+    feeType: type,
+    feeRate: feeRate ?? 0,
+    baseUnitsValue: baseUnitsFeeValue ?? 0,
+&nbsp;
+    titleLeft: capitalize(type),
+    captionLeft: time,
+    titleRight: baseUnitsFeeValue ? getBtcFeeValue(baseUnitsFeeValue) : 'N/A',
+    captionRight: baseUnitsFeeValue
+      ? `${feeRate} sats/vB · ${getFiatFeeValue(baseUnitsFeeValue)}`
+      : 'N/A',
+  };
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -190,16 +178,16 @@ export function <span class="fstat-no" title="function not covered" >SendTransfe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-17T17:33:12.547Z
+                at 2024-12-18T17:04:10.606Z
             </div>
-        <script src="../../../../../../prettify.js"></script>
+        <script src="../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../../../sorter.js"></script>
-        <script src="../../../../../../block-navigation.js"></script>
+        <script src="../../../../../sorter.js"></script>
+        <script src="../../../../../block-navigation.js"></script>
     </body>
 </html>
     

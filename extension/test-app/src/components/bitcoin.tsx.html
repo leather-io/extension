@@ -580,7 +580,26 @@
 <a name='L515'></a><a href='#L515'>515</a>
 <a name='L516'></a><a href='#L516'>516</a>
 <a name='L517'></a><a href='#L517'>517</a>
-<a name='L518'></a><a href='#L518'>518</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L518'></a><a href='#L518'>518</a>
+<a name='L519'></a><a href='#L519'>519</a>
+<a name='L520'></a><a href='#L520'>520</a>
+<a name='L521'></a><a href='#L521'>521</a>
+<a name='L522'></a><a href='#L522'>522</a>
+<a name='L523'></a><a href='#L523'>523</a>
+<a name='L524'></a><a href='#L524'>524</a>
+<a name='L525'></a><a href='#L525'>525</a>
+<a name='L526'></a><a href='#L526'>526</a>
+<a name='L527'></a><a href='#L527'>527</a>
+<a name='L528'></a><a href='#L528'>528</a>
+<a name='L529'></a><a href='#L529'>529</a>
+<a name='L530'></a><a href='#L530'>530</a>
+<a name='L531'></a><a href='#L531'>531</a>
+<a name='L532'></a><a href='#L532'>532</a>
+<a name='L533'></a><a href='#L533'>533</a>
+<a name='L534'></a><a href='#L534'>534</a>
+<a name='L535'></a><a href='#L535'>535</a>
+<a name='L536'></a><a href='#L536'>536</a>
+<a name='L537'></a><a href='#L537'>537</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -938,6 +957,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -946,6 +982,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1089,6 +1126,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1106,7 +1144,7 @@ import { bytesToHex, hexToBytes } from '@stacks/common';
 import { PsbtData, PsbtRequestOptions } from '@stacks/connect';
 import { useConnect } from '@stacks/connect-react';
 import { StacksNetwork } from '@stacks/network';
-import { Box, styled } from 'leather-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 &nbsp;
 interface BitcoinNetwork {
   bech32: string;
@@ -1450,168 +1488,187 @@ export const Bitcoin = <span class="cstat-no" title="statement not covered" ><sp
   };
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Box py={6}&gt;
+    &lt;div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+      }}
+    &gt;
       &lt;styled.h2&gt;Bitcoin Testnet&lt;/styled.h2&gt;
       &lt;styled.span&gt;Try testing Partially Signed Bitcoin Transactions.&lt;/styled.span&gt;
-      &lt;styled.button
-        mt={3}
-        onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>ignTx(buildTestNativeSegwitPsbtRequest(segwitPubKey), stacksTestnetNetwork)}</span>
+&nbsp;
+      &lt;div
+        style={{
+          padding: '24px 0',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '16px',
+          width: '100%',
+        }}
       &gt;
-        Sign PSBT (Segwit)
-      &lt;/styled.button&gt;
-      &lt;styled.button
-        ml={3}
-        mt={3}
-        onClick={<span class="fstat-no" title="function not covered" >() =&gt;</span>
-<span class="cstat-no" title="statement not covered" >          signTx(buildTestNativeSegwitPsbtRequestWithIndexes(segwitPubKey), stacksTestnetNetwork)</span>
-        }
-      &gt;
-        Sign PSBT at indexes (SegWit)
-      &lt;/styled.button&gt;
-      &lt;styled.button
-        ml={3}
-        mt={3}
-        onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>ignTx(buildTestTaprootPsbtRequest(taprootPubKey), stacksTestnetNetwork)}</span>
-      &gt;
-        Sign PSBT (Taproot)
-      &lt;/styled.button&gt;
-      &lt;styled.button
-        ml={3}
-        mt={3}
-        onClick={<span class="fstat-no" title="function not covered" >() =&gt;</span>
-<span class="cstat-no" title="statement not covered" >          signTx(buildTestTaprootPsbtRequestWithIndex(taprootPubKey), stacksTestnetNetwork)</span>
-        }
-      &gt;
-        Sign PSBT at index failure (Taproot)
-      &lt;/styled.button&gt;
-      &lt;styled.button
-        mt={3}
-        onClick={<span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >          console.log('requesting');</span>
-<span class="cstat-no" title="statement not covered" >          window.btc</span>
-            ?.request('sendTransfer', {
-              address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
-              amount: '10000',
+        &lt;styled.button
+          mt={3}
+          onClick={<span class="fstat-no" title="function not covered" >() =&gt;</span>
+<span class="cstat-no" title="statement not covered" >            signTx(buildTestNativeSegwitPsbtRequest(segwitPubKey), stacksTestnetNetwork)</span>
+          }
+        &gt;
+          Sign PSBT (Segwit)
+        &lt;/styled.button&gt;
+        &lt;styled.button
+          ml={3}
+          mt={3}
+          onClick={<span class="fstat-no" title="function not covered" >() =&gt;</span>
+<span class="cstat-no" title="statement not covered" >            signTx(buildTestNativeSegwitPsbtRequestWithIndexes(segwitPubKey), stacksTestnetNetwork)</span>
+          }
+        &gt;
+          Sign PSBT at indexes (SegWit)
+        &lt;/styled.button&gt;
+        &lt;styled.button
+          ml={3}
+          mt={3}
+          onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>ignTx(buildTestTaprootPsbtRequest(taprootPubKey), stacksTestnetNetwork)}</span>
+        &gt;
+          Sign PSBT (Taproot)
+        &lt;/styled.button&gt;
+        &lt;styled.button
+          ml={3}
+          mt={3}
+          onClick={<span class="fstat-no" title="function not covered" >() =&gt;</span>
+<span class="cstat-no" title="statement not covered" >            signTx(buildTestTaprootPsbtRequestWithIndex(taprootPubKey), stacksTestnetNetwork)</span>
+          }
+        &gt;
+          Sign PSBT at index failure (Taproot)
+        &lt;/styled.button&gt;
+        &lt;styled.button
+          mt={3}
+          onClick={<span class="fstat-no" title="function not covered" >() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            console.log('requesting');</span>
+<span class="cstat-no" title="statement not covered" >            window.btc</span>
+              ?.request('sendTransfer', {
+                address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
+                amount: '10000',
+                network: 'testnet',
+              })
+              .then(<span class="fstat-no" title="function not covered" >resp =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                console.log({ sucesss: resp });</span>
+              })
+              .catch(<span class="fstat-no" title="function not covered" >error =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                console.log({ error });</span>
+              });
+          }}
+        &gt;
+          Send transfer
+        &lt;/styled.button&gt;
+        &lt;styled.button
+          mt={3}
+          onClick={<span class="fstat-no" title="function not covered" >() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            console.log('requesting');</span>
+            (<span class="cstat-no" title="statement not covered" >window as any).LeatherProvider?.request('sendTransfer', {</span>
+              recipients: [
+                {
+                  address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
+                  amount: '800',
+                },
+                {
+                  address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
+                  amount: '900',
+                },
+              ],
               network: 'testnet',
             })
-            .then(<span class="fstat-no" title="function not covered" >resp =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >              console.log({ sucesss: resp });</span>
+              .then(<span class="fstat-no" title="function not covered" >(r</span>esp: any) =&gt; {
+<span class="cstat-no" title="statement not covered" >                console.log({ sucesss: resp });</span>
+              })
+              .catch(<span class="fstat-no" title="function not covered" >(e</span>rror: Error) =&gt; {
+<span class="cstat-no" title="statement not covered" >                console.log({ error });</span>
+              });
+          }}
+        &gt;
+          Send transfer to multiple addresses
+        &lt;/styled.button&gt;
+        &lt;styled.button
+          mt={3}
+          onClick={<span class="fstat-no" title="function not covered" >() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            console.log('requesting');</span>
+            (<span class="cstat-no" title="statement not covered" >window as any).LeatherProvider?.request('sendTransfer', {</span>
+              recipients: [
+                {
+                  address: 'bc1qps90ws94pvk548y9jg03gn5lwjqnyud4lg6y56',
+                  amount: '800',
+                },
+                {
+                  address: 'bc1qyrtw5v0rkmytg0gu34f06fxpyfk24x7jevtvx3',
+                  amount: '10000',
+                },
+              ],
+              network: 'mainnet',
             })
-            .catch(<span class="fstat-no" title="function not covered" >error =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >              console.log({ error });</span>
-            });
-        }}
-      &gt;
-        Send transfer
-      &lt;/styled.button&gt;
-      &lt;styled.button
-        mt={3}
-        onClick={<span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >          console.log('requesting');</span>
-          (<span class="cstat-no" title="statement not covered" >window as any).LeatherProvider?.request('sendTransfer', {</span>
-            recipients: [
-              {
-                address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
-                amount: '800',
-              },
-              {
-                address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
-                amount: '10000',
-              },
-            ],
-            network: 'testnet',
-          })
-            .then(<span class="fstat-no" title="function not covered" >(r</span>esp: any) =&gt; {
-<span class="cstat-no" title="statement not covered" >              console.log({ sucesss: resp });</span>
+              .then(<span class="fstat-no" title="function not covered" >(r</span>esp: any) =&gt; {
+<span class="cstat-no" title="statement not covered" >                console.log({ sucesss: resp });</span>
+              })
+              .catch(<span class="fstat-no" title="function not covered" >(e</span>rror: Error) =&gt; {
+<span class="cstat-no" title="statement not covered" >                console.log({ error });</span>
+              });
+          }}
+        &gt;
+          Send native segwit transfer to multiple addresses
+        &lt;/styled.button&gt;
+        &lt;styled.button
+          mt={3}
+          onClick={<span class="fstat-no" title="function not covered" >() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            console.log('requesting');</span>
+            (<span class="cstat-no" title="statement not covered" >window as any).LeatherProvider?.request('sendTransfer', {</span>
+              recipients: [
+                {
+                  address: 'bc1p8nyc4sl8agqfjs2rq4yer6wnhd89naw05s0ha8hpmg8j36ht6yvswqyaxm',
+                  amount: '800',
+                },
+                {
+                  address: 'bc1p8nyc4sl8agqfjs2rq4yer6wnhd89naw05s0ha8hpmg8j36ht6yvswqyaxm',
+                  amount: '10000',
+                },
+              ],
+              network: 'mainnet',
             })
-            .catch(<span class="fstat-no" title="function not covered" >(e</span>rror: Error) =&gt; {
-<span class="cstat-no" title="statement not covered" >              console.log({ error });</span>
-            });
-        }}
-      &gt;
-        Send transfer to multiple addresses
-      &lt;/styled.button&gt;
-      &lt;styled.button
-        mt={3}
-        onClick={<span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >          console.log('requesting');</span>
-          (<span class="cstat-no" title="statement not covered" >window as any).LeatherProvider?.request('sendTransfer', {</span>
-            recipients: [
-              {
-                address: 'bc1qps90ws94pvk548y9jg03gn5lwjqnyud4lg6y56',
-                amount: '800',
-              },
-              {
-                address: 'bc1qps90ws94pvk548y9jg03gn5lwjqnyud4lg6y56',
-                amount: '10000',
-              },
-            ],
-            network: 'mainnet',
-          })
-            .then(<span class="fstat-no" title="function not covered" >(r</span>esp: any) =&gt; {
-<span class="cstat-no" title="statement not covered" >              console.log({ sucesss: resp });</span>
+              .then(<span class="fstat-no" title="function not covered" >(r</span>esp: any) =&gt; {
+<span class="cstat-no" title="statement not covered" >                console.log({ sucesss: resp });</span>
+              })
+              .catch(<span class="fstat-no" title="function not covered" >(e</span>rror: Error) =&gt; {
+<span class="cstat-no" title="statement not covered" >                console.log({ error });</span>
+              });
+          }}
+        &gt;
+          Send taproot transfer to multiple addresses
+        &lt;/styled.button&gt;
+        &lt;styled.button
+          mt={3}
+          onClick={<span class="fstat-no" title="function not covered" >() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            console.log('requesting');</span>
+            (<span class="cstat-no" title="statement not covered" >window as any).LeatherProvider?.request('sendTransfer', {</span>
+              recipients: [
+                {
+                  address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
+                  amount: '10000',
+                },
+                {
+                  address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
+                  amount: '10000',
+                },
+              ],
             })
-            .catch(<span class="fstat-no" title="function not covered" >(e</span>rror: Error) =&gt; {
-<span class="cstat-no" title="statement not covered" >              console.log({ error });</span>
-            });
-        }}
-      &gt;
-        Send native segwit transfer to multiple addresses
-      &lt;/styled.button&gt;
-      &lt;styled.button
-        mt={3}
-        onClick={<span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >          console.log('requesting');</span>
-          (<span class="cstat-no" title="statement not covered" >window as any).LeatherProvider?.request('sendTransfer', {</span>
-            recipients: [
-              {
-                address: 'bc1p8nyc4sl8agqfjs2rq4yer6wnhd89naw05s0ha8hpmg8j36ht6yvswqyaxm',
-                amount: '800',
-              },
-              {
-                address: 'bc1p8nyc4sl8agqfjs2rq4yer6wnhd89naw05s0ha8hpmg8j36ht6yvswqyaxm',
-                amount: '10000',
-              },
-            ],
-            network: 'mainnet',
-          })
-            .then(<span class="fstat-no" title="function not covered" >(r</span>esp: any) =&gt; {
-<span class="cstat-no" title="statement not covered" >              console.log({ sucesss: resp });</span>
-            })
-            .catch(<span class="fstat-no" title="function not covered" >(e</span>rror: Error) =&gt; {
-<span class="cstat-no" title="statement not covered" >              console.log({ error });</span>
-            });
-        }}
-      &gt;
-        Send taproot transfer to multiple addresses
-      &lt;/styled.button&gt;
-      &lt;styled.button
-        mt={3}
-        onClick={<span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >          console.log('requesting');</span>
-          (<span class="cstat-no" title="statement not covered" >window as any).LeatherProvider?.request('sendTransfer', {</span>
-            recipients: [
-              {
-                address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
-                amount: '10000',
-              },
-              {
-                address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
-                amount: '10000',
-              },
-            ],
-          })
-            .then(<span class="fstat-no" title="function not covered" >(r</span>esp: any) =&gt; {
-<span class="cstat-no" title="statement not covered" >              console.log({ sucesss: resp });</span>
-            })
-            .catch(<span class="fstat-no" title="function not covered" >(e</span>rror: Error) =&gt; {
-<span class="cstat-no" title="statement not covered" >              console.log({ error });</span>
-            });
-        }}
-      &gt;
-        Send transfer validate error
-      &lt;/styled.button&gt;
-    &lt;/Box&gt;
+              .then(<span class="fstat-no" title="function not covered" >(r</span>esp: any) =&gt; {
+<span class="cstat-no" title="statement not covered" >                console.log({ sucesss: resp });</span>
+              })
+              .catch(<span class="fstat-no" title="function not covered" >(e</span>rror: Error) =&gt; {
+<span class="cstat-no" title="statement not covered" >                console.log({ error });</span>
+              });
+          }}
+        &gt;
+          Send transfer validate error
+        &lt;/styled.button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
   );
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -1621,7 +1678,7 @@ export const Bitcoin = <span class="cstat-no" title="statement not covered" ><sp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-17T17:33:12.547Z
+                at 2024-12-18T17:04:10.606Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
