@@ -1,17 +1,13 @@
-import { useMemo } from 'react';
 import { Route, useNavigate } from 'react-router-dom';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box, Stack } from 'leather-styles/jsx';
 
-import { useNativeSegwitUtxosByAddress } from '@leather.io/query';
-import { Switch } from '@leather.io/ui';
-
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
+import { useAvailableBalance, useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 import { whenPageMode } from '@app/common/utils';
@@ -19,18 +15,13 @@ import { ActivityList } from '@app/features/activity-list/activity-list';
 import { useInscribedSpendableUtxos } from '@app/features/discarded-inscriptions/use-inscribed-spendable-utxos';
 import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
 import { Assets } from '@app/pages/home/components/assets';
-import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { useCurrentNativeSegwitInscriptions } from '@app/query/bitcoin/ordinals/inscriptions/inscriptions.query';
 import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import {
-  useCurrentAccountNativeSegwitAddressIndexZero,
-  useCurrentAccountNativeSegwitIndexZeroSigner,
-} from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTogglePrivateMode } from '@app/store/settings/settings.actions';
-import { useDiscardedInscriptions, useIsPrivateMode } from '@app/store/settings/settings.selectors';
+import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 import { AccountCard } from '@app/ui/components/account/account.card';
 
 import { AccountActions } from './components/account-actions';
@@ -51,10 +42,18 @@ export function Home() {
   });
 
   const spendableIncribedUtxos = useInscribedSpendableUtxos();
-  console.log({ spendableIncribedUtxos });
 
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const { totalUsdBalance, isPending, isLoadingAdditionalData } = useTotalBalance({
+  const {
+    totalUsdBalance: availableUsdBalance,
+    isPending,
+    isLoadingAdditionalData,
+  } = useAvailableBalance({
+    btcAddress,
+    stxAddress: account?.address || '',
+  });
+
+  const { totalUsdBalance } = useTotalBalance({
     btcAddress,
     stxAddress: account?.address || '',
   });
@@ -78,7 +77,8 @@ export function Home() {
       <Box px={{ base: 'space.05', md: 0 }} pb={{ base: 'space.05', md: 0 }}>
         <AccountCard
           name={name}
-          balance={totalUsdBalance}
+          availableBalance={availableUsdBalance}
+          totalBalance={totalUsdBalance}
           toggleSwitchAccount={() => toggleSwitchAccount()}
           isFetchingBnsName={isFetchingBnsName}
           isLoadingBalance={isPending}

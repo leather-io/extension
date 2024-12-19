@@ -4,7 +4,7 @@ import { styled } from 'leather-styles/jsx';
 
 import { SkeletonLoader, shimmerStyles } from '@leather.io/ui';
 
-import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
+import { useAvailableBalance } from '@app/common/hooks/balance/use-total-balance';
 import { PrivateText } from '@app/components/privacy/private-text';
 
 interface AccountTotalBalanceProps {
@@ -13,7 +13,7 @@ interface AccountTotalBalanceProps {
 }
 
 export const AccountTotalBalance = memo(({ btcAddress, stxAddress }: AccountTotalBalanceProps) => {
-  const { totalUsdBalance, isFetching, isLoading, isLoadingAdditionalData } = useTotalBalance({
+  const { totalUsdBalance, isFetching, isLoading, isLoadingAdditionalData } = useAvailableBalance({
     btcAddress,
     stxAddress,
   });

@@ -30,15 +30,9 @@ function openInscriptionUrl(num: number) {
 export function Inscription({ inscription }: InscriptionProps) {
   const navigate = useNavigate();
   const location = useLocation();
-  const {
-    hasInscriptionBeenDiscarded: hasBeenDiscarded,
-    discardInscription,
-    recoverInscription,
-    discardedInscriptions,
-  } = useDiscardedInscriptions();
 
-  // console.log(inscription);
-  // console.log(discardedInscriptions);
+  const { hasInscriptionBeenDiscarded, discardInscription, recoverInscription } =
+    useDiscardedInscriptions();
 
   const openSendInscriptionModal = useCallback(() => {
     navigate(RouteUrls.SendOrdinalInscription, {
@@ -123,14 +117,16 @@ export function Inscription({ inscription }: InscriptionProps) {
       {content}
       <HighSatValueUtxoWarning inscription={inscription} />
       IsDiscarded:{' '}
-      {String(hasBeenDiscarded(inscription.txid, inscription.output, inscription.offset))}
+      {String(
+        hasInscriptionBeenDiscarded(inscription.txid, inscription.output, inscription.offset)
+      )}
       <br />
       value: {inscription.value}
       <br />
       <button
         onClick={() => {
           // change api to use txid and output obj
-          hasBeenDiscarded(inscription.txid, inscription.output, inscription.offset)
+          hasInscriptionBeenDiscarded(inscription.txid, inscription.output, inscription.offset)
             ? recoverInscription(inscription.txid, inscription.output, inscription.offset)
             : discardInscription(inscription.txid, inscription.output, inscription.offset);
         }}

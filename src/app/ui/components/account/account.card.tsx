@@ -12,7 +12,8 @@ import { PrivateTextLayout } from '@app/components/privacy/private-text.layout';
 
 interface AccountCardProps {
   name: string;
-  balance: string;
+  availableBalance: string;
+  totalBalance: string;
   children: ReactNode;
   toggleSwitchAccount(): void;
   isFetchingBnsName: boolean;
@@ -24,7 +25,8 @@ interface AccountCardProps {
 
 export function AccountCard({
   name,
-  balance,
+  availableBalance,
+  totalBalance,
   toggleSwitchAccount,
   onShowBalance,
   children,
@@ -89,9 +91,10 @@ export function AccountCard({
                 display="inline-block"
                 overflow="hidden"
               >
-                {balance}
+                {availableBalance}
               </PrivateTextLayout>
             </styled.h1>
+            <styled.h2>{totalBalance}</styled.h2>
           </SkeletonLoader>
         </Box>
         {children}
