@@ -13,7 +13,10 @@ import {
 } from '@leather.io/query';
 
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useCurrentBitcoinAccountXpubs } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
+import {
+  useCurrentBitcoinAccountNativeSegwitXpub,
+  useCurrentBitcoinAccountXpubs,
+} from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
 interface UseInscriptionArgs {
@@ -35,6 +38,11 @@ export function useNumberOfInscriptionsOnUtxo() {
     (txid: string, vout: number) => createNumberOfInscriptionsFn(inscriptionQueries)(txid, vout),
     [inscriptionQueries]
   );
+}
+
+export function useCurrentNativeSegwitInscriptions() {
+  const nativeSegwitXpub = useCurrentBitcoinAccountNativeSegwitXpub();
+  return useInscriptions({ xpubs: [nativeSegwitXpub] });
 }
 
 export function useCurrentTaprootAccountUninscribedUtxos() {

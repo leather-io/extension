@@ -3,6 +3,8 @@ import { Route, useNavigate } from 'react-router-dom';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box, Stack } from 'leather-styles/jsx';
 
+import { Switch } from '@leather.io/ui';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
@@ -16,13 +18,15 @@ import { ActivityList } from '@app/features/activity-list/activity-list';
 import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
 import { SbtcPromoCard } from '@app/features/sbtc-promo-card/sbtc-promo-card';
 import { Assets } from '@app/pages/home/components/assets';
+import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
+import { useCurrentNativeSegwitInscriptions } from '@app/query/bitcoin/ordinals/inscriptions/inscriptions.query';
 import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTogglePrivateMode } from '@app/store/settings/settings.actions';
-import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
+import { useDiscardedInscriptions, useIsPrivateMode } from '@app/store/settings/settings.selectors';
 import { AccountCard } from '@app/ui/components/account/account.card';
 
 import { AccountActions } from './components/account-actions';
@@ -43,6 +47,22 @@ export function Home() {
     address: account?.address || '',
     index: currentAccountIndex || 0,
   });
+  const {
+    hasInscriptionBeenDiscarded: hasBeenDiscarded,
+    discardInscription,
+    recoverInscription,
+    discardedInscriptions,
+  } = useDiscardedInscriptions();
+
+  const { queries: inscrptions } = useCurrentNativeSegwitInscriptions();
+
+  console.log(inscrptions);
+
+  // console.log(discardedInscriptions);
+
+  // const { data: utxos } = useCurrentNativeSegwitUtxos();
+
+  // console.log(utxos);
 
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { totalUsdBalance, isPending, isLoadingAdditionalData } = useTotalBalance({
@@ -78,6 +98,10 @@ export function Home() {
           onShowBalance={togglePrivateMode}
         >
           <AccountActions />
+          Globally toggle inscription protection
+          <Switch.Root onCheckedChange={val => console.log(val)}>
+            <Switch.Thumb />
+          </Switch.Root>
         </AccountCard>
         <SbtcPromoCard mt="space.05" onClick={() => openInNewTab(leatherEarnUrl)} />
       </Box>

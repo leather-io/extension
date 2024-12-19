@@ -18,10 +18,12 @@ export function useCurrentNativeSegwitUtxos(args = defaultArgs) {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSignerNullable();
   const address = nativeSegwitSigner?.address ?? '';
 
-  return useNativeSegwitUtxosByAddress({
+  const query = useNativeSegwitUtxosByAddress({
     address,
     filterInscriptionUtxos,
     filterPendingTxsUtxos,
     filterRunesUtxos,
   });
+
+  return { ...query };
 }
