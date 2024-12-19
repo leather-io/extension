@@ -13,6 +13,10 @@ function createBtcCryptoAssetBalance(balance: Money): BtcCryptoAssetBalance {
     availableBalance: balance,
     protectedBalance: createMoney(0, 'BTC'),
     uneconomicalBalance: createMoney(0, 'BTC'),
+    pendingBalance: createMoney(0, 'BTC'),
+    totalBalance: balance,
+    inboundBalance: createMoney(0, 'BTC'),
+    outboundBalance: createMoney(0, 'BTC'),
   };
 }
 
