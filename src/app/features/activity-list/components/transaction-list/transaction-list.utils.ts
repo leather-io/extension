@@ -3,8 +3,9 @@ import dayjs from 'dayjs';
 import { isUndefined } from '@leather.io/utils';
 
 import { displayDate, isoDateToLocalDateSafe, todaysIsoDate } from '@app/common/date-utils';
-import {
+import type {
   TransactionListBitcoinTx,
+  TransactionListSbtcDeposit,
   TransactionListStacksTx,
   TransactionListTxs,
 } from '@app/features/activity-list/components/transaction-list/transaction-list.model';
@@ -30,6 +31,8 @@ function getTransactionTime(listTx: TransactionListTxs) {
         listTx.transaction.tx.burn_block_time_iso ||
         listTx.transaction.tx.parent_burn_block_time_iso
       );
+    case 'bitcoin-stacks':
+      return listTx.deposit.block?.burn_block_time_iso;
     default:
       return undefined;
   }
@@ -51,6 +54,8 @@ function getTransactionBlockHeight(listTx: TransactionListTxs) {
       return listTx.transaction.status.block_height;
     case 'stacks':
       return listTx.transaction.tx.block_height;
+    case 'bitcoin-stacks':
+      return listTx.deposit.block?.height ?? listTx.deposit.lastUpdateHeight;
     default:
       return undefined;
   }
@@ -141,10 +146,11 @@ function sortGroupedTransactions(
 
 export function createTxDateFormatList(
   bitcoinTxs: TransactionListBitcoinTx[],
-  stacksTxs: TransactionListStacksTx[]
+  stacksTxs: TransactionListStacksTx[],
+  sbtcDeposits: TransactionListSbtcDeposit[]
 ) {
   const formattedTxs = formatTxDateMapAsList(
-    groupTxsByDateMap([...bitcoinTxs, ...filterDuplicateStacksTxs(stacksTxs)])
+    groupTxsByDateMap([...bitcoinTxs, ...filterDuplicateStacksTxs(stacksTxs), ...sbtcDeposits])
   );
   return sortGroupedTransactions(formattedTxs);
 }

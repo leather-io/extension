@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent } from 'react';
 
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import BigNumber from 'bignumber.js';
@@ -6,8 +6,7 @@ import { useField, useFormikContext } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
 
 import {
-  convertAmountToFractionalUnit,
-  createMoney,
+  createMoneyFromDecimal,
   formatMoneyWithoutSymbol,
   isDefined,
   isUndefined,
@@ -31,17 +30,11 @@ interface SwapAmountFieldProps {
   name: string;
 }
 export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFieldProps) {
-  const { fetchQuoteAmount, isFetchingExchangeRate, onSetIsSendingMax } = useSwapContext();
+  const { fetchQuoteAmount, isCrossChainSwap, isFetchingExchangeRate, onSetIsSendingMax } =
+    useSwapContext();
   const { setFieldError, setFieldValue, values } = useFormikContext<SwapFormValues>();
   const [field] = useField(name);
   const showError = useShowFieldError(name) && name === 'swapAmountBase' && values.swapAssetQuote;
-
-  useEffect(() => {
-    // Clear quote amount if quote asset is reset
-    if (isUndefined(values.swapAssetQuote)) {
-      void setFieldValue('swapAmountQuote', '');
-    }
-  }, [setFieldValue, values]);
 
   async function onBlur(event: ChangeEvent<HTMLInputElement>) {
     const { swapAssetBase, swapAssetQuote } = values;
@@ -49,19 +42,21 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
     onSetIsSendingMax(false);
     const value = event.currentTarget.value;
     const toAmount = await fetchQuoteAmount(swapAssetBase, swapAssetQuote, value);
-    if (isUndefined(toAmount)) {
+    const valueLengthAsDecimals = value.length - 1;
+    if (isUndefined(toAmount) || valueLengthAsDecimals > swapAssetBase.balance.decimals) {
       await setFieldValue('swapAmountQuote', '');
       return;
     }
-    const toAmountAsMoney = createMoney(
-      convertAmountToFractionalUnit(
-        new BigNumber(toAmount),
-        values.swapAssetQuote?.balance.decimals
-      ),
+    const toAmountAsMoney = createMoneyFromDecimal(
+      new BigNumber(toAmount),
       values.swapAssetQuote?.balance.symbol ?? '',
       values.swapAssetQuote?.balance.decimals
     );
-    await setFieldValue('swapAmountQuote', formatMoneyWithoutSymbol(toAmountAsMoney));
+
+    await setFieldValue(
+      'swapAmountQuote',
+      isCrossChainSwap ? toAmount : formatMoneyWithoutSymbol(toAmountAsMoney)
+    );
     setFieldError('swapAmountQuote', undefined);
   }
 

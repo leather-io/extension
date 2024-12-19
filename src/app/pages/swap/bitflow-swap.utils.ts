@@ -57,7 +57,7 @@ export function getCrossChainSwapSubmissionData(values: SwapFormValues): SwapSub
     feeType: BtcFeeType.Standard,
     liquidityFee: 0,
     maxSignerFee: 0,
-    protocol: 'Bitcoin L2 Labs',
+    protocol: 'sBTC Protocol',
     dexPath: [],
     router: [values.swapAssetBase, values.swapAssetQuote].filter(isDefined),
     slippage: 0,
