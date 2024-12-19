@@ -37,7 +37,7 @@ import type { SwapSubmissionData } from '../swap.context';
 
 // Also set as defaults in sbtc lib
 const maxSignerFee = 80_000;
-const reclaimLockTime = 144;
+const reclaimLockTime = 12;
 
 interface SbtcDeposit {
   address: string;

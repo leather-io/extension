@@ -2,8 +2,11 @@ import { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-t
 
 import type { BitcoinTx } from '@leather.io/models';
 
-import {
+import type { SbtcDeposit } from '@app/query/sbtc/sbtc-deposits.query';
+
+import type {
   TransactionListBitcoinTx,
+  TransactionListSbtcDeposit,
   TransactionListStacksTx,
 } from './components/transaction-list/transaction-list.model';
 
@@ -21,6 +24,13 @@ function createStacksTxTypeWrapper(tx: AddressTransactionWithTransfers): Transac
   };
 }
 
+function createSbtcDepositTxTypeWrapper(deposit: SbtcDeposit): TransactionListSbtcDeposit {
+  return {
+    blockchain: 'bitcoin-stacks',
+    deposit,
+  };
+}
+
 export function convertBitcoinTxsToListType(txs?: BitcoinTx[]) {
   if (!txs) return [];
   const confirmedTxs = txs.filter(tx => tx.status.confirmed);
@@ -30,4 +40,9 @@ export function convertBitcoinTxsToListType(txs?: BitcoinTx[]) {
 export function convertStacksTxsToListType(txs?: AddressTransactionWithTransfers[]) {
   if (!txs) return [];
   return txs.map(tx => createStacksTxTypeWrapper(tx));
+}
+
+export function convertSbtcDepositToListType(deposits?: SbtcDeposit[]) {
+  if (!deposits) return [];
+  return deposits.map(deposit => createSbtcDepositTxTypeWrapper(deposit));
 }

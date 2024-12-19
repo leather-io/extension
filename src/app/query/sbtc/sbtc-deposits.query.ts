@@ -3,7 +3,10 @@ import { BytesReader, addressToString, deserializeAddress } from '@stacks/transa
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
+import { isDefined } from '@leather.io/utils';
+
 import { useConfigSbtc } from '../common/remote-config/remote-config.query';
+import { type StacksBlock, useGetStacksBlocks } from './get-stacks-block.query';
 
 export enum SbtcStatus {
   Pending = 'pending',
@@ -13,7 +16,7 @@ export enum SbtcStatus {
   Failed = 'failed',
 }
 
-export interface SbtcDepositInfo {
+interface SbtcDepositInfo {
   amount: number;
   bitcoinTxOutputIndex: number;
   bitcoinTxid: string;
@@ -54,6 +57,29 @@ function useGetSbtcDeposits(stxAddress: string, status: string) {
   });
 }
 
+export interface SbtcDeposit extends SbtcDepositInfo {
+  block?: StacksBlock;
+}
+
+function useSbtcDeposits(deposits: SbtcDepositInfo[]) {
+  const blockResults = useGetStacksBlocks(deposits.map(deposit => deposit.lastUpdateHeight));
+  const isLoadingBlocks = blockResults.some(query => query.isLoading);
+
+  return {
+    isLoadingBlocks,
+    deposits: deposits.map(deposit => {
+      const block = blockResults
+        .map(query => query.data)
+        .filter(isDefined)
+        .find(block => block.height === deposit.lastUpdateHeight);
+      return {
+        ...deposit,
+        block,
+      };
+    }),
+  };
+}
+
 export function useSbtcPendingDeposits(stxAddress: string) {
   const { data: pendingDeposits = [], isLoading: isLoadingStatusPending } = useGetSbtcDeposits(
     stxAddress,
@@ -66,8 +92,42 @@ export function useSbtcPendingDeposits(stxAddress: string) {
     'accepted'
   );
 
+  const { isLoadingBlocks, deposits } = useSbtcDeposits([
+    ...pendingDeposits,
+    ...reprocessingDeposits,
+    ...acceptedDeposits,
+  ]);
+
   return {
-    isLoading: isLoadingStatusPending || isLoadingStatusReprocessing || isLoadingStatusAccepted,
-    pendingSbtcDeposits: [...pendingDeposits, ...reprocessingDeposits, ...acceptedDeposits],
+    isLoading:
+      isLoadingStatusPending ||
+      isLoadingStatusReprocessing ||
+      isLoadingStatusAccepted ||
+      isLoadingBlocks,
+    pendingSbtcDeposits: deposits,
+  };
+}
+
+export function useSbtcConfirmedDeposits(stxAddress: string) {
+  const { data: confirmedSbtcDeposits = [], isLoading: isLoadingStatusConfirmed } =
+    useGetSbtcDeposits(stxAddress, 'confirmed');
+  const { isLoadingBlocks, deposits } = useSbtcDeposits(confirmedSbtcDeposits);
+
+  return {
+    isLoading: isLoadingStatusConfirmed || isLoadingBlocks,
+    confirmedSbtcDeposits: deposits,
+  };
+}
+
+export function useSbtcFailedDeposits(stxAddress: string) {
+  const { data: failedSbtcDeposits = [], isLoading: isLoadingStatusFailed } = useGetSbtcDeposits(
+    stxAddress,
+    'failed'
+  );
+  const { isLoadingBlocks, deposits } = useSbtcDeposits(failedSbtcDeposits);
+
+  return {
+    isLoading: isLoadingStatusFailed || isLoadingBlocks,
+    failedSbtcDeposits: deposits,
   };
 }

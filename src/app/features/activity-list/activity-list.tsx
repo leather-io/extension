@@ -12,14 +12,22 @@ import {
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
-import { useSbtcPendingDeposits } from '@app/query/sbtc/sbtc-deposits.query';
+import {
+  useSbtcConfirmedDeposits,
+  useSbtcFailedDeposits,
+  useSbtcPendingDeposits,
+} from '@app/query/sbtc/sbtc-deposits.query';
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useUpdateSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 
-import { convertBitcoinTxsToListType, convertStacksTxsToListType } from './activity-list.utils';
+import {
+  convertBitcoinTxsToListType,
+  convertSbtcDepositToListType,
+  convertStacksTxsToListType,
+} from './activity-list.utils';
 import { NoAccountActivity } from './components/no-account-activity';
 import { PendingTransactionList } from './components/pending-transaction-list/pending-transaction-list';
 import { SubmittedTransactionList } from './components/submitted-transaction-list/submitted-transaction-list';
@@ -64,8 +72,12 @@ export function ActivityList() {
     [nsPendingTxs, trPendingTxs]
   );
 
-  const { isLoading: isLoadingSbtcDeposits, pendingSbtcDeposits } =
+  const { isLoading: isLoadingSbtcPendingDeposits, pendingSbtcDeposits } =
     useSbtcPendingDeposits(stxAddress);
+  const { isLoading: isLoadingSbtcConfirmedDeposits, confirmedSbtcDeposits } =
+    useSbtcConfirmedDeposits(stxAddress);
+  const { isLoading: isLoadingSbtcFailedDeposits, failedSbtcDeposits } =
+    useSbtcFailedDeposits(stxAddress);
 
   const { isLoading: isLoadingStacksTransactions, data: stacksTransactionsWithTransfers } =
     useGetAccountTransactionsWithTransfersQuery(stxAddress);
@@ -85,7 +97,9 @@ export function ActivityList() {
     isLoadingTrBitcoinTransactions ||
     isLoadingStacksTransactions ||
     isLoadingStacksPendingTransactions ||
-    isLoadingSbtcDeposits;
+    isLoadingSbtcPendingDeposits ||
+    isLoadingSbtcConfirmedDeposits ||
+    isLoadingSbtcFailedDeposits;
 
   const transactionListBitcoinTxs = useMemo(() => {
     return convertBitcoinTxsToListType(
@@ -135,7 +149,7 @@ export function ActivityList() {
         {hasPendingTransactions && (
           <PendingTransactionList
             bitcoinTxs={isBitcoinEnabled ? bitcoinPendingTxs : []}
-            sBtcDeposits={pendingSbtcDeposits}
+            sbtcDeposits={pendingSbtcDeposits}
             stacksTxs={stacksPendingTransactions}
           />
         )}
@@ -143,6 +157,10 @@ export function ActivityList() {
           <TransactionList
             bitcoinTxs={isBitcoinEnabled ? transactionListBitcoinTxs : []}
             stacksTxs={transactionListStacksTxs}
+            sbtcDeposits={convertSbtcDepositToListType([
+              ...confirmedSbtcDeposits,
+              ...failedSbtcDeposits,
+            ])}
             currentBitcoinAddress={nsBitcoinAddress}
           />
         )}

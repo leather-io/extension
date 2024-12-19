@@ -5,18 +5,18 @@ import type { BitcoinTx } from '@leather.io/models';
 import { BitcoinTransactionItem } from '@app/components/bitcoin-transaction-item/bitcoin-transaction-item';
 import { SbtcDepositTransactionItem } from '@app/components/sbtc-deposit-status-item/sbtc-deposit-status-item';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
-import type { SbtcDepositInfo } from '@app/query/sbtc/sbtc-deposits.query';
+import type { SbtcDeposit } from '@app/query/sbtc/sbtc-deposits.query';
 
 import { PendingTransactionListLayout } from './pending-transaction-list.layout';
 
 interface PendingTransactionListProps {
   bitcoinTxs: BitcoinTx[];
-  sBtcDeposits: SbtcDepositInfo[];
+  sbtcDeposits: SbtcDeposit[];
   stacksTxs: MempoolTransaction[];
 }
 export function PendingTransactionList({
   bitcoinTxs,
-  sBtcDeposits,
+  sbtcDeposits,
   stacksTxs,
 }: PendingTransactionListProps) {
   return (
@@ -24,7 +24,7 @@ export function PendingTransactionList({
       {bitcoinTxs.map(tx => (
         <BitcoinTransactionItem key={tx.txid} transaction={tx} />
       ))}
-      {sBtcDeposits.map(deposit => (
+      {sbtcDeposits.map(deposit => (
         <SbtcDepositTransactionItem key={deposit.bitcoinTxid} deposit={deposit} />
       ))}
       {stacksTxs.map(tx => (

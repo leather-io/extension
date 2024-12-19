@@ -7,7 +7,7 @@ import {
   convertAmountToBaseUnit,
   createMoney,
   createMoneyFromDecimal,
-  formatMoneyPadded,
+  formatMoney,
   isDefined,
   isUndefined,
   satToBtc,
@@ -31,11 +31,12 @@ function RouteNames(props: { swapSubmissionData: SwapSubmissionData }) {
   });
 }
 
+const sbtcMoreInfoUrl = 'https://github.com/stacks-network/sbtc-bridge';
 const sponsoredFeeLabel =
   'Sponsorship may not apply when you have pending transactions. In such cases, if you choose to proceed, the associated costs will be deducted from your balance.';
 
 export function SwapDetails() {
-  const { swapSubmissionData } = useSwapContext();
+  const { isCrossChainSwap, swapSubmissionData } = useSwapContext();
 
   if (
     isUndefined(swapSubmissionData) ||
@@ -46,7 +47,7 @@ export function SwapDetails() {
 
   const maxSignerFee = satToBtc(swapSubmissionData.maxSignerFee ?? 0);
 
-  const formattedMinToReceive = formatMoneyPadded(
+  const formattedMinToReceive = formatMoney(
     createMoneyFromDecimal(
       new BigNumber(swapSubmissionData.swapAmountQuote)
         .times(1 - swapSubmissionData.slippage)
@@ -69,6 +70,7 @@ export function SwapDetails() {
     <SwapDetailsLayout>
       <SwapDetailLayout
         dataTestId={SwapSelectors.SwapDetailsProtocol}
+        moreInfoUrl={isCrossChainSwap ? sbtcMoreInfoUrl : undefined}
         title="Powered by"
         value={getFormattedPoweredBy()}
       />

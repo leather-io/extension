@@ -1,12 +1,14 @@
 import SbtcAvatarIconSrc from '@assets/avatars/sbtc-avatar-icon.png';
+import { HStack } from 'leather-styles/jsx';
 
-import { Avatar, Caption, Title } from '@leather.io/ui';
+import { Avatar, Caption, Link, Title } from '@leather.io/ui';
 import { truncateMiddle } from '@leather.io/utils';
 
 import { analytics } from '@shared/utils/analytics';
 
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
-import type { SbtcDepositInfo, SbtcStatus } from '@app/query/sbtc/sbtc-deposits.query';
+import { openInNewTab } from '@app/common/utils/open-in-new-tab';
+import { SbtcDeposit, SbtcStatus } from '@app/query/sbtc/sbtc-deposits.query';
 
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
 
@@ -17,37 +19,61 @@ function getDepositStatus(status: SbtcStatus) {
       return 'Pending deposit';
     case 'accepted':
       return 'Pending mint';
-    case 'confirmed':
-      return 'Done';
     case 'failed':
       return 'Failed';
+    case 'confirmed':
     default:
       return '';
   }
 }
 
+function getDepositStatusTextColor(status: SbtcStatus) {
+  switch (status) {
+    case 'pending':
+    case 'reprocessing':
+    case 'accepted':
+      return 'yellow.action-primary-default';
+    case 'failed':
+      return 'red.action-primary-default';
+    case 'confirmed':
+    default:
+      return '';
+  }
+}
+
+const sbtcReclaimUrl = 'https://app.stacks.co/reclaim?depositTxId=';
+
 interface SbtcDepositTransactionItemProps {
-  deposit: SbtcDepositInfo;
+  deposit: SbtcDeposit;
 }
 export function SbtcDepositTransactionItem({ deposit }: SbtcDepositTransactionItemProps) {
   const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
+  const { bitcoinTxid, status } = deposit;
+  const depositFailed = status === 'failed';
 
-  const openTxLink = () => {
+  function openTxLink() {
     void analytics.track('view_bitcoin_transaction');
-    handleOpenTxLink({ txid: deposit.bitcoinTxid });
-  };
+    handleOpenTxLink({ txid: bitcoinTxid });
+  }
+
+  function openReclaimLink() {
+    return openInNewTab(`${sbtcReclaimUrl}${bitcoinTxid}`);
+  }
 
   return (
     <TransactionItemLayout
-      openTxLink={openTxLink}
-      txCaption={truncateMiddle(deposit.bitcoinTxid, 4)}
+      openTxLink={!depositFailed ? openTxLink : () => {}}
+      txCaption={truncateMiddle(bitcoinTxid, 4)}
       txIcon={
         <Avatar.Root>
           <Avatar.Image alt="ST" src={SbtcAvatarIconSrc} />
         </Avatar.Root>
       }
       txStatus={
-        <Caption color="yellow.action-primary-default">{getDepositStatus(deposit.status)}</Caption>
+        <HStack>
+          <Caption color={getDepositStatusTextColor(status)}>{getDepositStatus(status)}</Caption>
+          {depositFailed && <Link onClick={openReclaimLink}>Reclaim</Link>}
+        </HStack>
       }
       txTitle={<Title textStyle="label.02">BTC → sBTC</Title>}
       // Api is only returning 0 right now

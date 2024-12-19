@@ -79,6 +79,19 @@ export function useSwapForm() {
         },
       })
       .test({
+        message: 'Decimal precision not supported',
+        test(value) {
+          if (!value || isFetchingExchangeRate) return true;
+          const { swapAssetBase } = this.parent;
+          const numStr = value.toString();
+          if (numStr.includes('e')) {
+            const exponent = Math.abs(parseInt(value.toExponential().split('e')[1], 10));
+            if (exponent > swapAssetBase.balance.decimals) return false;
+          }
+          return true;
+        },
+      })
+      .test({
         message: `Min amount is ${convertAmountToBaseUnit(sBtcDepositCapMin).toString()} BTC`,
         test(value) {
           if (!isCrossChainSwap) return true;
