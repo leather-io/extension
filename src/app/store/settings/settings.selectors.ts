@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { createSelector } from '@reduxjs/toolkit';
 
-import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { RootState } from '@app/store';
 
 import { settingsSlice } from './settings.slice';
@@ -52,16 +51,14 @@ export function useDiscardedInscriptions() {
   return useMemo(
     () => ({
       discardedInscriptions,
-      hasBeenDiscarded(txid: string, vout: string) {
-        return discardedInscriptions.includes([txid, vout].join(':'));
+      hasInscriptionBeenDiscarded(txid: string, vout: string, offset: string) {
+        return discardedInscriptions.includes([txid, vout, offset].join(':'));
       },
-      discardInscription(txid: string, vout: string) {
-        console.log('discarding inscription', [txid, vout].join(':'));
-        dispatch(settingsSlice.actions.discardInscription([txid, vout].join(':')));
+      discardInscription(txid: string, vout: string, offset: string) {
+        dispatch(settingsSlice.actions.discardInscription([txid, vout, offset].join(':')));
       },
-      recoverInscription(txid: string, vout: string) {
-        console.log('recovering inscription', [txid, vout].join(':'));
-        dispatch(settingsSlice.actions.recoverInscription([txid, vout].join(':')));
+      recoverInscription(txid: string, vout: string, offset: string) {
+        dispatch(settingsSlice.actions.recoverInscription([txid, vout, offset].join(':')));
       },
     }),
     [discardedInscriptions, dispatch]

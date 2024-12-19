@@ -287,6 +287,16 @@ export function useSignBitcoinTx() {
   };
 }
 
+export function useCurrentBitcoinAccountNativeSegwitXpub() {
+  const nativeSegwitAccount = useCurrentNativeSegwitAccount();
+  return `wpkh(${nativeSegwitAccount?.keychain.publicExtendedKey})`;
+}
+
+export function useCurrentBitcoinAccountTaprootXpub() {
+  const taprootAccount = useCurrentTaprootAccount();
+  return `tr(${taprootAccount?.keychain.publicExtendedKey})`;
+}
+
 export function useCurrentBitcoinAccountXpubs() {
   const taprootAccount = useCurrentTaprootAccount();
   const nativeSegwitAccount = useCurrentNativeSegwitAccount();
