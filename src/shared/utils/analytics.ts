@@ -28,7 +28,7 @@ const segmentClient = new AnalyticsBrowser();
 export const analytics = configureAnalyticsClient<AnalyticsBrowser>({
   client: segmentClient,
   defaultProperties: {
-    platform: 'mobile',
+    platform: 'extension',
   },
 });
 
