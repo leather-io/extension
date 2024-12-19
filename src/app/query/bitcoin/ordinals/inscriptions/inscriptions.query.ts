@@ -1,9 +1,10 @@
 import { useCallback, useMemo } from 'react';
 
-import { useQueries } from '@tanstack/react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 
 import {
   combineInscriptionResults,
+  createBestInSlotInscription,
   createInscriptionByXpubQuery,
   createNumberOfInscriptionsFn,
   filterUninscribedUtxosToRecoverFromTaproot,
@@ -41,8 +42,14 @@ export function useNumberOfInscriptionsOnUtxo() {
 }
 
 export function useCurrentNativeSegwitInscriptions() {
+  const client = useBitcoinClient();
   const nativeSegwitXpub = useCurrentBitcoinAccountNativeSegwitXpub();
-  return useInscriptions({ xpubs: [nativeSegwitXpub] });
+  return useQuery({
+    ...createInscriptionByXpubQuery(client, nativeSegwitXpub),
+    select(data) {
+      return data.data.map(createBestInSlotInscription);
+    },
+  });
 }
 
 export function useCurrentTaprootAccountUninscribedUtxos() {

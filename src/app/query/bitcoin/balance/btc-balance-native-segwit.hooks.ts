@@ -6,6 +6,7 @@ import type { BtcCryptoAssetBalance, Money } from '@leather.io/models';
 import { useNativeSegwitUtxosByAddress, useRunesEnabled } from '@leather.io/query';
 import { createMoney, isUndefined, sumNumbers } from '@leather.io/utils';
 
+import { useInscribedSpendableUtxos } from '@app/features/discarded-inscriptions/use-inscribed-spendable-utxos';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 function createBtcCryptoAssetBalance(balance: Money): BtcCryptoAssetBalance {
@@ -20,25 +21,37 @@ function createBtcCryptoAssetBalance(balance: Money): BtcCryptoAssetBalance {
 export function useBtcCryptoAssetBalanceNativeSegwit(address: string) {
   const runesEnabled = useRunesEnabled();
 
-  const query = useNativeSegwitUtxosByAddress({
+  const spendableInscriptionUtxos = useInscribedSpendableUtxos();
+
+  const filteredUtxosQuery = useNativeSegwitUtxosByAddress({
     address,
     filterInscriptionUtxos: true,
     filterPendingTxsUtxos: true,
     filterRunesUtxos: runesEnabled,
   });
 
+  // const filteredUtxosQuery = useNativeSegwitUtxosByAddress({
+  //   address,
+  //   filterInscriptionUtxos: true,
+  //   filterPendingTxsUtxos: true,
+  //   filterRunesUtxos: runesEnabled,
+  // });
+
   const balance = useMemo(() => {
-    if (isUndefined(query.data))
+    if (isUndefined(filteredUtxosQuery.data))
       return createBtcCryptoAssetBalance(createMoney(new BigNumber(0), 'BTC'));
     return createBtcCryptoAssetBalance(
-      createMoney(sumNumbers(query.data.map(utxo => utxo.value)), 'BTC')
+      createMoney(
+        // Here we add back in the utxos that are spending beacuse they've been discarded
+        sumNumbers(
+          [...filteredUtxosQuery.data, ...spendableInscriptionUtxos].map(utxo => utxo.value)
+        ),
+        'BTC'
+      )
     );
-  }, [query.data]);
+  }, [filteredUtxosQuery.data, spendableInscriptionUtxos]);
 
-  return {
-    ...query,
-    balance,
-  };
+  return { ...filteredUtxosQuery, balance };
 }
 
 export function useCurrentBtcCryptoAssetBalanceNativeSegwit() {

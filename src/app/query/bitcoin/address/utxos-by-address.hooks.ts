@@ -1,5 +1,6 @@
 import { useNativeSegwitUtxosByAddress } from '@leather.io/query';
 
+import { useInscribedSpendableUtxos } from '@app/features/discarded-inscriptions/use-inscribed-spendable-utxos';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 const defaultArgs = {
@@ -17,6 +18,7 @@ export function useCurrentNativeSegwitUtxos(args = defaultArgs) {
 
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const address = nativeSegwitSigner.address;
+  const spendableUtxos = useInscribedSpendableUtxos();
 
   const query = useNativeSegwitUtxosByAddress({
     address,
@@ -25,5 +27,5 @@ export function useCurrentNativeSegwitUtxos(args = defaultArgs) {
     filterRunesUtxos,
   });
 
-  return { ...query };
+  return { ...query, data: [...(query.data ?? []), ...spendableUtxos] };
 }
