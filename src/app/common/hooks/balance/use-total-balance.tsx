@@ -8,6 +8,8 @@ import { baseCurrencyAmountInQuote, createMoney, i18nFormatCurrency } from '@lea
 
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 
+import { useSip10ManagedTokensBalance } from './use-sip10-balance';
+
 interface UseTotalBalanceArgs {
   btcAddress: string;
   stxAddress: string;
@@ -38,12 +40,18 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
     isLoadingAdditionalData: isLoadingAdditionalDataBtcBalance,
   } = useBtcCryptoAssetBalanceNativeSegwit(btcAddress);
 
+  // get sip10 balance
+  const sip10BalanceUsd = useSip10ManagedTokensBalance({ stxAddress, assetFilter: 'enabled' });
+
   return useMemo(() => {
     // calculate total balance
     const stxUsdAmount = baseCurrencyAmountInQuote(stxBalance, stxMarketData);
     const btcUsdAmount = baseCurrencyAmountInQuote(btcBalance.availableBalance, btcMarketData);
 
-    const totalBalance = { ...stxUsdAmount, amount: stxUsdAmount.amount.plus(btcUsdAmount.amount) };
+    const totalBalance = {
+      ...stxUsdAmount,
+      amount: stxUsdAmount.amount.plus(btcUsdAmount.amount).plus(sip10BalanceUsd.amount),
+    };
     return {
       isFetching: isFetchingStxBalance || isFetchingBtcBalance,
       isLoading: isLoadingStxBalance || isLoadingBtcBalance,
@@ -73,5 +81,6 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
     isLoadingAdditionalDataStxBalance,
     stxAddress,
     btcAddress,
+    sip10BalanceUsd,
   ]);
 }
