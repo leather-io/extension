@@ -43,9 +43,7 @@ export function useInscribedSpendableUtxos() {
       // have been discarded. This check ensures we don't spend a utxo if only
       // one of potentially many have been discarded
       .filter(utxo =>
-        utxo.inscriptions.every(inscription =>
-          hasInscriptionBeenDiscarded(inscription.txid, inscription.output, inscription.offset)
-        )
+        utxo.inscriptions.every(inscription => hasInscriptionBeenDiscarded(inscription))
       );
 
     return utxosThatCanBeSpentBecauseAllUtxosInsideWereDiscarded;

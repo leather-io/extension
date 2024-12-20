@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { createSelector } from '@reduxjs/toolkit';
 
+import type { Inscription } from '@leather.io/models';
+
 import { RootState } from '@app/store';
 
 import { settingsSlice } from './settings.slice';
@@ -44,6 +46,8 @@ const selectDiscardedInscriptions = createSelector(
   state => state.discardedInscriptions
 );
 
+type InscriptionIdentifier = Pick<Inscription, 'txid' | 'output' | 'offset'>;
+
 export function useDiscardedInscriptions() {
   const discardedInscriptions = useSelector(selectDiscardedInscriptions);
   const dispatch = useDispatch();
@@ -51,13 +55,13 @@ export function useDiscardedInscriptions() {
   return useMemo(
     () => ({
       discardedInscriptions,
-      hasInscriptionBeenDiscarded(txid: string, vout: string, offset: string) {
+      hasInscriptionBeenDiscarded({ txid, output: vout, offset }: InscriptionIdentifier) {
         return discardedInscriptions.includes([txid, vout, offset].join(':'));
       },
-      discardInscription(txid: string, vout: string, offset: string) {
+      discardInscription({ txid, output: vout, offset }: InscriptionIdentifier) {
         dispatch(settingsSlice.actions.discardInscription([txid, vout, offset].join(':')));
       },
-      recoverInscription(txid: string, vout: string, offset: string) {
+      recoverInscription({ txid, output: vout, offset }: InscriptionIdentifier) {
         dispatch(settingsSlice.actions.recoverInscription([txid, vout, offset].join(':')));
       },
     }),

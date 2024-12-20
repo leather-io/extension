@@ -4,22 +4,31 @@ import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { ChevronDownIcon, Link, SkeletonLoader, shimmerStyles } from '@leather.io/ui';
+import {
+  ChevronDownIcon,
+  Flag,
+  InfoCircleIcon,
+  Link,
+  SkeletonLoader,
+  shimmerStyles,
+} from '@leather.io/ui';
 
 import { useScaleText } from '@app/common/hooks/use-scale-text';
 import { AccountNameLayout } from '@app/components/account/account-name';
 import { PrivateTextLayout } from '@app/components/privacy/private-text.layout';
+
+import { BasicTooltip } from '../tooltip/basic-tooltip';
 
 interface AccountCardProps {
   name: string;
   availableBalance: string;
   totalBalance: string;
   children: ReactNode;
-  toggleSwitchAccount(): void;
   isFetchingBnsName: boolean;
   isLoadingBalance: boolean;
   isLoadingAdditionalData?: boolean;
   isBalancePrivate?: boolean;
+  toggleSwitchAccount(): void;
   onShowBalance?(): void;
 }
 
@@ -94,7 +103,23 @@ export function AccountCard({
                 {availableBalance}
               </PrivateTextLayout>
             </styled.h1>
-            <styled.h2>{totalBalance}</styled.h2>
+            <styled.h2 textStyle="label.02" color="ink.text-subdued" mt="space.01">
+              Full balance:
+              <styled.span ml="space.01">
+                <BasicTooltip
+                  side="right"
+                  label="Some funds may be unavailable to protect your collectible assets. Disable protection to access your remaining balance."
+                >
+                  <Flag
+                    reverse
+                    spacing="space.01"
+                    img={<InfoCircleIcon display="inline" variant="small" />}
+                  >
+                    {totalBalance}
+                  </Flag>
+                </BasicTooltip>
+              </styled.span>
+            </styled.h2>
           </SkeletonLoader>
         </Box>
         {children}

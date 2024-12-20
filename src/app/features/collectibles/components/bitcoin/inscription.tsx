@@ -116,19 +116,16 @@ export function Inscription({ inscription }: InscriptionProps) {
     <Box position="relative">
       {content}
       <HighSatValueUtxoWarning inscription={inscription} />
-      IsDiscarded:{' '}
-      {String(
-        hasInscriptionBeenDiscarded(inscription.txid, inscription.output, inscription.offset)
-      )}
+      IsDiscarded: {String(hasInscriptionBeenDiscarded(inscription))}
       <br />
       value: {inscription.value}
       <br />
       <button
         onClick={() => {
           // change api to use txid and output obj
-          hasInscriptionBeenDiscarded(inscription.txid, inscription.output, inscription.offset)
-            ? recoverInscription(inscription.txid, inscription.output, inscription.offset)
-            : discardInscription(inscription.txid, inscription.output, inscription.offset);
+          hasInscriptionBeenDiscarded(inscription)
+            ? recoverInscription(inscription)
+            : discardInscription(inscription);
         }}
       >
         toggle safe to spend
