@@ -19,6 +19,7 @@ import {
 import { ORD_IO_URL } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 
+import { useHoverWithChildren } from '@app/common/hooks/use-hover-with-children';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { useDiscardedInscriptions } from '@app/store/settings/settings.selectors';
 
@@ -40,7 +41,7 @@ function openInscriptionUrl(num: number) {
 export function Inscription({ inscription }: InscriptionProps) {
   const navigate = useNavigate();
   const location = useLocation();
-
+  const [isHovered, bind] = useHoverWithChildren();
   const { hasInscriptionBeenDiscarded, discardInscription, recoverInscription } =
     useDiscardedInscriptions();
 
@@ -119,36 +120,39 @@ export function Inscription({ inscription }: InscriptionProps) {
   ]);
 
   return (
-    <Box position="relative">
+    <Box position="relative" {...bind}>
       <Box opacity={hasInscriptionBeenDiscarded(inscription) ? 0.5 : 1}>{content}</Box>
-      <Box bg="ink.background-primary" position="absolute" right="12px" top="12px" zIndex={999}>
-        <DropdownMenu.Root>
-          <DropdownMenu.Trigger>
-            <IconButton
-              _focus={{ outline: 'focus' }}
-              _hover={{ bg: 'ink.component-background-hover' }}
-              bg="ink.background-primary"
-              transform="rotate(90deg)"
-              color="ink.action-primary-default"
-              icon={<EllipsisVIcon variant="small" />}
-            />
-          </DropdownMenu.Trigger>
-          <DropdownMenu.Content side="bottom" style={{ marginRight: '96px' }}>
-            <DropdownMenu.Item onClick={() => openInscriptionUrl(inscription.number)}>
-              <Flag img={<ExternalLinkIcon variant="small" />}>Open original</Flag>
-            </DropdownMenu.Item>
-            {hasInscriptionBeenDiscarded(inscription) ? (
-              <DropdownMenu.Item onClick={() => recoverInscription(inscription)}>
-                <Flag img={<LockIcon variant="small" />}>Protect</Flag>
+      {isHovered && (
+        <Box bg="ink.background-primary" position="absolute" right="12px" top="12px" zIndex={999}>
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger>
+              <IconButton
+                _focus={{ outline: 'focus' }}
+                _hover={{ bg: 'ink.component-background-hover' }}
+                bg="ink.background-primary"
+                transform="rotate(90deg)"
+                color="ink.action-primary-default"
+                icon={<EllipsisVIcon variant="small" />}
+              />
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content side="bottom" style={{ marginRight: '96px' }}>
+              <DropdownMenu.Item onClick={() => openInscriptionUrl(inscription.number)}>
+                <Flag img={<ExternalLinkIcon variant="small" />}>Open original</Flag>
               </DropdownMenu.Item>
-            ) : (
-              <DropdownMenu.Item onClick={() => discardInscription(inscription)}>
-                <Flag img={<UnlockIcon variant="small" />}>Unprotect</Flag>
-              </DropdownMenu.Item>
-            )}
-          </DropdownMenu.Content>
-        </DropdownMenu.Root>
-      </Box>
+              {hasInscriptionBeenDiscarded(inscription) ? (
+                <DropdownMenu.Item onClick={() => recoverInscription(inscription)}>
+                  <Flag img={<LockIcon variant="small" />}>Protect</Flag>
+                </DropdownMenu.Item>
+              ) : (
+                <DropdownMenu.Item onClick={() => discardInscription(inscription)}>
+                  <Flag img={<UnlockIcon variant="small" />}>Unprotect</Flag>
+                </DropdownMenu.Item>
+              )}
+            </DropdownMenu.Content>
+          </DropdownMenu.Root>
+        </Box>
+      )}
+
       <HighSatValueUtxoWarning inscription={inscription} />
 
       {hasInscriptionBeenDiscarded(inscription) && (

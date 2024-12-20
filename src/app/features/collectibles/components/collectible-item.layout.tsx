@@ -4,7 +4,8 @@ import { useInView } from 'react-intersection-observer';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Box, Stack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
-import { useHover } from 'use-events';
+
+import { useHoverWithChildren } from '@app/common/hooks/use-hover-with-children';
 
 import { CollectibleHover } from './collectible-hover';
 
@@ -30,7 +31,7 @@ export function CollectibleItemLayout({
   title,
   ...rest
 }: CollectibleItemLayoutProps) {
-  const [isHovered, bind] = useHover();
+  const [isHovered, bind] = useHoverWithChildren();
 
   const { ref, inView } = useInView({ triggerOnce: true });
 
