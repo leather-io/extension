@@ -41,9 +41,24 @@ export function useAvailableBalance({ btcAddress, stxAddress }: UseAvailableBala
   return useMemo(() => {
     // calculate total balance
     const stxUsdAmount = baseCurrencyAmountInQuote(stxBalance, stxMarketData);
-    const btcUsdAmount = baseCurrencyAmountInQuote(btcBalance.availableBalance, btcMarketData);
 
-    const totalBalance = { ...stxUsdAmount, amount: stxUsdAmount.amount.plus(btcUsdAmount.amount) };
+    const availableBtcUsdAmount = baseCurrencyAmountInQuote(
+      btcBalance.availableBalance,
+      btcMarketData
+    );
+
+    const totalBtcUsdAmonut = baseCurrencyAmountInQuote(btcBalance.totalBalance, btcMarketData);
+
+    const totalBalance = {
+      ...stxUsdAmount,
+      amount: stxUsdAmount.amount.plus(totalBtcUsdAmonut.amount),
+    };
+
+    const availableBalance = {
+      ...stxUsdAmount,
+      amount: stxUsdAmount.amount.plus(availableBtcUsdAmount.amount),
+    };
+
     return {
       isFetching: isFetchingStxBalance || isFetchingBtcBalance,
       isLoading: isLoadingStxBalance || isLoadingBtcBalance,
@@ -51,6 +66,11 @@ export function useAvailableBalance({ btcAddress, stxAddress }: UseAvailableBala
         (isPendingStxBalance && Boolean(stxAddress)) ||
         (isPendingBtcBalance && Boolean(btcAddress)),
       totalBalance,
+      availableBalance,
+      availableUsdBalance: i18nFormatCurrency(
+        availableBalance,
+        availableBalance.amount.isGreaterThanOrEqualTo(100_000) ? 0 : 2
+      ),
       totalUsdBalance: i18nFormatCurrency(
         totalBalance,
         totalBalance.amount.isGreaterThanOrEqualTo(100_000) ? 0 : 2
@@ -59,73 +79,9 @@ export function useAvailableBalance({ btcAddress, stxAddress }: UseAvailableBala
         isLoadingAdditionalDataStxBalance || isLoadingAdditionalDataBtcBalance,
     };
   }, [
+    stxBalance,
+    stxMarketData,
     btcBalance.availableBalance,
-    btcMarketData,
-    isFetchingBtcBalance,
-    isFetchingStxBalance,
-    isLoadingBtcBalance,
-    isLoadingStxBalance,
-    isPendingBtcBalance,
-    isPendingStxBalance,
-    stxBalance,
-    stxMarketData,
-    isLoadingAdditionalDataBtcBalance,
-    isLoadingAdditionalDataStxBalance,
-    stxAddress,
-    btcAddress,
-  ]);
-}
-
-// ALL OF THIS IS COPIED
-export function useTotalBalance({ btcAddress, stxAddress }: UseAvailableBalanceArgs) {
-  // get market data
-  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
-  const stxMarketData = useCryptoCurrencyMarketDataMeanAverage('STX');
-
-  // get stx balance
-  const { filteredBalanceQuery, isLoadingAdditionalData: isLoadingAdditionalDataStxBalance } =
-    useStxCryptoAssetBalance(stxAddress);
-
-  const {
-    data: balance,
-    isFetching: isFetchingStxBalance,
-    isLoading: isLoadingStxBalance,
-    isPending: isPendingStxBalance,
-  } = filteredBalanceQuery;
-
-  const stxBalance = balance ? balance.totalBalance : createMoney(0, 'STX');
-
-  // get btc balance
-  const {
-    balance: btcBalance,
-    isLoading: isLoadingBtcBalance,
-    filteredUtxosQuery: { isFetching: isFetchingBtcBalance, isPending: isPendingBtcBalance },
-    isLoadingAdditionalData: isLoadingAdditionalDataBtcBalance,
-  } = useBtcCryptoAssetBalanceNativeSegwit(btcAddress);
-
-  return useMemo(() => {
-    // calculate total balance
-    const stxUsdAmount = baseCurrencyAmountInQuote(stxBalance, stxMarketData);
-    const btcUsdAmount = baseCurrencyAmountInQuote(btcBalance.totalBalance, btcMarketData);
-
-    const totalBalance = { ...stxUsdAmount, amount: stxUsdAmount.amount.plus(btcUsdAmount.amount) };
-    return {
-      isFetching: isFetchingStxBalance || isFetchingBtcBalance,
-      isLoading: isLoadingStxBalance || isLoadingBtcBalance,
-      isPending:
-        (isPendingStxBalance && Boolean(stxAddress)) ||
-        (isPendingBtcBalance && Boolean(btcAddress)),
-      totalBalance,
-      totalUsdBalance: i18nFormatCurrency(
-        totalBalance,
-        totalBalance.amount.isGreaterThanOrEqualTo(100_000) ? 0 : 2
-      ),
-      isLoadingAdditionalData:
-        isLoadingAdditionalDataStxBalance || isLoadingAdditionalDataBtcBalance,
-    };
-  }, [
-    stxBalance,
-    stxMarketData,
     btcBalance.totalBalance,
     btcMarketData,
     isFetchingStxBalance,

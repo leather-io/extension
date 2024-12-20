@@ -3,11 +3,13 @@ import { Route, useNavigate } from 'react-router-dom';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box, Stack } from 'leather-styles/jsx';
 
+import { useNativeSegwitUtxosByAddress } from '@leather.io/query';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { useAvailableBalance, useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
+import { useAvailableBalance as useBalances } from '@app/common/hooks/balance/use-total-balance';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 import { whenPageMode } from '@app/common/utils';
@@ -18,7 +20,10 @@ import { Assets } from '@app/pages/home/components/assets';
 import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import {
+  useCurrentAccountNativeSegwitAddressIndexZero,
+  useCurrentAccountNativeSegwitIndexZeroSigner,
+} from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTogglePrivateMode } from '@app/store/settings/settings.actions';
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
@@ -46,16 +51,7 @@ export function Home() {
   console.log(inscriptions);
 
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const {
-    totalUsdBalance: availableUsdBalance,
-    isPending,
-    isLoadingAdditionalData,
-  } = useAvailableBalance({
-    btcAddress,
-    stxAddress: account?.address || '',
-  });
-
-  const { totalUsdBalance } = useTotalBalance({
+  const { totalUsdBalance, availableUsdBalance, isPending, isLoadingAdditionalData } = useBalances({
     btcAddress,
     stxAddress: account?.address || '',
   });

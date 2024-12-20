@@ -8,6 +8,8 @@ import { createMoney, isUndefined, sumNumbers } from '@leather.io/utils';
 import { useInscribedSpendableUtxos } from '@app/features/discarded-inscriptions/use-inscribed-spendable-utxos';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
+import { useFilterNativeSegwitInscriptions } from '../ordinals/inscriptions/inscriptions.query';
+
 const defaultZeroValues = {
   protectedBalance: createMoney(0, 'BTC'),
   uneconomicalBalance: createMoney(0, 'BTC'),
@@ -17,24 +19,19 @@ export function useBtcCryptoAssetBalanceNativeSegwit(address: string) {
   const runesEnabled = useRunesEnabled();
 
   const spendableInscriptionUtxos = useInscribedSpendableUtxos();
-  console.log('spendable utxos', spendableInscriptionUtxos);
 
-  const availableUtxosQuery = useNativeSegwitUtxosByAddress({
-    address,
-    filterInscriptionUtxos: true,
-    filterPendingTxsUtxos: true,
-    filterRunesUtxos: runesEnabled,
-  });
+  const { filterOutInscriptions: filterOutNativeSegwitInscriptions } =
+    useFilterNativeSegwitInscriptions();
 
   const totalUtxosQuery = useNativeSegwitUtxosByAddress({
     address,
     filterInscriptionUtxos: false,
     filterPendingTxsUtxos: true,
-    filterRunesUtxos: false,
+    filterRunesUtxos: runesEnabled,
   });
 
   const balance = useMemo(() => {
-    if (isUndefined(availableUtxosQuery.data) || isUndefined(totalUtxosQuery.data))
+    if (isUndefined(totalUtxosQuery.data) || isUndefined(totalUtxosQuery.data))
       return {
         ...defaultZeroValues,
         totalBalance: createMoney(new BigNumber(0), 'BTC'),
@@ -46,14 +43,17 @@ export function useBtcCryptoAssetBalanceNativeSegwit(address: string) {
       availableBalance: createMoney(
         // Here we add back in the utxos that are spending beacuse they've been discarded
         sumNumbers(
-          [...availableUtxosQuery.data, ...spendableInscriptionUtxos].map(utxo => utxo.value)
+          [
+            ...filterOutNativeSegwitInscriptions(totalUtxosQuery.data),
+            ...spendableInscriptionUtxos,
+          ].map(utxo => utxo.value)
         ),
         'BTC'
       ),
     };
-  }, [availableUtxosQuery.data, spendableInscriptionUtxos, totalUtxosQuery.data]);
+  }, [totalUtxosQuery.data, filterOutNativeSegwitInscriptions, spendableInscriptionUtxos]);
 
-  return { ...availableUtxosQuery, balance };
+  return { ...totalUtxosQuery, balance };
 }
 
 export function useCurrentBtcCryptoAssetBalanceNativeSegwit() {

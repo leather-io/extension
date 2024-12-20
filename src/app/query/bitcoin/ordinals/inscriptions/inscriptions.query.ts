@@ -3,11 +3,13 @@ import { useCallback, useMemo } from 'react';
 import { useQueries, useQuery } from '@tanstack/react-query';
 
 import {
+  type UtxoResponseItem,
   combineInscriptionResults,
   createBestInSlotInscription,
   createInscriptionByXpubQuery,
   createNumberOfInscriptionsFn,
   filterUninscribedUtxosToRecoverFromTaproot,
+  filterUtxosWithInscriptions,
   useBitcoinClient,
   useGetTaprootUtxosByAddressQuery,
   utxosToBalance,
@@ -69,4 +71,15 @@ export function useCurrentTaprootAccountUninscribedUtxos() {
 export function useCurrentTaprootAccountBalance() {
   const uninscribedUtxos = useCurrentTaprootAccountUninscribedUtxos();
   return useMemo(() => utxosToBalance(uninscribedUtxos), [uninscribedUtxos]);
+}
+
+export function useFilterNativeSegwitInscriptions() {
+  const { data: inscriptions } = useCurrentNativeSegwitInscriptions();
+
+  const filterOutInscriptions = useCallback(
+    (utxos: UtxoResponseItem[]) => utxos.filter(filterUtxosWithInscriptions(inscriptions ?? [])),
+    [inscriptions]
+  );
+
+  return { filterOutInscriptions };
 }

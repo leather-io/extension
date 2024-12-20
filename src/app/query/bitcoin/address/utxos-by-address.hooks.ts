@@ -13,8 +13,8 @@ const defaultArgs = {
  * Warning: ⚠️ To avoid spending inscriptions, when using UTXOs
  * we set `filterInscriptionUtxos` and `filterPendingTxsUtxos` to true
  */
-export function useCurrentNativeSegwitUtxos(args = defaultArgs) {
-  const { filterInscriptionUtxos, filterPendingTxsUtxos, filterRunesUtxos } = args;
+export function useCurrentNativeSegwitUtxos() {
+  const { filterInscriptionUtxos, filterPendingTxsUtxos, filterRunesUtxos } = defaultArgs;
 
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const address = nativeSegwitSigner.address;

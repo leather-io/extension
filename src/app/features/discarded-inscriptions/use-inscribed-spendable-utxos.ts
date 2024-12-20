@@ -27,14 +27,12 @@ export function useInscribedSpendableUtxos() {
 
     // Preformatting utxos so that inscriptions are delcared as an object
     // property aids the following filter logic
-    const utxosFormatted = nativeSegwitUtxos.map(utxo => {
-      return {
-        ...utxo,
-        inscriptions: nativeSegwitInscriptions.filter(
-          inscription => inscription.txid === utxo.txid && Number(inscription.output) === utxo.vout
-        ),
-      };
-    });
+    const utxosFormatted = nativeSegwitUtxos.map(utxo => ({
+      ...utxo,
+      inscriptions: nativeSegwitInscriptions.filter(
+        inscription => inscription.txid === utxo.txid && Number(inscription.output) === utxo.vout
+      ),
+    }));
 
     const utxosThatCanBeSpentBecauseAllUtxosInsideWereDiscarded = utxosFormatted
       // If there are no inscriptions they're not being filtered and we don't care about them
