@@ -17,6 +17,7 @@ export function useBtcCryptoAssetBalanceNativeSegwit(address: string) {
   const runesEnabled = useRunesEnabled();
 
   const spendableInscriptionUtxos = useInscribedSpendableUtxos();
+  console.log('spendable utxos', spendableInscriptionUtxos);
 
   const availableUtxosQuery = useNativeSegwitUtxosByAddress({
     address,

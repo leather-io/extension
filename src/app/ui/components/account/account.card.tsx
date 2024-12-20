@@ -100,11 +100,11 @@ export function AccountCard({
                 display="inline-block"
                 overflow="hidden"
               >
-                {availableBalance}
+                {totalBalance}
               </PrivateTextLayout>
             </styled.h1>
             <styled.h2 textStyle="label.02" color="ink.text-subdued" mt="space.01">
-              Full balance:
+              Available balance:
               <styled.span ml="space.01">
                 <BasicTooltip
                   side="right"
@@ -115,7 +115,7 @@ export function AccountCard({
                     spacing="space.01"
                     img={<InfoCircleIcon display="inline" variant="small" />}
                   >
-                    {totalBalance}
+                    {availableBalance}
                   </Flag>
                 </BasicTooltip>
               </styled.span>

@@ -33,7 +33,8 @@ export function AccountCard() {
   return (
     <Component
       name="leather.btc"
-      balance="$1,000"
+      availableBalance="$1,000"
+      totalBalance="$1,000"
       toggleSwitchAccount={() => null}
       isLoadingBalance={false}
       isFetchingBnsName={false}
@@ -52,7 +53,8 @@ export function AccountCardLoading() {
   return (
     <Component
       name="leather.btc"
-      balance="$1,000"
+      availableBalance="$1,000"
+      totalBalance="$1,000"
       toggleSwitchAccount={() => null}
       isLoadingBalance
       isFetchingBnsName={false}
@@ -71,7 +73,8 @@ export function AccountCardBnsNameLoading() {
   return (
     <Component
       name="leather.btc"
-      balance="$1,000"
+      availableBalance="$1,000"
+      totalBalance="$1,000"
       toggleSwitchAccount={() => null}
       isLoadingBalance={false}
       isFetchingBnsName
@@ -91,7 +94,8 @@ export function AccountCardPrivateBalance() {
   return (
     <Component
       name="leather.btc"
-      balance="$1,000"
+      availableBalance="$1,000"
+      totalBalance="$1,000"
       toggleSwitchAccount={() => null}
       isLoadingBalance={false}
       isFetchingBnsName={false}

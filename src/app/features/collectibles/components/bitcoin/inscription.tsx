@@ -1,8 +1,7 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box } from 'leather-styles/jsx';
-import { useHover } from 'use-events';
 
 import { type Inscription } from '@leather.io/models';
 import {
@@ -11,8 +10,10 @@ import {
   ExternalLinkIcon,
   Flag,
   IconButton,
+  LockIcon,
   OrdinalAvatarIcon,
   TrashIcon,
+  UnlockIcon,
 } from '@leather.io/ui';
 
 import { ORD_IO_URL } from '@shared/constants';
@@ -48,8 +49,6 @@ export function Inscription({ inscription }: InscriptionProps) {
       state: { inscription, backgroundLocation: location },
     });
   }, [navigate, inscription, location]);
-
-  const [isHovered, bind] = useHover();
 
   const content = useMemo(() => {
     const sharedProps = { onClickSend: () => openSendInscriptionModal() };
@@ -120,15 +119,9 @@ export function Inscription({ inscription }: InscriptionProps) {
   ]);
 
   return (
-    <Box position="relative" {...bind} opacity={hasInscriptionBeenDiscarded(inscription) ? 0.5 : 1}>
-      {content}
-      <Box
-        bg="ink.background-primary"
-        position="absolute"
-        right="12px"
-        top="12px"
-        zIndex={hasInscriptionBeenDiscarded(inscription) ? 9999999999 : 1}
-      >
+    <Box position="relative">
+      <Box opacity={hasInscriptionBeenDiscarded(inscription) ? 0.5 : 1}>{content}</Box>
+      <Box bg="ink.background-primary" position="absolute" right="12px" top="12px" zIndex={999}>
         <DropdownMenu.Root>
           <DropdownMenu.Trigger>
             <IconButton
@@ -146,34 +139,34 @@ export function Inscription({ inscription }: InscriptionProps) {
             </DropdownMenu.Item>
             {hasInscriptionBeenDiscarded(inscription) ? (
               <DropdownMenu.Item onClick={() => recoverInscription(inscription)}>
-                <Flag img={<TrashIcon variant="small" />}>Protect</Flag>
+                <Flag img={<LockIcon variant="small" />}>Protect</Flag>
               </DropdownMenu.Item>
             ) : (
               <DropdownMenu.Item onClick={() => discardInscription(inscription)}>
-                <Flag img={<TrashIcon variant="small" />}>Unprotect</Flag>
+                <Flag img={<UnlockIcon variant="small" />}>Unprotect</Flag>
               </DropdownMenu.Item>
             )}
           </DropdownMenu.Content>
         </DropdownMenu.Root>
       </Box>
       <HighSatValueUtxoWarning inscription={inscription} />
-      IsDiscarded: {String(hasInscriptionBeenDiscarded(inscription))}
-      <br />
-      is hovered: {String(isHovered)}
-      <br />
-      value: {inscription.value}
-      <br />
-      <button
-        onClick={() => {
-          // change api to use txid and output obj
-          hasInscriptionBeenDiscarded(inscription)
-            ? recoverInscription(inscription)
-            : discardInscription(inscription);
-        }}
-      >
-        toggle safe to spend
-      </button>
-      <br />
+
+      {hasInscriptionBeenDiscarded(inscription) && (
+        <Box
+          p="space.02"
+          borderRadius="xs"
+          border="1px solid"
+          borderColor="ink.border-transparent"
+          background="ink.background-secondary"
+          position="absolute"
+          bottom="134px"
+          left="18px"
+        >
+          <Flag opacity={0.5} spacing="space.01" img={<TrashIcon variant="small" />}>
+            Unprotected
+          </Flag>
+        </Box>
+      )}
     </Box>
   );
 }

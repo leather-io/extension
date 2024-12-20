@@ -42,6 +42,7 @@ export function Home() {
   });
 
   const inscriptions = useInscribedSpendableUtxos();
+  // eslint-disable-next-line no-console
   console.log(inscriptions);
 
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
