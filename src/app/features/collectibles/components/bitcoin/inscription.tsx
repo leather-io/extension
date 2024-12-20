@@ -1,10 +1,19 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box } from 'leather-styles/jsx';
+import { useHover } from 'use-events';
 
 import { type Inscription } from '@leather.io/models';
-import { OrdinalAvatarIcon } from '@leather.io/ui';
+import {
+  DropdownMenu,
+  EllipsisVIcon,
+  ExternalLinkIcon,
+  Flag,
+  IconButton,
+  OrdinalAvatarIcon,
+  TrashIcon,
+} from '@leather.io/ui';
 
 import { ORD_IO_URL } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
@@ -40,17 +49,19 @@ export function Inscription({ inscription }: InscriptionProps) {
     });
   }, [navigate, inscription, location]);
 
+  const [isHovered, bind] = useHover();
+
   const content = useMemo(() => {
+    const sharedProps = { onClickSend: () => openSendInscriptionModal() };
     switch (inscription.mimeType) {
       case 'audio':
         return (
           <CollectibleAudio
             icon={<OrdinalAvatarIcon size="lg" />}
             key={inscription.title}
-            onClickCallToAction={() => openInscriptionUrl(inscription.number)}
-            onClickSend={() => openSendInscriptionModal()}
             subtitle="Ordinal inscription"
             title={`# ${inscription.number}`}
+            {...sharedProps}
           />
         );
       case 'html':
@@ -61,11 +72,10 @@ export function Inscription({ inscription }: InscriptionProps) {
           <CollectibleIframe
             icon={<OrdinalAvatarIcon size="lg" />}
             key={inscription.title}
-            onClickCallToAction={() => openInscriptionUrl(inscription.number)}
-            onClickSend={() => openSendInscriptionModal()}
             src={inscription.src}
             subtitle="Ordinal inscription"
             title={`# ${inscription.number}`}
+            {...sharedProps}
           />
         );
       case 'image':
@@ -73,11 +83,10 @@ export function Inscription({ inscription }: InscriptionProps) {
           <CollectibleImage
             icon={<OrdinalAvatarIcon size="lg" />}
             key={inscription.title}
-            onClickCallToAction={() => openInscriptionUrl(inscription.number)}
-            onClickSend={() => openSendInscriptionModal()}
             src={inscription.src}
             subtitle="Ordinal inscription"
             title={`# ${inscription.number}`}
+            {...sharedProps}
           />
         );
       case 'text':
@@ -85,18 +94,16 @@ export function Inscription({ inscription }: InscriptionProps) {
           <InscriptionText
             contentSrc={inscription.src}
             inscriptionNumber={inscription.number}
-            onClickCallToAction={() => openInscriptionUrl(inscription.number)}
-            onClickSend={() => openSendInscriptionModal()}
+            {...sharedProps}
           />
         );
       case 'other':
         return (
           <CollectibleOther
             key={inscription.title}
-            onClickCallToAction={() => openInscriptionUrl(inscription.number)}
-            onClickSend={() => openSendInscriptionModal()}
             subtitle="Ordinal inscription"
             title={`# ${inscription.number}`}
+            {...sharedProps}
           >
             <OrdinalAvatarIcon size="lg" />
           </CollectibleOther>
@@ -113,10 +120,46 @@ export function Inscription({ inscription }: InscriptionProps) {
   ]);
 
   return (
-    <Box position="relative">
+    <Box position="relative" {...bind} opacity={hasInscriptionBeenDiscarded(inscription) ? 0.5 : 1}>
       {content}
+      <Box
+        bg="ink.background-primary"
+        position="absolute"
+        right="12px"
+        top="12px"
+        zIndex={hasInscriptionBeenDiscarded(inscription) ? 9999999999 : 1}
+      >
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <IconButton
+              _focus={{ outline: 'focus' }}
+              _hover={{ bg: 'ink.component-background-hover' }}
+              bg="ink.background-primary"
+              transform="rotate(90deg)"
+              color="ink.action-primary-default"
+              icon={<EllipsisVIcon variant="small" />}
+            />
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content side="bottom" style={{ marginRight: '96px' }}>
+            <DropdownMenu.Item onClick={() => openInscriptionUrl(inscription.number)}>
+              <Flag img={<ExternalLinkIcon variant="small" />}>Open original</Flag>
+            </DropdownMenu.Item>
+            {hasInscriptionBeenDiscarded(inscription) ? (
+              <DropdownMenu.Item onClick={() => recoverInscription(inscription)}>
+                <Flag img={<TrashIcon variant="small" />}>Protect</Flag>
+              </DropdownMenu.Item>
+            ) : (
+              <DropdownMenu.Item onClick={() => discardInscription(inscription)}>
+                <Flag img={<TrashIcon variant="small" />}>Unprotect</Flag>
+              </DropdownMenu.Item>
+            )}
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+      </Box>
       <HighSatValueUtxoWarning inscription={inscription} />
       IsDiscarded: {String(hasInscriptionBeenDiscarded(inscription))}
+      <br />
+      is hovered: {String(isHovered)}
       <br />
       value: {inscription.value}
       <br />
@@ -130,6 +173,7 @@ export function Inscription({ inscription }: InscriptionProps) {
       >
         toggle safe to spend
       </button>
+      <br />
     </Box>
   );
 }

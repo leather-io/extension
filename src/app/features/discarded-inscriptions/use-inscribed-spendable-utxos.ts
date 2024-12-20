@@ -26,7 +26,7 @@ export function useInscribedSpendableUtxos() {
     if (!nativeSegwitUtxos || !nativeSegwitInscriptions) return [];
 
     // Preformatting utxos so that inscriptions are delcared as an object
-    // property helps the following filter logic
+    // property aids the following filter logic
     const utxosFormatted = nativeSegwitUtxos.map(utxo => {
       return {
         ...utxo,

@@ -12,6 +12,7 @@ import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 import { whenPageMode } from '@app/common/utils';
 import { ActivityList } from '@app/features/activity-list/activity-list';
+import { useInscribedSpendableUtxos } from '@app/features/discarded-inscriptions/use-inscribed-spendable-utxos';
 import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
 import { Assets } from '@app/pages/home/components/assets';
 import { homePageModalRoutes } from '@app/routes/app-routes';
@@ -39,6 +40,9 @@ export function Home() {
     address: account?.address || '',
     index: currentAccountIndex || 0,
   });
+
+  const inscriptions = useInscribedSpendableUtxos();
+  console.log(inscriptions);
 
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const {

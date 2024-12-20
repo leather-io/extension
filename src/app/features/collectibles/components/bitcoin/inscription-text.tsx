@@ -10,7 +10,7 @@ import { CollectibleText } from '../_collectible-types/collectible-text';
 interface InscriptionTextProps {
   contentSrc: string;
   inscriptionNumber: number;
-  onClickCallToAction(): void;
+  onClickCallToAction?(): void;
   onClickSend(): void;
 }
 export function InscriptionText({
