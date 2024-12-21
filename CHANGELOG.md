@@ -1,3 +1,18 @@
+## [6.56.1](https://github.com/leather-io/extension/compare/v6.56.0...v6.56.1) (2024-12-21)
+
+
+### Bug Fixes
+
+* add src20 image types, ref leather-io/mono[#724](https://github.com/leather-io/extension/issues/724) ([a11d4b7](https://github.com/leather-io/extension/commit/a11d4b7ecff2913def201effe272e818cfe79e05))
+* broken sbtc supply cap check ([3b22334](https://github.com/leather-io/extension/commit/3b223348a6f3f7f52d74aa8d7a5a45bbb441f03a))
+* sbtc swap updates and bugs ([3703202](https://github.com/leather-io/extension/commit/3703202054cb064d1504109f595cd73d13af7c21))
+
+
+### Internal
+
+* post-release merge back ([49405c5](https://github.com/leather-io/extension/commit/49405c50b00db0d2fde328e4285a6d35024a92b8))
+* update platform to extension ([7660e93](https://github.com/leather-io/extension/commit/7660e935190e5cb019172a1cbdbd966678ffc64f))
+
 ## [6.56.0](https://github.com/leather-io/extension/compare/v6.55.0...v6.56.0) (2024-12-18)
 
 
