@@ -100,7 +100,7 @@
     "sponsorshipsEnabled": true,
     "sponsorshipApiUrl": {
       "mainnet": "https://sponsor.leather.io",
-      "testnet": "http://testnet-13-60-14-218.nip.io"
+      "testnet": "https://sponsor-testnet.leather.io"
     },
     "contracts": {
       "mainnet": {
