@@ -30,12 +30,12 @@ export function useSwapForm() {
 
   const remainingSbtcPegCapSupply = useMemo(() => {
     const sBtcPegCap = sBtcLimits?.pegCap;
-    if (!sBtcPegCap) return;
+    if (!sBtcPegCap || !supply) return;
     const currentSupplyValue = supply?.result && cvToValue(hexToCV(supply?.result));
     return convertAmountToFractionalUnit(
-      createMoney(new BigNumber(Number(sBtcPegCap - currentSupplyValue)), 'BTC', BTC_DECIMALS)
+      createMoney(new BigNumber(Number(sBtcPegCap - currentSupplyValue.value)), 'BTC', BTC_DECIMALS)
     );
-  }, [sBtcLimits?.pegCap, supply?.result]);
+  }, [sBtcLimits?.pegCap, supply]);
 
   const sBtcDepositCapMin = createMoney(
     new BigNumber(sBtcLimits?.perDepositMinimum ?? defaultSbtcLimits.perDepositMinimum),
