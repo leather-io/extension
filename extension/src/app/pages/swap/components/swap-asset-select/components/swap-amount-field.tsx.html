@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/27</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/29</span>
+                <span class='fraction'>0/31</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -160,13 +160,7 @@
 <a name='L95'></a><a href='#L95'>95</a>
 <a name='L96'></a><a href='#L96'>96</a>
 <a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a>
-<a name='L100'></a><a href='#L100'>100</a>
-<a name='L101'></a><a href='#L101'>101</a>
-<a name='L102'></a><a href='#L102'>102</a>
-<a name='L103'></a><a href='#L103'>103</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L98'></a><a href='#L98'>98</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -198,19 +192,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -226,9 +215,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -267,7 +257,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ChangeEvent, useEffect } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ChangeEvent } from 'react';
 &nbsp;
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import BigNumber from 'bignumber.js';
@@ -275,8 +265,7 @@ import { useField, useFormikContext } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
 &nbsp;
 import {
-  convertAmountToFractionalUnit,
-  createMoney,
+  createMoneyFromDecimal,
   formatMoneyWithoutSymbol,
   isDefined,
   isUndefined,
@@ -300,17 +289,11 @@ interface SwapAmountFieldProps {
   name: string;
 }
 export function <span class="fstat-no" title="function not covered" >SwapAmountField({</span> amountAsFiat, isDisabled, name }: SwapAmountFieldProps) {
-  const { fetchQuoteAmount, isFetchingExchangeRate, onSetIsSendingMax } = <span class="cstat-no" title="statement not covered" >useSwapContext();</span>
+  const { fetchQuoteAmount, isCrossChainSwap, isFetchingExchangeRate, onSetIsSendingMax } =
+<span class="cstat-no" title="statement not covered" >    useSwapContext();</span>
   const { setFieldError, setFieldValue, values } = <span class="cstat-no" title="statement not covered" >useFormikContext&lt;SwapFormValues&gt;();</span>
   const [field] = <span class="cstat-no" title="statement not covered" >useField(name);</span>
   const showError = <span class="cstat-no" title="statement not covered" >useShowFieldError(name) &amp;&amp; name === 'swapAmountBase' &amp;&amp; values.swapAssetQuote;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
-    // Clear quote amount if quote asset is reset
-<span class="cstat-no" title="statement not covered" >    if (isUndefined(values.swapAssetQuote)) {</span>
-<span class="cstat-no" title="statement not covered" >      void setFieldValue('swapAmountQuote', '');</span>
-    }
-  }, [setFieldValue, values]);
 &nbsp;
   async function <span class="fstat-no" title="function not covered" >onBlur(e</span>vent: ChangeEvent&lt;HTMLInputElement&gt;) {
     const { swapAssetBase, swapAssetQuote } = <span class="cstat-no" title="statement not covered" >values;</span>
@@ -318,19 +301,21 @@ export function <span class="fstat-no" title="function not covered" >SwapAmountF
 <span class="cstat-no" title="statement not covered" >    onSetIsSendingMax(false);</span>
     const value = <span class="cstat-no" title="statement not covered" >event.currentTarget.value;</span>
     const toAmount = <span class="cstat-no" title="statement not covered" >await fetchQuoteAmount(swapAssetBase, swapAssetQuote, value);</span>
-<span class="cstat-no" title="statement not covered" >    if (isUndefined(toAmount)) {</span>
+    const valueLengthAsDecimals = <span class="cstat-no" title="statement not covered" >value.length - 1;</span>
+<span class="cstat-no" title="statement not covered" >    if (isUndefined(toAmount) || valueLengthAsDecimals &gt; swapAssetBase.balance.decimals) {</span>
 <span class="cstat-no" title="statement not covered" >      await setFieldValue('swapAmountQuote', '');</span>
 <span class="cstat-no" title="statement not covered" >      return;</span>
     }
-    const toAmountAsMoney = <span class="cstat-no" title="statement not covered" >createMoney(</span>
-      convertAmountToFractionalUnit(
-        new BigNumber(toAmount),
-        values.swapAssetQuote?.balance.decimals
-      ),
+    const toAmountAsMoney = <span class="cstat-no" title="statement not covered" >createMoneyFromDecimal(</span>
+      new BigNumber(toAmount),
       values.swapAssetQuote?.balance.symbol ?? '',
       values.swapAssetQuote?.balance.decimals
     );
-<span class="cstat-no" title="statement not covered" >    await setFieldValue('swapAmountQuote', formatMoneyWithoutSymbol(toAmountAsMoney));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    await setFieldValue(</span>
+      'swapAmountQuote',
+      isCrossChainSwap ? toAmount : formatMoneyWithoutSymbol(toAmountAsMoney)
+    );
 <span class="cstat-no" title="statement not covered" >    setFieldError('swapAmountQuote', undefined);</span>
   }
 &nbsp;
@@ -376,7 +361,7 @@ export function <span class="fstat-no" title="function not covered" >SwapAmountF
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-18T17:05:25.146Z
+                at 2024-12-21T16:44:57.209Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>
