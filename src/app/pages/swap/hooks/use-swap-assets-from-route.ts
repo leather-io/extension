@@ -9,7 +9,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { useSwapContext } from '../swap.context';
 
 export function useSwapAssetsFromRoute() {
-  const { swappableAssetsBase, swappableAssetsQuote } = useSwapContext();
+  const { onSetIsCrossChainSwap, swappableAssetsBase, swappableAssetsQuote } = useSwapContext();
   const { setFieldValue, values, validateForm } = useFormikContext<SwapFormValues>();
   const { base, quote } = useParams();
   const navigate = useNavigate();
@@ -32,10 +32,12 @@ export function useSwapAssetsFromRoute() {
         'swapAssetQuote',
         swappableAssetsQuote.find(asset => asset.name === quote)
       );
+    if (base === 'BTC') onSetIsCrossChainSwap(true);
     void validateForm();
   }, [
     base,
     navigate,
+    onSetIsCrossChainSwap,
     quote,
     setFieldValue,
     swappableAssetsBase,

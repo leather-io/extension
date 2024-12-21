@@ -5,19 +5,25 @@ import { Box } from 'leather-styles/jsx';
 import { useTransactionListRender } from './hooks/use-transaction-list-render';
 import { TransactionListItem } from './transaction-list-item';
 import { TransactionListLayout } from './transaction-list.layout';
-import { TransactionListBitcoinTx, TransactionListStacksTx } from './transaction-list.model';
+import type {
+  TransactionListBitcoinTx,
+  TransactionListSbtcDeposit,
+  TransactionListStacksTx,
+} from './transaction-list.model';
 import { createTxDateFormatList, getTransactionId } from './transaction-list.utils';
 import { TransactionsByDateLayout } from './transactions-by-date.layout';
 
 interface TransactionListProps {
   bitcoinTxs: TransactionListBitcoinTx[];
   stacksTxs: TransactionListStacksTx[];
+  sbtcDeposits: TransactionListSbtcDeposit[];
   currentBitcoinAddress: string;
 }
 
 export function TransactionList({
   bitcoinTxs,
   stacksTxs,
+  sbtcDeposits,
   currentBitcoinAddress,
 }: TransactionListProps) {
   const { intersectionSentinel, visibleTxsNum } = useTransactionListRender({
@@ -25,8 +31,10 @@ export function TransactionList({
   });
   const txsGroupedByDate = useMemo(
     () =>
-      bitcoinTxs.length || stacksTxs.length ? createTxDateFormatList(bitcoinTxs, stacksTxs) : [],
-    [bitcoinTxs, stacksTxs]
+      bitcoinTxs.length || stacksTxs.length || sbtcDeposits.length
+        ? createTxDateFormatList(bitcoinTxs, stacksTxs, sbtcDeposits)
+        : [],
+    [bitcoinTxs, sbtcDeposits, stacksTxs]
   );
 
   const groupedByDateTxsLength = useMemo(() => {

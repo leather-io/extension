@@ -30,12 +30,12 @@ export function useSwapForm() {
 
   const remainingSbtcPegCapSupply = useMemo(() => {
     const sBtcPegCap = sBtcLimits?.pegCap;
-    if (!sBtcPegCap) return;
+    if (!sBtcPegCap || !supply) return;
     const currentSupplyValue = supply?.result && cvToValue(hexToCV(supply?.result));
     return convertAmountToFractionalUnit(
-      createMoney(new BigNumber(Number(sBtcPegCap - currentSupplyValue)), 'BTC', BTC_DECIMALS)
+      createMoney(new BigNumber(Number(sBtcPegCap - currentSupplyValue.value)), 'BTC', BTC_DECIMALS)
     );
-  }, [sBtcLimits?.pegCap, supply?.result]);
+  }, [sBtcLimits?.pegCap, supply]);
 
   const sBtcDepositCapMin = createMoney(
     new BigNumber(sBtcLimits?.perDepositMinimum ?? defaultSbtcLimits.perDepositMinimum),
@@ -75,6 +75,19 @@ export function useSwapForm() {
             )
           );
           if (swapAssetBase.balance.amount.isLessThan(valueInFractionalUnit)) return false;
+          return true;
+        },
+      })
+      .test({
+        message: 'Decimal precision not supported',
+        test(value) {
+          if (!value || isFetchingExchangeRate) return true;
+          const { swapAssetBase } = this.parent;
+          const numStr = value.toString();
+          if (numStr.includes('e')) {
+            const exponent = Math.abs(parseInt(value.toExponential().split('e')[1], 10));
+            if (exponent > swapAssetBase.balance.decimals) return false;
+          }
           return true;
         },
       })
