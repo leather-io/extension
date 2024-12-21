@@ -113,7 +113,9 @@ export function AccountCard({
                   <Flag
                     reverse
                     spacing="space.01"
-                    img={<InfoCircleIcon display="inline" variant="small" />}
+                    img={
+                      <InfoCircleIcon color="ink.text-subdued" display="inline" variant="small" />
+                    }
                   >
                     {availableBalance}
                   </Flag>
