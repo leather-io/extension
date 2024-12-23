@@ -128,7 +128,7 @@ export function Inscription({ inscription }: InscriptionProps) {
           position="absolute"
           right="space.03"
           top="space.03"
-          zIndex="90"
+          zIndex="900"
         >
           <DropdownMenu.Root>
             <DropdownMenu.Trigger>
@@ -141,7 +141,7 @@ export function Inscription({ inscription }: InscriptionProps) {
                 icon={<EllipsisVIcon variant="small" />}
               />
             </DropdownMenu.Trigger>
-            <DropdownMenu.Content side="bottom" style={{ marginRight: '96px' }}>
+            <DropdownMenu.Content side="bottom">
               <DropdownMenu.Item onClick={() => openInscriptionUrl(inscription.number)}>
                 <Flag img={<ExternalLinkIcon variant="small" />}>Open original</Flag>
               </DropdownMenu.Item>
