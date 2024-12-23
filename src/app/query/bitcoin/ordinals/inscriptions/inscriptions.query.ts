@@ -14,6 +14,7 @@ import {
   useGetTaprootUtxosByAddressQuery,
   utxosToBalance,
 } from '@leather.io/query';
+import { isString } from '@leather.io/utils';
 
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import {
@@ -33,6 +34,7 @@ export function useInscriptions({ xpubs }: UseInscriptionArgs) {
 
 export function useNumberOfInscriptionsOnUtxo() {
   const xpubs = useCurrentBitcoinAccountXpubs();
+
   const inscriptionQueries = useInscriptions({ xpubs });
 
   // Unsafe as implementation doesn't wait for all results to be successful,
@@ -47,7 +49,8 @@ export function useCurrentNativeSegwitInscriptions() {
   const client = useBitcoinClient();
   const nativeSegwitXpub = useCurrentBitcoinAccountNativeSegwitXpub();
   return useQuery({
-    ...createInscriptionByXpubQuery(client, nativeSegwitXpub),
+    ...createInscriptionByXpubQuery(client, nativeSegwitXpub ?? ''),
+    enabled: isString(nativeSegwitXpub),
     select(data) {
       return data.data.map(createBestInSlotInscription);
     },

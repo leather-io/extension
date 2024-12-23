@@ -13,7 +13,7 @@ import {
 import { extractAddressIndexFromPath } from '@leather.io/crypto';
 import { bitcoinNetworkToNetworkMode } from '@leather.io/models';
 import { PaymentTypes } from '@leather.io/rpc';
-import { isNumber, isUndefined } from '@leather.io/utils';
+import { isNumber, isString, isUndefined } from '@leather.io/utils';
 
 import {
   BitcoinInputSigningConfig,
@@ -289,17 +289,19 @@ export function useSignBitcoinTx() {
 
 export function useCurrentBitcoinAccountNativeSegwitXpub() {
   const nativeSegwitAccount = useCurrentNativeSegwitAccount();
+  if (!nativeSegwitAccount) return null;
   return `wpkh(${nativeSegwitAccount?.keychain.publicExtendedKey})`;
 }
 
 function useCurrentBitcoinAccountTaprootXpub() {
   const taprootAccount = useCurrentTaprootAccount();
+  if (!taprootAccount) return null;
   return `tr(${taprootAccount?.keychain.publicExtendedKey})`;
 }
 
 export function useCurrentBitcoinAccountXpubs() {
   const taprootXpub = useCurrentBitcoinAccountTaprootXpub();
   const nativeSegwitXpub = useCurrentBitcoinAccountNativeSegwitXpub();
-
-  return [taprootXpub, nativeSegwitXpub];
+  // Not sure why this type cast is necessary, but thinks its string | null without
+  return [taprootXpub, nativeSegwitXpub].filter(xpub => isString(xpub)) as string[];
 }
