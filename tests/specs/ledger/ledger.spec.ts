@@ -50,7 +50,10 @@ test.describe('App with Ledger', () => {
 
           await homePage.page.getByTestId(SettingsSelectors.CurrentAccountDisplayName).click();
 
-          test.expect(async () => await test.expect(requestPromise).rejects.toThrowError());
+          await test
+            .expect(async () => await test.expect(requestPromise).rejects.toThrowError())
+            .toPass()
+            .catch();
         });
       }
 

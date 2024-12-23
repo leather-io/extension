@@ -123,7 +123,13 @@ export function Inscription({ inscription }: InscriptionProps) {
     <Box position="relative" {...bind}>
       <Box opacity={hasInscriptionBeenDiscarded(inscription) ? 0.5 : 1}>{content}</Box>
       {isHovered && (
-        <Box bg="ink.background-primary" right="space.03" top="space.03" zIndex="90">
+        <Box
+          bg="ink.background-primary"
+          position="absolute"
+          right="space.03"
+          top="space.03"
+          zIndex="90"
+        >
           <DropdownMenu.Root>
             <DropdownMenu.Trigger>
               <IconButton
