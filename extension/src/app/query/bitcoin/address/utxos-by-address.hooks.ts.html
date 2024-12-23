@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -88,37 +88,34 @@
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useNativeSegwitUtxosByAddress } from '@leather.io/query';
 &nbsp;
+import { useInscribedSpendableUtxos } from '@app/features/discarded-inscriptions/use-inscribed-spendable-utxos';
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 &nbsp;
 const defaultArgs = <span class="cstat-no" title="statement not covered" >{</span>
@@ -131,18 +128,15 @@ const defaultArgs = <span class="cstat-no" title="statement not covered" >{</spa
  * Warning: ⚠️ To avoid spending inscriptions, when using UTXOs
  * we set `filterInscriptionUtxos` and `filterPendingTxsUtxos` to true
  */
-export function <span class="fstat-no" title="function not covered" >useCurrentNativeSegwitUtxos(a</span>rgs = <span class="branch-0 cbranch-no" title="branch not covered" >defaultArgs) {</span>
-  const { filterInscriptionUtxos, filterPendingTxsUtxos, filterRunesUtxos } = <span class="cstat-no" title="statement not covered" >args;</span>
-&nbsp;
+export function <span class="fstat-no" title="function not covered" >useCurrentNativeSegwitUtxos() {</span>
   const nativeSegwitSigner = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitIndexZeroSignerNullable();</span>
   const address = <span class="cstat-no" title="statement not covered" >nativeSegwitSigner?.address ?? '';</span>
+  const spendableUtxos = <span class="cstat-no" title="statement not covered" >useInscribedSpendableUtxos();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return useNativeSegwitUtxosByAddress({</span>
-    address,
-    filterInscriptionUtxos,
-    filterPendingTxsUtxos,
-    filterRunesUtxos,
-  });
+  const query = <span class="cstat-no" title="statement not covered" >useNativeSegwitUtxosByAddress({ address, ...defaultArgs });</span>
+&nbsp;
+  const queryResponseData = <span class="cstat-no" title="statement not covered" >query.data ?? [];</span>
+<span class="cstat-no" title="statement not covered" >  return { ...query, data: [...queryResponseData, ...spendableUtxos] };</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -151,7 +145,7 @@ export function <span class="fstat-no" title="function not covered" >useCurrentN
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-21T16:46:22.115Z
+                at 2024-12-23T15:20:12.663Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>
