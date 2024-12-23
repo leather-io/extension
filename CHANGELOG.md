@@ -1,3 +1,16 @@
+## [6.57.0](https://github.com/leather-io/extension/compare/v6.56.1...v6.57.0) (2024-12-23)
+
+
+### Features
+
+* add sip10s to account total balance ([a180644](https://github.com/leather-io/extension/commit/a18064431d2752f5687031be350c3a195ad6061b))
+* granular utxo protection feature ([0f55fc9](https://github.com/leather-io/extension/commit/0f55fc978ce48933f23218d1166a53ac7d9d874c))
+
+
+### Bug Fixes
+
+* styles for inscription options ([d3955fe](https://github.com/leather-io/extension/commit/d3955fed264b7a9bcf1a8c14555c3d682c0e96bc))
+
 ## [6.56.1](https://github.com/leather-io/extension/compare/v6.56.0...v6.56.1) (2024-12-21)
 
 
