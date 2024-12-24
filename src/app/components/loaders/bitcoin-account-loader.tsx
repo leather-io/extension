@@ -1,4 +1,5 @@
 import { P2Ret } from '@scure/btc-signer/payment';
+import type { DistributedOmit } from 'type-fest';
 
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
@@ -20,11 +21,9 @@ interface BtcAccountLoaderIndexProps extends BitcoinAccountLoaderBaseProps {
 
 type BtcAccountLoaderProps = BtcAccountLoaderCurrentProps | BtcAccountLoaderIndexProps;
 
-export function BitcoinNativeSegwitAccountLoader({
-  children,
-  fallback,
-  ...props
-}: BtcAccountLoaderProps) {
+export function useBitcoinNativeSegwitAccountLoader(
+  props: DistributedOmit<BtcAccountLoaderProps, 'children' | 'fallback'>
+) {
   const isBitcoinEnabled = useConfigBitcoinEnabled();
 
   const currentAccountIndex = useCurrentAccountIndex();
@@ -33,8 +32,18 @@ export function BitcoinNativeSegwitAccountLoader({
 
   const signer = useNativeSegwitSigner(properIndex);
 
-  if (!signer || !isBitcoinEnabled) return fallback;
-  return children(signer(0));
+  if (!signer || !isBitcoinEnabled) return null;
+  return signer(0);
+}
+
+export function BitcoinNativeSegwitAccountLoader({
+  children,
+  fallback,
+  ...props
+}: BtcAccountLoaderProps) {
+  const signer = useBitcoinNativeSegwitAccountLoader(props);
+  if (!signer) return fallback;
+  return children(signer);
 }
 
 export function BitcoinTaprootAccountLoader({ children, ...props }: BtcAccountLoaderProps) {
