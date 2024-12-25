@@ -20,6 +20,9 @@ import { PrivateTextLayout } from '@app/components/privacy/private-text.layout';
 
 import { BasicTooltip } from '../tooltip/basic-tooltip';
 
+const availableBalanceTooltipLabel =
+  'Total balance minus outbound transfers, protected collectibles and uneconomical UTXOs.';
+
 interface AccountCardProps {
   name: string;
   availableBalance: string;
@@ -109,10 +112,7 @@ export function AccountCard({
             <styled.h2 textStyle="label.02" color="ink.text-subdued" mt="space.01">
               Available balance:
               <styled.span ml="space.01">
-                <BasicTooltip
-                  side={tooltipSide}
-                  label="Some funds may be unavailable to protect your collectible assets. Disable protection to access your remaining balance."
-                >
+                <BasicTooltip side={tooltipSide} label={availableBalanceTooltipLabel}>
                   <Flag
                     reverse
                     spacing="space.01"

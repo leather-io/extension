@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box } from 'leather-styles/jsx';
+import { Box, styled } from 'leather-styles/jsx';
 
 import { type Inscription } from '@leather.io/models';
 import {
@@ -136,22 +136,36 @@ export function Inscription({ inscription }: InscriptionProps) {
                 _focus={{ outline: 'focus' }}
                 _hover={{ bg: 'ink.component-background-hover' }}
                 bg="ink.background-primary"
+                border="1px solid"
+                borderColor="ink.text-primary"
+                borderRadius="2px"
                 transform="rotate(90deg)"
                 color="ink.action-primary-default"
-                icon={<EllipsisVIcon variant="small" />}
+                icon={<EllipsisVIcon />}
               />
             </DropdownMenu.Trigger>
-            <DropdownMenu.Content side="bottom">
+            <DropdownMenu.Content
+              align="end"
+              side="bottom"
+              sideOffset={4}
+              style={{ padding: '8px' }}
+            >
               <DropdownMenu.Item onClick={() => openInscriptionUrl(inscription.number)}>
-                <Flag img={<ExternalLinkIcon variant="small" />}>Open original</Flag>
+                <Flag img={<ExternalLinkIcon />}>
+                  <styled.span textStyle="label.02">Open original</styled.span>
+                </Flag>
               </DropdownMenu.Item>
               {hasInscriptionBeenDiscarded(inscription) ? (
                 <DropdownMenu.Item onClick={() => recoverInscription(inscription)}>
-                  <Flag img={<LockIcon variant="small" />}>Protect</Flag>
+                  <Flag img={<LockIcon />}>
+                    <styled.span textStyle="label.02">Protect</styled.span>
+                  </Flag>
                 </DropdownMenu.Item>
               ) : (
                 <DropdownMenu.Item onClick={() => discardInscription(inscription)}>
-                  <Flag img={<UnlockIcon variant="small" />}>Unprotect</Flag>
+                  <Flag img={<UnlockIcon />}>
+                    <styled.span textStyle="label.02">Unprotect</styled.span>
+                  </Flag>
                 </DropdownMenu.Item>
               )}
             </DropdownMenu.Content>
