@@ -13,6 +13,7 @@ import {
   shimmerStyles,
 } from '@leather.io/ui';
 
+import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
 import { useScaleText } from '@app/common/hooks/use-scale-text';
 import { AccountNameLayout } from '@app/components/account/account-name';
 import { PrivateTextLayout } from '@app/components/privacy/private-text.layout';
@@ -45,6 +46,8 @@ export function AccountCard({
   isBalancePrivate,
 }: AccountCardProps) {
   const scaleTextRef = useScaleText();
+  const isAtLeastMd = useViewportMinWidth('md');
+  const tooltipSide = isAtLeastMd ? 'right' : 'bottom';
 
   return (
     <Flex
@@ -107,7 +110,7 @@ export function AccountCard({
               Available balance:
               <styled.span ml="space.01">
                 <BasicTooltip
-                  side="right"
+                  side={tooltipSide}
                   label="Some funds may be unavailable to protect your collectible assets. Disable protection to access your remaining balance."
                 >
                   <Flag
