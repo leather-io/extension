@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -194,7 +194,10 @@
 <a name='L129'></a><a href='#L129'>129</a>
 <a name='L130'></a><a href='#L130'>130</a>
 <a name='L131'></a><a href='#L131'>131</a>
-<a name='L132'></a><a href='#L132'>132</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,6 +217,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -241,11 +248,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -340,11 +346,15 @@ import {
   shimmerStyles,
 } from '@leather.io/ui';
 &nbsp;
+import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
 import { useScaleText } from '@app/common/hooks/use-scale-text';
 import { AccountNameLayout } from '@app/components/account/account-name';
 import { PrivateTextLayout } from '@app/components/privacy/private-text.layout';
 &nbsp;
 import { BasicTooltip } from '../tooltip/basic-tooltip';
+&nbsp;
+const availableBalanceTooltipLabel =
+<span class="cstat-no" title="statement not covered" >  'Total balance minus outbound transfers, protected collectibles and uneconomical UTXOs.';</span>
 &nbsp;
 interface AccountCardProps {
   name: string;
@@ -372,6 +382,8 @@ export function <span class="fstat-no" title="function not covered" >AccountCard
   isBalancePrivate,
 }: AccountCardProps) {
   const scaleTextRef = <span class="cstat-no" title="statement not covered" >useScaleText();</span>
+  const isAtLeastMd = <span class="cstat-no" title="statement not covered" >useViewportMinWidth('md');</span>
+  const tooltipSide = <span class="cstat-no" title="statement not covered" >isAtLeastMd ? 'right' : 'bottom';</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Flex
@@ -433,10 +445,7 @@ export function <span class="fstat-no" title="function not covered" >AccountCard
             &lt;styled.h2 textStyle="label.02" color="ink.text-subdued" mt="space.01"&gt;
               Available balance:
               &lt;styled.span ml="space.01"&gt;
-                &lt;BasicTooltip
-                  side="right"
-                  label="Some funds may be unavailable to protect your collectible assets. Disable protection to access your remaining balance."
-                &gt;
+                &lt;BasicTooltip side={tooltipSide} label={availableBalanceTooltipLabel}&gt;
                   &lt;Flag
                     reverse
                     spacing="space.01"
@@ -463,7 +472,7 @@ export function <span class="fstat-no" title="function not covered" >AccountCard
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-23T15:21:32.963Z
+                at 2024-12-26T10:32:10.450Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>
