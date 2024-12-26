@@ -1,3 +1,26 @@
+## [6.58.0](https://github.com/leather-io/extension/compare/v6.57.0...v6.58.0) (2024-12-26)
+
+
+### Features
+
+* add sip10s to account total balance ([0ddf20e](https://github.com/leather-io/extension/commit/0ddf20e8820c0e51b4b373017ee772d386bafa98))
+* granular utxo protection feature ([fbb2fed](https://github.com/leather-io/extension/commit/fbb2fede4512e4dd63ad4e4f686d5c3d9c3f3e76))
+
+
+### Bug Fixes
+
+* account addresses separator ([be6d99e](https://github.com/leather-io/extension/commit/be6d99e186f504146d928b9d942ad1b93804d5fc))
+* avaliable balance tooltip ([6b2ccb6](https://github.com/leather-io/extension/commit/6b2ccb6f7c656f348c2ad36150f2770f8197e7c5))
+* issue with zindex over iframe inscriptions ([881fca3](https://github.com/leather-io/extension/commit/881fca37aaa534f63222830946b973b9a744b76a))
+* styles for inscription options ([48af27a](https://github.com/leather-io/extension/commit/48af27ac1b0d552107a4225ddfe042812ba1b435))
+* utxo protection dropdown ([062eede](https://github.com/leather-io/extension/commit/062eede840de9506057392dc5d1f19b5cac36d2b))
+
+
+### Internal
+
+* post-release merge back ([281d3a5](https://github.com/leather-io/extension/commit/281d3a5a329d2474177a9e44c863a21930e0ced6))
+* post-release merge back ([94fa068](https://github.com/leather-io/extension/commit/94fa068e9e7e10cd6ab8a57c6c7d77a577af2dd9))
+
 ## [6.57.0](https://github.com/leather-io/extension/compare/v6.56.1...v6.57.0) (2024-12-23)
 
 
