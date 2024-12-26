@@ -21,10 +21,10 @@ import {
   useGetSbtcLimits,
 } from '@app/query/sbtc/sbtc-limits.query';
 
-import { useSwapContext } from '../swap.context';
+import { type BaseSwapContext, useSwapContext } from '../swap.context';
 
-export function useSwapForm() {
-  const { isCrossChainSwap, isFetchingExchangeRate } = useSwapContext();
+export function useSwapForm<T extends BaseSwapContext<T>>() {
+  const { isCrossChainSwap, isFetchingExchangeRate } = useSwapContext<T>();
   const { data: sBtcLimits } = useGetSbtcLimits();
   const { data: supply } = useGetCurrentSbtcSupply();
 
@@ -33,7 +33,11 @@ export function useSwapForm() {
     if (!sBtcPegCap || !supply) return;
     const currentSupplyValue = supply?.result && cvToValue(hexToCV(supply?.result));
     return convertAmountToFractionalUnit(
-      createMoney(new BigNumber(Number(sBtcPegCap - currentSupplyValue.value)), 'BTC', BTC_DECIMALS)
+      createMoney(
+        new BigNumber(Number(sBtcPegCap - currentSupplyValue?.value)),
+        'BTC',
+        BTC_DECIMALS
+      )
     );
   }, [sBtcLimits?.pegCap, supply]);
 

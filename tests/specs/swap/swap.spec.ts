@@ -47,7 +47,7 @@ test.describe('Swaps', () => {
     await expect(toast).toBeVisible();
   });
 
-  test('that it preselects cross chain swap assets and restricts quote list', async ({
+  test('that it preselects cross-chain swap assets and restricts quote list', async ({
     swapPage,
   }) => {
     await swapPage.selectBtcAsBaseAsset();
