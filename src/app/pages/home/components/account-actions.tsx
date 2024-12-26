@@ -6,6 +6,7 @@ import { Box, Flex } from 'leather-styles/jsx';
 import { ArrowsRepeatLeftRightIcon, CreditCardIcon, IconButton, InboxIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
+import { replaceRouteParams } from '@shared/utils/replace-route-params';
 
 import {
   useConfigBitcoinEnabled,
@@ -35,6 +36,15 @@ export function AccountActions() {
     ? RouteUrls.Receive
     : `${RouteUrls.Home}${RouteUrls.ReceiveStx}`;
 
+  function navigateToDefaultSwapRoute() {
+    return navigate(
+      replaceRouteParams(RouteUrls.Swap, {
+        base: 'STX',
+        quote: '',
+      }).replace('{chain}', 'stacks')
+    );
+  }
+
   return (
     <Flex gap={{ base: 'space.01', md: 'space.04' }} py="space.04" justifyContent="space-between">
       <SendButton />
@@ -60,7 +70,7 @@ export function AccountActions() {
             disabled={swapsBtnDisabled}
             icon={<ArrowsRepeatLeftRightIcon />}
             label="Swap"
-            onClick={() => navigate(RouteUrls.Swap.replace(':base', 'STX').replace(':quote', ''))}
+            onClick={navigateToDefaultSwapRoute}
           />
         </Box>
       </BasicTooltip>

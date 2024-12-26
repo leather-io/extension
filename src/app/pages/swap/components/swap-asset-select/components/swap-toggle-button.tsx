@@ -9,10 +9,14 @@ import { isDefined, isUndefined } from '@leather.io/utils';
 import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import { useSwapContext } from '../../../swap.context';
+import { constructSwapRoute } from '@app/pages/swap/swap.routes';
 
-export function SwapToggleButton() {
-  const { fetchQuoteAmount, isFetchingExchangeRate, onSetIsSendingMax } = useSwapContext();
+import { type BaseSwapContext, useSwapContext } from '../../../swap.context';
+
+export function SwapToggleButton<T extends BaseSwapContext<T>>() {
+  const { isFetchingExchangeRate, onSetIsFetchingExchangeRate, onSetIsSendingMax, swapData } =
+    useSwapContext<T>();
+  const { chain, fetchQuoteAmount } = swapData;
   const { setFieldValue, values } = useFormikContext<SwapFormValues>();
   const navigate = useNavigate();
 
@@ -29,7 +33,9 @@ export function SwapToggleButton() {
     void setFieldValue('swapAmountBase', prevAmountQuote);
 
     if (isDefined(prevAssetBase) && isDefined(prevAssetQuote)) {
+      onSetIsFetchingExchangeRate(true);
       const quoteAmount = await fetchQuoteAmount(prevAssetQuote, prevAssetBase, prevAmountQuote);
+      onSetIsFetchingExchangeRate(false);
       if (isUndefined(quoteAmount)) {
         void setFieldValue('swapAmountQuote', '');
         return;
@@ -39,10 +45,14 @@ export function SwapToggleButton() {
       void setFieldValue('swapAmountQuote', Number(prevAmountBase));
     }
     navigate(
-      RouteUrls.Swap.replace(':base', prevAssetQuote?.name ?? '').replace(
-        ':quote',
-        prevAssetBase?.name ?? ''
-      )
+      constructSwapRoute({
+        chain,
+        route: RouteUrls.Swap,
+        params: {
+          base: prevAssetQuote?.name ?? '',
+          quote: prevAssetBase?.name ?? '',
+        },
+      })
     );
   }
 

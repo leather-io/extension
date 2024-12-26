@@ -13,14 +13,14 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 
 import { SwapAssetSelectBase } from './components/swap-asset-select/swap-asset-select-base';
 import { SwapAssetSelectQuote } from './components/swap-asset-select/swap-asset-select-quote';
-import { useSwapAssetsFromRoute } from './hooks/use-swap-assets-from-route';
-import { useSwapContext } from './swap.context';
+import { useSwapRouteParams } from './hooks/use-swap-route-params';
+import { type BaseSwapContext, useSwapContext } from './swap.context';
 
-export function Swap() {
-  const { isFetchingExchangeRate, isPreparingSwapReview, onSubmitSwapForReview } = useSwapContext();
-  const { dirty, isValid, values, submitForm } = useFormikContext<SwapFormValues>();
+export function Swap<T extends BaseSwapContext<T>>() {
+  const { isFetchingExchangeRate, isPreparingSwapReview } = useSwapContext<T>();
+  const { dirty, isValid, values } = useFormikContext<SwapFormValues>();
 
-  useSwapAssetsFromRoute();
+  useSwapRouteParams();
 
   if (isUndefined(values.swapAssetBase)) return <LoadingSpinner height="300px" />;
 
@@ -32,10 +32,6 @@ export function Swap() {
           data-testid={SwapSelectors.SwapReviewBtn}
           aria-busy={isPreparingSwapReview}
           disabled={!(dirty && isValid) || isFetchingExchangeRate || isPreparingSwapReview}
-          onClick={async () => {
-            await submitForm(); // Validate form
-            await onSubmitSwapForReview(values);
-          }}
           type="submit"
           fullWidth
         >
@@ -45,7 +41,6 @@ export function Swap() {
     >
       <SwapAssetSelectBase />
       <SwapAssetSelectQuote />
-
       <Outlet />
     </Card>
   );

@@ -16,7 +16,7 @@ import type { SwapFormValues } from '@shared/models/form.model';
 
 import { useShowFieldError } from '@app/common/form-utils';
 
-import { useSwapContext } from '../../../swap.context';
+import { type BaseSwapContext, useSwapContext } from '../../../swap.context';
 
 function getPlaceholderValue(name: string, values: SwapFormValues) {
   if (name === 'swapAmountBase' && isDefined(values.swapAssetBase)) return '0';
@@ -29,9 +29,19 @@ interface SwapAmountFieldProps {
   isDisabled?: boolean;
   name: string;
 }
-export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFieldProps) {
-  const { fetchQuoteAmount, isCrossChainSwap, isFetchingExchangeRate, onSetIsSendingMax } =
-    useSwapContext();
+export function SwapAmountField<T extends BaseSwapContext<T>>({
+  amountAsFiat,
+  isDisabled,
+  name,
+}: SwapAmountFieldProps) {
+  const {
+    isCrossChainSwap,
+    isFetchingExchangeRate,
+    onSetIsFetchingExchangeRate,
+    onSetIsSendingMax,
+    swapData,
+  } = useSwapContext<T>();
+  const { fetchQuoteAmount } = swapData;
   const { setFieldError, setFieldValue, values } = useFormikContext<SwapFormValues>();
   const [field] = useField(name);
   const showError = useShowFieldError(name) && name === 'swapAmountBase' && values.swapAssetQuote;
@@ -41,7 +51,9 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
     if (isUndefined(swapAssetBase) || isUndefined(swapAssetQuote)) return;
     onSetIsSendingMax(false);
     const value = event.currentTarget.value;
+    onSetIsFetchingExchangeRate(true);
     const toAmount = await fetchQuoteAmount(swapAssetBase, swapAssetQuote, value);
+    onSetIsFetchingExchangeRate(false);
     const valueLengthAsDecimals = value.length - 1;
     if (isUndefined(toAmount) || valueLengthAsDecimals > swapAssetBase.balance.decimals) {
       await setFieldValue('swapAmountQuote', '');

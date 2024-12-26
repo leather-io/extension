@@ -15,13 +15,18 @@ import {
 import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import { useSwapContext } from '@app/pages/swap/swap.context';
+import { type BaseSwapContext, useSwapContext } from '@app/pages/swap/swap.context';
+import { constructSwapRoute } from '@app/pages/swap/swap.routes';
 
 import type { SwapAssetListProps } from './swap-asset-list';
 
-export function useSwapAssetList({ assets, type }: SwapAssetListProps) {
+export function useSwapAssetList<T extends BaseSwapContext<T>>({
+  assets,
+  type,
+}: SwapAssetListProps) {
   const { setFieldError, setFieldValue, values } = useFormikContext<SwapFormValues>();
-  const { fetchQuoteAmount, onSetIsCrossChainSwap } = useSwapContext();
+  const { onSetIsFetchingExchangeRate, onSetIsCrossChainSwap, swapData } = useSwapContext<T>();
+  const { fetchQuoteAmount } = swapData;
   const navigate = useNavigate();
   const { base, quote } = useParams();
 
@@ -29,19 +34,11 @@ export function useSwapAssetList({ assets, type }: SwapAssetListProps) {
   const isQuoteList = type === 'quote';
 
   // Filter out selected asset from selectable assets
-  const selectableAssets = assets
-    .filter(
-      asset =>
-        (isBaseList && asset.name !== values.swapAssetQuote?.name) ||
-        (isQuoteList && asset.name !== values.swapAssetBase?.name)
-    )
-    // Only show sBTC as quote option if BTC is selected as base
-    .filter(
-      asset =>
-        isBaseList ||
-        (isQuoteList && values.swapAssetBase?.name !== 'BTC') ||
-        (isQuoteList && values.swapAssetBase?.name === 'BTC' && asset.name === 'sBTC')
-    );
+  const selectableAssets = assets.filter(
+    asset =>
+      (isBaseList && asset.name !== values.swapAssetQuote?.name) ||
+      (isQuoteList && asset.name !== values.swapAssetBase?.name)
+  );
 
   const onSelectBaseAsset = useCallback(
     (baseAsset: SwapAsset) => {
@@ -49,27 +46,72 @@ export function useSwapAssetList({ assets, type }: SwapAssetListProps) {
       // Handle bridge assets
       if (baseAsset.name === 'BTC') {
         onSetIsCrossChainSwap(true);
-        return navigate(RouteUrls.Swap.replace(':base', baseAsset.name).replace(':quote', 'sBTC'));
+        return navigate(
+          constructSwapRoute({
+            chain: 'bitcoin',
+            route: RouteUrls.Swap,
+            params: {
+              base: baseAsset.name,
+              quote: 'sBTC',
+            },
+          })
+        );
       }
       // Handle swap assets
       onSetIsCrossChainSwap(false);
-      navigate(RouteUrls.Swap.replace(':base', baseAsset.name).replace(':quote', quote ?? ''));
+      navigate(
+        constructSwapRoute({
+          chain: 'stacks',
+          route: RouteUrls.Swap,
+          params: {
+            base: baseAsset.name,
+            quote: quote ?? '',
+          },
+        })
+      );
     },
     [navigate, onSetIsCrossChainSwap, quote, setFieldValue]
   );
 
   const onSelectQuoteAsset = useCallback(
-    (quoteAsset: SwapAsset) => {
+    (quoteAsset: SwapAsset, baseAsset?: SwapAsset) => {
       void setFieldValue('swapAssetQuote', quoteAsset);
       setFieldError('swapAssetQuote', undefined);
-      navigate(RouteUrls.Swap.replace(':base', base ?? '').replace(':quote', quoteAsset.name));
+      // Handle bridge assets
+      if (baseAsset?.name === 'BTC') {
+        onSetIsCrossChainSwap(true);
+        return navigate(
+          constructSwapRoute({
+            chain: 'bitcoin',
+            route: RouteUrls.Swap,
+            params: {
+              base: baseAsset.name,
+              quote: quoteAsset.name,
+            },
+          })
+        );
+      }
+      // Handle swap assets
+      onSetIsCrossChainSwap(false);
+      navigate(
+        constructSwapRoute({
+          chain: 'stacks',
+          route: RouteUrls.Swap,
+          params: {
+            base: base ?? '',
+            quote: quoteAsset.name,
+          },
+        })
+      );
     },
-    [base, navigate, setFieldError, setFieldValue]
+    [base, navigate, onSetIsCrossChainSwap, setFieldError, setFieldValue]
   );
 
   const onFetchQuoteAmount = useCallback(
     async (baseAsset: SwapAsset, quoteAsset: SwapAsset) => {
+      onSetIsFetchingExchangeRate(true);
       const quoteAmount = await fetchQuoteAmount(baseAsset, quoteAsset, values.swapAmountBase);
+      onSetIsFetchingExchangeRate(false);
       // Handle race condition; make sure quote amount is 1:1
       if (baseAsset.name === 'BTC') {
         void setFieldValue('swapAmountQuote', values.swapAmountBase);
@@ -87,7 +129,13 @@ export function useSwapAssetList({ assets, type }: SwapAssetListProps) {
       void setFieldValue('swapAmountQuote', formatMoneyWithoutSymbol(quoteAmountAsMoney));
       setFieldError('swapAmountQuote', undefined);
     },
-    [fetchQuoteAmount, setFieldError, setFieldValue, values.swapAmountBase]
+    [
+      fetchQuoteAmount,
+      onSetIsFetchingExchangeRate,
+      setFieldError,
+      setFieldValue,
+      values.swapAmountBase,
+    ]
   );
 
   return {
@@ -103,7 +151,7 @@ export function useSwapAssetList({ assets, type }: SwapAssetListProps) {
       if (isQuoteList) {
         baseAsset = values.swapAssetBase;
         quoteAsset = asset;
-        onSelectQuoteAsset(quoteAsset);
+        onSelectQuoteAsset(quoteAsset, baseAsset);
       }
       if (baseAsset && quoteAsset && values.swapAmountBase) {
         await onFetchQuoteAmount(baseAsset, quoteAsset);

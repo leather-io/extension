@@ -7,6 +7,7 @@ import { createMoneyFromDecimal, isUndefined } from '@leather.io/utils';
 import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
+import { constructSwapRoute } from '../../swap.routes';
 import { SwapAssetItemLayout } from './swap-asset-item.layout';
 import { SwapAssetsPairLayout } from './swap-assets-pair.layout';
 
@@ -17,7 +18,17 @@ export function SwapAssetsPair() {
   const navigate = useNavigate();
 
   if (isUndefined(swapAssetBase) || isUndefined(swapAssetQuote)) {
-    navigate(RouteUrls.Swap, { replace: true });
+    navigate(
+      constructSwapRoute({
+        chain: 'stacks',
+        route: RouteUrls.Swap,
+        params: {
+          base: 'STX',
+          quote: '',
+        },
+      }),
+      { replace: true }
+    );
     return null;
   }
 

@@ -51,8 +51,5 @@ export class SwapPage {
   async selectQuoteAsset() {
     const swapAssetSelectors = await this.page.locator(this.selectAssetBtn).all();
     await swapAssetSelectors[1].click();
-    // await this.page.locator(this.chooseAssetList).waitFor();
-    // const quoteAssets = await this.page.locator(this.chooseAssetListItem).all();
-    // await quoteAssets[0].click();
   }
 }

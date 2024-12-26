@@ -1,13 +1,20 @@
 import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { replaceRouteParams } from '@shared/utils/replace-route-params';
+
 export function useSwapNavigate() {
-  const navigate = useNavigate();
   const { base, quote } = useParams();
+  const navigate = useNavigate();
 
   return useCallback(
     (route: string) => {
-      navigate(route.replace(':base', base ?? '').replace(':quote', quote ?? ''));
+      navigate(
+        replaceRouteParams(route, {
+          base: base ?? '',
+          quote: quote ?? '',
+        })
+      );
     },
     [base, navigate, quote]
   );
