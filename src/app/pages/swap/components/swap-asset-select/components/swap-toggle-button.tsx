@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { useFormikContext } from 'formik';
 import { styled } from 'leather-styles/jsx';
@@ -9,12 +9,15 @@ import { isDefined, isUndefined } from '@leather.io/utils';
 import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import { useSwapContext } from '../../../swap.context';
+import { type BaseSwapContext, useSwapContext } from '../../../swap.context';
 
-export function SwapToggleButton() {
-  const { fetchQuoteAmount, isFetchingExchangeRate, onSetIsSendingMax } = useSwapContext();
+export function SwapToggleButton<T extends BaseSwapContext<T>>() {
+  const { isFetchingExchangeRate, onSetIsFetchingExchangeRate, onSetIsSendingMax, swapData } =
+    useSwapContext<T>();
+  const { fetchQuoteAmount } = swapData;
   const { setFieldValue, values } = useFormikContext<SwapFormValues>();
   const navigate = useNavigate();
+  const { origin } = useParams();
 
   async function onToggleSwapAssets() {
     onSetIsSendingMax(false);
@@ -29,7 +32,9 @@ export function SwapToggleButton() {
     void setFieldValue('swapAmountBase', prevAmountQuote);
 
     if (isDefined(prevAssetBase) && isDefined(prevAssetQuote)) {
+      onSetIsFetchingExchangeRate(true);
       const quoteAmount = await fetchQuoteAmount(prevAssetQuote, prevAssetBase, prevAmountQuote);
+      onSetIsFetchingExchangeRate(false);
       if (isUndefined(quoteAmount)) {
         void setFieldValue('swapAmountQuote', '');
         return;
@@ -39,10 +44,9 @@ export function SwapToggleButton() {
       void setFieldValue('swapAmountQuote', Number(prevAmountBase));
     }
     navigate(
-      RouteUrls.Swap.replace(':base', prevAssetQuote?.name ?? '').replace(
-        ':quote',
-        prevAssetBase?.name ?? ''
-      )
+      RouteUrls.Swap.replace(':origin', origin ?? '')
+        .replace(':base', prevAssetQuote?.name ?? '')
+        .replace(':quote', prevAssetBase?.name ?? '')
     );
   }
 
