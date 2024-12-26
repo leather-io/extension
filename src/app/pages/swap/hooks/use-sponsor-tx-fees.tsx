@@ -7,7 +7,6 @@ import { FeeTypes } from '@leather.io/models';
 import { defaultFeesMaxValuesAsMoney } from '@leather.io/query';
 
 import { logger } from '@shared/logger';
-import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
@@ -27,11 +26,11 @@ export function useSponsorTransactionFees() {
   const navigate = useNavigate();
   const toast = useToast();
 
-  const checkEligibilityForSponsor = async (values: SwapFormValues, baseTx: TransactionBase) => {
+  const checkEligibilityForSponsor = async (baseTx: TransactionBase) => {
     return await verifySponsoredSbtcTransaction({
       apiUrl: sponsorshipApiUrl,
       baseTx,
-      nonce: Number(values.nonce),
+      nonce: Number(baseTx.options.nonce),
       fee: defaultFeesMaxValuesAsMoney[FeeTypes.Middle].amount.toNumber(),
     });
   };
@@ -40,7 +39,7 @@ export function useSponsorTransactionFees() {
     async (unsignedSponsoredTx: StacksTransaction) => {
       try {
         const signedSponsoredTx = await signTx(unsignedSponsoredTx);
-        if (!signedSponsoredTx) return logger.error('Unable to sign sponsored transaction!');
+        if (!signedSponsoredTx) return logger.error('Unable to sign sponsored transaction');
 
         const result = await submitSponsoredSbtcTransaction(sponsorshipApiUrl, signedSponsoredTx);
         if (!result.txid) {

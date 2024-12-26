@@ -21,7 +21,7 @@ export function useGenerateStacksContractCallUnsignedTx() {
   const network = useCurrentStacksNetworkState();
 
   return useCallback(
-    async (payload: ContractCallPayload, values: StacksTransactionFormValues) => {
+    async (payload: ContractCallPayload, values: Partial<StacksTransactionFormValues>) => {
       if (!account) return;
 
       const options: GenerateUnsignedTransactionOptions = {
