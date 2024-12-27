@@ -15,6 +15,7 @@ import {
 } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
@@ -29,8 +30,10 @@ export function AccountActions() {
   const currentBtcSigner = useCurrentAccountNativeSegwitIndexZeroSignerNullable();
   const btcAccount = currentBtcSigner?.address;
   const currentNetwork = useCurrentNetwork();
+  const { isTestnet } = useCurrentNetworkState();
+
   const swapsEnabled = useConfigSwapsEnabled();
-  const swapsBtnDisabled = !swapsEnabled || !stacksAccount;
+  const swapsBtnDisabled = !swapsEnabled || !stacksAccount || isTestnet;
 
   const receivePath = isBitcoinEnabled
     ? RouteUrls.Receive
