@@ -1,3 +1,10 @@
+## [6.58.1](https://github.com/leather-io/extension/compare/v6.58.0...v6.58.1) (2024-12-27)
+
+
+### Bug Fixes
+
+* is multisig condition ([907729a](https://github.com/leather-io/extension/commit/907729a4c66bd79d008ca5dd54a320346672804d))
+
 ## [6.58.0](https://github.com/leather-io/extension/compare/v6.57.0...v6.58.0) (2024-12-26)
 
 
