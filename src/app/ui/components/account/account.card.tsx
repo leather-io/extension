@@ -21,7 +21,7 @@ import { PrivateTextLayout } from '@app/components/privacy/private-text.layout';
 import { BasicTooltip } from '../tooltip/basic-tooltip';
 
 const availableBalanceTooltipLabel =
-  'Total balance minus locked amounts, outbound transfers, protected collectibles and uneconomical UTXOs';
+  'Total balance minus locked amounts, outbound transfers, protected collectibles and uneconomical UTXOs.';
 
 interface AccountCardProps {
   name: string;

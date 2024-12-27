@@ -32,7 +32,10 @@ export function useBalances({ btcAddress, stxAddress }: UseBalanceArgs) {
     isPending: isPendingStxBalance,
   } = filteredBalanceQuery;
 
-  const stxBalance = balance ? balance.totalBalance : createMoney(0, 'STX');
+  const totalStxBalance = balance ? balance.totalBalance : createMoney(0, 'STX');
+  const availableUnlockedStxBalance = balance
+    ? balance.availableUnlockedBalance
+    : createMoney(0, 'STX');
 
   // get btc balance
   const {
@@ -47,7 +50,12 @@ export function useBalances({ btcAddress, stxAddress }: UseBalanceArgs) {
 
   return useMemo(() => {
     // calculate total balance
-    const stxUsdAmount = baseCurrencyAmountInQuote(stxBalance, stxMarketData);
+    const totalStxUsdAmount = baseCurrencyAmountInQuote(totalStxBalance, stxMarketData);
+    // calculate available unlocked balance
+    const availableUnlockedStxUsdAmount = baseCurrencyAmountInQuote(
+      availableUnlockedStxBalance,
+      stxMarketData
+    );
 
     const availableBtcUsdAmount = baseCurrencyAmountInQuote(
       btcBalance.availableBalance,
@@ -57,13 +65,15 @@ export function useBalances({ btcAddress, stxAddress }: UseBalanceArgs) {
     const totalBtcUsdAmount = baseCurrencyAmountInQuote(btcBalance.totalBalance, btcMarketData);
 
     const totalBalance = {
-      ...stxUsdAmount,
-      amount: stxUsdAmount.amount.plus(totalBtcUsdAmount.amount).plus(sip10BalanceUsd.amount),
+      ...totalStxUsdAmount,
+      amount: totalStxUsdAmount.amount.plus(totalBtcUsdAmount.amount).plus(sip10BalanceUsd.amount),
     };
 
     const availableBalance = {
-      ...stxUsdAmount,
-      amount: stxUsdAmount.amount.plus(availableBtcUsdAmount.amount).plus(sip10BalanceUsd.amount),
+      ...availableUnlockedStxUsdAmount,
+      amount: availableUnlockedStxUsdAmount.amount
+        .plus(availableBtcUsdAmount.amount)
+        .plus(sip10BalanceUsd.amount),
     };
 
     return {
@@ -86,8 +96,9 @@ export function useBalances({ btcAddress, stxAddress }: UseBalanceArgs) {
         isLoadingAdditionalDataStxBalance || isLoadingAdditionalDataBtcBalance,
     };
   }, [
-    stxBalance,
+    totalStxBalance,
     stxMarketData,
+    availableUnlockedStxBalance,
     btcBalance.availableBalance,
     btcBalance.totalBalance,
     btcMarketData,
