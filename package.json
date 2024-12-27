@@ -150,7 +150,7 @@
     "@leather.io/constants": "0.13.5",
     "@leather.io/crypto": "1.6.14",
     "@leather.io/models": "0.24.0",
-    "@leather.io/query": "2.26.9",
+    "@leather.io/query": "2.26.10",
     "@leather.io/stacks": "1.4.0",
     "@leather.io/tokens": "0.12.1",
     "@leather.io/ui": "1.44.4",
