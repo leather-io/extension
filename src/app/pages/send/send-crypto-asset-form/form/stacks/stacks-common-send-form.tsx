@@ -44,7 +44,6 @@ export function StacksCommonSendForm({
   amountField,
   selectedAssetField,
   fees,
-
   availableTokenBalance,
 }: StacksCommonSendFormProps) {
   const navigate = useNavigate();
