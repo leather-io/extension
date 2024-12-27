@@ -158,7 +158,10 @@ export async function rpcSignStacksTransaction(
 
   const hashMode = stacksTransaction.auth.spendingCondition.hashMode as MultiSigHashMode;
   const isMultisig =
-    hashMode === AddressHashMode.SerializeP2SH || hashMode === AddressHashMode.SerializeP2WSH;
+    hashMode === AddressHashMode.SerializeP2SH ||
+    hashMode === AddressHashMode.SerializeP2WSH ||
+    hashMode === AddressHashMode.SerializeP2SHNonSequential ||
+    hashMode === AddressHashMode.SerializeP2WSHNonSequential;
 
   void trackRpcRequestSuccess({ endpoint: message.method });
 
