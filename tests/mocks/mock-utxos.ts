@@ -42,7 +42,8 @@ export const mockUtxosListWithRunes = [
     value: 546,
   },
 ];
-const mockMainnetNsTransactionsTestAccount = [
+
+export const mockMainnetNsTransactionsTestAccount = [
   {
     txid: '58d44000884f0ba4cdcbeb1ac082e6c802d300c16b0d3251738e8cf6a57397ce',
     version: 2,
