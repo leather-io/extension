@@ -60,8 +60,8 @@ importers:
         specifier: 0.24.0
         version: 0.24.0
       '@leather.io/query':
-        specifier: 2.26.9
-        version: 2.26.9(encoding@0.1.13)(react@18.3.1)
+        specifier: 2.26.10
+        version: 2.26.10(encoding@0.1.13)(react@18.3.1)
       '@leather.io/stacks':
         specifier: 1.4.0
         version: 1.4.0(encoding@0.1.13)
@@ -3284,8 +3284,8 @@ packages:
   '@leather.io/bitcoin@0.17.0':
     resolution: {integrity: sha512-Nc4Bl2HWmxWvgIXbpa6Gs8EpqR1UJHDzXPu+R+2TIyOsjxFoGXoIQwLohxySnQa4i0UodrCXBrqDOqOTHtwbMQ==}
 
-  '@leather.io/bitcoin@0.19.8':
-    resolution: {integrity: sha512-gqTD8Mtp8cYPcvQd0DnzFNz/uXbghpadPvB8rtB467g4fbjswW/52lOKzazrzNrl+CmQXuCKep4NrTBgTBRNpg==}
+  '@leather.io/bitcoin@0.19.9':
+    resolution: {integrity: sha512-gCc4AcOtv0gAgdMATBlHBBQU0k+Ut3uY9mkhNRQV8ISl2f3sOhLbjN2DAbddpsL77W2+OYFGCDeBVdNjElXsyw==}
 
   '@leather.io/constants@0.13.5':
     resolution: {integrity: sha512-FOh/F/g8WepB8HfoTXsMB/BYcm/F6INPEpyEZc3ljzaN0mLwVLO1kwgMTFU9Pq7tQlITvyWiyGHcB7OYovLoUQ==}
@@ -3326,8 +3326,8 @@ packages:
   '@leather.io/prettier-config@0.6.0':
     resolution: {integrity: sha512-QBKtLanfxFxXBlR58U/j8a6lBI0xzJzqqi36fXpGVp+9mJoEf6Ro6xrtFrixjW6seY6EOva4OApVnnPBsvOC/w==}
 
-  '@leather.io/query@2.26.9':
-    resolution: {integrity: sha512-ijmVE6RoiU+kZY5ApvwkZ5IAXWGZFl18AG2/YBveZNc5ExKjlNnunfqp1UFxE62REwkp8sGIWSsnZpysNosAHw==}
+  '@leather.io/query@2.26.10':
+    resolution: {integrity: sha512-GhOHwDQVkqP5IgM6qzItOrSssN29X6WDQ9YFsvls7a2dA00NB0emSZ+YGM3KNsn6ppXPJJNzwpIhtmGWX/yKlA==}
     peerDependencies:
       react: '*'
 
@@ -19127,7 +19127,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@leather.io/bitcoin@0.19.8(encoding@0.1.13)':
+  '@leather.io/bitcoin@0.19.9(encoding@0.1.13)':
     dependencies:
       '@bitcoinerlab/secp256k1': 1.0.2
       '@leather.io/constants': 0.15.2
@@ -19233,11 +19233,11 @@ snapshots:
       - '@vue/compiler-sfc'
       - supports-color
 
-  '@leather.io/query@2.26.9(encoding@0.1.13)(react@18.3.1)':
+  '@leather.io/query@2.26.10(encoding@0.1.13)(react@18.3.1)':
     dependencies:
       '@fungible-systems/zone-file': 2.0.0
       '@hirosystems/token-metadata-api-client': 1.2.0(encoding@0.1.13)
-      '@leather.io/bitcoin': 0.19.8(encoding@0.1.13)
+      '@leather.io/bitcoin': 0.19.9(encoding@0.1.13)
       '@leather.io/constants': 0.15.2
       '@leather.io/models': 0.24.2
       '@leather.io/rpc': 2.4.1(encoding@0.1.13)
