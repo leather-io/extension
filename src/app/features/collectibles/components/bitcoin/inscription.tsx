@@ -124,6 +124,9 @@ export function Inscription({ inscription }: InscriptionProps) {
       <Box opacity={hasInscriptionBeenDiscarded(inscription) ? 0.5 : 1}>{content}</Box>
       {isHovered && (
         <Box
+          border="1px solid"
+          borderColor="ink.text-primary"
+          borderRadius="2px"
           bg="ink.background-primary"
           position="absolute"
           right="space.03"
@@ -136,9 +139,6 @@ export function Inscription({ inscription }: InscriptionProps) {
                 _focus={{ outline: 'focus' }}
                 _hover={{ bg: 'ink.component-background-hover' }}
                 bg="ink.background-primary"
-                border="1px solid"
-                borderColor="ink.text-primary"
-                borderRadius="2px"
                 transform="rotate(90deg)"
                 color="ink.action-primary-default"
                 icon={<EllipsisVIcon />}
