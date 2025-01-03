@@ -21,10 +21,10 @@ import {
   useGetSbtcLimits,
 } from '@app/query/sbtc/sbtc-limits.query';
 
-import { useSwapContext } from '../swap.context';
+import { type BaseSwapContext, useSwapContext } from '../swap.context';
 
-export function useSwapForm() {
-  const { isCrossChainSwap, isFetchingExchangeRate } = useSwapContext();
+export function useSwapForm<T extends BaseSwapContext<T>>() {
+  const { isCrossChainSwap, isFetchingExchangeRate } = useSwapContext<T>();
   const { data: sBtcLimits } = useGetSbtcLimits();
   const { data: supply } = useGetCurrentSbtcSupply();
 

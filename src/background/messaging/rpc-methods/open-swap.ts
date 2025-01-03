@@ -10,8 +10,19 @@ export async function rpcSwap(message: OpenSwapRequest, port: chrome.runtime.Por
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['requestId', message.id]]);
   const { base = 'STX', quote } = message?.params || {};
 
+  if (base === 'BTC') {
+    await triggerSwapWindowOpen(
+      RouteUrls.Swap.replace(':origin', 'bitcoin')
+        .replace(':base', base)
+        .replace(':quote', quote ?? ''),
+      urlParams
+    );
+  }
+
   await triggerSwapWindowOpen(
-    RouteUrls.Swap.replace(':base', base).replace(':quote', quote ?? ''),
+    RouteUrls.Swap.replace(':origin', 'stacks')
+      .replace(':base', base)
+      .replace(':quote', quote ?? ''),
     urlParams
   );
 

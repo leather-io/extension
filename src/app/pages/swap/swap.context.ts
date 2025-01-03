@@ -1,43 +1,48 @@
 import { createContext, useContext } from 'react';
 
+import type { Money } from '@leather.io/models';
 import type { SwapAsset } from '@leather.io/query';
 
 import type { SwapFormValues } from '@shared/models/form.model';
 
-export interface SwapSubmissionData extends SwapFormValues {
-  liquidityFee: number;
-  maxSignerFee?: number;
-  protocol: string;
-  router: SwapAsset[];
-  dexPath?: string[];
-  slippage: number;
-  sponsored?: boolean;
-  timestamp: string;
-  txData?: Record<string, any>;
+export interface SubmitSwapArgs<T> {
+  isSendingMax?: boolean;
+  swapData: T;
+  values: SwapFormValues;
 }
 
-export interface SwapContext {
+export interface BaseSwapContext<T> {
+  fee?: Money;
+  protocol: string;
+  timestamp: string;
   fetchQuoteAmount(from: SwapAsset, to: SwapAsset, fromAmount: string): Promise<string | undefined>;
+  onSubmitSwapForReview({
+    values,
+    swapData,
+    isSendingMax,
+  }: SubmitSwapArgs<T>): Promise<Partial<T> | void>;
+  onSubmitSwap({ values, swapData }: SubmitSwapArgs<T>): Promise<Partial<T> | void>;
+}
+
+interface SwapContext<T> {
   isCrossChainSwap: boolean;
   isFetchingExchangeRate: boolean;
-  isSendingMax: boolean;
   isPreparingSwapReview: boolean;
-  onSetIsCrossChainSwap(value: boolean): void;
-  onSetIsFetchingExchangeRate(value: boolean): void;
-  onSetIsSendingMax(value: boolean): void;
-  onSubmitSwapForReview(values: SwapFormValues): Promise<void> | void;
-  onSubmitSwap(): Promise<void> | void;
+  isSendingMax: boolean;
+  swapData: T;
   swappableAssetsBase: SwapAsset[];
   swappableAssetsQuote: SwapAsset[];
-  swapSubmissionData?: SwapSubmissionData;
+  onSetIsCrossChainSwap(value: boolean): void;
+  onSetIsFetchingExchangeRate(value: boolean): void;
+  onSetIsPreparingSwapReview(value: boolean): void;
+  onSetIsSendingMax(value: boolean): void;
+  onSetSwapData(data: Partial<T>): void;
 }
 
-const swapContext = createContext<SwapContext | null>(null);
+export const swapContext = createContext<SwapContext<any> | null>(null);
 
-export function useSwapContext() {
-  const context = useContext(swapContext);
-  if (!context) throw new Error('No SwapContext found');
+export function useSwapContext<T>() {
+  const context = useContext(swapContext) as SwapContext<T>;
+  if (!context) throw new Error('`useSwapContext` must be used within a `SwapProvider`');
   return context;
 }
-
-export const SwapProvider = swapContext.Provider;

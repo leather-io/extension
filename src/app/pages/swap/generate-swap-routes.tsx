@@ -6,10 +6,10 @@ import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
 import { AccountGate } from '@app/routes/account-gate';
 
-import { SwapAssetSheetBase } from './components/swap-asset-dialog/swap-asset-dialog-base';
-import { SwapAssetSheetQuote } from './components/swap-asset-dialog/swap-asset-dialog-quote';
+import { SwapAssetSheetBase } from './components/swap-asset-sheet/swap-asset-sheet-base';
+import { SwapAssetSheetQuote } from './components/swap-asset-sheet/swap-asset-sheet-quote';
 import { SwapError } from './components/swap-error';
-import { SwapReview } from './components/swap-review';
+import { SwapReview } from './components/swap-review/swap-review';
 import { Swap } from './swap';
 
 export function generateSwapRoutes(container: React.ReactNode) {

@@ -12,13 +12,13 @@ import { RouteUrls } from '@shared/route-urls';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 
 import { useSwapNavigate } from '../../hooks/use-swap-navigate';
-import { useSwapContext } from '../../swap.context';
+import { type BaseSwapContext, useSwapContext } from '../../swap.context';
 import { convertInputAmountValueToFiat } from '../../swap.utils';
 import { SwapAmountField } from './components/swap-amount-field';
 import { SwapAssetSelectLayout } from './components/swap-asset-select.layout';
 
-export function SwapAssetSelectQuote() {
-  const { isCrossChainSwap, isFetchingExchangeRate } = useSwapContext();
+export function SwapAssetSelectQuote<T extends BaseSwapContext<T>>() {
+  const { isCrossChainSwap, isFetchingExchangeRate } = useSwapContext<T>();
   const [amountField] = useField('swapAmountQuote');
   const [assetField] = useField('swapAssetQuote');
   const navigate = useSwapNavigate();

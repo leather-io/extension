@@ -14,7 +14,7 @@ import {
 } from 'sbtc';
 
 import type { BitcoinNetworkModes } from '@leather.io/models';
-import { useAverageBitcoinFeeRates } from '@leather.io/query';
+import { type UtxoResponseItem, useAverageBitcoinFeeRates } from '@leather.io/query';
 import { btcToSat, createMoney } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
@@ -26,20 +26,20 @@ import {
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useToast } from '@app/features/toasts/use-toast';
-import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import type { Signer } from '@app/store/accounts/blockchain/bitcoin/bitcoin-signer';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
-import type { SwapSubmissionData } from '../swap.context';
+import type { BitcoinSwapContext } from '../providers/bitcoin-swap-provider';
+import type { SubmitSwapArgs } from '../swap.context';
 
 // Also set as defaults in sbtc lib
-const maxSignerFee = 80_000;
-const reclaimLockTime = 12;
+export const defaultMaxSignerFee = 80_000;
+const reclaimLockTime = 144;
 
-interface SbtcDeposit {
+export interface SbtcDeposit {
   address: string;
   depositScript: string;
   reclaimScript: string;
@@ -61,11 +61,10 @@ function getSbtcNetworkConfig(network: BitcoinNetworkModes) {
 const clientMainnet = new SbtcApiClientMainnet();
 const clientTestnet = new SbtcApiClientTestnet();
 
-export function useSbtcDepositTransaction(btcSigner?: Signer<P2Ret>) {
+export function useSbtcDepositTransaction(signer: Signer<P2Ret>, utxos: UtxoResponseItem[]) {
   const toast = useToast();
   const { setIsIdle } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);
   const stacksAccount = useCurrentStacksAccount();
-  const { data: utxos } = useCurrentNativeSegwitUtxos();
   const { data: feeRates } = useAverageBitcoinFeeRates();
   const networkMode = useBitcoinScureLibNetworkConfig();
   const navigate = useNavigate();
@@ -82,18 +81,22 @@ export function useSbtcDepositTransaction(btcSigner?: Signer<P2Ret>) {
   useBreakOnNonCompliantEntity();
 
   return {
-    async onReviewDepositSbtc(swapData: SwapSubmissionData, isSendingMax: boolean) {
-      if (!stacksAccount || !utxos || !btcSigner) return;
+    async onReviewDepositSbtc({
+      values,
+      swapData,
+      isSendingMax,
+    }: SubmitSwapArgs<BitcoinSwapContext>) {
+      if (!stacksAccount || !utxos) return;
 
       try {
         const deposit: SbtcDeposit = buildSbtcDepositTx({
-          amountSats: btcToSat(swapData.swapAmountQuote).toNumber(),
+          amountSats: btcToSat(values.swapAmountQuote).toNumber(),
           network: getSbtcNetworkConfig(network.chain.bitcoin.mode),
           stacksAddress: stacksAccount.address,
           signersPublicKey: await client.fetchSignersPublicKey(),
-          maxSignerFee,
+          maxSignerFee: swapData.maxSignerFee,
           reclaimLockTime,
-          reclaimPublicKey: bytesToHex(btcSigner.publicKey).slice(2),
+          reclaimPublicKey: bytesToHex(signer.publicKey).slice(2),
         });
 
         const determineUtxosArgs = {
@@ -111,7 +114,7 @@ export function useSbtcDepositTransaction(btcSigner?: Signer<P2Ret>) {
           ? determineUtxosForSpendAll(determineUtxosArgs)
           : determineUtxosForSpend(determineUtxosArgs);
 
-        const p2wpkh = btc.p2wpkh(btcSigner.publicKey, networkMode);
+        const p2wpkh = btc.p2wpkh(signer.publicKey, networkMode);
 
         for (const input of inputs) {
           deposit.transaction.addInput({
@@ -129,34 +132,28 @@ export function useSbtcDepositTransaction(btcSigner?: Signer<P2Ret>) {
         outputs.forEach(output => {
           // Add change output
           if (!output.address) {
-            deposit.transaction.addOutputAddress(
-              btcSigner.address,
-              BigInt(output.value),
-              networkMode
-            );
+            deposit.transaction.addOutputAddress(signer.address, BigInt(output.value), networkMode);
             return;
           }
         });
 
-        return { deposit, fee, maxSignerFee };
+        return { deposit, fee: createMoney(fee, 'BTC') };
       } catch (error) {
         logger.error('Error generating deposit transaction', error);
         return null;
       }
     },
-    async onDepositSbtc(swapSubmissionData: SwapSubmissionData) {
-      if (!stacksAccount || !btcSigner) return;
-      const sBtcDeposit = swapSubmissionData.txData?.deposit as SbtcDeposit;
-
+    async onDepositSbtc(deposit?: SbtcDeposit) {
+      if (!deposit) return;
       try {
-        btcSigner.sign(sBtcDeposit.transaction);
-        sBtcDeposit.transaction.finalize();
-        logger.info('Deposit', { deposit: sBtcDeposit });
+        signer.sign(deposit.transaction);
+        deposit.transaction.finalize();
+        logger.info('Deposit', { deposit });
 
-        const txid = await client.broadcastTx(sBtcDeposit.transaction);
+        const txid = await client.broadcastTx(deposit.transaction);
         logger.info('Broadcasted tx', txid);
 
-        await client.notifySbtc(sBtcDeposit);
+        await client.notifySbtc(deposit);
         toast.success('Transaction submitted!');
         setIsIdle();
         navigate(RouteUrls.Activity);
