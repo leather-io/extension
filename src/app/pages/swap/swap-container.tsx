@@ -1,5 +1,3 @@
-import { useParams } from 'react-router-dom';
-
 import { BitcoinNativeSegwitAccountLoader } from '@app/components/loaders/bitcoin-account-loader';
 
 import { generateSwapRoutes } from './generate-swap-routes';
@@ -8,33 +6,21 @@ import { StacksNonceLoader } from './loaders/stacks-nonce-loader';
 import { BitcoinSwapProvider } from './providers/bitcoin-swap-provider';
 import { StacksSwapProvider } from './providers/stacks-swap-provider';
 
-export const swapRoutes = generateSwapRoutes(<SwapContainer />);
+export const bitcoinSwapRoutes = generateSwapRoutes('bitcoin', <BitcoinSwapContainer />);
+export const stacksSwapRoutes = generateSwapRoutes('stacks', <StacksSwapContainer />);
 
-function SwapContainer() {
-  const { origin } = useParams();
+function BitcoinSwapContainer() {
+  return (
+    <BitcoinNativeSegwitAccountLoader current>
+      {signer => (
+        <BitcoinUtxosLoader>
+          {utxos => <BitcoinSwapProvider signer={signer} utxos={utxos} />}
+        </BitcoinUtxosLoader>
+      )}
+    </BitcoinNativeSegwitAccountLoader>
+  );
+}
 
-  switch (origin) {
-    case 'bitcoin':
-      return (
-        <BitcoinNativeSegwitAccountLoader current>
-          {signer => (
-            <BitcoinUtxosLoader>
-              {utxos => {
-                return <BitcoinSwapProvider signer={signer} utxos={utxos} />;
-              }}
-            </BitcoinUtxosLoader>
-          )}
-        </BitcoinNativeSegwitAccountLoader>
-      );
-    case 'stacks':
-      return (
-        <StacksNonceLoader>
-          {nonce => {
-            return <StacksSwapProvider nonce={nonce} />;
-          }}
-        </StacksNonceLoader>
-      );
-    default:
-      return null;
-  }
+function StacksSwapContainer() {
+  return <StacksNonceLoader>{nonce => <StacksSwapProvider nonce={nonce} />}</StacksNonceLoader>;
 }

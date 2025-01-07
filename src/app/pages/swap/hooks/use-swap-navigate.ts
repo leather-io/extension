@@ -3,7 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 export function useSwapNavigate() {
   const navigate = useNavigate();
-  const { origin, base, quote } = useParams();
+  const { base, quote } = useParams();
+
+  const origin = 'bitcoin'; // read this from context
 
   return useCallback(
     (route: string) => {
@@ -14,6 +16,6 @@ export function useSwapNavigate() {
           .replace(':quote', quote ?? '')
       );
     },
-    [base, navigate, origin, quote]
+    [base, navigate, quote]
   );
 }

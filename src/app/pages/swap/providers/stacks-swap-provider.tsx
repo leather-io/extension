@@ -31,6 +31,7 @@ export function StacksSwapProvider({ nonce }: StacksSwapProviderProps) {
   return (
     <SwapProvider<StacksSwapContext>
       initialData={{
+        origin: 'stacks',
         fee: defaultSwapFee,
         nonce,
         protocol: 'Bitflow',

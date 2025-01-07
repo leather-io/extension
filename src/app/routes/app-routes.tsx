@@ -43,7 +43,7 @@ import { RequestError } from '@app/pages/request-error/request-error';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { sendOrdinalRoutes } from '@app/pages/send/ordinal-inscription/ordinal-routes';
 import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
-import { swapRoutes } from '@app/pages/swap/swap-container';
+import { bitcoinSwapRoutes, stacksSwapRoutes } from '@app/pages/swap/swap-container';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
 import { Unlock } from '@app/pages/unlock';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
@@ -200,7 +200,8 @@ function useAppRoutes() {
             }
           />
 
-          {swapRoutes}
+          {bitcoinSwapRoutes}
+          {stacksSwapRoutes}
 
           {/* OnBoarding Routes */}
           <Route

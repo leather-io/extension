@@ -12,10 +12,15 @@ import { SwapError } from './components/swap-error';
 import { SwapReview } from './components/swap-review/swap-review';
 import { Swap } from './swap';
 
-export function generateSwapRoutes(container: React.ReactNode) {
+export function generateSwapRoutes(path: string, container: React.ReactNode) {
   return (
     <Route element={<AccountGate>{container}</AccountGate>}>
-      <Route path={RouteUrls.Swap} element={<Swap />}>
+      {/* 
+        Maybe this is confusing code beacuse we're statically replacing the `:origin`. 
+        Should probs make it not look like a dynamic route, calling a .replace('{origin}') so it's clear it's
+        a kind of templating.
+      */}
+      <Route path={RouteUrls.Swap.replace(':origin', path)} element={<Swap />}>
         <Route path={RouteUrls.SwapAssetSelectBase} element={<SwapAssetSheetBase />} />
         <Route path={RouteUrls.SwapAssetSelectQuote} element={<SwapAssetSheetQuote />} />
       </Route>

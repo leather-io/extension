@@ -29,6 +29,7 @@ export function BitcoinSwapProvider({ signer, utxos }: BitcoinSwapProviderProps)
   return (
     <SwapProvider<BitcoinSwapContext>
       initialData={{
+        origin: 'bitcoin',
         maxSignerFee: defaultMaxSignerFee,
         protocol: 'sBTC Protocol',
         signer,

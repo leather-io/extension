@@ -12,6 +12,7 @@ export interface SubmitSwapArgs<T> {
 }
 
 export interface BaseSwapContext<T> {
+  origin: string;
   fee?: Money;
   protocol: string;
   timestamp: string;
