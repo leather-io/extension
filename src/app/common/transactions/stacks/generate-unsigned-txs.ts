@@ -7,6 +7,9 @@ import {
 import { StacksNetwork } from '@stacks/network';
 import {
   AnchorMode,
+  ClarityVersion,
+  type UnsignedContractCallOptions,
+  type UnsignedContractDeployOptions,
   deserializeCV,
   makeUnsignedContractCall,
   makeUnsignedContractDeploy,
@@ -69,7 +72,7 @@ function generateUnsignedContractCallTx(args: GenerateUnsignedContractCallTxArgs
     postConditions: getPostConditions(postConditions),
     network,
     sponsored,
-  };
+  } satisfies UnsignedContractCallOptions;
   return makeUnsignedContractCall(options);
 }
 
@@ -90,7 +93,9 @@ function generateUnsignedContractDeployTx(args: GenerateUnsignedContractDeployTx
     postConditionMode: postConditionMode,
     postConditions: getPostConditions(postConditions),
     network,
-  };
+    clarityVersion: ClarityVersion.Clarity3,
+  } satisfies UnsignedContractDeployOptions;
+
   return makeUnsignedContractDeploy(options);
 }
 
