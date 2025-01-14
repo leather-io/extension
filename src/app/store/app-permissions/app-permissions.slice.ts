@@ -3,11 +3,14 @@ import { useDispatch } from 'react-redux';
 
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 
+import { useCurrentAccountIndex } from '../accounts/account';
+
 interface AppPermission {
   origin: string;
   // Very simple permission system. If property exists with date, user
   // has given permission
   requestedAccounts?: string;
+  accountIndex: number;
 }
 const appPermissionsAdapter = createEntityAdapter<AppPermission, string>({
   selectId: permission => permission.origin,
@@ -23,6 +26,7 @@ export const appPermissionsSlice = createSlice({
 
 export function useAppPermissions() {
   const dispatch = useDispatch();
+  const currentAccountIndex = useCurrentAccountIndex();
 
   return useMemo(
     () => ({
@@ -32,10 +36,11 @@ export function useAppPermissions() {
           appPermissionsSlice.actions.updatePermission({
             origin: url,
             requestedAccounts: new Date().toISOString(),
+            accountIndex: currentAccountIndex,
           })
         );
       },
     }),
-    [dispatch]
+    [currentAccountIndex, dispatch]
   );
 }

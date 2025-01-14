@@ -1,19 +1,11 @@
-import { StacksNetworks } from '@stacks/network';
-import { z } from 'zod';
+import { stxSignTransactionRequestParamsSchema } from '@leather.io/rpc';
 
 import { formatValidationErrors, getRpcParamErrors, validateRpcParams } from './validation.utils';
 
-const rpcSignStacksTransactionParamsSchema = z.object({
-  stxAddress: z.string().optional(),
-  txHex: z.string(),
-  attachment: z.string().optional(),
-  network: z.enum(StacksNetworks).optional(),
-});
-
 export function validateRpcSignStacksTransactionParams(obj: unknown) {
-  return validateRpcParams(obj, rpcSignStacksTransactionParamsSchema);
+  return validateRpcParams(obj, stxSignTransactionRequestParamsSchema);
 }
 
 export function getRpcSignStacksTransactionParamErrors(obj: unknown) {
-  return formatValidationErrors(getRpcParamErrors(obj, rpcSignStacksTransactionParamsSchema));
+  return formatValidationErrors(getRpcParamErrors(obj, stxSignTransactionRequestParamsSchema));
 }
