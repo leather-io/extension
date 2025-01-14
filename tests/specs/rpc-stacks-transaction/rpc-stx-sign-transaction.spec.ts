@@ -10,7 +10,7 @@ import { generateMultisigUnsignedStxTransfer, generateUnsignedStxTransfer } from
 
 import { test } from '../../fixtures/fixtures';
 
-test.describe('Transaction signing', () => {
+test.describe('RPC: stx_signTransaction', () => {
   test.beforeEach(async ({ extensionId, globalPage, onboardingPage, page }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
@@ -33,7 +33,7 @@ test.describe('Transaction signing', () => {
     };
   }
 
-  function initiateTxSigning(page: Page) {
+  function initiateTxSigningLeatherFormat(page: Page) {
     return async (txHex: string) =>
       page.evaluate(
         async txHex =>
@@ -42,6 +42,17 @@ test.describe('Transaction signing', () => {
             network: 'mainnet',
           }).catch((e: unknown) => e),
         txHex
+      );
+  }
+
+  function initiateTxSigningSip30Format(page: Page) {
+    return async (hex: string) =>
+      page.evaluate(
+        async transaction =>
+          (window as any).LeatherProvider.request('stx_signTransaction', { transaction }).catch(
+            (e: unknown) => e
+          ),
+        hex
       );
   }
 
@@ -60,7 +71,7 @@ test.describe('Transaction signing', () => {
       0
     );
     const [result] = await Promise.all([
-      initiateTxSigning(page)(multiSignatureTxHex),
+      initiateTxSigningLeatherFormat(page)(multiSignatureTxHex),
       checkVisibleContent(context)('Confirm'),
     ]);
 
@@ -113,7 +124,7 @@ test.describe('Transaction signing', () => {
       TEST_ACCOUNT_3_PUBKEY
     );
     const [result] = await Promise.all([
-      initiateTxSigning(page)(singleSignatureTxHex),
+      initiateTxSigningLeatherFormat(page)(singleSignatureTxHex),
       checkVisibleContent(context)('Cancel'),
     ]);
 
@@ -126,6 +137,31 @@ test.describe('Transaction signing', () => {
         code: 4001,
         message: 'User rejected the Stacks transaction signing request',
       },
+    });
+  });
+
+  test.describe('SIP-30 compatibility', () => {
+    test('it works with SIP-30 formatted transactions', async ({ page, context }) => {
+      const singleSignatureTxHex = await generateUnsignedStxTransfer(
+        TEST_ACCOUNT_2_STX_ADDRESS,
+        500,
+        'mainnet',
+        TEST_ACCOUNT_3_PUBKEY
+      );
+      const [result] = await Promise.all([
+        initiateTxSigningSip30Format(page)(singleSignatureTxHex),
+        checkVisibleContent(context)('Cancel'),
+      ]);
+
+      delete result.id;
+
+      test.expect(result).toEqual({
+        jsonrpc: '2.0',
+        error: {
+          code: 4001,
+          message: 'User rejected the Stacks transaction signing request',
+        },
+      });
     });
   });
 });

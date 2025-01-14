@@ -54,9 +54,8 @@ export function useRpcSignStacksTransaction() {
       stacksTransaction.setNonce(nonce);
 
       const signedTransaction = await signStacksTx(stacksTransaction);
-      if (!signedTransaction) {
-        throw new Error('Error signing stacks transaction');
-      }
+
+      if (!signedTransaction) throw new Error('Error signing stacks transaction');
 
       chrome.tabs.sendMessage(
         tabId,
@@ -64,6 +63,7 @@ export function useRpcSignStacksTransaction() {
           id: requestId,
           result: {
             txHex: bytesToHex(signedTransaction.serialize()),
+            transaction: bytesToHex(signedTransaction.serialize()),
           },
         })
       );
