@@ -3,15 +3,12 @@ import {
   AuthType,
   MultiSigHashMode,
   PayloadType,
-  PostCondition,
   StacksTransactionWire,
   VersionedSmartContractPayloadWire,
   addressToString,
   cvToValue,
   deserializeTransaction,
-  postConditionToWire,
   serializeCV,
-  serializePostConditionWire,
 } from '@stacks/transactions';
 import { createUnsecuredToken } from 'jsontokens';
 
@@ -32,6 +29,7 @@ import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
 import {
   RequestParams,
+  encodePostConditions,
   getTabIdFromPort,
   listenForPopupClose,
   makeSearchParamsWithDefaults,
@@ -43,10 +41,6 @@ const MEMO_DESERIALIZATION_STUB = '\u0000';
 
 function cleanMemoString(memo: string): string {
   return memo.replaceAll(MEMO_DESERIALIZATION_STUB, '');
-}
-
-function encodePostConditions(postConditions: PostCondition[]) {
-  return postConditions.map(pc => serializePostConditionWire(postConditionToWire(pc)));
 }
 
 function getStacksTransactionHexFromRequest(requestParams: StxSignTransactionRequestParams) {

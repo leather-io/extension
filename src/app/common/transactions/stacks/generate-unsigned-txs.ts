@@ -64,7 +64,6 @@ function generateUnsignedContractCallTx(args: GenerateUnsignedContractCallTxArgs
     network,
     sponsored,
   } satisfies UnsignedContractCallOptions;
-
   return makeUnsignedContractCall(options);
 }
 
