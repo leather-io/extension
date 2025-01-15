@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -122,7 +122,20 @@
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -139,15 +152,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -155,6 +165,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,6 +179,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -192,10 +212,14 @@ import { isDefined, isUndefined } from '@leather.io/utils';
 import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
-import { useSwapContext } from '../../../swap.context';
+import { constructSwapRoute } from '@app/pages/swap/swap.routes';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >SwapToggleButton() {</span>
-  const { fetchQuoteAmount, isFetchingExchangeRate, onSetIsSendingMax } = <span class="cstat-no" title="statement not covered" >useSwapContext();</span>
+import { type BaseSwapContext, useSwapContext } from '../../../swap.context';
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >SwapToggleButton&lt;T extends BaseSwapContext&lt;T&gt;&gt;() {</span>
+  const { isFetchingExchangeRate, onSetIsFetchingExchangeRate, onSetIsSendingMax, swapData } =
+<span class="cstat-no" title="statement not covered" >    useSwapContext&lt;T&gt;();</span>
+  const { chain, fetchQuoteAmount } = <span class="cstat-no" title="statement not covered" >swapData;</span>
   const { setFieldValue, values } = <span class="cstat-no" title="statement not covered" >useFormikContext&lt;SwapFormValues&gt;();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
 &nbsp;
@@ -212,7 +236,9 @@ export function <span class="fstat-no" title="function not covered" >SwapToggleB
 <span class="cstat-no" title="statement not covered" >    void setFieldValue('swapAmountBase', prevAmountQuote);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (isDefined(prevAssetBase) &amp;&amp; isDefined(prevAssetQuote)) {</span>
+<span class="cstat-no" title="statement not covered" >      onSetIsFetchingExchangeRate(true);</span>
       const quoteAmount = <span class="cstat-no" title="statement not covered" >await fetchQuoteAmount(prevAssetQuote, prevAssetBase, prevAmountQuote);</span>
+<span class="cstat-no" title="statement not covered" >      onSetIsFetchingExchangeRate(false);</span>
 <span class="cstat-no" title="statement not covered" >      if (isUndefined(quoteAmount)) {</span>
 <span class="cstat-no" title="statement not covered" >        void setFieldValue('swapAmountQuote', '');</span>
 <span class="cstat-no" title="statement not covered" >        return;</span>
@@ -222,10 +248,14 @@ export function <span class="fstat-no" title="function not covered" >SwapToggleB
 <span class="cstat-no" title="statement not covered" >      void setFieldValue('swapAmountQuote', Number(prevAmountBase));</span>
     }
 <span class="cstat-no" title="statement not covered" >    navigate(</span>
-      RouteUrls.Swap.replace(':base', prevAssetQuote?.name ?? '').replace(
-        ':quote',
-        prevAssetBase?.name ?? ''
-      )
+      constructSwapRoute({
+        chain,
+        route: RouteUrls.Swap,
+        params: {
+          base: prevAssetQuote?.name ?? '',
+          quote: prevAssetBase?.name ?? '',
+        },
+      })
     );
   }
 &nbsp;
@@ -247,7 +277,7 @@ export function <span class="fstat-no" title="function not covered" >SwapToggleB
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-27T09:16:51.671Z
+                at 2025-01-15T18:02:18.514Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

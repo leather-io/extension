@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -110,12 +110,7 @@
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,11 +142,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -182,14 +172,14 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 &nbsp;
 import { SwapAssetSelectBase } from './components/swap-asset-select/swap-asset-select-base';
 import { SwapAssetSelectQuote } from './components/swap-asset-select/swap-asset-select-quote';
-import { useSwapAssetsFromRoute } from './hooks/use-swap-assets-from-route';
-import { useSwapContext } from './swap.context';
+import { useSwapRouteParams } from './hooks/use-swap-route-params';
+import { type BaseSwapContext, useSwapContext } from './swap.context';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >Swap() {</span>
-  const { isFetchingExchangeRate, isPreparingSwapReview, onSubmitSwapForReview } = <span class="cstat-no" title="statement not covered" >useSwapContext();</span>
-  const { dirty, isValid, values, submitForm } = <span class="cstat-no" title="statement not covered" >useFormikContext&lt;SwapFormValues&gt;();</span>
+export function <span class="fstat-no" title="function not covered" >Swap&lt;T extends BaseSwapContext&lt;T&gt;&gt;() {</span>
+  const { isFetchingExchangeRate, isPreparingSwapReview } = <span class="cstat-no" title="statement not covered" >useSwapContext&lt;T&gt;();</span>
+  const { dirty, isValid, values } = <span class="cstat-no" title="statement not covered" >useFormikContext&lt;SwapFormValues&gt;();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useSwapAssetsFromRoute();</span>
+<span class="cstat-no" title="statement not covered" >  useSwapRouteParams();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (isUndefined(values.swapAssetBase)) <span class="cstat-no" title="statement not covered" >return &lt;LoadingSpinner height="300px" /&gt;;</span></span>
 &nbsp;
@@ -201,10 +191,6 @@ export function <span class="fstat-no" title="function not covered" >Swap() {</s
           data-testid={SwapSelectors.SwapReviewBtn}
           aria-busy={isPreparingSwapReview}
           disabled={!(dirty &amp;&amp; isValid) || isFetchingExchangeRate || isPreparingSwapReview}
-          onClick={<span class="fstat-no" title="function not covered" >async () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >            await submitForm(); // Validate form</span>
-<span class="cstat-no" title="statement not covered" >            await onSubmitSwapForReview(values);</span>
-          }}
           type="submit"
           fullWidth
         &gt;
@@ -214,7 +200,6 @@ export function <span class="fstat-no" title="function not covered" >Swap() {</s
     &gt;
       &lt;SwapAssetSelectBase /&gt;
       &lt;SwapAssetSelectQuote /&gt;
-&nbsp;
       &lt;Outlet /&gt;
     &lt;/Card&gt;
   );
@@ -226,7 +211,7 @@ export function <span class="fstat-no" title="function not covered" >Swap() {</s
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-27T09:16:51.671Z
+                at 2025-01-15T18:02:18.514Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

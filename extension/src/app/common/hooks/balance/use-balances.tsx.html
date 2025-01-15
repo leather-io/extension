@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -169,7 +169,18 @@
 <a name='L104'></a><a href='#L104'>104</a>
 <a name='L105'></a><a href='#L105'>105</a>
 <a name='L106'></a><a href='#L106'>106</a>
-<a name='L107'></a><a href='#L107'>107</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -204,6 +215,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -227,6 +241,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -237,7 +256,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -309,7 +331,10 @@ export function <span class="fstat-no" title="function not covered" >useBalances
     isPending: isPendingStxBalance,
   } = <span class="cstat-no" title="statement not covered" >filteredBalanceQuery;</span>
 &nbsp;
-  const stxBalance = <span class="cstat-no" title="statement not covered" >balance ? balance.totalBalance : createMoney(0, 'STX');</span>
+  const totalStxBalance = <span class="cstat-no" title="statement not covered" >balance ? balance.totalBalance : createMoney(0, 'STX');</span>
+  const availableUnlockedStxBalance = <span class="cstat-no" title="statement not covered" >balance</span>
+    ? balance.availableUnlockedBalance
+    : createMoney(0, 'STX');
 &nbsp;
   // get btc balance
   const {
@@ -324,7 +349,12 @@ export function <span class="fstat-no" title="function not covered" >useBalances
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
     // calculate total balance
-    const stxUsdAmount = <span class="cstat-no" title="statement not covered" >baseCurrencyAmountInQuote(stxBalance, stxMarketData);</span>
+    const totalStxUsdAmount = <span class="cstat-no" title="statement not covered" >baseCurrencyAmountInQuote(totalStxBalance, stxMarketData);</span>
+    // calculate available unlocked balance
+    const availableUnlockedStxUsdAmount = <span class="cstat-no" title="statement not covered" >baseCurrencyAmountInQuote(</span>
+      availableUnlockedStxBalance,
+      stxMarketData
+    );
 &nbsp;
     const availableBtcUsdAmount = <span class="cstat-no" title="statement not covered" >baseCurrencyAmountInQuote(</span>
       btcBalance.availableBalance,
@@ -334,13 +364,15 @@ export function <span class="fstat-no" title="function not covered" >useBalances
     const totalBtcUsdAmount = <span class="cstat-no" title="statement not covered" >baseCurrencyAmountInQuote(btcBalance.totalBalance, btcMarketData);</span>
 &nbsp;
     const totalBalance = <span class="cstat-no" title="statement not covered" >{</span>
-      ...stxUsdAmount,
-      amount: stxUsdAmount.amount.plus(totalBtcUsdAmount.amount).plus(sip10BalanceUsd.amount),
+      ...totalStxUsdAmount,
+      amount: totalStxUsdAmount.amount.plus(totalBtcUsdAmount.amount).plus(sip10BalanceUsd.amount),
     };
 &nbsp;
     const availableBalance = <span class="cstat-no" title="statement not covered" >{</span>
-      ...stxUsdAmount,
-      amount: stxUsdAmount.amount.plus(availableBtcUsdAmount.amount).plus(sip10BalanceUsd.amount),
+      ...availableUnlockedStxUsdAmount,
+      amount: availableUnlockedStxUsdAmount.amount
+        .plus(availableBtcUsdAmount.amount)
+        .plus(sip10BalanceUsd.amount),
     };
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return {</span>
@@ -363,8 +395,9 @@ export function <span class="fstat-no" title="function not covered" >useBalances
         isLoadingAdditionalDataStxBalance || isLoadingAdditionalDataBtcBalance,
     };
   }, [
-    stxBalance,
+    totalStxBalance,
     stxMarketData,
+    availableUnlockedStxBalance,
     btcBalance.availableBalance,
     btcBalance.totalBalance,
     btcMarketData,
@@ -388,7 +421,7 @@ export function <span class="fstat-no" title="function not covered" >useBalances
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-27T09:16:51.671Z
+                at 2025-01-15T18:02:18.514Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

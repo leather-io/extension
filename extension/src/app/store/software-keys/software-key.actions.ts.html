@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/47</span>
+                <span class='fraction'>0/42</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/42</span>
+                <span class='fraction'>0/38</span>
             </div>
         
             
@@ -191,15 +191,7 @@
 <a name='L126'></a><a href='#L126'>126</a>
 <a name='L127'></a><a href='#L127'>127</a>
 <a name='L128'></a><a href='#L128'>128</a>
-<a name='L129'></a><a href='#L129'>129</a>
-<a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a>
-<a name='L132'></a><a href='#L132'>132</a>
-<a name='L133'></a><a href='#L133'>133</a>
-<a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a>
-<a name='L136'></a><a href='#L136'>136</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L129'></a><a href='#L129'>129</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -243,9 +235,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -297,7 +286,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -311,8 +299,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -349,7 +335,6 @@ import { defaultWalletKeyId } from '@shared/utils';
 import { identifyUser } from '@shared/utils/analytics';
 &nbsp;
 import { recurseAccountsForActivity } from '@app/common/account-restoration/account-restore';
-import { checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex } from '@app/common/account-restoration/legacy-gaia-config-lookup';
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
 import { queryClient } from '@app/common/persistence';
 import { AppThunk } from '@app/store';
@@ -381,9 +366,6 @@ function <span class="fstat-no" title="function not covered" >setWalletEncryptio
     });
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    await initalizeWalletSession(encryptionKey);</span>
-&nbsp;
-    const legacyAccountActivityLookup =
-<span class="cstat-no" title="statement not covered" >      await checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex(secretKey);</span>
 &nbsp;
     async function <span class="fstat-no" title="function not covered" >doesStacksAddressHaveBalance(a</span>ddress: string) {
       const controller = <span class="cstat-no" title="statement not covered" >new AbortController();</span>
@@ -430,7 +412,6 @@ function <span class="fstat-no" title="function not covered" >setWalletEncryptio
 <span class="cstat-no" title="statement not covered" >          return hasStxBalance || hasNames || hasBtcBalance;</span>
         },
       }).then(<span class="fstat-no" title="function not covered" >recursiveActivityIndex =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        if (recursiveActivityIndex &lt;= legacyAccountActivityLookup) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >        logger.info('Found account activity at higher index', { recursiveActivityIndex });</span>
 <span class="cstat-no" title="statement not covered" >        dispatch(stxChainSlice.actions.restoreAccountIndex(recursiveActivityIndex));</span>
       });
@@ -446,8 +427,6 @@ function <span class="fstat-no" title="function not covered" >setWalletEncryptio
         encryptedSecretKey,
       })
     );
-<span class="cstat-no" title="statement not covered" >    if (legacyAccountActivityLookup !== 0)</span>
-<span class="cstat-no" title="statement not covered" >      dispatch(stxChainSlice.actions.restoreAccountIndex(legacyAccountActivityLookup));</span>
   };
 }
 &nbsp;
@@ -475,7 +454,7 @@ export const keyActions = <span class="cstat-no" title="statement not covered" >
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-27T09:16:51.671Z
+                at 2025-01-15T18:02:18.514Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

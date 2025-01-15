@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -106,7 +106,21 @@
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
-<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,51 +161,55 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createContext, useContext } from 'react';
 &nbsp;
+import type { Blockchain, Money } from '@leather.io/models';
 import type { SwapAsset } from '@leather.io/query';
 &nbsp;
 import type { SwapFormValues } from '@shared/models/form.model';
 &nbsp;
-export interface SwapSubmissionData extends SwapFormValues {
-  liquidityFee: number;
-  maxSignerFee?: number;
-  protocol: string;
-  router: SwapAsset[];
-  dexPath?: string[];
-  slippage: number;
-  sponsored?: boolean;
-  timestamp: string;
-  txData?: Record&lt;string, any&gt;;
+export interface SubmitSwapArgs&lt;T&gt; {
+  isSendingMax?: boolean;
+  swapData: T;
+  values: SwapFormValues;
 }
 &nbsp;
-export interface SwapContext {
-  fetchQuoteAmount(from: SwapAsset, to: SwapAsset, fromAmount: string): Promise&lt;string | undefined&gt;;
-  isCrossChainSwap: boolean;
-  isFetchingExchangeRate: boolean;
-  isSendingMax: boolean;
-  isPreparingSwapReview: boolean;
-  onSetIsCrossChainSwap(value: boolean): void;
-  onSetIsFetchingExchangeRate(value: boolean): void;
-  onSetIsSendingMax(value: boolean): void;
-  onSubmitSwapForReview(values: SwapFormValues): Promise&lt;void&gt; | void;
-  onSubmitSwap(): Promise&lt;void&gt; | void;
+export interface BaseSwapContext&lt;T&gt; {
+  chain: Blockchain;
+  fee: Money;
+  protocol: string;
   swappableAssetsBase: SwapAsset[];
   swappableAssetsQuote: SwapAsset[];
-  swapSubmissionData?: SwapSubmissionData;
+  timestamp: string;
+  fetchQuoteAmount(from: SwapAsset, to: SwapAsset, fromAmount: string): Promise&lt;string | undefined&gt;;
+  onSubmitSwapForReview({
+    values,
+    swapData,
+    isSendingMax,
+  }: SubmitSwapArgs&lt;T&gt;): Promise&lt;Partial&lt;T&gt; | void&gt;;
+  onSubmitSwap({ values, swapData }: SubmitSwapArgs&lt;T&gt;): Promise&lt;Partial&lt;T&gt; | void&gt;;
 }
 &nbsp;
-const swapContext = <span class="cstat-no" title="statement not covered" >createContext&lt;SwapContext | null&gt;(null);</span>
+interface SwapContext&lt;T&gt; {
+  isCrossChainSwap: boolean;
+  isFetchingExchangeRate: boolean;
+  isPreparingSwapReview: boolean;
+  isSendingMax: boolean;
+  swapData: T;
+  onSetIsCrossChainSwap(value: boolean): void;
+  onSetIsFetchingExchangeRate(value: boolean): void;
+  onSetIsPreparingSwapReview(value: boolean): void;
+  onSetIsSendingMax(value: boolean): void;
+  onSetSwapData(data: Partial&lt;T&gt;): void;
+}
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useSwapContext() {</span>
-  const context = <span class="cstat-no" title="statement not covered" >useContext(swapContext);</span>
-<span class="cstat-no" title="statement not covered" >  if (!context) <span class="cstat-no" title="statement not covered" >throw new Error('No SwapContext found');</span></span>
+export const swapContext = <span class="cstat-no" title="statement not covered" >createContext&lt;SwapContext&lt;any&gt; | null&gt;(null);</span>
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >useSwapContext&lt;T&gt;() {</span>
+  const context = <span class="cstat-no" title="statement not covered" >useContext(swapContext) as SwapContext&lt;T&gt;;</span>
+<span class="cstat-no" title="statement not covered" >  if (!context) <span class="cstat-no" title="statement not covered" >throw new Error('`useSwapContext` must be used within a `SwapProvider`');</span></span>
 <span class="cstat-no" title="statement not covered" >  return context;</span>
 }
-&nbsp;
-export const SwapProvider = <span class="cstat-no" title="statement not covered" >swapContext.Provider;</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -199,7 +217,7 @@ export const SwapProvider = <span class="cstat-no" title="statement not covered"
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-27T09:16:51.671Z
+                at 2025-01-15T18:02:18.514Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

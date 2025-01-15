@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -142,19 +142,7 @@
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L80'></a><a href='#L80'>80</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -184,16 +172,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -213,9 +196,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -234,9 +215,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -245,14 +223,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useLocation, useNavigate } from 'react-router-dom';
 &nbsp;
-import { ChainID } from '@stacks/transactions';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box, Flex } from 'leather-styles/jsx';
 &nbsp;
-import { whenStacksChainId } from '@leather.io/stacks';
 import { ArrowsRepeatLeftRightIcon, CreditCardIcon, IconButton, InboxIcon } from '@leather.io/ui';
 &nbsp;
 import { RouteUrls } from '@shared/route-urls';
+import { replaceRouteParams } from '@shared/utils/replace-route-params';
 &nbsp;
 import {
   useConfigBitcoinEnabled,
@@ -260,7 +237,7 @@ import {
 } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 &nbsp;
 import { SendButton } from './send-button';
@@ -273,13 +250,23 @@ export function <span class="fstat-no" title="function not covered" >AccountActi
   const stacksAccount = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccount();</span>
   const currentBtcSigner = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitIndexZeroSignerNullable();</span>
   const btcAccount = <span class="cstat-no" title="statement not covered" >currentBtcSigner?.address;</span>
-  const currentNetwork = <span class="cstat-no" title="statement not covered" >useCurrentNetwork();</span>
+  const { isTestnet } = <span class="cstat-no" title="statement not covered" >useCurrentNetworkState();</span>
+&nbsp;
   const swapsEnabled = <span class="cstat-no" title="statement not covered" >useConfigSwapsEnabled();</span>
-  const swapsBtnDisabled = <span class="cstat-no" title="statement not covered" >!swapsEnabled || !stacksAccount;</span>
+  const swapsBtnDisabled = <span class="cstat-no" title="statement not covered" >!swapsEnabled || !stacksAccount || isTestnet;</span>
 &nbsp;
   const receivePath = <span class="cstat-no" title="statement not covered" >isBitcoinEnabled</span>
     ? RouteUrls.Receive
     : `${RouteUrls.Home}${RouteUrls.ReceiveStx}`;
+&nbsp;
+  function <span class="fstat-no" title="function not covered" >navigateToDefaultSwapRoute() {</span>
+<span class="cstat-no" title="statement not covered" >    return navigate(</span>
+      replaceRouteParams(RouteUrls.Swap, {
+        base: 'STX',
+        quote: '',
+      }).replace('{chain}', 'stacks')
+    );
+  }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Flex gap={{ base: 'space.01', md: 'space.04' }} py="space.04" justifyContent="space-between"&gt;
@@ -299,37 +286,17 @@ export function <span class="fstat-no" title="function not covered" >AccountActi
           onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.FundChooseCurrency)}</span>
         /&gt;
       )}
-      {whenStacksChainId(currentNetwork.chain.stacks.chainId)({
-        [ChainID.Mainnet]: (
-          &lt;BasicTooltip
-            label={swapsEnabled ? '' : &lt;SwapsDisabledTooltipLabel /&gt;}
-            side="left"
-            asChild
-          &gt;
-            &lt;Box display="flex"&gt;
-              &lt;IconButton
-                data-testid={HomePageSelectors.SwapBtn}
-                disabled={swapsBtnDisabled}
-                icon={&lt;ArrowsRepeatLeftRightIcon /&gt;}
-                label="Swap"
-                onClick={<span class="fstat-no" title="function not covered" >() =&gt;</span>
-<span class="cstat-no" title="statement not covered" >                  navigate(RouteUrls.Swap.replace(':base', 'STX').replace(':quote', ''))</span>
-                }
-              /&gt;
-            &lt;/Box&gt;
-          &lt;/BasicTooltip&gt;
-        ),
-        // Temporary for sBTC testing
-        [ChainID.Testnet]: (
+      &lt;BasicTooltip label={swapsEnabled ? '' : &lt;SwapsDisabledTooltipLabel /&gt;} side="left" asChild&gt;
+        &lt;Box display="flex"&gt;
           &lt;IconButton
             data-testid={HomePageSelectors.SwapBtn}
             disabled={swapsBtnDisabled}
             icon={&lt;ArrowsRepeatLeftRightIcon /&gt;}
             label="Swap"
-            onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.Swap.replace(':base', 'STX').replace(':quote', ''))}</span>
+            onClick={navigateToDefaultSwapRoute}
           /&gt;
-        ),
-      })}
+        &lt;/Box&gt;
+      &lt;/BasicTooltip&gt;
     &lt;/Flex&gt;
   );
 }
@@ -340,7 +307,7 @@ export function <span class="fstat-no" title="function not covered" >AccountActi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-27T09:16:51.671Z
+                at 2025-01-15T18:02:18.514Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>
