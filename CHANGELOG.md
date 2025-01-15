@@ -1,3 +1,30 @@
+## [6.59.0](https://github.com/leather-io/extension/compare/v6.58.1...v6.59.0) (2025-01-15)
+
+
+### Features
+
+* add rpc send transfer test ([19ec3fe](https://github.com/leather-io/extension/commit/19ec3fe0884b8b3150c3f91e5cfbd11bad1d42b7))
+* display proper image for src20 tokens ([e7da017](https://github.com/leather-io/extension/commit/e7da0172aea8f45fe48ae2f180c924a095717dc9))
+
+
+### Bug Fixes
+
+* btc balance ([05132fe](https://github.com/leather-io/extension/commit/05132fe7fa6afa4c2359fd72b5e3021653b5061b))
+* inscription settings btn styles ([1e3dda7](https://github.com/leather-io/extension/commit/1e3dda7e733a98c535a22ccb5db3e616a7db036b))
+* is multisig condition ([36eb6da](https://github.com/leather-io/extension/commit/36eb6dac51809f258584ff14d491cc746a4b8b37))
+* **stacks:** default to clarity 3, closes [#5983](https://github.com/leather-io/extension/issues/5983) ([38f6907](https://github.com/leather-io/extension/commit/38f690707d72c8df3401c88d434931256ec3b2d1))
+* upgrade query pkg ([aebd822](https://github.com/leather-io/extension/commit/aebd822a1ea5d8c06b20aa541a20030e16128869))
+
+
+### Internal
+
+* bitcoin swaps ([d8dc2fc](https://github.com/leather-io/extension/commit/d8dc2fc526796dd4eaef2f099ddf6492707ca029))
+* post-release merge back ([34d5508](https://github.com/leather-io/extension/commit/34d5508a29b608146864539c00a4ce985d8ea3c4))
+* post-release merge back ([34d6e0d](https://github.com/leather-io/extension/commit/34d6e0de064341aea1cd4f122a44feeaf2aa2dc7))
+* remove gaia account look up ([59945c5](https://github.com/leather-io/extension/commit/59945c51df990a063a19667d850fa535b7951c17))
+* stx available balance ([58dbf85](https://github.com/leather-io/extension/commit/58dbf85eb8288031484e5d0a96ae7f30faabfc0f))
+* update query package ([c2938a5](https://github.com/leather-io/extension/commit/c2938a5c77e3c6e12596a25293be8d6c2e685076))
+
 ## [6.58.1](https://github.com/leather-io/extension/compare/v6.58.0...v6.58.1) (2024-12-27)
 
 
