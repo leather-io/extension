@@ -10,9 +10,13 @@ import { RouteUrls } from '@shared/route-urls';
 
 const TEST_ACCOUNT_SECRET_KEY = process.env.TEST_ACCOUNT_SECRET_KEY ?? '';
 
+async function pauseForStateToBeSet() {
+  return delay(2000);
+}
+
 // If default wallet state changes, we'll need to update this
 export const testSoftwareAccountDefaultWalletState = {
-  chains: { stx: { default: { highestAccountIndex: 1, currentAccountIndex: 0 } } },
+  chains: { stx: { default: { highestAccountIndex: 0, currentAccountIndex: 0 } } },
   appPermissions: {
     entities: {},
     ids: [],
@@ -318,6 +322,27 @@ export class OnboardingPage {
 
       iterationCounter.increment();
     } while (!(await isSignedIn()));
+
+    await this.createNewAccount();
+    await this.createNewAccount();
+    await this.selectFirstAccount();
+    await pauseForStateToBeSet();
+  }
+
+  async createNewAccount() {
+    await this.page.getByTestId('switch-account-trigger').click();
+    await this.page.getByTestId('switch-account-item-0').isVisible();
+    const dialog = this.page.getByRole('dialog');
+    await this.page.getByTestId('create-account-btn').click();
+    await dialog.waitFor({ state: 'detached' });
+  }
+
+  async selectFirstAccount() {
+    await this.page.getByTestId('switch-account-trigger').click();
+    await this.page.getByTestId('switch-account-item-0').isVisible();
+    const dialog = this.page.getByRole('dialog');
+    await this.page.getByTestId('switch-account-item-0').click();
+    await dialog.waitFor({ state: 'detached' });
   }
 
   /**

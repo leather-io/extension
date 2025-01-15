@@ -44,7 +44,7 @@ export function useBtcCryptoAssetBalanceNativeSegwit(address: string) {
       ...defaultZeroValues,
       totalBalance: createMoney(sumNumbers(totalUtxosQuery.data.map(utxo => utxo.value)), 'BTC'),
       availableBalance: createMoney(
-        // Here we add back in the utxos that are spending beacuse they've been discarded
+        // Here we add back in the utxos that are spending because they've been discarded
         sumNumbers(
           [
             ...filterOutNativeSegwitInscriptions(totalUtxosQuery.data),

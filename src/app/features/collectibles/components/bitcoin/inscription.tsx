@@ -23,10 +23,10 @@ import { useHoverWithChildren } from '@app/common/hooks/use-hover-with-children'
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { useDiscardedInscriptions } from '@app/store/settings/settings.selectors';
 
-import { CollectibleAudio } from '../_collectible-types/collectible-audio';
-import { CollectibleIframe } from '../_collectible-types/collectible-iframe';
-import { CollectibleImage } from '../_collectible-types/collectible-image';
-import { CollectibleOther } from '../_collectible-types/collectible-other';
+import { CollectibleAudio } from '../../../../components/collectibles/collectible-audio';
+import { CollectibleIframe } from '../../../../components/collectibles/collectible-iframe';
+import { CollectibleImage } from '../../../../components/collectibles/collectible-image';
+import { CollectibleOther } from '../../../../components/collectibles/collectible-other';
 import { HighSatValueUtxoWarning } from './high-sat-value-utxo';
 import { InscriptionText } from './inscription-text';
 
@@ -124,6 +124,9 @@ export function Inscription({ inscription }: InscriptionProps) {
       <Box opacity={hasInscriptionBeenDiscarded(inscription) ? 0.5 : 1}>{content}</Box>
       {isHovered && (
         <Box
+          border="1px solid"
+          borderColor="ink.text-primary"
+          borderRadius="2px"
           bg="ink.background-primary"
           position="absolute"
           right="space.03"
@@ -136,9 +139,6 @@ export function Inscription({ inscription }: InscriptionProps) {
                 _focus={{ outline: 'focus' }}
                 _hover={{ bg: 'ink.component-background-hover' }}
                 bg="ink.background-primary"
-                border="1px solid"
-                borderColor="ink.text-primary"
-                borderRadius="2px"
                 transform="rotate(90deg)"
                 color="ink.action-primary-default"
                 icon={<EllipsisVIcon />}
