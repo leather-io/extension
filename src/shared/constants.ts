@@ -1,5 +1,3 @@
-export const gaiaUrl = 'https://hub.blockstack.org';
-
 export const ZERO_INDEX = 0;
 
 export const GITHUB_ORG = 'leather-io';
