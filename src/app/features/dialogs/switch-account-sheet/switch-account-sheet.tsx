@@ -75,7 +75,7 @@ export const SwitchAccountSheet = memo(({ isShowing, onClose }: SwitchAccountShe
               borderTop="default"
               p="space.05"
             >
-              <Button fullWidth onClick={() => onCreateAccount()}>
+              <Button fullWidth onClick={() => onCreateAccount()} data-testid="create-account-btn">
                 Create new account
               </Button>
             </Flex>
