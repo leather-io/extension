@@ -14,7 +14,6 @@ import { defaultWalletKeyId } from '@shared/utils';
 import { identifyUser } from '@shared/utils/analytics';
 
 import { recurseAccountsForActivity } from '@app/common/account-restoration/account-restore';
-import { checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex } from '@app/common/account-restoration/legacy-gaia-config-lookup';
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
 import { queryClient } from '@app/common/persistence';
 import { AppThunk } from '@app/store';
@@ -46,9 +45,6 @@ function setWalletEncryptionPassword(args: {
     });
 
     await initalizeWalletSession(encryptionKey);
-
-    const legacyAccountActivityLookup =
-      await checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex(secretKey);
 
     async function doesStacksAddressHaveBalance(address: string) {
       const controller = new AbortController();
@@ -95,7 +91,6 @@ function setWalletEncryptionPassword(args: {
           return hasStxBalance || hasNames || hasBtcBalance;
         },
       }).then(recursiveActivityIndex => {
-        if (recursiveActivityIndex <= legacyAccountActivityLookup) return;
         logger.info('Found account activity at higher index', { recursiveActivityIndex });
         dispatch(stxChainSlice.actions.restoreAccountIndex(recursiveActivityIndex));
       });
@@ -111,8 +106,6 @@ function setWalletEncryptionPassword(args: {
         encryptedSecretKey,
       })
     );
-    if (legacyAccountActivityLookup !== 0)
-      dispatch(stxChainSlice.actions.restoreAccountIndex(legacyAccountActivityLookup));
   };
 }
 
