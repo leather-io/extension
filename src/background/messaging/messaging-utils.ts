@@ -1,5 +1,12 @@
 import type { To } from 'react-router-dom';
 
+import { type PostConditionWire, serializePostConditionWire } from '@stacks/transactions';
+import type { Json } from 'jsontokens';
+import * as z from 'zod';
+
+import type { baseStacksTransactionConfigSchema } from '@leather.io/rpc';
+import { isDefined, isUndefined } from '@leather.io/utils';
+
 import { InternalMethods } from '@shared/message-types';
 import { sendMessage } from '@shared/messages';
 import { RouteUrls } from '@shared/route-urls';
@@ -75,4 +82,41 @@ export async function triggerRequestWindowOpen(path: RouteUrls, urlParams: URLSe
 export async function triggerSwapWindowOpen(path: To, urlParams: URLSearchParams) {
   if (IS_TEST_ENV) return openRequestInFullPage(path, urlParams);
   return popup({ url: `/popup.html#${path}?${urlParams.toString()}` });
+}
+
+export function encodePostConditions(postConditions: PostConditionWire[]) {
+  return postConditions.map(pc => serializePostConditionWire(pc));
+}
+
+type BaseStacksTransactionRpcParams = z.infer<typeof baseStacksTransactionConfigSchema>;
+
+export function getStxDefaultMessageParamsToTransactionRequest(
+  params: BaseStacksTransactionRpcParams
+) {
+  if (isUndefined(params)) return;
+
+  const jsonTxRequest: Json = {};
+
+  if ('address' in params && isDefined(params.address)) {
+    jsonTxRequest.stxAddress = params.address;
+  }
+  if ('fee' in params && isDefined(params.fee)) {
+    jsonTxRequest.fee = params.fee;
+  }
+  if ('nonce' in params && isDefined(params.nonce)) {
+    jsonTxRequest.nonce = params.nonce;
+  }
+  if ('postConditions' in params && isDefined(params.postConditions)) {
+    jsonTxRequest.postConditions = encodePostConditions(
+      params.postConditions as PostConditionWire[]
+    );
+  }
+  if ('postConiditionMode' in params && isDefined(params.postConditionMode)) {
+    jsonTxRequest.postConditionMode = params.postConditionMode;
+  }
+  if ('sponsored' in params && isDefined(params.sponsored)) {
+    jsonTxRequest.sponsored = params.sponsored;
+  }
+
+  return jsonTxRequest;
 }

@@ -21,6 +21,7 @@ import {
   formatMoney,
   i18nFormatCurrency,
   isDefined,
+  isEmptyString,
   microStxToStx,
 } from '@leather.io/utils';
 
@@ -37,6 +38,9 @@ function safeAddressToString(address: AddressWire) {
 export function useStacksTransactionSummary(token: CryptoCurrency) {
   // TODO: unsafe type assumption
   const tokenMarketData = useCryptoCurrencyMarketDataMeanAverage(token as 'BTC' | 'STX');
+
+  // RPC requests do not show a review step
+  if (isEmptyString(token)) return { formSentSummaryTxState: null, formReviewTxSummary: null };
 
   function formSentSummaryTxState(
     txId: string,

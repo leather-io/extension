@@ -8,12 +8,13 @@ import * as yup from 'yup';
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@leather.io/constants';
 import { FeeTypes } from '@leather.io/models';
 import {
+  defaultStacksFees,
   useCalculateStacksTxFees,
   useNextNonce,
   useStxCryptoAssetBalance,
 } from '@leather.io/query';
 import { Link } from '@leather.io/ui';
-import { stxToMicroStx } from '@leather.io/utils';
+import { isDefined, stxToMicroStx } from '@leather.io/utils';
 
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
@@ -40,7 +41,7 @@ import { MinimalErrorMessage } from './minimal-error-message';
 import { StacksTxSubmitAction } from './submit-action';
 
 interface StacksTransactionSignerProps {
-  stacksTransaction: StacksTransactionWire;
+  stacksTransaction?: StacksTransactionWire;
   disableFeeSelection?: boolean;
   disableNonceSelection?: boolean;
   isMultisig: boolean;
@@ -91,7 +92,8 @@ export function StacksTransactionSigner({
           nonce: nonceValidator,
         });
 
-  const isNonceAlreadySet = !Number.isNaN(transactionRequest.nonce);
+  const isNonceAlreadySet =
+    isDefined(transactionRequest.nonce) && !Number.isNaN(transactionRequest.nonce);
 
   const initialValues: StacksTransactionFormValues = {
     fee: '',
@@ -123,7 +125,7 @@ export function StacksTransactionSigner({
 
             {!isNonceAlreadySet && <NonceSetter />}
             <FeeForm
-              fees={stxFees}
+              fees={stxFees ?? defaultStacksFees}
               sbtcSponsorshipEligibility={{ isEligible: false }}
               defaultFeeValue={Number(transactionRequest?.fee || 0)}
               disableFeeSelection={disableFeeSelection}
