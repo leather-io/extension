@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { css } from 'leather-styles/css';
 
-import { Eye1ClosedIcon } from '@leather.io/ui';
+import { Src20AvatarIcon } from '@leather.io/ui';
 
 interface Src20ImageProps {
   alt?: string;
@@ -14,7 +14,7 @@ export function Src20Image(props: Src20ImageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [width, setWidth] = useState(0);
 
-  if (isError) return <Eye1ClosedIcon />;
+  if (isError) return <Src20AvatarIcon />;
 
   return (
     <img
@@ -29,7 +29,6 @@ export function Src20Image(props: Src20ImageProps) {
       src={src}
       className={css({
         width: 'xl',
-        aspectRatio: '1 / 1',
         borderRadius: '100%',
         objectFit: 'cover',
         // display: 'none' breaks onLoad event firing
