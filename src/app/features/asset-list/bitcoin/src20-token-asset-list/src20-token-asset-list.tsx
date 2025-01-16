@@ -4,10 +4,9 @@ import { Src20AvatarIcon } from '@leather.io/ui';
 import { getAssetDisplayName } from '@leather.io/utils';
 
 import { useManageTokens } from '@app/common/hooks/use-manage-tokens';
-import { CollectibleImage } from '@app/components/collectibles/collectible-image';
-import { Src20Image } from '@app/components/collectibles/src20-image';
 import { CryptoAssetItem } from '@app/components/crypto-asset-item/crypto-asset-item';
 import type { Src20TokenAssetDetails } from '@app/components/loaders/src20-tokens-loader';
+import { Src20Image } from '@app/components/src20/src20-image';
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 import type { AssetRightElementVariant } from '../../asset-list';
