@@ -4,9 +4,9 @@ import { Src20AvatarIcon } from '@leather.io/ui';
 import { getAssetDisplayName } from '@leather.io/utils';
 
 import { useManageTokens } from '@app/common/hooks/use-manage-tokens';
-import { CollectibleImage } from '@app/components/collectibles/collectible-image';
 import { CryptoAssetItem } from '@app/components/crypto-asset-item/crypto-asset-item';
 import type { Src20TokenAssetDetails } from '@app/components/loaders/src20-tokens-loader';
+import { Src20Image } from '@app/components/src20/src20-image';
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 import type { AssetRightElementVariant } from '../../asset-list';
@@ -36,13 +36,7 @@ export function Src20TokenAssetList({
     const key = `${token.info.id}${i}`;
     const captionLeft = getAssetDisplayName(token.info).toUpperCase();
     const icon = token.info.deploy_img ? (
-      <CollectibleImage
-        alt={token.info.symbol}
-        icon={<Src20AvatarIcon size="lg" />}
-        src={token.info.deploy_img}
-        title={`# ${token.info.id}`}
-        subtitle={`# ${token.info.symbol}`}
-      />
+      <Src20Image src={token.info.deploy_img} />
     ) : (
       <Src20AvatarIcon />
     );
