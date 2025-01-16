@@ -1,3 +1,16 @@
+## [6.59.1](https://github.com/leather-io/extension/compare/v6.59.0...v6.59.1) (2025-01-16)
+
+
+### Bug Fixes
+
+* rendering the correct src20 image, closes LEA-1993 ([f935e47](https://github.com/leather-io/extension/commit/f935e47c3d645d7556d152ffe01422a8bacb1612))
+
+
+### Internal
+
+* post-release merge back ([54e8f7d](https://github.com/leather-io/extension/commit/54e8f7d48af1941179259c8181ebd9264df17b0a))
+* remove width prop and move to new directory ([42ae048](https://github.com/leather-io/extension/commit/42ae048e53d83b7913c94df60e9c28bd679548f3))
+
 ## [6.59.0](https://github.com/leather-io/extension/compare/v6.58.1...v6.59.0) (2025-01-15)
 
 
