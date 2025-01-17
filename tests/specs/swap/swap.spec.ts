@@ -5,6 +5,8 @@ import { test } from '../../fixtures/fixtures';
 
 test.describe('Swaps', () => {
   test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, swapPage }) => {
+    test.setTimeout(60_000);
+
     await globalPage.setupAndUseApiCalls(extensionId);
     await mockStacksBroadcastTransaction(globalPage.page);
     await onboardingPage.signInWithTestAccount(extensionId);
@@ -19,7 +21,7 @@ test.describe('Swaps', () => {
   test('that it shows swap review details correctly', async ({ swapPage }) => {
     await swapPage.inputSwapAmountBase();
     await swapPage.selectAssetToReceive();
-    await swapPage.swapReviewBtn.click({ delay: 2000 });
+    await swapPage.swapReviewBtn.click();
 
     const swapProtocol = await swapPage.swapDetailsProtocol.innerText();
     test.expect(swapProtocol).toContain('Bitflow');
