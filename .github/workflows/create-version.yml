@@ -61,7 +61,7 @@ jobs:
           echo ${{ steps.semantic.outputs.new_release_patch_version }}
 
       - name: Upload release notes
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: steps.semantic.outputs.new_release_published == 'true'
         with:
           name: release-notes

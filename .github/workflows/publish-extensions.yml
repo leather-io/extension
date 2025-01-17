@@ -56,7 +56,7 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: pnpm build
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         name: Upload build artifact
         with:
           name: leather-chromium-v${{ needs.extract-version.outputs.new_version }}
@@ -95,7 +95,7 @@ jobs:
 
         run: pnpm build
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         name: Upload build artifact
         with:
           name: leather-firefox-v${{ needs.extract-version.outputs.new_version }}
@@ -120,7 +120,7 @@ jobs:
       - publish-firefox-extension
     steps:
       - name: Download extension build
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: .
 

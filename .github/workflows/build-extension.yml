@@ -62,7 +62,7 @@ jobs:
           PR_NUMBER: ${{ github.event.number }}
           COMMIT_SHA: ${{ needs.sha-hash.outputs.SHORT_SHA }}
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         name: Upload ${{ matrix.target }} extension zip
         with:
           name: leather-${{ matrix.target }}-${{ needs.sha-hash.outputs.SHORT_SHA }}
