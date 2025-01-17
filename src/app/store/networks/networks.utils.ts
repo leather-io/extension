@@ -3,8 +3,10 @@ import { ChainID } from '@stacks/transactions';
 import {
   BITCOIN_API_BASE_URL_MAINNET,
   BITCOIN_API_BASE_URL_TESTNET3,
+  type BitcoinNetwork,
   type NetworkConfiguration,
   bitcoinNetworkToNetworkMode,
+  bitcoinNetworks,
 } from '@leather.io/models';
 
 import { PersistedNetworkConfiguration } from './networks.slice';
@@ -64,6 +66,10 @@ function checkBitcoinNetworkProperties(
   }
 }
 
+function isValidBitcoinNetwork(network: string): network is BitcoinNetwork {
+  return bitcoinNetworks.includes(network as BitcoinNetwork);
+}
+
 export function transformNetworkStateToMultichainStucture(
   state: Record<string, PersistedNetworkConfiguration>
 ) {
@@ -82,14 +88,16 @@ export function transformNetworkStateToMultichainStucture(
             chain: {
               stacks: {
                 blockchain: 'stacks',
-                url: url,
+                url,
                 chainId,
                 subnetChainId,
               },
               bitcoin: {
                 blockchain: 'bitcoin',
-                bitcoinNetwork: bitcoinNetwork ?? 'testnet',
-                mode: bitcoinNetworkToNetworkMode(bitcoinNetwork ?? 'testnet'),
+                bitcoinNetwork: isValidBitcoinNetwork(bitcoinNetwork) ? bitcoinNetwork : 'testnet4',
+                mode: isValidBitcoinNetwork(bitcoinNetwork)
+                  ? bitcoinNetworkToNetworkMode(bitcoinNetwork)
+                  : 'testnet',
                 bitcoinUrl: bitcoinUrl ?? BITCOIN_API_BASE_URL_TESTNET3,
               },
             },
