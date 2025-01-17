@@ -24,7 +24,7 @@ jobs:
   test:
     name: Shard ${{ matrix.shardIndex }} of ${{ matrix.shardTotal }}
     timeout-minutes: 30
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
@@ -91,7 +91,7 @@ jobs:
     name: Merge reports
     if: always()
     needs: test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 
