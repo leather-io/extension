@@ -22,7 +22,7 @@ env:
 
 jobs:
   build-extension:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment: development
     outputs:
       new_version: ${{ steps.extract_version.outputs.version }}

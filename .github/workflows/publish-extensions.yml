@@ -22,7 +22,7 @@ env:
 
 jobs:
   extract-version:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       new_version: ${{ steps.extract_version.outputs.version }}
     steps:
@@ -37,7 +37,7 @@ jobs:
 
   publish-chrome-extension:
     name: Publish Chrome extension
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: startsWith(github.ref, 'refs/tags/v')
     needs:
       - extract-version
@@ -79,7 +79,7 @@ jobs:
 
   publish-firefox-extension:
     name: Publish Firefox extension
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: startsWith(github.ref, 'refs/tags/v')
     env:
       TARGET_BROWSER: firefox
@@ -113,7 +113,7 @@ jobs:
 
   create-github-release:
     name: Create Github release
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs:
       - extract-version
       - publish-chrome-extension
@@ -150,7 +150,7 @@ jobs:
             leather-firefox.v${{ needs.extract-version.outputs.new_version }}.zip
 
   post_run:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs:
       - publish-chrome-extension
       - publish-firefox-extension
