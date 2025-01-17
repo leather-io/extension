@@ -7,9 +7,9 @@ import { STX_DECIMALS } from '@leather.io/constants';
 import {
   useCalculateStacksTxFees,
   useStacksValidateFeeByNonce,
-  useStxAvailableUnlockedBalance,
+  useStxCryptoAssetBalance,
 } from '@leather.io/query';
-import { convertAmountToBaseUnit } from '@leather.io/utils';
+import { convertAmountToBaseUnit, createMoney } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { StacksSendFormValues } from '@shared/models/form.model';
@@ -37,34 +37,38 @@ export function useStxSendForm() {
   const sendFormNavigate = useSendFormNavigate();
   const address = useCurrentStacksAccountAddress();
   const { changeFeeByNonce } = useStacksValidateFeeByNonce(address);
-  const availableUnlockedBalance = useStxAvailableUnlockedBalance(address);
+
+  // get stx balance
+  const { filteredBalanceQuery } = useStxCryptoAssetBalance(address);
+  const { data: balance } = filteredBalanceQuery;
+  const availableBalance = balance?.availableUnlockedBalance ?? createMoney(0, 'STX');
 
   const sendMaxBalance = useMemo(
     () =>
       convertAmountToBaseUnit(
-        availableUnlockedBalance.amount.minus(stxFees?.estimates[1].fee.amount || 0),
+        availableBalance.amount.minus(stxFees?.estimates[1].fee.amount || 0),
         STX_DECIMALS
       ),
-    [availableUnlockedBalance.amount, stxFees?.estimates]
+    [availableBalance.amount, stxFees?.estimates]
   );
 
   const { initialValues, checkFormValidation, recipient, memo, nonce } = useStacksCommonSendForm({
     symbol: 'STX',
-    availableTokenBalance: availableUnlockedBalance,
+    availableTokenBalance: availableBalance,
   });
 
   return {
-    availableUnlockedBalance,
+    availableBalance,
     initialValues,
     onFormStateChange,
     sendMaxBalance,
     stxFees,
 
     validationSchema: yup.object({
-      amount: stxAmountValidator(availableUnlockedBalance).concat(
-        stxAvailableBalanceValidator(availableUnlockedBalance)
+      amount: stxAmountValidator(availableBalance).concat(
+        stxAvailableBalanceValidator(availableBalance)
       ),
-      fee: stxFeeValidator(availableUnlockedBalance),
+      fee: stxFeeValidator(availableBalance),
       recipient,
       memo,
       nonce,
