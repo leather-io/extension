@@ -1,3 +1,16 @@
+## [6.59.2](https://github.com/leather-io/extension/compare/v6.59.1...v6.59.2) (2025-01-17)
+
+
+### Bug Fixes
+
+* change swap test timeout time ([43bd1b2](https://github.com/leather-io/extension/commit/43bd1b2935270761109c443a4701c6a5ce822a6a))
+* possible issue introduced with testnet4 ([6adb427](https://github.com/leather-io/extension/commit/6adb427e6b55d13ad9261374d579113c0412ab4b))
+
+
+### Internal
+
+* post-release merge back ([060fd66](https://github.com/leather-io/extension/commit/060fd66b6a3ecf6b12ffa29af6fd680955fca6ec))
+
 ## [6.59.1](https://github.com/leather-io/extension/compare/v6.59.0...v6.59.1) (2025-01-16)
 
 
