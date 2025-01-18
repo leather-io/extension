@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
 import { StacksNetwork } from '@stacks/network';
-import { ClarityValue } from '@stacks/transactions/dist/esm/clarity';
+import type { ClarityValue } from '@stacks/transactions';
 
 import {
   SignedMessageType,
