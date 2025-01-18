@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { ChainID } from '@stacks/transactions';
+import { createFetchFn } from '@stacks/common';
+import { ChainId } from '@stacks/network';
 
 import {
   type BitcoinNetwork,
@@ -16,10 +17,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { isValidUrl } from '@shared/utils/validate-url';
 
 import { removeTrailingSlash } from '@app/common/url-join';
-import {
-  useCurrentStacksNetworkState,
-  useNetworksActions,
-} from '@app/store/networks/networks.hooks';
+import { useNetworksActions } from '@app/store/networks/networks.hooks';
 
 /**
  * The **peer** network ID.
@@ -82,10 +80,10 @@ export function useAddNetwork() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const network = useCurrentStacksNetworkState();
   const networksActions = useNetworksActions();
   const initialValues = useInitialValues();
   const { isEditNetworkMode } = useAddNetworkState();
+  const fetchFn = createFetchFn();
 
   return {
     error,
@@ -122,8 +120,8 @@ export function useAddNetwork() {
       const bitcoinPath = removeTrailingSlash(new URL(values.bitcoinUrl).href);
 
       try {
-        const bitcoinResponse = await network.fetchFn(`${bitcoinPath}/mempool/recent`);
-        if (!bitcoinResponse.ok) throw new Error('Unable to fetch mempool from bitcoin node');
+        const bitcoinResponse = await fetchFn(`${bitcoinPath}/mempool/recent`);
+        if (!bitcoinResponse?.ok) throw new Error('Unable to fetch mempool from bitcoin node');
         const bitcoinMempool = await bitcoinResponse.json();
         if (!Array.isArray(bitcoinMempool))
           throw new Error('Unable to fetch mempool from bitcoin node');
@@ -135,8 +133,8 @@ export function useAddNetwork() {
 
       let stacksChainInfo: any;
       try {
-        const stacksResponse = await network.fetchFn(`${stacksPath}/v2/info`);
-        stacksChainInfo = await stacksResponse.json();
+        const stacksResponse = await fetchFn(`${stacksPath}/v2/info`);
+        stacksChainInfo = await stacksResponse?.json();
         if (!stacksChainInfo) throw new Error('Unable to fetch info from stacks node');
       } catch (error) {
         setError('Unable to fetch info from stacks node');
@@ -163,7 +161,7 @@ export function useAddNetwork() {
       // Currently, only subnets of mainnet and testnet are supported in the wallet
       if (isFirstLevelSubnet) {
         const parentChainId =
-          parentNetworkId === PeerNetworkID.Mainnet ? ChainID.Mainnet : ChainID.Testnet;
+          parentNetworkId === PeerNetworkID.Mainnet ? ChainId.Mainnet : ChainId.Testnet;
         removeEditedNetwork();
         networksActions.addNetwork({
           id: key as DefaultNetworkConfigurations,
