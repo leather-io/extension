@@ -8,7 +8,7 @@ import { createCounter, delay } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 
-const TEST_ACCOUNT_SECRET_KEY = process.env.TEST_ACCOUNT_SECRET_KEY ?? '';
+export const TEST_ACCOUNT_SECRET_KEY = process.env.TEST_ACCOUNT_SECRET_KEY ?? '';
 
 // If default wallet state changes, we'll need to update this
 export const testSoftwareAccountDefaultWalletState = {

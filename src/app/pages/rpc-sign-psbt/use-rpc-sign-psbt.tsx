@@ -34,6 +34,7 @@ interface BroadcastSignedPsbtTxArgs {
   addressTaprootTotal: Money;
   fee: Money;
   tx: string;
+  psbt: string;
 }
 export function useRpcSignPsbt() {
   const navigate = useNavigate();
@@ -52,6 +53,7 @@ export function useRpcSignPsbt() {
     addressTaprootTotal,
     fee,
     tx,
+    psbt,
   }: BroadcastSignedPsbtTxArgs) {
     void analytics.track('user_approved_sign_and_broadcast_psbt', {
       origin: origin || 'no_origin',
@@ -59,11 +61,21 @@ export function useRpcSignPsbt() {
 
     const transferTotalAsMoney = sumMoney([addressNativeSegwitTotal, addressTaprootTotal]);
 
-    await broadcastTx({
+    return await broadcastTx({
       tx,
       // skip utxos check for psbt txs
       skipSpendableCheckUtxoIds: 'all',
       async onSuccess(txid) {
+        if (!requestId) throw new Error('Invalid request id');
+
+        chrome.tabs.sendMessage(
+          tabId,
+          makeRpcSuccessResponse('signPsbt', {
+            id: requestId,
+            result: { hex: psbt, txid },
+          })
+        );
+
         await filteredUtxosQuery.refetch();
 
         const psbtTxSummaryState = {
@@ -83,6 +95,15 @@ export function useRpcSignPsbt() {
         navigate(RouteUrls.RpcSignPsbtSummary, { state: psbtTxSummaryState });
       },
       onError(e) {
+        if (!requestId) throw new Error('Invalid request id');
+
+        chrome.tabs.sendMessage(
+          tabId,
+          makeRpcErrorResponse('signPsbt', {
+            id: requestId,
+            error: { code: 4002, message: 'Failed to broadcast transaction' },
+          })
+        );
         navigate(RouteUrls.RequestError, {
           state: { message: isError(e) ? e.message : '', title: 'Failed to broadcast' },
         });
@@ -106,16 +127,27 @@ export function useRpcSignPsbt() {
 
         const psbt = signedTx.toPSBT();
 
-        chrome.tabs.sendMessage(
-          tabId,
-          makeRpcSuccessResponse('signPsbt', { id: requestId, result: { hex: bytesToHex(psbt) } })
-        );
+        if (!broadcast) {
+          chrome.tabs.sendMessage(
+            tabId,
+            makeRpcSuccessResponse('signPsbt', { id: requestId, result: { hex: bytesToHex(psbt) } })
+          );
+          return;
+        }
 
         // Optional args are handled here bc we support two request apis,
         // but we only support broadcasting using the rpc request method
         if (broadcast && addressNativeSegwitTotal && addressTaprootTotal && fee) {
           try {
             signedTx.finalize();
+
+            await broadcastSignedPsbtTx({
+              addressNativeSegwitTotal,
+              addressTaprootTotal,
+              fee,
+              tx: signedTx.hex,
+              psbt: bytesToHex(psbt),
+            });
           } catch (e) {
             return navigate(RouteUrls.RequestError, {
               state: {
@@ -125,12 +157,6 @@ export function useRpcSignPsbt() {
             });
           }
 
-          await broadcastSignedPsbtTx({
-            addressNativeSegwitTotal,
-            addressTaprootTotal,
-            fee,
-            tx: signedTx.hex,
-          });
           return;
         }
         closeWindow();

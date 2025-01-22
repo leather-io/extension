@@ -111,6 +111,7 @@ export function InfoCardFooter({ children }: InfoCardFooterProps) {
       alignItems="center"
       bg={{ base: 'ink.background-primary', md: '' }}
       bottom="0"
+      left="0"
       justifyContent="center"
       p="space.05"
       position={{ base: 'fixed', md: 'unset' }}
