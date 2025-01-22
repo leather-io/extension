@@ -128,7 +128,6 @@ function useIsLedgerActionCancellable(): boolean {
   const { pathname } = useLocation();
   return (
     pathname.includes(RouteUrls.ConnectLedger) ||
-    pathname.includes(RouteUrls.ConnectLedgerSuccess) ||
     pathname.includes(RouteUrls.ConnectLedgerError) ||
     pathname.includes(RouteUrls.AwaitingDeviceUserAction)
   );

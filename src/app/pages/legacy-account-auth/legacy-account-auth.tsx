@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
@@ -30,6 +30,7 @@ export function LegacyAccountAuth() {
   const { toggleSwitchAccount } = useSwitchAccountSheet();
   const { whenWallet } = useWalletType();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useOnOriginTabClose(() => closeWindow());
 
@@ -44,7 +45,7 @@ export function LegacyAccountAuth() {
         await finishSignIn(index);
       },
       async ledger() {
-        navigate(RouteUrls.ConnectLedger, { state: { index } });
+        navigate(RouteUrls.ConnectLedger, { state: { index, fromLocation: location } });
         await listenForJwtSigningComplete();
       },
     })();
