@@ -1,3 +1,5 @@
+import { useLocation } from 'react-router-dom';
+
 import { bytesToHex } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 import { Psbt } from 'bitcoinjs-lib';
@@ -257,6 +259,7 @@ export function useGetAssumedZeroIndexSigningConfig() {
 export function useSignBitcoinTx() {
   const { whenWallet } = useWalletType();
   const ledgerNavigate = useLedgerNavigate();
+  const location = useLocation();
   const signSoftwareTx = useSignBitcoinSoftwareTx();
   const getDefaultSigningConfig = useGetAssumedZeroIndexSigningConfig();
 
@@ -277,7 +280,11 @@ export function useSignBitcoinTx() {
         // many routes, in order to achieve a consistent API between
         // Ledger/software, we subscribe to the event that occurs when the
         // unsigned tx is signed
-        ledgerNavigate.toConnectAndSignBitcoinTransactionStep(psbt, getSigningConfig(inputsToSign));
+        ledgerNavigate.toConnectAndSignBitcoinTransactionStep(
+          psbt,
+          getSigningConfig(inputsToSign),
+          location
+        );
         return listenForBitcoinTxLedgerSigning(bytesToHex(psbt));
       },
       async software() {

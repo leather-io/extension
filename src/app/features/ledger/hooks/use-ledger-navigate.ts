@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { resolvePath, useLocation, useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@stacks/common';
 import { StacksTransaction } from '@stacks/transactions';
@@ -38,7 +38,8 @@ export function useLedgerNavigate() {
 
       toConnectAndSignBitcoinTransactionStep(
         psbt: Uint8Array,
-        inputsToSign?: BitcoinInputSigningConfig[]
+        inputsToSign?: BitcoinInputSigningConfig[],
+        fromLocation?: typeof location
       ) {
         return navigate(RouteUrls.ConnectLedger, {
           replace: true,
@@ -47,6 +48,7 @@ export function useLedgerNavigate() {
             tx: bytesToHex(psbt),
             inputsToSign,
             backgroundLocation: { pathname: RouteUrls.Home },
+            fromLocation,
           },
         });
       },
@@ -83,6 +85,7 @@ export function useLedgerNavigate() {
             latestLedgerError: errorMessage,
             chain,
             backgroundLocation: { pathname: RouteUrls.Home },
+            fromLocation: location.state.fromLocation,
           },
         });
       },
@@ -145,10 +148,15 @@ export function useLedgerNavigate() {
       },
 
       cancelLedgerAction() {
-        // Use baseUrl to determine where to go on close
-        const baseUrl = `/${location.pathname.split('/')[1]}`;
+        const fromLocation = location.state.fromLocation ?? undefined;
 
-        return navigate(baseUrl, {
+        if (fromLocation) {
+          return navigate(fromLocation, { state: { ...fromLocation.state, wentBack: true } });
+        }
+
+        const resolvedPath = resolvePath('..', location.pathname);
+
+        return navigate(resolvedPath, {
           relative: 'path',
           replace: true,
           state: { ...location.state, wentBack: true },
