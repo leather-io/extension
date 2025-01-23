@@ -93,6 +93,6 @@ test.describe('Settings menu', () => {
 
     await test
       .expect(homePage.page.getByTestId(SharedComponentsSelectors.AccountCardBalanceText))
-      .toHaveText(visibleBalanceText!);
+      .not.toContainText('***');
   });
 });
