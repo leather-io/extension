@@ -39,7 +39,7 @@ jobs:
           IS_PUBLISHING: true
         run: pnpm build
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         name: Upload build artifact
         with:
           name: leather-io
