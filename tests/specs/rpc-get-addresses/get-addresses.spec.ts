@@ -6,6 +6,9 @@ import type { SupportedBlockchains } from '@leather.io/models';
 
 import { test } from '../../fixtures/fixtures';
 
+const getAddressesMethods = ['getAddresses', 'stx_getAddresses'] as const;
+type GetAddressesMethods = (typeof getAddressesMethods)[number];
+
 function softwareBeforeEach() {
   return () =>
     test.beforeEach(
@@ -62,8 +65,11 @@ async function interceptRequestPopup(context: BrowserContext) {
   return context.waitForEvent('page');
 }
 
-async function initiateGetAddresses(page: Page) {
-  return page.evaluate(async () => (window as any).LeatherProvider?.request('getAddresses'));
+async function initiateGetAddresses(page: Page, eventName: GetAddressesMethods) {
+  return page.evaluate(
+    async eventName => (window as any).LeatherProvider?.request(eventName),
+    eventName
+  );
 }
 
 async function clickConnectLeatherButton(popup: Page) {
@@ -72,93 +78,95 @@ async function clickConnectLeatherButton(popup: Page) {
   await button.click();
 }
 
-test.describe('Rpc: GetAddresses', () => {
-  test.beforeEach(
-    async ({ extensionId, globalPage }) => await globalPage.setupAndUseApiCalls(extensionId)
-  );
+getAddressesMethods.forEach(method => {
+  test.describe(`Rpc: ${method}`, () => {
+    test.beforeEach(
+      async ({ extensionId, globalPage }) => await globalPage.setupAndUseApiCalls(extensionId)
+    );
 
-  const specs = {
-    softwareWallet: {
-      beforeEach: softwareBeforeEach(),
-      expectedResult: getExpectedResponseForKeys(['bitcoin', 'stacks']),
-    },
-    ledgerWithBitcoinAndStacksKey: {
-      beforeEach: ledgerBeforeEach(makeLedgerTestAccountWalletState(['bitcoin', 'stacks'])),
-      expectedResult: getExpectedResponseForKeys(['bitcoin', 'stacks']),
-    },
-    ledgerWithStacksKeysOnly: {
-      beforeEach: ledgerBeforeEach(makeLedgerTestAccountWalletState(['stacks'])),
-      expectedResult: getExpectedResponseForKeys(['stacks']),
-    },
-    ledgerWithBitcoinKeysOnly: {
-      beforeEach: ledgerBeforeEach(makeLedgerTestAccountWalletState(['bitcoin'])),
-      expectedResult: getExpectedResponseForKeys(['bitcoin']),
-    },
-  } as const;
+    const specs = {
+      softwareWallet: {
+        beforeEach: softwareBeforeEach(),
+        expectedResult: getExpectedResponseForKeys(['bitcoin', 'stacks']),
+      },
+      ledgerWithBitcoinAndStacksKey: {
+        beforeEach: ledgerBeforeEach(makeLedgerTestAccountWalletState(['bitcoin', 'stacks'])),
+        expectedResult: getExpectedResponseForKeys(['bitcoin', 'stacks']),
+      },
+      ledgerWithStacksKeysOnly: {
+        beforeEach: ledgerBeforeEach(makeLedgerTestAccountWalletState(['stacks'])),
+        expectedResult: getExpectedResponseForKeys(['stacks']),
+      },
+      ledgerWithBitcoinKeysOnly: {
+        beforeEach: ledgerBeforeEach(makeLedgerTestAccountWalletState(['bitcoin'])),
+        expectedResult: getExpectedResponseForKeys(['bitcoin']),
+      },
+    } as const;
 
-  for (const [walletPreset, { beforeEach, expectedResult }] of Object.entries(specs)) {
-    test.describe(`${walletPreset} `, () => {
-      beforeEach();
+    Object.entries(specs).forEach(([walletPreset, { beforeEach, expectedResult }]) => {
+      test.describe(`${walletPreset} `, () => {
+        beforeEach();
 
-      test('the promise resolves with addresses successfully', async ({ page, context }) => {
-        await page.goto('localhost:3000');
-        const getAddressesPromise = initiateGetAddresses(page);
-
-        const popup = await interceptRequestPopup(context);
-        await clickConnectLeatherButton(popup);
-
-        const result = await getAddressesPromise;
-        if (!result) throw new Error('Expected result');
-        const { id, ...payloadWithoutId } = result;
-
-        test.expect(payloadWithoutId).toEqual(expectedResult);
-      });
-
-      test('the promise rejects when user closes popup window', async ({ page, context }) => {
-        await page.goto('localhost:3000');
-        const getAddressesPromise = initiateGetAddresses(page);
-        const popup = await interceptRequestPopup(context);
-        await popup.close();
-        await test.expect(getAddressesPromise).rejects.toThrow();
-      });
-
-      if (walletPreset === 'softwareWallet') {
-        test('it redirects back to get addresses flow when wallet is locked', async ({
-          homePage,
-          page,
-          context,
-        }) => {
-          await homePage.lock();
+        test('the promise resolves with addresses successfully', async ({ page, context }) => {
           await page.goto('localhost:3000');
-          const getAddressesPromise = initiateGetAddresses(page);
-          const popup = await interceptRequestPopup(context);
-          await popup.getByRole('textbox').fill(TEST_PASSWORD);
-          await popup.getByRole('button', { name: 'Continue' }).click();
-          await popup.getByText('Connect').isVisible();
-          await test.expect(popup.getByTestId('get-addresses-approve-button')).toBeVisible();
-          await clickConnectLeatherButton(popup);
-          await test.expect(getAddressesPromise).resolves.toMatchObject(expectedResult);
-        });
+          const getAddressesPromise = initiateGetAddresses(page, method);
 
-        test('it returns the second accounts data after changing account', async ({
-          page,
-          context,
-        }) => {
-          await page.goto('localhost:3000');
-          const getAddressesPromise = initiateGetAddresses(page);
           const popup = await interceptRequestPopup(context);
-          const switchAccountButton = popup.getByTestId('switch-account-item-0');
-          await switchAccountButton.click();
-          const secondAccountInListButton = popup.getByTestId('switch-account-item-1');
-          await secondAccountInListButton.click();
-          await test.expect(popup.getByText('Account 2')).toBeVisible();
           await clickConnectLeatherButton(popup);
+
           const result = await getAddressesPromise;
-          test
-            .expect(result.result.addresses[0].address)
-            .toEqual('bc1qr9wmz342txkcmxxq5ysmfqrd5rvmxtu6nldjgp');
+          if (!result) throw new Error('Expected result');
+          const { id, ...payloadWithoutId } = result;
+
+          test.expect(payloadWithoutId).toEqual(expectedResult);
         });
-      }
+
+        test('the promise rejects when user closes popup window', async ({ page, context }) => {
+          await page.goto('localhost:3000');
+          const getAddressesPromise = initiateGetAddresses(page, method);
+          const popup = await interceptRequestPopup(context);
+          await popup.close();
+          await test.expect(getAddressesPromise).rejects.toThrow();
+        });
+
+        if (walletPreset === 'softwareWallet') {
+          test('it redirects back to get addresses flow when wallet is locked', async ({
+            homePage,
+            page,
+            context,
+          }) => {
+            await homePage.lock();
+            await page.goto('localhost:3000');
+            const getAddressesPromise = initiateGetAddresses(page, method);
+            const popup = await interceptRequestPopup(context);
+            await popup.getByRole('textbox').fill(TEST_PASSWORD);
+            await popup.getByRole('button', { name: 'Continue' }).click();
+            await popup.getByText('Connect').isVisible();
+            await test.expect(popup.getByTestId('get-addresses-approve-button')).toBeVisible();
+            await clickConnectLeatherButton(popup);
+            await test.expect(getAddressesPromise).resolves.toMatchObject(expectedResult);
+          });
+
+          test('it returns the second accounts data after changing account', async ({
+            page,
+            context,
+          }) => {
+            await page.goto('localhost:3000');
+            const getAddressesPromise = initiateGetAddresses(page, method);
+            const popup = await interceptRequestPopup(context);
+            const switchAccountButton = popup.getByTestId('switch-account-item-0');
+            await switchAccountButton.click();
+            const secondAccountInListButton = popup.getByTestId('switch-account-item-1');
+            await secondAccountInListButton.click();
+            await test.expect(popup.getByText('Account 2')).toBeVisible();
+            await clickConnectLeatherButton(popup);
+            const result = await getAddressesPromise;
+            test
+              .expect(result.result.addresses[0].address)
+              .toEqual('bc1qr9wmz342txkcmxxq5ysmfqrd5rvmxtu6nldjgp');
+          });
+        }
+      });
     });
-  }
+  });
 });
