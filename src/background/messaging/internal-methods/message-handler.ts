@@ -1,5 +1,8 @@
 import { logger } from '@shared/logger';
+import { InternalMethods } from '@shared/message-types';
 import { BackgroundMessages } from '@shared/messages';
+
+import { syncAddressMonitor } from '@background/monitors/address-monitor';
 
 function validateMessagesAreFromExtension(sender: chrome.runtime.MessageSender) {
   // Only respond to internal messages from our UI, not content scripts in other applications
@@ -28,5 +31,16 @@ export async function internalBackgroundMessageHandler(
     return;
   }
   logger.debug('Internal message', message);
+
+  switch (message.method) {
+    case InternalMethods.AddressMonitorUpdated:
+      await syncAddressMonitor(message.payload.addresses);
+      break;
+  }
+
+  if (message.method.includes('bitcoinKeys/signOut')) {
+    await syncAddressMonitor([]);
+  }
+
   sendResponse();
 }

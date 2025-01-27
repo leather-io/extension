@@ -13,6 +13,7 @@ import {
   isLegacyMessage,
 } from './messaging/legacy/legacy-external-message-handler';
 import { rpcMessageHandler } from './messaging/rpc-message-handler';
+import { initAddressMonitor } from './monitors/address-monitor';
 
 initContextMenuActions();
 warnUsersAboutDevToolsDangers();
@@ -58,4 +59,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   void internalBackgroundMessageHandler(message, sender, sendResponse);
   // Listener fn must return `true` to indicate the response will be async
   return true;
+});
+
+initAddressMonitor().catch(e => {
+  logger.error('Unable to Initialise Address Monitor: ', e);
 });
