@@ -1,5 +1,7 @@
 import { ExtensionMethods, InternalMethods, Message } from '@shared/message-types';
 
+import type { MonitoredAddress } from '@background/monitors/address-monitor';
+
 /**
  * Popup <-> Background Script
  */
@@ -15,7 +17,12 @@ type OriginatingTabClosed = BackgroundMessage<
 
 type AccountChanged = BackgroundMessage<InternalMethods.AccountChanged, { accountIndex: number }>;
 
-export type BackgroundMessages = OriginatingTabClosed | AccountChanged;
+type AddressMonitorUpdated = BackgroundMessage<
+  InternalMethods.AddressMonitorUpdated,
+  { addresses: MonitoredAddress[] }
+>;
+
+export type BackgroundMessages = OriginatingTabClosed | AccountChanged | AddressMonitorUpdated;
 
 export function sendMessage(message: BackgroundMessages) {
   return chrome.runtime.sendMessage(message);
