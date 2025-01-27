@@ -1,87 +1,88 @@
-import BigNumber from 'bignumber.js';
-import * as yup from 'yup';
+// TODO: LEA-1647 refactor to use packages
+// import BigNumber from 'bignumber.js';
+// import * as yup from 'yup';
 
-import type { Money } from '@leather.io/models';
-import type { UtxoResponseItem } from '@leather.io/query';
-import {
-  btcToSat,
-  convertAmountToBaseUnit,
-  countDecimals,
-  isNumber,
-  microStxToStx,
-  satToBtc,
-  stxToMicroStx,
-} from '@leather.io/utils';
+// import type { Money } from '@leather.io/models';
+// import type { UtxoResponseItem } from '@leather.io/query';
+// import {
+//   btcToSat,
+//   convertAmountToBaseUnit,
+//   countDecimals,
+//   isNumber,
+//   microStxToStx,
+//   satToBtc,
+//   stxToMicroStx,
+// } from '@leather.io/utils';
 
-import { analytics } from '@shared/utils/analytics';
+// import { analytics } from '@shared/utils/analytics';
 
-import { FormErrorMessages } from '../../../../shared/error-messages';
-import { formatInsufficientBalanceError, formatPrecisionError } from '../../error-formatters';
-import { currencyAmountValidator, stxAmountPrecisionValidator } from './currency-validators';
+// import { FormErrorMessages } from '../../../../shared/error-messages';
+// import { formatInsufficientBalanceError, formatPrecisionError } from '../../error-formatters';
+// import { currencyAmountValidator, stxAmountPrecisionValidator } from './currency-validators';
 
-const minSpendAmountInSats = 546;
+// const minSpendAmountInSats = 546;
 
-function amountValidator() {
-  return yup
-    .number()
-    .required(FormErrorMessages.AmountRequired)
-    .positive(FormErrorMessages.MustBePositive)
-    .typeError('Amount must be a number');
-}
+// function amountValidator() {
+//   return yup
+//     .number()
+//     .required(FormErrorMessages.AmountRequired)
+//     .positive(FormErrorMessages.MustBePositive)
+//     .typeError('Amount must be a number');
+// }
 
-interface BtcInsufficientBalanceValidatorArgs {
-  calcMaxSpend(
-    recipient: string,
-    utxos: UtxoResponseItem[]
-  ): {
-    spendableBitcoin: BigNumber;
-  };
-  recipient: string;
-  utxos: UtxoResponseItem[];
-}
-export function btcInsufficientBalanceValidator({
-  calcMaxSpend,
-  recipient,
-  utxos,
-}: BtcInsufficientBalanceValidatorArgs) {
-  return yup
-    .number()
-    .typeError(FormErrorMessages.MustBeNumber)
-    .test({
-      message: FormErrorMessages.InsufficientFunds,
-      test(value) {
-        if (!value) return false;
-        const maxSpend = calcMaxSpend(recipient, utxos);
-        if (!maxSpend) return false;
-        const desiredSpend = new BigNumber(value);
-        if (desiredSpend.isGreaterThan(maxSpend.spendableBitcoin)) return false;
-        return true;
-      },
-    });
-}
+// interface BtcInsufficientBalanceValidatorArgs {
+//   calcMaxSpend(
+//     recipient: string,
+//     utxos: UtxoResponseItem[]
+//   ): {
+//     spendableBitcoin: BigNumber;
+//   };
+//   recipient: string;
+//   utxos: UtxoResponseItem[];
+// }
+// export function btcInsufficientBalanceValidator({
+//   calcMaxSpend,
+//   recipient,
+//   utxos,
+// }: BtcInsufficientBalanceValidatorArgs) {
+//   return yup
+//     .number()
+//     .typeError(FormErrorMessages.MustBeNumber)
+//     .test({
+//       message: FormErrorMessages.InsufficientFunds,
+//       test(value) {
+//         if (!value) return false;
+//         const maxSpend = calcMaxSpend(recipient, utxos);
+//         if (!maxSpend) return false;
+//         const desiredSpend = new BigNumber(value);
+//         if (desiredSpend.isGreaterThan(maxSpend.spendableBitcoin)) return false;
+//         return true;
+//       },
+//     });
+// }
 
-export function btcMinimumSpendValidator() {
-  return yup
-    .number()
-    .typeError(FormErrorMessages.MustBeNumber)
-    .test({
-      message: `Minimum is ${satToBtc(minSpendAmountInSats)}`,
-      test(value) {
-        if (!value) return false;
-        const desiredSpend = btcToSat(value);
-        if (desiredSpend.isLessThan(minSpendAmountInSats)) return false;
-        return true;
-      },
-    });
-}
+// export function btcMinimumSpendValidator() {
+//   return yup
+//     .number()
+//     .typeError(FormErrorMessages.MustBeNumber)
+//     .test({
+//       message: `Minimum is ${satToBtc(minSpendAmountInSats)}`,
+//       test(value) {
+//         if (!value) return false;
+//         const desiredSpend = btcToSat(value);
+//         if (desiredSpend.isLessThan(minSpendAmountInSats)) return false;
+//         return true;
+//       },
+//     });
+// }
 
-export function stxAmountValidator(availableStxBalance: Money) {
-  return yup
-    .number()
-    .typeError(FormErrorMessages.MustBeNumber)
-    .concat(currencyAmountValidator())
-    .concat(stxAmountPrecisionValidator(formatPrecisionError(availableStxBalance)));
-}
+// export function stxAmountValidator(availableStxBalance: Money) {
+//   return yup
+//     .number()
+//     .typeError(FormErrorMessages.MustBeNumber)
+//     .concat(currencyAmountValidator())
+//     .concat(stxAmountPrecisionValidator(formatPrecisionError(availableStxBalance)));
+// }
 
 export function stxAvailableBalanceValidator(availableBalance: Money) {
   return yup

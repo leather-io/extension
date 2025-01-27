@@ -31,14 +31,15 @@ function feeValidatorFactory({
   });
 }
 
+// TODO: LEA-1617 - this was unused in extension
 // ts-unused-exports:disable-next-line
-export function btcFeeValidator(availableBalance?: Money) {
-  return feeValidatorFactory({
-    availableBalance,
-    unitConverter: btcToSat,
-    validator: btcAmountPrecisionValidator,
-  });
-}
+// export function btcFeeValidator(availableBalance?: Money) {
+//   return feeValidatorFactory({
+//     availableBalance,
+//     unitConverter: btcToSat,
+//     validator: btcAmountPrecisionValidator,
+//   });
+// }
 
 export function stxFeeValidator(availableBalance?: Money) {
   return feeValidatorFactory({

@@ -46,27 +46,27 @@ export const ftUnshiftDecimals = (value: number | string | BigNumber, decimals: 
   const amount = initBigNumber(value);
   return amount.shiftedBy(decimals).toString(10);
 };
+//  TODO LEA-1647 import from packages
+// export const validateStacksAddress = (stacksAddress: string): boolean => {
+//   try {
+//     c32addressDecode(stacksAddress);
+//     return true;
+//   } catch (e) {
+//     return false;
+//   }
+// };
 
-export const validateStacksAddress = (stacksAddress: string): boolean => {
-  try {
-    c32addressDecode(stacksAddress);
-    return true;
-  } catch (e) {
-    return false;
-  }
-};
-
-export function validateAddressChain(address: string, currentNetwork: NetworkConfiguration) {
-  const prefix = address.slice(0, 2);
-  switch (currentNetwork.chain.stacks.chainId) {
-    case ChainId.Mainnet:
-      return prefix === 'SM' || prefix === 'SP';
-    case ChainId.Testnet:
-      return prefix === 'SN' || prefix === 'ST';
-    default:
-      return false;
-  }
-}
+// export function validateAddressChain(address: string, currentNetwork: NetworkConfiguration) {
+//   const prefix = address.slice(0, 2);
+//   switch (currentNetwork.chain.stacks.chainId) {
+//     case ChainID.Mainnet:
+//       return prefix === 'SM' || prefix === 'SP';
+//     case ChainID.Testnet:
+//       return prefix === 'SN' || prefix === 'ST';
+//     default:
+//       return false;
+//   }
+// }
 
 export function isFtNameLikeStx(name: string) {
   return ['stx', 'stack', 'stacks'].includes(convertUnicodeToAscii(name).toLocaleLowerCase());
