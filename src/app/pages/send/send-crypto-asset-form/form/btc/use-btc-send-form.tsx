@@ -14,7 +14,6 @@ import { BitcoinSendFormValues } from '@shared/models/form.model';
 
 import { formatPrecisionError } from '@app/common/error-formatters';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { notCurrentAddressValidator } from '@app/common/validation/forms/address-validators';
 import {
   btcInsufficientBalanceValidator,
   btcMinimumSpendValidator,
@@ -27,7 +26,6 @@ import {
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
@@ -37,7 +35,6 @@ export function useBtcSendForm() {
   const [isSendingMax, setIsSendingMax] = useState(false);
   const formRef = useRef<FormikProps<BitcoinSendFormValues>>(null);
   const currentNetwork = useCurrentNetwork();
-  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const { data: utxos = [], filteredUtxosQuery } = useCurrentNativeSegwitUtxos();
   const { balance } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
   const sendFormNavigate = useSendFormNavigate();
@@ -76,7 +73,6 @@ export function useBtcSendForm() {
       recipient: nonEmptyStringValidator()
         .concat(btcAddressValidator())
         .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.mode))
-        .concat(notCurrentAddressValidator(nativeSegwitSigner.address || ''))
         .concat(
           complianceValidator(
             btcAddressValidator(),
