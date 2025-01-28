@@ -47,24 +47,8 @@ async function fetchJson(cid: string) {
 }
 
 export function StacksNonFungibleTokens({ metadata, nft }: StacksNonFungibleTokensProps) {
-  const isImageAvailable = metadata.cached_image && isValidUrl(metadata.cached_image);
+  // const isImageAvailable = metadata.cached_image && isValidUrl(metadata.cached_image);
 
-  // console.log('collectible StacksNonFungibleTokens', metadata);
-  // fetchJson(metadata.cached_image);
-  // const data = await fetchJson('QmaDQPK8ckuRQKhkKVyXgxELvbEge81WiwhKvmYVCM8mgM');
-  // Replace '<CID>' with the actual IPFS hash of your JSON file
-  // console.log('IPFS', data);
-  // for await (const chunk of ipfs.cat(CID)) {
-  //   chunks.push(chunk);
-  // }
-
-  // const data = concat(chunks);
-  // const decodedData = JSON.parse(new TextDecoder().decode(data).toString());
-
-  // console.log('collectible StacksNonFungibleTokens', decodedData);
-  console.log('collectible StacksNonFungibleTokens', nft);
-
-  if (!isImageAvailable) return <ImageUnavailable />;
   return (
     <CollectibleImage
       alt="stacks nft"

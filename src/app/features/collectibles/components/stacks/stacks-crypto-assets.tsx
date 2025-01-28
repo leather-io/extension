@@ -20,6 +20,8 @@ export function StacksCryptoAssets({ address }: StacksCryptoAssetsProps) {
 
   const stacksNftsMetadataResp = useStacksNonFungibleTokensMetadata(address);
 
+  console.log('Stacks NFTs Metadata', stacksNftsMetadataResp);
+
   useEffect(() => {
     if (stacksNftsMetadataResp.length > 0) {
       void analytics.track('view_collectibles', {
@@ -40,7 +42,7 @@ export function StacksCryptoAssets({ address }: StacksCryptoAssetsProps) {
       ))}
 
       {stacksNftsMetadataResp.map((nft, i) => {
-        console.log('Stacks NFT', nft);
+        // console.log('Stacks NFT', nft);
         if (!nft || !nft.metadata) return null;
 
         if (hideBnsCollectible(nft.metadata?.name ?? '')) {
