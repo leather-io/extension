@@ -40,13 +40,14 @@ export function StacksCryptoAssets({ address }: StacksCryptoAssetsProps) {
       ))}
 
       {stacksNftsMetadataResp.map((nft, i) => {
+        console.log('Stacks NFT', nft);
         if (!nft || !nft.metadata) return null;
 
         if (hideBnsCollectible(nft.metadata?.name ?? '')) {
           return null;
         }
 
-        return <StacksNonFungibleTokens key={i} metadata={nft.metadata} />;
+        return <StacksNonFungibleTokens key={i} metadata={nft.metadata} nft={nft} />;
       })}
     </>
   );
