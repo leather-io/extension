@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
@@ -156,13 +156,7 @@
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -204,7 +198,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -218,7 +211,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -273,7 +265,6 @@ import { BitcoinSendFormValues } from '@shared/models/form.model';
 &nbsp;
 import { formatPrecisionError } from '@app/common/error-formatters';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { notCurrentAddressValidator } from '@app/common/validation/forms/address-validators';
 import {
   btcInsufficientBalanceValidator,
   btcMinimumSpendValidator,
@@ -286,7 +277,6 @@ import {
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 &nbsp;
 import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
@@ -296,7 +286,6 @@ export function <span class="fstat-no" title="function not covered" >useBtcSendF
   const [isSendingMax, setIsSendingMax] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
   const formRef = <span class="cstat-no" title="statement not covered" >useRef&lt;FormikProps&lt;BitcoinSendFormValues&gt;&gt;(null);</span>
   const currentNetwork = <span class="cstat-no" title="statement not covered" >useCurrentNetwork();</span>
-  const nativeSegwitSigner = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitIndexZeroSigner();</span>
   const { data: utxos = <span class="branch-0 cbranch-no" title="branch not covered" >[], f</span>ilteredUtxosQuery } = <span class="cstat-no" title="statement not covered" >useCurrentNativeSegwitUtxos();</span>
   const { balance } = <span class="cstat-no" title="statement not covered" >useCurrentBtcCryptoAssetBalanceNativeSegwit();</span>
   const sendFormNavigate = <span class="cstat-no" title="statement not covered" >useSendFormNavigate();</span>
@@ -335,7 +324,6 @@ export function <span class="fstat-no" title="function not covered" >useBtcSendF
       recipient: nonEmptyStringValidator()
         .concat(btcAddressValidator())
         .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.mode))
-        .concat(notCurrentAddressValidator(nativeSegwitSigner.address || ''))
         .concat(
           complianceValidator(
             btcAddressValidator(),
@@ -361,7 +349,7 @@ export function <span class="fstat-no" title="function not covered" >useBtcSendF
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-01-17T14:03:21.422Z
+                at 2025-01-28T08:15:52.069Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

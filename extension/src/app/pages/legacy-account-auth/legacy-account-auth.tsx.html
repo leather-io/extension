@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/25</span>
+                <span class='fraction'>0/26</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -132,7 +132,8 @@
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -164,24 +165,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -189,6 +180,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -198,10 +196,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Outlet, useNavigate } from 'react-router-dom';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 &nbsp;
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
@@ -233,6 +235,7 @@ export function <span class="fstat-no" title="function not covered" >LegacyAccou
   const { toggleSwitchAccount } = <span class="cstat-no" title="statement not covered" >useSwitchAccountSheet();</span>
   const { whenWallet } = <span class="cstat-no" title="statement not covered" >useWalletType();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
+  const location = <span class="cstat-no" title="statement not covered" >useLocation();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useOnOriginTabClose(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >c</span>loseWindow())</span>;</span>
 &nbsp;
@@ -247,7 +250,7 @@ export function <span class="fstat-no" title="function not covered" >LegacyAccou
 <span class="cstat-no" title="statement not covered" >        await finishSignIn(index);</span>
       },
 <span class="fstat-no" title="function not covered" >      async l</span>edger() {
-<span class="cstat-no" title="statement not covered" >        navigate(RouteUrls.ConnectLedger, { state: { index } });</span>
+<span class="cstat-no" title="statement not covered" >        navigate(RouteUrls.ConnectLedger, { state: { index, fromLocation: location } });</span>
 <span class="cstat-no" title="statement not covered" >        await listenForJwtSigningComplete();</span>
       },
     })();
@@ -277,7 +280,7 @@ export function <span class="fstat-no" title="function not covered" >LegacyAccou
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-01-17T14:03:21.422Z
+                at 2025-01-28T08:15:52.069Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
