@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { HStack, styled } from 'leather-styles/jsx';
 
@@ -15,6 +15,7 @@ interface ConnectLedgerButtonProps {
 }
 export function ConnectLedgerButton({ chain }: ConnectLedgerButtonProps) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const onClick = () => {
     navigate(`${chain}/connect-your-ledger`, {
@@ -22,6 +23,7 @@ export function ConnectLedgerButton({ chain }: ConnectLedgerButtonProps) {
       state: {
         [immediatelyAttemptLedgerConnection]: true,
         backgroundLocation: { pathname: RouteUrls.Home },
+        fromLocation: location,
       },
     });
   };

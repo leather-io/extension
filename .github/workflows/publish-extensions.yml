@@ -22,7 +22,7 @@ env:
 
 jobs:
   extract-version:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       new_version: ${{ steps.extract_version.outputs.version }}
     steps:
@@ -37,7 +37,7 @@ jobs:
 
   publish-chrome-extension:
     name: Publish Chrome extension
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: startsWith(github.ref, 'refs/tags/v')
     needs:
       - extract-version
@@ -56,7 +56,7 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: pnpm build
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         name: Upload build artifact
         with:
           name: leather-chromium-v${{ needs.extract-version.outputs.new_version }}
@@ -79,7 +79,7 @@ jobs:
 
   publish-firefox-extension:
     name: Publish Firefox extension
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: startsWith(github.ref, 'refs/tags/v')
     env:
       TARGET_BROWSER: firefox
@@ -95,7 +95,7 @@ jobs:
 
         run: pnpm build
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         name: Upload build artifact
         with:
           name: leather-firefox-v${{ needs.extract-version.outputs.new_version }}
@@ -113,14 +113,14 @@ jobs:
 
   create-github-release:
     name: Create Github release
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs:
       - extract-version
       - publish-chrome-extension
       - publish-firefox-extension
     steps:
       - name: Download extension build
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: .
 
@@ -150,7 +150,7 @@ jobs:
             leather-firefox.v${{ needs.extract-version.outputs.new_version }}.zip
 
   post_run:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs:
       - publish-chrome-extension
       - publish-firefox-extension

@@ -8,7 +8,7 @@ concurrency:
 
 jobs:
   sha-hash:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       SHORT_SHA: ${{ steps.short-sha.outputs.SHORT_SHA }}
     steps:
@@ -19,7 +19,7 @@ jobs:
 
   set-in-progress-message:
     if: github.repository == 'leather-io/extension' && github.actor != 'dependabot[bot]'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs:
       - sha-hash
     steps:
@@ -30,7 +30,7 @@ jobs:
 
   build:
     name: build-${{ matrix.target }}-extension
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs:
       - sha-hash
     strategy:
@@ -62,7 +62,7 @@ jobs:
           PR_NUMBER: ${{ github.event.number }}
           COMMIT_SHA: ${{ needs.sha-hash.outputs.SHORT_SHA }}
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         name: Upload ${{ matrix.target }} extension zip
         with:
           name: leather-${{ matrix.target }}-${{ needs.sha-hash.outputs.SHORT_SHA }}
@@ -70,7 +70,7 @@ jobs:
 
   set-download-link:
     if: github.repository == 'leather-io/extension' && github.actor != 'dependabot[bot]'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs:
       - sha-hash
       - build

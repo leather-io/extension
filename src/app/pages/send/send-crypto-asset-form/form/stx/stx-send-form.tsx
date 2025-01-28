@@ -17,7 +17,7 @@ const symbol = 'STX' satisfies CryptoCurrency;
 export function StxSendForm() {
   const stxMarketData = useCryptoCurrencyMarketDataMeanAverage(symbol);
   const {
-    availableUnlockedBalance,
+    availableBalance,
     initialValues,
     previewTransaction,
     sendMaxBalance,
@@ -27,13 +27,10 @@ export function StxSendForm() {
 
   const amountField = (
     <AmountField
-      balance={availableUnlockedBalance}
+      balance={availableBalance}
       switchableAmount={<SendFiatValue marketData={stxMarketData} assetSymbol={symbol} />}
       bottomInputOverlay={
-        <SendMaxButton
-          balance={availableUnlockedBalance}
-          sendMaxBalance={sendMaxBalance.toString()}
-        />
+        <SendMaxButton balance={availableBalance} sendMaxBalance={sendMaxBalance.toString()} />
       }
     />
   );
@@ -53,7 +50,7 @@ export function StxSendForm() {
           amountField={amountField}
           selectedAssetField={selectedAssetField}
           fees={fees}
-          availableTokenBalance={availableUnlockedBalance}
+          availableTokenBalance={availableBalance}
         />
       </Content>
     </>

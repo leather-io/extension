@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Route, useLocation } from 'react-router-dom';
 
+import { bytesToHex } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 import { hexToBytes } from '@stacks/common';
 import BitcoinApp from 'ledger-bitcoin';
@@ -106,6 +107,13 @@ function LedgerSignBitcoinTxContainer() {
       },
     });
 
+  function closeAction() {
+    appEvents.publish('ledgerBitcoinTxSigningCancelled', {
+      unsignedPsbt: unsignedTransaction ? bytesToHex(unsignedTransaction.toPSBT()) : '',
+    });
+    ledgerNavigate.cancelLedgerAction();
+  }
+
   const ledgerContextValue: LedgerTxSigningContext = {
     chain,
     transaction: unsignedTransaction,
@@ -118,7 +126,7 @@ function LedgerSignBitcoinTxContainer() {
   return (
     <TxSigningFlow
       context={ledgerContextValue}
-      closeAction={canCancelLedgerAction ? ledgerNavigate.cancelLedgerAction : undefined}
+      closeAction={canCancelLedgerAction ? closeAction : undefined}
     />
   );
 }

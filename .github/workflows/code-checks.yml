@@ -8,7 +8,7 @@ on:
 
 jobs:
   lint-prettier:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
@@ -17,7 +17,7 @@ jobs:
         run: pnpm lint:prettier
 
   lint-eslint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
@@ -26,7 +26,7 @@ jobs:
         run: pnpm lint:eslint
 
   lint-filename:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
@@ -35,7 +35,7 @@ jobs:
         run: pnpm lint:filename
 
   lint-commit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with:
@@ -45,7 +45,7 @@ jobs:
         uses: wagoid/commitlint-github-action@v4
 
   lint-deps:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
@@ -54,7 +54,7 @@ jobs:
         run: pnpm lint:deps
 
   lint-message-schema:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
@@ -63,7 +63,7 @@ jobs:
         run: pnpm lint:remote-wallet-config
 
   lint-unused-exports:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
@@ -72,7 +72,7 @@ jobs:
         run: pnpm lint:unused-exports
 
   lint-firefox-build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
@@ -84,7 +84,7 @@ jobs:
       - run: pnpm web-ext lint
 
   locked-versions:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
@@ -93,7 +93,7 @@ jobs:
         uses: ./.github/actions/check-version-lock
 
   audit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
@@ -102,7 +102,7 @@ jobs:
         run: pnpm audit-ci --high --skip-dev
 
   typecheck:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
@@ -111,7 +111,7 @@ jobs:
         run: pnpm typecheck
 
   test-unit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
@@ -120,7 +120,7 @@ jobs:
         run: pnpm test:unit
 
   test-build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/provision

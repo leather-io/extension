@@ -16,7 +16,11 @@ import {
 } from '@stacks/transactions';
 import { createUnsecuredToken } from 'jsontokens';
 
-import { RpcErrorCode, type StxSignTransactionRequest } from '@leather.io/rpc';
+import {
+  RpcErrorCode,
+  type StxSignTransactionRequest,
+  type StxSignTransactionRequestParams,
+} from '@leather.io/rpc';
 import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -37,21 +41,29 @@ import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-message-han
 
 const MEMO_DESERIALIZATION_STUB = '\u0000';
 
-const cleanMemoString = (memo: string): string => {
+function cleanMemoString(memo: string): string {
   return memo.replaceAll(MEMO_DESERIALIZATION_STUB, '');
-};
+}
 
 function encodePostConditions(postConditions: PostCondition[]) {
   return postConditions.map(pc => bytesToHex(serializePostCondition(pc)));
 }
 
-const transactionPayloadToTransactionRequest = (
+function getStacksTransactionHexFromRequest(requestParams: StxSignTransactionRequestParams) {
+  if ('txHex' in requestParams) return requestParams.txHex;
+  return requestParams.transaction;
+}
+
+function getAccountAddressFromRequest(requestParams: StxSignTransactionRequestParams) {
+  if ('txHex' in requestParams) return requestParams.stxAddress;
+  return;
+}
+
+function transactionPayloadToTransactionRequest(
   stacksTransaction: StacksTransaction,
-  stxAddress?: string,
-  attachment?: string
-) => {
+  stxAddress?: string
+) {
   const transactionRequest = {
-    attachment,
     stxAddress,
     sponsored: stacksTransaction.auth.authType === AuthType.Sponsored,
     nonce: Number(stacksTransaction.auth.spendingCondition.nonce),
@@ -93,7 +105,7 @@ const transactionPayloadToTransactionRequest = (
   }
 
   return transactionRequest;
-};
+}
 
 function validateStacksTransaction(txHex: string) {
   try {
@@ -136,7 +148,7 @@ export async function rpcSignStacksTransaction(
     return;
   }
 
-  if (!validateStacksTransaction(message.params.txHex)) {
+  if (!validateStacksTransaction(getStacksTransactionHexFromRequest(message.params))) {
     void trackRpcRequestError({ endpoint: message.method, error: 'Invalid Stacks transaction' });
 
     chrome.tabs.sendMessage(
@@ -149,14 +161,16 @@ export async function rpcSignStacksTransaction(
     return;
   }
 
-  const stacksTransaction = deserializeTransaction(message.params.txHex);
+  const stacksTransaction = deserializeTransaction(
+    getStacksTransactionHexFromRequest(message.params)
+  );
   const request = transactionPayloadToTransactionRequest(
     stacksTransaction,
-    message.params.stxAddress,
-    message.params.attachment
+    getAccountAddressFromRequest(message.params)
   );
 
   const hashMode = stacksTransaction.auth.spendingCondition.hashMode as MultiSigHashMode;
+
   const isMultisig =
     hashMode === AddressHashMode.SerializeP2SH ||
     hashMode === AddressHashMode.SerializeP2WSH ||
@@ -166,15 +180,13 @@ export async function rpcSignStacksTransaction(
   void trackRpcRequestSuccess({ endpoint: message.method });
 
   const requestParams = [
-    ['txHex', message.params.txHex],
+    ['txHex', getStacksTransactionHexFromRequest(message.params)],
     ['requestId', message.id],
     ['request', createUnsecuredToken(request)],
-    ['isMultisig', isMultisig],
-  ] as RequestParams;
+    ['isMultisig', String(isMultisig)],
+  ] satisfies RequestParams;
 
-  if (isDefined(message.params.network)) {
-    requestParams.push(['network', message.params.network]);
-  }
+  if (isDefined(message.params.network)) requestParams.push(['network', message.params.network]);
 
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
 
