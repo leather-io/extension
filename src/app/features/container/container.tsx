@@ -20,6 +20,7 @@ import { useAppDispatch, useHasStateRehydrated } from '@app/store';
 import { stxChainSlice } from '@app/store/chains/stx-chain.slice';
 
 import { useRestoreFormState } from '../popup-send-form-restoration/use-restore-form-state';
+import { useInitPushNotifications } from '../push-notifications/push-notifications';
 
 export function Container() {
   const { pathname: locationPathname } = useLocation();
@@ -33,6 +34,7 @@ export function Container() {
   useOnSignOut(() => closeWindow());
   useRestoreFormState();
   useInitalizeAnalytics();
+  useInitPushNotifications();
   useHandleQueuedBackgroundAnalytics();
   useOnChangeAccount(index => dispatch(stxChainSlice.actions.switchAccount(index)));
 
