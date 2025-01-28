@@ -1,3 +1,26 @@
+## [6.60.0](https://github.com/leather-io/extension/compare/v6.59.2...v6.60.0) (2025-01-28)
+
+
+### Features
+
+* **signPsbt:** add txid to return payload, closes [#5292](https://github.com/leather-io/extension/issues/5292) ([c19a902](https://github.com/leather-io/extension/commit/c19a90219cc6f13e5f1731a948612fe8cae9d11d))
+
+
+### Bug Fixes
+
+* allow users to send btc to themselves, ref leather-io/extension[#5349](https://github.com/leather-io/extension/issues/5349) ([a04841d](https://github.com/leather-io/extension/commit/a04841d3804836021faa33534e84bd5024db41ed))
+* go close ledger action navigation, LEA-2078 ([a950b32](https://github.com/leather-io/extension/commit/a950b3241aefec4f6e4ee6bb233b540858644a74))
+* **rpc:** use SIP-30 format for `stx_signTransaction` ([99b84d3](https://github.com/leather-io/extension/commit/99b84d3cc1debc48bdd8127a34a002c5ccab0392))
+* sbtc swap validation ([7de260e](https://github.com/leather-io/extension/commit/7de260ef6ee2fdcc2d08849a866a27b2da804512))
+* stx available balance issues ([6f054bb](https://github.com/leather-io/extension/commit/6f054bb328377f0d598f6bd8e9b3a67ca9c0b0ea))
+
+
+### Internal
+
+* post-release merge back ([2b43e49](https://github.com/leather-io/extension/commit/2b43e4998240ca0bd9a08b275053033e9f3d5461))
+* update path-to-regexp to fix ci audit ([9e4544d](https://github.com/leather-io/extension/commit/9e4544d0a3ba84ce18f268245526383a52824c6e))
+* upgrade utils package ([6e6d17e](https://github.com/leather-io/extension/commit/6e6d17e8dc9c2b6bb4ad4b217a04a4e8ec7e4def))
+
 ## [6.59.2](https://github.com/leather-io/extension/compare/v6.59.1...v6.59.2) (2025-01-17)
 
 
