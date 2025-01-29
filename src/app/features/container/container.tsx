@@ -37,7 +37,6 @@ export function Container() {
   useInitPushNotifications();
   useHandleQueuedBackgroundAnalytics();
   useOnChangeAccount(index => dispatch(stxChainSlice.actions.switchAccount(index)));
-
   useEffect(() => void analytics.page('view', `${pathname}`), [pathname]);
 
   if (!hasStateRehydrated) return <LoadingSpinner />;
