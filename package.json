@@ -361,7 +361,7 @@
     "tsconfig-paths-webpack-plugin": "4.1.0",
     "type-fest": "4.30.2",
     "typescript": "5.4.5",
-    "vitest": "2.0.5",
+    "vitest": "2.1.9",
     "vm-browserify": "1.1.2",
     "web-ext": "7.8.0",
     "web-ext-submit": "7.8.0",
