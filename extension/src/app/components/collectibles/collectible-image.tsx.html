@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -122,19 +122,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -144,6 +143,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -161,6 +161,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ReactNode, useState } from 'react';
 &nbsp;
+import { isValidUrl } from '@shared/utils/validate-url';
+&nbsp;
 import { CollectibleItemLayout, CollectibleItemLayoutProps } from './collectible-item.layout';
 import { ImageUnavailable } from './image-unavailable';
 &nbsp;
@@ -174,36 +176,34 @@ export function <span class="fstat-no" title="function not covered" >Collectible
   const [isError, setIsError] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
   const [isLoading, setIsLoading] = <span class="cstat-no" title="statement not covered" >useState(true);</span>
   const [width, setWidth] = <span class="cstat-no" title="statement not covered" >useState(0);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  if (isError)</span>
-<span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;CollectibleItemLayout collectibleTypeIcon={icon} {...rest}&gt;
-        &lt;ImageUnavailable /&gt;
-      &lt;/CollectibleItemLayout&gt;
-    );
+  const isImageAvailable = <span class="cstat-no" title="statement not covered" >src &amp;&amp; isValidUrl(src);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;CollectibleItemLayout collectibleTypeIcon={icon} {...rest}&gt;
-      &lt;img
-        alt={alt}
-        onError={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etIsError(true)}</span>
-        loading="lazy"
-        onLoad={<span class="fstat-no" title="function not covered" >event =&gt; {</span>
-          const target = <span class="cstat-no" title="statement not covered" >event.target as HTMLImageElement;</span>
-<span class="cstat-no" title="statement not covered" >          setWidth(target.naturalWidth);</span>
-<span class="cstat-no" title="statement not covered" >          setIsLoading(false);</span>
-        }}
-        src={src}
-        style={{
-          width: '100%',
-          height: '100%',
-          aspectRatio: '1 / 1',
-          objectFit: 'cover',
-          // display: 'none' breaks onLoad event firing
-          opacity: isLoading ? '0' : '1',
-          imageRendering: width &lt;= 40 ? 'pixelated' : 'auto',
-        }}
-      /&gt;
+      {isError || !isImageAvailable ? (
+        &lt;ImageUnavailable /&gt;
+      ) : (
+        &lt;img
+          alt={alt}
+          onError={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etIsError(true)}</span>
+          loading="lazy"
+          onLoad={<span class="fstat-no" title="function not covered" >event =&gt; {</span>
+            const target = <span class="cstat-no" title="statement not covered" >event.target as HTMLImageElement;</span>
+<span class="cstat-no" title="statement not covered" >            setWidth(target.naturalWidth);</span>
+<span class="cstat-no" title="statement not covered" >            setIsLoading(false);</span>
+          }}
+          src={src}
+          style={{
+            width: '100%',
+            height: '100%',
+            aspectRatio: '1 / 1',
+            objectFit: 'cover',
+            // display: 'none' breaks onLoad event firing
+            opacity: isLoading ? '0' : '1',
+            imageRendering: width &lt;= 40 ? 'pixelated' : 'auto',
+          }}
+        /&gt;
+      )}
     &lt;/CollectibleItemLayout&gt;
   );
 }
@@ -214,7 +214,7 @@ export function <span class="fstat-no" title="function not covered" >Collectible
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-01-28T08:17:23.610Z
+                at 2025-02-05T11:39:45.234Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
