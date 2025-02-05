@@ -1,3 +1,19 @@
+## [6.60.1](https://github.com/leather-io/extension/compare/v6.60.0...v6.60.1) (2025-02-05)
+
+
+### Bug Fixes
+
+* add network validation ([5fd025f](https://github.com/leather-io/extension/commit/5fd025f75bc1fba75a35a8308809607be41b9834))
+* show available metadata for stacks nfts, ref leather-io/extension[#5349](https://github.com/leather-io/extension/issues/5349) ([30a2d8e](https://github.com/leather-io/extension/commit/30a2d8ee5f7f16a909eafa7fd149939b373248d5))
+* **signPsbt:** window not closing ([13ca4b4](https://github.com/leather-io/extension/commit/13ca4b42d6750ef510f63668202d564de619a5a7))
+
+
+### Internal
+
+* address breaking changes in ui badge ([a96407a](https://github.com/leather-io/extension/commit/a96407afd0bb954cb94871d315ff792c0c04aad8))
+* post-release merge back ([bdde723](https://github.com/leather-io/extension/commit/bdde723696463c9f965e25ca8dabb0973ae4302a))
+* remove redundant icon prop ([8895b99](https://github.com/leather-io/extension/commit/8895b99f240535d114ba897fd440a0f85d8633f0))
+
 ## [6.60.0](https://github.com/leather-io/extension/compare/v6.59.2...v6.60.0) (2025-01-28)
 
 
