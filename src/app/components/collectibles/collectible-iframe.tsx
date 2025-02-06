@@ -29,6 +29,7 @@ export function CollectibleIframe({ icon, src, ...props }: CollectibleIframeProp
         src={src}
         width="100%"
         zIndex={99}
+        tabIndex={-1}
       />
     </CollectibleItemLayout>
   );
