@@ -64,7 +64,7 @@ export async function rpcSignStacksMessage(
     requestParams.push(['network', message.params.network.toString()]);
   }
 
-  if (isDefined(message.params.domain)) {
+  if ('domain' in message.params) {
     requestParams.push([
       'domain',
       (message.params as StxSignMessageRequestParamsStructured).domain.toString(),

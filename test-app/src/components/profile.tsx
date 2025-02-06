@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { useAuth } from '@common/use-auth';
 import { stacksMainnetNetwork, stacksTestnetNetwork } from '@common/utils';
-import { openProfileUpdateRequestPopup } from '@stacks/connect';
+import { openProfileUpdateRequestPopup } from '@stacks/connect-jwt';
 import { StacksNetwork } from '@stacks/network';
 import { PublicPersonProfile, PublicProfile } from '@stacks/profile';
 import { TestAppSelectors } from '@tests/selectors/test-app.selectors';

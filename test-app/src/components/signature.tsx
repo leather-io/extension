@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import React from 'react';
 
-import {
-  stacksTestnetNetwork as network,
-  stacksMainnetNetwork,
-  stacksTestnetNetwork,
-} from '@common/utils';
+import { stacksTestnetNetwork as network, stacksTestnetNetwork } from '@common/utils';
 import { sha256 } from '@noble/hashes/sha256';
 import { bytesToHex } from '@noble/hashes/utils';
-import { SignatureData } from '@stacks/connect';
-import { useConnect } from '@stacks/connect-react';
+import { SignatureData } from '@stacks/connect-jwt';
+import { useConnect } from '@stacks/connect-react-jwt';
 import { hashMessage, verifyMessageSignatureRsv } from '@stacks/encryption';
 import { StacksNetwork } from '@stacks/network';
 import {
@@ -33,6 +30,14 @@ import {
   uintCV,
 } from '@stacks/transactions';
 import { Box, styled } from 'leather-styles/jsx';
+
+import { LeatherProvider } from '@leather.io/rpc';
+
+declare global {
+  interface Window {
+    LeatherProvider?: LeatherProvider;
+  }
+}
 
 export const Signature = () => {
   const [signature, setSignature] = useState<SignatureData | undefined>();
@@ -125,13 +130,24 @@ export const Signature = () => {
   };
 
   const signMessageRpc = async (message: string) => {
+    if (!window.LeatherProvider) throw new Error('LeatherProvider not found');
+
     clearState();
     setCurrentMessage(message);
 
-    await window.btc?.request('stx_signMessage', {
+    const result = await window.LeatherProvider.request('stx_signMessage', {
       message,
       messageType: 'utf8',
     });
+
+    const isValid = verifyMessageSignatureRsv({
+      ...result.result,
+      message: hashMessage(message),
+    });
+
+    console.log('Is message valid', isValid);
+
+    console.log('signature from rpc', result);
   };
 
   const domain = tupleCV({
@@ -162,18 +178,22 @@ export const Signature = () => {
   };
 
   const signStructureRpc = async (message: ClarityValue, domain: TupleCV) => {
+    if (!window.LeatherProvider) throw new Error('LeatherProvider not found');
+
     clearState();
     setCurrentStructuredData({ message, domain });
 
     // ClarityValue -> Uint8Array -> Buffer -> string (hex)
-    const stringMessage = Buffer.from(serializeCV(message)).toString('hex');
-    const stringDomain = Buffer.from(serializeCV(domain)).toString('hex');
+    const stringMessage = serializeCV(message);
+    const stringDomain = serializeCV(domain);
 
-    await window.btc?.request('stx_signMessage', {
+    const result = await window.LeatherProvider.request('stx_signMessage', {
       message: stringMessage,
       messageType: 'structured',
       domain: stringDomain,
     });
+
+    setSignatureStructured(result.result);
   };
 
   const sip18Test = [
@@ -196,14 +216,10 @@ export const Signature = () => {
           </styled.span>
         </styled.span>
       )}
-      <styled.button mt={3} onClick={() => signMessage(signatureMessage, stacksMainnetNetwork)}>
+      <styled.button mt={3} onClick={() => signMessage(signatureMessage)}>
         Signature (Mainnet)
       </styled.button>
-      <styled.button
-        mt={3}
-        ml={3}
-        onClick={() => signMessage(signatureMessage, stacksTestnetNetwork)}
-      >
+      <styled.button mt={3} ml={3} onClick={() => signMessage(signatureMessage)}>
         Signature (Testnet)
       </styled.button>
       <br />

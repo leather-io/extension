@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SampleContracts } from '@common/contracts';
-import { useConnect } from '@stacks/connect-react';
+import { useConnect } from '@stacks/connect-react-jwt';
 import { Box, styled } from 'leather-styles/jsx';
 
 import { ExplorerLink } from './explorer-link';

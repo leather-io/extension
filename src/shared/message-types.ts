@@ -3,7 +3,7 @@ import {
   PsbtData,
   SignatureData,
   SponsoredFinishedTxPayload,
-} from '@stacks/connect';
+} from '@stacks/connect-jwt';
 import { PublicProfile } from '@stacks/profile';
 
 export const MESSAGE_SOURCE = 'stacks-wallet';

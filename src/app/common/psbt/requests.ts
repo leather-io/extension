@@ -1,5 +1,5 @@
 import type { TransactionInput } from '@scure/btc-signer/psbt';
-import { PsbtPayload } from '@stacks/connect';
+import { PsbtPayload } from '@stacks/connect-jwt';
 import { decodeToken } from 'jsontokens';
 
 import type { Money } from '@leather.io/models';

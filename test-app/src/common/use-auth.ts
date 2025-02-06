@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { AppState, defaultState } from '@common/context';
 import { AppConfig, UserSession } from '@stacks/auth';
-import { AuthOptions } from '@stacks/connect';
+import { AuthOptions } from '@stacks/connect-jwt';
 
 export function useAuth() {
   const [state, setState] = React.useState<AppState>(defaultState());

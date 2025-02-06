@@ -1,5 +1,5 @@
 import type { Transaction } from '@scure/btc-signer';
-import type { SignatureData } from '@stacks/connect';
+import type { SignatureData } from '@stacks/connect-jwt';
 import type { StacksTransactionWire } from '@stacks/transactions';
 import type { StacksTransaction } from '@stacks/transactions-v6';
 

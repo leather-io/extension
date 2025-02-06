@@ -3,7 +3,7 @@ import React from 'react';
 import { AppContext } from '@common/context';
 import { useAuth } from '@common/use-auth';
 import { Home } from '@components/home';
-import { Connect } from '@stacks/connect-react';
+import { Connect } from '@stacks/connect-react-jwt';
 import { Box, styled } from 'leather-styles/jsx';
 import { Flex } from 'leather-styles/jsx';
 

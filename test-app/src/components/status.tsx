@@ -11,7 +11,7 @@ import {
 import { useSTXAddress } from '@common/use-stx-address';
 import { getRPCClient, stacksTestnetNetwork as network } from '@common/utils';
 import { TxCard } from '@components/tx-card';
-import { useConnect } from '@stacks/connect-react';
+import { useConnect } from '@stacks/connect-react-jwt';
 import type { ContractCallTransaction } from '@stacks/stacks-blockchain-api-types';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 

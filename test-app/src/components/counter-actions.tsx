@@ -4,7 +4,7 @@ import { IntCV, deserializeCV } from '@blockstack/stacks-transactions';
 import { AppContext } from '@common/context';
 import { getRPCClient, stacksTestnetNetwork as network } from '@common/utils';
 import { ExplorerLink } from '@components/explorer-link';
-import { useConnect } from '@stacks/connect-react';
+import { useConnect } from '@stacks/connect-react-jwt';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
 export const CounterActions: React.FC = () => {

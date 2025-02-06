@@ -23,7 +23,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "paths": {
       "@store/*": ["./store/*"],
       "@store": ["./store/index"],
