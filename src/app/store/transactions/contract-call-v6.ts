@@ -1,5 +1,5 @@
 import { hexToBytes } from '@stacks/common';
-import type { ContractCallPayload } from '@stacks/connect';
+import type { ContractCallPayload } from '@stacks/connect-jwt';
 import {
   AnchorMode,
   BytesReader,

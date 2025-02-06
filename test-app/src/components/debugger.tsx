@@ -9,7 +9,7 @@ import {
   stacksTestnetNetwork,
 } from '@common/utils';
 import { hexToBytes } from '@stacks/common';
-import { useConnect } from '@stacks/connect-react';
+import { useConnect } from '@stacks/connect-react-jwt';
 import { STACKS_TESTNET } from '@stacks/network';
 import { type StacksTestnet } from '@stacks/network-v6';
 import {

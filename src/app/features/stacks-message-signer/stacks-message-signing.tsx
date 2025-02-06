@@ -63,7 +63,6 @@ export function StacksMessageSigning({
   return (
     <MessageSigningRequestLayout>
       <MessageSigningHeader name={origin} origin={origin} />
-
       {isUtf8MessageType(messageType) && payload.messageType === 'utf8' && (
         <StacksSignatureRequestMessageContent
           isLoading={isLoading}

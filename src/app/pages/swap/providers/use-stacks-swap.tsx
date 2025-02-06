@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@stacks/common';
-import { type ContractCallPayload, TransactionTypes } from '@stacks/connect';
+import { type ContractCallPayload, TransactionTypes } from '@stacks/connect-jwt';
 import { PostConditionMode } from '@stacks/transactions';
 import { serializeCV } from '@stacks/transactions-v6';
 import type { RouteQuote } from 'bitflow-sdk';

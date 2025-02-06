@@ -1,5 +1,5 @@
 import { type PrivateKey, bytesToHex } from '@stacks/common';
-import { SignatureData } from '@stacks/connect';
+import { SignatureData } from '@stacks/connect-jwt';
 import { hashMessage } from '@stacks/encryption';
 import {
   ClarityValue,

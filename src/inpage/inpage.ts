@@ -1,4 +1,4 @@
-import type { StacksProvider } from '@stacks/connect';
+import type { StacksProvider } from '@stacks/connect-jwt';
 
 import { type LeatherRpcMethodMap, type RpcParameter, RpcRequest } from '@leather.io/rpc';
 

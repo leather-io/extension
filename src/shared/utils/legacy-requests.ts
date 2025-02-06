@@ -4,7 +4,7 @@ import {
   ContractDeployPayload as ConnectContractDeployPayload,
   ProfileUpdatePayload as ConnectProfileUpdatePayload,
   STXTransferPayload as ConnectSTXTransferPayload,
-} from '@stacks/connect';
+} from '@stacks/connect-jwt';
 import type { StacksNetwork } from '@stacks/network';
 import type { PostCondition, PostConditionWire } from '@stacks/transactions';
 import { decodeToken } from 'jsontokens';

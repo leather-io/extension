@@ -45,6 +45,7 @@ export function useRpcStacksMessagePayload() {
       appName,
     } satisfies Utf8Payload;
   }
+
   if (isStructuredMessageType(messageType)) {
     if (!domain) return null;
 
@@ -96,7 +97,10 @@ export function useRpcSignStacksMessage() {
         tabId,
         makeRpcSuccessResponse('stx_signMessage', {
           id: requestId,
-          result: { signature: messageSignature.signature },
+          result: {
+            signature: messageSignature.signature,
+            publicKey: messageSignature.publicKey,
+          },
         })
       );
       closeWindow();

@@ -10,7 +10,7 @@ import { createDelay } from '@shared/utils';
 
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-export const improveUxWithShortDelayAsStacksSigningIsSoFast = createDelay(1000);
+export const improveUxWithShortDelayAsStacksSigningIsSoFast = createDelay(600);
 
 export function useMessageSignerStacksSoftwareWallet() {
   const account = useCurrentStacksAccount();

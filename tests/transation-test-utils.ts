@@ -1,4 +1,4 @@
-import { ContractCallOptions, UserData, makeContractCallToken } from '@stacks/connect';
+import { ContractCallOptions, UserData, makeContractCallToken } from '@stacks/connect-jwt';
 import { STACKS_TESTNET } from '@stacks/network';
 import {
   type FungiblePostCondition,
