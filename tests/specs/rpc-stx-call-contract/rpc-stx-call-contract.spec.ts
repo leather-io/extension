@@ -3,6 +3,7 @@ import {
   type ClarityValue,
   bufferCVFromString,
   noneCV,
+  serializeCV,
   standardPrincipalCV,
 } from '@stacks/transactions';
 
@@ -60,7 +61,7 @@ test.describe('RPC: stx_callContract', () => {
       initiateSip30RpcCallContract(page)({
         contract: 'SP000000000000000000002Q6VF78.bns',
         functionName: 'name-transfer',
-        functionArgs: args,
+        functionArgs: args.map(arg => serializeCV(arg)),
       }),
       checkVisibleContent(context)('Cancel'),
     ]);
