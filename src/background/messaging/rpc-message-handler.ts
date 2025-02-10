@@ -6,6 +6,7 @@ import {
   open,
   openSwap,
   stxCallContract,
+  stxDeployContract,
   stxGetAddresses,
   stxSignMessage,
   stxSignStructuredMessage,
@@ -28,6 +29,7 @@ import {
   rpcSignStacksStructuredMessage,
 } from './rpc-methods/sign-stacks-message';
 import { rpcStxCallContract } from './rpc-methods/stx-call-contract';
+import { rpcStxDeployContract } from './rpc-methods/stx-deploy-contract';
 import { rpcStxGetAddresses } from './rpc-methods/stx-get-addresses';
 import { rpcSupportedMethods } from './rpc-methods/supported-methods';
 
@@ -65,6 +67,11 @@ export async function rpcMessageHandler(message: RpcRequests, port: chrome.runti
 
     case stxCallContract.method: {
       await rpcStxCallContract(message, port);
+      break;
+    }
+
+    case stxDeployContract.method: {
+      await rpcStxDeployContract(message, port);
       break;
     }
 
