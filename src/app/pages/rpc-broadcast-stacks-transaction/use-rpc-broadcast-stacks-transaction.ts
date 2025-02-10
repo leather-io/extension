@@ -2,7 +2,12 @@ import { useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 
 import { useNextNonce } from '@leather.io/query';
-import { RpcErrorCode, createRpcErrorResponse, createRpcSuccessResponse } from '@leather.io/rpc';
+import {
+  RpcErrorCode,
+  type RpcMethodNames,
+  createRpcErrorResponse,
+  createRpcSuccessResponse,
+} from '@leather.io/rpc';
 import { isUndefined } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
@@ -23,7 +28,7 @@ import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 
-function useRpcStxCallContractParams() {
+function useRpcRequestParams() {
   const { origin, tabId } = useDefaultRequestParams();
   const requestId = initialSearchParams.get('requestId');
   const request = initialSearchParams.get('request');
@@ -65,8 +70,8 @@ function useUnsignedStacksTransactionFromRequest(request: TransactionPayload) {
   return tx.result;
 }
 
-export function useRpcStxCallContract() {
-  const { origin, request, requestId, tabId } = useRpcStxCallContractParams();
+export function useRpcBroadcastStacksTransaction(method: RpcMethodNames) {
+  const { origin, request, requestId, tabId } = useRpcRequestParams();
   const stacksTransaction = useUnsignedStacksTransactionFromRequest(request);
   const { stacksBroadcastTransaction } = useStacksBroadcastTransaction({ token: '' });
 
@@ -90,7 +95,7 @@ export function useRpcStxCallContract() {
 
         chrome.tabs.sendMessage(
           tabId,
-          createRpcSuccessResponse('stx_callContract', {
+          createRpcSuccessResponse(method, {
             id: requestId,
             result: {
               txid: result.txid,
@@ -103,7 +108,7 @@ export function useRpcStxCallContract() {
       onCancel() {
         chrome.tabs.sendMessage(
           tabId,
-          createRpcErrorResponse('stx_callContract', {
+          createRpcErrorResponse(method, {
             id: requestId,
             error: {
               message: 'User denied signing stacks transaction',
@@ -113,6 +118,6 @@ export function useRpcStxCallContract() {
         );
       },
     }),
-    [origin, requestId, stacksBroadcastTransaction, stacksTransaction, tabId]
+    [method, origin, requestId, stacksBroadcastTransaction, stacksTransaction, tabId]
   );
 }

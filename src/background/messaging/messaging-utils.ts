@@ -5,7 +5,7 @@ import type { Json } from 'jsontokens';
 import * as z from 'zod';
 
 import type { baseStacksTransactionConfigSchema } from '@leather.io/rpc';
-import { isDefined, isUndefined } from '@leather.io/utils';
+import { isDefined } from '@leather.io/utils';
 
 import { InternalMethods } from '@shared/message-types';
 import { sendMessage } from '@shared/messages';
@@ -93,8 +93,6 @@ type BaseStacksTransactionRpcParams = z.infer<typeof baseStacksTransactionConfig
 export function getStxDefaultMessageParamsToTransactionRequest(
   params: BaseStacksTransactionRpcParams
 ) {
-  if (isUndefined(params)) return;
-
   const jsonTxRequest: Json = {};
 
   if ('address' in params && isDefined(params.address)) {
