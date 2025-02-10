@@ -187,7 +187,7 @@ export const Signature = () => {
     const stringMessage = serializeCV(message);
     const stringDomain = serializeCV(domain);
 
-    const result = await window.LeatherProvider.request('stx_signMessage', {
+    const result = await window.LeatherProvider.request('stx_signStructuredMessage', {
       message: stringMessage,
       messageType: 'structured',
       domain: stringDomain,
