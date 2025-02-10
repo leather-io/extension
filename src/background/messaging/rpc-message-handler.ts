@@ -17,6 +17,7 @@ import {
   rpcSignStacksStructuredMessage,
 } from './rpc-methods/sign-stacks-message';
 import { rpcStxCallContract } from './rpc-methods/stx-call-contract';
+import { rpcStxDeployContract } from './rpc-methods/stx-deploy-contract';
 import { rpcStxGetAddresses } from './rpc-methods/stx-get-addresses';
 import { rpcSupportedMethods } from './rpc-methods/supported-methods';
 
@@ -54,6 +55,11 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
 
     case 'stx_callContract': {
       await rpcStxCallContract(message, port);
+      break;
+    }
+
+    case 'stx_deployContract': {
+      await rpcStxDeployContract(message, port);
       break;
     }
 

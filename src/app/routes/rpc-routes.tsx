@@ -7,13 +7,13 @@ import { EditNonceSheet } from '@app/features/dialogs/edit-nonce-dialog/edit-non
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerStacksMessageSigningRoutes } from '@app/features/ledger/flows/stacks-message-signing/ledger-stacks-sign-msg.routes';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
+import { RpcBroadcastStacksTransaction } from '@app/pages/rpc-broadcast-stacks-transaction/rpc-broadcast-stacks-transactionx';
 import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
 import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-transfer.routes';
 import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
 import { RpcSignPsbtSummary } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt-summary';
 import { RpcStacksMessageSigning } from '@app/pages/rpc-sign-stacks-message/rpc-sign-stacks-message';
 import { RpcSignStacksTransaction } from '@app/pages/rpc-sign-stacks-transaction/rpc-sign-stacks-transaction';
-import { RpcStxCallContract } from '@app/pages/rpc-stx-call-contract/rpc-stx-call-contract';
 import { AccountGate } from '@app/routes/account-gate';
 
 import { SuspenseLoadingSpinner } from './app-routes';
@@ -89,7 +89,19 @@ export const rpcRequestRoutes = (
       path={RouteUrls.RpcStxCallContract}
       element={
         <AccountGate>
-          <RpcStxCallContract />
+          <RpcBroadcastStacksTransaction method="stx_callContract" />
+        </AccountGate>
+      }
+    >
+      {ledgerStacksTxSigningRoutes}
+      <Route path={RouteUrls.EditNonce} element={<EditNonceSheet />} />
+    </Route>
+
+    <Route
+      path={RouteUrls.RpcStxDeployContract}
+      element={
+        <AccountGate>
+          <RpcBroadcastStacksTransaction method="stx_deployContract" />
         </AccountGate>
       }
     >
