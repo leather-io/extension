@@ -1,4 +1,4 @@
-import { type ClarityValue, serializeCV } from '@stacks/transactions';
+import { serializeCV } from '@stacks/transactions';
 import { createUnsecuredToken } from 'jsontokens';
 
 import {
@@ -9,7 +9,7 @@ import {
   type stxCallContract,
 } from '@leather.io/rpc';
 import { TransactionTypes, getStacksContractName } from '@leather.io/stacks';
-import { isUndefined } from '@leather.io/utils';
+import { isString, isUndefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import {
@@ -30,14 +30,11 @@ import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-message-han
 function getMessageParamsToTransactionRequest(params: RpcParams<typeof stxCallContract>) {
   const contractName = getStacksContractName(params.contract);
   const defaultParams = getStxDefaultMessageParamsToTransactionRequest(params);
-
   return {
     txType: TransactionTypes.ContractCall,
     contractAddress: params.contract.split('.')[0],
     contractName,
-    functionArgs: (params.functionArgs ?? []).map(arg =>
-      serializeCV(arg as unknown as ClarityValue)
-    ),
+    functionArgs: (params.functionArgs ?? []).map(arg => (isString(arg) ? arg : serializeCV(arg))),
     functionName: params.functionName,
     ...defaultParams,
   };

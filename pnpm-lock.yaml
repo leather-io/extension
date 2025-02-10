@@ -34,7 +34,7 @@ importers:
         version: 0.7.0(encoding@0.1.13)
       '@coinbase/cbpay-js':
         specifier: 2.1.0
-        version: 2.1.0(regenerator-runtime@0.14.1)
+        version: 2.1.0(regenerator-runtime@0.13.11)
       '@fungible-systems/zone-file':
         specifier: 2.0.0
         version: 2.0.0
@@ -18339,9 +18339,9 @@ snapshots:
       picocolors: 1.1.0
       sisteransi: 1.0.5
 
-  '@coinbase/cbpay-js@2.1.0(regenerator-runtime@0.14.1)':
+  '@coinbase/cbpay-js@2.1.0(regenerator-runtime@0.13.11)':
     optionalDependencies:
-      regenerator-runtime: 0.14.1
+      regenerator-runtime: 0.13.11
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
