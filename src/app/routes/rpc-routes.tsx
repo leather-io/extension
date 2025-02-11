@@ -14,6 +14,7 @@ import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
 import { RpcSignPsbtSummary } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt-summary';
 import { RpcStacksMessageSigning } from '@app/pages/rpc-sign-stacks-message/rpc-sign-stacks-message';
 import { RpcSignStacksTransaction } from '@app/pages/rpc-sign-stacks-transaction/rpc-sign-stacks-transaction';
+import { RpcStxTransferStx } from '@app/pages/rpc-stx-transfer-stx/rpc-stx-transfer-stx';
 import { AccountGate } from '@app/routes/account-gate';
 
 import { SuspenseLoadingSpinner } from './app-routes';
@@ -102,6 +103,18 @@ export const rpcRequestRoutes = (
       element={
         <AccountGate>
           <RpcBroadcastStacksTransaction method="stx_deployContract" />
+        </AccountGate>
+      }
+    >
+      {ledgerStacksTxSigningRoutes}
+      <Route path={RouteUrls.EditNonce} element={<EditNonceSheet />} />
+    </Route>
+
+    <Route
+      path={RouteUrls.RpcStxTransferStx}
+      element={
+        <AccountGate>
+          <RpcStxTransferStx />
         </AccountGate>
       }
     >
