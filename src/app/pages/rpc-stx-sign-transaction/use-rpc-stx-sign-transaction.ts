@@ -11,7 +11,7 @@ import { initialSearchParams } from '@app/common/initial-search-params';
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
 
-function useRpcSignStacksTransactionParams() {
+function useRpcStxSignTransactionParams() {
   const { origin, tabId } = useDefaultRequestParams();
   const requestId = initialSearchParams.get('requestId');
   const txHex = initialSearchParams.get('txHex');
@@ -32,9 +32,9 @@ function useRpcSignStacksTransactionParams() {
   );
 }
 
-export function useRpcSignStacksTransaction() {
+export function useRpcStxSignTransaction() {
   const { origin, requestId, tabId, stacksTransaction, isMultisig, txSender } =
-    useRpcSignStacksTransactionParams();
+    useRpcStxSignTransactionParams();
   const signStacksTx = useSignStacksTransaction();
   const wasSignedByOtherOwners =
     isMultisig &&

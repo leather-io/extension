@@ -105,7 +105,7 @@ export enum RouteUrls {
   UnauthorizedRequest = '/unauthorized-request',
 
   // Request routes stacks
-  RpcSignStacksTransaction = '/sign-stacks-transaction',
+  RpcStxSignTransaction = '/stx-sign-transaction',
   RpcStxCallContract = '/stx-call-contract',
   RpcStxDeployContract = '/stx-deploy-contract',
   RpcStxTransferStx = '/stx-transfer-stx',
