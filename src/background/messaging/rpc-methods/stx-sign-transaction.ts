@@ -111,7 +111,7 @@ function validateStacksTransaction(txHex: string) {
   }
 }
 
-export async function rpcSignStacksTransaction(
+export async function rpcStxSignTransaction(
   message: RpcRequest<typeof stxSignTransaction>,
   port: chrome.runtime.Port
 ) {
@@ -185,7 +185,7 @@ export async function rpcSignStacksTransaction(
 
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
 
-  const { id } = await triggerRequestWindowOpen(RouteUrls.RpcSignStacksTransaction, urlParams);
+  const { id } = await triggerRequestWindowOpen(RouteUrls.RpcStxSignTransaction, urlParams);
 
   listenForPopupClose({
     tabId,

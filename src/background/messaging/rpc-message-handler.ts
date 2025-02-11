@@ -17,7 +17,7 @@ import {
 
 import { queueAnalyticsRequest } from '@background/background-analytics';
 import { rpcSwap } from '@background/messaging/rpc-methods/open-swap';
-import { rpcSignStacksTransaction } from '@background/messaging/rpc-methods/sign-stacks-transaction';
+import { rpcStxSignTransaction } from '@background/messaging/rpc-methods/stx-sign-transaction';
 
 import { getTabIdFromPort, listenForOriginTabClose } from './messaging-utils';
 import { rpcGetAddresses } from './rpc-methods/get-addresses';
@@ -78,7 +78,7 @@ export async function rpcMessageHandler(message: RpcRequests, port: chrome.runti
     }
 
     case stxSignTransaction.method: {
-      await rpcSignStacksTransaction(message, port);
+      await rpcStxSignTransaction(message, port);
       break;
     }
 
