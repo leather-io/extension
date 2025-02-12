@@ -1,9 +1,15 @@
 import { Dispatch, SetStateAction } from 'react';
 
 import { Stack } from 'leather-styles/jsx';
+import { useCurrentBtcAccountBalance } from 'services/queries/balance/btc-balance.query';
 
+import type { Money } from '@leather.io/models';
 import { BtcAvatarIcon, StxAvatarIcon } from '@leather.io/ui';
+import { createBtcCryptoAssetBalance, createMoney, i18nFormatCurrency } from '@leather.io/utils';
 
+import { logger } from '@shared/logger';
+
+import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 import {
   BitcoinNativeSegwitAccountLoader,
   BitcoinTaprootAccountLoader,
@@ -42,6 +48,8 @@ interface AssetListProps {
   setHasManageableTokens?: Dispatch<SetStateAction<boolean>>;
 }
 
+const zeroBtc = createMoney(0, 'BTC');
+
 export function AssetList({
   onSelectAsset,
   variant = 'read-only',
@@ -51,6 +59,8 @@ export function AssetList({
   filter,
 }: AssetListProps) {
   const currentAccount = useCurrentStacksAccount();
+  const btcAccountBalance = useCurrentBtcAccountBalance();
+  logger.debug('Alternative balance:', JSON.stringify(btcAccountBalance));
   const isLedger = useHasLedgerKeys();
   const isPrivate = useIsPrivateMode();
 
@@ -59,32 +69,48 @@ export function AssetList({
   return (
     <Stack>
       {showUnmanageableTokens && (
-        <BitcoinNativeSegwitAccountLoader
-          current
-          fallback={
-            showUnmanageableTokens && (
-              <ConnectLedgerAssetItemFallback
-                chain="bitcoin"
-                icon={<BtcAvatarIcon />}
-                symbol="BTC"
-                variant={variant}
-              />
-            )
+        <CryptoAssetItemLayout
+          availableBalance={btcAccountBalance.value?.btc.availableBalance ?? zeroBtc}
+          captionLeft="BTC"
+          fiatBalance={
+            btcAccountBalance.value
+              ? i18nFormatCurrency(btcAccountBalance.value?.usd.availableBalance)
+              : ''
           }
-        >
-          {nativeSegwitAccount => (
-            <BtcAssetItemBalanceLoader address={nativeSegwitAccount.address}>
-              {(balance, isLoading, isLoadingAdditionalData) => (
-                <BtcCryptoAssetItem
-                  balance={balance}
-                  isLoading={isLoading}
-                  onSelectAsset={onSelectAsset}
-                  isLoadingAdditionalData={isLoadingAdditionalData}
-                />
-              )}
-            </BtcAssetItemBalanceLoader>
-          )}
-        </BitcoinNativeSegwitAccountLoader>
+          icon={<BtcAvatarIcon />}
+          isLoading={btcAccountBalance.state === 'loading'}
+          isLoadingAdditionalData={btcAccountBalance.state === 'loading'}
+          isPrivate={isPrivate}
+          onSelectAsset={onSelectAsset}
+          titleLeft="Bitcoin"
+          dataTestId="BTC"
+        />
+        // <BitcoinNativeSegwitAccountLoader
+        //   current
+        //   fallback={
+        //     showUnmanageableTokens && (
+        //       <ConnectLedgerAssetItemFallback
+        //         chain="bitcoin"
+        //         icon={<BtcAvatarIcon />}
+        //         symbol="BTC"
+        //         variant={variant}
+        //       />
+        //     )
+        //   }
+        // >
+        //   {nativeSegwitAccount => (
+        //     <BtcAssetItemBalanceLoader address={nativeSegwitAccount.address}>
+        //       {(balance, isLoading, isLoadingAdditionalData) => (
+        // <BtcCryptoAssetItem
+        //   balance={btcAccountBalance.value?.}
+        //   isLoading={isLoading}
+        //   onSelectAsset={onSelectAsset}
+        //   isLoadingAdditionalData={isLoadingAdditionalData}
+        // />
+        //       )}
+        //     </BtcAssetItemBalanceLoader>
+        //   )}
+        // </BitcoinNativeSegwitAccountLoader>
       )}
 
       <CurrentStacksAccountLoader

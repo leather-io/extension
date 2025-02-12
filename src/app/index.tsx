@@ -2,6 +2,7 @@ import { createRoot } from 'react-dom/client';
 
 import ecc from '@bitcoinerlab/secp256k1';
 import * as bitcoin from 'bitcoinjs-lib';
+import { initAppServices } from 'services/init-app-services';
 
 import { initSentry } from '@shared/utils/analytics';
 import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-log';
@@ -29,6 +30,7 @@ declare global {
 window.__APP_VERSION__ = VERSION;
 
 async function renderApp() {
+  initAppServices();
   await restoreWalletSession();
   const container = document.getElementById('app');
   return createRoot(container!).render(<App />);
