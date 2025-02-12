@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -143,7 +143,9 @@
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
 <a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,31 +169,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -199,8 +176,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -225,9 +229,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Suspense } from 'react';
 &nbsp;
-import { TransactionTypes } from '@stacks/connect';
-import { NonFungiblePostCondition, STXPostCondition, addressToString } from '@stacks/transactions';
+import {
+  NonFungiblePostConditionWire,
+  STXPostConditionWire,
+  addressToString,
+} from '@stacks/transactions';
 &nbsp;
+import { TransactionTypes } from '@leather.io/stacks';
 import { truncateMiddle } from '@leather.io/utils';
 &nbsp;
 import {
@@ -245,7 +253,7 @@ import { useTransactionRequestState } from '@app/store/transactions/requests.hoo
 &nbsp;
 interface PostConditionItemProps {
   isLast?: boolean;
-  pc: STXPostCondition | NonFungiblePostCondition;
+  pc: STXPostConditionWire | NonFungiblePostConditionWire;
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >PostConditionItemSuspense(p</span>rops: PostConditionItemProps): React.JSX.Element | null {
@@ -260,7 +268,7 @@ function <span class="fstat-no" title="function not covered" >PostConditionItemS
   const name = <span class="cstat-no" title="statement not covered" >getNameFromPostCondition(pc);</span>
 &nbsp;
   const contractName = <span class="cstat-no" title="statement not covered" >'contractName' in pc.principal &amp;&amp; pc.principal.contractName.content;</span>
-  const address = <span class="cstat-no" title="statement not covered" >addressToString(pc.principal.address);</span>
+  const address = <span class="cstat-no" title="statement not covered" >'address' in pc.principal ? addressToString(pc.principal.address) : '';</span>
   const isSending = <span class="cstat-no" title="statement not covered" >address === currentAccount?.address;</span>
 &nbsp;
   const isContractPrincipal =
@@ -284,9 +292,7 @@ function <span class="fstat-no" title="function not covered" >PostConditionItemS
         isContractPrincipal ? 'The contract ' : isSending ? 'You ' : 'Another address '
       } ${title}`}
       left={name}
-      right={`${truncateMiddle(addressToString(pc.principal.address), 4)}${
-        contractName ? `.${contractName}` : ''
-      }`}
+      right={`${truncateMiddle(address, 4)}${contractName ? `.${contractName}` : ''}`}
       amount={amount}
       ticker={ticker}
       icon={iconString}
@@ -310,7 +316,7 @@ export function <span class="fstat-no" title="function not covered" >PostConditi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-05T11:41:12.393Z
+                at 2025-02-12T15:56:32.597Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

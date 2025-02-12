@@ -202,17 +202,7 @@
 <a name='L137'></a><a href='#L137'>137</a>
 <a name='L138'></a><a href='#L138'>138</a>
 <a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a>
-<a name='L141'></a><a href='#L141'>141</a>
-<a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a>
-<a name='L144'></a><a href='#L144'>144</a>
-<a name='L145'></a><a href='#L145'>145</a>
-<a name='L146'></a><a href='#L146'>146</a>
-<a name='L147'></a><a href='#L147'>147</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L140'></a><a href='#L140'>140</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -273,11 +263,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -358,25 +344,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { bytesToHex } from '@noble/hashes/utils';
 import { createSelector } from '@reduxjs/toolkit';
 import { HARDENED_OFFSET, HDKey } from '@scure/bip32';
-import { ChainID } from '@stacks/common';
 import {
   AddressVersion,
-  createStacksPrivateKey,
   createStacksPublicKey,
-  getPublicKey,
-  pubKeyfromPrivKey,
+  privateKeyToPublic,
   publicKeyToAddress,
+  publicKeyToAddressSingleSig,
 } from '@stacks/transactions';
 import { deriveStxPrivateKey, generateWallet } from '@stacks/wallet-sdk';
 import { atom } from 'jotai';
 &nbsp;
-import { whenStacksChainId } from '@leather.io/stacks';
 import { createNullArrayOfLength } from '@leather.io/utils';
 &nbsp;
 import { DATA_DERIVATION_PATH, deriveStacksSalt } from '@shared/crypto/stacks/stacks-address-gen';
 import { defaultWalletKeyId } from '@shared/utils';
 &nbsp;
-import { derivePublicKey } from '@app/common/keychain/keychain';
 import { storeAtom } from '@app/store';
 import { selectStacksChain } from '@app/store/chains/stx-chain.selectors';
 import {
@@ -385,6 +367,7 @@ import {
 } from '@app/store/in-memory-key/in-memory-key.selectors';
 import { selectDefaultWalletStacksKeys } from '@app/store/ledger/stacks/stacks-key.slice';
 import { currentNetworkAtom } from '@app/store/networks/networks';
+import { getStacksNetworkFromChainId } from '@app/store/networks/networks.hooks';
 &nbsp;
 import type {
   HardwareStacksAccount,
@@ -394,7 +377,7 @@ import type {
 &nbsp;
 function <span class="fstat-no" title="function not covered" >initalizeStacksAccount(r</span>ootKeychain: HDKey, index: number) {
   const stxPrivateKey = <span class="cstat-no" title="statement not covered" >deriveStxPrivateKey({ rootNode: rootKeychain, index } as any);</span>
-  const pubKey = <span class="cstat-no" title="statement not covered" >getPublicKey(createStacksPrivateKey(stxPrivateKey));</span>
+  const pubKey = <span class="cstat-no" title="statement not covered" >privateKeyToPublic(stxPrivateKey) as string;</span>
 &nbsp;
   const identitiesKeychain = <span class="cstat-no" title="statement not covered" >rootKeychain.derive(DATA_DERIVATION_PATH);</span>
   const identityKeychain = <span class="cstat-no" title="statement not covered" >identitiesKeychain.deriveChild(index + HARDENED_OFFSET);</span>
@@ -417,13 +400,9 @@ function <span class="fstat-no" title="function not covered" >initalizeStacksAcc
   };
 }
 &nbsp;
-const stacksAddressNetworkVersionState = atom(<span class="fstat-no" title="function not covered" >get =&gt; {</span>
+const stacksAddressNetworkState = atom(<span class="fstat-no" title="function not covered" >get =&gt; {</span>
   const currentNetwork = <span class="cstat-no" title="statement not covered" >get(currentNetworkAtom);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return whenStacksChainId(currentNetwork.chain.stacks.chainId)({</span>
-    [ChainID.Mainnet]: AddressVersion.MainnetSingleSig,
-    [ChainID.Testnet]: AddressVersion.TestnetSingleSig,
-  });
+<span class="cstat-no" title="statement not covered" >  return getStacksNetworkFromChainId(currentNetwork.chain.stacks.chainId);</span>
 });
 &nbsp;
 const selectStacksWalletState = createSelector(
@@ -441,25 +420,25 @@ const selectStacksWalletState = createSelector(
 &nbsp;
 const softwareAccountsState = atom&lt;SoftwareStacksAccount[] | undefined&gt;(<span class="fstat-no" title="function not covered" >get =&gt; {</span>
   const store = <span class="cstat-no" title="statement not covered" >get(storeAtom);</span>
-  const addressVersion = <span class="cstat-no" title="statement not covered" >get(stacksAddressNetworkVersionState) || AddressVersion.TestnetSingleSig;</span>
+  const network = <span class="cstat-no" title="statement not covered" >get(stacksAddressNetworkState) || AddressVersion.TestnetSingleSig;</span>
   const accounts = <span class="cstat-no" title="statement not covered" >selectStacksWalletState(store);</span>
 <span class="cstat-no" title="statement not covered" >  if (!accounts) <span class="cstat-no" title="statement not covered" >return undefined;</span></span>
 <span class="cstat-no" title="statement not covered" >  return accounts.map(<span class="fstat-no" title="function not covered" >account =&gt; {</span></span>
-    const address = <span class="cstat-no" title="statement not covered" >publicKeyToAddress(addressVersion, pubKeyfromPrivKey(account.stxPrivateKey));</span>
-    const stxPublicKey = <span class="cstat-no" title="statement not covered" >derivePublicKey(account.stxPrivateKey);</span>
-    const dataPublicKey = <span class="cstat-no" title="statement not covered" >derivePublicKey(account.dataPrivateKey);</span>
+    const address = <span class="cstat-no" title="statement not covered" >publicKeyToAddressSingleSig(privateKeyToPublic(account.stxPrivateKey), network);</span>
+    const stxPublicKey = <span class="cstat-no" title="statement not covered" >privateKeyToPublic(account.stxPrivateKey) as string;</span>
+    const dataPublicKey = <span class="cstat-no" title="statement not covered" >privateKeyToPublic(account.dataPrivateKey) as string;</span>
 <span class="cstat-no" title="statement not covered" >    return { ...account, type: 'software', address, stxPublicKey, dataPublicKey };</span>
   });
 });
 &nbsp;
 const ledgerAccountsState = atom&lt;HardwareStacksAccount[] | undefined&gt;(<span class="fstat-no" title="function not covered" >get =&gt; {</span>
-  const addressVersion = <span class="cstat-no" title="statement not covered" >get(stacksAddressNetworkVersionState);</span>
+  const network = <span class="cstat-no" title="statement not covered" >get(stacksAddressNetworkState);</span>
   const ledgerKeys = <span class="cstat-no" title="statement not covered" >selectDefaultWalletStacksKeys(get(storeAtom));</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return ledgerKeys.map(<span class="fstat-no" title="function not covered" >(p</span>ublicKeys, index) =&gt; {</span>
-    const address = <span class="cstat-no" title="statement not covered" >publicKeyToAddress(</span>
-      addressVersion,
-      createStacksPublicKey(publicKeys.stxPublicKey)
+    const address = <span class="cstat-no" title="statement not covered" >publicKeyToAddressSingleSig(</span>
+      createStacksPublicKey(publicKeys.stxPublicKey).data,
+      network
     );
 <span class="cstat-no" title="statement not covered" >    return {</span>
       ...publicKeys,
@@ -508,7 +487,7 @@ export const legacyStackWallet = atom(<span class="fstat-no" title="function not
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-05T11:41:12.393Z
+                at 2025-02-12T15:56:32.597Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

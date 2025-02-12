@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">23.52% </span>
+                <span class="strong">27.77% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/17</span>
+                <span class='fraction'>5/18</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/5</span>
+                <span class='fraction'>2/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.66% </span>
+                <span class="strong">31.25% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/15</span>
+                <span class='fraction'>5/16</span>
             </div>
         
             
@@ -126,15 +126,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -161,28 +161,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
 &nbsp;
-import { ContractCallPayload, ContractDeployPayload, STXTransferPayload } from '@stacks/connect';
-import { FungiblePostCondition, addressToString } from '@stacks/transactions';
+import { FungiblePostConditionWire, addressToString } from '@stacks/transactions';
 &nbsp;
 import { isFtAsset, useGetFungibleTokenMetadataQuery } from '@leather.io/query';
+import { ensurePostConditionWireFormat, getPostCondition } from '@leather.io/stacks';
 &nbsp;
-import {
-  getPostCondition,
-  handlePostConditions,
-} from '@app/common/transactions/stacks/post-condition.utils';
+import type { TransactionPayload } from '@shared/utils/legacy-requests';
+&nbsp;
+import { handlePostConditions } from '@app/common/transactions/stacks/post-condition.utils';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 &nbsp;
 import { useTransactionRequestState } from './requests.hooks';
 &nbsp;
-export function formatPostConditionState(
-  payload?: ContractCallPayload | ContractDeployPayload | STXTransferPayload | null,
-  address?: string
-) {
+export function formatPostConditionState(payload?: TransactionPayload | null, address?: string) {
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!payload || !address) <span class="cstat-no" title="statement not covered" >return;</span>
 &nbsp;
   <span class="missing-if-branch" title="else path not taken" >E</span>if (payload.postConditions) {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (payload.stxAddress)
-      return handlePostConditions(payload.postConditions, payload.stxAddress, address);
+      return handlePostConditions(
+        payload.postConditions.map(pc =&gt; ensurePostConditionWireFormat(pc)),
+        payload.stxAddress,
+        address
+      );
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return payload.postConditions.map(getPostCondition);</span>
   }
@@ -199,9 +199,9 @@ export function <span class="fstat-no" title="function not covered" >usePostCond
 <span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >f</span>ormatPostConditionState(payload, address), [</span>address, payload]);</span>
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useAssetFromFungiblePostCondition(p</span>c: FungiblePostCondition) {
-  const contractAddress = <span class="cstat-no" title="statement not covered" >addressToString(pc.assetInfo.address);</span>
-  const contractName = <span class="cstat-no" title="statement not covered" >pc.assetInfo.contractName.content;</span>
+export function <span class="fstat-no" title="function not covered" >useAssetFromFungiblePostCondition(p</span>c: FungiblePostConditionWire) {
+  const contractAddress = <span class="cstat-no" title="statement not covered" >addressToString(pc.asset.address);</span>
+  const contractName = <span class="cstat-no" title="statement not covered" >pc.asset.contractName.content;</span>
   const contractId = <span class="cstat-no" title="statement not covered" >`${contractAddress}.${contractName}`;</span>
   const { data: asset } = <span class="cstat-no" title="statement not covered" >useGetFungibleTokenMetadataQuery(contractId);</span>
 &nbsp;
@@ -214,7 +214,7 @@ export function <span class="fstat-no" title="function not covered" >useAssetFro
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-05T11:41:12.393Z
+                at 2025-02-12T15:56:32.597Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

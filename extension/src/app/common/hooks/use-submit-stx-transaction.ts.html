@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/25</span>
+                <span class='fraction'>0/27</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>0/26</span>
             </div>
         
             
@@ -128,7 +128,8 @@
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,7 +158,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -180,6 +180,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -195,7 +197,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback } from 'react';
 &nbsp;
-import { StacksTransaction, broadcastTransaction } from '@stacks/transactions';
+import { StacksTransactionWire, broadcastTransaction } from '@stacks/transactions';
 &nbsp;
 import { delay, isError } from '@leather.io/utils';
 &nbsp;
@@ -222,21 +224,20 @@ interface UseSubmitTransactionCallbackArgs {
 export function <span class="fstat-no" title="function not covered" >useSubmitTransactionCallback({</span> loadingKey }: UseSubmitTransactionArgs) {
   const toast = <span class="cstat-no" title="statement not covered" >useToast();</span>
   const refreshAccountData = <span class="cstat-no" title="statement not covered" >useRefreshAllAccountData();</span>
-&nbsp;
   const { setIsLoading, setIsIdle } = <span class="cstat-no" title="statement not covered" >useLoading(loadingKey);</span>
   const stacksNetwork = <span class="cstat-no" title="statement not covered" >useCurrentStacksNetworkState();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useCallback(</span>
 <span class="fstat-no" title="function not covered" >    ({</span> onSuccess, onError }: UseSubmitTransactionCallbackArgs) =&gt;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >      async (t</span>ransaction: StacksTransaction) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >      async (t</span>ransaction: StacksTransactionWire) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        setIsLoading();</span>
 <span class="cstat-no" title="statement not covered" >        try {</span>
-          const response = <span class="cstat-no" title="statement not covered" >await broadcastTransaction(transaction, stacksNetwork);</span>
-<span class="cstat-no" title="statement not covered" >          if (response.error) {</span>
+          const response = <span class="cstat-no" title="statement not covered" >await broadcastTransaction({ transaction, network: stacksNetwork });</span>
+<span class="cstat-no" title="statement not covered" >          if ('error' in response) {</span>
 <span class="cstat-no" title="statement not covered" >            logger.error('Transaction broadcast', response);</span>
 <span class="cstat-no" title="statement not covered" >            if (response.reason) <span class="cstat-no" title="statement not covered" >toast.error(getErrorMessage(response.reason));</span></span>
 <span class="cstat-no" title="statement not covered" >            onError(response.error);</span>
-<span class="cstat-no" title="statement not covered" >            setIsIdle();</span>
+<span class="cstat-no" title="statement not covered" >            return setIsIdle();</span>
           } else {
 <span class="cstat-no" title="statement not covered" >            logger.info('Transaction broadcast', response);</span>
 &nbsp;
@@ -245,14 +246,16 @@ export function <span class="fstat-no" title="function not covered" >useSubmitTr
 <span class="cstat-no" title="statement not covered" >            void analytics.track('broadcast_transaction', {</span>
               symbol: 'stx',
             });
-<span class="cstat-no" title="statement not covered" >            onSuccess(safelyFormatHexTxid(response.txid));</span>
+            const txid = <span class="cstat-no" title="statement not covered" >safelyFormatHexTxid(response.txid);</span>
+<span class="cstat-no" title="statement not covered" >            onSuccess(txid);</span>
 <span class="cstat-no" title="statement not covered" >            setIsIdle();</span>
 <span class="cstat-no" title="statement not covered" >            await refreshAccountData(timeForApiToUpdate);</span>
+<span class="cstat-no" title="statement not covered" >            return { txid, transaction };</span>
           }
         } catch (error) {
 <span class="cstat-no" title="statement not covered" >          logger.error('Transaction callback', { error });</span>
 <span class="cstat-no" title="statement not covered" >          onError(isError(error) ? error : { name: '', message: '' });</span>
-<span class="cstat-no" title="statement not covered" >          setIsIdle();</span>
+<span class="cstat-no" title="statement not covered" >          return setIsIdle();</span>
         }
       },
     [setIsLoading, stacksNetwork, toast, setIsIdle, refreshAccountData]
@@ -265,7 +268,7 @@ export function <span class="fstat-no" title="function not covered" >useSubmitTr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-05T11:41:12.393Z
+                at 2025-02-12T15:56:32.597Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

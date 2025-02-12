@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/62</span>
+                <span class='fraction'>0/61</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/57</span>
+                <span class='fraction'>0/56</span>
             </div>
         
             
@@ -282,9 +282,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -368,21 +365,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -449,13 +449,9 @@
 import { useNavigate } from 'react-router-dom';
 &nbsp;
 import { bytesToHex } from '@stacks/common';
-import { type ContractCallPayload, TransactionTypes } from '@stacks/connect';
-import {
-  AnchorMode,
-  PostConditionMode,
-  serializeCV,
-  serializePostCondition,
-} from '@stacks/transactions';
+import { type ContractCallPayload, TransactionTypes } from '@stacks/connect-jwt';
+import { PostConditionMode } from '@stacks/transactions';
+import { serializeCV } from '@stacks/transactions-v6';
 import type { RouteQuote } from 'bitflow-sdk';
 &nbsp;
 import { type SwapAsset } from '@leather.io/query';
@@ -467,8 +463,9 @@ import { bitflow } from '@shared/utils/bitflow-sdk';
 &nbsp;
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
-import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
+import { useCurrentStacksNetworkStateV6 } from '@app/store/networks/networks.hooks';
+import { generateStacksContractCallUnsignedTxV6 } from '@app/store/transactions/contract-call-v6';
+import { useSignStacksTransactionV6 } from '@app/store/transactions/transaction.hooks';
 &nbsp;
 import { useSponsorTransactionFees } from '../hooks/use-sponsor-tx-fees';
 import { useStacksBroadcastSwap } from '../hooks/use-stacks-broadcast-swap';
@@ -478,9 +475,9 @@ import type { StacksSwapContext } from './stacks-swap-provider';
 export function <span class="fstat-no" title="function not covered" >useStacksSwap(n</span>once: number | string) {
   const { setIsLoading, setIsIdle, isLoading } = <span class="cstat-no" title="statement not covered" >useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);</span>
   const currentAccount = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccount();</span>
-  const generateUnsignedTx = <span class="cstat-no" title="statement not covered" >useGenerateStacksContractCallUnsignedTx();</span>
-  const signTx = <span class="cstat-no" title="statement not covered" >useSignStacksTransaction();</span>
+  const signTx = <span class="cstat-no" title="statement not covered" >useSignStacksTransactionV6();</span>
   const broadcastStacksSwap = <span class="cstat-no" title="statement not covered" >useStacksBroadcastSwap();</span>
+  const network = <span class="cstat-no" title="statement not covered" >useCurrentStacksNetworkStateV6();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
 &nbsp;
   const { checkEligibilityForSponsor, submitSponsoredTx } = <span class="cstat-no" title="statement not covered" >useSponsorTransactionFees();</span>
@@ -553,19 +550,19 @@ export function <span class="fstat-no" title="function not covered" >useStacksSw
       );
 &nbsp;
       const payload: ContractCallPayload = <span class="cstat-no" title="statement not covered" >{</span>
-        anchorMode: AnchorMode.Any,
+        txType: TransactionTypes.ContractCall,
         contractAddress: swapParams.contractAddress,
         contractName: swapParams.contractName,
         functionName: swapParams.functionName,
         functionArgs: swapParams.functionArgs.map(<span class="fstat-no" title="function not covered" >x =&gt; <span class="cstat-no" title="statement not covered" >b</span>ytesToHex(serializeCV(x)))</span>,
         postConditionMode: PostConditionMode.Deny,
-        postConditions: swapParams.postConditions.map(<span class="fstat-no" title="function not covered" >pc =&gt; <span class="cstat-no" title="statement not covered" >b</span>ytesToHex(serializePostCondition(pc)))</span>,
+        postConditions: swapParams.postConditions,
         publicKey: currentAccount?.stxPublicKey,
         sponsored: false,
-        txType: TransactionTypes.ContractCall,
+        network,
       };
 &nbsp;
-      const unsignedTx = <span class="cstat-no" title="statement not covered" >await generateUnsignedTx(payload, {</span>
+      const unsignedTx = <span class="cstat-no" title="statement not covered" >await generateStacksContractCallUnsignedTxV6(payload, {</span>
         fee: swapData.fee?.amount.toNumber(),
         nonce,
       });
@@ -573,11 +570,14 @@ export function <span class="fstat-no" title="function not covered" >useStacksSw
 <span class="cstat-no" title="statement not covered" >      if (!unsignedTx)</span>
 <span class="cstat-no" title="statement not covered" >        return logger.error('Attempted to generate unsigned tx, but tx is undefined');</span>
 &nbsp;
-      const sponsorship = <span class="cstat-no" title="statement not covered" >await checkEligibilityForSponsor(unsignedTx);</span>
+      const sponsorship = <span class="cstat-no" title="statement not covered" >await checkEligibilityForSponsor({</span>
+        transaction: unsignedTx,
+        options: { ...payload, nonce },
+      });
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      return { routeQuote, sponsorship, unsignedTx };</span>
     },
-    [currentAccount, fetchRouteQuote, generateUnsignedTx, nonce, checkEligibilityForSponsor]
+    [currentAccount, fetchRouteQuote, network, nonce, checkEligibilityForSponsor]
   );
 &nbsp;
   const onSubmitSwap = <span class="cstat-no" title="statement not covered" >useCallback(</span>
@@ -600,9 +600,9 @@ export function <span class="fstat-no" title="function not covered" >useStacksSw
 <span class="cstat-no" title="statement not covered" >        if (swapData.sponsorship?.isEligible)</span>
 <span class="cstat-no" title="statement not covered" >          return await submitSponsoredTx(swapData.sponsorship.unsignedSponsoredTx!);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (!swapData.unsignedTx?.transaction) <span class="cstat-no" title="statement not covered" >return logger.error('No unsigned tx to sign');</span></span>
+<span class="cstat-no" title="statement not covered" >        if (!swapData.unsignedTx) <span class="cstat-no" title="statement not covered" >return logger.error('No unsigned tx to sign');</span></span>
 &nbsp;
-        const signedTx = <span class="cstat-no" title="statement not covered" >await signTx(swapData.unsignedTx.transaction);</span>
+        const signedTx = <span class="cstat-no" title="statement not covered" >await signTx(swapData.unsignedTx);</span>
 <span class="cstat-no" title="statement not covered" >        if (!signedTx)</span>
 <span class="cstat-no" title="statement not covered" >          return logger.error('Attempted to generate raw tx, but signed tx is undefined');</span>
 &nbsp;
@@ -643,7 +643,7 @@ export function <span class="fstat-no" title="function not covered" >useStacksSw
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-05T11:41:12.393Z
+                at 2025-02-12T15:56:32.597Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

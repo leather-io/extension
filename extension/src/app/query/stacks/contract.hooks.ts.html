@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/shared/utils/requests.ts</title>
+    <title>Code coverage report for extension/src/app/query/stacks/contract.hooks.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">extension/src/shared/utils</a> requests.ts</h1>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/query/stacks</a> contract.hooks.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.57% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/7</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/5</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -82,16 +82,7 @@
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
 <a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L20'></a><a href='#L20'>20</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -102,35 +93,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { TransactionPayload } from '@stacks/connect';
-import { StacksNetwork } from '@stacks/network';
-import { decodeToken } from 'jsontokens';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useQuery } from '@tanstack/react-query';
 &nbsp;
-// We need this function because the latest changes
-// to `@stacks/network` had some undesired consequence.
-// As `StacksNetwork` is a class instance, this is auto
-// serialized when being passed across `postMessage`,
-// from the developer's app, to Leather.
-// `coreApiUrl` now uses a getter, rather than a prop,
-// and `_coreApiUrl` is a private value.
-// To support both `@stacks/network` versions a dev may be using
-// we look for both possible networks defined
-export function <span class="fstat-no" title="function not covered" >getCoreApiUrl(n</span>etwork: Pick&lt;StacksNetwork, 'coreApiUrl'&gt;): string {
-<span class="cstat-no" title="statement not covered" >  if (network.coreApiUrl) <span class="cstat-no" title="statement not covered" >return network.coreApiUrl;</span></span>
-<span class="cstat-no" title="statement not covered" >  if ((network as any)._coreApiUrl) <span class="cstat-no" title="statement not covered" >return (network as any)._coreApiUrl;</span></span>
-<span class="cstat-no" title="statement not covered" >  return '';</span>
-}
+import { type ContractInterfaceFunction, useStacksClient } from '@leather.io/query';
 &nbsp;
-export function getPayloadFromToken(requestToken: string) {
-  const token = decodeToken(requestToken);
-  return token.payload as unknown as TransactionPayload;
+import type { TransactionPayload } from '@shared/utils/legacy-requests';
+&nbsp;
+import { createGetContractInterfaceQueryOptions } from './contract.query';
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >useContractFunction(t</span>ransactionRequest: TransactionPayload | null) {
+  const client = <span class="cstat-no" title="statement not covered" >useStacksClient();</span>
+<span class="cstat-no" title="statement not covered" >  return useQuery({</span>
+    ...createGetContractInterfaceQueryOptions({ client, transactionRequest }),
+    select: <span class="fstat-no" title="function not covered" >resp =&gt;</span>
+<span class="cstat-no" title="statement not covered" >      resp?.functions.find(<span class="fstat-no" title="function not covered" >(f</span>unc: ContractInterfaceFunction) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        if (!transactionRequest || transactionRequest.txType !== 'contract_call') <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >        return func.name === transactionRequest?.functionName;</span>
+      }),
+  });
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -139,16 +127,16 @@ export function getPayloadFromToken(requestToken: string) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-05T11:41:12.393Z
+                at 2025-02-12T15:56:32.597Z
             </div>
-        <script src="../../../../prettify.js"></script>
+        <script src="../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../sorter.js"></script>
-        <script src="../../../../block-navigation.js"></script>
+        <script src="../../../../../sorter.js"></script>
+        <script src="../../../../../block-navigation.js"></script>
     </body>
 </html>
     

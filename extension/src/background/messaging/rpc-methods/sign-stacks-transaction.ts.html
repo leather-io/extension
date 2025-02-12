@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/58</span>
+                <span class='fraction'>0/56</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/54</span>
+                <span class='fraction'>0/53</span>
             </div>
         
             
@@ -263,15 +263,7 @@
 <a name='L198'></a><a href='#L198'>198</a>
 <a name='L199'></a><a href='#L199'>199</a>
 <a name='L200'></a><a href='#L200'>200</a>
-<a name='L201'></a><a href='#L201'>201</a>
-<a name='L202'></a><a href='#L202'>202</a>
-<a name='L203'></a><a href='#L203'>203</a>
-<a name='L204'></a><a href='#L204'>204</a>
-<a name='L205'></a><a href='#L205'>205</a>
-<a name='L206'></a><a href='#L206'>206</a>
-<a name='L207'></a><a href='#L207'>207</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L201'></a><a href='#L201'>201</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -311,10 +303,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -475,21 +463,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { bytesToHex } from '@stacks/common';
-import { TransactionTypes } from '@stacks/connect';
-import {
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
   AddressHashMode,
   AuthType,
   MultiSigHashMode,
   PayloadType,
-  PostCondition,
-  StacksTransaction,
-  VersionedSmartContractPayload,
+  StacksTransactionWire,
+  VersionedSmartContractPayloadWire,
   addressToString,
   cvToValue,
   deserializeTransaction,
   serializeCV,
-  serializePostCondition,
 } from '@stacks/transactions';
 import { createUnsecuredToken } from 'jsontokens';
 &nbsp;
@@ -498,6 +482,7 @@ import {
   type StxSignTransactionRequest,
   type StxSignTransactionRequestParams,
 } from '@leather.io/rpc';
+import { TransactionTypes } from '@leather.io/stacks';
 import { isDefined, isUndefined } from '@leather.io/utils';
 &nbsp;
 import { RouteUrls } from '@shared/route-urls';
@@ -509,6 +494,7 @@ import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 &nbsp;
 import {
   RequestParams,
+  encodePostConditions,
   getTabIdFromPort,
   listenForPopupClose,
   makeSearchParamsWithDefaults,
@@ -522,10 +508,6 @@ function <span class="fstat-no" title="function not covered" >cleanMemoString(m<
 <span class="cstat-no" title="statement not covered" >  return memo.replaceAll(MEMO_DESERIALIZATION_STUB, '');</span>
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >encodePostConditions(p</span>ostConditions: PostCondition[]) {
-<span class="cstat-no" title="statement not covered" >  return postConditions.map(<span class="fstat-no" title="function not covered" >pc =&gt; <span class="cstat-no" title="statement not covered" >b</span>ytesToHex(serializePostCondition(pc)))</span>;</span>
-}
-&nbsp;
 function <span class="fstat-no" title="function not covered" >getStacksTransactionHexFromRequest(r</span>equestParams: StxSignTransactionRequestParams) {
 <span class="cstat-no" title="statement not covered" >  if ('txHex' in requestParams) <span class="cstat-no" title="statement not covered" >return requestParams.txHex;</span></span>
 <span class="cstat-no" title="statement not covered" >  return requestParams.transaction;</span>
@@ -537,7 +519,7 @@ function <span class="fstat-no" title="function not covered" >getAccountAddressF
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >transactionPayloadToTransactionRequest(</span>
-  stacksTransaction: StacksTransaction,
+  stacksTransaction: StacksTransactionWire,
   stxAddress?: string
 ) {
   const transactionRequest = <span class="cstat-no" title="statement not covered" >{</span>
@@ -552,7 +534,7 @@ function <span class="fstat-no" title="function not covered" >transactionPayload
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  switch (stacksTransaction.payload.payloadType) {</span>
     case PayloadType.TokenTransfer:
-<span class="cstat-no" title="statement not covered" >      transactionRequest.txType = TransactionTypes.STXTransfer;</span>
+<span class="cstat-no" title="statement not covered" >      transactionRequest.txType = TransactionTypes.StxTokenTransfer;</span>
 <span class="cstat-no" title="statement not covered" >      transactionRequest.recipient = cvToValue(stacksTransaction.payload.recipient, true);</span>
 <span class="cstat-no" title="statement not covered" >      transactionRequest.amount = stacksTransaction.payload.amount.toString();</span>
 <span class="cstat-no" title="statement not covered" >      transactionRequest.memo = cleanMemoString(stacksTransaction.payload.memo.content);</span>
@@ -574,7 +556,7 @@ function <span class="fstat-no" title="function not covered" >transactionPayload
 <span class="cstat-no" title="statement not covered" >      transactionRequest.contractName = stacksTransaction.payload.contractName.content;</span>
 <span class="cstat-no" title="statement not covered" >      transactionRequest.codeBody = stacksTransaction.payload.codeBody.content;</span>
 <span class="cstat-no" title="statement not covered" >      transactionRequest.clarityVersion = (</span>
-        stacksTransaction.payload as VersionedSmartContractPayload
+        stacksTransaction.payload as VersionedSmartContractPayloadWire
       ).clarityVersion;
 <span class="cstat-no" title="statement not covered" >      break;</span>
     default:
@@ -649,10 +631,10 @@ export async function <span class="fstat-no" title="function not covered" >rpcSi
   const hashMode = <span class="cstat-no" title="statement not covered" >stacksTransaction.auth.spendingCondition.hashMode as MultiSigHashMode;</span>
 &nbsp;
   const isMultisig =
-<span class="cstat-no" title="statement not covered" >    hashMode === AddressHashMode.SerializeP2SH ||</span>
-    hashMode === AddressHashMode.SerializeP2WSH ||
-    hashMode === AddressHashMode.SerializeP2SHNonSequential ||
-    hashMode === AddressHashMode.SerializeP2WSHNonSequential;
+<span class="cstat-no" title="statement not covered" >    hashMode === AddressHashMode.P2SH ||</span>
+    hashMode === AddressHashMode.P2WSH ||
+    hashMode === AddressHashMode.P2SHNonSequential ||
+    hashMode === AddressHashMode.P2WSHNonSequential;
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  void trackRpcRequestSuccess({ endpoint: message.method });</span>
 &nbsp;
@@ -688,7 +670,7 @@ export async function <span class="fstat-no" title="function not covered" >rpcSi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-05T11:41:12.393Z
+                at 2025-02-12T15:56:32.597Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

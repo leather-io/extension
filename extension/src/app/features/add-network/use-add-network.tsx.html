@@ -258,11 +258,7 @@
 <a name='L193'></a><a href='#L193'>193</a>
 <a name='L194'></a><a href='#L194'>194</a>
 <a name='L195'></a><a href='#L195'>195</a>
-<a name='L196'></a><a href='#L196'>196</a>
-<a name='L197'></a><a href='#L197'>197</a>
-<a name='L198'></a><a href='#L198'>198</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L196'></a><a href='#L196'>196</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -460,7 +456,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 &nbsp;
-import { ChainID } from '@stacks/transactions';
+import { createFetchFn } from '@stacks/common';
+import { ChainId } from '@stacks/network';
 &nbsp;
 import {
   type BitcoinNetwork,
@@ -475,10 +472,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { isValidUrl } from '@shared/utils/validate-url';
 &nbsp;
 import { removeTrailingSlash } from '@app/common/url-join';
-import {
-  useCurrentStacksNetworkState,
-  useNetworksActions,
-} from '@app/store/networks/networks.hooks';
+import { useNetworksActions } from '@app/store/networks/networks.hooks';
 &nbsp;
 /**
  * The **peer** network ID.
@@ -541,10 +535,10 @@ export function <span class="fstat-no" title="function not covered" >useAddNetwo
   const [loading, setLoading] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
   const [error, setError] = <span class="cstat-no" title="statement not covered" >useState('');</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
-  const network = <span class="cstat-no" title="statement not covered" >useCurrentStacksNetworkState();</span>
   const networksActions = <span class="cstat-no" title="statement not covered" >useNetworksActions();</span>
   const initialValues = <span class="cstat-no" title="statement not covered" >useInitialValues();</span>
   const { isEditNetworkMode } = <span class="cstat-no" title="statement not covered" >useAddNetworkState();</span>
+  const fetchFn = <span class="cstat-no" title="statement not covered" >createFetchFn();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return {</span>
     error,
@@ -581,8 +575,8 @@ export function <span class="fstat-no" title="function not covered" >useAddNetwo
       const bitcoinPath = <span class="cstat-no" title="statement not covered" >removeTrailingSlash(new URL(values.bitcoinUrl).href);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      try {</span>
-        const bitcoinResponse = <span class="cstat-no" title="statement not covered" >await network.fetchFn(`${bitcoinPath}/mempool/recent`);</span>
-<span class="cstat-no" title="statement not covered" >        if (!bitcoinResponse.ok) <span class="cstat-no" title="statement not covered" >throw new Error('Unable to fetch mempool from bitcoin node');</span></span>
+        const bitcoinResponse = <span class="cstat-no" title="statement not covered" >await fetchFn(`${bitcoinPath}/mempool/recent`);</span>
+<span class="cstat-no" title="statement not covered" >        if (!bitcoinResponse?.ok) <span class="cstat-no" title="statement not covered" >throw new Error('Unable to fetch mempool from bitcoin node');</span></span>
         const bitcoinMempool = <span class="cstat-no" title="statement not covered" >await bitcoinResponse.json();</span>
 <span class="cstat-no" title="statement not covered" >        if (!Array.isArray(bitcoinMempool))</span>
 <span class="cstat-no" title="statement not covered" >          throw new Error('Unable to fetch mempool from bitcoin node');</span>
@@ -594,8 +588,8 @@ export function <span class="fstat-no" title="function not covered" >useAddNetwo
 &nbsp;
       let stacksChainInfo: any;
 <span class="cstat-no" title="statement not covered" >      try {</span>
-        const stacksResponse = <span class="cstat-no" title="statement not covered" >await network.fetchFn(`${stacksPath}/v2/info`);</span>
-<span class="cstat-no" title="statement not covered" >        stacksChainInfo = await stacksResponse.json();</span>
+        const stacksResponse = <span class="cstat-no" title="statement not covered" >await fetchFn(`${stacksPath}/v2/info`);</span>
+<span class="cstat-no" title="statement not covered" >        stacksChainInfo = await stacksResponse?.json();</span>
 <span class="cstat-no" title="statement not covered" >        if (!stacksChainInfo) <span class="cstat-no" title="statement not covered" >throw new Error('Unable to fetch info from stacks node');</span></span>
       } catch (error) {
 <span class="cstat-no" title="statement not covered" >        setError('Unable to fetch info from stacks node');</span>
@@ -622,7 +616,7 @@ export function <span class="fstat-no" title="function not covered" >useAddNetwo
       // Currently, only subnets of mainnet and testnet are supported in the wallet
 <span class="cstat-no" title="statement not covered" >      if (isFirstLevelSubnet) {</span>
         const parentChainId =
-<span class="cstat-no" title="statement not covered" >          parentNetworkId === PeerNetworkID.Mainnet ? ChainID.Mainnet : ChainID.Testnet;</span>
+<span class="cstat-no" title="statement not covered" >          parentNetworkId === PeerNetworkID.Mainnet ? ChainId.Mainnet : ChainId.Testnet;</span>
 <span class="cstat-no" title="statement not covered" >        removeEditedNetwork();</span>
 <span class="cstat-no" title="statement not covered" >        networksActions.addNetwork({</span>
           id: key as DefaultNetworkConfigurations,
@@ -661,7 +655,7 @@ export function <span class="fstat-no" title="function not covered" >useAddNetwo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-05T11:41:12.393Z
+                at 2025-02-12T15:56:32.597Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
