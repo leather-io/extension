@@ -17,7 +17,7 @@ export interface AddressMonitor {
 }
 
 const monitors: AddressMonitor[] = [];
-
+// ts-unused-exports:disable-next-line
 export async function initAddressMonitor() {
   const addresses = await readMonitoredAddressStore();
   monitors.push(createBitcoinTransactionMonitor(addresses));

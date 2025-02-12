@@ -9,6 +9,7 @@ import { sendMessage } from '@shared/messages';
 import { useMonitorableAddresses } from '@app/features/address-monitor/use-monitorable-addresses';
 import type { MonitoredAddress } from '@background/monitors/address-monitor';
 
+// ts-unused-exports:disable-next-line
 export function useSyncAddressMonitor() {
   const addresses = useMonitorableAddresses();
   const prevAddresses = useRef<MonitoredAddress[]>([]);
