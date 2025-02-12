@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { MultiSigSpendingCondition, deserializeTransaction } from '@stacks/transactions';
 
-import { RpcErrorCode, createRpcErrorResponse, createRpcSuccessResponse } from '@leather.io/rpc';
+import { createRpcSuccessResponse } from '@leather.io/rpc';
 
 import { closeWindow } from '@shared/utils';
 
@@ -66,18 +66,6 @@ export function useRpcStxSignTransaction() {
         })
       );
       closeWindow();
-    },
-    onCancel() {
-      chrome.tabs.sendMessage(
-        tabId,
-        createRpcErrorResponse('stx_signTransaction', {
-          id: requestId,
-          error: {
-            message: 'User denied signing stacks transaction',
-            code: RpcErrorCode.USER_REJECTION,
-          },
-        })
-      );
     },
   };
 }

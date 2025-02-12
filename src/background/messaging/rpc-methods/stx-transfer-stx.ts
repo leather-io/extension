@@ -1,34 +1,51 @@
-import { RpcErrorCode, type StxTransferStxRequest } from '@leather.io/rpc';
+import { createUnsecuredToken } from 'jsontokens';
+
+import { type RpcParams, type RpcRequest, stxTransferStx } from '@leather.io/rpc';
+import { TransactionTypes } from '@leather.io/stacks';
 
 import { RouteUrls } from '@shared/route-urls';
-import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
+import { handleRpcMessage } from '../handle-rpc-message';
 import {
   type RequestParams,
-  listenForPopupClose,
-  makeSearchParamsWithDefaults,
-  triggerRequestWindowOpen,
+  getStxDefaultMessageParamsToTransactionRequest,
+  validateRequestParams,
 } from '../messaging-utils';
 
-export async function rpcStxTransferStx(message: StxTransferStxRequest, port: chrome.runtime.Port) {
+function getMessageParamsToTransactionRequest(params: RpcParams<typeof stxTransferStx>) {
+  const defaultParams = getStxDefaultMessageParamsToTransactionRequest(params);
+
+  return {
+    txType: TransactionTypes.StxTokenTransfer,
+    amount: params.amount.toString(),
+    memo: params.memo ?? '', // Add default to type,
+    recipient: params.recipient,
+    ...defaultParams,
+  };
+}
+
+export async function rpcStxTransferStx(
+  message: RpcRequest<typeof stxTransferStx>,
+  port: chrome.runtime.Port
+) {
+  const { id: requestId, method, params } = message;
+  validateRequestParams({
+    id: requestId,
+    method,
+    params,
+    port,
+    schema: stxTransferStx.params,
+  });
+  const request = getMessageParamsToTransactionRequest(params);
   const requestParams: RequestParams = [
-    ['params', encodeURIComponent(JSON.stringify(message.params))],
-    ['requestId', message.id],
+    ['requestId', requestId],
+    ['request', createUnsecuredToken(request)],
   ];
-
-  const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
-
-  const { id } = await triggerRequestWindowOpen(RouteUrls.RpcStxTransferStx, urlParams);
-
-  listenForPopupClose({
-    tabId,
-    id,
-    response: makeRpcErrorResponse('stx_transferStx', {
-      id: message.id,
-      error: {
-        code: RpcErrorCode.USER_REJECTION,
-        message: 'User rejected the Stacks transaction signing request',
-      },
-    }),
+  return handleRpcMessage({
+    method: message.method,
+    path: RouteUrls.RpcStxTransferStx,
+    port,
+    requestParams,
+    requestId: message.id,
   });
 }

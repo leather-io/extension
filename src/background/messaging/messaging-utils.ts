@@ -4,14 +4,26 @@ import { type PostConditionWire, serializePostConditionWire } from '@stacks/tran
 import type { Json } from 'jsontokens';
 import * as z from 'zod';
 
-import type { baseStacksTransactionConfigSchema } from '@leather.io/rpc';
-import { isDefined } from '@leather.io/utils';
+import {
+  RpcErrorCode,
+  type RpcMethodNames,
+  type baseStacksTransactionConfigSchema,
+  createRpcErrorResponse,
+} from '@leather.io/rpc';
+import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { InternalMethods } from '@shared/message-types';
 import { sendMessage } from '@shared/messages';
 import { RouteUrls } from '@shared/route-urls';
+import {
+  RpcErrorMessage,
+  getRpcParamErrorsFormatted,
+  validateRpcParams,
+} from '@shared/rpc/methods/validation.utils';
 
 import { popup } from '@background/popup';
+
+import { trackRpcRequestError } from './rpc-message-handler';
 
 export function getTabIdFromPort(port: chrome.runtime.Port) {
   return port.sender?.tab?.id ?? 0;
@@ -88,31 +100,74 @@ export function encodePostConditions(postConditions: PostConditionWire[]) {
   return postConditions.map(pc => serializePostConditionWire(pc));
 }
 
+interface ValidateRequestParamsArgs {
+  id: string;
+  method: RpcMethodNames;
+  params: unknown;
+  port: chrome.runtime.Port;
+  schema: z.Schema;
+}
+export function validateRequestParams({
+  id,
+  method,
+  params,
+  port,
+  schema,
+}: ValidateRequestParamsArgs) {
+  if (isUndefined(params)) {
+    void trackRpcRequestError({ endpoint: method, error: RpcErrorMessage.UndefinedParams });
+    chrome.tabs.sendMessage(
+      getTabIdFromPort(port),
+      createRpcErrorResponse(method, {
+        id,
+        error: { code: RpcErrorCode.INVALID_REQUEST, message: RpcErrorMessage.UndefinedParams },
+      })
+    );
+    return;
+  }
+
+  if (!validateRpcParams(params, schema)) {
+    void trackRpcRequestError({ endpoint: method, error: RpcErrorMessage.InvalidParams });
+
+    chrome.tabs.sendMessage(
+      getTabIdFromPort(port),
+      createRpcErrorResponse(method, {
+        id,
+        error: {
+          code: RpcErrorCode.INVALID_PARAMS,
+          message: getRpcParamErrorsFormatted(params, schema),
+        },
+      })
+    );
+    return;
+  }
+}
+
 type BaseStacksTransactionRpcParams = z.infer<typeof baseStacksTransactionConfigSchema>;
 
 export function getStxDefaultMessageParamsToTransactionRequest(
   params: BaseStacksTransactionRpcParams
 ) {
-  const jsonTxRequest: Json = {};
+  const txRequest: Json = {};
 
   if ('address' in params && isDefined(params.address)) {
-    jsonTxRequest.stxAddress = params.address;
+    txRequest.stxAddress = params.address;
   }
   if ('fee' in params && isDefined(params.fee)) {
-    jsonTxRequest.fee = params.fee;
+    txRequest.fee = params.fee;
   }
   if ('nonce' in params && isDefined(params.nonce)) {
-    jsonTxRequest.nonce = params.nonce;
+    txRequest.nonce = params.nonce;
   }
   if ('postConditions' in params && isDefined(params.postConditions)) {
-    jsonTxRequest.postConditions = params.postConditions;
+    txRequest.postConditions = params.postConditions;
   }
-  if ('postConiditionMode' in params && isDefined(params.postConditionMode)) {
-    jsonTxRequest.postConditionMode = params.postConditionMode;
+  if ('postConditionMode' in params && isDefined(params.postConditionMode)) {
+    txRequest.postConditionMode = params.postConditionMode;
   }
   if ('sponsored' in params && isDefined(params.sponsored)) {
-    jsonTxRequest.sponsored = params.sponsored;
+    txRequest.sponsored = params.sponsored;
   }
 
-  return jsonTxRequest;
+  return txRequest;
 }

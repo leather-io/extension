@@ -1,99 +1,52 @@
-import { type Json, createUnsecuredToken } from 'jsontokens';
+import { ClarityVersion } from '@stacks/transactions';
+import { createUnsecuredToken } from 'jsontokens';
 
-import {
-  RpcErrorCode,
-  type StxDeployContractRequest,
-  type StxDeployContractRequestParams,
-} from '@leather.io/rpc';
+import { type RpcParams, type RpcRequest, stxDeployContract } from '@leather.io/rpc';
 import { TransactionTypes } from '@leather.io/stacks';
-import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
-import {
-  getRpcStxDeployContractParamErrors,
-  validateRpcStxDeployContractParams,
-} from '@shared/rpc/methods/stx-deploy-contract';
-import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
+import { handleRpcMessage } from '../handle-rpc-message';
 import {
   RequestParams,
   getStxDefaultMessageParamsToTransactionRequest,
-  getTabIdFromPort,
-  listenForPopupClose,
-  makeSearchParamsWithDefaults,
-  triggerRequestWindowOpen,
+  validateRequestParams,
 } from '../messaging-utils';
-import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-message-handler';
 
-function getMessageParamsToTransactionRequest(params: StxDeployContractRequestParams) {
+function getMessageParamsToTransactionRequest(params: RpcParams<typeof stxDeployContract>) {
   const defaultParams = getStxDefaultMessageParamsToTransactionRequest(params);
-  const txRequest: Json = {
+
+  return {
     txType: TransactionTypes.ContractDeploy,
     contractName: params.name,
     codeBody: params.clarityCode,
+    clarityVersion: params.clarityVersion ?? ClarityVersion.Clarity3,
     ...defaultParams,
   };
-
-  if ('clarityVersion' in params && isDefined(params.clarityVersion)) {
-    txRequest.clarityVersion = params.clarityVersion;
-  }
-  return txRequest;
 }
 
 export async function rpcStxDeployContract(
-  message: StxDeployContractRequest,
+  message: RpcRequest<typeof stxDeployContract>,
   port: chrome.runtime.Port
 ) {
-  if (isUndefined(message.params)) {
-    void trackRpcRequestError({ endpoint: message.method, error: 'Undefined parameters' });
-    chrome.tabs.sendMessage(
-      getTabIdFromPort(port),
-      makeRpcErrorResponse('stx_deployContract', {
-        id: message.id,
-        error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
-      })
-    );
-    return;
-  }
-
-  if (!validateRpcStxDeployContractParams(message.params)) {
-    void trackRpcRequestError({ endpoint: message.method, error: 'Invalid parameters' });
-
-    chrome.tabs.sendMessage(
-      getTabIdFromPort(port),
-      makeRpcErrorResponse('stx_deployContract', {
-        id: message.id,
-        error: {
-          code: RpcErrorCode.INVALID_PARAMS,
-          message: getRpcStxDeployContractParamErrors(message.params),
-        },
-      })
-    );
-    return;
-  }
-
-  const request = getMessageParamsToTransactionRequest(message.params);
-
-  void trackRpcRequestSuccess({ endpoint: message.method });
-
+  const { id: requestId, method, params } = message;
+  validateRequestParams({
+    id: requestId,
+    method,
+    params,
+    port,
+    schema: stxDeployContract.params,
+  });
+  const request = getMessageParamsToTransactionRequest(params);
   const requestParams: RequestParams = [
-    ['requestId', message.id],
+    ['requestId', requestId],
     ['request', createUnsecuredToken(request)],
   ];
-
-  const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
-
-  const { id } = await triggerRequestWindowOpen(RouteUrls.RpcStxDeployContract, urlParams);
-
-  listenForPopupClose({
-    tabId,
-    id,
-    response: makeRpcErrorResponse('stx_deployContract', {
-      id: message.id,
-      error: {
-        code: RpcErrorCode.USER_REJECTION,
-        message: 'User rejected the Stacks transaction signing request',
-      },
-    }),
+  return handleRpcMessage({
+    method: message.method,
+    path: RouteUrls.RpcStxDeployContract,
+    port,
+    requestParams,
+    requestId: message.id,
   });
 }

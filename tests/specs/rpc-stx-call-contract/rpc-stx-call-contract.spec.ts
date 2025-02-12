@@ -6,8 +6,11 @@ import {
   serializeCV,
   standardPrincipalCV,
 } from '@stacks/transactions';
+import { TEST_ACCOUNT_2_STX_ADDRESS } from '@tests/mocks/constants';
 
 import type { RpcParams, stxCallContract } from '@leather.io/rpc';
+
+import { RpcErrorMessage } from '@shared/rpc/methods/validation.utils';
 
 import { test } from '../../fixtures/fixtures';
 
@@ -25,7 +28,7 @@ test.describe('RPC: stx_callContract', () => {
       await popup.waitForSelector('text="SP00…VF78.bns"');
       await popup.waitForSelector('text="0x6964"');
       await popup.waitForSelector('text="0x74657374"');
-      await popup.waitForSelector('text="SP2417H88DQFN7FNDMSKM9N0B3Q6GNGEM40W7ZAZW"');
+      await popup.waitForSelector('text="SPXH3HNBPM5YP15VH16ZXZ9AX6CK289K3MCXRKCB"');
       await popup.waitForSelector('text="none"');
       await popup.waitForTimeout(500);
       const btn = popup.locator('text="Confirm"');
@@ -49,11 +52,11 @@ test.describe('RPC: stx_callContract', () => {
       );
   }
 
-  test.skip('SIP-30 call contract', async ({ page, context }) => {
+  test('SIP-30 call contract', async ({ page, context }) => {
     const args: ClarityValue[] = [
       bufferCVFromString('id'), // namespace
       bufferCVFromString('test'), // name
-      standardPrincipalCV('SP2417H88DQFN7FNDMSKM9N0B3Q6GNGEM40W7ZAZW'), // recipient
+      standardPrincipalCV(TEST_ACCOUNT_2_STX_ADDRESS), // recipient
       noneCV(), // zonefile
     ];
 
@@ -72,7 +75,7 @@ test.describe('RPC: stx_callContract', () => {
       jsonrpc: '2.0',
       error: {
         code: 4001,
-        message: 'User rejected the Stacks transaction signing request',
+        message: RpcErrorMessage.UserRejectedSigning,
       },
     });
   });

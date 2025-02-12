@@ -7,7 +7,7 @@ import { logger } from '@shared/logger';
 import { analytics } from '@shared/utils/analytics';
 
 import { focusTabAndWindow } from '@app/common/focus-tab';
-import { useRpcRequestParams } from '@app/common/rpc-helpers';
+import { useRpcRequestParams } from '@app/common/rpc/use-rpc-request';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
