@@ -1,6 +1,10 @@
-import { isFtNameLikeStx, stacksValue } from '@app/common/stacks-utils';
+import { TEST_ACCOUNT_1_STX_ADDRESS, TEST_ACCOUNT_2_STX_ADDRESS } from '@tests/mocks/constants';
+
+import { isFtNameLikeStx, stacksValue, validateStacksAddress } from '@app/common/stacks-utils';
 
 const uSTX_AMOUNT = 10000480064; // 10,000.480064
+
+const longContractPrincipalName = 'thisIsAReally-LongAndHenceInvalidName_Seriously';
 
 describe('stacksValue tests', () => {
   test('no extra params', () => {
@@ -43,5 +47,28 @@ describe(isFtNameLikeStx.name, () => {
     expect(isFtNameLikeStx('stocks')).toBeFalsy();
     expect(isFtNameLikeStx('miamicoin')).toBeFalsy();
     expect(isFtNameLikeStx('')).toBeFalsy();
+  });
+});
+
+describe('validateStacksAddress', () => {
+  it('validates stacks addresses correctly', () => {
+    expect(validateStacksAddress(TEST_ACCOUNT_1_STX_ADDRESS)).toBeTruthy();
+    expect(validateStacksAddress(TEST_ACCOUNT_2_STX_ADDRESS)).toBeTruthy();
+
+    expect(validateStacksAddress('invalid-address')).toBeFalsy();
+    expect(validateStacksAddress('')).toBeFalsy();
+  });
+  it('validates stacks addresses with contract principals correctly', () => {
+    expect(validateStacksAddress(`${TEST_ACCOUNT_1_STX_ADDRESS}.contract-name`)).toBeTruthy();
+    expect(validateStacksAddress(`${TEST_ACCOUNT_1_STX_ADDRESS}.contract_name`)).toBeTruthy();
+
+    expect(
+      validateStacksAddress(`${TEST_ACCOUNT_1_STX_ADDRESS}.${longContractPrincipalName}`)
+    ).toBeFalsy();
+
+    expect(validateStacksAddress(`${TEST_ACCOUNT_1_STX_ADDRESS}.`)).toBeFalsy();
+    expect(validateStacksAddress('c.-')).toBeFalsy();
+    expect(validateStacksAddress('invalid-address')).toBeFalsy();
+    expect(validateStacksAddress(`${TEST_ACCOUNT_1_STX_ADDRESS}.invalid!`)).toBeFalsy();
   });
 });

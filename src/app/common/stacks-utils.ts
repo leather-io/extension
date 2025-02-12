@@ -4,7 +4,7 @@ import { c32addressDecode } from 'c32check';
 
 import { STX_DECIMALS } from '@leather.io/constants';
 import type { NetworkConfiguration } from '@leather.io/models';
-import { initBigNumber, microStxToStx } from '@leather.io/utils';
+import { initBigNumber, isUndefined, microStxToStx } from '@leather.io/utils';
 
 import { isValidUrl } from '@shared/utils/validate-url';
 
@@ -47,14 +47,27 @@ export const ftUnshiftDecimals = (value: number | string | BigNumber, decimals: 
   return amount.shiftedBy(decimals).toString(10);
 };
 
-export const validateStacksAddress = (stacksAddress: string): boolean => {
+export function validateStacksContractPrincipal(contractPrincipal: string): boolean {
+  const contractPrincipalRegex = /^[a-zA-Z][a-zA-Z0-9_-]{0,39}$/;
+
+  if (!contractPrincipalRegex.test(contractPrincipal)) {
+    throw new Error('Invalid contract principal');
+  }
+  return true;
+}
+
+export function validateStacksAddress(stacksAddress: string): boolean {
+  const [address, contractPrincipal] = stacksAddress.split('.');
   try {
-    c32addressDecode(stacksAddress);
+    c32addressDecode(address);
+    if (!isUndefined(contractPrincipal)) {
+      validateStacksContractPrincipal(contractPrincipal);
+    }
     return true;
   } catch (e) {
     return false;
   }
-};
+}
 
 export function validateAddressChain(address: string, currentNetwork: NetworkConfiguration) {
   const prefix = address.slice(0, 2);
