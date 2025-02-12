@@ -1,9 +1,10 @@
 //
 // This file is the entrypoint to the extension's background script
 // https://developer.chrome.com/docs/extensions/mv3/architecture-overview/#background_script
+import type { RpcRequests } from '@leather.io/rpc';
+
 import { logger } from '@shared/logger';
 import { CONTENT_SCRIPT_PORT, type LegacyMessageFromContentScript } from '@shared/message-types';
-import { WalletRequests } from '@shared/rpc/rpc-methods';
 import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-log';
 
 import { initContextMenuActions } from './init-context-menus';
@@ -29,7 +30,7 @@ chrome.runtime.onInstalled.addListener(async details => {
 chrome.runtime.onConnect.addListener(port => {
   if (port.name !== CONTENT_SCRIPT_PORT) return;
 
-  port.onMessage.addListener((message: LegacyMessageFromContentScript | WalletRequests, port) => {
+  port.onMessage.addListener((message: LegacyMessageFromContentScript | RpcRequests, port) => {
     if (!port.sender?.tab?.id)
       return logger.error('Message reached background script without a corresponding tab');
 

@@ -3,9 +3,8 @@ import { useMemo } from 'react';
 import { networkFromName } from '@stacks/network';
 import { deserializeCV } from '@stacks/transactions';
 
-import { RpcErrorCode } from '@leather.io/rpc';
+import { RpcErrorCode, createRpcErrorResponse, createRpcSuccessResponse } from '@leather.io/rpc';
 
-import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import {
   isSignableMessageType,
   isStructuredMessageType,
@@ -95,7 +94,7 @@ export function useRpcSignStacksMessage() {
     onSignMessageCompleted(messageSignature) {
       chrome.tabs.sendMessage(
         tabId,
-        makeRpcSuccessResponse('stx_signMessage', {
+        createRpcSuccessResponse('stx_signMessage', {
           id: requestId,
           result: {
             signature: messageSignature.signature,
@@ -113,7 +112,7 @@ export function useRpcSignStacksMessage() {
     void analytics.track('request_signature_cancel');
     chrome.tabs.sendMessage(
       tabId,
-      makeRpcErrorResponse('stx_signMessage', {
+      createRpcErrorResponse('stx_signMessage', {
         id: requestId,
         error: {
           message: 'User denied signing',

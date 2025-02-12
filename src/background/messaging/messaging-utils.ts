@@ -107,9 +107,7 @@ export function getStxDefaultMessageParamsToTransactionRequest(
     jsonTxRequest.nonce = params.nonce;
   }
   if ('postConditions' in params && isDefined(params.postConditions)) {
-    jsonTxRequest.postConditions = encodePostConditions(
-      params.postConditions as PostConditionWire[]
-    );
+    jsonTxRequest.postConditions = params.postConditions;
   }
   if ('postConiditionMode' in params && isDefined(params.postConditionMode)) {
     jsonTxRequest.postConditionMode = params.postConditionMode;

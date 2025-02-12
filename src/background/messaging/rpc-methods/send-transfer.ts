@@ -1,8 +1,10 @@
 import {
   RpcErrorCode,
+  type RpcRequest,
+  type RpcSendTransferLegacyParams,
   type RpcSendTransferParams,
-  type RpcSendTransferParamsLegacy,
-  type SendTransferRequest,
+  createRpcErrorResponse,
+  type sendTransfer,
 } from '@leather.io/rpc';
 import { isUndefined } from '@leather.io/utils';
 
@@ -14,7 +16,6 @@ import {
   validateRpcSendTransferLegacyParams,
   validateRpcSendTransferParams,
 } from '@shared/rpc/methods/send-transfer';
-import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
 import {
   RequestParams,
@@ -25,13 +26,16 @@ import {
 } from '../messaging-utils';
 import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-message-handler';
 
-export async function rpcSendTransfer(message: SendTransferRequest, port: chrome.runtime.Port) {
+export async function rpcSendTransfer(
+  message: RpcRequest<typeof sendTransfer>,
+  port: chrome.runtime.Port
+) {
   if (isUndefined(message.params)) {
     void trackRpcRequestError({ endpoint: 'sendTransfer', error: 'Undefined parameters' });
 
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse('sendTransfer', {
+      createRpcErrorResponse('sendTransfer', {
         id: message.id,
         error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
       })
@@ -41,7 +45,7 @@ export async function rpcSendTransfer(message: SendTransferRequest, port: chrome
 
   // Legacy params support for backward compatibility
   const params = validateRpcSendTransferLegacyParams(message.params)
-    ? convertRpcSendTransferLegacyParamsToNew(message.params as RpcSendTransferParamsLegacy)
+    ? convertRpcSendTransferLegacyParamsToNew(message.params as RpcSendTransferLegacyParams)
     : (message.params as RpcSendTransferParams);
 
   if (!validateRpcSendTransferParams(params)) {
@@ -49,7 +53,7 @@ export async function rpcSendTransfer(message: SendTransferRequest, port: chrome
 
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse('sendTransfer', {
+      createRpcErrorResponse('sendTransfer', {
         id: message.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
@@ -86,7 +90,7 @@ export async function rpcSendTransfer(message: SendTransferRequest, port: chrome
   listenForPopupClose({
     tabId,
     id,
-    response: makeRpcErrorResponse('sendTransfer', {
+    response: createRpcErrorResponse('sendTransfer', {
       id: message.id,
       error: {
         code: RpcErrorCode.USER_REJECTION,

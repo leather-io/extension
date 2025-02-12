@@ -2,9 +2,8 @@ import { useMemo } from 'react';
 
 import { MultiSigSpendingCondition, deserializeTransaction } from '@stacks/transactions';
 
-import { RpcErrorCode } from '@leather.io/rpc';
+import { RpcErrorCode, createRpcErrorResponse, createRpcSuccessResponse } from '@leather.io/rpc';
 
-import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { closeWindow } from '@shared/utils';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
@@ -58,7 +57,7 @@ export function useRpcSignStacksTransaction() {
 
       chrome.tabs.sendMessage(
         tabId,
-        makeRpcSuccessResponse('stx_signTransaction', {
+        createRpcSuccessResponse('stx_signTransaction', {
           id: requestId,
           result: {
             txHex: signedTransaction.serialize(),
@@ -71,7 +70,7 @@ export function useRpcSignStacksTransaction() {
     onCancel() {
       chrome.tabs.sendMessage(
         tabId,
-        makeRpcErrorResponse('stx_signTransaction', {
+        createRpcErrorResponse('stx_signTransaction', {
           id: requestId,
           error: {
             message: 'User denied signing stacks transaction',

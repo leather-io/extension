@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 
 import type { Money } from '@leather.io/models';
 import { type UtxoResponseItem, useBitcoinBroadcastTransaction } from '@leather.io/query';
+import { createRpcSuccessResponse } from '@leather.io/rpc';
 
 import { logger } from '@shared/logger';
 import type { TransferRecipient } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
-import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { closeWindow } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
 
@@ -89,7 +89,7 @@ export function useSendTransferApproveActions({
 
             chrome.tabs.sendMessage(
               tabId ?? 0,
-              makeRpcSuccessResponse('sendTransfer', {
+              createRpcSuccessResponse('sendTransfer', {
                 id: requestId,
                 result: { txid },
               })

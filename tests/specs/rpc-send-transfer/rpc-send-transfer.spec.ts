@@ -2,7 +2,7 @@ import { BrowserContext, Page } from '@playwright/test';
 import { TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS } from '@tests/mocks/constants';
 import { mockTestAccountBtcBroadcastTransaction } from '@tests/mocks/mock-bitcoin-tx';
 
-import { RpcSendTransferParams } from '@leather.io/rpc';
+import type { RpcParams, sendTransfer } from '@leather.io/rpc';
 
 import { test } from '../../fixtures/fixtures';
 
@@ -42,7 +42,7 @@ test.describe('Send transfer (RPC)', () => {
   }
 
   function openSendTransfer(page: Page) {
-    return async (params: RpcSendTransferParams) =>
+    return async (params: RpcParams<typeof sendTransfer>) =>
       page.evaluate(
         async params =>
           (window as any).LeatherProvider?.request('sendTransfer', {

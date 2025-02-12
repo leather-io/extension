@@ -2,11 +2,10 @@ import { useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 
 import { useNextNonce } from '@leather.io/query';
-import { RpcErrorCode } from '@leather.io/rpc';
+import { RpcErrorCode, createRpcErrorResponse, createRpcSuccessResponse } from '@leather.io/rpc';
 import { isUndefined } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
-import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { closeWindow } from '@shared/utils';
 import {
   type TransactionPayload,
@@ -91,7 +90,7 @@ export function useRpcStxCallContract() {
 
         chrome.tabs.sendMessage(
           tabId,
-          makeRpcSuccessResponse('stx_callContract', {
+          createRpcSuccessResponse('stx_callContract', {
             id: requestId,
             result: {
               txid: result.txid,
@@ -104,7 +103,7 @@ export function useRpcStxCallContract() {
       onCancel() {
         chrome.tabs.sendMessage(
           tabId,
-          makeRpcErrorResponse('stx_callContract', {
+          createRpcErrorResponse('stx_callContract', {
             id: requestId,
             error: {
               message: 'User denied signing stacks transaction',

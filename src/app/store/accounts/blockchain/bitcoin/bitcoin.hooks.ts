@@ -21,7 +21,6 @@ import {
   BitcoinInputSigningConfig,
   getAssumedZeroIndexSigningConfig,
 } from '@shared/crypto/bitcoin/signer-config';
-import { allSighashTypes } from '@shared/rpc/methods/sign-psbt';
 import { analytics } from '@shared/utils/analytics';
 
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -40,6 +39,7 @@ import {
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
+import { allSighashTypes } from './bitcoin-signer';
 import {
   useCurrentAccountNativeSegwitSigner,
   useCurrentNativeSegwitAccount,
