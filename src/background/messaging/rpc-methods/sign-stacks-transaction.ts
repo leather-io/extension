@@ -14,8 +14,10 @@ import { createUnsecuredToken } from 'jsontokens';
 
 import {
   RpcErrorCode,
-  type StxSignTransactionRequest,
-  type StxSignTransactionRequestParams,
+  type RpcParams,
+  type RpcRequest,
+  createRpcErrorResponse,
+  type stxSignTransaction,
 } from '@leather.io/rpc';
 import { TransactionTypes } from '@leather.io/stacks';
 import { isDefined, isUndefined } from '@leather.io/utils';
@@ -25,7 +27,6 @@ import {
   getRpcSignStacksTransactionParamErrors,
   validateRpcSignStacksTransactionParams,
 } from '@shared/rpc/methods/sign-stacks-transaction';
-import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
 import {
   RequestParams,
@@ -43,12 +44,12 @@ function cleanMemoString(memo: string): string {
   return memo.replaceAll(MEMO_DESERIALIZATION_STUB, '');
 }
 
-function getStacksTransactionHexFromRequest(requestParams: StxSignTransactionRequestParams) {
+function getStacksTransactionHexFromRequest(requestParams: RpcParams<typeof stxSignTransaction>) {
   if ('txHex' in requestParams) return requestParams.txHex;
   return requestParams.transaction;
 }
 
-function getAccountAddressFromRequest(requestParams: StxSignTransactionRequestParams) {
+function getAccountAddressFromRequest(requestParams: RpcParams<typeof stxSignTransaction>) {
   if ('txHex' in requestParams) return requestParams.stxAddress;
   return;
 }
@@ -111,14 +112,14 @@ function validateStacksTransaction(txHex: string) {
 }
 
 export async function rpcSignStacksTransaction(
-  message: StxSignTransactionRequest,
+  message: RpcRequest<typeof stxSignTransaction>,
   port: chrome.runtime.Port
 ) {
   if (isUndefined(message.params)) {
     void trackRpcRequestError({ endpoint: message.method, error: 'Undefined parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse('stx_signTransaction', {
+      createRpcErrorResponse('stx_signTransaction', {
         id: message.id,
         error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
       })
@@ -131,7 +132,7 @@ export async function rpcSignStacksTransaction(
 
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse('stx_signTransaction', {
+      createRpcErrorResponse('stx_signTransaction', {
         id: message.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
@@ -147,7 +148,7 @@ export async function rpcSignStacksTransaction(
 
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse('stx_signTransaction', {
+      createRpcErrorResponse('stx_signTransaction', {
         id: message.id,
         error: { code: RpcErrorCode.INVALID_PARAMS, message: 'Invalid Stacks transaction hex' },
       })
@@ -189,7 +190,7 @@ export async function rpcSignStacksTransaction(
   listenForPopupClose({
     tabId,
     id,
-    response: makeRpcErrorResponse('stx_signTransaction', {
+    response: createRpcErrorResponse('stx_signTransaction', {
       id: message.id,
       error: {
         code: RpcErrorCode.USER_REJECTION,

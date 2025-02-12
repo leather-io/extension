@@ -1,15 +1,15 @@
-import { supportedMethodsMethodName } from '@leather.io/rpc';
-
-import { SupportedMethodsRequest } from '@shared/rpc/methods/supported-methods';
-import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
+import { type RpcRequest, createRpcSuccessResponse, supportedMethods } from '@leather.io/rpc';
 
 import { makeSearchParamsWithDefaults } from '../messaging-utils';
 
-export function rpcSupportedMethods(message: SupportedMethodsRequest, port: chrome.runtime.Port) {
+export function rpcSupportedMethods(
+  message: RpcRequest<typeof supportedMethods>,
+  port: chrome.runtime.Port
+) {
   const { tabId } = makeSearchParamsWithDefaults(port);
   chrome.tabs.sendMessage(
     tabId,
-    makeRpcSuccessResponse(supportedMethodsMethodName, {
+    createRpcSuccessResponse(supportedMethods.method, {
       id: message.id,
       result: {
         documentation: 'https://leather.gitbook.io/developers/home/welcome',

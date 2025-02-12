@@ -1,5 +1,11 @@
 import { isSupportedMessageSigningPaymentType } from '@leather.io/bitcoin';
-import { type PaymentTypes, RpcErrorCode, type SignMessageRequest } from '@leather.io/rpc';
+import {
+  type PaymentTypes,
+  RpcErrorCode,
+  type RpcRequest,
+  createRpcErrorResponse,
+  type signMessage,
+} from '@leather.io/rpc';
 import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -7,7 +13,6 @@ import {
   getRpcSignMessageParamErrors,
   validateRpcSignMessageParams,
 } from '@shared/rpc/methods/sign-message';
-import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
 import {
   RequestParams,
@@ -18,12 +23,15 @@ import {
 } from '../messaging-utils';
 import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-message-handler';
 
-export async function rpcSignMessage(message: SignMessageRequest, port: chrome.runtime.Port) {
+export async function rpcSignMessage(
+  message: RpcRequest<typeof signMessage>,
+  port: chrome.runtime.Port
+) {
   if (isUndefined(message.params)) {
     void trackRpcRequestError({ endpoint: 'signMessage', error: 'Undefined parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse('signMessage', {
+      createRpcErrorResponse('signMessage', {
         id: message.id,
         error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
       })
@@ -36,7 +44,7 @@ export async function rpcSignMessage(message: SignMessageRequest, port: chrome.r
 
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse('signMessage', {
+      createRpcErrorResponse('signMessage', {
         id: message.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
@@ -55,7 +63,7 @@ export async function rpcSignMessage(message: SignMessageRequest, port: chrome.r
 
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse('signMessage', {
+      createRpcErrorResponse('signMessage', {
         id: message.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
@@ -86,7 +94,7 @@ export async function rpcSignMessage(message: SignMessageRequest, port: chrome.r
   listenForPopupClose({
     tabId,
     id,
-    response: makeRpcErrorResponse('signMessage', {
+    response: createRpcErrorResponse('signMessage', {
       id: message.id,
       error: {
         code: RpcErrorCode.USER_REJECTION,

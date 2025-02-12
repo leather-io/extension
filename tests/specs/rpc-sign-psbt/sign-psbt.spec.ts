@@ -9,7 +9,7 @@ import {
   type BtcSignerNetwork,
   makeNativeSegwitAddressIndexDerivationPath,
 } from '@leather.io/bitcoin';
-import { SignPsbtRequestParams } from '@leather.io/rpc';
+import type { RpcParams, signPsbt } from '@leather.io/rpc';
 
 import { test } from '../../fixtures/fixtures';
 
@@ -89,7 +89,7 @@ test.describe('Sign PSBT', () => {
   }
 
   function initiatePsbtSigning(page: Page) {
-    return async (params: SignPsbtRequestParams & { broadcast?: boolean }) =>
+    return async (params: RpcParams<typeof signPsbt> & { broadcast?: boolean }) =>
       page.evaluate(
         async params =>
           (window as any).LeatherProvider.request('signPsbt', {

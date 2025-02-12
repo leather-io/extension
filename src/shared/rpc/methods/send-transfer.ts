@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import { type BitcoinNetworkModes, type DefaultNetworkConfigurations } from '@leather.io/models';
-import type { RpcSendTransferParamsLegacy } from '@leather.io/rpc';
+import type { RpcParams, sendTransfer } from '@leather.io/rpc';
 import { uniqueArray } from '@leather.io/utils';
 
 import { FormErrorMessages } from '@shared/error-messages';
@@ -85,7 +85,9 @@ export const rpcSendTransferParamsSchema = z
     { message: FormErrorMessages.IncorrectNetworkAddress, path: ['recipients'] }
   );
 
-export function convertRpcSendTransferLegacyParamsToNew(params: RpcSendTransferParamsLegacy) {
+export function convertRpcSendTransferLegacyParamsToNew(
+  params: Extract<RpcParams<typeof sendTransfer>, { address: string }>
+) {
   return {
     recipients: [{ address: params.address, amount: params.amount }],
     network: params.network,

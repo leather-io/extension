@@ -2,9 +2,11 @@ import { serializeCV } from '@stacks/transactions';
 
 import {
   RpcErrorCode,
-  type StxSignMessageRequest,
+  type RpcRequest,
   type StxSignMessageRequestParamsStructured,
-  type StxSignStructuredMessageRequest,
+  createRpcErrorResponse,
+  type stxSignMessage,
+  type stxSignStructuredMessage,
 } from '@leather.io/rpc';
 import { isDefined, isString, isUndefined } from '@leather.io/utils';
 
@@ -13,7 +15,6 @@ import {
   getRpcSignStacksMessageParamErrors,
   validateRpcSignStacksMessageParams,
 } from '@shared/rpc/methods/sign-stacks-message';
-import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
 import {
   RequestParams,
@@ -26,7 +27,7 @@ import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-message-han
 
 async function handleRpcSignStacksMessage(
   method: 'stx_signMessage' | 'stx_signStructuredMessage',
-  message: StxSignMessageRequest | StxSignStructuredMessageRequest,
+  message: RpcRequest<typeof stxSignMessage> | RpcRequest<typeof stxSignStructuredMessage>,
   port: chrome.runtime.Port,
   requestParams: RequestParams
 ) {
@@ -34,7 +35,7 @@ async function handleRpcSignStacksMessage(
     void trackRpcRequestError({ endpoint: method, error: 'Undefined parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse(method, {
+      createRpcErrorResponse(method, {
         id: message.id,
         error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
       })
@@ -46,7 +47,7 @@ async function handleRpcSignStacksMessage(
     void trackRpcRequestError({ endpoint: method, error: 'Invalid parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse(method, {
+      createRpcErrorResponse(method, {
         id: message.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
@@ -66,7 +67,7 @@ async function handleRpcSignStacksMessage(
   listenForPopupClose({
     tabId,
     id,
-    response: makeRpcErrorResponse(method, {
+    response: createRpcErrorResponse(method, {
       id: message.id,
       error: {
         code: RpcErrorCode.USER_REJECTION,
@@ -76,7 +77,10 @@ async function handleRpcSignStacksMessage(
   });
 }
 
-export function rpcSignStacksMessage(message: StxSignMessageRequest, port: chrome.runtime.Port) {
+export function rpcSignStacksMessage(
+  message: RpcRequest<typeof stxSignMessage>,
+  port: chrome.runtime.Port
+) {
   const requestParams: RequestParams = [
     ['message', message.params.message],
     ['messageType', message.params.messageType],
@@ -98,7 +102,7 @@ export function rpcSignStacksMessage(message: StxSignMessageRequest, port: chrom
 }
 
 export function rpcSignStacksStructuredMessage(
-  message: StxSignStructuredMessageRequest,
+  message: RpcRequest<typeof stxSignStructuredMessage>,
   port: chrome.runtime.Port
 ) {
   const requestParams: RequestParams = [

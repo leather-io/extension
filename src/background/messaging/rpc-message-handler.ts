@@ -1,6 +1,17 @@
-import { RpcErrorCode } from '@leather.io/rpc';
-
-import { WalletRequests, makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
+import {
+  RpcErrorCode,
+  type RpcRequests,
+  createRpcErrorResponse,
+  getAddresses,
+  open,
+  openSwap,
+  stxCallContract,
+  stxGetAddresses,
+  stxSignMessage,
+  stxSignStructuredMessage,
+  stxSignTransaction,
+  supportedMethods,
+} from '@leather.io/rpc';
 
 import { queueAnalyticsRequest } from '@background/background-analytics';
 import { rpcSwap } from '@background/messaging/rpc-methods/open-swap';
@@ -20,19 +31,19 @@ import { rpcStxCallContract } from './rpc-methods/stx-call-contract';
 import { rpcStxGetAddresses } from './rpc-methods/stx-get-addresses';
 import { rpcSupportedMethods } from './rpc-methods/supported-methods';
 
-export async function rpcMessageHandler(message: WalletRequests, port: chrome.runtime.Port) {
+export async function rpcMessageHandler(message: RpcRequests, port: chrome.runtime.Port) {
   listenForOriginTabClose({ tabId: port.sender?.tab?.id });
 
   switch (message.method) {
-    case 'open': {
+    case open.method: {
       await rpcOpen(message, port);
       break;
     }
-    case 'openSwap': {
+    case openSwap.method: {
       await rpcSwap(message, port);
       break;
     }
-    case 'getAddresses': {
+    case getAddresses.method: {
       await rpcGetAddresses(message, port);
       break;
     }
@@ -52,32 +63,32 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
       break;
     }
 
-    case 'stx_callContract': {
+    case stxCallContract.method: {
       await rpcStxCallContract(message, port);
       break;
     }
 
-    case 'stx_signTransaction': {
+    case stxSignTransaction.method: {
       await rpcSignStacksTransaction(message, port);
       break;
     }
 
-    case 'supportedMethods': {
+    case supportedMethods.method: {
       rpcSupportedMethods(message, port);
       break;
     }
 
-    case 'stx_signMessage': {
+    case stxSignMessage.method: {
       await rpcSignStacksMessage(message, port);
       break;
     }
 
-    case 'stx_signStructuredMessage': {
+    case stxSignStructuredMessage.method: {
       await rpcSignStacksStructuredMessage(message, port);
       break;
     }
 
-    case 'stx_getAddresses': {
+    case stxGetAddresses.method: {
       await rpcStxGetAddresses(message, port);
       break;
     }
@@ -85,7 +96,7 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
     default:
       chrome.tabs.sendMessage(
         getTabIdFromPort(port),
-        makeRpcErrorResponse('' as any, {
+        createRpcErrorResponse(message.method, {
           id: message.id,
           error: {
             code: RpcErrorCode.METHOD_NOT_FOUND,
@@ -98,14 +109,14 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
 }
 
 interface TrackRpcRequestSuccess {
-  endpoint: WalletRequests['method'];
+  endpoint: RpcRequests['method'];
 }
 export async function trackRpcRequestSuccess(args: TrackRpcRequestSuccess) {
   return queueAnalyticsRequest('rpc_request_successful', { ...args });
 }
 
 interface TrackRpcRequestError {
-  endpoint: WalletRequests['method'];
+  endpoint: RpcRequests['method'];
   error: string;
 }
 export async function trackRpcRequestError(args: TrackRpcRequestError) {

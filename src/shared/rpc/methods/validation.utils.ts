@@ -1,8 +1,6 @@
 import { z } from 'zod';
 import { fromError } from 'zod-validation-error';
 
-import { isNumber, isUndefined } from '@leather.io/utils';
-
 export const accountSchema = z.number().int();
 
 export function validateRpcParams(obj: unknown, validator: z.ZodSchema) {
@@ -29,10 +27,4 @@ export function formatValidationErrors(errors: z.ZodError[]) {
     .map(error => fromError(error))
     .join('. ')
     .trim();
-}
-
-export function testIsNumberOrArrayOfNumbers(value: unknown) {
-  if (isUndefined(value)) return true;
-  if (Array.isArray(value)) return value.every(item => isNumber(item));
-  return isNumber(value);
 }

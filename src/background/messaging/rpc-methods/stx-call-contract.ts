@@ -3,8 +3,10 @@ import { createUnsecuredToken } from 'jsontokens';
 
 import {
   RpcErrorCode,
-  type StxCallContractRequest,
-  type StxCallContractRequestParams,
+  type RpcParams,
+  type RpcRequest,
+  createRpcErrorResponse,
+  type stxCallContract,
 } from '@leather.io/rpc';
 import { TransactionTypes, getStacksContractName } from '@leather.io/stacks';
 import { isUndefined } from '@leather.io/utils';
@@ -14,7 +16,6 @@ import {
   getRpcStxCallContractParamErrors,
   validateRpcStxCallContractParams,
 } from '@shared/rpc/methods/stx-call-contract';
-import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
 import {
   RequestParams,
@@ -26,7 +27,7 @@ import {
 } from '../messaging-utils';
 import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-message-handler';
 
-function getMessageParamsToTransactionRequest(params: StxCallContractRequestParams) {
+function getMessageParamsToTransactionRequest(params: RpcParams<typeof stxCallContract>) {
   const contractName = getStacksContractName(params.contract);
   const defaultParams = getStxDefaultMessageParamsToTransactionRequest(params);
 
@@ -43,14 +44,14 @@ function getMessageParamsToTransactionRequest(params: StxCallContractRequestPara
 }
 
 export async function rpcStxCallContract(
-  message: StxCallContractRequest,
+  message: RpcRequest<typeof stxCallContract>,
   port: chrome.runtime.Port
 ) {
   if (isUndefined(message.params)) {
     void trackRpcRequestError({ endpoint: message.method, error: 'Undefined parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse('stx_callContract', {
+      createRpcErrorResponse('stx_callContract', {
         id: message.id,
         error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
       })
@@ -63,7 +64,7 @@ export async function rpcStxCallContract(
 
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse('stx_callContract', {
+      createRpcErrorResponse('stx_callContract', {
         id: message.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
@@ -90,7 +91,7 @@ export async function rpcStxCallContract(
   listenForPopupClose({
     tabId,
     id,
-    response: makeRpcErrorResponse('stx_callContract', {
+    response: createRpcErrorResponse('stx_callContract', {
       id: message.id,
       error: {
         code: RpcErrorCode.USER_REJECTION,

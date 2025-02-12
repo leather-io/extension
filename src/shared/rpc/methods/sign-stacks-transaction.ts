@@ -1,11 +1,11 @@
-import { stxSignTransactionRequestParamsSchema } from '@leather.io/rpc';
+import { stxSignTransaction } from '@leather.io/rpc';
 
 import { formatValidationErrors, getRpcParamErrors, validateRpcParams } from './validation.utils';
 
 export function validateRpcSignStacksTransactionParams(obj: unknown) {
-  return validateRpcParams(obj, stxSignTransactionRequestParamsSchema);
+  return validateRpcParams(obj, stxSignTransaction.params);
 }
 
 export function getRpcSignStacksTransactionParamErrors(obj: unknown) {
-  return formatValidationErrors(getRpcParamErrors(obj, stxSignTransactionRequestParamsSchema));
+  return formatValidationErrors(getRpcParamErrors(obj, stxSignTransaction.params));
 }
