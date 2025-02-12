@@ -1,3 +1,28 @@
+## [6.61.0](https://github.com/leather-io/extension/compare/v6.60.1...v6.61.0) (2025-02-12)
+
+
+### Features
+
+* add forgot password flow, LEA-487 ([e4e6120](https://github.com/leather-io/extension/commit/e4e61205e3ef688075cca1cd053a2f72447a4dd1))
+* add stx_signStructuredMessage, closes LEA-1960 ([691180a](https://github.com/leather-io/extension/commit/691180ae74bd71ea4a5d52b7470157fe10795b57))
+* address monitor and btc tx notifications ([aa3d64a](https://github.com/leather-io/extension/commit/aa3d64af811f65c6ae9ace3b819feb12e2cca7ee))
+* disable bitcoin tx notifications ([c9b3234](https://github.com/leather-io/extension/commit/c9b3234e1d3d68d2a4489b09ea52606d6f7c2716))
+* **rpc:** stx_getAddresses, closes LEA-1958 ([cb53bf5](https://github.com/leather-io/extension/commit/cb53bf528be9c45e633471583b558c24b763a024))
+* sip30 stx call contract, closes LEA-1954 ([ea68e3c](https://github.com/leather-io/extension/commit/ea68e3cd3050766568fd7ce18bcc912de4a5f3e1))
+* use spam filter with whitelist ([6bf33a6](https://github.com/leather-io/extension/commit/6bf33a6c54ac407e3276266ea0700d06cf439abb))
+
+
+### Bug Fixes
+
+* prevent tab index to embedded elements ([d84b503](https://github.com/leather-io/extension/commit/d84b5034b2c144b89996f0da2a79297179a9ad73))
+* stacks js v6 mock broadcast tx for swaps ([2562313](https://github.com/leather-io/extension/commit/256231301a171fdea75f991c7542ae5a2ce5d768))
+
+
+### Internal
+
+* post-release merge back ([55643a6](https://github.com/leather-io/extension/commit/55643a6bd2537c1eb6dd24e3bec3cc061a3e6bac))
+* upgrade stacks js, closes LEA-1989 ([9972d22](https://github.com/leather-io/extension/commit/9972d22542500c137ecf77501cdc21b3dc7309b8))
+
 ## [6.60.1](https://github.com/leather-io/extension/compare/v6.60.0...v6.60.1) (2025-02-05)
 
 
