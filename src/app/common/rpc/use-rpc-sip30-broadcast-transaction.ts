@@ -2,23 +2,17 @@ import { useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 
 import { useNextNonce } from '@leather.io/query';
-import {
-  RpcErrorCode,
-  type RpcMethodNames,
-  createRpcErrorResponse,
-  createRpcSuccessResponse,
-} from '@leather.io/rpc';
+import { type RpcMethodNames, createRpcSuccessResponse } from '@leather.io/rpc';
 import { isUndefined } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { closeWindow } from '@shared/utils';
-import {
-  type TransactionPayload,
-  getLegacyTransactionPayloadFromToken,
-} from '@shared/utils/legacy-requests';
+import { type TransactionPayload } from '@shared/utils/legacy-requests';
 
-import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
-import { initialSearchParams } from '@app/common/initial-search-params';
+import {
+  useLegacyTxPayloadFromRpcRequest,
+  useRpcRequestParams,
+} from '@app/common/rpc/use-rpc-request';
 import {
   type GenerateUnsignedTransactionOptions,
   generateUnsignedTransaction,
@@ -28,25 +22,7 @@ import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 
-function useRpcRequestParams() {
-  const { origin, tabId } = useDefaultRequestParams();
-  const requestId = initialSearchParams.get('requestId');
-  const request = initialSearchParams.get('request');
-
-  if (!origin || !request || !requestId) throw new Error('Invalid params');
-
-  return useMemo(
-    () => ({
-      origin,
-      tabId: tabId ?? 0,
-      request: getLegacyTransactionPayloadFromToken(request),
-      requestId,
-    }),
-    [origin, tabId, request, requestId]
-  );
-}
-
-function useUnsignedStacksTransactionFromRequest(request: TransactionPayload) {
+function useUnsignedStacksTransaction(request: TransactionPayload) {
   const account = useCurrentStacksAccount();
   const { data: nextNonce } = useNextNonce(account?.address ?? '');
   const network = useCurrentStacksNetworkState();
@@ -70,14 +46,16 @@ function useUnsignedStacksTransactionFromRequest(request: TransactionPayload) {
   return tx.result;
 }
 
-export function useRpcBroadcastStacksTransaction(method: RpcMethodNames) {
-  const { origin, request, requestId, tabId } = useRpcRequestParams();
-  const stacksTransaction = useUnsignedStacksTransactionFromRequest(request);
+export function useRpcSip30BroadcastTransaction(method: RpcMethodNames) {
+  const { origin, requestId, tabId } = useRpcRequestParams();
+  const txPayload = useLegacyTxPayloadFromRpcRequest();
+  const stacksTransaction = useUnsignedStacksTransaction(txPayload);
   const { stacksBroadcastTransaction } = useStacksBroadcastTransaction({ token: '' });
 
   return useMemo(
     () => ({
       origin,
+      txPayload,
       txSender: stacksTransaction ? getTxSenderAddress(stacksTransaction) : '',
       stacksTransaction,
       async onSignStacksTransaction(fee: number, nonce: number) {
@@ -105,19 +83,7 @@ export function useRpcBroadcastStacksTransaction(method: RpcMethodNames) {
         );
         closeWindow();
       },
-      onCancel() {
-        chrome.tabs.sendMessage(
-          tabId,
-          createRpcErrorResponse(method, {
-            id: requestId,
-            error: {
-              message: 'User denied signing stacks transaction',
-              code: RpcErrorCode.USER_REJECTION,
-            },
-          })
-        );
-      },
     }),
-    [method, origin, requestId, stacksBroadcastTransaction, stacksTransaction, tabId]
+    [method, origin, requestId, stacksBroadcastTransaction, stacksTransaction, tabId, txPayload]
   );
 }

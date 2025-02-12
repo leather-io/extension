@@ -1,6 +1,12 @@
 import { z } from 'zod';
 import { fromError } from 'zod-validation-error';
 
+export enum RpcErrorMessage {
+  InvalidParams = 'Invalid parameters',
+  UndefinedParams = 'Undefined parameters',
+  UserRejectedSigning = 'User rejected transaction signing request',
+}
+
 export const accountSchema = z.number().int();
 
 export function validateRpcParams(obj: unknown, validator: z.ZodSchema) {
@@ -27,4 +33,8 @@ export function formatValidationErrors(errors: z.ZodError[]) {
     .map(error => fromError(error))
     .join('. ')
     .trim();
+}
+
+export function getRpcParamErrorsFormatted(obj: unknown, validator: z.ZodTypeAny) {
+  return formatValidationErrors(getRpcParamErrors(obj, validator));
 }

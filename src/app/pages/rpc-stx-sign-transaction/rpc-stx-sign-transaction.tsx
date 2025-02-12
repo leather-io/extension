@@ -6,7 +6,6 @@ import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-check
 export function RpcStxSignTransaction() {
   const {
     onSignStacksTransaction,
-    onCancel,
     disableFeeSelection,
     stacksTransaction,
     disableNonceSelection,
@@ -20,7 +19,6 @@ export function RpcStxSignTransaction() {
     <StacksHighFeeWarningContainer>
       <StacksTransactionSigner
         onSignStacksTransaction={onSignStacksTransaction}
-        onCancel={onCancel}
         isMultisig={isMultisig}
         stacksTransaction={stacksTransaction}
         disableFeeSelection={disableFeeSelection}

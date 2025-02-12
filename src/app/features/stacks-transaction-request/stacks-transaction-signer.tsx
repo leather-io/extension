@@ -45,26 +45,23 @@ interface StacksTransactionSignerProps {
   disableFeeSelection?: boolean;
   disableNonceSelection?: boolean;
   isMultisig: boolean;
-  onCancel(): void;
   onSignStacksTransaction(fee: number, nonce: number): Promise<void>;
 }
 export function StacksTransactionSigner({
   stacksTransaction,
   disableFeeSelection,
   disableNonceSelection,
-  onSignStacksTransaction,
   isMultisig,
+  onSignStacksTransaction,
 }: StacksTransactionSignerProps) {
   const transactionRequest = useTransactionRequestState();
   const { data: stxFees } = useCalculateStacksTxFees(stacksTransaction);
-
   const stxAddress = useCurrentStacksAccountAddress();
   const { filteredBalanceQuery } = useStxCryptoAssetBalance(stxAddress);
   const availableUnlockedBalance = filteredBalanceQuery.data?.availableUnlockedBalance;
   const navigate = useNavigate();
   const { data: nextNonce, status: nonceQueryStatus } = useNextNonce(stxAddress);
   const canSubmit = filteredBalanceQuery.status === 'success' && nonceQueryStatus === 'success';
-
   const { search } = useLocation();
 
   useOnMount(() => {
