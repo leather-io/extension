@@ -13,7 +13,6 @@ import {
   isLegacyMessage,
 } from './messaging/legacy/legacy-external-message-handler';
 import { rpcMessageHandler } from './messaging/rpc-message-handler';
-import { initAddressMonitor } from './monitors/address-monitor';
 
 initContextMenuActions();
 warnUsersAboutDevToolsDangers();
@@ -61,6 +60,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   return true;
 });
 
-initAddressMonitor().catch(e => {
-  logger.error('Unable to Initialise Address Monitor: ', e);
-});
+// TODO: Remove comment to enable Bitcoin Tx notifications
+// initAddressMonitor().catch(e => {
+//   logger.error('Unable to Initialise Address Monitor: ', e);
+// });

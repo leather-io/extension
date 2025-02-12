@@ -19,7 +19,6 @@ import { useOnWalletLock } from '@app/routes/hooks/use-on-wallet-lock';
 import { useAppDispatch, useHasStateRehydrated } from '@app/store';
 import { stxChainSlice } from '@app/store/chains/stx-chain.slice';
 
-import { useSyncAddressMonitor } from '../address-monitor/use-sync-address-monitor';
 import { useRestoreFormState } from '../popup-send-form-restoration/use-restore-form-state';
 
 export function Container() {
@@ -29,7 +28,8 @@ export function Container() {
   const dispatch = useAppDispatch();
 
   const hasStateRehydrated = useHasStateRehydrated();
-  useSyncAddressMonitor();
+  // TODO: Remove comment to enable Bitcoin Tx notifications
+  // useSyncAddressMonitor();
   useOnWalletLock(() => closeWindow());
   useOnSignOut(() => closeWindow());
   useRestoreFormState();
