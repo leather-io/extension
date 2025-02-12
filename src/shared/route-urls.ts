@@ -4,6 +4,7 @@ export enum RouteUrls {
   BackUpSecretKey = '/back-up-secret-key',
   SetPassword = '/set-password',
   SignIn = '/sign-in',
+  ForgotPassword = '/forgot-password',
 
   // Ledger routes
   ConnectLedger = 'connect-your-ledger',
@@ -105,4 +106,5 @@ export enum RouteUrls {
 
   // Request routes stacks
   RpcSignStacksTransaction = '/sign-stacks-transaction',
+  RpcStxCallContract = '/stx-call-contract',
 }

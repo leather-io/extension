@@ -1,4 +1,4 @@
-import { PsbtData } from '@stacks/connect';
+import { PsbtData } from '@stacks/connect-jwt';
 
 import { ExternalMethods, MESSAGE_SOURCE, PsbtResponseMessage } from '@shared/message-types';
 import { closeWindow } from '@shared/utils';

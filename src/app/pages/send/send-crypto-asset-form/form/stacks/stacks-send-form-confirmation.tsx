@@ -38,6 +38,9 @@ export function StacksSendFormConfirmation() {
   const { formReviewTxSummary } = useStacksTransactionSummary(
     symbol.toUpperCase() as CryptoCurrency
   );
+
+  if (!formReviewTxSummary) return null;
+
   const {
     txValue,
     txFiatValue,

@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
-import { ClarityValue, TupleCV, createStacksPrivateKey } from '@stacks/transactions';
+import type { PrivateKey } from '@stacks/common';
+import { ClarityValue, TupleCV } from '@stacks/transactions';
 
 import { isString } from '@leather.io/utils';
 
@@ -9,7 +10,7 @@ import { createDelay } from '@shared/utils';
 
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-export const improveUxWithShortDelayAsStacksSigningIsSoFast = createDelay(1000);
+export const improveUxWithShortDelayAsStacksSigningIsSoFast = createDelay(600);
 
 export function useMessageSignerStacksSoftwareWallet() {
   const account = useCurrentStacksAccount();
@@ -17,7 +18,7 @@ export function useMessageSignerStacksSoftwareWallet() {
     ({ message, domain }: { message: string | ClarityValue; domain?: TupleCV }) => {
       if (!account || account.type === 'ledger') return null;
 
-      const privateKey = createStacksPrivateKey(account.stxPrivateKey);
+      const privateKey: PrivateKey = account.stxPrivateKey;
 
       if (isString(message)) {
         return signMessage(message, privateKey);

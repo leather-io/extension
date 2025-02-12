@@ -59,3 +59,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   // Listener fn must return `true` to indicate the response will be async
   return true;
 });
+
+// TODO: Remove comment to enable Bitcoin Tx notifications
+// initAddressMonitor().catch(e => {
+//   logger.error('Unable to Initialise Address Monitor: ', e);
+// });

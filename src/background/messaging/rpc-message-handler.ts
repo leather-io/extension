@@ -12,7 +12,12 @@ import { rpcOpen } from './rpc-methods/open';
 import { rpcSendTransfer } from './rpc-methods/send-transfer';
 import { rpcSignMessage } from './rpc-methods/sign-message';
 import { rpcSignPsbt } from './rpc-methods/sign-psbt';
-import { rpcSignStacksMessage } from './rpc-methods/sign-stacks-message';
+import {
+  rpcSignStacksMessage,
+  rpcSignStacksStructuredMessage,
+} from './rpc-methods/sign-stacks-message';
+import { rpcStxCallContract } from './rpc-methods/stx-call-contract';
+import { rpcStxGetAddresses } from './rpc-methods/stx-get-addresses';
 import { rpcSupportedMethods } from './rpc-methods/supported-methods';
 
 export async function rpcMessageHandler(message: WalletRequests, port: chrome.runtime.Port) {
@@ -47,6 +52,11 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
       break;
     }
 
+    case 'stx_callContract': {
+      await rpcStxCallContract(message, port);
+      break;
+    }
+
     case 'stx_signTransaction': {
       await rpcSignStacksTransaction(message, port);
       break;
@@ -59,6 +69,16 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
 
     case 'stx_signMessage': {
       await rpcSignStacksMessage(message, port);
+      break;
+    }
+
+    case 'stx_signStructuredMessage': {
+      await rpcSignStacksStructuredMessage(message, port);
+      break;
+    }
+
+    case 'stx_getAddresses': {
+      await rpcStxGetAddresses(message, port);
       break;
     }
 

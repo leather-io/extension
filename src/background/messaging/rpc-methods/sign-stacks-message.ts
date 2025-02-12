@@ -1,9 +1,12 @@
+import { serializeCV } from '@stacks/transactions';
+
 import {
   RpcErrorCode,
   type StxSignMessageRequest,
   type StxSignMessageRequestParamsStructured,
+  type StxSignStructuredMessageRequest,
 } from '@leather.io/rpc';
-import { isDefined, isUndefined } from '@leather.io/utils';
+import { isDefined, isString, isUndefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import {
@@ -21,15 +24,17 @@ import {
 } from '../messaging-utils';
 import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-message-handler';
 
-export async function rpcSignStacksMessage(
-  message: StxSignMessageRequest,
-  port: chrome.runtime.Port
+async function handleRpcSignStacksMessage(
+  method: 'stx_signMessage' | 'stx_signStructuredMessage',
+  message: StxSignMessageRequest | StxSignStructuredMessageRequest,
+  port: chrome.runtime.Port,
+  requestParams: RequestParams
 ) {
   if (isUndefined(message.params)) {
-    void trackRpcRequestError({ endpoint: message.method, error: 'Undefined parameters' });
+    void trackRpcRequestError({ endpoint: method, error: 'Undefined parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse('stx_signMessage', {
+      makeRpcErrorResponse(method, {
         id: message.id,
         error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
       })
@@ -38,10 +43,10 @@ export async function rpcSignStacksMessage(
   }
 
   if (!validateRpcSignStacksMessageParams(message.params)) {
-    void trackRpcRequestError({ endpoint: message.method, error: 'Invalid parameters' });
+    void trackRpcRequestError({ endpoint: method, error: 'Invalid parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse('stx_signMessage', {
+      makeRpcErrorResponse(method, {
         id: message.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
@@ -52,8 +57,26 @@ export async function rpcSignStacksMessage(
     return;
   }
 
-  void trackRpcRequestSuccess({ endpoint: message.method });
+  void trackRpcRequestSuccess({ endpoint: method });
 
+  const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
+
+  const { id } = await triggerRequestWindowOpen(RouteUrls.RpcStacksSignature, urlParams);
+
+  listenForPopupClose({
+    tabId,
+    id,
+    response: makeRpcErrorResponse(method, {
+      id: message.id,
+      error: {
+        code: RpcErrorCode.USER_REJECTION,
+        message: 'User rejected the Stacks message signing request',
+      },
+    }),
+  });
+}
+
+export function rpcSignStacksMessage(message: StxSignMessageRequest, port: chrome.runtime.Port) {
   const requestParams: RequestParams = [
     ['message', message.params.message],
     ['messageType', message.params.messageType],
@@ -64,26 +87,34 @@ export async function rpcSignStacksMessage(
     requestParams.push(['network', message.params.network.toString()]);
   }
 
-  if (isDefined(message.params.domain)) {
+  if ('domain' in message.params) {
     requestParams.push([
       'domain',
       (message.params as StxSignMessageRequestParamsStructured).domain.toString(),
     ]);
   }
 
-  const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
+  return handleRpcSignStacksMessage('stx_signMessage', message, port, requestParams);
+}
 
-  const { id } = await triggerRequestWindowOpen(RouteUrls.RpcStacksSignature, urlParams);
+export function rpcSignStacksStructuredMessage(
+  message: StxSignStructuredMessageRequest,
+  port: chrome.runtime.Port
+) {
+  const requestParams: RequestParams = [
+    ['requestId', message.id],
+    ['messageType', 'structured'],
+    [
+      'message',
+      isString(message.params.message)
+        ? message.params.message
+        : serializeCV(message.params.message),
+    ],
+    [
+      'domain',
+      isString(message.params.domain) ? message.params.domain : serializeCV(message.params.domain),
+    ],
+  ];
 
-  listenForPopupClose({
-    tabId,
-    id,
-    response: makeRpcErrorResponse('stx_signMessage', {
-      id: message.id,
-      error: {
-        code: RpcErrorCode.USER_REJECTION,
-        message: 'User rejected the Stacks message signing request',
-      },
-    }),
-  });
+  return handleRpcSignStacksMessage('stx_signStructuredMessage', message, port, requestParams);
 }

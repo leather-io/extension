@@ -28,7 +28,8 @@ export function Container() {
   const dispatch = useAppDispatch();
 
   const hasStateRehydrated = useHasStateRehydrated();
-
+  // TODO: Remove comment to enable Bitcoin Tx notifications
+  // useSyncAddressMonitor();
   useOnWalletLock(() => closeWindow());
   useOnSignOut(() => closeWindow());
   useRestoreFormState();

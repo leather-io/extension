@@ -4,8 +4,8 @@ import { AppContext } from '@common/context';
 import { stacksTestnetNetwork } from '@common/utils';
 import * as btc from '@scure/btc-signer';
 import { bytesToHex, hexToBytes } from '@stacks/common';
-import { PsbtData, PsbtRequestOptions } from '@stacks/connect';
-import { useConnect } from '@stacks/connect-react';
+import { PsbtData, PsbtRequestOptions } from '@stacks/connect-jwt';
+import { useConnect } from '@stacks/connect-react-jwt';
 import { StacksNetwork } from '@stacks/network';
 import { styled } from 'leather-styles/jsx';
 

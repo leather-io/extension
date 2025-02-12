@@ -3,12 +3,12 @@ import {
   PsbtData,
   SignatureData,
   SponsoredFinishedTxPayload,
-} from '@stacks/connect';
+} from '@stacks/connect-jwt';
 import { PublicProfile } from '@stacks/profile';
 
-export const MESSAGE_SOURCE = 'stacks-wallet' as const;
+export const MESSAGE_SOURCE = 'stacks-wallet';
 
-export const CONTENT_SCRIPT_PORT = 'content-script' as const;
+export const CONTENT_SCRIPT_PORT = 'content-script';
 
 export enum ExternalMethods {
   transactionRequest = 'hiroWalletTransactionRequest',
@@ -29,6 +29,7 @@ export enum InternalMethods {
   RequestDerivedStxAccounts = 'RequestDerivedStxAccounts',
   OriginatingTabClosed = 'OriginatingTabClosed',
   AccountChanged = 'AccountChanged',
+  AddressMonitorUpdated = 'AddressMonitorUpdated',
 }
 
 export type ExtensionMethods = ExternalMethods | InternalMethods;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { SignatureData } from '@stacks/connect';
+import { SignatureData } from '@stacks/connect-jwt';
 
 import { logger } from '@shared/logger';
 import { UnsignedMessage } from '@shared/signature/signature-types';

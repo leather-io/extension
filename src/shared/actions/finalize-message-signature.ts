@@ -1,4 +1,4 @@
-import { SignatureData } from '@stacks/connect';
+import { SignatureData } from '@stacks/connect-jwt';
 
 import { closeWindow } from '@shared/utils';
 

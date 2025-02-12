@@ -1,18 +1,14 @@
-import { bytesToHex } from '@stacks/common';
-import { TransactionTypes } from '@stacks/connect';
 import {
   AddressHashMode,
   AuthType,
   MultiSigHashMode,
   PayloadType,
-  PostCondition,
-  StacksTransaction,
-  VersionedSmartContractPayload,
+  StacksTransactionWire,
+  VersionedSmartContractPayloadWire,
   addressToString,
   cvToValue,
   deserializeTransaction,
   serializeCV,
-  serializePostCondition,
 } from '@stacks/transactions';
 import { createUnsecuredToken } from 'jsontokens';
 
@@ -21,6 +17,7 @@ import {
   type StxSignTransactionRequest,
   type StxSignTransactionRequestParams,
 } from '@leather.io/rpc';
+import { TransactionTypes } from '@leather.io/stacks';
 import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -32,6 +29,7 @@ import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
 import {
   RequestParams,
+  encodePostConditions,
   getTabIdFromPort,
   listenForPopupClose,
   makeSearchParamsWithDefaults,
@@ -45,10 +43,6 @@ function cleanMemoString(memo: string): string {
   return memo.replaceAll(MEMO_DESERIALIZATION_STUB, '');
 }
 
-function encodePostConditions(postConditions: PostCondition[]) {
-  return postConditions.map(pc => bytesToHex(serializePostCondition(pc)));
-}
-
 function getStacksTransactionHexFromRequest(requestParams: StxSignTransactionRequestParams) {
   if ('txHex' in requestParams) return requestParams.txHex;
   return requestParams.transaction;
@@ -60,7 +54,7 @@ function getAccountAddressFromRequest(requestParams: StxSignTransactionRequestPa
 }
 
 function transactionPayloadToTransactionRequest(
-  stacksTransaction: StacksTransaction,
+  stacksTransaction: StacksTransactionWire,
   stxAddress?: string
 ) {
   const transactionRequest = {
@@ -75,7 +69,7 @@ function transactionPayloadToTransactionRequest(
 
   switch (stacksTransaction.payload.payloadType) {
     case PayloadType.TokenTransfer:
-      transactionRequest.txType = TransactionTypes.STXTransfer;
+      transactionRequest.txType = TransactionTypes.StxTokenTransfer;
       transactionRequest.recipient = cvToValue(stacksTransaction.payload.recipient, true);
       transactionRequest.amount = stacksTransaction.payload.amount.toString();
       transactionRequest.memo = cleanMemoString(stacksTransaction.payload.memo.content);
@@ -97,7 +91,7 @@ function transactionPayloadToTransactionRequest(
       transactionRequest.contractName = stacksTransaction.payload.contractName.content;
       transactionRequest.codeBody = stacksTransaction.payload.codeBody.content;
       transactionRequest.clarityVersion = (
-        stacksTransaction.payload as VersionedSmartContractPayload
+        stacksTransaction.payload as VersionedSmartContractPayloadWire
       ).clarityVersion;
       break;
     default:
@@ -172,10 +166,10 @@ export async function rpcSignStacksTransaction(
   const hashMode = stacksTransaction.auth.spendingCondition.hashMode as MultiSigHashMode;
 
   const isMultisig =
-    hashMode === AddressHashMode.SerializeP2SH ||
-    hashMode === AddressHashMode.SerializeP2WSH ||
-    hashMode === AddressHashMode.SerializeP2SHNonSequential ||
-    hashMode === AddressHashMode.SerializeP2WSHNonSequential;
+    hashMode === AddressHashMode.P2SH ||
+    hashMode === AddressHashMode.P2WSH ||
+    hashMode === AddressHashMode.P2SHNonSequential ||
+    hashMode === AddressHashMode.P2WSHNonSequential;
 
   void trackRpcRequestSuccess({ endpoint: message.method });
 

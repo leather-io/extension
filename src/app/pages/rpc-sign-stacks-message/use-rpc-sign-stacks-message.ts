@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { StacksNetwork } from '@stacks/network';
+import { networkFromName } from '@stacks/network';
 import { deserializeCV } from '@stacks/transactions';
 
 import { RpcErrorCode } from '@leather.io/rpc';
@@ -29,7 +29,7 @@ function getNetwork(networkName: string | null) {
     networkName === 'devnet' ||
     networkName === 'mocknet'
   ) {
-    return StacksNetwork.fromName(networkName);
+    return networkFromName(networkName);
   }
   return;
 }
@@ -45,13 +45,14 @@ export function useRpcStacksMessagePayload() {
       appName,
     } satisfies Utf8Payload;
   }
+
   if (isStructuredMessageType(messageType)) {
     if (!domain) return null;
 
     return {
       messageType: 'structured' as const,
-      message: deserializeCV(Buffer.from(message, 'hex')),
-      domain: deserializeCV(Buffer.from(domain, 'hex')),
+      message: deserializeCV(message),
+      domain: deserializeCV(domain),
       network: getNetwork(network),
       appName,
     } satisfies StructuredPayload;
@@ -96,7 +97,10 @@ export function useRpcSignStacksMessage() {
         tabId,
         makeRpcSuccessResponse('stx_signMessage', {
           id: requestId,
-          result: { signature: messageSignature.signature },
+          result: {
+            signature: messageSignature.signature,
+            publicKey: messageSignature.publicKey,
+          },
         })
       );
       closeWindow();
