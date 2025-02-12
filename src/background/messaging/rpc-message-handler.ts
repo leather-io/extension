@@ -1,4 +1,4 @@
-import { RpcErrorCode } from '@leather.io/rpc';
+import { RpcErrorCode, stxTransferStxMethodName } from '@leather.io/rpc';
 
 import { WalletRequests, makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
@@ -18,10 +18,13 @@ import {
 } from './rpc-methods/sign-stacks-message';
 import { rpcStxCallContract } from './rpc-methods/stx-call-contract';
 import { rpcStxGetAddresses } from './rpc-methods/stx-get-addresses';
+import { rpcStxTransferStx } from './rpc-methods/stx-transfer-stx';
 import { rpcSupportedMethods } from './rpc-methods/supported-methods';
 
 export async function rpcMessageHandler(message: WalletRequests, port: chrome.runtime.Port) {
   listenForOriginTabClose({ tabId: port.sender?.tab?.id });
+
+  console.log(message);
 
   switch (message.method) {
     case 'open': {
@@ -82,10 +85,15 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
       break;
     }
 
+    case stxTransferStxMethodName: {
+      await rpcStxTransferStx(message, port);
+      break;
+    }
+
     default:
       chrome.tabs.sendMessage(
         getTabIdFromPort(port),
-        makeRpcErrorResponse('' as any, {
+        makeRpcErrorResponse(message.method, {
           id: message.id,
           error: {
             code: RpcErrorCode.METHOD_NOT_FOUND,

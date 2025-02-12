@@ -24,3 +24,8 @@ export function makeRpcErrorResponse<T extends WalletMethodNames>(
 ) {
   return { jsonrpc: '2.0', ...response } as LeatherRpcMethodMap[T]['response'];
 }
+
+// makeRpcSuccessResponse('stx_transferStx', {
+//   id: '123',
+//   result: {},
+// });
