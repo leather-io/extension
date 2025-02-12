@@ -129,5 +129,6 @@
     "SP2C2YFP12AJZB4MABJBAJ55XECVS7E4PMMZ89YZR.arkadiko-token::diko",
     "SNGWPN3XDAQE673MXYXF81016M50NHF5X5PWWM70.sbtc-token::sbtc-token",
     "SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token::sbtc-token"
-  ]
+  ],
+  "spamFilterWhitelist": ["DOG.GO.TO.THE.MOON"]
 }
