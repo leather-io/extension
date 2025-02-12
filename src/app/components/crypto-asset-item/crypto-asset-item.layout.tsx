@@ -10,8 +10,8 @@ import {
   SkeletonLoader,
   shimmerStyles,
 } from '@leather.io/ui';
-import { spamFilter } from '@leather.io/utils';
 
+import { useSpamFilterWithWhitelist } from '@app/common/spam-filter/use-spam-filter';
 import { PrivateTextLayout } from '@app/components/privacy/private-text.layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
@@ -50,6 +50,8 @@ export function CryptoAssetItemLayout({
   dataTestId,
 }: CryptoAssetItemLayoutProps) {
   const { availableBalanceString, formattedBalance } = parseCryptoAssetBalance(availableBalance);
+
+  const spamFilter = useSpamFilterWithWhitelist();
 
   const titleRight = (
     <SkeletonLoader width="126px" isLoading={isLoading}>

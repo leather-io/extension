@@ -5,8 +5,8 @@ import { sanitize } from 'dompurify';
 import { Box, VStack } from 'leather-styles/jsx';
 
 import { ItemLayout, Pressable, Switch } from '@leather.io/ui';
-import { spamFilter } from '@leather.io/utils';
 
+import { useSpamFilterWithWhitelist } from '@app/common/spam-filter/use-spam-filter';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { manageTokensSlice } from '@app/store/manage-tokens/manage-tokens.slice';
 
@@ -30,6 +30,8 @@ export function CryptoAssetItemToggle({
 
   const switchRef = useRef<HTMLButtonElement>(null);
   const [_isPending, transition] = useTransition();
+
+  const spamFilter = useSpamFilterWithWhitelist();
 
   function handleSelection(enabled: boolean) {
     transition(() => {
