@@ -1,10 +1,10 @@
 import { z } from 'zod';
 
-import { type BitcoinNetworkModes, type DefaultNetworkConfigurations } from '@leather.io/models';
+import { bitcoinNetworkToNetworkMode } from '@leather.io/models';
 import type { RpcSendTransferParamsLegacy } from '@leather.io/rpc';
 import { uniqueArray } from '@leather.io/utils';
 
-import { FormErrorMessages } from '@shared/error-messages';
+// import { FormErrorMessages } from '@shared/error-messages';
 import {
   btcAddressNetworkValidator,
   getNetworkTypeFromAddress,
@@ -20,24 +20,6 @@ import {
 } from './validation.utils';
 
 export const defaultRpcSendTransferNetwork = 'mainnet';
-
-function defaultNetworkIdToBitcoinNetworkMode(
-  networkId: DefaultNetworkConfigurations
-): BitcoinNetworkModes {
-  switch (networkId) {
-    case 'mainnet':
-      return 'mainnet';
-    case 'testnet':
-    case 'testnet4':
-      return 'testnet';
-    case 'sbtcTestnet':
-    case 'sbtcDevenv':
-    case 'devnet':
-      return 'regtest';
-    case 'signet':
-      return 'signet';
-  }
-}
 
 export const rpcSendTransferParamsSchemaLegacy = z.object({
   account: accountSchema.optional(),
@@ -75,7 +57,7 @@ export const rpcSendTransferParamsSchema = z
       if (!network) return true;
 
       const addressNetworks = recipients.map(recipient =>
-        btcAddressNetworkValidator(defaultNetworkIdToBitcoinNetworkMode(network)).isValidSync(
+        btcAddressNetworkValidator(bitcoinNetworkToNetworkMode(network)).isValidSync(
           recipient.address
         )
       );

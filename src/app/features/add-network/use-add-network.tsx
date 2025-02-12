@@ -4,11 +4,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { createFetchFn } from '@stacks/common';
 import { ChainId } from '@stacks/network';
 
+import { bitcoinNetworkToNetworkMode } from '@leather.io/models';
 import {
   type BitcoinNetwork,
   type DefaultNetworkConfigurations,
   type NetworkConfiguration,
-  bitcoinNetworkToNetworkMode,
   networkConfigurationSchema,
 } from '@leather.io/models';
 import { isDefined } from '@leather.io/utils';
