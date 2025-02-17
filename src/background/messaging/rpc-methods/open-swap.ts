@@ -1,13 +1,12 @@
-import type { OpenSwapRequest } from '@leather.io/rpc';
+import { type RpcRequest, createRpcSuccessResponse, type openSwap } from '@leather.io/rpc';
 
 import { RouteUrls } from '@shared/route-urls';
-import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { replaceRouteParams } from '@shared/utils/replace-route-params';
 
 import { makeSearchParamsWithDefaults, triggerSwapWindowOpen } from '../messaging-utils';
 import { trackRpcRequestSuccess } from '../rpc-message-handler';
 
-export async function rpcSwap(message: OpenSwapRequest, port: chrome.runtime.Port) {
+export async function rpcSwap(message: RpcRequest<typeof openSwap>, port: chrome.runtime.Port) {
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['requestId', message.id]]);
   const { base = 'STX', quote } = message?.params || {};
 
@@ -33,7 +32,7 @@ export async function rpcSwap(message: OpenSwapRequest, port: chrome.runtime.Por
 
   chrome.tabs.sendMessage(
     tabId,
-    makeRpcSuccessResponse('openSwap', {
+    createRpcSuccessResponse('openSwap', {
       id: message.id,
       result: { message: 'Success' },
     })

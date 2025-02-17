@@ -13,7 +13,7 @@ export function useDefaultRequestParams() {
     return {
       origin,
       flow,
-      tabId: isString(tabId) ? parseInt(tabId) : tabId,
+      tabId: isString(tabId) ? parseInt(tabId) : (tabId ?? 0),
     };
   }, []);
 }

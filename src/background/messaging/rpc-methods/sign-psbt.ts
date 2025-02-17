@@ -1,16 +1,15 @@
 import * as btc from '@scure/btc-signer';
 import { hexToBytes } from '@stacks/common';
 
-import { RpcErrorCode } from '@leather.io/rpc';
+import { RpcErrorCode, type RpcRequest, createRpcErrorResponse, signPsbt } from '@leather.io/rpc';
 import { ensureArray, isDefined, isUndefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import {
-  SignPsbtRequest,
-  getRpcSignPsbtParamErrors,
-  validateRpcSignPsbtParams,
-} from '@shared/rpc/methods/sign-psbt';
-import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
+  formatValidationErrors,
+  getRpcParamErrors,
+  validateRpcParams,
+} from '@shared/rpc/methods/validation.utils';
 
 import {
   RequestParams,
@@ -30,12 +29,20 @@ function validatePsbt(hex: string) {
   }
 }
 
-export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime.Port) {
+function validateRpcSignPsbtParams(obj: unknown) {
+  return validateRpcParams(obj, signPsbt.params);
+}
+
+function getRpcSignPsbtParamErrors(obj: unknown) {
+  return formatValidationErrors(getRpcParamErrors(obj, signPsbt.params));
+}
+
+export async function rpcSignPsbt(message: RpcRequest<typeof signPsbt>, port: chrome.runtime.Port) {
   if (isUndefined(message.params)) {
     void trackRpcRequestError({ endpoint: message.method, error: 'Undefined parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse(message.method, {
+      createRpcErrorResponse(message.method, {
         id: message.id,
         error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
       })
@@ -47,7 +54,7 @@ export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime
     void trackRpcRequestError({ endpoint: message.method, error: 'Invalid parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse(message.method, {
+      createRpcErrorResponse(message.method, {
         id: message.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
@@ -63,7 +70,7 @@ export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime
 
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse('signPsbt', {
+      createRpcErrorResponse('signPsbt', {
         id: message.id,
         error: { code: RpcErrorCode.INVALID_PARAMS, message: 'Invalid PSBT hex' },
       })
@@ -102,7 +109,7 @@ export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime
   listenForPopupClose({
     tabId,
     id,
-    response: makeRpcErrorResponse('signPsbt', {
+    response: createRpcErrorResponse('signPsbt', {
       id: message.id,
       error: {
         code: RpcErrorCode.USER_REJECTION,

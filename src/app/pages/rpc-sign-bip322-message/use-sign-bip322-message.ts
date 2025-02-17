@@ -4,10 +4,14 @@ import * as btc from '@scure/btc-signer';
 import * as bitcoin from 'bitcoinjs-lib';
 
 import { signBip322MessageSimple } from '@leather.io/bitcoin';
-import { PaymentTypes, RpcErrorCode } from '@leather.io/rpc';
+import {
+  PaymentTypes,
+  RpcErrorCode,
+  createRpcErrorResponse,
+  createRpcSuccessResponse,
+} from '@leather.io/rpc';
 
 import { logger } from '@shared/logger';
-import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { closeWindow, createDelay } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
 
@@ -66,7 +70,7 @@ function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFac
       if (!tabId) return;
       chrome.tabs.sendMessage(
         tabId,
-        makeRpcErrorResponse('signMessage', {
+        createRpcErrorResponse('signMessage', {
           id: requestId,
           error: {
             code: RpcErrorCode.USER_REJECTION,
@@ -96,7 +100,7 @@ function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFac
 
       chrome.tabs.sendMessage(
         tabId,
-        makeRpcSuccessResponse('signMessage', {
+        createRpcSuccessResponse('signMessage', {
           id: requestId,
           result: { signature, address, message },
         })

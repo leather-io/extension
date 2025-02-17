@@ -1,6 +1,6 @@
 import type { StacksProvider } from '@stacks/connect-jwt';
 
-import { type LeatherRpcMethodMap, type RpcParameter, RpcRequest } from '@leather.io/rpc';
+import { type LeatherRpcMethodMap, type RpcMethodNames, type RpcResponses } from '@leather.io/rpc';
 
 import { BRANCH, COMMIT_SHA } from '@shared/environment';
 import {
@@ -21,7 +21,6 @@ import {
   SignatureResponseMessage,
   TransactionResponseMessage,
 } from '@shared/message-types';
-import type { WalletMethodNames, WalletResponses } from '@shared/rpc/rpc-methods';
 
 import { addLeatherToProviders } from './add-leather-to-providers';
 
@@ -243,20 +242,20 @@ const provider: LeatherProviderOverrides = {
     };
   },
 
-  request(
-    method: WalletMethodNames,
-    params?: RpcParameter
-  ): Promise<LeatherRpcMethodMap[WalletMethodNames]['response']> {
+  request<T extends RpcMethodNames>(
+    method: T,
+    params?: object
+  ): Promise<LeatherRpcMethodMap[T]['response']> {
     const id: string = crypto.randomUUID();
-    const rpcRequest: RpcRequest<WalletMethodNames, RpcParameter> = {
+    const rpcRequest = {
       jsonrpc: '2.0',
       id,
       method,
-      params: params ?? {},
+      params: params ?? undefined,
     };
     document.dispatchEvent(new CustomEvent(DomEventName.request, { detail: rpcRequest }));
     return new Promise((resolve, reject) => {
-      function handleMessage(event: MessageEvent<WalletResponses>) {
+      function handleMessage(event: MessageEvent<RpcResponses>) {
         const response = event.data;
         if (response.id !== id) return;
         window.removeEventListener('message', handleMessage);

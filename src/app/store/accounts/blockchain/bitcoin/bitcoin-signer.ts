@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 
 import { HDKey, Versions } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
+import { SigHash } from '@scure/btc-signer';
 
 import {
   BitcoinAccount,
@@ -12,9 +13,28 @@ import {
 } from '@leather.io/bitcoin';
 import type { BitcoinNetworkModes } from '@leather.io/models';
 
-import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
-
 import { useBitcoinExtendedPublicKeyVersions } from './bitcoin-keychain';
+
+enum SignatureHash {
+  DEFAULT = 0x00,
+  ALL = 0x01,
+  NONE = 0x02,
+  SINGLE = 0x03,
+  ALL_ANYONECANPAY = 0x81,
+  NONE_ANYONECANPAY = 0x82,
+  SINGLE_ANYONECANPAY = 0x83,
+}
+export const allSighashTypes = [
+  SigHash.DEFAULT,
+  SignatureHash.ALL,
+  SignatureHash.NONE,
+  SignatureHash.SINGLE,
+  SigHash.ALL_ANYONECANPAY,
+  SignatureHash.ALL_ANYONECANPAY,
+  SignatureHash.NONE_ANYONECANPAY,
+  SignatureHash.SINGLE_ANYONECANPAY,
+];
+type AllowedSighashTypes = SignatureHash | SigHash;
 
 export interface Signer<Payment> {
   network: BitcoinNetworkModes;

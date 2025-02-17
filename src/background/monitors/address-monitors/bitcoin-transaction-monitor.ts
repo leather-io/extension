@@ -131,8 +131,6 @@ export function createBitcoinTransactionMonitor(addresses: MonitoredAddress[]): 
       await handleTransactionMessage(message);
     } else if (message['conversions']) {
       _btcPriceUsd = readMempooWsBtcPriceUsd(message['conversions']);
-    } else {
-      logger.debug('Unrecognized Message Type: ', event.data);
     }
   }
 

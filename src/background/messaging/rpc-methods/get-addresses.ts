@@ -1,7 +1,11 @@
-import { type LeatherRpcMethodMap, type MethodNames, RpcErrorCode } from '@leather.io/rpc';
+import {
+  type LeatherRpcMethodMap,
+  RpcErrorCode,
+  type RpcMethodNames,
+  createRpcErrorResponse,
+} from '@leather.io/rpc';
 
 import { RouteUrls } from '@shared/route-urls';
-import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
 import {
   listenForPopupClose,
@@ -10,7 +14,7 @@ import {
 } from '../messaging-utils';
 import { trackRpcRequestSuccess } from '../rpc-message-handler';
 
-export function makeRpcAddressesMessageListener<T extends MethodNames>(
+export function makeRpcAddressesMessageListener<T extends RpcMethodNames>(
   eventName: 'getAddresses' | 'stx_getAddresses'
 ) {
   return async (message: LeatherRpcMethodMap[T]['request'], port: chrome.runtime.Port) => {
@@ -21,7 +25,7 @@ export function makeRpcAddressesMessageListener<T extends MethodNames>(
     listenForPopupClose({
       tabId,
       id,
-      response: makeRpcErrorResponse(eventName, {
+      response: createRpcErrorResponse(eventName, {
         id: message.id,
         error: {
           code: RpcErrorCode.USER_REJECTION,

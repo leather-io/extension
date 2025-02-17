@@ -1,14 +1,13 @@
 import { bytesToHex } from '@stacks/common';
 
 import { ecdsaPublicKeyToSchnorr } from '@leather.io/bitcoin';
-import type { BtcAddress } from '@leather.io/rpc';
+import { type BtcAddress, createRpcSuccessResponse } from '@leather.io/rpc';
 
 import { logger } from '@shared/logger';
-import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { analytics } from '@shared/utils/analytics';
 
 import { focusTabAndWindow } from '@app/common/focus-tab';
-import { useRpcRequestParams } from '@app/common/rpc-helpers';
+import { useRpcRequestParams } from '@app/common/rpc/use-rpc-request';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -81,7 +80,7 @@ export function useGetAddresses() {
 
       chrome.tabs.sendMessage(
         tabId,
-        makeRpcSuccessResponse('getAddresses', {
+        createRpcSuccessResponse('getAddresses', {
           id: requestId,
           result: { addresses: keysToIncludeInResponse as any },
         })

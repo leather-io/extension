@@ -1,7 +1,11 @@
 import { z } from 'zod';
 import { fromError } from 'zod-validation-error';
 
-import { isNumber, isUndefined } from '@leather.io/utils';
+export enum RpcErrorMessage {
+  InvalidParams = 'Invalid parameters',
+  UndefinedParams = 'Undefined parameters',
+  UserRejectedSigning = 'User rejected transaction signing request',
+}
 
 export const accountSchema = z.number().int();
 
@@ -31,8 +35,6 @@ export function formatValidationErrors(errors: z.ZodError[]) {
     .trim();
 }
 
-export function testIsNumberOrArrayOfNumbers(value: unknown) {
-  if (isUndefined(value)) return true;
-  if (Array.isArray(value)) return value.every(item => isNumber(item));
-  return isNumber(value);
+export function getRpcParamErrorsFormatted(obj: unknown, validator: z.ZodTypeAny) {
+  return formatValidationErrors(getRpcParamErrors(obj, validator));
 }

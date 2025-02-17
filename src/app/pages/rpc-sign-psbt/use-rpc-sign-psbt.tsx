@@ -9,7 +9,7 @@ import {
   useCalculateBitcoinFiatValue,
   useCryptoCurrencyMarketDataMeanAverage,
 } from '@leather.io/query';
-import { RpcErrorCode } from '@leather.io/rpc';
+import { RpcErrorCode, createRpcErrorResponse, createRpcSuccessResponse } from '@leather.io/rpc';
 import {
   formatMoney,
   formatMoneyPadded,
@@ -19,7 +19,6 @@ import {
 } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
-import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { closeWindow } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
 
@@ -70,7 +69,7 @@ export function useRpcSignPsbt() {
 
         chrome.tabs.sendMessage(
           tabId,
-          makeRpcSuccessResponse('signPsbt', {
+          createRpcSuccessResponse('signPsbt', {
             id: requestId,
             result: { hex: psbt, txid },
           })
@@ -99,7 +98,7 @@ export function useRpcSignPsbt() {
 
         chrome.tabs.sendMessage(
           tabId,
-          makeRpcErrorResponse('signPsbt', {
+          createRpcErrorResponse('signPsbt', {
             id: requestId,
             error: { code: 4002, message: 'Failed to broadcast transaction' },
           })
@@ -130,7 +129,10 @@ export function useRpcSignPsbt() {
         if (!broadcast) {
           chrome.tabs.sendMessage(
             tabId,
-            makeRpcSuccessResponse('signPsbt', { id: requestId, result: { hex: bytesToHex(psbt) } })
+            createRpcSuccessResponse('signPsbt', {
+              id: requestId,
+              result: { hex: bytesToHex(psbt) },
+            })
           );
           closeWindow();
           return;
@@ -169,7 +171,7 @@ export function useRpcSignPsbt() {
     onCancel() {
       chrome.tabs.sendMessage(
         tabId,
-        makeRpcErrorResponse('signPsbt', {
+        createRpcErrorResponse('signPsbt', {
           id: requestId,
           error: {
             code: RpcErrorCode.USER_REJECTION,
