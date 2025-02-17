@@ -1,3 +1,26 @@
+## [6.62.0](https://github.com/leather-io/extension/compare/v6.61.0...v6.62.0) (2025-02-17)
+
+
+### Features
+
+* add item to spam filter ([53c7fdf](https://github.com/leather-io/extension/commit/53c7fdf36b224ca116de0b3627b743238e438a58))
+* **rpc:** stx_transferStx method support, closes LEA-1966 ([9e27507](https://github.com/leather-io/extension/commit/9e275076f279d03093e7db75b81ed592146747b7))
+* stx deploy contract, closes LEA-1956 ([7a2154e](https://github.com/leather-io/extension/commit/7a2154e30d9a7243d6b4ded891fe01b7403a9dde))
+
+
+### Bug Fixes
+
+* add default for post condition mode ([ec3fe92](https://github.com/leather-io/extension/commit/ec3fe928593ff338c4ac6decf68458c1c45cabf1))
+* call contract types ([9ae8f79](https://github.com/leather-io/extension/commit/9ae8f799df15c032d166c9f5973a1a568bf4d510))
+
+
+### Internal
+
+* post-release merge back ([463604c](https://github.com/leather-io/extension/commit/463604c1c3df9c06e0414f4b4e5764d374cb7528))
+* rename stx sign transaction ([526c58f](https://github.com/leather-io/extension/commit/526c58f941677efdf3c4f80b01fff050c4d0ab2f))
+* rpc package usage ([8ba2a9e](https://github.com/leather-io/extension/commit/8ba2a9ec9db561486f4c4b0f39bf1fde6fab5933))
+* share rpc sip30 broadcast tx ([aa75d72](https://github.com/leather-io/extension/commit/aa75d72075cab846f9fa6825453b5d5a135825b7))
+
 ## [6.61.0](https://github.com/leather-io/extension/compare/v6.60.1...v6.61.0) (2025-02-12)
 
 
