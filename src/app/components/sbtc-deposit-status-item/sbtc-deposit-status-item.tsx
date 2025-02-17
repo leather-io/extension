@@ -2,7 +2,7 @@ import SbtcAvatarIconSrc from '@assets/avatars/sbtc-avatar-icon.png';
 import { HStack } from 'leather-styles/jsx';
 
 import { Avatar, Caption, Link, Title } from '@leather.io/ui';
-import { truncateMiddle } from '@leather.io/utils';
+import { satToBtc, truncateMiddle } from '@leather.io/utils';
 
 import { analytics } from '@shared/utils/analytics';
 
@@ -76,8 +76,7 @@ export function SbtcDepositTransactionItem({ deposit }: SbtcDepositTransactionIt
         </HStack>
       }
       txTitle={<Title textStyle="label.02">BTC → sBTC</Title>}
-      // Api is only returning 0 right now
-      txValue={''} // deposit.amount.toString()
+      txValue={deposit.amount > 0 ? satToBtc(deposit.amount).toString() : ''}
     />
   );
 }
