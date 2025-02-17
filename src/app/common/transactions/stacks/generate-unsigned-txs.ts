@@ -78,7 +78,7 @@ function generateUnsignedContractDeployTx(args: GenerateUnsignedContractDeployTx
     nonce: initNonce(nonce)?.toString(),
     fee: new BN(fee, 10)?.toString(),
     publicKey,
-    postConditionMode,
+    postConditionMode: postConditionMode ?? PostConditionMode.Deny,
     postConditions: getPostConditions(postConditions?.map(pc => ensurePostConditionWireFormat(pc))),
     network,
     clarityVersion: ClarityVersion.Clarity3,
