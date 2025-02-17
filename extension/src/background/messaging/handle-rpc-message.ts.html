@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/shared/rpc/methods/sign-psbt.ts</title>
+    <title>Code coverage report for extension/src/background/messaging/handle-rpc-message.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">extension/src/shared/rpc/methods</a> sign-psbt.ts</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">extension/src/background/messaging</a> handle-rpc-message.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -39,7 +39,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
@@ -107,14 +107,7 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -129,20 +122,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,7 +136,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -165,57 +145,56 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { SigHash } from '@scure/btc-signer/transaction';
-import { z } from 'zod';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { RpcErrorCode, type RpcMethodNames, createRpcErrorResponse } from '@leather.io/rpc';
 &nbsp;
-import { SignatureHash as BtcKitSignatureHash, RpcRequest } from '@leather.io/rpc';
+import { RouteUrls } from '@shared/route-urls';
+import { RpcErrorMessage } from '@shared/rpc/methods/validation.utils';
 &nbsp;
-import { defaultNetworkIdSchema } from '../rpc-schemas';
 import {
-  accountSchema,
-  formatValidationErrors,
-  getRpcParamErrors,
-  testIsNumberOrArrayOfNumbers,
-  validateRpcParams,
-} from './validation.utils';
+  RequestParams,
+  listenForPopupClose,
+  makeSearchParamsWithDefaults,
+  triggerRequestWindowOpen,
+} from './messaging-utils';
+import { trackRpcRequestSuccess } from './rpc-message-handler';
 &nbsp;
-// TODO: Revisit allowedSighash type if/when fixed in btc-signer
-export type AllowedSighashTypes = BtcKitSignatureHash | SigHash;
-// Pass all sighashTypes through as allowed to btc-signer
-export const allSighashTypes = <span class="cstat-no" title="statement not covered" >[</span>
-  SigHash.DEFAULT,
-  BtcKitSignatureHash.ALL,
-  BtcKitSignatureHash.NONE,
-  BtcKitSignatureHash.SINGLE,
-  SigHash.ALL_ANYONECANPAY,
-  BtcKitSignatureHash.ALL_ANYONECANPAY,
-  BtcKitSignatureHash.NONE_ANYONECANPAY,
-  BtcKitSignatureHash.SINGLE_ANYONECANPAY,
-];
-&nbsp;
-const rpcSignPsbtParamsSchema = <span class="cstat-no" title="statement not covered" >z.object({</span>
-  account: accountSchema.optional(),
-  allowedSighash: z.array(z.any()).optional(),
-  broadcast: z.boolean().optional(),
-  hex: z.string(),
-  network: defaultNetworkIdSchema.optional(),
-  signAtIndex: z
-    .union([z.number(), z.array(z.number())])
-    .optional()
-    .refine(testIsNumberOrArrayOfNumbers),
-});
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >validateRpcSignPsbtParams(o</span>bj: unknown) {
-<span class="cstat-no" title="statement not covered" >  return validateRpcParams(obj, rpcSignPsbtParamsSchema);</span>
+interface HandleRpcMessageArgs {
+  method: RpcMethodNames;
+  path: RouteUrls;
+  port: chrome.runtime.Port;
+  requestParams: RequestParams;
+  requestId: string;
 }
+export async function <span class="fstat-no" title="function not covered" >handleRpcMessage({</span>
+  method,
+  path,
+  port,
+  requestParams,
+  requestId,
+}: HandleRpcMessageArgs) {
+<span class="cstat-no" title="statement not covered" >  void trackRpcRequestSuccess({ endpoint: method });</span>
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >getRpcSignPsbtParamErrors(o</span>bj: unknown) {
-<span class="cstat-no" title="statement not covered" >  return formatValidationErrors(getRpcParamErrors(obj, rpcSignPsbtParamsSchema));</span>
+  const { urlParams, tabId } = <span class="cstat-no" title="statement not covered" >makeSearchParamsWithDefaults(port, requestParams);</span>
+  const { id } = <span class="cstat-no" title="statement not covered" >await triggerRequestWindowOpen(path, urlParams);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  listenForPopupClose({</span>
+    tabId,
+    id,
+    response: createRpcErrorResponse(method, {
+      id: requestId,
+      error: {
+        code: RpcErrorCode.USER_REJECTION,
+        message: RpcErrorMessage.UserRejectedSigning,
+      },
+    }),
+  });
 }
-&nbsp;
-type SignPsbtRequestParams = z.infer&lt;typeof rpcSignPsbtParamsSchema&gt;;
-&nbsp;
-export type SignPsbtRequest = RpcRequest&lt;'signPsbt', SignPsbtRequestParams&gt;;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -223,16 +202,16 @@ export type SignPsbtRequest = RpcRequest&lt;'signPsbt', SignPsbtRequestParams&gt
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-12T15:57:40.963Z
+                at 2025-02-17T15:40:34.559Z
             </div>
-        <script src="../../../../../prettify.js"></script>
+        <script src="../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../../sorter.js"></script>
-        <script src="../../../../../block-navigation.js"></script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
     </body>
 </html>
     

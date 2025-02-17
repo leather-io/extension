@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/background/messaging/rpc-methods/sign-stacks-transaction.ts</title>
+    <title>Code coverage report for extension/src/background/messaging/rpc-methods/stx-sign-transaction.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">extension/src/background/messaging/rpc-methods</a> sign-stacks-transaction.ts</h1>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">extension/src/background/messaging/rpc-methods</a> stx-sign-transaction.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -263,7 +263,9 @@
 <a name='L198'></a><a href='#L198'>198</a>
 <a name='L199'></a><a href='#L199'>199</a>
 <a name='L200'></a><a href='#L200'>200</a>
-<a name='L201'></a><a href='#L201'>201</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -479,8 +481,10 @@ import { createUnsecuredToken } from 'jsontokens';
 &nbsp;
 import {
   RpcErrorCode,
-  type StxSignTransactionRequest,
-  type StxSignTransactionRequestParams,
+  type RpcParams,
+  type RpcRequest,
+  createRpcErrorResponse,
+  type stxSignTransaction,
 } from '@leather.io/rpc';
 import { TransactionTypes } from '@leather.io/stacks';
 import { isDefined, isUndefined } from '@leather.io/utils';
@@ -490,7 +494,6 @@ import {
   getRpcSignStacksTransactionParamErrors,
   validateRpcSignStacksTransactionParams,
 } from '@shared/rpc/methods/sign-stacks-transaction';
-import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 &nbsp;
 import {
   RequestParams,
@@ -508,12 +511,12 @@ function <span class="fstat-no" title="function not covered" >cleanMemoString(m<
 <span class="cstat-no" title="statement not covered" >  return memo.replaceAll(MEMO_DESERIALIZATION_STUB, '');</span>
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >getStacksTransactionHexFromRequest(r</span>equestParams: StxSignTransactionRequestParams) {
+function <span class="fstat-no" title="function not covered" >getStacksTransactionHexFromRequest(r</span>equestParams: RpcParams&lt;typeof stxSignTransaction&gt;) {
 <span class="cstat-no" title="statement not covered" >  if ('txHex' in requestParams) <span class="cstat-no" title="statement not covered" >return requestParams.txHex;</span></span>
 <span class="cstat-no" title="statement not covered" >  return requestParams.transaction;</span>
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >getAccountAddressFromRequest(r</span>equestParams: StxSignTransactionRequestParams) {
+function <span class="fstat-no" title="function not covered" >getAccountAddressFromRequest(r</span>equestParams: RpcParams&lt;typeof stxSignTransaction&gt;) {
 <span class="cstat-no" title="statement not covered" >  if ('txHex' in requestParams) <span class="cstat-no" title="statement not covered" >return requestParams.stxAddress;</span></span>
 <span class="cstat-no" title="statement not covered" >  return;</span>
 }
@@ -575,15 +578,15 @@ function <span class="fstat-no" title="function not covered" >validateStacksTran
   }
 }
 &nbsp;
-export async function <span class="fstat-no" title="function not covered" >rpcSignStacksTransaction(</span>
-  message: StxSignTransactionRequest,
+export async function <span class="fstat-no" title="function not covered" >rpcStxSignTransaction(</span>
+  message: RpcRequest&lt;typeof stxSignTransaction&gt;,
   port: chrome.runtime.Port
 ) {
 <span class="cstat-no" title="statement not covered" >  if (isUndefined(message.params)) {</span>
 <span class="cstat-no" title="statement not covered" >    void trackRpcRequestError({ endpoint: message.method, error: 'Undefined parameters' });</span>
 <span class="cstat-no" title="statement not covered" >    chrome.tabs.sendMessage(</span>
       getTabIdFromPort(port),
-      makeRpcErrorResponse('stx_signTransaction', {
+      createRpcErrorResponse('stx_signTransaction', {
         id: message.id,
         error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
       })
@@ -596,7 +599,7 @@ export async function <span class="fstat-no" title="function not covered" >rpcSi
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    chrome.tabs.sendMessage(</span>
       getTabIdFromPort(port),
-      makeRpcErrorResponse('stx_signTransaction', {
+      createRpcErrorResponse('stx_signTransaction', {
         id: message.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
@@ -612,7 +615,7 @@ export async function <span class="fstat-no" title="function not covered" >rpcSi
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    chrome.tabs.sendMessage(</span>
       getTabIdFromPort(port),
-      makeRpcErrorResponse('stx_signTransaction', {
+      createRpcErrorResponse('stx_signTransaction', {
         id: message.id,
         error: { code: RpcErrorCode.INVALID_PARAMS, message: 'Invalid Stacks transaction hex' },
       })
@@ -649,12 +652,12 @@ export async function <span class="fstat-no" title="function not covered" >rpcSi
 &nbsp;
   const { urlParams, tabId } = <span class="cstat-no" title="statement not covered" >makeSearchParamsWithDefaults(port, requestParams);</span>
 &nbsp;
-  const { id } = <span class="cstat-no" title="statement not covered" >await triggerRequestWindowOpen(RouteUrls.RpcSignStacksTransaction, urlParams);</span>
+  const { id } = <span class="cstat-no" title="statement not covered" >await triggerRequestWindowOpen(RouteUrls.RpcStxSignTransaction, urlParams);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  listenForPopupClose({</span>
     tabId,
     id,
-    response: makeRpcErrorResponse('stx_signTransaction', {
+    response: createRpcErrorResponse('stx_signTransaction', {
       id: message.id,
       error: {
         code: RpcErrorCode.USER_REJECTION,
@@ -670,7 +673,7 @@ export async function <span class="fstat-no" title="function not covered" >rpcSi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-12T15:57:40.963Z
+                at 2025-02-17T15:40:34.559Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

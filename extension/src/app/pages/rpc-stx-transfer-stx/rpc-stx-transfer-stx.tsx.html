@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/shared/rpc/rpc-methods.ts</title>
+    <title>Code coverage report for extension/src/app/pages/rpc-stx-transfer-stx/rpc-stx-transfer-stx.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">extension/src/shared/rpc</a> rpc-methods.ts</h1>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/pages/rpc-stx-transfer-stx</a> rpc-stx-transfer-stx.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -89,14 +89,8 @@
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -107,39 +101,48 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { ValueOf } from '@leather.io/models';
-import {
-  type ExtractErrorResponse,
-  type ExtractSuccessResponse,
-  type LeatherRpcMethodMap,
-} from '@leather.io/rpc';
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { stxTransferStx } from '@leather.io/rpc';
+import { isDefined } from '@leather.io/utils';
 &nbsp;
-export type WalletRequests = ValueOf&lt;LeatherRpcMethodMap&gt;['request'];
-export type WalletResponses = ValueOf&lt;LeatherRpcMethodMap&gt;['response'];
+import { useRpcSip30BroadcastTransaction } from '@app/common/rpc/use-rpc-sip30-broadcast-transaction';
+import { StacksHighFeeWarningContainer } from '@app/features/stacks-high-fee-warning/stacks-high-fee-warning-container';
+import { StacksTransactionSigner } from '@app/features/stacks-transaction-request/stacks-transaction-signer';
+import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 &nbsp;
-export type WalletMethodNames = keyof LeatherRpcMethodMap;
+export function <span class="fstat-no" title="function not covered" >RpcStxTransferStx() {</span>
+  const { onSignStacksTransaction, stacksTransaction, txPayload, txSender } =
+<span class="cstat-no" title="statement not covered" >    useRpcSip30BroadcastTransaction(stxTransferStx.method);</span>
+  const recipient = <span class="cstat-no" title="statement not covered" >'recipient' in txPayload ? txPayload.recipient : '';</span>
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >makeRpcSuccessResponse&lt;T extends WalletMethodNames&gt;(</span>
-  _method: T,
-  response: Omit&lt;ExtractSuccessResponse&lt;LeatherRpcMethodMap[T]['response']&gt;, 'jsonrpc'&gt;
-): LeatherRpcMethodMap[T]['response'] {
-  // typecasting as there's a error stating jsonrpc prop is already there
-<span class="cstat-no" title="statement not covered" >  return { jsonrpc: '2.0', ...response } as LeatherRpcMethodMap[T]['response'];</span>
-}
+<span class="cstat-no" title="statement not covered" >  useBreakOnNonCompliantEntity([txSender, recipient].filter(isDefined));</span>
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >makeRpcErrorResponse&lt;T extends WalletMethodNames&gt;(</span>
-  _method: T,
-  response: Omit&lt;ExtractErrorResponse&lt;LeatherRpcMethodMap[T]['response']&gt;, 'jsonrpc'&gt;
-) {
-<span class="cstat-no" title="statement not covered" >  return { jsonrpc: '2.0', ...response } as LeatherRpcMethodMap[T]['response'];</span>
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;StacksHighFeeWarningContainer&gt;
+      &lt;StacksTransactionSigner
+        onSignStacksTransaction={onSignStacksTransaction}
+        isMultisig={false}
+        stacksTransaction={stacksTransaction}
+        disableFeeSelection={true}
+        disableNonceSelection={true}
+      /&gt;
+    &lt;/StacksHighFeeWarningContainer&gt;
+  );
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -148,16 +151,16 @@ export function <span class="fstat-no" title="function not covered" >makeRpcErro
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-12T15:57:40.963Z
+                at 2025-02-17T15:40:34.559Z
             </div>
-        <script src="../../../../prettify.js"></script>
+        <script src="../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../sorter.js"></script>
-        <script src="../../../../block-navigation.js"></script>
+        <script src="../../../../../sorter.js"></script>
+        <script src="../../../../../block-navigation.js"></script>
     </body>
 </html>
     

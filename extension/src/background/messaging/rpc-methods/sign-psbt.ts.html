@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>0/32</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>0/32</span>
             </div>
         
             
@@ -176,8 +176,14 @@
 <a name='L111'></a><a href='#L111'>111</a>
 <a name='L112'></a><a href='#L112'>112</a>
 <a name='L113'></a><a href='#L113'>113</a>
-<a name='L114'></a><a href='#L114'>114</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -206,6 +212,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -292,16 +306,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as btc from '@scure/btc-signer';
 import { hexToBytes } from '@stacks/common';
 &nbsp;
-import { RpcErrorCode } from '@leather.io/rpc';
+import { RpcErrorCode, type RpcRequest, createRpcErrorResponse, signPsbt } from '@leather.io/rpc';
 import { ensureArray, isDefined, isUndefined } from '@leather.io/utils';
 &nbsp;
 import { RouteUrls } from '@shared/route-urls';
 import {
-  SignPsbtRequest,
-  getRpcSignPsbtParamErrors,
-  validateRpcSignPsbtParams,
-} from '@shared/rpc/methods/sign-psbt';
-import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
+  formatValidationErrors,
+  getRpcParamErrors,
+  validateRpcParams,
+} from '@shared/rpc/methods/validation.utils';
 &nbsp;
 import {
   RequestParams,
@@ -321,12 +334,20 @@ function <span class="fstat-no" title="function not covered" >validatePsbt(h</sp
   }
 }
 &nbsp;
-export async function <span class="fstat-no" title="function not covered" >rpcSignPsbt(m</span>essage: SignPsbtRequest, port: chrome.runtime.Port) {
+function <span class="fstat-no" title="function not covered" >validateRpcSignPsbtParams(o</span>bj: unknown) {
+<span class="cstat-no" title="statement not covered" >  return validateRpcParams(obj, signPsbt.params);</span>
+}
+&nbsp;
+function <span class="fstat-no" title="function not covered" >getRpcSignPsbtParamErrors(o</span>bj: unknown) {
+<span class="cstat-no" title="statement not covered" >  return formatValidationErrors(getRpcParamErrors(obj, signPsbt.params));</span>
+}
+&nbsp;
+export async function <span class="fstat-no" title="function not covered" >rpcSignPsbt(m</span>essage: RpcRequest&lt;typeof signPsbt&gt;, port: chrome.runtime.Port) {
 <span class="cstat-no" title="statement not covered" >  if (isUndefined(message.params)) {</span>
 <span class="cstat-no" title="statement not covered" >    void trackRpcRequestError({ endpoint: message.method, error: 'Undefined parameters' });</span>
 <span class="cstat-no" title="statement not covered" >    chrome.tabs.sendMessage(</span>
       getTabIdFromPort(port),
-      makeRpcErrorResponse(message.method, {
+      createRpcErrorResponse(message.method, {
         id: message.id,
         error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
       })
@@ -338,7 +359,7 @@ export async function <span class="fstat-no" title="function not covered" >rpcSi
 <span class="cstat-no" title="statement not covered" >    void trackRpcRequestError({ endpoint: message.method, error: 'Invalid parameters' });</span>
 <span class="cstat-no" title="statement not covered" >    chrome.tabs.sendMessage(</span>
       getTabIdFromPort(port),
-      makeRpcErrorResponse(message.method, {
+      createRpcErrorResponse(message.method, {
         id: message.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
@@ -354,7 +375,7 @@ export async function <span class="fstat-no" title="function not covered" >rpcSi
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    chrome.tabs.sendMessage(</span>
       getTabIdFromPort(port),
-      makeRpcErrorResponse('signPsbt', {
+      createRpcErrorResponse('signPsbt', {
         id: message.id,
         error: { code: RpcErrorCode.INVALID_PARAMS, message: 'Invalid PSBT hex' },
       })
@@ -393,7 +414,7 @@ export async function <span class="fstat-no" title="function not covered" >rpcSi
 <span class="cstat-no" title="statement not covered" >  listenForPopupClose({</span>
     tabId,
     id,
-    response: makeRpcErrorResponse('signPsbt', {
+    response: createRpcErrorResponse('signPsbt', {
       id: message.id,
       error: {
         code: RpcErrorCode.USER_REJECTION,
@@ -409,7 +430,7 @@ export async function <span class="fstat-no" title="function not covered" >rpcSi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-12T15:57:40.963Z
+                at 2025-02-17T15:40:34.559Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

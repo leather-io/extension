@@ -183,7 +183,11 @@
 <a name='L118'></a><a href='#L118'>118</a>
 <a name='L119'></a><a href='#L119'>119</a>
 <a name='L120'></a><a href='#L120'>120</a>
-<a name='L121'></a><a href='#L121'>121</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,17 +218,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -236,6 +229,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -249,6 +254,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -307,9 +315,11 @@
 &nbsp;
 import {
   RpcErrorCode,
-  type StxSignMessageRequest,
+  type RpcRequest,
   type StxSignMessageRequestParamsStructured,
-  type StxSignStructuredMessageRequest,
+  createRpcErrorResponse,
+  type stxSignMessage,
+  type stxSignStructuredMessage,
 } from '@leather.io/rpc';
 import { isDefined, isString, isUndefined } from '@leather.io/utils';
 &nbsp;
@@ -318,7 +328,6 @@ import {
   getRpcSignStacksMessageParamErrors,
   validateRpcSignStacksMessageParams,
 } from '@shared/rpc/methods/sign-stacks-message';
-import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 &nbsp;
 import {
   RequestParams,
@@ -331,7 +340,7 @@ import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-message-han
 &nbsp;
 async function <span class="fstat-no" title="function not covered" >handleRpcSignStacksMessage(</span>
   method: 'stx_signMessage' | 'stx_signStructuredMessage',
-  message: StxSignMessageRequest | StxSignStructuredMessageRequest,
+  message: RpcRequest&lt;typeof stxSignMessage&gt; | RpcRequest&lt;typeof stxSignStructuredMessage&gt;,
   port: chrome.runtime.Port,
   requestParams: RequestParams
 ) {
@@ -339,7 +348,7 @@ async function <span class="fstat-no" title="function not covered" >handleRpcSig
 <span class="cstat-no" title="statement not covered" >    void trackRpcRequestError({ endpoint: method, error: 'Undefined parameters' });</span>
 <span class="cstat-no" title="statement not covered" >    chrome.tabs.sendMessage(</span>
       getTabIdFromPort(port),
-      makeRpcErrorResponse(method, {
+      createRpcErrorResponse(method, {
         id: message.id,
         error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
       })
@@ -351,7 +360,7 @@ async function <span class="fstat-no" title="function not covered" >handleRpcSig
 <span class="cstat-no" title="statement not covered" >    void trackRpcRequestError({ endpoint: method, error: 'Invalid parameters' });</span>
 <span class="cstat-no" title="statement not covered" >    chrome.tabs.sendMessage(</span>
       getTabIdFromPort(port),
-      makeRpcErrorResponse(method, {
+      createRpcErrorResponse(method, {
         id: message.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
@@ -371,7 +380,7 @@ async function <span class="fstat-no" title="function not covered" >handleRpcSig
 <span class="cstat-no" title="statement not covered" >  listenForPopupClose({</span>
     tabId,
     id,
-    response: makeRpcErrorResponse(method, {
+    response: createRpcErrorResponse(method, {
       id: message.id,
       error: {
         code: RpcErrorCode.USER_REJECTION,
@@ -381,7 +390,10 @@ async function <span class="fstat-no" title="function not covered" >handleRpcSig
   });
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >rpcSignStacksMessage(m</span>essage: StxSignMessageRequest, port: chrome.runtime.Port) {
+export function <span class="fstat-no" title="function not covered" >rpcSignStacksMessage(</span>
+  message: RpcRequest&lt;typeof stxSignMessage&gt;,
+  port: chrome.runtime.Port
+) {
   const requestParams: RequestParams = <span class="cstat-no" title="statement not covered" >[</span>
     ['message', message.params.message],
     ['messageType', message.params.messageType],
@@ -403,7 +415,7 @@ export function <span class="fstat-no" title="function not covered" >rpcSignStac
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >rpcSignStacksStructuredMessage(</span>
-  message: StxSignStructuredMessageRequest,
+  message: RpcRequest&lt;typeof stxSignStructuredMessage&gt;,
   port: chrome.runtime.Port
 ) {
   const requestParams: RequestParams = <span class="cstat-no" title="statement not covered" >[</span>
@@ -430,7 +442,7 @@ export function <span class="fstat-no" title="function not covered" >rpcSignStac
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-12T15:57:40.963Z
+                at 2025-02-17T15:40:34.559Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

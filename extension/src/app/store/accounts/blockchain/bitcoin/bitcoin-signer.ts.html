@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/36</span>
+                <span class='fraction'>0/46</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/34</span>
+                <span class='fraction'>0/43</span>
             </div>
         
             
@@ -231,13 +231,53 @@
 <a name='L166'></a><a href='#L166'>166</a>
 <a name='L167'></a><a href='#L167'>167</a>
 <a name='L168'></a><a href='#L168'>168</a>
-<a name='L169'></a><a href='#L169'>169</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -403,6 +443,7 @@
 &nbsp;
 import { HDKey, Versions } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
+import { SigHash } from '@scure/btc-signer';
 &nbsp;
 import {
   BitcoinAccount,
@@ -413,9 +454,28 @@ import {
 } from '@leather.io/bitcoin';
 import type { BitcoinNetworkModes } from '@leather.io/models';
 &nbsp;
-import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
-&nbsp;
 import { useBitcoinExtendedPublicKeyVersions } from './bitcoin-keychain';
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >enum <span class="cstat-no" title="statement not covered" >S</span>ignatureHash {</span></span>
+<span class="cstat-no" title="statement not covered" >  DEFAULT = 0</span>x00,
+<span class="cstat-no" title="statement not covered" >  ALL = 0</span>x01,
+<span class="cstat-no" title="statement not covered" >  NONE = 0</span>x02,
+<span class="cstat-no" title="statement not covered" >  SINGLE = 0</span>x03,
+<span class="cstat-no" title="statement not covered" >  ALL_ANYONECANPAY = 0</span>x81,
+<span class="cstat-no" title="statement not covered" >  NONE_ANYONECANPAY = 0</span>x82,
+<span class="cstat-no" title="statement not covered" >  SINGLE_ANYONECANPAY = 0</span>x83,
+}
+export const allSighashTypes = <span class="cstat-no" title="statement not covered" >[</span>
+  SigHash.DEFAULT,
+  SignatureHash.ALL,
+  SignatureHash.NONE,
+  SignatureHash.SINGLE,
+  SigHash.ALL_ANYONECANPAY,
+  SignatureHash.ALL_ANYONECANPAY,
+  SignatureHash.NONE_ANYONECANPAY,
+  SignatureHash.SINGLE_ANYONECANPAY,
+];
+type AllowedSighashTypes = SignatureHash | SigHash;
 &nbsp;
 export interface Signer&lt;Payment&gt; {
   network: BitcoinNetworkModes;
@@ -574,7 +634,7 @@ export function <span class="fstat-no" title="function not covered" >useMakeBitc
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-12T15:57:40.963Z
+                at 2025-02-17T15:40:34.559Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

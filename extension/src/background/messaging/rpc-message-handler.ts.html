@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>0/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>0/34</span>
             </div>
         
             
@@ -176,7 +176,47 @@
 <a name='L111'></a><a href='#L111'>111</a>
 <a name='L112'></a><a href='#L112'>112</a>
 <a name='L113'></a><a href='#L113'>113</a>
-<a name='L114'></a><a href='#L114'>114</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -262,6 +302,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -289,13 +339,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { RpcErrorCode } from '@leather.io/rpc';
-&nbsp;
-import { WalletRequests, makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
+  RpcErrorCode,
+  type RpcRequests,
+  createRpcErrorResponse,
+  getAddresses,
+  open,
+  openSwap,
+  stxCallContract,
+  stxDeployContract,
+  stxGetAddresses,
+  stxSignMessage,
+  stxSignStructuredMessage,
+  stxSignTransaction,
+  stxTransferStx,
+  supportedMethods,
+} from '@leather.io/rpc';
 &nbsp;
 import { queueAnalyticsRequest } from '@background/background-analytics';
 import { rpcSwap } from '@background/messaging/rpc-methods/open-swap';
-import { rpcSignStacksTransaction } from '@background/messaging/rpc-methods/sign-stacks-transaction';
+import { rpcStxSignTransaction } from '@background/messaging/rpc-methods/stx-sign-transaction';
 &nbsp;
 import { getTabIdFromPort, listenForOriginTabClose } from './messaging-utils';
 import { rpcGetAddresses } from './rpc-methods/get-addresses';
@@ -308,22 +371,24 @@ import {
   rpcSignStacksStructuredMessage,
 } from './rpc-methods/sign-stacks-message';
 import { rpcStxCallContract } from './rpc-methods/stx-call-contract';
+import { rpcStxDeployContract } from './rpc-methods/stx-deploy-contract';
 import { rpcStxGetAddresses } from './rpc-methods/stx-get-addresses';
+import { rpcStxTransferStx } from './rpc-methods/stx-transfer-stx';
 import { rpcSupportedMethods } from './rpc-methods/supported-methods';
 &nbsp;
-export async function <span class="fstat-no" title="function not covered" >rpcMessageHandler(m</span>essage: WalletRequests, port: chrome.runtime.Port) {
+export async function <span class="fstat-no" title="function not covered" >rpcMessageHandler(m</span>essage: RpcRequests, port: chrome.runtime.Port) {
 <span class="cstat-no" title="statement not covered" >  listenForOriginTabClose({ tabId: port.sender?.tab?.id });</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  switch (message.method) {</span>
-    case 'open': {
+    case open.method: {
 <span class="cstat-no" title="statement not covered" >      await rpcOpen(message, port);</span>
 <span class="cstat-no" title="statement not covered" >      break;</span>
     }
-    case 'openSwap': {
+    case openSwap.method: {
 <span class="cstat-no" title="statement not covered" >      await rpcSwap(message, port);</span>
 <span class="cstat-no" title="statement not covered" >      break;</span>
     }
-    case 'getAddresses': {
+    case getAddresses.method: {
 <span class="cstat-no" title="statement not covered" >      await rpcGetAddresses(message, port);</span>
 <span class="cstat-no" title="statement not covered" >      break;</span>
     }
@@ -343,40 +408,50 @@ export async function <span class="fstat-no" title="function not covered" >rpcMe
 <span class="cstat-no" title="statement not covered" >      break;</span>
     }
 &nbsp;
-    case 'stx_callContract': {
+    case stxCallContract.method: {
 <span class="cstat-no" title="statement not covered" >      await rpcStxCallContract(message, port);</span>
 <span class="cstat-no" title="statement not covered" >      break;</span>
     }
 &nbsp;
-    case 'stx_signTransaction': {
-<span class="cstat-no" title="statement not covered" >      await rpcSignStacksTransaction(message, port);</span>
+    case stxDeployContract.method: {
+<span class="cstat-no" title="statement not covered" >      await rpcStxDeployContract(message, port);</span>
 <span class="cstat-no" title="statement not covered" >      break;</span>
     }
 &nbsp;
-    case 'supportedMethods': {
+    case stxSignTransaction.method: {
+<span class="cstat-no" title="statement not covered" >      await rpcStxSignTransaction(message, port);</span>
+<span class="cstat-no" title="statement not covered" >      break;</span>
+    }
+&nbsp;
+    case supportedMethods.method: {
 <span class="cstat-no" title="statement not covered" >      rpcSupportedMethods(message, port);</span>
 <span class="cstat-no" title="statement not covered" >      break;</span>
     }
 &nbsp;
-    case 'stx_signMessage': {
+    case stxSignMessage.method: {
 <span class="cstat-no" title="statement not covered" >      await rpcSignStacksMessage(message, port);</span>
 <span class="cstat-no" title="statement not covered" >      break;</span>
     }
 &nbsp;
-    case 'stx_signStructuredMessage': {
+    case stxSignStructuredMessage.method: {
 <span class="cstat-no" title="statement not covered" >      await rpcSignStacksStructuredMessage(message, port);</span>
 <span class="cstat-no" title="statement not covered" >      break;</span>
     }
 &nbsp;
-    case 'stx_getAddresses': {
+    case stxGetAddresses.method: {
 <span class="cstat-no" title="statement not covered" >      await rpcStxGetAddresses(message, port);</span>
+<span class="cstat-no" title="statement not covered" >      break;</span>
+    }
+&nbsp;
+    case stxTransferStx.method: {
+<span class="cstat-no" title="statement not covered" >      await rpcStxTransferStx(message, port);</span>
 <span class="cstat-no" title="statement not covered" >      break;</span>
     }
 &nbsp;
     default:
 <span class="cstat-no" title="statement not covered" >      chrome.tabs.sendMessage(</span>
         getTabIdFromPort(port),
-        makeRpcErrorResponse('' as any, {
+        createRpcErrorResponse(message.method, {
           id: message.id,
           error: {
             code: RpcErrorCode.METHOD_NOT_FOUND,
@@ -389,14 +464,14 @@ export async function <span class="fstat-no" title="function not covered" >rpcMe
 }
 &nbsp;
 interface TrackRpcRequestSuccess {
-  endpoint: WalletRequests['method'];
+  endpoint: RpcRequests['method'];
 }
 export async function <span class="fstat-no" title="function not covered" >trackRpcRequestSuccess(a</span>rgs: TrackRpcRequestSuccess) {
 <span class="cstat-no" title="statement not covered" >  return queueAnalyticsRequest('rpc_request_successful', { ...args });</span>
 }
 &nbsp;
 interface TrackRpcRequestError {
-  endpoint: WalletRequests['method'];
+  endpoint: RpcRequests['method'];
   error: string;
 }
 export async function <span class="fstat-no" title="function not covered" >trackRpcRequestError(a</span>rgs: TrackRpcRequestError) {
@@ -409,7 +484,7 @@ export async function <span class="fstat-no" title="function not covered" >track
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-12T15:57:40.963Z
+                at 2025-02-17T15:40:34.559Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
