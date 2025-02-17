@@ -22,10 +22,11 @@ jobs:
         if: env.branch_is_release == 'true'
         uses: actions/github-script@v6
         with:
+          github-token: ${{ secrets.LEATHER_BOT }}
           script: |
             github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.payload.pull_request.number,
-              body: "⚠️ Warning: PR should be **merged** and not **rebased**."
+              body: "⚠️ **This Pull Request must be merged** not rebased </br></br> Need to update the release? Merge the change to `dev`, \`git reset --hard origin/dev` and force push the changes"
             })
