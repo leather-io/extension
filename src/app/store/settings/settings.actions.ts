@@ -13,3 +13,8 @@ export function useTogglePrivateMode() {
   const dispatch = useDispatch();
   return () => dispatch(settingsActions.togglePrivateMode());
 }
+
+export function useToggleNotificationsEnabled() {
+  const dispatch = useDispatch();
+  return () => dispatch(settingsActions.toggleNotificationsEnabled());
+}
