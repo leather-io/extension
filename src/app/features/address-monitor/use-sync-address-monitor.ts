@@ -7,24 +7,26 @@ import { InternalMethods } from '@shared/message-types';
 import { sendMessage } from '@shared/messages';
 
 import { useMonitorableAddresses } from '@app/features/address-monitor/use-monitorable-addresses';
+import { useIsNotificationsEnabled } from '@app/store/settings/settings.selectors';
 import type { MonitoredAddress } from '@background/monitors/address-monitor';
 
-// ts-unused-exports:disable-next-line
 export function useSyncAddressMonitor() {
+  const isNotificationsEnabled = useIsNotificationsEnabled();
   const addresses = useMonitorableAddresses();
   const prevAddresses = useRef<MonitoredAddress[]>([]);
 
   useEffect(() => {
-    if (addresses && !isEqual(addresses, prevAddresses.current)) {
-      prevAddresses.current = addresses;
+    const monitorableAddresses = isNotificationsEnabled ? addresses : [];
+    if (monitorableAddresses && !isEqual(monitorableAddresses, prevAddresses.current)) {
+      prevAddresses.current = monitorableAddresses;
 
-      logger.debug('Syncing Monitored Addresses: ', addresses);
+      logger.debug(`Syncing ${monitorableAddresses?.length} Monitored Addresses: `);
       sendMessage({
         method: InternalMethods.AddressMonitorUpdated,
         payload: {
-          addresses,
+          addresses: monitorableAddresses,
         },
       });
     }
-  }, [addresses]);
+  }, [addresses, isNotificationsEnabled]);
 }
