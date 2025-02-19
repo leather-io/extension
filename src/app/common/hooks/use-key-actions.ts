@@ -52,8 +52,11 @@ export function useKeyActions() {
         return dispatch(keyActions.unlockWalletAction(password));
       },
 
-      switchAccount(accountIndex: number) {
-        sendMessage({ method: InternalMethods.AccountChanged, payload: { accountIndex } });
+      switchAccount(accountIndex: number, stacksAddress: string) {
+        sendMessage({
+          method: InternalMethods.AccountChanged,
+          payload: { accountIndex, stacksAddress },
+        });
         return dispatch(stxChainActions.switchAccount(accountIndex));
       },
 
