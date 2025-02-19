@@ -35,7 +35,7 @@ importers:
         version: 0.7.0(encoding@0.1.13)
       '@coinbase/cbpay-js':
         specifier: 2.1.0
-        version: 2.1.0(regenerator-runtime@0.13.11)
+        version: 2.1.0(regenerator-runtime@0.14.1)
       '@fungible-systems/zone-file':
         specifier: 2.0.0
         version: 2.0.0
@@ -64,8 +64,8 @@ importers:
         specifier: 2.27.0
         version: 2.27.0(encoding@0.1.13)(react@18.3.1)
       '@leather.io/rpc':
-        specifier: 2.5.12
-        version: 2.5.12(encoding@0.1.13)
+        specifier: 2.5.13
+        version: 2.5.13(encoding@0.1.13)
       '@leather.io/stacks':
         specifier: 1.5.20
         version: 1.5.20(encoding@0.1.13)
@@ -3358,6 +3358,9 @@ packages:
   '@leather.io/constants@0.15.5':
     resolution: {integrity: sha512-0vd3vk50NQYQiItoPT3CpEH9iO/gqKqNGFtItbopkyRjFKKu2GFBR1x49rAOGANVnKrq9F18423aEDTChxa9tw==}
 
+  '@leather.io/constants@0.16.0':
+    resolution: {integrity: sha512-04yUXvJMKkRML8isgg5MAb20q3azYNRvNxYuNk4ye+1otjf9ZoPkvcMlAA+5y19N3hoMhBNAkbqHogH0WKLv/A==}
+
   '@leather.io/crypto@1.6.35':
     resolution: {integrity: sha512-VvqffR0LMU/XzlT598idHHFQHDzYnatQUphozWrfKy5l9UyyN4eny6UPH7bLxzgV3zVTNZq9VOxhTqua2ZhVXw==}
 
@@ -3369,6 +3372,9 @@ packages:
 
   '@leather.io/models@0.25.1':
     resolution: {integrity: sha512-wQ65OoRSzi+rQgwB9FK5D4VjiuDalH3cFPaGHlqPtFHojkJtKvrnqWqdspxMaVA+KpduNSQGTFRVtPEbKaTt1A==}
+
+  '@leather.io/models@0.26.0':
+    resolution: {integrity: sha512-+9UvZ9zrxLGSOKCoMYoLLy9CkCckcWpgh1iABPt8A0Y5mjmLgV5Ha4/PFLffrKCqDmusjFpISZV7gCGIcw98+Q==}
 
   '@leather.io/panda-preset@0.8.10':
     resolution: {integrity: sha512-fDW5JePLKsIBldig7EI8h/Dz25Ux+I76e/9btQ6GQ27/sIil7c5/ztWqiHj7/dLcW7cT8EqB6IQtUpcUQhPVFw==}
@@ -3384,8 +3390,8 @@ packages:
   '@leather.io/rpc@2.5.10':
     resolution: {integrity: sha512-9girm347ekq1PWEpwSH7lkakYEU4VPFdM3kA2Va/MOmQXIp1ajRTN8eexhgiB3W7M/lPXYkX0qn0hQAiBshDVA==}
 
-  '@leather.io/rpc@2.5.12':
-    resolution: {integrity: sha512-d9jxEfIEwjrGuP9nw/G2RiGe/ZUDO8kY8HbpLG272MWiImJ9mAM7hfZXcMVCphmIVnU+31aUnhSruRDiEiW07w==}
+  '@leather.io/rpc@2.5.13':
+    resolution: {integrity: sha512-69nvc3X4fGXU5o9o1RurNDXxxqVeP0nGCp7M6+RDQPF1Btk1P5hU0cx2pcnwC8NELOeHbvzz0InT1v7ya4eY6w==}
 
   '@leather.io/rpc@2.5.6':
     resolution: {integrity: sha512-xPEkPC2n+VC1YssMv/NiHmQ6RyXGtT2DMDyQBfUnyr8Zc1NQ98gJbNyIihNl2XdFc1x9sNETP/3NJ3OwXLUIgg==}
@@ -3410,6 +3416,9 @@ packages:
 
   '@leather.io/utils@0.27.0':
     resolution: {integrity: sha512-uXANkL6cSlxK7beT0OPX5Ihc+M8qZwGqICqmBIUZUG5UJc0GAhz+gg2ZfrI/N0nJHKFlCU09IHFJ3q5mBAxCrw==}
+
+  '@leather.io/utils@0.27.1':
+    resolution: {integrity: sha512-6/rcSIwN94WVF3Ok0D4imZNurw1gtO8G9C6pTMXmejL2U/YpbrdjhQG9S8xDYDUD7QFnM3jD3vlmGSOCuvanAA==}
 
   '@ledgerhq/devices@8.4.2':
     resolution: {integrity: sha512-oWNTp3jCMaEvRHsXNYE/yo+PFMgXAJGFHLOU1UdE4/fYkniHbD9wdxwyZrZvrxr9hNw4/9wHiThyITwPtMzG7g==}
@@ -18340,9 +18349,9 @@ snapshots:
       picocolors: 1.1.0
       sisteransi: 1.0.5
 
-  '@coinbase/cbpay-js@2.1.0(regenerator-runtime@0.13.11)':
+  '@coinbase/cbpay-js@2.1.0(regenerator-runtime@0.14.1)':
     optionalDependencies:
-      regenerator-runtime: 0.13.11
+      regenerator-runtime: 0.14.1
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -19583,6 +19592,10 @@ snapshots:
     dependencies:
       '@leather.io/models': 0.25.1
 
+  '@leather.io/constants@0.16.0':
+    dependencies:
+      '@leather.io/models': 0.26.0
+
   '@leather.io/crypto@1.6.35(encoding@0.1.13)':
     dependencies:
       '@leather.io/utils': 0.25.2(encoding@0.1.13)
@@ -19612,6 +19625,12 @@ snapshots:
       - typescript
 
   '@leather.io/models@0.25.1':
+    dependencies:
+      '@stacks/stacks-blockchain-api-types': 7.8.2
+      bignumber.js: 9.1.2
+      zod: 3.24.1
+
+  '@leather.io/models@0.26.0':
     dependencies:
       '@stacks/stacks-blockchain-api-types': 7.8.2
       bignumber.js: 9.1.2
@@ -19674,10 +19693,10 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@leather.io/rpc@2.5.12(encoding@0.1.13)':
+  '@leather.io/rpc@2.5.13(encoding@0.1.13)':
     dependencies:
-      '@leather.io/models': 0.25.1
-      '@leather.io/utils': 0.27.0
+      '@leather.io/models': 0.26.0
+      '@leather.io/utils': 0.27.1
       '@scure/btc-signer': 1.4.0
       '@stacks/network': 7.0.2(encoding@0.1.13)
       '@stacks/transactions': 7.0.2(encoding@0.1.13)
@@ -19812,6 +19831,12 @@ snapshots:
     dependencies:
       '@leather.io/constants': 0.15.5
       '@leather.io/models': 0.25.1
+      bignumber.js: 9.1.2
+
+  '@leather.io/utils@0.27.1':
+    dependencies:
+      '@leather.io/constants': 0.16.0
+      '@leather.io/models': 0.26.0
       bignumber.js: 9.1.2
 
   '@ledgerhq/devices@8.4.2':

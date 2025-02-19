@@ -83,7 +83,7 @@ export function rpcSignStacksMessage(
 ) {
   const requestParams: RequestParams = [
     ['message', message.params.message],
-    ['messageType', message.params.messageType],
+    ['messageType', message.params.messageType ?? 'utf8'],
     ['requestId', message.id],
   ];
 
