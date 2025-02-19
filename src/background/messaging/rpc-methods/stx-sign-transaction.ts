@@ -82,7 +82,7 @@ function transactionPayloadToTransactionRequest(
         stacksTransaction.payload.contractAddress
       );
       transactionRequest.functionArgs = stacksTransaction.payload.functionArgs.map(arg =>
-        Buffer.from(serializeCV(arg)).toString('hex')
+        serializeCV(arg)
       );
       transactionRequest.functionName = stacksTransaction.payload.functionName.content;
       break;

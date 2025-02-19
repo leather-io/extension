@@ -15,7 +15,10 @@ type OriginatingTabClosed = BackgroundMessage<
   { tabId: number }
 >;
 
-type AccountChanged = BackgroundMessage<InternalMethods.AccountChanged, { accountIndex: number }>;
+type AccountChanged = BackgroundMessage<
+  InternalMethods.AccountChanged,
+  { accountIndex: number; stacksAddress: string }
+>;
 
 type AddressMonitorUpdated = BackgroundMessage<
   InternalMethods.AddressMonitorUpdated,
