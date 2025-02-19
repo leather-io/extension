@@ -151,7 +151,7 @@
     "@leather.io/crypto": "1.6.35",
     "@leather.io/models": "0.25.1",
     "@leather.io/query": "2.27.0",
-    "@leather.io/rpc": "2.5.12",
+    "@leather.io/rpc": "2.5.13",
     "@leather.io/stacks": "1.5.20",
     "@leather.io/tokens": "0.12.11",
     "@leather.io/ui": "1.48.3",
