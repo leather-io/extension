@@ -60,10 +60,11 @@ function generateUnsignedContractCallTx(args: GenerateUnsignedContractCallTxArgs
     nonce: initNonce(nonce)?.toString(),
     fee: new BN(fee, 10).toString(),
     postConditionMode: postConditionMode ?? PostConditionMode.Deny,
-    postConditions,
+    postConditions: getPostConditions(postConditions?.map(pc => ensurePostConditionWireFormat(pc))),
     network,
     sponsored,
-  } satisfies UnsignedContractCallOptions;
+    // Casting type bc `@stacks/transactions` is incorrect, not allowing PostConditionWire[]
+  } as unknown as UnsignedContractCallOptions;
   return makeUnsignedContractCall(options);
 }
 

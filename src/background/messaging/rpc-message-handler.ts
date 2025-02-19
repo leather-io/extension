@@ -14,6 +14,7 @@ import {
   stxSignMessage,
   stxSignStructuredMessage,
   stxSignTransaction,
+  stxTransferSip10Ft,
   stxTransferStx,
   supportedMethods,
 } from '@leather.io/rpc';
@@ -35,6 +36,7 @@ import {
 import { rpcStxCallContract } from './rpc-methods/stx-call-contract';
 import { rpcStxDeployContract } from './rpc-methods/stx-deploy-contract';
 import { rpcStxGetAddresses } from './rpc-methods/stx-get-addresses';
+import { rpcStxTransferSip10Ft } from './rpc-methods/stx-transfer-sip10-ft';
 import { rpcStxTransferStx } from './rpc-methods/stx-transfer-stx';
 import { rpcSupportedMethods } from './rpc-methods/supported-methods';
 
@@ -107,6 +109,11 @@ export async function rpcMessageHandler(message: RpcRequests, port: chrome.runti
 
     case stxTransferStx.method: {
       await rpcStxTransferStx(message, port);
+      break;
+    }
+
+    case stxTransferSip10Ft.method: {
+      await rpcStxTransferSip10Ft(message, port);
       break;
     }
 

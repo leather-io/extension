@@ -1,4 +1,4 @@
-import { PostConditionMode, StacksWireType, deserializeStacksWire } from '@stacks/transactions';
+import { PostConditionMode } from '@stacks/transactions';
 import { generateContractCallToken } from '@tests/transation-test-utils';
 import { decodeToken } from 'jsontokens';
 
@@ -16,12 +16,7 @@ describe('generated signed transactions', () => {
       fee: 0,
     });
     expect(tx.postConditionMode).toEqual(PostConditionMode.Allow);
-    // Casting type bc `@stacks/transactions` says the value is StacksWire
-    const postConditionValue = tx.postConditions.values[0] as unknown as string;
-    const deserializedPostCondition = deserializeStacksWire(
-      postConditionValue,
-      StacksWireType.PostCondition
-    );
-    expect('amount' in deserializedPostCondition && deserializedPostCondition.amount).toEqual(100n);
+    const postConditionValue = tx.postConditions.values[0];
+    expect('amount' in postConditionValue && postConditionValue.amount).toEqual(100n);
   }, 5000);
 });
