@@ -21,6 +21,7 @@ import { stxToMicroStx } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import type { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
+import { makeFtPostCondition } from '@shared/utils/post-conditions';
 
 import { ftUnshiftDecimals } from '@app/common/stacks-utils';
 import {
@@ -28,7 +29,6 @@ import {
   generateUnsignedTransaction,
 } from '@app/common/transactions/stacks/generate-unsigned-txs';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
-import { makePostCondition } from '@app/store/transactions/transaction.hooks';
 
 import { useCurrentStacksAccount } from '../accounts/blockchain/stacks/stacks-account.hooks';
 
@@ -111,7 +111,7 @@ export function useGenerateFtTokenTransferUnsignedTx(info: Sip10CryptoAssetInfo)
           stxAddress: account.address,
         };
 
-        const postConditions = [makePostCondition(postConditionOptions)];
+        const postConditions = [makeFtPostCondition(postConditionOptions)];
 
         // (transfer (uint principal principal) (response bool uint))
         const functionArgs: ClarityValue[] = [

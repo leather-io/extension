@@ -3,10 +3,13 @@ import type { BackgroundMessages } from '@shared/messages';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 
-export function useOnChangeAccount(handler: (accountIndex: number) => void) {
+export function useOnChangeAccount(
+  handler: (accountIndex: number, accountAddress: string) => void
+) {
   useOnMount(() => {
     chrome.runtime.onMessage.addListener((message: BackgroundMessages, _sender, sendResponse) => {
-      if (message?.method === InternalMethods.AccountChanged) handler(message.payload.accountIndex);
+      if (message?.method === InternalMethods.AccountChanged)
+        handler(message.payload.accountIndex, message.payload.stacksAddress);
       sendResponse();
     });
   });

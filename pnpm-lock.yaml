@@ -67,8 +67,8 @@ importers:
         specifier: 2.27.0
         version: 2.27.0(encoding@0.1.13)(react@18.3.1)
       '@leather.io/rpc':
-        specifier: 2.5.13
-        version: 2.5.13(encoding@0.1.13)
+        specifier: 2.5.14
+        version: 2.5.14(encoding@0.1.13)
       '@leather.io/stacks':
         specifier: 1.5.20
         version: 1.5.20(encoding@0.1.13)
@@ -3396,8 +3396,8 @@ packages:
   '@leather.io/rpc@2.5.10':
     resolution: {integrity: sha512-9girm347ekq1PWEpwSH7lkakYEU4VPFdM3kA2Va/MOmQXIp1ajRTN8eexhgiB3W7M/lPXYkX0qn0hQAiBshDVA==}
 
-  '@leather.io/rpc@2.5.13':
-    resolution: {integrity: sha512-69nvc3X4fGXU5o9o1RurNDXxxqVeP0nGCp7M6+RDQPF1Btk1P5hU0cx2pcnwC8NELOeHbvzz0InT1v7ya4eY6w==}
+  '@leather.io/rpc@2.5.14':
+    resolution: {integrity: sha512-0Fyy0aEcenRtqkxAc1qC2a1rpjOmVi8pkZZaNdglrmVLXvv46QDWApxHkc5FO0EC9aPGhnKR3KBFPhq8puikPg==}
 
   '@leather.io/rpc@2.5.6':
     resolution: {integrity: sha512-xPEkPC2n+VC1YssMv/NiHmQ6RyXGtT2DMDyQBfUnyr8Zc1NQ98gJbNyIihNl2XdFc1x9sNETP/3NJ3OwXLUIgg==}
@@ -19720,7 +19720,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@leather.io/rpc@2.5.13(encoding@0.1.13)':
+  '@leather.io/rpc@2.5.14(encoding@0.1.13)':
     dependencies:
       '@leather.io/models': 0.26.0
       '@leather.io/utils': 0.27.1

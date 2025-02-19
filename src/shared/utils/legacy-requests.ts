@@ -19,7 +19,7 @@ export type ContractCallPayload = ReplaceTypes<
   {
     txType: TransactionTypes.ContractCall;
     network: StacksNetwork;
-    postConditions?: PostCondition[];
+    postConditions?: PostCondition[] | PostConditionWire[];
   }
 >;
 export type ContractDeployPayload = ReplaceTypes<

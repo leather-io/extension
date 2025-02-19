@@ -2,16 +2,15 @@ import { useCallback, useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 
 import { bytesToHex } from '@stacks/common';
-import { PostCondition, StacksTransactionWire, TransactionSigner } from '@stacks/transactions';
+import { StacksTransactionWire, TransactionSigner } from '@stacks/transactions';
 import {
   StacksTransaction,
   TransactionSigner as TransactionSignerV6,
   createStacksPrivateKey,
 } from '@stacks/transactions-v6';
-import BN from 'bn.js';
 
 import { useNextNonce } from '@leather.io/query';
-import { TransactionTypes, formatAssetString } from '@leather.io/stacks';
+import { TransactionTypes } from '@leather.io/stacks';
 import { isUndefined, stxToMicroStx } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
@@ -80,25 +79,6 @@ export function useUnsignedStacksTransactionBaseState() {
 export function useUnsignedPrepareTransactionDetails(values: StacksTransactionFormValues) {
   const unsignedStacksTransaction = useUnsignedStacksTransaction(values);
   return useMemo(() => unsignedStacksTransaction, [unsignedStacksTransaction]);
-}
-
-interface PostConditionsOptions {
-  contractAddress: string;
-  contractAssetName: string;
-  contractName: string;
-  stxAddress: string;
-  amount: string | number;
-}
-export function makePostCondition(options: PostConditionsOptions): PostCondition {
-  const { contractAddress, contractAssetName, contractName, stxAddress, amount } = options;
-
-  return {
-    type: 'ft-postcondition',
-    address: stxAddress,
-    condition: 'eq',
-    amount: new BN(amount, 10).toString(),
-    asset: formatAssetString({ contractAddress, contractName, assetName: contractAssetName }),
-  };
 }
 
 export function useGenerateUnsignedStacksTransaction() {
