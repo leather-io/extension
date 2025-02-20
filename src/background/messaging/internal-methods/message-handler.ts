@@ -36,6 +36,11 @@ export async function internalBackgroundMessageHandler(
     case InternalMethods.AddressMonitorUpdated:
       await syncAddressMonitor(message.payload.addresses);
       break;
+    case InternalMethods.AccountChanged:
+      await chrome.storage.local.set({
+        ['stacksAddress']: message.payload.stacksAddress,
+      });
+      break;
   }
 
   if (message.method.includes('bitcoinKeys/signOut')) {

@@ -154,7 +154,7 @@ export function LedgerSignJwtContainer() {
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });
       const authResponse = addSignatureToAuthResponseJwt(authResponsePayload, resp.signatureDER);
       await delay(600);
-      keyActions.switchAccount(accountIndex);
+      keyActions.switchAccount(accountIndex, account.address);
 
       finalizeAuthResponse({
         decodedAuthRequest,

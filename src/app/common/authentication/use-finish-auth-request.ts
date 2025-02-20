@@ -102,7 +102,7 @@ export function useFinishAuthRequest() {
             { priority: hiroApiRequestsPriorityLevels.makeAuthResponse, throwOnTimeout: true }
           );
 
-          keyActions.switchAccount(accountIndex);
+          keyActions.switchAccount(accountIndex, account.address);
           finalizeAuthResponse({
             decodedAuthRequest,
             authRequest,
