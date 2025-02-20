@@ -8,8 +8,6 @@ import {
 import StacksApp, { LedgerError, ResponseSign, ResponseVersion } from '@zondax/ledger-stacks';
 import { compare } from 'compare-versions';
 
-import { makeStxDerivationPath, stxDerivationWithAccount } from '@leather.io/stacks';
-
 import {
   LEDGER_APPS_MAP,
   PrepareLedgerDeviceConnectionArgs,
@@ -18,6 +16,15 @@ import {
   promptOpenAppOnDevice,
   versionObjectToVersionString,
 } from './generic-ledger-utils';
+
+export const stxDerivationWithAccount = `m/44'/5757'/{account}'/0/0`;
+
+export function makeAccountIndexDerivationPathFactory(derivationPath: string) {
+  return (account: number) => derivationPath.replace('{account}', account.toString());
+}
+
+export const makeStxDerivationPath =
+  makeAccountIndexDerivationPathFactory(stxDerivationWithAccount);
 
 export function requestPublicKeyForStxAccount(app: StacksApp) {
   return async (index: number) =>
