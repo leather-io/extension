@@ -15,6 +15,7 @@ const initialState: InitialState = {
   userSelectedTheme: 'system',
   dismissedMessages: [],
   discardedInscriptions: [],
+  isNotificationsEnabled: true,
 };
 
 export const settingsSlice = createSlice({
