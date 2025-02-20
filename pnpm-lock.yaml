@@ -35,7 +35,7 @@ importers:
         version: 0.7.0(encoding@0.1.13)
       '@coinbase/cbpay-js':
         specifier: 2.1.0
-        version: 2.1.0(regenerator-runtime@0.14.1)
+        version: 2.1.0(regenerator-runtime@0.13.11)
       '@fungible-systems/zone-file':
         specifier: 2.0.0
         version: 2.0.0
@@ -60,6 +60,9 @@ importers:
       '@leather.io/models':
         specifier: 0.25.1
         version: 0.25.1
+      '@leather.io/provider':
+        specifier: 1.0.0
+        version: 1.0.0(encoding@0.1.13)
       '@leather.io/query':
         specifier: 2.27.0
         version: 2.27.0(encoding@0.1.13)(react@18.3.1)
@@ -3382,6 +3385,9 @@ packages:
   '@leather.io/prettier-config@0.6.0':
     resolution: {integrity: sha512-QBKtLanfxFxXBlR58U/j8a6lBI0xzJzqqi36fXpGVp+9mJoEf6Ro6xrtFrixjW6seY6EOva4OApVnnPBsvOC/w==}
 
+  '@leather.io/provider@1.0.0':
+    resolution: {integrity: sha512-lD8tiSUwcEjSCOwkXRmlv9HPGm6gcz2ZJ5iKSiERFdPlv/H0uWPw7YSjKzGB+99B0o5mHwEaO7mXTIKgbfoWpg==}
+
   '@leather.io/query@2.27.0':
     resolution: {integrity: sha512-fRDY0cFVO0yegEe39mqLVgba7GjleCaVST8p7wRmPl652iFB3+PsueOl3HNbL/WkyMsCPpvCuijmSMO4Kow1Fg==}
     peerDependencies:
@@ -3395,6 +3401,9 @@ packages:
 
   '@leather.io/rpc@2.5.6':
     resolution: {integrity: sha512-xPEkPC2n+VC1YssMv/NiHmQ6RyXGtT2DMDyQBfUnyr8Zc1NQ98gJbNyIihNl2XdFc1x9sNETP/3NJ3OwXLUIgg==}
+
+  '@leather.io/rpc@2.6.0':
+    resolution: {integrity: sha512-UhvvsQ4kdE/nr94bbSxJ05/AttkdQd7TNX3pNqUCD47/mmX62jS6dv5tSbqD7K56lu4CHTyoTQw2hJWkOTC7HQ==}
 
   '@leather.io/stacks@1.5.20':
     resolution: {integrity: sha512-A5TChq+iec6iVyCknz26VZMGhu2sx+pKsdwFKOLqut/P5DrQn4QcGWoG/pQIUZ7QqE3fsFxwnFBGLcVIpDNB3w==}
@@ -5294,6 +5303,9 @@ packages:
 
   '@stacks/network@7.0.2':
     resolution: {integrity: sha512-XzHnoWqku/jRrTgMXhmh3c+I0O9vDH24KlhzGDZtBu+8CGGyHNPAZzGwvoUShonMXrXjEnfO9IYQwV5aJhfv6g==}
+
+  '@stacks/profile@6.15.0':
+    resolution: {integrity: sha512-+m11HYHU45+f98FySsVmofeLFWxnhnwZ5jbREoD2f53fmBulsSbJpDUVg3w4aPdj6hg4+o7rkg09gbirIXNWBw==}
 
   '@stacks/profile@6.17.0':
     resolution: {integrity: sha512-EoYe0NapFc6bgA+vyCVY2sYYRHk3pbsbRnm3eaSp8y9Drfy8dBqsM10W1jjTwOn0R+IMmDT52lojdW7Pw3c7Mw==}
@@ -18349,9 +18361,9 @@ snapshots:
       picocolors: 1.1.0
       sisteransi: 1.0.5
 
-  '@coinbase/cbpay-js@2.1.0(regenerator-runtime@0.14.1)':
+  '@coinbase/cbpay-js@2.1.0(regenerator-runtime@0.13.11)':
     optionalDependencies:
-      regenerator-runtime: 0.14.1
+      regenerator-runtime: 0.13.11
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -19651,6 +19663,21 @@ snapshots:
       - '@vue/compiler-sfc'
       - supports-color
 
+  '@leather.io/provider@1.0.0(encoding@0.1.13)':
+    dependencies:
+      '@leather.io/models': 0.26.0
+      '@leather.io/rpc': 2.6.0(encoding@0.1.13)
+      '@leather.io/utils': 0.27.1
+      '@scure/btc-signer': 1.4.0
+      '@stacks/connect': 7.4.0(encoding@0.1.13)
+      '@stacks/connect-jwt': '@stacks/connect@7.4.0(encoding@0.1.13)'
+      '@stacks/network': 7.0.2(encoding@0.1.13)
+      '@stacks/profile': 6.15.0(encoding@0.1.13)
+      '@stacks/transactions': 7.0.2(encoding@0.1.13)
+      zod: 3.24.1
+    transitivePeerDependencies:
+      - encoding
+
   '@leather.io/query@2.27.0(encoding@0.1.13)(react@18.3.1)':
     dependencies:
       '@fungible-systems/zone-file': 2.0.0
@@ -19707,6 +19734,17 @@ snapshots:
   '@leather.io/rpc@2.5.6(encoding@0.1.13)':
     dependencies:
       '@leather.io/models': 0.25.1
+      '@stacks/network': 7.0.2(encoding@0.1.13)
+      '@stacks/transactions': 7.0.2(encoding@0.1.13)
+      zod: 3.24.1
+    transitivePeerDependencies:
+      - encoding
+
+  '@leather.io/rpc@2.6.0(encoding@0.1.13)':
+    dependencies:
+      '@leather.io/models': 0.26.0
+      '@leather.io/utils': 0.27.1
+      '@scure/btc-signer': 1.4.0
       '@stacks/network': 7.0.2(encoding@0.1.13)
       '@stacks/transactions': 7.0.2(encoding@0.1.13)
       zod: 3.24.1
@@ -22959,6 +22997,17 @@ snapshots:
     dependencies:
       '@stacks/common': 7.0.2
       cross-fetch: 3.1.8(encoding@0.1.13)
+    transitivePeerDependencies:
+      - encoding
+
+  '@stacks/profile@6.15.0(encoding@0.1.13)':
+    dependencies:
+      '@stacks/common': 6.16.0
+      '@stacks/network': 6.17.0(encoding@0.1.13)
+      '@stacks/transactions': 6.17.0(encoding@0.1.13)
+      jsontokens: 4.0.1
+      schema-inspector: 2.0.2
+      zone-file: 2.0.0-beta.3
     transitivePeerDependencies:
       - encoding
 
