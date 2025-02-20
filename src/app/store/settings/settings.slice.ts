@@ -6,6 +6,7 @@ interface InitialState {
   userSelectedTheme: UserSelectedTheme;
   dismissedMessages: string[];
   isPrivateMode?: boolean;
+  isNotificationsEnabled?: boolean;
   bypassInscriptionChecks?: boolean;
   discardedInscriptions: string[];
 }
@@ -14,6 +15,7 @@ const initialState: InitialState = {
   userSelectedTheme: 'system',
   dismissedMessages: [],
   discardedInscriptions: [],
+  isNotificationsEnabled: true,
 };
 
 export const settingsSlice = createSlice({
@@ -32,6 +34,9 @@ export const settingsSlice = createSlice({
     },
     togglePrivateMode(state) {
       state.isPrivateMode = !state.isPrivateMode;
+    },
+    toggleNotificationsEnabled(state) {
+      state.isNotificationsEnabled = !state.isNotificationsEnabled;
     },
     dangerouslyChosenToBypassAllInscriptionChecks(state) {
       state.bypassInscriptionChecks = true;

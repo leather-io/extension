@@ -5,6 +5,9 @@ import {
   getAddresses,
   open,
   openSwap,
+  sendTransfer,
+  signMessage,
+  signPsbt,
   stxCallContract,
   stxDeployContract,
   stxGetAddresses,
@@ -52,17 +55,17 @@ export async function rpcMessageHandler(message: RpcRequests, port: chrome.runti
       break;
     }
 
-    case 'signMessage': {
+    case signMessage.method: {
       await rpcSignMessage(message, port);
       break;
     }
 
-    case 'sendTransfer': {
+    case sendTransfer.method: {
       await rpcSendTransfer(message, port);
       break;
     }
 
-    case 'signPsbt': {
+    case signPsbt.method: {
       await rpcSignPsbt(message, port);
       break;
     }

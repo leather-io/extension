@@ -32,6 +32,15 @@ export function useIsPrivateMode() {
   return useSelector(selectIsPrivateMode);
 }
 
+const selectIsNotificationsEnabled = createSelector(
+  selectSettings,
+  state => state.isNotificationsEnabled ?? false
+);
+
+export function useIsNotificationsEnabled() {
+  return useSelector(selectIsNotificationsEnabled);
+}
+
 const selectDiscardedInscriptions = createSelector(
   selectSettings,
   state => state.discardedInscriptions
