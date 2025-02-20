@@ -124,6 +124,41 @@ export function Settings({
     [canLockWallet, hasKeys, lockWallet, navigate, showAdvancedMenuOptions, showSignOut, walletType]
   );
 
+  const handleNotificationsSettingSelect = () => {
+    if (!isNotificationsEnabled) {
+      chrome.permissions.contains(
+        {
+          permissions: ['notifications'],
+        },
+        result => {
+          if (result) {
+            // extension already has permission
+            toggleNotificationsEnabled();
+            toast.success('Notifications enabled');
+          } else {
+            chrome.permissions.request(
+              {
+                permissions: ['notifications'],
+              },
+              granted => {
+                if (granted) {
+                  // permission granted
+                  toggleNotificationsEnabled();
+                  toast.success('Notifications enabled');
+                } else {
+                  toast.error('Permission denied');
+                }
+              }
+            );
+          }
+        }
+      );
+    } else {
+      toggleNotificationsEnabled();
+      toast.info('Notifications disabled');
+    }
+  };
+
   return (
     <>
       <DropdownMenu.Root>
@@ -226,12 +261,7 @@ export function Settings({
 
               <DropdownMenu.Item
                 data-testid={SettingsSelectors.ToggleNotifications}
-                onSelect={() => {
-                  toggleNotificationsEnabled();
-                  toast.info(
-                    isNotificationsEnabled ? 'Notifications disabled' : 'Notifications enabled'
-                  );
-                }}
+                onSelect={handleNotificationsSettingSelect}
               >
                 <Flag img={isNotificationsEnabled ? <BellAlarmIcon /> : <BellIcon />}>
                   <Flex justifyContent="space-between" textStyle="label.02">
