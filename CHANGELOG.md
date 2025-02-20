@@ -1,3 +1,22 @@
+## [6.63.0](https://github.com/leather-io/extension/compare/v6.62.0...v6.63.0) (2025-02-20)
+
+
+### Features
+
+* enable notifications by default ([799eb6a](https://github.com/leather-io/extension/commit/799eb6a5f14d9cd8062fbad8a92a3fab9f697c6c))
+* implement tx notification settings toggle ([57bfc3c](https://github.com/leather-io/extension/commit/57bfc3c67190399bcd9b205fd15026c714fee39f))
+
+
+### Bug Fixes
+
+* **rpc:** broken sign message events, closes LEA-2151 ([f7378fd](https://github.com/leather-io/extension/commit/f7378fda94fd175755eb352ef68880c85f82f421))
+
+
+### Internal
+
+* minor sbtc updates, closes LEA-1992 ([6c51272](https://github.com/leather-io/extension/commit/6c51272db58d60893b5b3eaa8460944ed35cda66))
+* post-release merge back ([fe1881e](https://github.com/leather-io/extension/commit/fe1881e6e2fb56517f9725857749715495fbe884))
+
 ## [6.62.0](https://github.com/leather-io/extension/compare/v6.61.0...v6.62.0) (2025-02-17)
 
 
