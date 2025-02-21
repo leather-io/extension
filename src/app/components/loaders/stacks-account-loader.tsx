@@ -41,9 +41,10 @@ export function useStacksAccountLoader(
 ) {
   const stacksAccounts = useStacksAccounts();
   const currentAccountIndex = useCurrentAccountIndex();
-  const properIndex = 'current' in props ? currentAccountIndex : props.index;
 
+  const properIndex = 'current' in props ? currentAccountIndex : props.index;
   const account = stacksAccounts[properIndex];
+
   if (!account) return null;
   return account;
 }

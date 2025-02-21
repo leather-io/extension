@@ -1,8 +1,10 @@
 import {
   type ClarityValue,
   createAddress,
+  createStacksPublicKey,
   noneCV,
   postConditionToWire,
+  publicKeyToAddressSingleSig,
   serializeCV,
   serializePostConditionWire,
   standardPrincipalCVFromAddress,
@@ -10,11 +12,14 @@ import {
 } from '@stacks/transactions';
 import { createUnsecuredToken } from 'jsontokens';
 
+import { extractKeyFromDescriptor } from '@leather.io/crypto';
 import { type RpcParams, type RpcRequest, stxTransferSip10Ft } from '@leather.io/rpc';
 import { TransactionTypes, getStacksAssetStringParts } from '@leather.io/stacks';
 
 import { RouteUrls } from '@shared/route-urls';
 import { makeFtPostCondition } from '@shared/utils/post-conditions';
+
+import { getRootState } from '@background/get-root-state';
 
 import { handleRpcMessage } from '../handle-rpc-message';
 import {
@@ -27,8 +32,13 @@ async function getMessageParamsToTransactionRequest(params: RpcParams<typeof stx
   const { contractAddress, contractAssetName, contractName } = getStacksAssetStringParts(
     params.asset
   );
-  const result = await chrome.storage.local.get('stacksAddress');
-  const currentStacksAddress = result.stacksAddress;
+  const state = await getRootState();
+  const descriptor = state.chains.stx.default.currentAccountStacksDescriptor;
+  const publicKey = createStacksPublicKey(extractKeyFromDescriptor(descriptor)).data;
+  const currentStacksAddress = publicKeyToAddressSingleSig(
+    publicKey,
+    state.networks.currentNetworkId
+  );
 
   const fnArgs: ClarityValue[] = [
     uintCV(params.amount),

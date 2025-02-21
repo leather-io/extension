@@ -13,7 +13,7 @@ import { analytics } from '@shared/utils/analytics';
 import { queryClient } from '@app/common/persistence';
 import { partiallyClearLocalStorage } from '@app/common/store-utils';
 import { useAppDispatch } from '@app/store';
-import { createNewAccount, stxChainActions } from '@app/store/chains/stx-chain.actions';
+import { createNewAccount, switchAccount } from '@app/store/chains/stx-chain.actions';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
 import { bitcoinKeysSlice } from '@app/store/ledger/bitcoin/bitcoin-key.slice';
@@ -52,12 +52,9 @@ export function useKeyActions() {
         return dispatch(keyActions.unlockWalletAction(password));
       },
 
-      switchAccount(accountIndex: number, stacksAddress: string) {
-        sendMessage({
-          method: InternalMethods.AccountChanged,
-          payload: { accountIndex, stacksAddress },
-        });
-        return dispatch(stxChainActions.switchAccount(accountIndex));
+      switchAccount(accountIndex: number) {
+        sendMessage({ method: InternalMethods.AccountChanged, payload: { accountIndex } });
+        return dispatch(switchAccount(accountIndex));
       },
 
       async createNewAccount() {
