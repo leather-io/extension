@@ -45,6 +45,7 @@ export const testSoftwareAccountDefaultWalletState = {
     discardedInscriptions: [],
     userSelectedTheme: 'system',
     dismissedMessages: [],
+    isNotificationsEnabled: true,
   },
   manageTokens: { entities: {}, ids: [] },
   _persist: { version: 2, rehydrated: true },
