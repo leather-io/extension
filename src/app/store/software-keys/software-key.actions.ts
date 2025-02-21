@@ -21,6 +21,7 @@ import { initalizeWalletSession } from '@app/store/session-restore';
 
 import { getNativeSegwitMainnetAddressFromMnemonic } from '../accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { getStacksAddressByIndex } from '../accounts/blockchain/stacks/stacks-keychain';
+import { initializeIndexZeroAccount } from '../chains/stx-chain.actions';
 import { stxChainSlice } from '../chains/stx-chain.slice';
 import { selectDefaultWalletKey } from '../in-memory-key/in-memory-key.selectors';
 import { inMemoryKeySlice } from '../in-memory-key/in-memory-key.slice';
@@ -106,6 +107,7 @@ function setWalletEncryptionPassword(args: {
         encryptedSecretKey,
       })
     );
+    dispatch(initializeIndexZeroAccount());
   };
 }
 
