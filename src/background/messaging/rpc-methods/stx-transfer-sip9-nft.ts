@@ -2,22 +2,21 @@ import {
   type ClarityValue,
   createAddress,
   createStacksPublicKey,
-  noneCV,
+  deserializeCV,
   postConditionToWire,
   publicKeyToAddressSingleSig,
   serializeCV,
   serializePostConditionWire,
   standardPrincipalCVFromAddress,
-  uintCV,
 } from '@stacks/transactions';
 import { createUnsecuredToken } from 'jsontokens';
 
 import { extractKeyFromDescriptor } from '@leather.io/crypto';
-import { type RpcParams, type RpcRequest, stxTransferSip10Ft } from '@leather.io/rpc';
+import { type RpcParams, type RpcRequest, stxTransferSip9Nft } from '@leather.io/rpc';
 import { TransactionTypes, getStacksAssetStringParts } from '@leather.io/stacks';
 
 import { RouteUrls } from '@shared/route-urls';
-import { makeFtPostCondition } from '@shared/utils/post-conditions';
+import { makeNftPostCondition } from '@shared/utils/post-conditions';
 
 import { getRootState } from '@background/get-root-state';
 
@@ -29,7 +28,7 @@ import {
   validateRequestParams,
 } from '../messaging-utils';
 
-async function getMessageParamsToTransactionRequest(params: RpcParams<typeof stxTransferSip10Ft>) {
+async function getMessageParamsToTransactionRequest(params: RpcParams<typeof stxTransferSip9Nft>) {
   const { contractAddress, contractAssetName, contractName } = getStacksAssetStringParts(
     params.asset
   );
@@ -42,14 +41,13 @@ async function getMessageParamsToTransactionRequest(params: RpcParams<typeof stx
   );
 
   const fnArgs: ClarityValue[] = [
-    uintCV(params.amount),
+    deserializeCV(params.assetId),
     standardPrincipalCVFromAddress(createAddress(params.address ?? currentStacksAddress)),
     standardPrincipalCVFromAddress(createAddress(params.recipient)),
-    noneCV(), // Add memo to SIP-30?
   ];
 
   const postConditionOptions = {
-    amount: params.amount,
+    assetId: params.assetId,
     contractAddress,
     contractAssetName,
     contractName,
@@ -66,13 +64,13 @@ async function getMessageParamsToTransactionRequest(params: RpcParams<typeof stx
     functionArgs: fnArgs.map(arg => serializeCV(arg)),
     functionName: 'transfer',
     postConditions: [
-      serializePostConditionWire(postConditionToWire(makeFtPostCondition(postConditionOptions))),
+      serializePostConditionWire(postConditionToWire(makeNftPostCondition(postConditionOptions))),
     ],
   };
 }
 
-export async function rpcStxTransferSip10Ft(
-  message: RpcRequest<typeof stxTransferSip10Ft>,
+export async function rpcStxTransferSip9Nft(
+  message: RpcRequest<typeof stxTransferSip9Nft>,
   port: chrome.runtime.Port
 ) {
   const { id: requestId, method, params } = message;
@@ -81,7 +79,7 @@ export async function rpcStxTransferSip10Ft(
     method,
     params,
     port,
-    schema: stxTransferSip10Ft.params,
+    schema: stxTransferSip9Nft.params,
   });
   const txRequest = await getMessageParamsToTransactionRequest(params);
   const requestParams: RequestParams = [
@@ -90,7 +88,7 @@ export async function rpcStxTransferSip10Ft(
   ];
   return handleRpcMessage({
     method: message.method,
-    path: RouteUrls.RpcStxTransferSip10Ft,
+    path: RouteUrls.RpcStxTransferSip9Nft,
     port,
     requestParams,
     requestId: message.id,

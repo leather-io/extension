@@ -15,6 +15,7 @@ import { RpcStacksMessageSigning } from '@app/pages/rpc-sign-stacks-message/rpc-
 import { RpcStxCallContract } from '@app/pages/rpc-stx-call-contract/rpc-stx-call-contract';
 import { RpcStxDeployContract } from '@app/pages/rpc-stx-deploy-contract/rpc-stx-deploy-contract';
 import { RpcStxSignTransaction } from '@app/pages/rpc-stx-sign-transaction/rpc-stx-sign-transaction';
+import { RpcStxTransferSip9Nft } from '@app/pages/rpc-stx-transfer-sip9-nft/rpc-stx-transfer-sip9-nft';
 import { RpcStxTransferSip10Ft } from '@app/pages/rpc-stx-transfer-sip10-ft/rpc-stx-transfer-sip10-ft';
 import { RpcStxTransferStx } from '@app/pages/rpc-stx-transfer-stx/rpc-stx-transfer-stx';
 import { AccountGate } from '@app/routes/account-gate';
@@ -117,6 +118,18 @@ export const rpcRequestRoutes = (
       element={
         <AccountGate>
           <RpcStxTransferStx />
+        </AccountGate>
+      }
+    >
+      {ledgerStacksTxSigningRoutes}
+      <Route path={RouteUrls.EditNonce} element={<EditNonceSheet />} />
+    </Route>
+
+    <Route
+      path={RouteUrls.RpcStxTransferSip9Nft}
+      element={
+        <AccountGate>
+          <RpcStxTransferSip9Nft />
         </AccountGate>
       }
     >
