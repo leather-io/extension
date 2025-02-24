@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/76</span>
+                <span class='fraction'>0/74</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/71</span>
+                <span class='fraction'>0/69</span>
             </div>
         
             
@@ -252,28 +252,7 @@
 <a name='L187'></a><a href='#L187'>187</a>
 <a name='L188'></a><a href='#L188'>188</a>
 <a name='L189'></a><a href='#L189'>189</a>
-<a name='L190'></a><a href='#L190'>190</a>
-<a name='L191'></a><a href='#L191'>191</a>
-<a name='L192'></a><a href='#L192'>192</a>
-<a name='L193'></a><a href='#L193'>193</a>
-<a name='L194'></a><a href='#L194'>194</a>
-<a name='L195'></a><a href='#L195'>195</a>
-<a name='L196'></a><a href='#L196'>196</a>
-<a name='L197'></a><a href='#L197'>197</a>
-<a name='L198'></a><a href='#L198'>198</a>
-<a name='L199'></a><a href='#L199'>199</a>
-<a name='L200'></a><a href='#L200'>200</a>
-<a name='L201'></a><a href='#L201'>201</a>
-<a name='L202'></a><a href='#L202'>202</a>
-<a name='L203'></a><a href='#L203'>203</a>
-<a name='L204'></a><a href='#L204'>204</a>
-<a name='L205'></a><a href='#L205'>205</a>
-<a name='L206'></a><a href='#L206'>206</a>
-<a name='L207'></a><a href='#L207'>207</a>
-<a name='L208'></a><a href='#L208'>208</a>
-<a name='L209'></a><a href='#L209'>209</a>
-<a name='L210'></a><a href='#L210'>210</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L190'></a><a href='#L190'>190</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -354,25 +333,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -485,16 +445,15 @@
 import { useAsync } from 'react-async-hook';
 &nbsp;
 import { bytesToHex } from '@stacks/common';
-import { PostCondition, StacksTransactionWire, TransactionSigner } from '@stacks/transactions';
+import { StacksTransactionWire, TransactionSigner } from '@stacks/transactions';
 import {
   StacksTransaction,
   TransactionSigner as TransactionSignerV6,
   createStacksPrivateKey,
 } from '@stacks/transactions-v6';
-import BN from 'bn.js';
 &nbsp;
 import { useNextNonce } from '@leather.io/query';
-import { TransactionTypes, formatAssetString } from '@leather.io/stacks';
+import { TransactionTypes } from '@leather.io/stacks';
 import { isUndefined, stxToMicroStx } from '@leather.io/utils';
 &nbsp;
 import { logger } from '@shared/logger';
@@ -563,25 +522,6 @@ export function <span class="fstat-no" title="function not covered" >useUnsigned
 export function <span class="fstat-no" title="function not covered" >useUnsignedPrepareTransactionDetails(v</span>alues: StacksTransactionFormValues) {
   const unsignedStacksTransaction = <span class="cstat-no" title="statement not covered" >useUnsignedStacksTransaction(values);</span>
 <span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >u</span>nsignedStacksTransaction, [</span>unsignedStacksTransaction]);</span>
-}
-&nbsp;
-interface PostConditionsOptions {
-  contractAddress: string;
-  contractAssetName: string;
-  contractName: string;
-  stxAddress: string;
-  amount: string | number;
-}
-export function <span class="fstat-no" title="function not covered" >makePostCondition(o</span>ptions: PostConditionsOptions): PostCondition {
-  const { contractAddress, contractAssetName, contractName, stxAddress, amount } = <span class="cstat-no" title="statement not covered" >options;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return {</span>
-    type: 'ft-postcondition',
-    address: stxAddress,
-    condition: 'eq',
-    amount: new BN(amount, 10).toString(),
-    asset: formatAssetString({ contractAddress, contractName, assetName: contractAssetName }),
-  };
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useGenerateUnsignedStacksTransaction() {</span>
@@ -697,7 +637,7 @@ export function <span class="fstat-no" title="function not covered" >useSignStac
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-20T17:50:43.702Z
+                at 2025-02-24T15:26:01.533Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
