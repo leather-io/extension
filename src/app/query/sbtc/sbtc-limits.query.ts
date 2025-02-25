@@ -18,10 +18,10 @@ export const defaultSbtcLimits = {
 };
 
 const sbtcLimitsResponseSchema = z.object({
-  pegCap: z.number(),
-  perDepositCap: z.number(),
-  perDepositMinimum: z.number(),
-  perWithdrawalCap: z.number(),
+  pegCap: z.number().nullable(),
+  perDepositCap: z.number().nullable(),
+  perDepositMinimum: z.number().nullable(),
+  perWithdrawalCap: z.number().nullable(),
   accountCaps: z.record(z.any()),
 });
 
