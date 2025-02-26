@@ -151,6 +151,7 @@ export function useRpcSignPsbt() {
               tx: signedTx.hex,
               psbt: bytesToHex(psbt),
             });
+            closeWindow();
           } catch (e) {
             return navigate(RouteUrls.RequestError, {
               state: {
