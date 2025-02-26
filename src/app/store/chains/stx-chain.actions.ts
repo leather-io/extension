@@ -13,15 +13,17 @@ export function initializeIndexZeroAccount(): AppThunk {
   return async (dispatch, getState) => {
     const state = getState();
     const keychain = selectRootKeychain(state);
-    if (!keychain) throw new Error('No root keychain found');
-    const stacksDescriptor = stacksRootKeychainToAccountDescriptor(keychain, 0);
-    dispatch(
-      stxChainSlice.actions.initializeAccount({
-        highestAccountIndex: 0,
-        currentAccountIndex: 0,
-        currentAccountStacksDescriptor: stacksDescriptor,
-      })
-    );
+
+    if (keychain) {
+      const stacksDescriptor = stacksRootKeychainToAccountDescriptor(keychain, 0);
+      dispatch(
+        stxChainSlice.actions.initializeAccount({
+          highestAccountIndex: 0,
+          currentAccountIndex: 0,
+          currentAccountStacksDescriptor: stacksDescriptor,
+        })
+      );
+    }
   };
 }
 
@@ -29,9 +31,12 @@ export function switchAccount(accountIndex: number): AppThunk {
   return async (dispatch, getState) => {
     const state = getState();
     const keychain = selectRootKeychain(state);
-    if (!keychain) throw new Error('No root keychain found');
-    const stacksDescriptor = stacksRootKeychainToAccountDescriptor(keychain, accountIndex);
-    dispatch(stxChainSlice.actions.switchAccount({ accountIndex, stacksDescriptor }));
+    if (keychain) {
+      const stacksDescriptor = stacksRootKeychainToAccountDescriptor(keychain, accountIndex);
+      dispatch(stxChainSlice.actions.switchAccount({ accountIndex, stacksDescriptor }));
+      return;
+    }
+    dispatch(stxChainSlice.actions.switchAccount({ accountIndex }));
   };
 }
 
