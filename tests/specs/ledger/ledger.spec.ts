@@ -1,4 +1,4 @@
-import { TEST_ACCOUNT_1_STX_ADDRESS } from '@tests/mocks/constants';
+import { TEST_ACCOUNT_1_STX_ADDRESS, TEST_ACCOUNT_2_STX_ADDRESS } from '@tests/mocks/constants';
 import { mockMainnetTestAccountStacksConfirmedTxsRequests } from '@tests/mocks/mock-stacks-txs';
 import type { HomePage } from '@tests/page-object-models/home.page';
 import { makeLedgerTestAccountWalletState } from '@tests/page-object-models/onboarding.page';
@@ -54,6 +54,12 @@ test.describe('App with Ledger', () => {
             .expect(async () => await test.expect(requestPromise).rejects.toThrowError())
             .toPass()
             .catch();
+        });
+
+        test('that you can switch accounts', async ({ homePage }) => {
+          await homePage.switchAccount(1);
+          const stacksAddress = await homePage.getReceiveStxAddress();
+          test.expect(stacksAddress).toEqual(TEST_ACCOUNT_2_STX_ADDRESS);
         });
       }
 
