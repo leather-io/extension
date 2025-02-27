@@ -4,10 +4,9 @@ import type { P2Ret } from '@scure/btc-signer/payment';
 import BigNumber from 'bignumber.js';
 import { DEFAULT_MAX_SIGNER_FEE } from 'sbtc';
 
+import { BitcoinSigner } from '@leather.io/bitcoin';
 import type { UtxoResponseItem } from '@leather.io/query';
 import { createMoney } from '@leather.io/utils';
-
-import type { Signer } from '@app/store/accounts/blockchain/bitcoin/bitcoin-signer';
 
 import { SwapForm } from '../form/swap-form';
 import { useAllSwappableAssets } from '../hooks/use-all-swappable-assets';
@@ -19,12 +18,12 @@ import { useBitcoinSwap } from './use-bitcoin-swap';
 export interface BitcoinSwapContext extends BaseSwapContext<BitcoinSwapContext> {
   deposit?: SbtcDeposit;
   maxSignerFee: number;
-  signer: Signer<P2Ret>;
+  signer: BitcoinSigner<P2Ret>;
   utxos: UtxoResponseItem[];
 }
 
 interface BitcoinSwapProviderProps {
-  signer: Signer<P2Ret>;
+  signer: BitcoinSigner<P2Ret>;
   utxos: UtxoResponseItem[];
 }
 export function BitcoinSwapProvider({ signer, utxos }: BitcoinSwapProviderProps) {
