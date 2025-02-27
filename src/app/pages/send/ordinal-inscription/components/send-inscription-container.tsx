@@ -3,7 +3,7 @@ import { Outlet, useLocation, useOutletContext } from 'react-router-dom';
 
 import get from 'lodash.get';
 
-import { lookupDerivationByAddress } from '@leather.io/bitcoin';
+import { createBitcoinAddress, lookupDerivationByAddress } from '@leather.io/bitcoin';
 import { extractAddressIndexFromPath } from '@leather.io/crypto';
 import type { AverageBitcoinFeeRates, BtcFeeType, Inscription } from '@leather.io/models';
 import { type UtxoWithDerivationPath } from '@leather.io/query';
@@ -47,12 +47,13 @@ export function SendInscriptionContainer() {
 
   useOnMount(() => {
     if (!routeState.inscription) return;
+    const inscriptionAddress = createBitcoinAddress(routeState.inscription.address);
 
     const result = lookupDerivationByAddress({
       taprootXpub: taprootAccount?.keychain.publicExtendedKey!,
       nativeSegwitXpub: nativeSegwitAccount?.keychain.publicExtendedKey!,
       iterationLimit: 100,
-    })(routeState.inscription.address);
+    })(inscriptionAddress);
 
     void analytics.untypedTrack('recurse_addresses_to_find_derivation_path', {
       duration: result.duration,

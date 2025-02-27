@@ -14,6 +14,7 @@ import {
   buildSbtcDepositTx,
 } from 'sbtc';
 
+import { BitcoinSigner } from '@leather.io/bitcoin';
 import type { BitcoinNetworkModes } from '@leather.io/models';
 import { type UtxoResponseItem, useAverageBitcoinFeeRates } from '@leather.io/query';
 import { btcToSat, createMoney } from '@leather.io/utils';
@@ -29,7 +30,6 @@ import {
 import { useToast } from '@app/features/toasts/use-toast';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
-import type { Signer } from '@app/store/accounts/blockchain/bitcoin/bitcoin-signer';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -58,7 +58,7 @@ function getSbtcNetworkConfig(network: BitcoinNetworkModes) {
 const clientMainnet = new SbtcApiClientMainnet();
 const clientTestnet = new SbtcApiClientTestnet();
 
-export function useSbtcDepositTransaction(signer: Signer<P2Ret>, utxos: UtxoResponseItem[]) {
+export function useSbtcDepositTransaction(signer: BitcoinSigner<P2Ret>, utxos: UtxoResponseItem[]) {
   const toast = useToast();
   const { setIsIdle } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);
   const stacksAccount = useCurrentStacksAccount();
