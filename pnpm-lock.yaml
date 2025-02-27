@@ -67,8 +67,8 @@ importers:
         specifier: 2.29.1
         version: 2.29.1(encoding@0.1.13)(react@18.3.1)
       '@leather.io/rpc':
-        specifier: 2.6.6
-        version: 2.6.6(encoding@0.1.13)
+        specifier: 2.7.2
+        version: 2.7.2(encoding@0.1.13)
       '@leather.io/stacks':
         specifier: 1.6.4
         version: 1.6.4(encoding@0.1.13)
@@ -338,7 +338,7 @@ importers:
         version: 1.2.4(react@18.3.1)
       react-qr-code:
         specifier: 2.0.12
-        version: 2.0.12(react-native-svg@15.11.1(react-native@0.74.1(@babel/core@7.26.7)(@babel/preset-env@7.26.9(@babel/core@7.26.7))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.3.1))(react@18.3.1)
+        version: 2.0.12(react-native-svg@15.11.2(react-native@0.74.1(@babel/core@7.26.7)(@babel/preset-env@7.26.9(@babel/core@7.26.7))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.3.1))(react@18.3.1)
       react-redux:
         specifier: 9.1.2
         version: 9.1.2(@types/react@18.3.10)(react@18.3.1)(redux@5.0.1)
@@ -3364,9 +3364,6 @@ packages:
   '@leather.io/constants@0.16.0':
     resolution: {integrity: sha512-04yUXvJMKkRML8isgg5MAb20q3azYNRvNxYuNk4ye+1otjf9ZoPkvcMlAA+5y19N3hoMhBNAkbqHogH0WKLv/A==}
 
-  '@leather.io/constants@0.17.3':
-    resolution: {integrity: sha512-rcyRoegpi79BVc/7oLyeUNr0AJJKAVThZrI13v1GDz56HzmF08ThceZkdHjpgORHOpioYizHvXxJv6Tw2CNMbg==}
-
   '@leather.io/constants@0.17.4':
     resolution: {integrity: sha512-Ymtou2wQcVf8b8zbeevjzSRY6mkzNy33neOXg3dtla/awk8PFmJQwFx/7tKBGwOzva6qmwAwiz4OHeTBMfjXhA==}
 
@@ -3384,9 +3381,6 @@ packages:
 
   '@leather.io/models@0.26.0':
     resolution: {integrity: sha512-+9UvZ9zrxLGSOKCoMYoLLy9CkCckcWpgh1iABPt8A0Y5mjmLgV5Ha4/PFLffrKCqDmusjFpISZV7gCGIcw98+Q==}
-
-  '@leather.io/models@0.26.3':
-    resolution: {integrity: sha512-7AGKf2lWuW9EVuZbAayQ7AqpXlnbnauw0VRYDKej17qu6kcj0oEU0UOf2OmG4uXlLR6bjEK5LUXeCUdTXYie5Q==}
 
   '@leather.io/models@0.27.0':
     resolution: {integrity: sha512-BOg8bwvYjYLeBwHsb6xo12KRDkVTHAIdJzy4czzxbNkpmwKiES47jeLW/RQFDUfyVYG4tg7HB1fuKJx/rdWU3Q==}
@@ -3411,11 +3405,11 @@ packages:
   '@leather.io/rpc@2.6.0':
     resolution: {integrity: sha512-UhvvsQ4kdE/nr94bbSxJ05/AttkdQd7TNX3pNqUCD47/mmX62jS6dv5tSbqD7K56lu4CHTyoTQw2hJWkOTC7HQ==}
 
-  '@leather.io/rpc@2.6.6':
-    resolution: {integrity: sha512-/h1BdnO90tJCvmhczH6qhHRYZDscywL+CGp2f61OonJCJncWK0USvBJWt2tXVKZCXoK3Nfks85YJ1GEeYaRB8w==}
-
   '@leather.io/rpc@2.6.8':
     resolution: {integrity: sha512-y4DSYbNqz7gHt3b0TlV4JuV/6dZYMGUtdzOmvbvYcU4gpFBpFSomzOz79Q/smN2/fexVxudWwmvXnPWiFxQrqQ==}
+
+  '@leather.io/rpc@2.7.2':
+    resolution: {integrity: sha512-elyVG4Wme2zxCc2GbTw+4e0YOTqOfmQUEMHfxx8IBKjPAh3wIJGpllrazAFMCZqUgPonP7DgxOTpxEEhkgs6gQ==}
 
   '@leather.io/stacks@1.6.4':
     resolution: {integrity: sha512-WoOHuGHGXuVYUh6H1xKdsrv9hW1dLw68mbUPF+BcMzCfp/aRBzPN0XI2RhzAeTfEW5ne2UrlfeR4qI8MDG08lQ==}
@@ -3434,9 +3428,6 @@ packages:
 
   '@leather.io/utils@0.27.1':
     resolution: {integrity: sha512-6/rcSIwN94WVF3Ok0D4imZNurw1gtO8G9C6pTMXmejL2U/YpbrdjhQG9S8xDYDUD7QFnM3jD3vlmGSOCuvanAA==}
-
-  '@leather.io/utils@0.27.5':
-    resolution: {integrity: sha512-5bBJ6T63EkW1/XqS3yVTNredD6qiuAeRxGf3zAoMLNwUhbnlnnop5AizezgW6pG8f1OtLJv4myz3BGxmOssAMQ==}
 
   '@leather.io/utils@0.27.6':
     resolution: {integrity: sha512-fppUHy5nWaCTyiPviP4u6jxJVK2HRUFnJ+6h/axXd7qDODnEjBHMAdE95FvwmTBAOoo241QGKZCqFPI18RJ8cw==}
@@ -13420,8 +13411,8 @@ packages:
     resolution: {integrity: sha512-56rxCq7G/XfB4EkXq9Egn5GCqugWvDFjafDOThIdMBsI15iqPqR5r15TfSr1YPYeEI19YeaXMCbY6u88Y76GLQ==}
     engines: {node: ^10 || ^12 || >=14}
 
-  postcss@8.5.2:
-    resolution: {integrity: sha512-MjOadfU3Ys9KYoX0AdkBlFEF1Vx37uCCeN4ZHnmwm9FfpbsGWMZeBLMmmpY+6Ocqod7mkdZ0DT31OlbsFrLlkA==}
+  postcss@8.5.3:
+    resolution: {integrity: sha512-dle9A3yYxlBSrt8Fu+IpjGT8SY8hN0mlaA6GY8t0P5PjIOZemULz/E2Bnm/2dcUOena75OTNkHI76uZBNUUq3A==}
     engines: {node: ^10 || ^12 || >=14}
 
   prebuild-install@7.1.2:
@@ -13783,8 +13774,8 @@ packages:
       react: '*'
       react-native: '*'
 
-  react-native-svg@15.11.1:
-    resolution: {integrity: sha512-Qmwx/yJKt+AHUr4zjxx/Q69qwKtRfr1+uIfFMQoq3WFRhqU76aL9db1DyvPiY632DAsVGba1pHf92OZPkpjrdQ==}
+  react-native-svg@15.11.2:
+    resolution: {integrity: sha512-+YfF72IbWQUKzCIydlijV1fLuBsQNGMT6Da2kFlo1sh+LE3BIm/2Q7AR1zAAR6L0BFLi1WaQPLfFUC9bNZpOmw==}
     peerDependencies:
       react: '*'
       react-native: '*'
@@ -19639,10 +19630,6 @@ snapshots:
     dependencies:
       '@leather.io/models': 0.26.0
 
-  '@leather.io/constants@0.17.3':
-    dependencies:
-      '@leather.io/models': 0.26.3
-
   '@leather.io/constants@0.17.4':
     dependencies:
       '@leather.io/models': 0.27.0
@@ -19680,12 +19667,6 @@ snapshots:
       zod: 3.24.1
 
   '@leather.io/models@0.26.0':
-    dependencies:
-      '@stacks/stacks-blockchain-api-types': 7.8.2
-      bignumber.js: 9.1.2
-      zod: 3.24.1
-
-  '@leather.io/models@0.26.3':
     dependencies:
       '@stacks/stacks-blockchain-api-types': 7.8.2
       bignumber.js: 9.1.2
@@ -19780,10 +19761,10 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@leather.io/rpc@2.6.6(encoding@0.1.13)':
+  '@leather.io/rpc@2.6.8(encoding@0.1.13)':
     dependencies:
-      '@leather.io/models': 0.26.3
-      '@leather.io/utils': 0.27.5
+      '@leather.io/models': 0.27.0
+      '@leather.io/utils': 0.27.6
       '@scure/btc-signer': 1.6.0
       '@stacks/network': 7.0.2(encoding@0.1.13)
       '@stacks/transactions': 7.0.2(encoding@0.1.13)
@@ -19791,7 +19772,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@leather.io/rpc@2.6.8(encoding@0.1.13)':
+  '@leather.io/rpc@2.7.2(encoding@0.1.13)':
     dependencies:
       '@leather.io/models': 0.27.0
       '@leather.io/utils': 0.27.6
@@ -19901,12 +19882,6 @@ snapshots:
     dependencies:
       '@leather.io/constants': 0.16.0
       '@leather.io/models': 0.26.0
-      bignumber.js: 9.1.2
-
-  '@leather.io/utils@0.27.5':
-    dependencies:
-      '@leather.io/constants': 0.17.3
-      '@leather.io/models': 0.26.3
       bignumber.js: 9.1.2
 
   '@leather.io/utils@0.27.6':
@@ -25370,7 +25345,7 @@ snapshots:
       '@vue/shared': 3.5.13
       estree-walker: 2.0.2
       magic-string: 0.30.17
-      postcss: 8.5.2
+      postcss: 8.5.3
       source-map-js: 1.2.1
     optional: true
 
@@ -33093,7 +33068,7 @@ snapshots:
       picocolors: 1.1.0
       source-map-js: 1.2.1
 
-  postcss@8.5.2:
+  postcss@8.5.3:
     dependencies:
       nanoid: 3.3.4
       picocolors: 1.1.1
@@ -33498,7 +33473,7 @@ snapshots:
       react: 18.2.0
       react-native: 0.74.1(@babel/core@7.26.7)(@babel/preset-env@7.26.9(@babel/core@7.26.7))(@types/react@18.3.10)(encoding@0.1.13)(react@18.3.1)
 
-  react-native-svg@15.11.1(react-native@0.74.1(@babel/core@7.26.7)(@babel/preset-env@7.26.9(@babel/core@7.26.7))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.3.1):
+  react-native-svg@15.11.2(react-native@0.74.1(@babel/core@7.26.7)(@babel/preset-env@7.26.9(@babel/core@7.26.7))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.3.1):
     dependencies:
       css-select: 5.1.0
       css-tree: 1.1.3
@@ -33571,13 +33546,13 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  react-qr-code@2.0.12(react-native-svg@15.11.1(react-native@0.74.1(@babel/core@7.26.7)(@babel/preset-env@7.26.9(@babel/core@7.26.7))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.3.1))(react@18.3.1):
+  react-qr-code@2.0.12(react-native-svg@15.11.2(react-native@0.74.1(@babel/core@7.26.7)(@babel/preset-env@7.26.9(@babel/core@7.26.7))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.3.1))(react@18.3.1):
     dependencies:
       prop-types: 15.8.1
       qr.js: 0.0.0
       react: 18.3.1
     optionalDependencies:
-      react-native-svg: 15.11.1(react-native@0.74.1(@babel/core@7.26.7)(@babel/preset-env@7.26.9(@babel/core@7.26.7))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)
+      react-native-svg: 15.11.2(react-native@0.74.1(@babel/core@7.26.7)(@babel/preset-env@7.26.9(@babel/core@7.26.7))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)
 
   react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.26.7)(@babel/preset-env@7.26.9(@babel/core@7.26.7))(@types/react@18.3.10)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1):
     dependencies:

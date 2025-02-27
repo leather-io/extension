@@ -152,7 +152,7 @@
     "@leather.io/models": "0.27.0",
     "@leather.io/provider": "1.0.0",
     "@leather.io/query": "2.29.1",
-    "@leather.io/rpc": "2.6.6",
+    "@leather.io/rpc": "2.7.2",
     "@leather.io/stacks": "1.6.4",
     "@leather.io/tokens": "0.12.11",
     "@leather.io/ui": "1.48.3",
