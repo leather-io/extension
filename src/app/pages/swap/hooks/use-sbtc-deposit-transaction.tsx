@@ -5,6 +5,7 @@ import { bytesToHex } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 import type { P2Ret, P2TROut } from '@scure/btc-signer/payment';
 import {
+  DEFAULT_RECLAIM_LOCK_TIME,
   MAINNET,
   REGTEST,
   SbtcApiClientMainnet,
@@ -13,6 +14,7 @@ import {
   buildSbtcDepositTx,
 } from 'sbtc';
 
+import { BitcoinSigner } from '@leather.io/bitcoin';
 import type { BitcoinNetworkModes } from '@leather.io/models';
 import { type UtxoResponseItem, useAverageBitcoinFeeRates } from '@leather.io/query';
 import { btcToSat, createMoney } from '@leather.io/utils';
@@ -28,16 +30,11 @@ import {
 import { useToast } from '@app/features/toasts/use-toast';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
-import type { Signer } from '@app/store/accounts/blockchain/bitcoin/bitcoin-signer';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import type { BitcoinSwapContext } from '../providers/bitcoin-swap-provider';
 import type { SubmitSwapArgs } from '../swap.context';
-
-// Also set as defaults in sbtc lib
-export const defaultMaxSignerFee = 80_000;
-const reclaimLockTime = 144;
 
 export interface SbtcDeposit {
   address: string;
@@ -61,7 +58,7 @@ function getSbtcNetworkConfig(network: BitcoinNetworkModes) {
 const clientMainnet = new SbtcApiClientMainnet();
 const clientTestnet = new SbtcApiClientTestnet();
 
-export function useSbtcDepositTransaction(signer: Signer<P2Ret>, utxos: UtxoResponseItem[]) {
+export function useSbtcDepositTransaction(signer: BitcoinSigner<P2Ret>, utxos: UtxoResponseItem[]) {
   const toast = useToast();
   const { setIsIdle } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);
   const stacksAccount = useCurrentStacksAccount();
@@ -95,7 +92,7 @@ export function useSbtcDepositTransaction(signer: Signer<P2Ret>, utxos: UtxoResp
           stacksAddress: stacksAccount.address,
           signersPublicKey: await client.fetchSignersPublicKey(),
           maxSignerFee: swapData.maxSignerFee,
-          reclaimLockTime,
+          reclaimLockTime: DEFAULT_RECLAIM_LOCK_TIME,
           reclaimPublicKey: bytesToHex(signer.publicKey).slice(2),
         });
 

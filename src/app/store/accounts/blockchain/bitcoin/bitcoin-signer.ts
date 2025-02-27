@@ -6,6 +6,7 @@ import { SigHash } from '@scure/btc-signer';
 
 import {
   BitcoinAccount,
+  BitcoinSigner,
   deriveAddressIndexKeychainFromAccount,
   makeNativeSegwitAddressIndexDerivationPath,
   makeTaprootAddressIndexDerivationPath,
@@ -35,17 +36,6 @@ export const allSighashTypes = [
   SignatureHash.SINGLE_ANYONECANPAY,
 ];
 type AllowedSighashTypes = SignatureHash | SigHash;
-
-export interface Signer<Payment> {
-  network: BitcoinNetworkModes;
-  payment: Payment;
-  keychain: HDKey;
-  derivationPath: string;
-  address: string;
-  publicKey: Uint8Array;
-  sign(tx: btc.Transaction): void;
-  signIndex(tx: btc.Transaction, index: number, allowedSighash?: AllowedSighashTypes[]): void;
-}
 
 interface MakeBitcoinSignerArgs {
   keychain: HDKey;
@@ -87,7 +77,7 @@ export function bitcoinAddressIndexSignerFactory<T extends BitcoinAddressIndexSi
   args: T
 ) {
   const { accountIndex, network, paymentFn, accountKeychain, extendedPublicKeyVersions } = args;
-  return (addressIndex: number): Signer<ReturnType<T['paymentFn']>> => {
+  return (addressIndex: number): BitcoinSigner<ReturnType<T['paymentFn']>> => {
     const addressIndexKeychain =
       deriveAddressIndexKeychainFromAccount(accountKeychain)(addressIndex);
 

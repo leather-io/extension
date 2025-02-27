@@ -1,15 +1,16 @@
 import { P2Ret } from '@scure/btc-signer/payment';
 import type { DistributedOmit } from 'type-fest';
 
+import { BitcoinSigner } from '@leather.io/bitcoin';
+
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { Signer } from '@app/store/accounts/blockchain/bitcoin/bitcoin-signer';
 import { useNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 interface BitcoinAccountLoaderBaseProps {
-  children(account: Signer<P2Ret>): React.ReactNode;
+  children(account: BitcoinSigner<P2Ret>): React.ReactNode;
   fallback?: React.ReactNode;
 }
 interface BtcAccountLoaderCurrentProps extends BitcoinAccountLoaderBaseProps {
