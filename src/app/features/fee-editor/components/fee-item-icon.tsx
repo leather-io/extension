@@ -7,9 +7,9 @@ import {
   AnimalSnailIcon,
 } from '@leather.io/ui';
 
-import type { FeeType } from '@app/common/fees/use-fees';
+import { IconWrapper } from '@app/components/icon-wrapper';
 
-import { IconWrapper } from '../icon-wrapper';
+import type { FeeType } from '../fee-editor.context';
 
 const feeTypeToIconMap: Record<FeeType, ReactNode> = {
   slow: <AnimalSnailIcon />,

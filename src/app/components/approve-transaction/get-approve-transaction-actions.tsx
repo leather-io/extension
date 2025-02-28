@@ -2,7 +2,7 @@ import { HStack, styled } from 'leather-styles/jsx';
 
 import { Button, CheckmarkIcon, SkeletonLoader } from '@leather.io/ui';
 
-interface GetApproveActionsArgs {
+interface GetApproveTransactionActionsArgs {
   isLoading: boolean;
   isInsufficientBalance: boolean;
   isBroadcasting: boolean;
@@ -10,15 +10,14 @@ interface GetApproveActionsArgs {
   onCancel(): void;
   onApprove(): void;
 }
-
-export function getApproveActions({
+export function getApproveTransactionActions({
   isLoading,
   isInsufficientBalance,
   isBroadcasting,
   isSubmitted,
   onCancel,
   onApprove,
-}: GetApproveActionsArgs) {
+}: GetApproveTransactionActionsArgs) {
   if (isLoading) {
     return [
       <SkeletonLoader key="skeleton" isLoading height="40px" />,

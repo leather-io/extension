@@ -1,25 +1,25 @@
 import { Approver, ItemLayout, Pressable } from '@leather.io/ui';
 
-import type { FeeDisplayInfo } from '@app/common/fees/use-fees';
+import type { FeeDisplayInfo } from '@app/features/fee-editor/fee-editor.context';
 
+import { FeeItemIcon } from '../../features/fee-editor/components/fee-item-icon';
 import { CryptoAssetItemPlaceholder } from '../crypto-asset-item/crypto-asset-item-placeholder';
-import { FeeItemIcon } from '../fees/fee-item-icon';
 
 interface ApproveTransactionSelectedFeeProps {
   isLoading: boolean;
-  selectedFeeData: FeeDisplayInfo;
-  onChooseTransferFee(): void;
+  selectedFeeData: FeeDisplayInfo | null;
+  onChooseFee(): void;
 }
 
 export function ApproveTransactionSelectedFee({
   isLoading,
   selectedFeeData,
-  onChooseTransferFee,
+  onChooseFee,
 }: ApproveTransactionSelectedFeeProps) {
   return (
     <Approver.Section>
       <Approver.Subheader>Fee</Approver.Subheader>
-      <Pressable onClick={onChooseTransferFee} mb="space.02">
+      <Pressable onClick={onChooseFee} mb="space.02">
         {isLoading || !selectedFeeData ? (
           <CryptoAssetItemPlaceholder my="0" />
         ) : (

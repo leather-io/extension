@@ -1,10 +1,8 @@
 import { useMemo } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import BigNumber from 'bignumber.js';
 import { Box } from 'leather-styles/jsx';
 
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import { Approver } from '@leather.io/ui';
 import {
   baseCurrencyAmountInQuote,
@@ -22,70 +20,48 @@ import { ApproveTransactionHeader } from '@app/components/approve-transaction/ap
 import { ApproveTransactionRecipients } from '@app/components/approve-transaction/approve-transaction-recipients';
 import { ApproveTransactionSelectedFee } from '@app/components/approve-transaction/approve-transaction-selected-fee';
 import { ApproveTransactionActionsTitle } from '@app/components/approve-transaction/approve-transaction-title';
+import { ApproveTransactionWrapper } from '@app/components/approve-transaction/approve-transaction-wrapper';
 import { BackgroundOverlay } from '@app/components/loading-overlay';
-import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 
-import { RpcSendTransferWrapper } from './components/send-transfer-wrapper';
-import { useRpcSendTransferState } from './rpc-send-transfer-container';
-import { useSendTransferApproveActions } from './use-send-transfer-approve-actions';
+import { useRpcSendTransferContext } from './rpc-send-transfer.context';
+import { useRpcSendTransferActions } from './use-rpc-send-transfer-actions';
 
 export function RpcSendTransfer() {
+  const { availableBalance, isLoadingFees, marketData, selectedFeeData } = useFeeEditorContext();
   const {
-    selectedFeeData,
     recipients,
-    recipientsAddresses,
-    totalAmount,
-    onChooseTransferFee,
-    origin,
-    isLoadingFees,
-    utxos,
-    tabId,
-    requestId,
-    toggleSwitchAccount,
-  } = useRpcSendTransferState();
-
-  const amountAsMoney = createMoney(new BigNumber(totalAmount), 'BTC');
-
-  const btcBalance = useCurrentBtcCryptoAssetBalanceNativeSegwit();
-
-  useBreakOnNonCompliantEntity(recipientsAddresses);
-
-  const isInsufficientBalance = btcBalance.balance.availableBalance.amount.isLessThan(
-    amountAsMoney.amount
-  );
-
-  const isLoading = btcBalance.isLoadingAllData;
-
-  const { approverActions, isBroadcasting, isSubmitted } = useSendTransferApproveActions({
+    recipientAddresses,
     amountAsMoney,
-    recipients,
-    utxos,
-    selectedFeeData,
-    requestId,
+    origin,
+    isLoading,
     tabId,
-  });
+    onUserActivatesFeeEditor,
+    onUserActivatesSwitchAccount,
+  } = useRpcSendTransferContext();
 
+  useBreakOnNonCompliantEntity(recipientAddresses);
+
+  const isInsufficientBalance = availableBalance.amount.isLessThan(amountAsMoney.amount);
+  const { approverActions, isBroadcasting, isSubmitted } = useRpcSendTransferActions();
   const showOverlay = isBroadcasting || isSubmitted;
 
-  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
-
   const totalFiatValue = useMemo(() => {
+    if (!selectedFeeData) return '';
     const fee = selectedFeeData?.baseUnitsValue;
     const feeAsMoney = createMoney(fee, 'BTC');
-
     return i18nFormatCurrency(
-      baseCurrencyAmountInQuote(sumMoney([amountAsMoney, feeAsMoney]), btcMarketData)
+      baseCurrencyAmountInQuote(sumMoney([amountAsMoney, feeAsMoney]), marketData)
     );
-  }, [amountAsMoney, selectedFeeData, btcMarketData]);
+  }, [amountAsMoney, marketData, selectedFeeData]);
 
   return (
     <>
-      <RpcSendTransferWrapper showOverlay={showOverlay}>
+      <ApproveTransactionWrapper showOverlay={showOverlay}>
         <Approver requester={origin} width="100%">
           <Box position="relative">
             <BackgroundOverlay show={showOverlay} />
-
             <ApproveTransactionHeader
               title="Send Bitcoin"
               href="https://leather.io/guides/connect-dapps"
@@ -97,27 +73,25 @@ export function RpcSendTransfer() {
                 focusTabAndWindow(tabId);
               }}
             />
-
-            <ApproveBitcoinTransactionSwitchAccount toggleSwitchAccount={toggleSwitchAccount} />
-
+            <ApproveBitcoinTransactionSwitchAccount
+              toggleSwitchAccount={onUserActivatesSwitchAccount}
+            />
             <ApproveTransactionRecipients recipients={recipients} />
-
             <ApproveTransactionSelectedFee
               isLoading={isLoadingFees}
               selectedFeeData={selectedFeeData}
-              onChooseTransferFee={onChooseTransferFee}
+              onChooseFee={onUserActivatesFeeEditor}
             />
           </Box>
           <Approver.Actions actions={approverActions}>
             <ApproveTransactionActionsTitle amount={totalFiatValue} isLoading={isLoading} />
-
             <ApproveTransactionError
               isLoading={isLoading}
               isInsufficientBalance={isInsufficientBalance}
             />
           </Approver.Actions>
         </Approver>
-      </RpcSendTransferWrapper>
+      </ApproveTransactionWrapper>
       <Outlet />
     </>
   );
