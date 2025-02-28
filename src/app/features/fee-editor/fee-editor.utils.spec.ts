@@ -1,10 +1,10 @@
 import { createMarketPair } from '@leather.io/models';
-import { createMoneyFromDecimal } from '@leather.io/utils';
+import { createMoney, createMoneyFromDecimal } from '@leather.io/utils';
 
-import type { RawFee } from './bitcoin-fees.utils';
-import { formatBitcoinFeeForDisplay } from './format-bitcoin-fee';
+import type { RawFee } from './fee-editor.context';
+import { formatFeeForDisplay } from './fee-editor.utils';
 
-describe('formatBitcoinFeeForDisplay', () => {
+describe('formatFeeForDisplay', () => {
   const mockMarketData = {
     current_price: 50000,
     currency: 'USD',
@@ -14,13 +14,13 @@ describe('formatBitcoinFeeForDisplay', () => {
 
   const mockRawFee: RawFee = {
     type: 'standard',
-    baseUnitsFeeValue: 1000,
+    baseUnitFeeValue: createMoney(1000, 'BTC'),
     feeRate: 5,
     time: '~10 minutes',
   };
 
   it('formats fee information correctly', () => {
-    const result = formatBitcoinFeeForDisplay({
+    const result = formatFeeForDisplay({
       rawFee: mockRawFee,
       marketData: mockMarketData,
     });
@@ -37,10 +37,10 @@ describe('formatBitcoinFeeForDisplay', () => {
   });
 
   it('handles null fee values', () => {
-    const result = formatBitcoinFeeForDisplay({
+    const result = formatFeeForDisplay({
       rawFee: {
         ...mockRawFee,
-        baseUnitsFeeValue: null,
+        baseUnitFeeValue: null,
         feeRate: null,
       },
       marketData: mockMarketData,

@@ -81,7 +81,7 @@ export function BitcoinChooseFee({
         )}
         <ChooseFeeTabs
           defaultToCustomFee={defaultToCustomFee}
-          customFee={
+          customFeeData={
             <BitcoinCustomFee
               amount={amount.amount.toNumber()}
               customFeeInitialValue={customFeeInitialValue}

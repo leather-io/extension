@@ -14,12 +14,12 @@ enum CustomFeeTabs {
 }
 
 interface ChooseFeeTabsProps extends StackProps {
-  customFee: React.JSX.Element;
+  customFeeData: React.JSX.Element;
   defaultToCustomFee: boolean;
   feesList: React.JSX.Element;
 }
 export function ChooseFeeTabs(props: ChooseFeeTabsProps) {
-  const { customFee, defaultToCustomFee, feesList, ...rest } = props;
+  const { customFeeData, defaultToCustomFee, feesList, ...rest } = props;
 
   return (
     <Stack flexGrow={1} gap="space.04" mt="space.02" width="100%" {...rest}>
@@ -43,7 +43,7 @@ export function ChooseFeeTabs(props: ChooseFeeTabsProps) {
         <Tabs.Content value={CustomFeeTabs.Custom}>
           <Suspense fallback={<LoadingSpinner pb="72px" />}>
             <Box mt="space.05" width="100%">
-              {customFee}
+              {customFeeData}
             </Box>
           </Suspense>
         </Tabs.Content>

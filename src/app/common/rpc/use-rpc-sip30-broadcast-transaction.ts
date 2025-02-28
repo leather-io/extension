@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 
-import { useNextNonce } from '@leather.io/query';
+import { useCalculateStacksTxFees, useNextNonce } from '@leather.io/query';
 import { type RpcMethodNames, createRpcSuccessResponse } from '@leather.io/rpc';
 import { isUndefined } from '@leather.io/utils';
 
@@ -50,11 +50,13 @@ export function useRpcSip30BroadcastTransaction(method: RpcMethodNames) {
   const { origin, requestId, tabId } = useRpcRequestParams();
   const txPayload = useLegacyTxPayloadFromRpcRequest();
   const stacksTransaction = useUnsignedStacksTransaction(txPayload);
+  const { data: stxFees } = useCalculateStacksTxFees(stacksTransaction);
   const { stacksBroadcastTransaction } = useStacksBroadcastTransaction({ token: '' });
 
   return useMemo(
     () => ({
       origin,
+      tabId,
       txPayload,
       txSender: stacksTransaction ? getTxSenderAddress(stacksTransaction) : '',
       stacksTransaction,

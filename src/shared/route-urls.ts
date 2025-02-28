@@ -91,7 +91,7 @@ export enum RouteUrls {
   RpcSignPsbt = '/sign-psbt',
   RpcSignPsbtSummary = '/sign-psbt/summary',
   RpcSendTransfer = '/send-transfer',
-  RpcSendTransferChooseFee = '/send-transfer/choose-fee',
+  FeeEditor = '/send-transfer/choose-fee',
   RpcSendTransferConfirmation = '/send-transfer/confirm',
   RpcSendTransferSummary = '/send-transfer/summary',
   RpcSignBip322Message = '/sign-bip322-message',
