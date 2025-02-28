@@ -31,11 +31,13 @@ interface UseStacksBroadcastTransactionArgs {
   actionType?: StacksTransactionActionType;
   decimals?: number;
   token: CryptoCurrency;
+  showSummaryPage?: boolean;
 }
 export function useStacksBroadcastTransaction({
   actionType,
   decimals,
   token,
+  showSummaryPage = true,
 }: UseStacksBroadcastTransactionArgs) {
   const signStacksTransaction = useSignStacksTransaction();
   const [isBroadcasting, setIsBroadcasting] = useState(false);
@@ -71,13 +73,14 @@ export function useStacksBroadcastTransaction({
           return;
         }
 
-        navigate(
-          RouteUrls.SentStxTxSummary.replace(':symbol', token.toLowerCase()).replace(
-            ':txId',
-            `${txId}`
-          ),
-          formSentSummaryTxState ? formSentSummaryTxState(txId, signedTx, decimals) : {}
-        );
+        if (showSummaryPage)
+          navigate(
+            RouteUrls.SentStxTxSummary.replace(':symbol', token.toLowerCase()).replace(
+              ':txId',
+              `${txId}`
+            ),
+            formSentSummaryTxState ? formSentSummaryTxState(txId, signedTx, decimals) : {}
+          );
       }
     }
 

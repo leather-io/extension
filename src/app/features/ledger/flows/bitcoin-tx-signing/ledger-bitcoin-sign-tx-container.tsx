@@ -64,7 +64,7 @@ function LedgerSignBitcoinTxContainer() {
 
   useEffect(() => () => setUnsignedTransaction(null), []);
 
-  const chain = 'bitcoin' as const;
+  const chain = 'bitcoin';
 
   const { signTransaction, latestDeviceResponse, awaitingDeviceConnection } =
     useLedgerSignTx<BitcoinApp>({
