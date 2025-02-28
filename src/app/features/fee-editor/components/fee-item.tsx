@@ -5,9 +5,9 @@ import { Stack } from 'leather-styles/jsx';
 
 import { Button, ItemLayout } from '@leather.io/ui';
 
-import type { FeeType } from '@app/common/fees/use-fees';
+import { FormError } from '@app/components/error/form-error';
 
-import { FormError } from '../error/form-error';
+import type { FeeType } from '../fee-editor.context';
 import { FeeItemIcon } from './fee-item-icon';
 
 export interface FeeItemProps {
