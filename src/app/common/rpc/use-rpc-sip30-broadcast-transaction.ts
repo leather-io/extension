@@ -50,7 +50,10 @@ export function useRpcSip30BroadcastTransaction(method: RpcMethodNames) {
   const { origin, requestId, tabId } = useRpcRequestParams();
   const txPayload = useLegacyTxPayloadFromRpcRequest();
   const stacksTransaction = useUnsignedStacksTransaction(txPayload);
-  const { stacksBroadcastTransaction } = useStacksBroadcastTransaction({ token: '' });
+  const { stacksBroadcastTransaction } = useStacksBroadcastTransaction({
+    token: '',
+    showSummaryPage: false,
+  });
 
   return useMemo(
     () => ({
