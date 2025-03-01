@@ -22,6 +22,8 @@ import { AccountGate } from '@app/routes/account-gate';
 
 import { SuspenseLoadingSpinner } from './app-routes';
 
+const editNonceSheetRoute = <Route path={RouteUrls.EditNonce} element={<EditNonceSheet />} />;
+
 export const rpcRequestRoutes = (
   <>
     <Route
@@ -85,8 +87,8 @@ export const rpcRequestRoutes = (
         </AccountGate>
       }
     >
+      {editNonceSheetRoute}
       {ledgerStacksTxSigningRoutes}
-      <Route path={RouteUrls.EditNonce} element={<EditNonceSheet />} />
     </Route>
 
     <Route
@@ -97,8 +99,8 @@ export const rpcRequestRoutes = (
         </AccountGate>
       }
     >
+      {editNonceSheetRoute}
       {ledgerStacksTxSigningRoutes}
-      <Route path={RouteUrls.EditNonce} element={<EditNonceSheet />} />
     </Route>
 
     <Route
@@ -109,8 +111,8 @@ export const rpcRequestRoutes = (
         </AccountGate>
       }
     >
+      {editNonceSheetRoute}
       {ledgerStacksTxSigningRoutes}
-      <Route path={RouteUrls.EditNonce} element={<EditNonceSheet />} />
     </Route>
 
     <Route
@@ -121,8 +123,8 @@ export const rpcRequestRoutes = (
         </AccountGate>
       }
     >
+      {editNonceSheetRoute}
       {ledgerStacksTxSigningRoutes}
-      <Route path={RouteUrls.EditNonce} element={<EditNonceSheet />} />
     </Route>
 
     <Route
@@ -133,8 +135,8 @@ export const rpcRequestRoutes = (
         </AccountGate>
       }
     >
+      {editNonceSheetRoute}
       {ledgerStacksTxSigningRoutes}
-      <Route path={RouteUrls.EditNonce} element={<EditNonceSheet />} />
     </Route>
 
     <Route
@@ -145,8 +147,8 @@ export const rpcRequestRoutes = (
         </AccountGate>
       }
     >
+      {editNonceSheetRoute}
       {ledgerStacksTxSigningRoutes}
-      <Route path={RouteUrls.EditNonce} element={<EditNonceSheet />} />
     </Route>
   </>
 );

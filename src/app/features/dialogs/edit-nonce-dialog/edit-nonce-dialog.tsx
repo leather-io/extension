@@ -25,6 +25,7 @@ export function EditNonceSheet() {
   const { search } = useLocation();
 
   useOnMount(() => setLoadedNextNonce(values.nonce));
+
   const onGoBack = useCallback(() => {
     if (search) {
       return navigate('..' + search, { replace: true });
