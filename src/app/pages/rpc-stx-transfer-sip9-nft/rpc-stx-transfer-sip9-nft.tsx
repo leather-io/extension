@@ -19,8 +19,6 @@ export function RpcStxTransferSip9Nft() {
         onSignStacksTransaction={onSignStacksTransaction}
         isMultisig={false}
         stacksTransaction={stacksTransaction}
-        disableFeeSelection={true}
-        disableNonceSelection={true}
       />
     </StacksHighFeeWarningContainer>
   );

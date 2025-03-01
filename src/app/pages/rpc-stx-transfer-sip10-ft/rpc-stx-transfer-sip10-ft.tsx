@@ -19,8 +19,6 @@ export function RpcStxTransferSip10Ft() {
         onSignStacksTransaction={onSignStacksTransaction}
         isMultisig={false}
         stacksTransaction={stacksTransaction}
-        disableFeeSelection={true}
-        disableNonceSelection={true}
       />
     </StacksHighFeeWarningContainer>
   );
