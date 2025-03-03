@@ -36,25 +36,31 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
         setIsLoading();
         try {
           const response = await broadcastTransaction({ transaction, network: stacksNetwork });
+
           if ('error' in response) {
-            logger.error('Transaction broadcast', response);
+            logger.error('Transaction failed to broadcast', response);
             if (response.reason) toast.error(getErrorMessage(response.reason));
             onError(response.error);
             return setIsIdle();
-          } else {
-            logger.info('Transaction broadcast', response);
-
-            await delay(500);
-
-            void analytics.track('broadcast_transaction', {
-              symbol: 'stx',
-            });
-            const txid = safelyFormatHexTxid(response.txid);
-            onSuccess(txid);
-            setIsIdle();
-            await refreshAccountData(timeForApiToUpdate);
-            return { txid, transaction };
           }
+
+          if (!response.txid) {
+            logger.error('Transaction failed to broadcast', response);
+            return setIsIdle();
+          }
+
+          logger.info('Transaction broadcast', response);
+
+          await delay(500);
+
+          void analytics.track('broadcast_transaction', {
+            symbol: 'stx',
+          });
+          const txid = safelyFormatHexTxid(response.txid);
+          onSuccess(txid);
+          setIsIdle();
+          await refreshAccountData(timeForApiToUpdate);
+          return { txid, transaction };
         } catch (error) {
           logger.error('Transaction callback', { error });
           onError(isError(error) ? error : { name: '', message: '' });
