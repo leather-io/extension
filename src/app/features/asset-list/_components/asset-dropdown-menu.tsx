@@ -143,7 +143,8 @@ export function AssetDropdownMenu({
           label="Swap"
           onClick={() => {
             if (!isSwapEnabled) return;
-            navigate(`/swap/${assetSymbol}`);
+            const chain = assetSymbol.toLowerCase() === 'btc' ? 'bitcoin' : 'stacks';
+            navigate(`/swap/${chain}/${assetSymbol.toLowerCase()}`);
             onClose?.();
           }}
           disabled={!isSwapEnabled}
