@@ -31,11 +31,13 @@ interface UseStacksBroadcastTransactionArgs {
   actionType?: StacksTransactionActionType;
   decimals?: number;
   token: CryptoCurrency;
+  showSummaryPage?: boolean;
 }
 export function useStacksBroadcastTransaction({
   actionType,
   decimals,
   token,
+  showSummaryPage = true,
 }: UseStacksBroadcastTransactionArgs) {
   const signStacksTransaction = useSignStacksTransaction();
   const [isBroadcasting, setIsBroadcasting] = useState(false);
@@ -47,7 +49,6 @@ export function useStacksBroadcastTransaction({
 
   const isCancelTransaction = actionType === StacksTransactionActionType.Cancel;
   const isIncreaseFeeTransaction = actionType === StacksTransactionActionType.IncreaseFee;
-  const isRpcRequest = actionType === StacksTransactionActionType.RpcRequest;
 
   const broadcastTransactionFn = useSubmitTransactionCallback({
     loadingKey: LoadingKeys.SUBMIT_STACKS_TRANSACTION,
@@ -66,18 +67,19 @@ export function useStacksBroadcastTransaction({
         });
       }
       if (txId) {
-        if (isCancelTransaction || isIncreaseFeeTransaction || isRpcRequest) {
+        if (isCancelTransaction || isIncreaseFeeTransaction) {
           navigate(RouteUrls.Activity);
           return;
         }
 
-        navigate(
-          RouteUrls.SentStxTxSummary.replace(':symbol', token.toLowerCase()).replace(
-            ':txId',
-            `${txId}`
-          ),
-          formSentSummaryTxState ? formSentSummaryTxState(txId, signedTx, decimals) : {}
-        );
+        if (showSummaryPage)
+          navigate(
+            RouteUrls.SentStxTxSummary.replace(':symbol', token.toLowerCase()).replace(
+              ':txId',
+              `${txId}`
+            ),
+            formSentSummaryTxState ? formSentSummaryTxState(txId, signedTx, decimals) : {}
+          );
       }
     }
 
@@ -103,7 +105,6 @@ export function useStacksBroadcastTransaction({
               handlePreviewSuccess(signedTx, txId);
               if (isCancelTransaction) return toast.success('Transaction cancelled successfully');
               if (isIncreaseFeeTransaction) return toast.success('Fee increased successfully');
-              if (isRpcRequest) return toast.success('Transaction submitted!');
               return;
             },
             replaceByFee: false,
@@ -138,7 +139,7 @@ export function useStacksBroadcastTransaction({
     tabId,
     isCancelTransaction,
     isIncreaseFeeTransaction,
-    isRpcRequest,
+    showSummaryPage,
     navigate,
     token,
     formSentSummaryTxState,

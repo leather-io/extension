@@ -30,10 +30,11 @@ export const stxChainSlice = createSlice({
     },
     switchAccount(
       state,
-      action: PayloadAction<{ accountIndex: number; stacksDescriptor: string }>
+      action: PayloadAction<{ accountIndex: number; stacksDescriptor?: string }>
     ) {
       state.default.currentAccountIndex = action.payload.accountIndex;
-      state.default.currentAccountStacksDescriptor = action.payload.stacksDescriptor;
+      if (action.payload.stacksDescriptor)
+        state.default.currentAccountStacksDescriptor = action.payload.stacksDescriptor;
     },
     createNewAccount(state, action: PayloadAction<string>) {
       state.default.highestAccountIndex += 1;

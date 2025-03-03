@@ -109,5 +109,6 @@ export enum RouteUrls {
   RpcStxCallContract = '/stx-call-contract',
   RpcStxDeployContract = '/stx-deploy-contract',
   RpcStxTransferStx = '/stx-transfer-stx',
+  RpcStxTransferSip9Nft = '/stx-transfer-sip9-nft',
   RpcStxTransferSip10Ft = '/stx-transfer-sip10-ft',
 }

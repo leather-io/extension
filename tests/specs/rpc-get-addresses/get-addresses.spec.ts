@@ -65,10 +65,10 @@ async function interceptRequestPopup(context: BrowserContext) {
   return context.waitForEvent('page');
 }
 
-async function initiateGetAddresses(page: Page, eventName: GetAddressesMethods) {
+async function initiateGetAddresses(page: Page, eventName: GetAddressesMethods, params?: any) {
   return page.evaluate(
-    async eventName => (window as any).LeatherProvider?.request(eventName),
-    eventName
+    async ({ eventName, params }) => (window as any).LeatherProvider?.request(eventName, params),
+    { eventName, params }
   );
 }
 
@@ -145,6 +145,21 @@ getAddressesMethods.forEach(method => {
             await test.expect(popup.getByTestId('get-addresses-approve-button')).toBeVisible();
             await clickConnectLeatherButton(popup);
             await test.expect(getAddressesPromise).resolves.toMatchObject(expectedResult);
+          });
+
+          test('it returns testnet addresses with the network param set', async ({
+            page,
+            context,
+          }) => {
+            await page.goto('localhost:3000');
+            const getAddressesPromise = initiateGetAddresses(page, method, { network: 'testnet' });
+            const popup = await interceptRequestPopup(context);
+            await clickConnectLeatherButton(popup);
+
+            const result = await getAddressesPromise;
+            test
+              .expect(result.result.addresses[0].address)
+              .toEqual('tb1q4qgnjewwun2llgken94zqjrx5kpqqycaz5522d');
           });
 
           test('it returns the second accounts data after changing account', async ({

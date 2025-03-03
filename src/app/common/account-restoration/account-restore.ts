@@ -29,24 +29,29 @@ interface RecurseAccountsForActivityArgs {
   doesAddressHaveActivityFn(index: number): Promise<boolean>;
 }
 
-/**
- * Used to recursively look for account activity. The use case is that, when
- * restoring an account, we want to know how many accounts to generate. This
- * function makes no assumption as to what consitutes an active account. It
- * takes a function that returns a boolean. If true, it means that the account
- * at the given index is considered to have activity.
- */
 export async function recurseAccountsForActivity({
   doesAddressHaveActivityFn,
 }: RecurseAccountsForActivityArgs): Promise<number> {
   async function* findHighestAddressIndexExponent() {
     const fibonacci = fibonacciGenerator(2);
     const activity: AccountIndexActivityCheckHistory[] = [];
+    const batchSize = 5;
 
-    while (activity.length === 0 || activity[activity.length - 1].hasActivity) {
-      const index = fibonacci.next().value;
-      const hasActivity = await doesAddressHaveActivityFn(index);
-      activity.push({ index, hasActivity });
+    while (!activity.length || activity[activity.length - 1].hasActivity) {
+      const indices: number[] = [];
+      for (let i = 0; i < batchSize; i++) {
+        const nextResult = fibonacci.next();
+        if (nextResult.done) break;
+        indices.push(nextResult.value);
+      }
+      if (!indices.length) break;
+      const results = await Promise.all(
+        indices.map(async index => {
+          const hasActivity = await doesAddressHaveActivityFn(index);
+          return { index, hasActivity };
+        })
+      );
+      activity.push(...results);
       yield;
     }
     return returnHighestIndex(activity);
@@ -57,18 +62,31 @@ export async function recurseAccountsForActivity({
   async function* checkForMostRecentAccount() {
     const indexCounter = createCounter(knownActivityAtIndex + 1);
     const activity: AccountIndexActivityCheckHistory[] = [];
+    const batchSize = 5;
 
     while (
       minNumberOfAccountsNotChecked(activity.length) ||
       anyOfLastCheckedAccountsHaveActivity(activity)
     ) {
-      const hasActivity = await doesAddressHaveActivityFn(indexCounter.getValue());
-      activity.push({ index: indexCounter.getValue(), hasActivity });
-      indexCounter.increment();
+      const indices: number[] = [];
+      for (let i = 0; i < batchSize; i++) {
+        indices.push(indexCounter.getValue());
+        indexCounter.increment();
+      }
+      const results = await Promise.all(
+        indices.map(async index => {
+          const hasActivity = await doesAddressHaveActivityFn(index);
+          return { index, hasActivity };
+        })
+      );
+      activity.push(...results);
       yield;
     }
     return returnHighestIndex(activity);
   }
 
-  return recurseUntilGeneratorDone(checkForMostRecentAccount());
+  return Math.max(
+    knownActivityAtIndex,
+    await recurseUntilGeneratorDone(checkForMostRecentAccount())
+  );
 }

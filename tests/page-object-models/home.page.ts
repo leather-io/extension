@@ -144,4 +144,9 @@ export class HomePage {
       state: 'attached',
     });
   }
+
+  async switchAccount(accountIndex: number) {
+    await this.page.getByTestId(SettingsSelectors.SwitchAccountTrigger).click();
+    await this.page.getByTestId(`switch-account-item-${accountIndex}`).click();
+  }
 }

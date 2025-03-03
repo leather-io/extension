@@ -1,8 +1,10 @@
 import {
-  type LeatherRpcMethodMap,
   RpcErrorCode,
-  type RpcMethodNames,
+  type RpcRequest,
   createRpcErrorResponse,
+  encodeBase64Json,
+  getAddresses,
+  stxGetAddresses,
 } from '@leather.io/rpc';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -14,11 +16,20 @@ import {
 } from '../messaging-utils';
 import { trackRpcRequestSuccess } from '../rpc-message-handler';
 
-export function makeRpcAddressesMessageListener<T extends RpcMethodNames>(
-  eventName: 'getAddresses' | 'stx_getAddresses'
-) {
-  return async (message: LeatherRpcMethodMap[T]['request'], port: chrome.runtime.Port) => {
-    const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['requestId', message.id]]);
+export function makeRpcAddressesMessageListener(eventName: 'getAddresses' | 'stx_getAddresses') {
+  return async (
+    message: RpcRequest<typeof getAddresses> | RpcRequest<typeof stxGetAddresses>,
+    port: chrome.runtime.Port
+  ) => {
+    const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [
+      ['requestId', message.id],
+      ['rpcRequest', encodeBase64Json(message)],
+    ]);
+
+    if (message.params && message.params.network) {
+      urlParams.append('network', message.params.network);
+    }
+
     const { id } = await triggerRequestWindowOpen(RouteUrls.RpcGetAddresses, urlParams);
     void trackRpcRequestSuccess({ endpoint: message.method });
 

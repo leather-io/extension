@@ -3,7 +3,10 @@ import { useDispatch } from 'react-redux';
 
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 
+import type { BitcoinNetworkModes } from '@leather.io/models';
+
 import { useCurrentAccountIndex } from '../accounts/account';
+import { useCurrentNetwork } from '../networks/networks.selectors';
 
 interface AppPermission {
   origin: string;
@@ -11,6 +14,7 @@ interface AppPermission {
   // has given permission
   requestedAccounts?: string;
   accountIndex: number;
+  networkMode: BitcoinNetworkModes;
 }
 const appPermissionsAdapter = createEntityAdapter<AppPermission, string>({
   selectId: permission => permission.origin,
@@ -27,6 +31,7 @@ export const appPermissionsSlice = createSlice({
 export function useAppPermissions() {
   const dispatch = useDispatch();
   const currentAccountIndex = useCurrentAccountIndex();
+  const currentNetwork = useCurrentNetwork();
 
   return useMemo(
     () => ({
@@ -37,10 +42,11 @@ export function useAppPermissions() {
             origin: url,
             requestedAccounts: new Date().toISOString(),
             accountIndex: currentAccountIndex,
+            networkMode: currentNetwork.chain.bitcoin.mode,
           })
         );
       },
     }),
-    [currentAccountIndex, dispatch]
+    [currentAccountIndex, currentNetwork.chain.bitcoin.mode, dispatch]
   );
 }
