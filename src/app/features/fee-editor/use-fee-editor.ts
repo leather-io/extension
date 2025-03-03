@@ -1,60 +1,49 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import type { MarketData } from '@leather.io/models';
-import { isDefined, isUndefined } from '@leather.io/utils';
+import { isDefined } from '@leather.io/utils';
 
-import type { FeeDisplayInfo, FeeType, RawFee, RawFees } from './fee-editor.context';
-
-export interface FormatFeeForDisplayArgs {
-  rawFee: RawFee;
-  marketData: MarketData;
-}
+import type { EditorFee, EditorFees } from './fee-editor.context';
 
 interface UseFeeEditorArgs {
-  defaultFeeType?: FeeType;
-  marketData: MarketData;
-  rawFees: RawFees;
-  formatFeeForDisplay({ rawFee, marketData }: FormatFeeForDisplayArgs): FeeDisplayInfo;
-  getCustomFeeData(rate: number): RawFee;
+  editorFees: EditorFees;
+  getCustomEditorFee(rate: number): EditorFee;
 }
-export function useFeeEditor({
-  defaultFeeType = 'standard',
-  marketData,
-  rawFees,
-  formatFeeForDisplay,
-  getCustomFeeData,
-}: UseFeeEditorArgs) {
-  const [currentFeeType, setCurrentFeeType] = useState<FeeType>(defaultFeeType);
-  const [selectedFeeType, setSelectedFeeType] = useState<FeeType>(currentFeeType);
-  const [customFeeRate, setCustomFeeRate] = useState<string>('');
+export function useFeeEditor({ editorFees, getCustomEditorFee }: UseFeeEditorArgs) {
+  const [currentEditorFee, setCurrentEditorFee] = useState<EditorFee | null>(
+    editorFees?.standard ?? null
+  );
+  const [selectedEditorFee, setSelectedEditorFee] = useState<EditorFee | null>(currentEditorFee);
+  const [customEditorFeeRate, setCustomEditorFeeRate] = useState<string>('');
 
   useEffect(() => {
-    if (isDefined(rawFees) && customFeeRate === '' && selectedFeeType !== 'custom') {
-      const data = rawFees[selectedFeeType];
-      if (data && data.feeRate) setCustomFeeRate(data.feeRate.toString());
+    if (isDefined(editorFees) && !currentEditorFee) {
+      setCurrentEditorFee(editorFees.standard);
     }
-  }, [rawFees, selectedFeeType, customFeeRate]);
+  }, [currentEditorFee, editorFees]);
 
-  const customFeeData = getCustomFeeData(Number(customFeeRate));
+  useEffect(() => {
+    if (
+      isDefined(editorFees) &&
+      selectedEditorFee &&
+      customEditorFeeRate === '' &&
+      selectedEditorFee?.type !== 'custom'
+    ) {
+      const data = editorFees[selectedEditorFee.type];
+      if (data.feeRate) setCustomEditorFeeRate(data.feeRate.toString());
+    }
+  }, [editorFees, selectedEditorFee, customEditorFeeRate]);
 
-  const selectedFeeData = useMemo(() => {
-    if (isUndefined(rawFees)) return null;
-    if (selectedFeeType === 'custom')
-      return formatFeeForDisplay({ rawFee: customFeeData, marketData });
-    const rawFee = rawFees[selectedFeeType];
-    return formatFeeForDisplay({ rawFee, marketData });
-  }, [rawFees, selectedFeeType, customFeeData, marketData, formatFeeForDisplay]);
+  const customEditorFee = getCustomEditorFee(Number(customEditorFeeRate));
 
   return {
-    rawFees,
-    currentFeeType,
-    customFeeData,
-    customFeeRate,
-    selectedFeeData,
-    selectedFeeType,
-    getCustomFeeData,
-    onSetCurrentFeeType: (value: FeeType) => setCurrentFeeType(value),
-    onSetCustomFeeRate: (value: string) => setCustomFeeRate(value),
-    onSetSelectedFeeType: (value: FeeType) => setSelectedFeeType(value),
+    editorFees,
+    currentEditorFee,
+    customEditorFee,
+    customEditorFeeRate,
+    selectedEditorFee,
+    getCustomEditorFee,
+    onSetCurrentEditorFee: (value: EditorFee) => setCurrentEditorFee(value),
+    onSetCustomEditorFeeRate: (value: string) => setCustomEditorFeeRate(value),
+    onSetSelectedEditorFee: (value: EditorFee) => setSelectedEditorFee(value),
   };
 }

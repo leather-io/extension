@@ -5,33 +5,37 @@ import { Stack } from 'leather-styles/jsx';
 
 import { Button, Input, ItemLayout } from '@leather.io/ui';
 
-import type { FeeItemProps } from './fee-item';
+import { type EditorFee, useFeeEditorContext } from '../fee-editor.context';
+import { formatEditorFeeItem } from '../fee-editor.utils';
 import { FeeItemIcon } from './fee-item-icon';
 
-interface CustomFeeItemProps extends FeeItemProps {
-  fee: string | null;
-  setFee(fee: string): void;
+interface CustomFeeItemProps {
+  fee: EditorFee;
 }
-
-export function CustomFeeItem({
-  fee,
-  setFee,
-  feeType,
-  onSelect,
-  isSelected,
-  captionLeft,
-  titleRight,
-  captionRight,
-}: CustomFeeItemProps) {
+export function CustomFeeItem({ fee }: CustomFeeItemProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const {
+    customEditorFeeRate,
+    marketData,
+    selectedEditorFee,
+    onSetCustomEditorFeeRate,
+    onSetSelectedEditorFee,
+  } = useFeeEditorContext();
+
+  const { captionLeft, titleRight, captionRight } = formatEditorFeeItem({
+    editorFee: fee,
+    marketData,
+  });
+
+  const isSelected = selectedEditorFee?.type === fee.type;
 
   return (
     <Button
-      onClick={() => onSelect(feeType)}
+      onClick={() => onSetSelectedEditorFee(fee)}
       variant="outline"
       borderWidth={isSelected ? '2px' : '1px'}
       borderColor={isSelected ? 'ink.border-selected' : 'ink.border-default'}
-      // Add margin compensation when not selected to maintain consistent size
+      // Add margin compensation to maintain consistent size
       margin={isSelected ? '0px' : '1px'}
     >
       <ItemLayout
@@ -61,8 +65,9 @@ export function CustomFeeItem({
               <Input.Root style={{ minHeight: '40px' }}>
                 <Input.Field
                   ref={inputRef}
-                  onChange={e => setFee(e.target.value)}
-                  value={fee ?? ''}
+                  onChange={e => onSetCustomEditorFeeRate(e.target.value)}
+                  placeholder="0"
+                  value={customEditorFeeRate ?? ''}
                 />
               </Input.Root>
             </Stack>

@@ -6,7 +6,7 @@ import { isUndefined } from '@leather.io/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 
-import type { RawFee, RawFees } from '../fee-editor.context';
+import type { EditorFee, EditorFees } from '../fee-editor.context';
 import { getApproximateFee, getBitcoinFee, getBitcoinSendMaxFee } from './bitcoin-fees.utils';
 
 interface UseBitcoinFeesArgs {
@@ -28,7 +28,7 @@ export function useBitcoinFees({ amount, isSendingMax, recipients, utxos }: UseB
     };
   }, [satAmount, recipients, utxos]);
 
-  const rawFees = useMemo<RawFees>(() => {
+  const editorFees = useMemo<EditorFees>(() => {
     if (isUndefined(feeRates)) return;
 
     const determineUtxosForHighFeeArgs = {
@@ -72,29 +72,29 @@ export function useBitcoinFees({ amount, isSendingMax, recipients, utxos }: UseB
     return {
       slow: {
         type: 'slow',
-        baseUnitFeeValue: lowFee,
         feeRate: feeRates.hourFee.toNumber(),
+        feeValue: lowFee,
         time: btcTxTimeMap.hourFee,
       },
       standard: {
         type: 'standard',
-        baseUnitFeeValue: standardFee,
         feeRate: feeRates.halfHourFee.toNumber(),
+        feeValue: standardFee,
         time: btcTxTimeMap.halfHourFee,
       },
       fast: {
         type: 'fast',
-        baseUnitFeeValue: highFee,
         feeRate: feeRates.fastestFee.toNumber(),
+        feeValue: highFee,
         time: btcTxTimeMap.fastestFee,
       },
     };
   }, [feeRates, determineUtxosDefaultArgs, isSendingMax, recipients, utxos]);
 
   return {
-    rawFees,
+    editorFees,
     isLoading,
-    getCustomFeeData(feeRate: number): RawFee {
+    getCustomEditorFee(feeRate: number): EditorFee {
       const determineUtxosForFeeArgs = {
         ...determineUtxosDefaultArgs,
         feeRate,
@@ -105,8 +105,8 @@ export function useBitcoinFees({ amount, isSendingMax, recipients, utxos }: UseB
 
       return {
         type: 'custom',
-        baseUnitFeeValue: feeAsMoney,
         feeRate,
+        feeValue: feeAsMoney,
         time: '',
       };
     },

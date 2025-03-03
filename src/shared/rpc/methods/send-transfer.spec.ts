@@ -99,7 +99,7 @@ describe('`sendTransfer` method', () => {
       ],
     });
     expect(result.error?.issues.map(issue => issue.message)).toContain(
-      'Cannot tranfer to addresses of different networks'
+      'Cannot transfer to addresses of different networks'
     );
     expect(result.success).toEqual(false);
   });
