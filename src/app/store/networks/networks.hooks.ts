@@ -12,7 +12,6 @@ import { StacksNetwork as StacksNetworkV6 } from '@stacks/network-v6';
 import { ChainID, TransactionVersion as TransactionVersionV6 } from '@stacks/transactions-v6';
 
 import {
-  type BitcoinNetworkModes,
   HIRO_API_BASE_URL_NAKAMOTO_TESTNET,
   bitcoinNetworkToNetworkMode,
 } from '@leather.io/models';
@@ -37,8 +36,7 @@ export function useCurrentNetworkState() {
     const isTestnet = currentNetwork.chain.stacks.chainId === ChainId.Testnet;
     const isNakamotoTestnet =
       currentNetwork.chain.stacks.url === HIRO_API_BASE_URL_NAKAMOTO_TESTNET;
-    const mode = (isTestnet ? 'testnet' : 'mainnet') as BitcoinNetworkModes;
-    return { ...currentNetwork, isTestnet, isNakamotoTestnet, mode };
+    return { ...currentNetwork, isTestnet, isNakamotoTestnet };
   }, [currentNetwork]);
 }
 

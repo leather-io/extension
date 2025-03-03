@@ -113,7 +113,7 @@ export const NoContractErrorMessage = memo(props => {
       title="Contract not found"
       body={`The contract (${truncateMiddle(pendingTransaction.contractAddress)}.${
         pendingTransaction.contractName
-      }) that you are trying to call cannot be found on ${network.mode}.`}
+      }) that you are trying to call cannot be found on ${network.chain.bitcoin.mode}.`}
       {...props}
     />
   );
