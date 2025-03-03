@@ -46,7 +46,7 @@ export function useStxSendForm() {
   const sendMaxBalance = useMemo(
     () =>
       convertAmountToBaseUnit(
-        availableBalance.amount.minus(stxFees?.estimates[1].fee.amount || 0),
+        availableBalance.amount.minus(stxFees?.estimates?.[1]?.fee?.amount || 0),
         STX_DECIMALS
       ),
     [availableBalance.amount, stxFees?.estimates]

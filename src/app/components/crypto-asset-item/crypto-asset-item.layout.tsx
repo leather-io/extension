@@ -1,10 +1,12 @@
 import { sanitize } from 'dompurify';
 import { Box, Flex } from 'leather-styles/jsx';
+import { useRef, useState } from 'react';
 
 import type { Money } from '@leather.io/models';
 import {
   BulletSeparator,
   Caption,
+  DropdownMenu,
   ItemLayout,
   Pressable,
   SkeletonLoader,
@@ -14,6 +16,10 @@ import {
 import { useSpamFilterWithWhitelist } from '@app/common/spam-filter/use-spam-filter';
 import { PrivateTextLayout } from '@app/components/privacy/private-text.layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
+import { AssetContextMenu } from '@app/features/asset-list/_components/asset-context-menu';
+import { useCurrentAccountIndex } from '@app/store/accounts/account';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { parseCryptoAssetBalance } from './crypto-asset-item.layout.utils';
 
@@ -33,6 +39,7 @@ export interface CryptoAssetItemLayoutProps {
   titleRightBulletInfo?: React.ReactNode;
   dataTestId: string;
 }
+
 export function CryptoAssetItemLayout({
   availableBalance,
   balanceSuffix,
@@ -49,9 +56,16 @@ export function CryptoAssetItemLayout({
   titleRightBulletInfo,
   dataTestId,
 }: CryptoAssetItemLayoutProps) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   const { availableBalanceString, formattedBalance } = parseCryptoAssetBalance(availableBalance);
-
   const spamFilter = useSpamFilterWithWhitelist();
+  const currentAccountIndex = useCurrentAccountIndex();
+  const currentStacksAccount = useCurrentStacksAccount();
+  const btcAddress = useNativeSegwitAccountIndexAddressIndexZero(currentAccountIndex);
+
+  const isBtcToken = availableBalance.symbol.toLowerCase() === 'btc';
+  const address = isBtcToken ? btcAddress : currentStacksAccount?.address;
 
   const titleRight = (
     <SkeletonLoader width="126px" isLoading={isLoading}>
@@ -94,8 +108,6 @@ export function CryptoAssetItemLayout({
     </SkeletonLoader>
   );
 
-  const isInteractive = !!onSelectAsset;
-
   const content = (
     <ItemLayout
       img={icon}
@@ -106,20 +118,42 @@ export function CryptoAssetItemLayout({
     />
   );
 
-  if (isInteractive)
-    return (
-      <Pressable
-        data-testid={dataTestId}
-        onClick={() => onSelectAsset(availableBalance.symbol, contractId)}
-        my="space.02"
-      >
-        {content}
-      </Pressable>
-    );
-
   return (
-    <Box my="space.02" data-testid={sanitize(dataTestId)}>
-      {content}
+    <Box 
+      data-testid={sanitize(dataTestId)}
+      ref={menuRef}
+    >
+      <DropdownMenu.Root open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+        <DropdownMenu.Trigger asChild>
+          <Pressable
+            p="space.02"
+            borderRadius="sm"
+            _hover={{ bg: 'ink.component-background-hover' }}
+            width="100%"
+            onClick={(e: React.MouseEvent) => {
+              if (onSelectAsset) {
+                onSelectAsset(availableBalance.symbol, contractId);
+                e.stopPropagation();
+                return;
+              }
+            }}
+            onContextMenu={(e: React.MouseEvent) => {
+              e.preventDefault();
+              setIsMenuOpen(true);
+            }}
+          >
+            {content}
+          </Pressable>
+        </DropdownMenu.Trigger>
+        {isMenuOpen && (
+          <AssetContextMenu
+            assetSymbol={availableBalance.symbol}
+            contractId={contractId}
+            address={address || ''}
+            onClose={() => setIsMenuOpen(false)}
+          />
+        )}
+      </DropdownMenu.Root>
     </Box>
   );
 }
