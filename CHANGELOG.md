@@ -1,3 +1,31 @@
+## [6.65.0](https://github.com/leather-io/extension/compare/v6.64.0...v6.65.0) (2025-03-03)
+
+
+### Features
+
+* implement stacks fee estimations, LEA-1760 ([2f2b622](https://github.com/leather-io/extension/commit/2f2b6229291b07e9584c665f996fae50155f7876))
+* network param support, getAddresses, closes LEA-2195 ([7baefa0](https://github.com/leather-io/extension/commit/7baefa0e97a1b9024ca48d2dfb8068e37455ecba))
+* stx transfer sip9 nft, closes LEA-1964 ([9d0f575](https://github.com/leather-io/extension/commit/9d0f575f6c62d6ff69546428520e43ed0ed7dc8a))
+
+
+### Bug Fixes
+
+* broadcasting to default stacks network ([b645ad6](https://github.com/leather-io/extension/commit/b645ad65089d96eafcd03bf98a7876c9016f0761))
+* btc recipient validation, closes LEA-2126 ([1df1629](https://github.com/leather-io/extension/commit/1df162954098761fbf3b080757176f14f4e3b892))
+* improve account look up speed, ref LEA-2133 ([279367b](https://github.com/leather-io/extension/commit/279367b9c118b3e9ff54a05eb45ee5dff8c9ee42))
+* issue with broken summary page, closes [#6152](https://github.com/leather-io/extension/issues/6152) ([6bd082c](https://github.com/leather-io/extension/commit/6bd082c9f9adb731bfee5c6efe96917371767c75))
+* **ledger:** switching accounts ([44c92fc](https://github.com/leather-io/extension/commit/44c92fcb6d5e237823ac6f5a4443081205625cd6))
+* sbtc limits schema, closes LEA-2185 ([4f7be18](https://github.com/leather-io/extension/commit/4f7be18de0a38d1e1083a55d4c1f9aa9bff64035))
+* unhandled err in stx send form, LEA-2140 ([4c50f78](https://github.com/leather-io/extension/commit/4c50f78fa7ee5728ef6b3345f50a2f5216b24a46))
+* zero nonce not getting set, closes LEA-2201 ([0775448](https://github.com/leather-io/extension/commit/07754483885787f70d292620ae540fd9a9c51b2f))
+
+
+### Internal
+
+* remove unnecessary action type ([0217747](https://github.com/leather-io/extension/commit/021774709e761683adff561cf49747f9ac9cc82d))
+* update bitcoin, stacks, query and [@scure](https://github.com/scure) packages ([02dcd07](https://github.com/leather-io/extension/commit/02dcd0780ffc40624a7ce9838b531cde46d3fa7d))
+* use sbtc lib deposit defaults ([b087f50](https://github.com/leather-io/extension/commit/b087f504eb38c4a2c9639750241e27b5edab3022))
+
 ## [6.64.0](https://github.com/leather-io/extension/compare/v6.63.0...v6.64.0) (2025-02-24)
 
 
