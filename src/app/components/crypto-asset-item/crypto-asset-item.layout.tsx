@@ -126,7 +126,6 @@ export function CryptoAssetItemLayout({
       <DropdownMenu.Root open={isMenuOpen} onOpenChange={setIsMenuOpen}>
         <DropdownMenu.Trigger asChild>
           <Pressable
-            p="space.02"
             borderRadius="sm"
             _hover={{ bg: 'ink.component-background-hover' }}
             width="100%"
@@ -142,7 +141,9 @@ export function CryptoAssetItemLayout({
               setIsMenuOpen(true);
             }}
           >
-            {content}
+            <Box px="space.03" py="space.03">
+              {content}
+            </Box>
           </Pressable>
         </DropdownMenu.Trigger>
         {isMenuOpen && (

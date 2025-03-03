@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Flex } from 'leather-styles/jsx';
+import { HStack } from 'leather-styles/jsx';
 import { css } from 'leather-styles/css';
 
 import {
@@ -30,12 +30,13 @@ const menuStyles = css({
   borderColor: 'ink.border-default',
   minWidth: '140px',
   overflow: 'hidden',
-});
-
-const menuGroupStyles = css({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 'space.01'
+  // Override default padding
+  '& > div > div': {
+    padding: '0 !important'
+  },
+  '& > div > div > div': {
+    padding: '0 !important'
+  }
 });
 
 const menuItemStyles = css({
@@ -57,8 +58,33 @@ const menuItemStyles = css({
 });
 
 const menuItemContentStyles = css({
-  p: 'space.02'
+  width: '100%',
+  px: 'space.03',
+  py: 'space.02',
+  gap: 'space.02'
 });
+
+interface AssetContextMenuItemProps {
+  icon: React.ReactNode;
+  label: string;
+  onClick?: () => void;
+  disabled?: boolean;
+}
+
+function AssetContextMenuItem({ icon, label, onClick, disabled }: AssetContextMenuItemProps) {
+  return (
+    <DropdownMenu.Item 
+      className={menuItemStyles}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      <HStack className={menuItemContentStyles}>
+        {icon}
+        {label}
+      </HStack>
+    </DropdownMenu.Item>
+  );
+}
 
 export function AssetContextMenu({ 
   assetSymbol, 
@@ -89,42 +115,30 @@ export function AssetContextMenu({
       }}
       avoidCollisions
     >
-      <DropdownMenu.Group className={menuGroupStyles}>
-        <DropdownMenu.Item
-          className={menuItemStyles}
+      <DropdownMenu.Group>
+        <AssetContextMenuItem
+          icon={<PaperPlaneIcon variant="small" />}
+          label="Send"
           onClick={() => {
             navigate(`/send/${assetSymbol}${contractId ? `/${contractId}` : ''}`);
             onClose?.();
           }}
-        >
-          <Flex alignItems="center" gap="space.01" opacity="inherit" className={menuItemContentStyles}>
-            <PaperPlaneIcon variant="small" />
-            Send
-          </Flex>
-        </DropdownMenu.Item>
-        <DropdownMenu.Item 
-          className={menuItemStyles}
+        />
+        <AssetContextMenuItem
+          icon={<InboxIcon variant="small" />}
+          label="Receive"
           onClick={handleReceiveClick}
-        >
-          <Flex alignItems="center" gap="space.01" opacity="inherit" className={menuItemContentStyles}>
-            <InboxIcon variant="small" />
-            Receive
-          </Flex>
-        </DropdownMenu.Item>
-        <DropdownMenu.Item 
-          className={menuItemStyles}
+        />
+        <AssetContextMenuItem
+          icon={<ArrowsRepeatLeftRightIcon variant="small" />}
+          label="Swap"
           onClick={() => {
             if (!isSwapEnabled) return;
             navigate(`/swap/${assetSymbol}`);
             onClose?.();
           }}
           disabled={!isSwapEnabled}
-        >
-          <Flex alignItems="center" gap="space.01" opacity="inherit" className={menuItemContentStyles}>
-            <ArrowsRepeatLeftRightIcon variant="small" />
-            Swap
-          </Flex>
-        </DropdownMenu.Item>
+        />
       </DropdownMenu.Group>
     </DropdownMenu.Content>
   );
