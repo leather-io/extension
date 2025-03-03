@@ -126,9 +126,26 @@ export function CryptoAssetItemLayout({
       <DropdownMenu.Root open={isMenuOpen} onOpenChange={setIsMenuOpen}>
         <DropdownMenu.Trigger asChild>
           <Pressable
+            className="group"
             borderRadius="sm"
-            _hover={{ bg: 'ink.component-background-hover' }}
             width="100%"
+            py="space.02"
+            position="relative"
+            _before={{
+              content: '""',
+              rounded: 'xs',
+              position: 'absolute',
+              top: '-space.01',
+              left: '-space.03',
+              bottom: '-space.01',
+              right: '-space.03',
+            }}
+            _hover={{
+              _before: {
+                bg: 'ink.component-background-hover',
+                borderColor: 'transparent',
+              }
+            }}
             onClick={(e: React.MouseEvent) => {
               if (onSelectAsset) {
                 onSelectAsset(availableBalance.symbol, contractId);
@@ -141,19 +158,19 @@ export function CryptoAssetItemLayout({
               setIsMenuOpen(true);
             }}
           >
-            <Box px="space.03" py="space.03">
-              {content}
-            </Box>
+            {content}
           </Pressable>
         </DropdownMenu.Trigger>
-        {isMenuOpen && (
-          <AssetDropdownMenu
-            assetSymbol={availableBalance.symbol}
-            contractId={contractId}
-            address={address || ''}
-            onClose={() => setIsMenuOpen(false)}
-          />
-        )}
+        <DropdownMenu.Portal>
+          {isMenuOpen && (
+            <AssetDropdownMenu
+              assetSymbol={availableBalance.symbol}
+              contractId={contractId}
+              address={address || ''}
+              onClose={() => setIsMenuOpen(false)}
+            />
+          )}
+        </DropdownMenu.Portal>
       </DropdownMenu.Root>
     </Box>
   );

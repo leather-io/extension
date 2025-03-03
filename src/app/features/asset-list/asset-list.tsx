@@ -57,7 +57,7 @@ export function AssetList({
   const isReadOnly = variant === 'read-only';
 
   return (
-    <Stack>
+    <Stack px="space.00">
       {showUnmanageableTokens && (
         <BitcoinNativeSegwitAccountLoader
           current

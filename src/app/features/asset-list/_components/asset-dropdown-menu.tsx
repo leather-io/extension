@@ -123,6 +123,10 @@ export function AssetDropdownMenu({
         zIndex: 999,
       }}
       avoidCollisions
+      onPointerDownOutside={(e) => {
+        e.preventDefault();
+        onClose?.();
+      }}
     >
       <DropdownMenu.Group>
         <AssetDropdownMenuItem
@@ -143,8 +147,22 @@ export function AssetDropdownMenu({
           label="Swap"
           onClick={() => {
             if (!isSwapEnabled) return;
-            const chain = assetSymbol.toLowerCase() === 'btc' ? 'bitcoin' : 'stacks';
-            navigate(`/swap/${chain}/${assetSymbol.toLowerCase()}`);
+            
+            // Add debugging for problematic tokens
+            console.log('Attempting to swap asset:', assetSymbol);
+            
+            // Normalize the asset symbol for URL construction
+            // This handles special characters and ensures consistent casing
+            const normalizedSymbol = assetSymbol.toLowerCase().trim();
+            
+            // Determine chain based on normalized asset symbol
+            const chain = normalizedSymbol === 'btc' ? 'bitcoin' : 'stacks';
+            
+            // Construct the URL with the normalized symbol
+            const url = `/swap/${chain}/${normalizedSymbol}`;
+            
+            console.log('Navigating to swap URL:', url);
+            navigate(url);
             onClose?.();
           }}
           disabled={!isSwapEnabled}

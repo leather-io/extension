@@ -14,8 +14,26 @@ export function ManageTokens() {
   return (
     <>
       <Pressable
+        className="group"
         data-testid={HomePageSelectors.ManageTokensBtn}
         mt="space.04"
+        py="space.02"
+        position="relative"
+        _before={{
+          content: '""',
+          rounded: 'xs',
+          position: 'absolute',
+          top: '-space.01',
+          left: '-space.03',
+          bottom: '-space.01',
+          right: '-space.03',
+        }}
+        _hover={{
+          _before: {
+            bg: 'ink.component-background-hover',
+            borderColor: 'transparent',
+          }
+        }}
         onClick={() => {
           setShowManageTokens(!showManageTokens);
         }}
