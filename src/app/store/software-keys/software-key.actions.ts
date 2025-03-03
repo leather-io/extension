@@ -77,6 +77,8 @@ function setWalletEncryptionPassword(args: {
     // and the user shouldn't have to wait before being directed to homepage.
     logger.info('Initiating recursive account activity lookup');
     try {
+      const start = performance.now();
+
       void recurseAccountsForActivity({
         async doesAddressHaveActivityFn(index) {
           const stxAddress = getStacksAddressByIndex(
@@ -92,8 +94,12 @@ function setWalletEncryptionPassword(args: {
           return hasStxBalance || hasNames || hasBtcBalance;
         },
       }).then(recursiveActivityIndex => {
-        logger.info('Found account activity at higher index', { recursiveActivityIndex });
         dispatch(stxChainSlice.actions.restoreAccountIndex(recursiveActivityIndex));
+        const end = performance.now();
+        logger.info('Found account activity at higher index', {
+          recursiveActivityIndex,
+          time: (end - start) / 1000 + ' seconds',
+        });
       });
     } catch (e) {
       // Errors during account restore are non-critical and can fail silently
