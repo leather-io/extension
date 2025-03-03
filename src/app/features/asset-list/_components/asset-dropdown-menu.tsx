@@ -15,7 +15,7 @@ import { useToast } from '@app/features/toasts/use-toast';
 import { useConfigSwapsEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { analytics } from '@shared/utils/analytics';
 
-interface AssetContextMenuProps {
+interface AssetDropdownMenuProps {
   assetSymbol: string;
   contractId?: string;
   address: string;
@@ -64,14 +64,14 @@ const menuItemContentStyles = css({
   gap: 'space.02'
 });
 
-interface AssetContextMenuItemProps {
+interface AssetDropdownMenuItemProps {
   icon: React.ReactNode;
   label: string;
   onClick?: () => void;
   disabled?: boolean;
 }
 
-function AssetContextMenuItem({ icon, label, onClick, disabled }: AssetContextMenuItemProps) {
+function AssetDropdownMenuItem({ icon, label, onClick, disabled }: AssetDropdownMenuItemProps) {
   return (
     <DropdownMenu.Item 
       className={menuItemStyles}
@@ -86,19 +86,28 @@ function AssetContextMenuItem({ icon, label, onClick, disabled }: AssetContextMe
   );
 }
 
-export function AssetContextMenu({ 
+export function AssetDropdownMenu({ 
   assetSymbol, 
   contractId, 
   address,
   onClose,
-}: AssetContextMenuProps) {
+}: AssetDropdownMenuProps) {
   const navigate = useNavigate();
   const toast = useToast();
   const isSwapEnabled = useConfigSwapsEnabled();
 
   const handleReceiveClick = async () => {
-    const isBtcToken = assetSymbol.toLowerCase() === 'btc';
-    void analytics.track(isBtcToken ? 'copy_btc_address_to_clipboard' : 'copy_stx_address_to_clipboard');
+    // Track analytics based on asset type
+    const lowerCaseSymbol = assetSymbol.toLowerCase();
+    
+    if (lowerCaseSymbol === 'btc') {
+      // For BTC, we need to include the type parameter
+      void analytics.track('copy_btc_address_to_clipboard', { type: 'btc' });
+    } else {
+      // For STX and other tokens, no second parameter is needed
+      void analytics.track('copy_stx_address_to_clipboard');
+    }
+    
     await copyToClipboard(address);
     toast.success('Address copied to clipboard');
     onClose?.();
@@ -116,7 +125,7 @@ export function AssetContextMenu({
       avoidCollisions
     >
       <DropdownMenu.Group>
-        <AssetContextMenuItem
+        <AssetDropdownMenuItem
           icon={<PaperPlaneIcon variant="small" />}
           label="Send"
           onClick={() => {
@@ -124,12 +133,12 @@ export function AssetContextMenu({
             onClose?.();
           }}
         />
-        <AssetContextMenuItem
+        <AssetDropdownMenuItem
           icon={<InboxIcon variant="small" />}
           label="Receive"
           onClick={handleReceiveClick}
         />
-        <AssetContextMenuItem
+        <AssetDropdownMenuItem
           icon={<ArrowsRepeatLeftRightIcon variant="small" />}
           label="Swap"
           onClick={() => {

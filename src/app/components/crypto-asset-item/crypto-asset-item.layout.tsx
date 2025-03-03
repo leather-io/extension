@@ -16,7 +16,7 @@ import {
 import { useSpamFilterWithWhitelist } from '@app/common/spam-filter/use-spam-filter';
 import { PrivateTextLayout } from '@app/components/privacy/private-text.layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { AssetContextMenu } from '@app/features/asset-list/_components/asset-context-menu';
+import { AssetDropdownMenu } from '@app/features/asset-list/_components/asset-dropdown-menu';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -147,7 +147,7 @@ export function CryptoAssetItemLayout({
           </Pressable>
         </DropdownMenu.Trigger>
         {isMenuOpen && (
-          <AssetContextMenu
+          <AssetDropdownMenu
             assetSymbol={availableBalance.symbol}
             contractId={contractId}
             address={address || ''}
