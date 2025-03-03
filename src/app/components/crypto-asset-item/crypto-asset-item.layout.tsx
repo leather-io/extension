@@ -1,12 +1,12 @@
+import { useRef, useState } from 'react';
+
 import { sanitize } from 'dompurify';
 import { Box, Flex } from 'leather-styles/jsx';
-import { useRef, useState } from 'react';
 
 import type { Money } from '@leather.io/models';
 import {
   BulletSeparator,
   Caption,
-  DropdownMenu,
   ItemLayout,
   Pressable,
   SkeletonLoader,
@@ -14,12 +14,12 @@ import {
 } from '@leather.io/ui';
 
 import { useSpamFilterWithWhitelist } from '@app/common/spam-filter/use-spam-filter';
+import { AssetContextMenu } from '@app/components/context-menu/asset-context-menu';
 import { PrivateTextLayout } from '@app/components/privacy/private-text.layout';
-import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { AssetDropdownMenu } from '@app/features/asset-list/_components/asset-dropdown-menu';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 import { parseCryptoAssetBalance } from './crypto-asset-item.layout.utils';
 
@@ -119,59 +119,44 @@ export function CryptoAssetItemLayout({
   );
 
   return (
-    <Box 
-      data-testid={sanitize(dataTestId)}
-      ref={menuRef}
-    >
-      <DropdownMenu.Root open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-        <DropdownMenu.Trigger asChild>
-          <Pressable
-            className="group"
-            borderRadius="sm"
-            width="100%"
-            py="space.02"
-            position="relative"
-            _before={{
-              content: '""',
-              rounded: 'xs',
-              position: 'absolute',
-              top: '-space.01',
-              left: '-space.03',
-              bottom: '-space.01',
-              right: '-space.03',
-            }}
-            _hover={{
-              _before: {
-                bg: 'ink.component-background-hover',
-                borderColor: 'transparent',
-              }
-            }}
-            onClick={(e: React.MouseEvent) => {
-              if (onSelectAsset) {
-                onSelectAsset(availableBalance.symbol, contractId);
-                e.stopPropagation();
-                return;
-              }
-            }}
-            onContextMenu={(e: React.MouseEvent) => {
-              e.preventDefault();
-              setIsMenuOpen(true);
-            }}
-          >
-            {content}
-          </Pressable>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Portal>
-          {isMenuOpen && (
-            <AssetDropdownMenu
-              assetSymbol={availableBalance.symbol}
-              contractId={contractId}
-              address={address || ''}
-              onClose={() => setIsMenuOpen(false)}
-            />
-          )}
-        </DropdownMenu.Portal>
-      </DropdownMenu.Root>
+    <Box data-testid={sanitize(dataTestId)} ref={menuRef}>
+      <AssetContextMenu
+        assetSymbol={availableBalance.symbol}
+        contractId={contractId}
+        address={address || ''}
+      >
+        <Pressable
+          className="group"
+          borderRadius="sm"
+          width="100%"
+          py="space.02"
+          position="relative"
+          _before={{
+            content: '""',
+            rounded: 'xs',
+            position: 'absolute',
+            top: '-space.01',
+            left: '-space.03',
+            bottom: '-space.01',
+            right: '-space.03',
+          }}
+          _hover={{
+            _before: {
+              bg: 'ink.component-background-hover',
+              borderColor: 'transparent',
+            },
+          }}
+          onClick={(e: React.MouseEvent) => {
+            if (onSelectAsset) {
+              onSelectAsset(availableBalance.symbol, contractId);
+              e.stopPropagation();
+              return;
+            }
+          }}
+        >
+          {content}
+        </Pressable>
+      </AssetContextMenu>
     </Box>
   );
 }

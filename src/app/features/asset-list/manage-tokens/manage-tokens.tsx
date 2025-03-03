@@ -32,7 +32,7 @@ export function ManageTokens() {
           _before: {
             bg: 'ink.component-background-hover',
             borderColor: 'transparent',
-          }
+          },
         }}
         onClick={() => {
           setShowManageTokens(!showManageTokens);

@@ -1,20 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import * as ContextMenu from '@radix-ui/react-context-menu';
-
-import { HStack } from 'leather-styles/jsx';
 import { css } from 'leather-styles/css';
+import { HStack } from 'leather-styles/jsx';
 
-import {
-  PaperPlaneIcon,
-  InboxIcon,
-  ArrowsRepeatLeftRightIcon,
-} from '@leather.io/ui';
+import { ArrowsRepeatLeftRightIcon, InboxIcon, PaperPlaneIcon } from '@leather.io/ui';
+
+import { analytics } from '@shared/utils/analytics';
 
 import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useConfigSwapsEnabled } from '@app/query/common/remote-config/remote-config.query';
-import { analytics } from '@shared/utils/analytics';
 
 interface AssetContextMenuProps {
   assetSymbol: string;
@@ -42,38 +39,34 @@ const menuItemStyles = css({
   outline: 'none',
   borderRadius: 'xs',
   _hover: {
-    backgroundColor: 'ink.component-background-hover'
+    backgroundColor: 'ink.component-background-hover',
   },
   '&[data-disabled]': {
     opacity: 0.5,
     cursor: 'not-allowed',
     _hover: {
-      backgroundColor: 'transparent'
-    }
-  }
+      backgroundColor: 'transparent',
+    },
+  },
 });
 
 const menuItemContentStyles = css({
   width: '100%',
   px: 'space.03',
   py: 'space.02',
-  gap: 'space.02'
+  gap: 'space.02',
 });
 
 interface AssetContextMenuItemProps {
   icon: React.ReactNode;
   label: string;
-  onClick?: () => void;
+  onClick?(): void;
   disabled?: boolean;
 }
 
 function AssetContextMenuItem({ icon, label, onClick, disabled }: AssetContextMenuItemProps) {
   return (
-    <ContextMenu.Item 
-      className={menuItemStyles}
-      onClick={onClick}
-      disabled={disabled}
-    >
+    <ContextMenu.Item className={menuItemStyles} onClick={onClick} disabled={disabled}>
       <HStack className={menuItemContentStyles}>
         {icon}
         {label}
@@ -82,9 +75,9 @@ function AssetContextMenuItem({ icon, label, onClick, disabled }: AssetContextMe
   );
 }
 
-export function AssetContextMenu({ 
-  assetSymbol, 
-  contractId, 
+export function AssetContextMenu({
+  assetSymbol,
+  contractId,
   address,
   children,
 }: AssetContextMenuProps) {
@@ -95,7 +88,7 @@ export function AssetContextMenu({
   const handleReceiveClick = async () => {
     // Track analytics based on asset type
     const lowerCaseSymbol = assetSymbol.toLowerCase();
-    
+
     if (lowerCaseSymbol === 'btc') {
       // For BTC, we need to include the type parameter
       void analytics.track('copy_btc_address_to_clipboard', { type: 'btc' });
@@ -103,23 +96,21 @@ export function AssetContextMenu({
       // For STX and other tokens, no second parameter is needed
       void analytics.track('copy_stx_address_to_clipboard');
     }
-    
+
     await copyToClipboard(address);
     toast.success('Address copied to clipboard');
   };
 
   return (
     <ContextMenu.Root>
-      <ContextMenu.Trigger asChild>
-        {children}
-      </ContextMenu.Trigger>
+      <ContextMenu.Trigger asChild>{children}</ContextMenu.Trigger>
       <ContextMenu.Portal>
         <ContextMenu.Content
           className={menuStyles}
           style={{
             zIndex: 999,
           }}
-          onPointerDownOutside={(e) => {
+          onPointerDownOutside={e => {
             e.preventDefault();
           }}
         >
@@ -141,17 +132,17 @@ export function AssetContextMenu({
               label="Swap"
               onClick={() => {
                 if (!isSwapEnabled) return;
-                
+
                 // Normalize the asset symbol for URL construction
                 // This handles special characters and ensures consistent casing
                 const normalizedSymbol = assetSymbol.toLowerCase().trim();
-                
+
                 // Determine chain based on normalized asset symbol
                 const chain = normalizedSymbol === 'btc' ? 'bitcoin' : 'stacks';
-                
+
                 // Construct the URL with the normalized symbol
                 const url = `/swap/${chain}/${normalizedSymbol}`;
-                
+
                 navigate(url);
               }}
               disabled={!isSwapEnabled}

@@ -94,7 +94,7 @@ importers:
         specifier: 12.4.0
         version: 12.4.0
       '@radix-ui/react-context-menu':
-        specifier: ^2.2.6
+        specifier: 2.2.6
         version: 2.2.6(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-dialog':
         specifier: 1.0.5
@@ -3177,9 +3177,6 @@ packages:
 
   '@floating-ui/core@1.6.8':
     resolution: {integrity: sha512-7XJ9cPU+yI2QeLS+FCSlqNFZJq8arvswefkZrYI1yQBbftw6FyrZOxYSh+9S7z7TpeWlRt9zJ5IhM1WIL334jA==}
-
-  '@floating-ui/dom@1.6.10':
-    resolution: {integrity: sha512-fskgCFv8J8OamCmyun8MfjB1Olfn+uZKjOKZ0vhYF3gRmEUXcGOjxWL8bBr7i4kIuPZ2KD2S3EUIOxnjC8kl2A==}
 
   '@floating-ui/dom@1.6.11':
     resolution: {integrity: sha512-qkMCxSR24v2vGkhYDo/UzxfJN3D4syqSjyuTFz6C7XcpU1pASPRieNI0Kj5VP3/503mOfYiGY891ugBX1GlABQ==}
@@ -19566,11 +19563,6 @@ snapshots:
     dependencies:
       '@floating-ui/utils': 0.2.8
 
-  '@floating-ui/dom@1.6.10':
-    dependencies:
-      '@floating-ui/core': 1.6.8
-      '@floating-ui/utils': 0.2.8
-
   '@floating-ui/dom@1.6.11':
     dependencies:
       '@floating-ui/core': 1.6.8
@@ -33923,7 +33915,7 @@ snapshots:
   react-remove-scroll-bar@2.3.6(@types/react@18.3.10)(react@18.2.0):
     dependencies:
       react: 18.2.0
-      react-style-singleton: 2.2.1(@types/react@18.3.10)(react@18.2.0)
+      react-style-singleton: 2.2.3(@types/react@18.3.10)(react@18.2.0)
       tslib: 2.8.1
     optionalDependencies:
       '@types/react': 18.3.10
@@ -33931,7 +33923,7 @@ snapshots:
   react-remove-scroll-bar@2.3.6(@types/react@18.3.10)(react@18.3.1):
     dependencies:
       react: 18.3.1
-      react-style-singleton: 2.2.1(@types/react@18.3.10)(react@18.3.1)
+      react-style-singleton: 2.2.3(@types/react@18.3.10)(react@18.3.1)
       tslib: 2.8.1
     optionalDependencies:
       '@types/react': 18.3.10
@@ -33969,11 +33961,11 @@ snapshots:
   react-remove-scroll@2.5.7(@types/react@18.3.10)(react@18.3.1):
     dependencies:
       react: 18.3.1
-      react-remove-scroll-bar: 2.3.6(@types/react@18.3.10)(react@18.3.1)
-      react-style-singleton: 2.2.1(@types/react@18.3.10)(react@18.3.1)
+      react-remove-scroll-bar: 2.3.8(@types/react@18.3.10)(react@18.3.1)
+      react-style-singleton: 2.2.3(@types/react@18.3.10)(react@18.3.1)
       tslib: 2.8.1
-      use-callback-ref: 1.3.2(@types/react@18.3.10)(react@18.3.1)
-      use-sidecar: 1.1.2(@types/react@18.3.10)(react@18.3.1)
+      use-callback-ref: 1.3.3(@types/react@18.3.10)(react@18.3.1)
+      use-sidecar: 1.1.3(@types/react@18.3.10)(react@18.3.1)
     optionalDependencies:
       '@types/react': 18.3.10
 
@@ -34005,7 +33997,7 @@ snapshots:
       '@babel/runtime': 7.26.0
       '@emotion/cache': 11.13.1
       '@emotion/react': 11.13.3(@types/react@18.3.10)(react@18.3.1)
-      '@floating-ui/dom': 1.6.10
+      '@floating-ui/dom': 1.6.11
       '@types/react-transition-group': 4.4.11
       memoize-one: 6.0.0
       prop-types: 15.8.1
@@ -34037,6 +34029,14 @@ snapshots:
       get-nonce: 1.0.1
       invariant: 2.2.4
       react: 18.3.1
+      tslib: 2.8.1
+    optionalDependencies:
+      '@types/react': 18.3.10
+
+  react-style-singleton@2.2.3(@types/react@18.3.10)(react@18.2.0):
+    dependencies:
+      get-nonce: 1.0.1
+      react: 18.2.0
       tslib: 2.8.1
     optionalDependencies:
       '@types/react': 18.3.10
