@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/43</span>
+                <span class='fraction'>0/45</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/39</span>
+                <span class='fraction'>0/41</span>
             </div>
         
             
@@ -193,7 +193,13 @@
 <a name='L128'></a><a href='#L128'>128</a>
 <a name='L129'></a><a href='#L129'>129</a>
 <a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -276,19 +282,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -402,6 +414,8 @@ function <span class="fstat-no" title="function not covered" >setWalletEncryptio
     // and the user shouldn't have to wait before being directed to homepage.
 <span class="cstat-no" title="statement not covered" >    logger.info('Initiating recursive account activity lookup');</span>
 <span class="cstat-no" title="statement not covered" >    try {</span>
+      const start = <span class="cstat-no" title="statement not covered" >performance.now();</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >      void recurseAccountsForActivity({</span>
 <span class="fstat-no" title="function not covered" >        async d</span>oesAddressHaveActivityFn(index) {
           const stxAddress = <span class="cstat-no" title="statement not covered" >getStacksAddressByIndex(</span>
@@ -417,8 +431,12 @@ function <span class="fstat-no" title="function not covered" >setWalletEncryptio
 <span class="cstat-no" title="statement not covered" >          return hasStxBalance || hasNames || hasBtcBalance;</span>
         },
       }).then(<span class="fstat-no" title="function not covered" >recursiveActivityIndex =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        logger.info('Found account activity at higher index', { recursiveActivityIndex });</span>
 <span class="cstat-no" title="statement not covered" >        dispatch(stxChainSlice.actions.restoreAccountIndex(recursiveActivityIndex));</span>
+        const end = <span class="cstat-no" title="statement not covered" >performance.now();</span>
+<span class="cstat-no" title="statement not covered" >        logger.info('Found account activity at higher index', {</span>
+          recursiveActivityIndex,
+          time: (end - start) / 1000 + ' seconds',
+        });
       });
     } catch (e) {
       // Errors during account restore are non-critical and can fail silently
@@ -460,7 +478,7 @@ export const keyActions = <span class="cstat-no" title="statement not covered" >
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-24T15:27:40.366Z
+                at 2025-03-03T14:57:50.367Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

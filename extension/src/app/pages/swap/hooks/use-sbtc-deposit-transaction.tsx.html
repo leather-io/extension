@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/48</span>
+                <span class='fraction'>0/46</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/46</span>
+                <span class='fraction'>0/44</span>
             </div>
         
             
@@ -228,10 +228,7 @@
 <a name='L163'></a><a href='#L163'>163</a>
 <a name='L164'></a><a href='#L164'>164</a>
 <a name='L165'></a><a href='#L165'>165</a>
-<a name='L166'></a><a href='#L166'>166</a>
-<a name='L167'></a><a href='#L167'>167</a>
-<a name='L168'></a><a href='#L168'>168</a>
-<a name='L169'></a><a href='#L169'>169</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L166'></a><a href='#L166'>166</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -268,9 +265,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -406,6 +400,7 @@ import { bytesToHex } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 import type { P2Ret, P2TROut } from '@scure/btc-signer/payment';
 import {
+  DEFAULT_RECLAIM_LOCK_TIME,
   MAINNET,
   REGTEST,
   SbtcApiClientMainnet,
@@ -414,6 +409,7 @@ import {
   buildSbtcDepositTx,
 } from 'sbtc';
 &nbsp;
+import { BitcoinSigner } from '@leather.io/bitcoin';
 import type { BitcoinNetworkModes } from '@leather.io/models';
 import { type UtxoResponseItem, useAverageBitcoinFeeRates } from '@leather.io/query';
 import { btcToSat, createMoney } from '@leather.io/utils';
@@ -429,16 +425,11 @@ import {
 import { useToast } from '@app/features/toasts/use-toast';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
-import type { Signer } from '@app/store/accounts/blockchain/bitcoin/bitcoin-signer';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 &nbsp;
 import type { BitcoinSwapContext } from '../providers/bitcoin-swap-provider';
 import type { SubmitSwapArgs } from '../swap.context';
-&nbsp;
-// Also set as defaults in sbtc lib
-export const defaultMaxSignerFee = <span class="cstat-no" title="statement not covered" >80_000;</span>
-const reclaimLockTime = <span class="cstat-no" title="statement not covered" >144;</span>
 &nbsp;
 export interface SbtcDeposit {
   address: string;
@@ -462,7 +453,7 @@ function <span class="fstat-no" title="function not covered" >getSbtcNetworkConf
 const clientMainnet = <span class="cstat-no" title="statement not covered" >new SbtcApiClientMainnet();</span>
 const clientTestnet = <span class="cstat-no" title="statement not covered" >new SbtcApiClientTestnet();</span>
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useSbtcDepositTransaction(s</span>igner: Signer&lt;P2Ret&gt;, utxos: UtxoResponseItem[]) {
+export function <span class="fstat-no" title="function not covered" >useSbtcDepositTransaction(s</span>igner: BitcoinSigner&lt;P2Ret&gt;, utxos: UtxoResponseItem[]) {
   const toast = <span class="cstat-no" title="statement not covered" >useToast();</span>
   const { setIsIdle } = <span class="cstat-no" title="statement not covered" >useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);</span>
   const stacksAccount = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccount();</span>
@@ -496,7 +487,7 @@ export function <span class="fstat-no" title="function not covered" >useSbtcDepo
           stacksAddress: stacksAccount.address,
           signersPublicKey: await client.fetchSignersPublicKey(),
           maxSignerFee: swapData.maxSignerFee,
-          reclaimLockTime,
+          reclaimLockTime: DEFAULT_RECLAIM_LOCK_TIME,
           reclaimPublicKey: bytesToHex(signer.publicKey).slice(2),
         });
 &nbsp;
@@ -574,7 +565,7 @@ export function <span class="fstat-no" title="function not covered" >useSbtcDepo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-24T15:27:40.366Z
+                at 2025-03-03T14:57:50.367Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

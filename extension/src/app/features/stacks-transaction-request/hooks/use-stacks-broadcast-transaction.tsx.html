@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/51</span>
+                <span class='fraction'>0/49</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/46</span>
+                <span class='fraction'>0/45</span>
             </div>
         
             
@@ -213,7 +213,8 @@
 <a name='L148'></a><a href='#L148'>148</a>
 <a name='L149'></a><a href='#L149'>149</a>
 <a name='L150'></a><a href='#L150'>150</a>
-<a name='L151'></a><a href='#L151'>151</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -252,6 +253,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -262,7 +265,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -272,23 +274,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -302,6 +287,24 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -315,7 +318,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -396,11 +398,13 @@ interface UseStacksBroadcastTransactionArgs {
   actionType?: StacksTransactionActionType;
   decimals?: number;
   token: CryptoCurrency;
+  showSummaryPage?: boolean;
 }
 export function <span class="fstat-no" title="function not covered" >useStacksBroadcastTransaction({</span>
   actionType,
   decimals,
   token,
+  showSummaryPage = <span class="branch-0 cbranch-no" title="branch not covered" >true,</span>
 }: UseStacksBroadcastTransactionArgs) {
   const signStacksTransaction = <span class="cstat-no" title="statement not covered" >useSignStacksTransaction();</span>
   const [isBroadcasting, setIsBroadcasting] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
@@ -412,7 +416,6 @@ export function <span class="fstat-no" title="function not covered" >useStacksBr
 &nbsp;
   const isCancelTransaction = <span class="cstat-no" title="statement not covered" >actionType === StacksTransactionActionType.Cancel;</span>
   const isIncreaseFeeTransaction = <span class="cstat-no" title="statement not covered" >actionType === StacksTransactionActionType.IncreaseFee;</span>
-  const isRpcRequest = <span class="cstat-no" title="statement not covered" >actionType === StacksTransactionActionType.RpcRequest;</span>
 &nbsp;
   const broadcastTransactionFn = <span class="cstat-no" title="statement not covered" >useSubmitTransactionCallback({</span>
     loadingKey: LoadingKeys.SUBMIT_STACKS_TRANSACTION,
@@ -431,18 +434,19 @@ export function <span class="fstat-no" title="function not covered" >useStacksBr
         });
       }
 <span class="cstat-no" title="statement not covered" >      if (txId) {</span>
-<span class="cstat-no" title="statement not covered" >        if (isCancelTransaction || isIncreaseFeeTransaction || isRpcRequest) {</span>
+<span class="cstat-no" title="statement not covered" >        if (isCancelTransaction || isIncreaseFeeTransaction) {</span>
 <span class="cstat-no" title="statement not covered" >          navigate(RouteUrls.Activity);</span>
 <span class="cstat-no" title="statement not covered" >          return;</span>
         }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        navigate(</span>
-          RouteUrls.SentStxTxSummary.replace(':symbol', token.toLowerCase()).replace(
-            ':txId',
-            `${txId}`
-          ),
-          formSentSummaryTxState ? formSentSummaryTxState(txId, signedTx, decimals) : {}
-        );
+<span class="cstat-no" title="statement not covered" >        if (showSummaryPage)</span>
+<span class="cstat-no" title="statement not covered" >          navigate(</span>
+            RouteUrls.SentStxTxSummary.replace(':symbol', token.toLowerCase()).replace(
+              ':txId',
+              `${txId}`
+            ),
+            formSentSummaryTxState ? formSentSummaryTxState(txId, signedTx, decimals) : {}
+          );
       }
     }
 &nbsp;
@@ -468,7 +472,6 @@ export function <span class="fstat-no" title="function not covered" >useStacksBr
 <span class="cstat-no" title="statement not covered" >              handlePreviewSuccess(signedTx, txId);</span>
 <span class="cstat-no" title="statement not covered" >              if (isCancelTransaction) <span class="cstat-no" title="statement not covered" >return toast.success('Transaction cancelled successfully');</span></span>
 <span class="cstat-no" title="statement not covered" >              if (isIncreaseFeeTransaction) <span class="cstat-no" title="statement not covered" >return toast.success('Fee increased successfully');</span></span>
-<span class="cstat-no" title="statement not covered" >              if (isRpcRequest) <span class="cstat-no" title="statement not covered" >return toast.success('Transaction submitted!');</span></span>
 <span class="cstat-no" title="statement not covered" >              return;</span>
             },
             replaceByFee: false,
@@ -503,7 +506,7 @@ export function <span class="fstat-no" title="function not covered" >useStacksBr
     tabId,
     isCancelTransaction,
     isIncreaseFeeTransaction,
-    isRpcRequest,
+    showSummaryPage,
     navigate,
     token,
     formSentSummaryTxState,
@@ -520,7 +523,7 @@ export function <span class="fstat-no" title="function not covered" >useStacksBr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-24T15:27:40.366Z
+                at 2025-03-03T14:57:50.367Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

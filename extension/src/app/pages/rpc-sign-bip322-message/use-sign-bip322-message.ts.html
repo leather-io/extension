@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/53</span>
+                <span class='fraction'>0/54</span>
             </div>
         
             
@@ -230,7 +230,10 @@
 <a name='L165'></a><a href='#L165'>165</a>
 <a name='L166'></a><a href='#L166'>166</a>
 <a name='L167'></a><a href='#L167'>167</a>
-<a name='L168'></a><a href='#L168'>168</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -251,20 +254,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -279,6 +268,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -352,17 +356,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -370,7 +366,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -402,7 +408,8 @@
 import * as btc from '@scure/btc-signer';
 import * as bitcoin from 'bitcoinjs-lib';
 &nbsp;
-import { signBip322MessageSimple } from '@leather.io/bitcoin';
+import { createBitcoinAddress, signBip322MessageSimple } from '@leather.io/bitcoin';
+import { BitcoinAddress } from '@leather.io/models';
 import {
   PaymentTypes,
   RpcErrorCode,
@@ -448,7 +455,7 @@ const shortPauseBeforeToast = <span class="cstat-no" title="statement not covere
 const allowTimeForUserToReadToast = <span class="cstat-no" title="statement not covered" >createDelay(1200);</span>
 &nbsp;
 interface SignBip322MessageFactoryArgs {
-  address: string;
+  address: BitcoinAddress;
   signPsbt(a: bitcoin.Psbt): Promise&lt;btc.Transaction&gt;;
 }
 function <span class="fstat-no" title="function not covered" >useSignBip322MessageFactory({</span> address, signPsbt }: SignBip322MessageFactoryArgs) {
@@ -519,16 +526,16 @@ function <span class="fstat-no" title="function not covered" >useSignBip322Messa
   const currentTaprootAccount = <span class="cstat-no" title="statement not covered" >useCurrentTaprootAccount();</span>
 <span class="cstat-no" title="statement not covered" >  if (!currentTaprootAccount) <span class="cstat-no" title="statement not covered" >throw new Error('No keychain for current account');</span></span>
   const sign = <span class="cstat-no" title="statement not covered" >useSignBitcoinTx();</span>
-  const signer = <span class="cstat-no" title="statement not covered" >createTaprootSigner(0);</span>
+  const {
+    payment: { tapInternalKey, address },
+  } = <span class="cstat-no" title="statement not covered" >createTaprootSigner(0);</span>
 &nbsp;
   async function <span class="fstat-no" title="function not covered" >signPsbt(p</span>sbt: bitcoin.Psbt) {
-<span class="cstat-no" title="statement not covered" >    psbt.data.inputs.forEach(</span>
-<span class="fstat-no" title="function not covered" >      input =&gt; (<span class="cstat-no" title="statement not covered" >i</span>nput.tapInternalKey = Buffer.from(signer.payment.tapInternalKey))</span>
-    );
+<span class="cstat-no" title="statement not covered" >    psbt.data.inputs.forEach(<span class="fstat-no" title="function not covered" >input =&gt; (<span class="cstat-no" title="statement not covered" >i</span>nput.tapInternalKey = Buffer.from(tapInternalKey)))</span>;</span>
 <span class="cstat-no" title="statement not covered" >    return sign(psbt.toBuffer());</span>
   }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return useSignBip322MessageFactory({ address: signer.payment.address ?? '', signPsbt });</span>
+  const signerAddress = <span class="cstat-no" title="statement not covered" >createBitcoinAddress(address ?? '');</span>
+<span class="cstat-no" title="statement not covered" >  return useSignBip322MessageFactory({ address: signerAddress, signPsbt });</span>
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >useSignBip322MessageNativeSegwit() {</span>
@@ -539,14 +546,16 @@ function <span class="fstat-no" title="function not covered" >useSignBip322Messa
 <span class="cstat-no" title="statement not covered" >  if (!currentNativeSegwitAccount) <span class="cstat-no" title="statement not covered" >throw new Error('No keychain for current account');</span></span>
   const sign = <span class="cstat-no" title="statement not covered" >useSignBitcoinTx();</span>
 &nbsp;
-  const signer = <span class="cstat-no" title="statement not covered" >createNativeSegwitSigner(0);</span>
+  const {
+    payment: { address },
+  } = <span class="cstat-no" title="statement not covered" >createNativeSegwitSigner(0);</span>
 &nbsp;
   async function <span class="fstat-no" title="function not covered" >signPsbt(p</span>sbt: bitcoin.Psbt) {
 <span class="cstat-no" title="statement not covered" >    return sign(psbt.toBuffer());</span>
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useSignBip322MessageFactory({</span>
-    address: signer.payment.address ?? '',
+    address: createBitcoinAddress(address ?? ''),
     signPsbt,
   });
 }
@@ -571,7 +580,7 @@ export function <span class="fstat-no" title="function not covered" >useSignBip3
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-24T15:27:40.366Z
+                at 2025-03-03T14:57:50.367Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

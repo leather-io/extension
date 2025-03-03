@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/33</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/32</span>
             </div>
         
             
@@ -153,7 +153,37 @@
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
 <a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -172,6 +202,16 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -244,30 +284,50 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { bytesToHex } from '@stacks/common';
+import { z } from 'zod';
 &nbsp;
 import { ecdsaPublicKeyToSchnorr } from '@leather.io/bitcoin';
-import { type BtcAddress, createRpcSuccessResponse } from '@leather.io/rpc';
+import {
+  type BtcAddress,
+  type StxAddress,
+  createRequestEncoder,
+  createRpcSuccessResponse,
+  getAddresses,
+  stxGetAddresses,
+} from '@leather.io/rpc';
 &nbsp;
 import { logger } from '@shared/logger';
 import { analytics } from '@shared/utils/analytics';
 &nbsp;
 import { focusTabAndWindow } from '@app/common/focus-tab';
+import { initialSearchParams } from '@app/common/initial-search-params';
 import { useRpcRequestParams } from '@app/common/rpc/use-rpc-request';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useAppPermissions } from '@app/store/app-permissions/app-permissions.slice';
 &nbsp;
+// We reuse this flow for both of these requsts, so here we make a union of two
+// possible requests
+const getAddressesRequests = <span class="cstat-no" title="statement not covered" >z.union([getAddresses.request, stxGetAddresses.request]);</span>
+const { decode } = <span class="cstat-no" title="statement not covered" >createRequestEncoder(getAddressesRequests);</span>
+&nbsp;
+function <span class="fstat-no" title="function not covered" >useGetAddressesParams() {</span>
+  const { tabId, origin } = <span class="cstat-no" title="statement not covered" >useRpcRequestParams();</span>
+  const request = <span class="cstat-no" title="statement not covered" >initialSearchParams.get('rpcRequest');</span>
+<span class="cstat-no" title="statement not covered" >  if (!request) <span class="cstat-no" title="statement not covered" >throw new Error('Missing rpcRequest');</span></span>
+<span class="cstat-no" title="statement not covered" >  return { tabId, origin, request: decode(request) };</span>
+}
+&nbsp;
 export function <span class="fstat-no" title="function not covered" >useGetAddresses() {</span>
   const permissions = <span class="cstat-no" title="statement not covered" >useAppPermissions();</span>
-  const { tabId, origin, requestId } = <span class="cstat-no" title="statement not covered" >useRpcRequestParams();</span>
-&nbsp;
+  const { tabId, origin, request } = <span class="cstat-no" title="statement not covered" >useGetAddressesParams();</span>
   const createNativeSegwitSigner = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitSigner();</span>
   const createTaprootSigner = <span class="cstat-no" title="statement not covered" >useCurrentAccountTaprootSigner();</span>
   const stacksAccount = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccount();</span>
 &nbsp;
   function <span class="fstat-no" title="function not covered" >focusInitatingTab() {</span>
-<span class="cstat-no" title="statement not covered" >    void analytics.track('user_clicked_requested_by_link', { endpoint: 'getAddresses' });</span>
+<span class="cstat-no" title="statement not covered" >    void analytics.track('user_clicked_requested_by_link', { endpoint: request.method });</span>
 <span class="cstat-no" title="statement not covered" >    focusTabAndWindow(tabId);</span>
   }
 &nbsp;
@@ -316,18 +376,18 @@ export function <span class="fstat-no" title="function not covered" >useGetAddre
 <span class="cstat-no" title="statement not covered" >      if (stacksAccount) {</span>
         const stacksAddressResponse = <span class="cstat-no" title="statement not covered" >{</span>
           symbol: 'STX',
-          address: stacksAccount.address ?? '',
-          publicKey: stacksAccount.stxPublicKey ?? '',
-        };
+          address: stacksAccount.address,
+          publicKey: stacksAccount.stxPublicKey,
+        } satisfies StxAddress;
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        keysToIncludeInResponse.push(stacksAddressResponse);</span>
       }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      chrome.tabs.sendMessage(</span>
         tabId,
-        createRpcSuccessResponse('getAddresses', {
-          id: requestId,
-          result: { addresses: keysToIncludeInResponse as any },
+        createRpcSuccessResponse(request.method, {
+          id: request.id,
+          result: { addresses: keysToIncludeInResponse },
         })
       );
     },
@@ -340,7 +400,7 @@ export function <span class="fstat-no" title="function not covered" >useGetAddre
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-24T15:27:40.366Z
+                at 2025-03-03T14:57:50.367Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
