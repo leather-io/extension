@@ -9,16 +9,16 @@ import {
 
 import { IconWrapper } from '@app/components/icon-wrapper';
 
-import type { FeeType } from '../fee-editor.context';
+import type { EditorFeeType } from '../fee-editor.context';
 
-const feeTypeToIconMap: Record<FeeType, ReactNode> = {
+const feeTypeToIconMap: Record<EditorFeeType, ReactNode> = {
   slow: <AnimalSnailIcon />,
   standard: <AnimalRabbitIcon />,
   fast: <AnimalEagleIcon />,
   custom: <AnimalChameleonIcon />,
 };
 
-export function FeeItemIcon({ feeType }: { feeType: FeeType }) {
+export function FeeItemIcon({ feeType }: { feeType: EditorFeeType }) {
   const icon = feeTypeToIconMap[feeType] || null;
 
   if (!icon) {

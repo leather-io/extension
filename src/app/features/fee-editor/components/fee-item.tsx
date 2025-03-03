@@ -7,55 +7,49 @@ import { Button, ItemLayout } from '@leather.io/ui';
 
 import { FormError } from '@app/components/error/form-error';
 
-import type { FeeType } from '../fee-editor.context';
+import { type EditorFee, useFeeEditorContext } from '../fee-editor.context';
+import { formatEditorFeeItem } from '../fee-editor.utils';
 import { FeeItemIcon } from './fee-item-icon';
 
-export interface FeeItemProps {
-  feeType: FeeType;
-  isSelected: boolean;
-  isInsufficientBalance: boolean;
-  onSelect(feeType: FeeType): void;
-  titleLeft: string;
-  captionLeft: string;
-  titleRight?: string;
-  captionRight?: string;
+interface FeeItemProps {
+  fee: EditorFee;
 }
-
-export function FeeItem({
-  feeType,
-  onSelect,
-  isInsufficientBalance,
-  isSelected,
-  titleLeft,
-  captionLeft,
-  titleRight,
-  captionRight,
-}: FeeItemProps) {
+export function FeeItem({ fee }: FeeItemProps) {
   const [isTouched, setIsTouched] = useState(false);
+  const { availableBalance, marketData, onSetSelectedEditorFee, selectedEditorFee } =
+    useFeeEditorContext();
+
+  const { titleLeft, captionLeft, titleRight, captionRight } = formatEditorFeeItem({
+    editorFee: fee,
+    marketData,
+  });
+
+  const isSelected = selectedEditorFee?.type === fee.type;
+  const isInsufficientBalance = availableBalance.amount.isLessThan(
+    selectedEditorFee?.feeValue?.amount ?? 0
+  );
   const showInsufficientBalanceError = isTouched && isInsufficientBalance;
 
   return (
     <Button
       onClick={() => {
         setIsTouched(true);
-
         if (isInsufficientBalance) return;
-
-        onSelect(feeType);
+        onSetSelectedEditorFee(fee);
       }}
-      key={feeType}
+      key={fee.type}
       variant="outline"
       opacity={isInsufficientBalance ? 0.5 : 1}
       borderWidth={isSelected ? '2px' : '1px'}
       borderColor={
         isSelected && !isInsufficientBalance ? 'ink.border-selected' : 'ink.border-default'
       }
-      // Add margin compensation when not selected to maintain consistent size
+      // Add margin compensation to maintain consistent size
       margin={isSelected ? '0px' : '1px'}
     >
       <Stack gap="0">
         <ItemLayout
-          img={<FeeItemIcon feeType={feeType} />}
+          img={<FeeItemIcon feeType={fee.type} />}
           titleLeft={titleLeft}
           captionLeft={captionLeft}
           titleRight={titleRight}

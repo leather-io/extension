@@ -1,3 +1,4 @@
+import type { MarketData } from '@leather.io/models';
 import {
   baseCurrencyAmountInQuote,
   capitalize,
@@ -6,28 +7,23 @@ import {
   i18nFormatCurrency,
 } from '@leather.io/utils';
 
-import type { FormatFeeForDisplayArgs } from '@app/features/fee-editor/use-fee-editor';
+import type { EditorFee } from './fee-editor.context';
 
-import type { FeeDisplayInfo } from './fee-editor.context';
-
-export function formatFeeForDisplay({
-  rawFee,
-  marketData,
-}: FormatFeeForDisplayArgs): FeeDisplayInfo {
-  const { type, baseUnitFeeValue, feeRate, time } = rawFee;
+interface FormatEditorFeeItemArgs {
+  editorFee: EditorFee;
+  marketData: MarketData;
+}
+export function formatEditorFeeItem({ editorFee, marketData }: FormatEditorFeeItemArgs) {
+  const { type, feeRate, feeValue, time } = editorFee;
 
   return {
-    feeType: type,
-    feeRate: feeRate ?? 0,
-    baseUnitsValue: baseUnitFeeValue ? baseUnitFeeValue.amount.toNumber() : 0,
-
     titleLeft: capitalize(type),
     captionLeft: time,
-    titleRight: baseUnitFeeValue ? formatMoneyPadded(baseUnitFeeValue) : 'N/A',
-    captionRight: baseUnitFeeValue
-      ? `${feeRate} ${baseUnitFeeValue.symbol === 'BTC' ? 'sats' : 'uSTX'}/vB · ${i18nFormatCurrency(
+    titleRight: feeValue ? formatMoneyPadded(feeValue) : 'N/A',
+    captionRight: feeValue
+      ? `${feeRate} ${feeValue.symbol === 'BTC' ? 'sats' : 'uSTX'}/vB · ${i18nFormatCurrency(
           baseCurrencyAmountInQuote(
-            createMoney(Math.ceil(baseUnitFeeValue.amount.toNumber()), baseUnitFeeValue.symbol),
+            createMoney(Math.ceil(feeValue.amount.toNumber()), feeValue.symbol),
             marketData
           )
         )}`

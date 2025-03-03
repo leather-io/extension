@@ -4,12 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { Box } from 'leather-styles/jsx';
 
 import { Approver } from '@leather.io/ui';
-import {
-  baseCurrencyAmountInQuote,
-  createMoney,
-  i18nFormatCurrency,
-  sumMoney,
-} from '@leather.io/utils';
+import { baseCurrencyAmountInQuote, i18nFormatCurrency, sumMoney } from '@leather.io/utils';
 
 import { analytics } from '@shared/utils/analytics';
 
@@ -18,10 +13,10 @@ import { ApproveBitcoinTransactionSwitchAccount } from '@app/components/approve-
 import { ApproveTransactionError } from '@app/components/approve-transaction/approve-transaction-error';
 import { ApproveTransactionHeader } from '@app/components/approve-transaction/approve-transaction-header';
 import { ApproveTransactionRecipients } from '@app/components/approve-transaction/approve-transaction-recipients';
-import { ApproveTransactionSelectedFee } from '@app/components/approve-transaction/approve-transaction-selected-fee';
 import { ApproveTransactionActionsTitle } from '@app/components/approve-transaction/approve-transaction-title';
 import { ApproveTransactionWrapper } from '@app/components/approve-transaction/approve-transaction-wrapper';
 import { BackgroundOverlay } from '@app/components/loading-overlay';
+import { FeeEditor } from '@app/features/fee-editor/fee-editor';
 import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 
@@ -29,7 +24,7 @@ import { useRpcSendTransferContext } from './rpc-send-transfer.context';
 import { useRpcSendTransferActions } from './use-rpc-send-transfer-actions';
 
 export function RpcSendTransfer() {
-  const { availableBalance, isLoadingFees, marketData, selectedFeeData } = useFeeEditorContext();
+  const { availableBalance, currentEditorFee, isLoadingFees, marketData } = useFeeEditorContext();
   const {
     recipients,
     recipientAddresses,
@@ -48,13 +43,12 @@ export function RpcSendTransfer() {
   const showOverlay = isBroadcasting || isSubmitted;
 
   const totalFiatValue = useMemo(() => {
-    if (!selectedFeeData) return '';
-    const fee = selectedFeeData?.baseUnitsValue;
-    const feeAsMoney = createMoney(fee, 'BTC');
+    const fee = currentEditorFee?.feeValue;
+    if (!fee) return '';
     return i18nFormatCurrency(
-      baseCurrencyAmountInQuote(sumMoney([amountAsMoney, feeAsMoney]), marketData)
+      baseCurrencyAmountInQuote(sumMoney([amountAsMoney, fee]), marketData)
     );
-  }, [amountAsMoney, marketData, selectedFeeData]);
+  }, [amountAsMoney, currentEditorFee?.feeValue, marketData]);
 
   return (
     <>
@@ -77,10 +71,11 @@ export function RpcSendTransfer() {
               toggleSwitchAccount={onUserActivatesSwitchAccount}
             />
             <ApproveTransactionRecipients recipients={recipients} />
-            <ApproveTransactionSelectedFee
+            <FeeEditor.Trigger
               isLoading={isLoadingFees}
-              selectedFeeData={selectedFeeData}
-              onChooseFee={onUserActivatesFeeEditor}
+              marketData={marketData}
+              onEditFee={onUserActivatesFeeEditor}
+              currentFee={currentEditorFee}
             />
           </Box>
           <Approver.Actions actions={approverActions}>

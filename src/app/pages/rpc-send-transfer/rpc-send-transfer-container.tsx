@@ -7,7 +7,6 @@ import { RouteUrls } from '@shared/route-urls';
 import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 import { useBitcoinFees } from '@app/features/fee-editor/bitcoin/use-bitcoin-fees';
 import { FeeEditorProvider } from '@app/features/fee-editor/fee-editor.context';
-import { formatFeeForDisplay } from '@app/features/fee-editor/fee-editor.utils';
 import { useFeeEditor } from '@app/features/fee-editor/use-fee-editor';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 
@@ -24,8 +23,8 @@ export function RpcSendTransferContainer() {
   const { recipients, utxos, amountAsMoney } = sendTransferState;
 
   const {
-    rawFees,
-    getCustomFeeData,
+    editorFees,
+    getCustomEditorFee,
     isLoading: isLoadingFees,
   } = useBitcoinFees({
     amount: amountAsMoney,
@@ -34,10 +33,8 @@ export function RpcSendTransferContainer() {
   });
 
   const feeEditorContext = useFeeEditor({
-    rawFees,
-    marketData: btcMarketData,
-    formatFeeForDisplay,
-    getCustomFeeData,
+    editorFees,
+    getCustomEditorFee,
   });
 
   const rpcSendTransferContext: RpcSendTransferContext = {
@@ -51,8 +48,8 @@ export function RpcSendTransferContainer() {
     <FeeEditorProvider
       value={{
         ...feeEditorContext,
-        availableBalance: btcBalance.balance.availableBalance,
         isLoadingFees,
+        availableBalance: btcBalance.balance.availableBalance,
         marketData: btcMarketData,
       }}
     >

@@ -1,69 +1,50 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Center, styled } from 'leather-styles/jsx';
+import { Center, Stack, styled } from 'leather-styles/jsx';
 
 import { Approver, Button } from '@leather.io/ui';
 
-import { Fees } from '@app/features/fee-editor/components/fees';
-import { formatFeeForDisplay } from '@app/features/fee-editor/fee-editor.utils';
+import { CurrentFeeItem } from './components/current-fee-item';
+import { CustomFeeItem } from './components/custom-fee-item';
+import { DefaultFeesList } from './components/default-fees-list';
+import { FeeItem } from './components/fee-item';
+import { useFeeEditorContext } from './fee-editor.context';
 
-import { type RawFee, useFeeEditorContext } from './fee-editor.context';
-
-export function FeeEditor() {
+interface FeeEditorProps {
+  children?: React.ReactNode;
+}
+function FeeEditor({ children }: FeeEditorProps) {
   const {
-    availableBalance,
-    currentFeeType,
-    customFeeRate,
+    currentEditorFee,
+    customEditorFeeRate,
     isLoadingFees,
-    marketData,
-    rawFees,
-    selectedFeeData,
-    selectedFeeType,
-    getCustomFeeData,
-    onSetCustomFeeRate,
-    onSetSelectedFeeType,
-    onSetCurrentFeeType,
+    editorFees,
+    selectedEditorFee,
+    getCustomEditorFee,
+    onSetCurrentEditorFee,
+    onSetCustomEditorFeeRate,
+    onSetSelectedEditorFee,
   } = useFeeEditorContext();
   const navigate = useNavigate();
 
-  if (isLoadingFees || !rawFees) return null;
-
-  const insufficientBalance = availableBalance.amount.isLessThan(
-    selectedFeeData?.baseUnitsValue ?? 0
-  );
-
   function onCancel() {
+    onSetCustomEditorFeeRate(selectedEditorFee?.feeRate?.toString() || '');
+    onSetSelectedEditorFee(currentEditorFee);
     navigate(-1);
-    onSetCustomFeeRate(selectedFeeData?.feeRate.toString() || '');
-    onSetSelectedFeeType(currentFeeType);
   }
 
   function onSave() {
-    onSetCurrentFeeType(selectedFeeType);
-    if (selectedFeeType !== 'custom') {
-      onSetCustomFeeRate(selectedFeeData?.feeRate.toString() || '');
+    const isCustomFee = selectedEditorFee?.type === 'custom';
+    onSetCurrentEditorFee(
+      isCustomFee ? getCustomEditorFee(Number(customEditorFeeRate)) : selectedEditorFee
+    );
+    if (!isCustomFee) {
+      onSetCustomEditorFeeRate(selectedEditorFee?.feeRate?.toString() || '');
     }
     navigate(-1);
   }
 
-  function getFeeItemProps(rawFee: RawFee) {
-    const { type } = rawFee;
-    const { feeType, titleLeft, captionLeft, titleRight, captionRight } = formatFeeForDisplay({
-      rawFee,
-      marketData,
-    });
-
-    return {
-      feeType,
-      isSelected: selectedFeeType === type,
-      isInsufficientBalance: insufficientBalance,
-      titleLeft,
-      captionLeft,
-      titleRight,
-      captionRight,
-      onSelect: () => onSetSelectedFeeType(type),
-    };
-  }
+  if (isLoadingFees || !editorFees) return null;
 
   return (
     <Approver height="100%" width="100%" requester={origin}>
@@ -73,16 +54,7 @@ export function FeeEditor() {
         </Center>
       </Approver.Section>
       <Approver.Section>
-        <Fees>
-          <Fees.Item {...getFeeItemProps(rawFees.slow)} />
-          <Fees.Item {...getFeeItemProps(rawFees.standard)} />
-          <Fees.Item {...getFeeItemProps(rawFees.fast)} />
-          <Fees.CustomItem
-            {...getFeeItemProps(getCustomFeeData(Number(customFeeRate)))}
-            fee={customFeeRate}
-            setFee={onSetCustomFeeRate}
-          />
-        </Fees>
+        <Stack gap="space.03">{children ? children : <DefaultFeesList />}</Stack>
       </Approver.Section>
       <Approver.Actions
         actions={[
@@ -97,3 +69,9 @@ export function FeeEditor() {
     </Approver>
   );
 }
+
+FeeEditor.FeeItem = FeeItem;
+FeeEditor.CustomFeeItem = CustomFeeItem;
+FeeEditor.Trigger = CurrentFeeItem;
+
+export { FeeEditor };

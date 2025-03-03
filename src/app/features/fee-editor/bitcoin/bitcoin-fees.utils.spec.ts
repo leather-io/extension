@@ -20,7 +20,7 @@ describe('bitcoin-fees.utils', () => {
         utxos: mockUtxos,
         feeRate: 1,
       });
-      expect(result).toBe(createMoney(141, 'BTC'));
+      expect(result).toStrictEqual(createMoney(141, 'BTC'));
     });
 
     it('returns null when calculation fails', () => {
@@ -42,7 +42,7 @@ describe('bitcoin-fees.utils', () => {
         utxos: mockUtxos,
         feeRate: 1,
       });
-      expect(result).toBe(createMoney(110, 'BTC'));
+      expect(result).toStrictEqual(createMoney(110, 'BTC'));
     });
 
     it('returns null when calculation fails', () => {
@@ -64,7 +64,7 @@ describe('bitcoin-fees.utils', () => {
         recipients: mockRecipients,
         utxos: mockUtxos,
       });
-      expect(result).toBeGreaterThan(0);
+      expect(result.amount.toNumber()).toBeGreaterThan(0);
     });
   });
 });
