@@ -2,41 +2,30 @@ import { createContext, useContext } from 'react';
 
 import type { MarketData, Money } from '@leather.io/models';
 
-export type FeeType = 'slow' | 'standard' | 'fast' | 'custom';
+export type EditorFeeType = 'slow' | 'standard' | 'fast' | 'custom';
 
-export interface RawFee {
-  type: FeeType;
-  baseUnitFeeValue: Money | null;
+export interface EditorFee {
+  type: EditorFeeType;
   feeRate: number | null;
+  feeValue: Money | null;
   time: string;
 }
 
-export type RawFees = Record<Exclude<FeeType, 'custom'>, RawFee> | undefined;
+export type EditorFees = Record<Exclude<EditorFeeType, 'custom'>, EditorFee> | undefined;
 
-export interface FeeDisplayInfo {
-  feeType: FeeType;
-  baseUnitsValue: number;
-  feeRate: number;
-  titleLeft: string;
-  captionLeft: string;
-  titleRight?: string;
-  captionRight?: string;
-}
-
-export interface FeeEditorContext {
+interface FeeEditorContext {
   availableBalance: Money;
-  customFeeData: RawFee | null;
-  customFeeRate: string;
-  currentFeeType: FeeType;
+  customEditorFee: EditorFee | null;
+  customEditorFeeRate: string;
+  currentEditorFee: EditorFee | null;
   isLoadingFees: boolean;
   marketData: MarketData;
-  rawFees: RawFees;
-  selectedFeeData: FeeDisplayInfo | null;
-  selectedFeeType: FeeType;
-  getCustomFeeData(rate: number): RawFee;
-  onSetCustomFeeRate(value: string | null): void;
-  onSetSelectedFeeType(value: FeeType): void;
-  onSetCurrentFeeType(value: FeeType | null): void;
+  editorFees: EditorFees;
+  selectedEditorFee: EditorFee | null;
+  getCustomEditorFee(rate: number): EditorFee;
+  onSetCustomEditorFeeRate(value: string | null): void;
+  onSetCurrentEditorFee(value: EditorFee | null): void;
+  onSetSelectedEditorFee(value: EditorFee | null): void;
 }
 
 const feeEditorContext = createContext<FeeEditorContext | null>(null);

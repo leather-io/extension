@@ -20,7 +20,7 @@ const baseParams = {
   network: 'testnet',
 };
 
-test.describe('Send transfer (RPC)', () => {
+test.describe('RPC: sendTransfer', () => {
   test.beforeEach(async ({ extensionId, globalPage, onboardingPage, page }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
@@ -52,7 +52,7 @@ test.describe('Send transfer (RPC)', () => {
       );
   }
 
-  test('that the request can be broadcasted', async ({ page, context }) => {
+  test('that the request can be broadcast', async ({ page, context }) => {
     void mockPopupRequests(context);
 
     const [result] = await Promise.all([
