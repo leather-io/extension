@@ -10,18 +10,21 @@ interface HandleOpenStacksTxLinkArgs {
   txid: string;
 }
 export function useStacksExplorerLink() {
-  const { mode, isNakamotoTestnet } = useCurrentNetworkState();
+  const { chain, isNakamotoTestnet } = useCurrentNetworkState();
 
   const handleOpenStacksTxLink = useCallback(
     ({ searchParams, txid }: HandleOpenStacksTxLinkArgs) => {
       openInNewTab(
-        makeStacksTxExplorerLink({ mode, searchParams, isNakamoto: isNakamotoTestnet, txid })
+        makeStacksTxExplorerLink({
+          mode: chain.bitcoin.mode,
+          searchParams,
+          isNakamoto: isNakamotoTestnet,
+          txid,
+        })
       );
     },
-    [mode, isNakamotoTestnet]
+    [chain.bitcoin.mode, isNakamotoTestnet]
   );
 
-  return {
-    handleOpenStacksTxLink,
-  };
+  return { handleOpenStacksTxLink };
 }
