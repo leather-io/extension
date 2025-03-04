@@ -1,7 +1,14 @@
-import { RpcErrorCode, type RpcMethodNames, createRpcErrorResponse } from '@leather.io/rpc';
+import {
+  RpcErrorCode,
+  type RpcMethodNames,
+  type RpcRequests,
+  createRpcErrorResponse,
+} from '@leather.io/rpc';
 
 import { RouteUrls } from '@shared/route-urls';
 import { RpcErrorMessage } from '@shared/rpc/methods/validation.utils';
+
+import { queueAnalyticsRequest } from '@background/background-analytics';
 
 import {
   RequestParams,
@@ -9,7 +16,6 @@ import {
   makeSearchParamsWithDefaults,
   triggerRequestWindowOpen,
 } from './messaging-utils';
-import { trackRpcRequestSuccess } from './rpc-message-handler';
 
 interface HandleRpcMessageArgs {
   method: RpcMethodNames;
@@ -41,4 +47,19 @@ export async function handleRpcMessage({
       },
     }),
   });
+}
+
+interface TrackRpcRequestSuccess {
+  endpoint: RpcRequests['method'];
+}
+export async function trackRpcRequestSuccess(args: TrackRpcRequestSuccess) {
+  return queueAnalyticsRequest('rpc_request_successful', { ...args });
+}
+
+interface TrackRpcRequestError {
+  endpoint: RpcRequests['method'];
+  error: string;
+}
+export async function trackRpcRequestError(args: TrackRpcRequestError) {
+  return queueAnalyticsRequest('rpc_request_error', { ...args });
 }
