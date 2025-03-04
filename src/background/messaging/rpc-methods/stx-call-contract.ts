@@ -45,6 +45,8 @@ export async function rpcStxCallContract(
     ['requestId', requestId],
     ['request', createUnsecuredToken(getMessageParamsToTransactionRequest(message.params))],
   ];
+  if (params.network) requestParams.push(['network', params.network]);
+
   return handleRpcMessage({
     method: message.method,
     path: RouteUrls.RpcStxCallContract,

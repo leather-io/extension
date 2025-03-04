@@ -43,6 +43,7 @@ export async function rpcStxDeployContract(
     ['requestId', requestId],
     ['request', createUnsecuredToken(request)],
   ];
+  if (params.network) requestParams.push(['network', params.network]);
   return handleRpcMessage({
     method: message.method,
     path: RouteUrls.RpcStxDeployContract,
