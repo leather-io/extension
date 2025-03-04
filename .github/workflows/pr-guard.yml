@@ -1,0 +1,26 @@
+name: PR Label Guard
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - labeled
+      - unlabeled
+
+jobs:
+  debug-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Debug PR labels'
+        run: |
+          echo "PR labels: ${{ toJson(github.event.pull_request.labels.*.name) }}"
+
+  check-needs-labels:
+    if: contains(join(github.event.pull_request.labels.*.name, ' '), 'needs:')
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'PR missing information'
+        run: |
+          echo "::error::PR build failed due to unmet requirements. See labels added."
+          exit 1
