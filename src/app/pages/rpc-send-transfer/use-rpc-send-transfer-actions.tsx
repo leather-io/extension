@@ -17,7 +17,7 @@ import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin
 import { useRpcSendTransferContext } from './rpc-send-transfer.context';
 
 export function useRpcSendTransferActions() {
-  const { availableBalance, currentEditorFee } = useFeeEditorContext();
+  const { availableBalance, selectedFee } = useFeeEditorContext();
   const { amount, isLoading, recipients, requestId, tabId, utxos } = useRpcSendTransferContext();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isBroadcasting, setIsBroadcasting] = useState(false);
@@ -47,7 +47,7 @@ export function useRpcSendTransferActions() {
       }
 
       try {
-        const feeRate = currentEditorFee?.feeRate;
+        const feeRate = selectedFee?.feeRate;
         if (!feeRate) return logger.error('No fee rate to generate tx');
         const resp = await generateTx({ amount, recipients }, feeRate, utxos);
         if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
@@ -99,7 +99,7 @@ export function useRpcSendTransferActions() {
     isBroadcasting,
     isSubmitted,
     navigate,
-    currentEditorFee?.feeRate,
+    selectedFee?.feeRate,
     generateTx,
     amount,
     recipients,

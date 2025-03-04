@@ -1,13 +1,13 @@
-import { useNavigate } from 'react-router-dom';
-
 import { Center, Stack, styled } from 'leather-styles/jsx';
 
 import { Approver, Button } from '@leather.io/ui';
 
-import { CurrentFeeItem } from './components/current-fee-item';
+import { useOnMount } from '@app/common/hooks/use-on-mount';
+
 import { CustomFeeItem } from './components/custom-fee-item';
 import { DefaultFeesList } from './components/default-fees-list';
 import { FeeItem } from './components/fee-item';
+import { SelectedFeeItem } from './components/selected-fee-item';
 import { useFeeEditorContext } from './fee-editor.context';
 
 interface FeeEditorProps {
@@ -15,36 +15,40 @@ interface FeeEditorProps {
 }
 function FeeEditor({ children }: FeeEditorProps) {
   const {
-    currentEditorFee,
-    customEditorFeeRate,
+    customFeeRate,
+    loadedFee,
     isLoadingFees,
-    editorFees,
-    selectedEditorFee,
-    getCustomEditorFee,
-    onSetCurrentEditorFee,
-    onSetCustomEditorFeeRate,
-    onSetSelectedEditorFee,
+    fees,
+    selectedFee,
+    getCustomFee,
+    onGoBack,
+    onSetCustomFeeRate,
+    onSetLoadedFee,
+    onSetSelectedFee,
   } = useFeeEditorContext();
-  const navigate = useNavigate();
+
+  useOnMount(() => {
+    onSetLoadedFee(selectedFee);
+  });
 
   function onCancel() {
-    onSetCustomEditorFeeRate(selectedEditorFee?.feeRate?.toString() || '');
-    onSetSelectedEditorFee(currentEditorFee);
-    navigate(-1);
+    // Reset if user cancels
+    onSetCustomFeeRate(selectedFee?.feeRate?.toString() || '');
+    onSetSelectedFee(loadedFee);
+    onGoBack();
   }
 
   function onSave() {
-    const isCustomFee = selectedEditorFee?.type === 'custom';
-    onSetCurrentEditorFee(
-      isCustomFee ? getCustomEditorFee(Number(customEditorFeeRate)) : selectedEditorFee
-    );
+    // Need to handle custom fee input change on save
+    const isCustomFee = selectedFee?.type === 'custom';
+    if (isCustomFee) onSetSelectedFee(getCustomFee(Number(customFeeRate)));
     if (!isCustomFee) {
-      onSetCustomEditorFeeRate(selectedEditorFee?.feeRate?.toString() || '');
+      onSetCustomFeeRate(selectedFee?.feeRate?.toString() || '');
     }
-    navigate(-1);
+    onGoBack();
   }
 
-  if (isLoadingFees || !editorFees) return null;
+  if (isLoadingFees || !fees) return null;
 
   return (
     <Approver height="100%" width="100%" requester={origin}>
@@ -72,6 +76,6 @@ function FeeEditor({ children }: FeeEditorProps) {
 
 FeeEditor.FeeItem = FeeItem;
 FeeEditor.CustomFeeItem = CustomFeeItem;
-FeeEditor.Trigger = CurrentFeeItem;
+FeeEditor.Trigger = SelectedFeeItem;
 
 export { FeeEditor };

@@ -14,6 +14,7 @@ interface BitcoinFeeEditorProviderProps extends HasChildren {
   availableBalance: Money;
   isSendingMax?: boolean;
   marketData: MarketData;
+  onGoBack(): void;
   recipients: TransferRecipient[];
   utxos: UtxoResponseItem[];
 }
@@ -23,6 +24,7 @@ export function BitcoinFeeEditorProvider({
   children,
   isSendingMax,
   marketData,
+  onGoBack,
   recipients,
   utxos,
 }: BitcoinFeeEditorProviderProps) {
@@ -33,15 +35,16 @@ export function BitcoinFeeEditorProvider({
       recipients={recipients}
       utxos={utxos}
     >
-      {(fees, isLoading, getCustomEditorFee) => {
+      {(fees, isLoading, getCustomFee) => {
         if (isUndefined(fees)) return null;
         return (
           <FeeEditorProvider
             availableBalance={availableBalance}
-            editorFees={fees}
-            getCustomEditorFee={getCustomEditorFee}
+            fees={fees}
+            getCustomFee={getCustomFee}
             isLoadingFees={isLoading}
             marketData={marketData}
+            onGoBack={onGoBack}
           >
             {children}
           </FeeEditorProvider>

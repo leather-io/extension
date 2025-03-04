@@ -1,4 +1,4 @@
-import type { MarketData } from '@leather.io/models';
+import type { CryptoCurrency, MarketData } from '@leather.io/models';
 import {
   baseCurrencyAmountInQuote,
   capitalize,
@@ -7,21 +7,26 @@ import {
   i18nFormatCurrency,
 } from '@leather.io/utils';
 
-import type { EditorFee } from './fee-editor.context';
+import type { Fee } from './fee-editor.context';
 
-interface FormatEditorFeeItemArgs {
-  editorFee: EditorFee;
+const feeSymbolToFractionalUnitMap: Record<CryptoCurrency, string> = {
+  BTC: 'sats',
+  STX: 'uSTX',
+};
+
+interface FormatFeeItemArgs {
+  fee: Fee;
   marketData: MarketData;
 }
-export function formatEditorFeeItem({ editorFee, marketData }: FormatEditorFeeItemArgs) {
-  const { type, feeRate, feeValue, time } = editorFee;
+export function formatFeeItem({ fee, marketData }: FormatFeeItemArgs) {
+  const { type, feeRate, feeValue, time } = fee;
 
   return {
     titleLeft: capitalize(type),
     captionLeft: time,
     titleRight: feeValue ? formatMoneyPadded(feeValue) : 'N/A',
     captionRight: feeValue
-      ? `${feeRate} ${feeValue.symbol === 'BTC' ? 'sats' : 'uSTX'}/vB · ${i18nFormatCurrency(
+      ? `${feeRate} ${feeSymbolToFractionalUnitMap[feeValue.symbol]}/vB · ${i18nFormatCurrency(
           baseCurrencyAmountInQuote(
             createMoney(Math.ceil(feeValue.amount.toNumber()), feeValue.symbol),
             marketData

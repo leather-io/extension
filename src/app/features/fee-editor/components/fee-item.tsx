@@ -7,26 +7,25 @@ import { Button, ItemLayout } from '@leather.io/ui';
 
 import { FormError } from '@app/components/error/form-error';
 
-import { type EditorFee, useFeeEditorContext } from '../fee-editor.context';
-import { formatEditorFeeItem } from '../fee-editor.utils';
+import { type Fee, useFeeEditorContext } from '../fee-editor.context';
+import { formatFeeItem } from '../fee-editor.utils';
 import { FeeItemIcon } from './fee-item-icon';
 
 interface FeeItemProps {
-  fee: EditorFee;
+  fee: Fee;
 }
 export function FeeItem({ fee }: FeeItemProps) {
   const [isTouched, setIsTouched] = useState(false);
-  const { availableBalance, marketData, onSetSelectedEditorFee, selectedEditorFee } =
-    useFeeEditorContext();
+  const { availableBalance, marketData, onSetSelectedFee, selectedFee } = useFeeEditorContext();
 
-  const { titleLeft, captionLeft, titleRight, captionRight } = formatEditorFeeItem({
-    editorFee: fee,
+  const { titleLeft, captionLeft, titleRight, captionRight } = formatFeeItem({
+    fee,
     marketData,
   });
 
-  const isSelected = selectedEditorFee?.type === fee.type;
+  const isSelected = selectedFee?.type === fee.type;
   const isInsufficientBalance = availableBalance.amount.isLessThan(
-    selectedEditorFee?.feeValue?.amount ?? 0
+    selectedFee?.feeValue?.amount ?? 0
   );
   const showInsufficientBalanceError = isTouched && isInsufficientBalance;
 
@@ -35,7 +34,7 @@ export function FeeItem({ fee }: FeeItemProps) {
       onClick={() => {
         setIsTouched(true);
         if (isInsufficientBalance) return;
-        onSetSelectedEditorFee(fee);
+        onSetSelectedFee(fee);
       }}
       key={fee.type}
       variant="outline"

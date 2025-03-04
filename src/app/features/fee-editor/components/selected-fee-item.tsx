@@ -1,33 +1,33 @@
 import type { MarketData } from '@leather.io/models';
 import { Approver, ItemLayout, Pressable } from '@leather.io/ui';
 
-import type { EditorFee } from '@app/features/fee-editor/fee-editor.context';
-import { formatEditorFeeItem } from '@app/features/fee-editor/fee-editor.utils';
+import type { Fee } from '@app/features/fee-editor/fee-editor.context';
+import { formatFeeItem } from '@app/features/fee-editor/fee-editor.utils';
 
 import { CryptoAssetItemPlaceholder } from '../../../components/crypto-asset-item/crypto-asset-item-placeholder';
 import { FeeItemIcon } from './fee-item-icon';
 
-interface CurrentFeeItemProps {
-  currentFee: EditorFee | null;
+interface SelectedFeeItemProps {
   isLoading: boolean;
   marketData: MarketData;
   onEditFee(): void;
+  selectedFee: Fee | null;
 }
-export function CurrentFeeItem({
-  currentFee,
+export function SelectedFeeItem({
   isLoading,
   marketData,
   onEditFee,
-}: CurrentFeeItemProps) {
-  if (isLoading || !currentFee)
+  selectedFee,
+}: SelectedFeeItemProps) {
+  if (isLoading || !selectedFee)
     return (
       <Approver.Section>
         <Approver.Subheader>Fee</Approver.Subheader>
         <CryptoAssetItemPlaceholder my="0" />
       </Approver.Section>
     );
-  const { titleLeft, captionLeft, titleRight, captionRight } = formatEditorFeeItem({
-    editorFee: currentFee,
+  const { titleLeft, captionLeft, titleRight, captionRight } = formatFeeItem({
+    fee: selectedFee,
     marketData: marketData,
   });
   return (
@@ -35,7 +35,7 @@ export function CurrentFeeItem({
       <Approver.Subheader>Fee</Approver.Subheader>
       <Pressable onClick={onEditFee} mb="space.02">
         <ItemLayout
-          img={<FeeItemIcon feeType={currentFee.type} />}
+          img={<FeeItemIcon feeType={selectedFee.type} />}
           titleLeft={titleLeft}
           captionLeft={captionLeft}
           titleRight={titleRight}

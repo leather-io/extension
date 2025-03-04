@@ -24,7 +24,7 @@ import { useRpcSendTransferContext } from './rpc-send-transfer.context';
 import { useRpcSendTransferActions } from './use-rpc-send-transfer-actions';
 
 export function RpcSendTransfer() {
-  const { availableBalance, currentEditorFee, isLoadingFees, marketData } = useFeeEditorContext();
+  const { availableBalance, isLoadingFees, marketData, selectedFee } = useFeeEditorContext();
   const {
     recipients,
     recipientAddresses,
@@ -43,10 +43,10 @@ export function RpcSendTransfer() {
   const showOverlay = isBroadcasting || isSubmitted;
 
   const totalFiatValue = useMemo(() => {
-    const fee = currentEditorFee?.feeValue;
+    const fee = selectedFee?.feeValue;
     if (!fee) return '';
     return i18nFormatCurrency(baseCurrencyAmountInQuote(sumMoney([amount, fee]), marketData));
-  }, [amount, currentEditorFee?.feeValue, marketData]);
+  }, [amount, marketData, selectedFee?.feeValue]);
 
   return (
     <>
@@ -73,7 +73,7 @@ export function RpcSendTransfer() {
               isLoading={isLoadingFees}
               marketData={marketData}
               onEditFee={onUserActivatesFeeEditor}
-              currentFee={currentEditorFee}
+              selectedFee={selectedFee}
             />
           </Box>
           <Approver.Actions actions={approverActions}>
