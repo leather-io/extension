@@ -24,7 +24,7 @@ import {
 
 import { popup } from '@background/popup';
 
-import { trackRpcRequestError } from './rpc-message-handler';
+import { trackRpcRequestError } from './rpc-helpers';
 
 export function getTabIdFromPort(port: chrome.runtime.Port) {
   return port.sender?.tab?.id ?? 0;

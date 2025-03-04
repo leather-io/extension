@@ -14,9 +14,10 @@ import {
   makeSearchParamsWithDefaults,
   triggerRequestWindowOpen,
 } from '../messaging-utils';
-import { trackRpcRequestSuccess } from '../rpc-message-handler';
+import { trackRpcRequestSuccess } from '../rpc-helpers';
+import { defineRpcRequestHandler } from '../rpc-message-handler';
 
-export function makeRpcAddressesMessageListener(eventName: 'getAddresses' | 'stx_getAddresses') {
+function makeRpcAddressesMessageListener(eventName: 'getAddresses' | 'stx_getAddresses') {
   return async (
     message: RpcRequest<typeof getAddresses> | RpcRequest<typeof stxGetAddresses>,
     port: chrome.runtime.Port
@@ -47,4 +48,12 @@ export function makeRpcAddressesMessageListener(eventName: 'getAddresses' | 'stx
   };
 }
 
-export const rpcGetAddresses = makeRpcAddressesMessageListener('getAddresses');
+export const getAddressesHandler = defineRpcRequestHandler(
+  getAddresses.method,
+  makeRpcAddressesMessageListener(getAddresses.method)
+);
+
+export const stxGetAddressesHandler = defineRpcRequestHandler(
+  stxGetAddresses.method,
+  makeRpcAddressesMessageListener(stxGetAddresses.method)
+);
