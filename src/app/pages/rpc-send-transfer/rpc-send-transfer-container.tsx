@@ -5,9 +5,8 @@ import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
-import { useBitcoinFees } from '@app/features/fee-editor/bitcoin/use-bitcoin-fees';
-import { FeeEditorProvider } from '@app/features/fee-editor/fee-editor.context';
-import { useFeeEditor } from '@app/features/fee-editor/use-fee-editor';
+import { BitcoinUtxosLoader } from '@app/components/loaders/bitcoin-utxos-loader';
+import { BitcoinFeeEditorProvider } from '@app/features/fee-editor/bitcoin/bitcoin-fee-editor.provider';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 
 import { type RpcSendTransferContext, RpcSendTransferProvider } from './rpc-send-transfer.context';
@@ -20,42 +19,40 @@ export function RpcSendTransferContainer() {
   const btcBalance = useCurrentBtcCryptoAssetBalanceNativeSegwit();
   const navigate = useNavigate();
 
-  const { recipients, utxos, amountAsMoney } = sendTransferState;
-
-  const {
-    editorFees,
-    getCustomEditorFee,
-    isLoading: isLoadingFees,
-  } = useBitcoinFees({
-    amount: amountAsMoney,
-    recipients,
-    utxos,
-  });
-
-  const feeEditorContext = useFeeEditor({
-    editorFees,
-    getCustomEditorFee,
-  });
+  const { recipients, amount } = sendTransferState;
 
   const rpcSendTransferContext: RpcSendTransferContext = {
     isLoading: btcBalance.isLoadingAllData,
     onUserActivatesFeeEditor: () => navigate(RouteUrls.EditFee),
     onUserActivatesSwitchAccount: toggleSwitchAccount,
+    utxos: [],
     ...sendTransferState,
   };
 
   return (
-    <FeeEditorProvider
-      value={{
-        ...feeEditorContext,
-        isLoadingFees,
-        availableBalance: btcBalance.balance.availableBalance,
-        marketData: btcMarketData,
-      }}
-    >
-      <RpcSendTransferProvider value={rpcSendTransferContext}>
-        <Outlet />
-      </RpcSendTransferProvider>
-    </FeeEditorProvider>
+    <BitcoinUtxosLoader>
+      {utxos => (
+        <BitcoinFeeEditorProvider
+          amount={amount}
+          availableBalance={btcBalance.balance.availableBalance}
+          isSendingMax={false}
+          marketData={btcMarketData}
+          recipients={recipients}
+          utxos={utxos}
+        >
+          <RpcSendTransferProvider
+            value={{
+              ...rpcSendTransferContext,
+              isLoading: btcBalance.isLoadingAllData,
+              onUserActivatesFeeEditor: () => navigate(RouteUrls.EditFee),
+              onUserActivatesSwitchAccount: toggleSwitchAccount,
+              utxos,
+            }}
+          >
+            <Outlet />
+          </RpcSendTransferProvider>
+        </BitcoinFeeEditorProvider>
+      )}
+    </BitcoinUtxosLoader>
   );
 }

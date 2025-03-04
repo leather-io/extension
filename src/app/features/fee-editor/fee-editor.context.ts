@@ -11,29 +11,27 @@ export interface EditorFee {
   time: string;
 }
 
-export type EditorFees = Record<Exclude<EditorFeeType, 'custom'>, EditorFee> | undefined;
+export type EditorFees = Record<Exclude<EditorFeeType, 'custom'>, EditorFee>;
 
 interface FeeEditorContext {
   availableBalance: Money;
-  customEditorFee: EditorFee | null;
+  customEditorFee: EditorFee;
   customEditorFeeRate: string;
-  currentEditorFee: EditorFee | null;
+  currentEditorFee: EditorFee;
   isLoadingFees: boolean;
   marketData: MarketData;
   editorFees: EditorFees;
-  selectedEditorFee: EditorFee | null;
+  selectedEditorFee: EditorFee;
   getCustomEditorFee(rate: number): EditorFee;
   onSetCustomEditorFeeRate(value: string | null): void;
-  onSetCurrentEditorFee(value: EditorFee | null): void;
-  onSetSelectedEditorFee(value: EditorFee | null): void;
+  onSetCurrentEditorFee(value: EditorFee): void;
+  onSetSelectedEditorFee(value: EditorFee): void;
 }
 
-const feeEditorContext = createContext<FeeEditorContext | null>(null);
+export const feeEditorContext = createContext<FeeEditorContext | null>(null);
 
 export function useFeeEditorContext() {
   const context = useContext(feeEditorContext);
   if (!context) throw new Error('`useFeeEditorContext` must be used within a `FeeEditorProvider`');
   return context;
 }
-
-export const FeeEditorProvider = feeEditorContext.Provider;

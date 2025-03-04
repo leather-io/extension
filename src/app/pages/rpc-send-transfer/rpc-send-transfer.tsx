@@ -28,7 +28,7 @@ export function RpcSendTransfer() {
   const {
     recipients,
     recipientAddresses,
-    amountAsMoney,
+    amount,
     origin,
     isLoading,
     tabId,
@@ -38,17 +38,15 @@ export function RpcSendTransfer() {
 
   useBreakOnNonCompliantEntity(recipientAddresses);
 
-  const isInsufficientBalance = availableBalance.amount.isLessThan(amountAsMoney.amount);
+  const isInsufficientBalance = availableBalance.amount.isLessThan(amount.amount);
   const { approverActions, isBroadcasting, isSubmitted } = useRpcSendTransferActions();
   const showOverlay = isBroadcasting || isSubmitted;
 
   const totalFiatValue = useMemo(() => {
     const fee = currentEditorFee?.feeValue;
     if (!fee) return '';
-    return i18nFormatCurrency(
-      baseCurrencyAmountInQuote(sumMoney([amountAsMoney, fee]), marketData)
-    );
-  }, [amountAsMoney, currentEditorFee?.feeValue, marketData]);
+    return i18nFormatCurrency(baseCurrencyAmountInQuote(sumMoney([amount, fee]), marketData));
+  }, [amount, currentEditorFee?.feeValue, marketData]);
 
   return (
     <>
