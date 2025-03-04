@@ -28,7 +28,7 @@ export function RpcSendTransfer() {
   const {
     recipients,
     recipientAddresses,
-    amountAsMoney,
+    amount: amountAsMoney,
     origin,
     isLoading,
     tabId,

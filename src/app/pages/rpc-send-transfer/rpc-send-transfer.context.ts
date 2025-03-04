@@ -8,7 +8,7 @@ import type { TransferRecipient } from '@shared/models/form.model';
 import type { RpcRequestContext } from '@app/common/rpc/use-rpc-request';
 
 export interface RpcSendTransferContext extends RpcRequestContext {
-  amountAsMoney: Money;
+  amount: Money;
   isLoading: boolean;
   recipients: TransferRecipient[];
   recipientAddresses: string[];
