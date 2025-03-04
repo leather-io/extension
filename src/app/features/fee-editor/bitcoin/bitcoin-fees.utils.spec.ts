@@ -3,12 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { mockUtxos } from '@leather.io/query';
 import { createMoney } from '@leather.io/utils';
 
-import {
-  getApproximateFee,
-  getBitcoinFee,
-  getBitcoinSendMaxFee,
-  getBtcFeeValue,
-} from './bitcoin-fees.utils';
+import { getApproximateFee, getBitcoinFee, getBitcoinSendMaxFee } from './bitcoin-fees.utils';
 
 describe('bitcoin-fees.utils', () => {
   const mockRecipients = [
@@ -25,7 +20,7 @@ describe('bitcoin-fees.utils', () => {
         utxos: mockUtxos,
         feeRate: 1,
       });
-      expect(result).toBe(141);
+      expect(result).toStrictEqual(createMoney(141, 'BTC'));
     });
 
     it('returns null when calculation fails', () => {
@@ -47,7 +42,7 @@ describe('bitcoin-fees.utils', () => {
         utxos: mockUtxos,
         feeRate: 1,
       });
-      expect(result).toBe(110);
+      expect(result).toStrictEqual(createMoney(110, 'BTC'));
     });
 
     it('returns null when calculation fails', () => {
@@ -69,14 +64,7 @@ describe('bitcoin-fees.utils', () => {
         recipients: mockRecipients,
         utxos: mockUtxos,
       });
-      expect(result).toBeGreaterThan(0);
-    });
-  });
-
-  describe('getBtcFeeValue', () => {
-    it('formats BTC fee value correctly', () => {
-      const result = getBtcFeeValue(1000);
-      expect(result).toBe('0.00001000 BTC');
+      expect(result.amount.toNumber()).toBeGreaterThan(0);
     });
   });
 });

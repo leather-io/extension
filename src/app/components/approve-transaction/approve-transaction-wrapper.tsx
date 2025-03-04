@@ -5,15 +5,15 @@ import { LeatherLogomarkIcon } from '@leather.io/ui';
 
 import { BackgroundOverlay } from '@app/components/loading-overlay';
 
-interface RpcSendTransferWrapperProps {
+interface ApproveTransactionWrapperProps {
   children: React.ReactNode;
   showOverlay?: boolean;
 }
 
-export function RpcSendTransferWrapper({
+export function ApproveTransactionWrapper({
   children,
   showOverlay = false,
-}: RpcSendTransferWrapperProps) {
+}: ApproveTransactionWrapperProps) {
   const originLogoAnimation = useAnimationControls();
   const checkmarkEnters = useAnimationControls();
 

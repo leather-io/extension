@@ -1,4 +1,5 @@
-import { StacksNonceLoader } from '../loaders/stacks-nonce-loader';
+import { StacksNonceLoader } from '@app/components/loaders/stacks-nonce-loader';
+
 import { StacksSwapProvider } from '../providers/stacks-swap-provider';
 
 export function StacksSwapContainer() {

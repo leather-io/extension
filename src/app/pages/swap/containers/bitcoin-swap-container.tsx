@@ -1,6 +1,6 @@
 import { BitcoinNativeSegwitAccountLoader } from '@app/components/loaders/bitcoin-account-loader';
+import { BitcoinUtxosLoader } from '@app/components/loaders/bitcoin-utxos-loader';
 
-import { BitcoinUtxosLoader } from '../loaders/bitcoin-utxos-loader';
 import { BitcoinSwapProvider } from '../providers/bitcoin-swap-provider';
 
 export function BitcoinSwapContainer() {
