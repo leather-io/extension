@@ -2,20 +2,30 @@ import { useMemo } from 'react';
 
 import { type Money, btcTxTimeMap } from '@leather.io/models';
 import { type UtxoResponseItem, useAverageBitcoinFeeRates } from '@leather.io/query';
-import { isUndefined } from '@leather.io/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 
 import type { EditorFee, EditorFees } from '../fee-editor.context';
 import { getApproximateFee, getBitcoinFee, getBitcoinSendMaxFee } from './bitcoin-fees.utils';
 
-interface UseBitcoinFeesArgs {
+interface BitcoinFeesLoaderProps {
   amount: Money;
+  children(
+    fees: EditorFees | undefined,
+    isLoading: boolean,
+    getCustomEditorFee: (rate: number) => EditorFee
+  ): React.ReactNode;
   isSendingMax?: boolean;
   recipients: TransferRecipient[];
   utxos: UtxoResponseItem[];
 }
-export function useBitcoinFees({ amount, isSendingMax, recipients, utxos }: UseBitcoinFeesArgs) {
+export function BitcoinFeesLoader({
+  amount,
+  children,
+  isSendingMax,
+  recipients,
+  utxos,
+}: BitcoinFeesLoaderProps) {
   const { data: feeRates, isLoading } = useAverageBitcoinFeeRates();
 
   const satAmount = amount.amount.toNumber();
@@ -28,8 +38,8 @@ export function useBitcoinFees({ amount, isSendingMax, recipients, utxos }: UseB
     };
   }, [satAmount, recipients, utxos]);
 
-  const editorFees = useMemo<EditorFees>(() => {
-    if (isUndefined(feeRates)) return;
+  const fees = useMemo<EditorFees | undefined>(() => {
+    if (!feeRates) return;
 
     const determineUtxosForHighFeeArgs = {
       ...determineUtxosDefaultArgs,
@@ -91,24 +101,22 @@ export function useBitcoinFees({ amount, isSendingMax, recipients, utxos }: UseB
     };
   }, [feeRates, determineUtxosDefaultArgs, isSendingMax, recipients, utxos]);
 
-  return {
-    editorFees,
-    isLoading,
-    getCustomEditorFee(feeRate: number): EditorFee {
-      const determineUtxosForFeeArgs = {
-        ...determineUtxosDefaultArgs,
-        feeRate,
-      };
-      const feeAsMoney = isSendingMax
-        ? getBitcoinSendMaxFee(determineUtxosForFeeArgs)
-        : getBitcoinFee(determineUtxosForFeeArgs);
+  function getCustomEditorFee(feeRate: number): EditorFee {
+    const determineUtxosForFeeArgs = {
+      ...determineUtxosDefaultArgs,
+      feeRate,
+    };
+    const feeAsMoney = isSendingMax
+      ? getBitcoinSendMaxFee(determineUtxosForFeeArgs)
+      : getBitcoinFee(determineUtxosForFeeArgs);
 
-      return {
-        type: 'custom',
-        feeRate,
-        feeValue: feeAsMoney,
-        time: '',
-      };
-    },
-  };
+    return {
+      type: 'custom',
+      feeRate,
+      feeValue: feeAsMoney,
+      time: '',
+    };
+  }
+
+  return children(fees, isLoading, getCustomEditorFee);
 }

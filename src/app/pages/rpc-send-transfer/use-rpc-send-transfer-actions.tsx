@@ -18,8 +18,7 @@ import { useRpcSendTransferContext } from './rpc-send-transfer.context';
 
 export function useRpcSendTransferActions() {
   const { availableBalance, currentEditorFee } = useFeeEditorContext();
-  const { amountAsMoney, isLoading, recipients, requestId, tabId, utxos } =
-    useRpcSendTransferContext();
+  const { amount, isLoading, recipients, requestId, tabId, utxos } = useRpcSendTransferContext();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isBroadcasting, setIsBroadcasting] = useState(false);
   const generateTx = useGenerateUnsignedNativeSegwitTx({ throwError: true });
@@ -27,7 +26,7 @@ export function useRpcSendTransferActions() {
   const { broadcastTx } = useBitcoinBroadcastTransaction();
   const navigate = useNavigate();
 
-  const isInsufficientBalance = availableBalance.amount.isLessThan(amountAsMoney.amount);
+  const isInsufficientBalance = availableBalance.amount.isLessThan(amount.amount);
 
   const approverActions = useMemo(() => {
     function onCancel() {
@@ -50,7 +49,7 @@ export function useRpcSendTransferActions() {
       try {
         const feeRate = currentEditorFee?.feeRate;
         if (!feeRate) return logger.error('No fee rate to generate tx');
-        const resp = await generateTx({ amount: amountAsMoney, recipients }, feeRate, utxos);
+        const resp = await generateTx({ amount, recipients }, feeRate, utxos);
         if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
 
         const tx = await signTransaction(resp.psbt);
@@ -64,7 +63,7 @@ export function useRpcSendTransferActions() {
 
             void analytics.track('broadcast_transaction', {
               symbol: 'btc',
-              amount: amountAsMoney.amount.toNumber(),
+              amount: amount.amount.toNumber(),
             });
 
             chrome.tabs.sendMessage(
@@ -102,7 +101,7 @@ export function useRpcSendTransferActions() {
     navigate,
     currentEditorFee?.feeRate,
     generateTx,
-    amountAsMoney,
+    amount,
     recipients,
     utxos,
     signTransaction,
