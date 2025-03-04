@@ -15,7 +15,7 @@ jobs:
       - name: 'PR missing information'
         if: contains(join(github.event.pull_request.labels.*.name, ' '), 'needs:')
         run: |
-          echo "::error::PR build failed due to unmet requirements. See labels added."
+          echo "::error::PR build failed due to unmet requirements. All labels prefixed with `needs:` should be addressed. Once the change is made and the PR is updated you may remove the label."
           exit 1
 
       - name: PR build passed
