@@ -33,13 +33,14 @@ export async function rpcStxCallContract(
   port: chrome.runtime.Port
 ) {
   const { id: requestId, method, params } = message;
-  validateRequestParams({
+  const { status } = validateRequestParams({
     id: requestId,
     method,
     params,
     port,
     schema: stxCallContract.params,
   });
+  if (status === 'failure') return;
   const requestParams: RequestParams = [
     ['requestId', requestId],
     ['request', createUnsecuredToken(getMessageParamsToTransactionRequest(message.params))],

@@ -29,13 +29,14 @@ export async function rpcStxTransferStx(
   port: chrome.runtime.Port
 ) {
   const { id: requestId, method, params } = message;
-  validateRequestParams({
+  const { status } = validateRequestParams({
     id: requestId,
     method,
     params,
     port,
     schema: stxTransferStx.params,
   });
+  if (status === 'failure') return;
   const request = getMessageParamsToTransactionRequest(params);
   const requestParams: RequestParams = [
     ['requestId', requestId],

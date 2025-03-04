@@ -74,13 +74,14 @@ export async function rpcStxTransferSip9Nft(
   port: chrome.runtime.Port
 ) {
   const { id: requestId, method, params } = message;
-  validateRequestParams({
+  const { status } = validateRequestParams({
     id: requestId,
     method,
     params,
     port,
     schema: stxTransferSip9Nft.params,
   });
+  if (status === 'failure') return;
   const txRequest = await getMessageParamsToTransactionRequest(params);
   const requestParams: RequestParams = [
     ['requestId', requestId],

@@ -101,6 +101,8 @@ export function encodePostConditions(postConditions: PostConditionWire[]) {
   return postConditions.map(pc => serializePostConditionWire(pc));
 }
 
+type ValidationResult = 'success' | 'failure';
+
 interface ValidateRequestParamsArgs {
   id: string;
   method: RpcMethodNames;
@@ -114,7 +116,7 @@ export function validateRequestParams({
   params,
   port,
   schema,
-}: ValidateRequestParamsArgs) {
+}: ValidateRequestParamsArgs): { status: ValidationResult } {
   if (isUndefined(params)) {
     void trackRpcRequestError({ endpoint: method, error: RpcErrorMessage.UndefinedParams });
     chrome.tabs.sendMessage(
@@ -124,7 +126,7 @@ export function validateRequestParams({
         error: { code: RpcErrorCode.INVALID_REQUEST, message: RpcErrorMessage.UndefinedParams },
       })
     );
-    return;
+    return { status: 'failure' };
   }
 
   if (!validateRpcParams(params, schema)) {
@@ -140,8 +142,9 @@ export function validateRequestParams({
         },
       })
     );
-    return;
+    return { status: 'failure' };
   }
+  return { status: 'success' };
 }
 
 type BaseStacksTransactionRpcParams = z.infer<typeof baseStacksTransactionConfigSchema>;
