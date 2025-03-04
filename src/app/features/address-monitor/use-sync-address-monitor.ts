@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 
 import isEqual from 'lodash.isequal';
 
-import { logger } from '@shared/logger';
 import { InternalMethods } from '@shared/message-types';
 import { sendMessage } from '@shared/messages';
 
@@ -19,8 +18,6 @@ export function useSyncAddressMonitor() {
     const monitorableAddresses = isNotificationsEnabled ? addresses : [];
     if (monitorableAddresses && !isEqual(monitorableAddresses, prevAddresses.current)) {
       prevAddresses.current = monitorableAddresses;
-
-      logger.debug(`Syncing ${monitorableAddresses?.length} Monitored Addresses: `);
       sendMessage({
         method: InternalMethods.AddressMonitorUpdated,
         payload: {

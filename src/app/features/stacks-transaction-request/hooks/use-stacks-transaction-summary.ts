@@ -1,5 +1,4 @@
 import {
-  type AddressWire,
   ClarityType,
   ContractCallPayload,
   IntCV,
@@ -27,9 +26,9 @@ import {
 
 import { removeTrailingNullCharacters } from '@app/common/utils';
 
-function safeAddressToString(address: AddressWire) {
+function safeAddressToString(address: string) {
   try {
-    return addressToString(address);
+    return addressToString(createAddress(address));
   } catch (error) {
     return '';
   }
@@ -59,11 +58,13 @@ export function useStacksTransactionSummary(token: CryptoCurrency) {
     };
   }
 
+  // This function violates the rule of not pre-formatting data
   function formReviewTxSummary(tx: StacksTransactionWire, symbol = 'STX', decimals = 6) {
     if (symbol !== 'STX') {
       return formSip10TxSummary(tx, symbol, decimals);
     }
 
+    // WARNING: this is a very dangerous type cast as it can totally be another tx type...
     const payload = tx.payload as TokenTransferPayloadWire;
     const txValue = payload.amount;
     const fee = tx.auth.spendingCondition.fee;
@@ -71,7 +72,7 @@ export function useStacksTransactionSummary(token: CryptoCurrency) {
     const memoDisplayText = removeTrailingNullCharacters(memoContent) || 'No memo';
 
     return {
-      recipient: safeAddressToString(createAddress(payload?.recipient?.value)),
+      recipient: safeAddressToString(payload?.recipient?.value),
       fee: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(fee))),
       totalSpend: formatMoney(
         convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue) + Number(fee))
