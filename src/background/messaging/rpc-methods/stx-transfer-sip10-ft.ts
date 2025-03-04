@@ -76,13 +76,15 @@ export async function rpcStxTransferSip10Ft(
   port: chrome.runtime.Port
 ) {
   const { id: requestId, method, params } = message;
-  validateRequestParams({
+
+  const { status } = validateRequestParams({
     id: requestId,
     method,
     params,
     port,
     schema: stxTransferSip10Ft.params,
   });
+  if (status === 'failure') return;
   const txRequest = await getMessageParamsToTransactionRequest(params);
   const requestParams: RequestParams = [
     ['requestId', requestId],
