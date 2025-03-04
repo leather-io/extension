@@ -5,33 +5,28 @@ import { Stack } from 'leather-styles/jsx';
 
 import { Button, Input, ItemLayout } from '@leather.io/ui';
 
-import { type EditorFee, useFeeEditorContext } from '../fee-editor.context';
-import { formatEditorFeeItem } from '../fee-editor.utils';
+import { type Fee, useFeeEditorContext } from '../fee-editor.context';
+import { formatFeeItem } from '../fee-editor.utils';
 import { FeeItemIcon } from './fee-item-icon';
 
 interface CustomFeeItemProps {
-  fee: EditorFee;
+  fee: Fee;
 }
 export function CustomFeeItem({ fee }: CustomFeeItemProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const {
-    customEditorFeeRate,
-    marketData,
-    selectedEditorFee,
-    onSetCustomEditorFeeRate,
-    onSetSelectedEditorFee,
-  } = useFeeEditorContext();
+  const { customFeeRate, marketData, selectedFee, onSetCustomFeeRate, onSetSelectedFee } =
+    useFeeEditorContext();
 
-  const { captionLeft, titleRight, captionRight } = formatEditorFeeItem({
-    editorFee: fee,
+  const { captionLeft, titleRight, captionRight } = formatFeeItem({
+    fee,
     marketData,
   });
 
-  const isSelected = selectedEditorFee?.type === fee.type;
+  const isSelected = selectedFee?.type === fee.type;
 
   return (
     <Button
-      onClick={() => onSetSelectedEditorFee(fee)}
+      onClick={() => onSetSelectedFee(fee)}
       variant="outline"
       borderWidth={isSelected ? '2px' : '1px'}
       borderColor={isSelected ? 'ink.border-selected' : 'ink.border-default'}
@@ -65,9 +60,9 @@ export function CustomFeeItem({ fee }: CustomFeeItemProps) {
               <Input.Root style={{ minHeight: '40px' }}>
                 <Input.Field
                   ref={inputRef}
-                  onChange={e => onSetCustomEditorFeeRate(e.target.value)}
+                  onChange={e => onSetCustomFeeRate(e.target.value)}
                   placeholder="0"
-                  value={customEditorFeeRate ?? ''}
+                  value={customFeeRate ?? ''}
                 />
               </Input.Root>
             </Stack>

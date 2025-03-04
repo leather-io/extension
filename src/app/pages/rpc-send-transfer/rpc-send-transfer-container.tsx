@@ -37,6 +37,7 @@ export function RpcSendTransferContainer() {
           availableBalance={btcBalance.balance.availableBalance}
           isSendingMax={false}
           marketData={btcMarketData}
+          onGoBack={() => navigate(RouteUrls.RpcSendTransfer)}
           recipients={recipients}
           utxos={utxos}
         >

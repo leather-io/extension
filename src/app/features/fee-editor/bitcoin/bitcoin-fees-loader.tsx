@@ -5,15 +5,15 @@ import { type UtxoResponseItem, useAverageBitcoinFeeRates } from '@leather.io/qu
 
 import type { TransferRecipient } from '@shared/models/form.model';
 
-import type { EditorFee, EditorFees } from '../fee-editor.context';
+import type { Fee, Fees } from '../fee-editor.context';
 import { getApproximateFee, getBitcoinFee, getBitcoinSendMaxFee } from './bitcoin-fees.utils';
 
 interface BitcoinFeesLoaderProps {
   amount: Money;
   children(
-    fees: EditorFees | undefined,
+    fees: Fees | undefined,
     isLoading: boolean,
-    getCustomEditorFee: (rate: number) => EditorFee
+    getCustomFee: (rate: number) => Fee
   ): React.ReactNode;
   isSendingMax?: boolean;
   recipients: TransferRecipient[];
@@ -38,7 +38,7 @@ export function BitcoinFeesLoader({
     };
   }, [satAmount, recipients, utxos]);
 
-  const fees = useMemo<EditorFees | undefined>(() => {
+  const fees = useMemo<Fees | undefined>(() => {
     if (!feeRates) return;
 
     const determineUtxosForHighFeeArgs = {
@@ -98,10 +98,17 @@ export function BitcoinFeesLoader({
         feeValue: highFee,
         time: btcTxTimeMap.fastestFee,
       },
+      // Load custom as standard fee
+      custom: {
+        type: 'custom',
+        feeRate: feeRates.halfHourFee.toNumber(),
+        feeValue: standardFee,
+        time: '',
+      },
     };
   }, [feeRates, determineUtxosDefaultArgs, isSendingMax, recipients, utxos]);
 
-  function getCustomEditorFee(feeRate: number): EditorFee {
+  function getCustomFee(feeRate: number): Fee {
     const determineUtxosForFeeArgs = {
       ...determineUtxosDefaultArgs,
       feeRate,
@@ -118,5 +125,5 @@ export function BitcoinFeesLoader({
     };
   }
 
-  return children(fees, isLoading, getCustomEditorFee);
+  return children(fees, isLoading, getCustomFee);
 }

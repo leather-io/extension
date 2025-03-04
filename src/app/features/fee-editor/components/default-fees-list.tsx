@@ -3,14 +3,14 @@ import { CustomFeeItem } from './custom-fee-item';
 import { FeeItem } from './fee-item';
 
 export function DefaultFeesList() {
-  const { customEditorFeeRate, editorFees, getCustomEditorFee } = useFeeEditorContext();
-  if (!editorFees) return null;
+  const { customFeeRate, fees, getCustomFee } = useFeeEditorContext();
+  if (!fees) return null;
   return (
     <>
-      <FeeItem fee={editorFees.slow} />
-      <FeeItem fee={editorFees.standard} />
-      <FeeItem fee={editorFees.fast} />
-      <CustomFeeItem fee={getCustomEditorFee(Number(customEditorFeeRate))} />
+      <FeeItem fee={fees.slow} />
+      <FeeItem fee={fees.standard} />
+      <FeeItem fee={fees.fast} />
+      <CustomFeeItem fee={getCustomFee(Number(customFeeRate))} />
     </>
   );
 }

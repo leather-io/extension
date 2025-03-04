@@ -4,32 +4,31 @@ import type { MarketData, Money } from '@leather.io/models';
 
 import type { HasChildren } from '@app/common/has-children';
 
-import {
-  type EditorFee,
-  type EditorFees,
-  feeEditorContext as FeeEditorContext,
-} from './fee-editor.context';
+import { type Fee, feeEditorContext as FeeEditorContext, type Fees } from './fee-editor.context';
 
 interface FeeEditorProviderProps extends HasChildren {
   availableBalance: Money;
-  editorFees: EditorFees;
-  getCustomEditorFee(rate: number): EditorFee;
+  fees: Fees;
+  getCustomFee(rate: number): Fee;
   isLoadingFees: boolean;
   marketData: MarketData;
+  onGoBack(): void;
 }
 export function FeeEditorProvider({
   availableBalance,
   children,
-  editorFees,
-  getCustomEditorFee,
+  fees,
+  getCustomFee,
   isLoadingFees,
   marketData,
+  onGoBack,
 }: FeeEditorProviderProps) {
-  const [currentEditorFee, setCurrentEditorFee] = useState<EditorFee>(editorFees.standard);
-  const [selectedEditorFee, setSelectedEditorFee] = useState<EditorFee>(currentEditorFee);
-  const [customEditorFeeRate, setCustomEditorFeeRate] = useState<string>('');
+  const defaultFee = fees.standard;
+  const defaultCustomFeeRate = fees.custom.feeRate?.toString() ?? '';
 
-  const customEditorFee = getCustomEditorFee(Number(customEditorFeeRate));
+  const [loadedFee, setLoadedFee] = useState<Fee>(defaultFee);
+  const [selectedFee, setSelectedFee] = useState<Fee>(defaultFee);
+  const [customFeeRate, setCustomFeeRate] = useState<string>(defaultCustomFeeRate);
 
   return (
     <FeeEditorContext.Provider
@@ -37,15 +36,15 @@ export function FeeEditorProvider({
         isLoadingFees,
         availableBalance,
         marketData,
-        editorFees,
-        currentEditorFee,
-        customEditorFee,
-        customEditorFeeRate,
-        selectedEditorFee,
-        getCustomEditorFee,
-        onSetCurrentEditorFee: (value: EditorFee) => setCurrentEditorFee(value),
-        onSetCustomEditorFeeRate: (value: string) => setCustomEditorFeeRate(value),
-        onSetSelectedEditorFee: (value: EditorFee) => setSelectedEditorFee(value),
+        fees,
+        loadedFee,
+        customFeeRate,
+        selectedFee,
+        getCustomFee,
+        onGoBack,
+        onSetLoadedFee: (value: Fee) => setLoadedFee(value),
+        onSetCustomFeeRate: (value: string) => setCustomFeeRate(value),
+        onSetSelectedFee: (value: Fee) => setSelectedFee(value),
       }}
     >
       {children}

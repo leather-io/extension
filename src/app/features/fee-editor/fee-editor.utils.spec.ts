@@ -1,10 +1,10 @@
 import { createMarketPair } from '@leather.io/models';
 import { createMoney, createMoneyFromDecimal } from '@leather.io/utils';
 
-import type { EditorFee } from './fee-editor.context';
-import { formatEditorFeeItem } from './fee-editor.utils';
+import type { Fee } from './fee-editor.context';
+import { formatFeeItem } from './fee-editor.utils';
 
-describe('formatEditorFeeItem', () => {
+describe('formatFeeItem', () => {
   const mockMarketData = {
     current_price: 50000,
     currency: 'USD',
@@ -12,7 +12,7 @@ describe('formatEditorFeeItem', () => {
     price: createMoneyFromDecimal(50000, 'USD'),
   };
 
-  const mockRawFee: EditorFee = {
+  const mockRawFee: Fee = {
     type: 'standard',
     feeValue: createMoney(1000, 'BTC'),
     feeRate: 5,
@@ -20,8 +20,8 @@ describe('formatEditorFeeItem', () => {
   };
 
   it('formats fee information correctly', () => {
-    const result = formatEditorFeeItem({
-      editorFee: mockRawFee,
+    const result = formatFeeItem({
+      fee: mockRawFee,
       marketData: mockMarketData,
     });
 
@@ -34,8 +34,8 @@ describe('formatEditorFeeItem', () => {
   });
 
   it('handles null fee values', () => {
-    const result = formatEditorFeeItem({
-      editorFee: {
+    const result = formatFeeItem({
+      fee: {
         ...mockRawFee,
         feeValue: null,
         feeRate: null,
