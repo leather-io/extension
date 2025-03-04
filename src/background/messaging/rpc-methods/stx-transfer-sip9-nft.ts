@@ -87,6 +87,7 @@ export async function rpcStxTransferSip9Nft(
     ['requestId', requestId],
     ['request', createUnsecuredToken(txRequest)],
   ];
+  if (params.network) requestParams.push(['network', params.network]);
   return handleRpcMessage({
     method: message.method,
     path: RouteUrls.RpcStxTransferSip9Nft,
