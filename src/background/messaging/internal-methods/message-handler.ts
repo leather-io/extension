@@ -20,6 +20,11 @@ async function removeFormState(tabId: number) {
 // Remove any persisted form state when a tab is closed
 chrome.tabs.onRemoved.addListener(tabId => removeFormState(tabId));
 
+function logInternalMessage(message: { method: string }) {
+  if (['persist/REHYDRATE', 'persist/PERSIST'].includes(message.method)) return;
+  logger.debug('Internal message', message);
+}
+
 export async function internalBackgroundMessageHandler(
   message: BackgroundMessages,
   sender: chrome.runtime.MessageSender,
@@ -30,7 +35,8 @@ export async function internalBackgroundMessageHandler(
     sendResponse();
     return;
   }
-  logger.debug('Internal message', message);
+
+  logInternalMessage(message);
 
   switch (message.method) {
     case InternalMethods.AddressMonitorUpdated:
