@@ -14,8 +14,8 @@ import { validateStacksAddress } from '@app/common/stacks-utils';
 import { TransactionErrorReason } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
 import { useCheckSbtcSponsorshipEligible } from '@app/query/sbtc/sponsored-transactions.hooks';
 import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
-import { useGetContractInterfaceQuery } from '@app/query/stacks/contract.query';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
+import { useGetContractInterfaceQuery } from '@app/query/stacks/legacy-request-contract.query';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import {
   useCurrentStacksAccount,

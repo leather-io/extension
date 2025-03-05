@@ -5,7 +5,7 @@ import { Stack } from 'leather-styles/jsx';
 
 import { Button, ItemLayout } from '@leather.io/ui';
 
-import { FormError } from '@app/components/error/form-error';
+import { FormError } from '@app/components/form-error';
 
 import { type Fee, useFeeEditorContext } from '../fee-editor.context';
 import { formatFeeItem } from '../fee-editor.utils';
@@ -16,17 +16,17 @@ interface FeeItemProps {
 }
 export function FeeItem({ fee }: FeeItemProps) {
   const [isTouched, setIsTouched] = useState(false);
-  const { availableBalance, marketData, onSetSelectedFee, selectedFee } = useFeeEditorContext();
+  const { availableBalance, feeType, marketData, onSetSelectedFee, selectedFee } =
+    useFeeEditorContext();
 
   const { titleLeft, captionLeft, titleRight, captionRight } = formatFeeItem({
     fee,
+    feeType,
     marketData,
   });
 
-  const isSelected = selectedFee?.type === fee.type;
-  const isInsufficientBalance = availableBalance.amount.isLessThan(
-    selectedFee?.feeValue?.amount ?? 0
-  );
+  const isSelected = selectedFee?.priority === fee.priority;
+  const isInsufficientBalance = availableBalance.amount.isLessThan(selectedFee?.txFee?.amount ?? 0);
   const showInsufficientBalanceError = isTouched && isInsufficientBalance;
 
   return (
@@ -36,7 +36,7 @@ export function FeeItem({ fee }: FeeItemProps) {
         if (isInsufficientBalance) return;
         onSetSelectedFee(fee);
       }}
-      key={fee.type}
+      key={fee.priority}
       variant="outline"
       opacity={isInsufficientBalance ? 0.5 : 1}
       borderWidth={isSelected ? '2px' : '1px'}
@@ -48,7 +48,7 @@ export function FeeItem({ fee }: FeeItemProps) {
     >
       <Stack gap="0">
         <ItemLayout
-          img={<FeeItemIcon feeType={fee.type} />}
+          img={<FeeItemIcon priority={fee.priority} />}
           titleLeft={titleLeft}
           captionLeft={captionLeft}
           titleRight={titleRight}
