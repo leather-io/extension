@@ -3,6 +3,12 @@ import { createContext, useContext } from 'react';
 import type { MarketData, Money } from '@leather.io/models';
 
 export type FeePriority = 'slow' | 'standard' | 'fast' | 'custom';
+export const feePriorityTimeMap: Record<FeePriority, string> = {
+  slow: '~10 – 20min',
+  standard: '~30 min',
+  fast: '~1 hour+',
+  custom: '',
+};
 
 export interface Fee {
   type: FeePriority;

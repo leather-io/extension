@@ -63,7 +63,7 @@ function FeeEditor({ children }: FeeEditorProps) {
       <Approver.Actions
         actions={[
           <Button key="cancel" onClick={onCancel} fullWidth variant="outline">
-            Back
+            Cancel
           </Button>,
           <Button key="save" onClick={onSave} fullWidth>
             Save

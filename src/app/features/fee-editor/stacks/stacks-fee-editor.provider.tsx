@@ -1,0 +1,43 @@
+import type { StacksTransactionWire } from '@stacks/transactions';
+
+import type { MarketData, Money } from '@leather.io/models';
+import { isUndefined } from '@leather.io/utils';
+
+import type { HasChildren } from '@app/common/has-children';
+
+import { FeeEditorProvider } from '../fee-editor.provider';
+import { StacksFeesLoader } from './stacks-fees-loader';
+
+interface StacksFeeEditorProviderProps extends HasChildren {
+  availableBalance: Money;
+  marketData: MarketData;
+  onGoBack(): void;
+  unsignedTx?: StacksTransactionWire;
+}
+export function StacksFeeEditorProvider({
+  availableBalance,
+  children,
+  marketData,
+  onGoBack,
+  unsignedTx,
+}: StacksFeeEditorProviderProps) {
+  return (
+    <StacksFeesLoader unsignedTx={unsignedTx}>
+      {(fees, isLoading, getCustomFee) => {
+        if (isUndefined(fees)) return null;
+        return (
+          <FeeEditorProvider
+            availableBalance={availableBalance}
+            fees={fees}
+            getCustomFee={getCustomFee}
+            isLoadingFees={isLoading}
+            marketData={marketData}
+            onGoBack={onGoBack}
+          >
+            {children}
+          </FeeEditorProvider>
+        );
+      }}
+    </StacksFeesLoader>
+  );
+}
