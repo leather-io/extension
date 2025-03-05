@@ -46,7 +46,7 @@ export enum RouteUrls {
   Unlock = '/unlock',
 
   // Modal routes
-  EditNonce = 'edit-nonce',
+  EditNonce = 'edit-tx-nonce',
   SignOutConfirm = 'sign-out',
   RetrieveTaprootFunds = 'retrieve-taproot-funds',
 
@@ -84,7 +84,7 @@ export enum RouteUrls {
   PsbtRequest = '/psbt',
   SignatureRequest = '/signature',
   TransactionRequest = '/transaction',
-  TransactionBroadcastError = 'broadcast-error',
+  TransactionBroadcastError = 'tx-broadcast-error',
 
   // Request routes bitcoin
   RpcGetAddresses = '/get-addresses',
@@ -95,8 +95,6 @@ export enum RouteUrls {
   RpcSendTransferSummary = '/send-transfer/summary',
   RpcSignBip322Message = '/sign-bip322-message',
   RpcStacksSignature = '/sign-stacks-message',
-
-  EditFee = '/edit-fee',
 
   // Popup routes
   ChooseAccount = '/choose-account',
@@ -112,4 +110,9 @@ export enum RouteUrls {
   RpcStxTransferStx = '/stx-transfer-stx',
   RpcStxTransferSip9Nft = '/stx-transfer-sip9-nft',
   RpcStxTransferSip10Ft = '/stx-transfer-sip10-ft',
+
+  // New rpc routes for Approver UX
+  FeeEditor = 'edit-fee',
+  NonceEditor = 'edit-nonce',
+  BroadcastError = 'broadcast-error',
 }
