@@ -30,11 +30,12 @@ import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-t
 import { UnsupportedBrowserLayout } from '@app/features/ledger/generic-steps';
 import { ConnectLedgerStart } from '@app/features/ledger/generic-steps/connect-device/connect-ledger-start';
 import { RetrieveTaprootToNativeSegwit } from '@app/features/retrieve-taproot-to-native-segwit/retrieve-taproot-to-native-segwit';
-import { ChooseAccount } from '@app/pages/choose-account/choose-account';
 import { ChooseCryptoAssetToFund } from '@app/pages/fund/choose-asset-to-fund/choose-asset-to-fund';
 import { FundPage } from '@app/pages/fund/fund';
 import { Home } from '@app/pages/home/home';
+import { LegacyAccountAuth } from '@app/pages/legacy-account-auth/legacy-account-auth';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
+import { ForgotPassword } from '@app/pages/onboarding/sign-in/forgot-password';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { ReceiveBtcModal } from '@app/pages/receive/receive-btc';
@@ -43,7 +44,7 @@ import { RequestError } from '@app/pages/request-error/request-error';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { sendOrdinalRoutes } from '@app/pages/send/ordinal-inscription/ordinal-routes';
 import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
-import { bitflowSwapRoutes } from '@app/pages/swap/bitflow-swap-container';
+import { bitcoinSwapRoutes, stacksSwapRoutes } from '@app/pages/swap/swap.routes';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
 import { Unlock } from '@app/pages/unlock';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
@@ -200,7 +201,8 @@ function useAppRoutes() {
             }
           />
 
-          {bitflowSwapRoutes}
+          {bitcoinSwapRoutes}
+          {stacksSwapRoutes}
 
           {/* OnBoarding Routes */}
           <Route
@@ -247,6 +249,8 @@ function useAppRoutes() {
               </OnboardingGate>
             }
           />
+          <Route path={RouteUrls.ForgotPassword} element={<ForgotPassword />} />
+
           <Route
             path={RouteUrls.ViewSecretKey}
             element={
@@ -262,7 +266,7 @@ function useAppRoutes() {
             path={RouteUrls.ChooseAccount}
             element={
               <AccountGate>
-                <ChooseAccount />
+                <LegacyAccountAuth />
               </AccountGate>
             }
           >

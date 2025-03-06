@@ -16,7 +16,7 @@ describe('generated signed transactions', () => {
       fee: 0,
     });
     expect(tx.postConditionMode).toEqual(PostConditionMode.Allow);
-    const postCondition = tx.postConditions.values[0];
-    expect('amount' in postCondition && postCondition.amount).toEqual(100n);
+    const postConditionValue = tx.postConditions.values[0];
+    expect('amount' in postConditionValue && postConditionValue.amount).toEqual(100n);
   }, 5000);
 });

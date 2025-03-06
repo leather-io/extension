@@ -11,31 +11,31 @@ export enum DomEventName {
   psbtRequest = 'hiroWalletPsbtRequest',
 }
 
-export interface AuthenticationRequestEventDetails {
+interface AuthenticationRequestEventDetails {
   authenticationRequest: string;
 }
 
 export type AuthenticationRequestEvent = CustomEvent<AuthenticationRequestEventDetails>;
 
-export interface SignatureRequestEventDetails {
+interface SignatureRequestEventDetails {
   signatureRequest: string;
 }
 
 export type SignatureRequestEvent = CustomEvent<SignatureRequestEventDetails>;
 
-export interface TransactionRequestEventDetails {
+interface TransactionRequestEventDetails {
   transactionRequest: string;
 }
 
 export type TransactionRequestEvent = CustomEvent<TransactionRequestEventDetails>;
 
-export interface ProfileUpdateRequestEventDetails {
+interface ProfileUpdateRequestEventDetails {
   profileUpdateRequest: string;
 }
 
 export type ProfileUpdateRequestEvent = CustomEvent<ProfileUpdateRequestEventDetails>;
 
-export interface PsbtRequestEventDetails {
+interface PsbtRequestEventDetails {
   psbtRequest: string;
 }
 

@@ -1,11 +1,11 @@
-import { bytesToUtf8 } from '@stacks/common';
 import {
   ClarityType,
   ContractCallPayload,
   IntCV,
-  StacksTransaction,
-  TokenTransferPayload,
+  StacksTransactionWire,
+  TokenTransferPayloadWire,
   addressToString,
+  createAddress,
   cvToString,
   serializeCV,
 } from '@stacks/transactions';
@@ -20,16 +20,32 @@ import {
   formatMoney,
   i18nFormatCurrency,
   isDefined,
+  isEmptyString,
   microStxToStx,
 } from '@leather.io/utils';
 
 import { removeTrailingNullCharacters } from '@app/common/utils';
 
+function safeAddressToString(address: string) {
+  try {
+    return addressToString(createAddress(address));
+  } catch (error) {
+    return '';
+  }
+}
+
 export function useStacksTransactionSummary(token: CryptoCurrency) {
   // TODO: unsafe type assumption
   const tokenMarketData = useCryptoCurrencyMarketDataMeanAverage(token as 'BTC' | 'STX');
 
-  function formSentSummaryTxState(txId: string, signedTx: StacksTransaction, decimals?: number) {
+  // RPC requests do not show a review step
+  if (isEmptyString(token)) return { formSentSummaryTxState: null, formReviewTxSummary: null };
+
+  function formSentSummaryTxState(
+    txId: string,
+    signedTx: StacksTransactionWire,
+    decimals?: number
+  ) {
     return {
       state: {
         txLink: {
@@ -42,21 +58,25 @@ export function useStacksTransactionSummary(token: CryptoCurrency) {
     };
   }
 
-  function formReviewTxSummary(tx: StacksTransaction, symbol = 'STX', decimals = 6) {
+  // This function violates the rule of not pre-formatting data
+  function formReviewTxSummary(tx: StacksTransactionWire, symbol = 'STX', decimals = 6) {
     if (symbol !== 'STX') {
       return formSip10TxSummary(tx, symbol, decimals);
     }
 
-    const payload = tx.payload as TokenTransferPayload;
+    // WARNING: this is a very dangerous type cast as it can totally be another tx type...
+    const payload = tx.payload as TokenTransferPayloadWire;
     const txValue = payload.amount;
     const fee = tx.auth.spendingCondition.fee;
     const memoContent = payload?.memo?.content ?? '';
     const memoDisplayText = removeTrailingNullCharacters(memoContent) || 'No memo';
 
     return {
-      recipient: addressToString(payload.recipient.address),
+      recipient: safeAddressToString(payload?.recipient?.value),
       fee: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(fee))),
-      totalSpend: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue + fee))),
+      totalSpend: formatMoney(
+        convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue) + Number(fee))
+      ),
       symbol: 'STX',
       txValue: microStxToStx(Number(txValue)).toString(),
       sendingValue: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue))),
@@ -75,10 +95,10 @@ export function useStacksTransactionSummary(token: CryptoCurrency) {
       return noMemoText;
     }
     const isSome = payload.functionArgs[3].type === ClarityType.OptionalSome;
-    return isSome ? bytesToUtf8(serializeCV(payload.functionArgs[3])) : noMemoText;
+    return isSome ? serializeCV(payload.functionArgs[3]) : noMemoText;
   }
 
-  function formSip10TxSummary(tx: StacksTransaction, symbol: string, decimals = 6) {
+  function formSip10TxSummary(tx: StacksTransactionWire, symbol: string, decimals = 6) {
     const payload = tx.payload as ContractCallPayload;
     const fee = tx.auth.spendingCondition.fee;
     const txValue = Number((payload.functionArgs[0] as IntCV).value);

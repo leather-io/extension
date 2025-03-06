@@ -165,6 +165,14 @@ export async function mockStacksPendingTransaction(page: Page) {
   );
 }
 
+export async function mockStacksBroadcastTransactionV6(page: Page) {
+  await page.route(`**/api.hiro.so/v2/transactions`, route =>
+    route.fulfill({
+      body: '9b709768122e6c62a37b087106cc9c23280ed6242b565484b6cc4e6a43ae1155',
+    })
+  );
+}
+
 export async function mockStacksBroadcastTransaction(page: Page) {
   await page.route(`**/api.hiro.so/v2/transactions`, route =>
     route.fulfill({

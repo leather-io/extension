@@ -2,6 +2,7 @@ import type { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-
 
 import { FtTransfer } from '@leather.io/models';
 import { isFtAsset, useGetFungibleTokenMetadataQuery } from '@leather.io/query';
+import { getPrincipalFromAssetString } from '@leather.io/stacks';
 import { ArrowDownIcon, ArrowUpIcon } from '@leather.io/ui';
 
 import { logger } from '@shared/logger';
@@ -11,7 +12,6 @@ import {
   calculateTokenTransferAmount,
   getTxCaption,
 } from '@app/common/transactions/stacks/transaction.utils';
-import { getPrincipalFromContractId } from '@app/common/utils';
 import { StacksAssetAvatar } from '@app/components/stacks-asset-avatar';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -24,7 +24,7 @@ interface FtTransferItemProps {
 }
 export function FtTransferItem({ ftTransfer, parentTx }: FtTransferItemProps) {
   const { data: assetMetadata } = useGetFungibleTokenMetadataQuery(
-    getPrincipalFromContractId(ftTransfer.asset_identifier)
+    getPrincipalFromAssetString(ftTransfer.asset_identifier)
   );
   const currentAccount = useCurrentStacksAccount();
   const isOriginator = ftTransfer.sender === currentAccount?.address;
@@ -53,11 +53,7 @@ export function FtTransferItem({ ftTransfer, parentTx }: FtTransferItemProps) {
   const title = `${assetMetadata.name || 'Token'} Transfer`;
   const value = `${isOriginator ? '-' : ''}${displayAmount.toFormat()}`;
   const transferIcon = ftImageCanonicalUri ? (
-    <StacksAssetAvatar
-      color="ink.background-primary"
-      gradientString=""
-      imageCanonicalUri={ftImageCanonicalUri}
-    >
+    <StacksAssetAvatar color="ink.background-primary" gradientString="" img={ftImageCanonicalUri}>
       {title}
     </StacksAssetAvatar>
   ) : (

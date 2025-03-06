@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import type { DistributedOmit } from 'type-fest';
+
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import {
   useCurrentStacksAccount,
@@ -34,12 +36,15 @@ interface StacksAccountIndexLoaderProps extends StacksAccountBaseLoaderProps {
 
 type StacksAccountLoaderProps = StacksAccountCurrentLoaderProps | StacksAccountIndexLoaderProps;
 
-export function StacksAccountLoader({ children, ...props }: StacksAccountLoaderProps) {
+export function useStacksAccountLoader(
+  props: DistributedOmit<StacksAccountLoaderProps, 'children'>
+) {
   const stacksAccounts = useStacksAccounts();
   const currentAccountIndex = useCurrentAccountIndex();
-  const properIndex = 'current' in props ? currentAccountIndex : props.index;
 
+  const properIndex = 'current' in props ? currentAccountIndex : props.index;
   const account = stacksAccounts[properIndex];
+
   if (!account) return null;
-  return children(account);
+  return account;
 }

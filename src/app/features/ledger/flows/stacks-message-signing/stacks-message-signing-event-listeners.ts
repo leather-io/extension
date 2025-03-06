@@ -1,3 +1,4 @@
+import type { SignatureData } from '@stacks/connect-jwt';
 import isEqual from 'lodash.isequal';
 
 import type { UnsignedMessage } from '@shared/signature/signature-types';
@@ -6,7 +7,7 @@ import { GlobalAppEvents, appEvents } from '@app/common/publish-subscribe';
 
 export async function listenForStacksMessageSigning(
   unsignedMessage: UnsignedMessage
-): Promise<any> {
+): Promise<SignatureData> {
   return new Promise((resolve, reject) => {
     function stacksMessageSignedHandler(msg: GlobalAppEvents['ledgerStacksMessageSigned']) {
       if (isEqual(msg.unsignedMessage, unsignedMessage)) {

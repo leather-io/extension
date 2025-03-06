@@ -3,7 +3,7 @@ import { Stamp as BitcoinStamp } from '@leather.io/query';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { StampsAvatarIcon } from '@app/ui/components/avatar/stamps-avatar-icon';
 
-import { CollectibleImage } from '../_collectible-types/collectible-image';
+import { CollectibleImage } from '../../../../components/collectibles/collectible-image';
 
 const stampChainAssetUrl = 'https://stampchain.io/asset.html?stampNumber=';
 

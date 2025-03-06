@@ -1,6 +1,6 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import { StacksTransaction } from '@stacks/transactions';
+import { StacksTransactionWire } from '@stacks/transactions';
 import { Formik, FormikHelpers } from 'formik';
 import { Flex } from 'leather-styles/jsx';
 import * as yup from 'yup';
@@ -8,12 +8,13 @@ import * as yup from 'yup';
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@leather.io/constants';
 import { FeeTypes } from '@leather.io/models';
 import {
+  defaultStacksFees,
   useCalculateStacksTxFees,
   useNextNonce,
   useStxCryptoAssetBalance,
 } from '@leather.io/query';
 import { Link } from '@leather.io/ui';
-import { stxToMicroStx } from '@leather.io/utils';
+import { isDefined, stxToMicroStx } from '@leather.io/utils';
 
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
@@ -40,30 +41,27 @@ import { MinimalErrorMessage } from './minimal-error-message';
 import { StacksTxSubmitAction } from './submit-action';
 
 interface StacksTransactionSignerProps {
-  stacksTransaction: StacksTransaction;
+  stacksTransaction?: StacksTransactionWire;
   disableFeeSelection?: boolean;
   disableNonceSelection?: boolean;
   isMultisig: boolean;
-  onCancel(): void;
   onSignStacksTransaction(fee: number, nonce: number): Promise<void>;
 }
 export function StacksTransactionSigner({
   stacksTransaction,
   disableFeeSelection,
   disableNonceSelection,
-  onSignStacksTransaction,
   isMultisig,
+  onSignStacksTransaction,
 }: StacksTransactionSignerProps) {
   const transactionRequest = useTransactionRequestState();
   const { data: stxFees } = useCalculateStacksTxFees(stacksTransaction);
-
   const stxAddress = useCurrentStacksAccountAddress();
   const { filteredBalanceQuery } = useStxCryptoAssetBalance(stxAddress);
   const availableUnlockedBalance = filteredBalanceQuery.data?.availableUnlockedBalance;
   const navigate = useNavigate();
   const { data: nextNonce, status: nonceQueryStatus } = useNextNonce(stxAddress);
   const canSubmit = filteredBalanceQuery.status === 'success' && nonceQueryStatus === 'success';
-
   const { search } = useLocation();
 
   useOnMount(() => {
@@ -91,7 +89,8 @@ export function StacksTransactionSigner({
           nonce: nonceValidator,
         });
 
-  const isNonceAlreadySet = !Number.isNaN(transactionRequest.nonce);
+  const isNonceAlreadySet =
+    isDefined(transactionRequest.nonce) && !Number.isNaN(transactionRequest.nonce);
 
   const initialValues: StacksTransactionFormValues = {
     fee: '',
@@ -123,7 +122,8 @@ export function StacksTransactionSigner({
 
             {!isNonceAlreadySet && <NonceSetter />}
             <FeeForm
-              fees={stxFees}
+              fees={stxFees ?? defaultStacksFees}
+              sbtcSponsorshipEligibility={{ isEligible: false }}
               defaultFeeValue={Number(transactionRequest?.fee || 0)}
               disableFeeSelection={disableFeeSelection}
             />

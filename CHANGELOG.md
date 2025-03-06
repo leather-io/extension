@@ -1,3 +1,397 @@
+## [6.65.0](https://github.com/leather-io/extension/compare/v6.64.0...v6.65.0) (2025-03-03)
+
+
+### Features
+
+* implement stacks fee estimations, LEA-1760 ([2f2b622](https://github.com/leather-io/extension/commit/2f2b6229291b07e9584c665f996fae50155f7876))
+* network param support, getAddresses, closes LEA-2195 ([7baefa0](https://github.com/leather-io/extension/commit/7baefa0e97a1b9024ca48d2dfb8068e37455ecba))
+* stx transfer sip9 nft, closes LEA-1964 ([9d0f575](https://github.com/leather-io/extension/commit/9d0f575f6c62d6ff69546428520e43ed0ed7dc8a))
+
+
+### Bug Fixes
+
+* broadcasting to default stacks network ([b645ad6](https://github.com/leather-io/extension/commit/b645ad65089d96eafcd03bf98a7876c9016f0761))
+* btc recipient validation, closes LEA-2126 ([1df1629](https://github.com/leather-io/extension/commit/1df162954098761fbf3b080757176f14f4e3b892))
+* improve account look up speed, ref LEA-2133 ([279367b](https://github.com/leather-io/extension/commit/279367b9c118b3e9ff54a05eb45ee5dff8c9ee42))
+* issue with broken summary page, closes [#6152](https://github.com/leather-io/extension/issues/6152) ([6bd082c](https://github.com/leather-io/extension/commit/6bd082c9f9adb731bfee5c6efe96917371767c75))
+* **ledger:** switching accounts ([44c92fc](https://github.com/leather-io/extension/commit/44c92fcb6d5e237823ac6f5a4443081205625cd6))
+* sbtc limits schema, closes LEA-2185 ([4f7be18](https://github.com/leather-io/extension/commit/4f7be18de0a38d1e1083a55d4c1f9aa9bff64035))
+* unhandled err in stx send form, LEA-2140 ([4c50f78](https://github.com/leather-io/extension/commit/4c50f78fa7ee5728ef6b3345f50a2f5216b24a46))
+* zero nonce not getting set, closes LEA-2201 ([0775448](https://github.com/leather-io/extension/commit/07754483885787f70d292620ae540fd9a9c51b2f))
+
+
+### Internal
+
+* remove unnecessary action type ([0217747](https://github.com/leather-io/extension/commit/021774709e761683adff561cf49747f9ac9cc82d))
+* update bitcoin, stacks, query and [@scure](https://github.com/scure) packages ([02dcd07](https://github.com/leather-io/extension/commit/02dcd0780ffc40624a7ce9838b531cde46d3fa7d))
+* use sbtc lib deposit defaults ([b087f50](https://github.com/leather-io/extension/commit/b087f504eb38c4a2c9639750241e27b5edab3022))
+
+## [6.64.0](https://github.com/leather-io/extension/compare/v6.63.0...v6.64.0) (2025-02-24)
+
+
+### Features
+
+* stx transfer sip10 ft, closes LEA-1962 ([5911b95](https://github.com/leather-io/extension/commit/5911b9559b53c0adcd47e3a45873919695c853c2))
+* use leather provider ([70bd419](https://github.com/leather-io/extension/commit/70bd419ac3c78b9bdf1e19ddf0740e245f339636))
+
+
+### Bug Fixes
+
+* failing onboarding integration test ([3aea4ef](https://github.com/leather-io/extension/commit/3aea4ef1929952a5e89d917dddcf75085bf7ecd3))
+* update fn arg serialization, closes LEA-2166 ([84515c6](https://github.com/leather-io/extension/commit/84515c687aa8d5271305fb43a60747cf9fc8e6bd))
+
+
+### Internal
+
+* use stacks descriptor ([ba3cbe8](https://github.com/leather-io/extension/commit/ba3cbe8baed666729add21a3ca2be2a40f54215e))
+
+## [6.63.0](https://github.com/leather-io/extension/compare/v6.62.0...v6.63.0) (2025-02-20)
+
+
+### Features
+
+* enable notifications by default ([799eb6a](https://github.com/leather-io/extension/commit/799eb6a5f14d9cd8062fbad8a92a3fab9f697c6c))
+* implement tx notification settings toggle ([57bfc3c](https://github.com/leather-io/extension/commit/57bfc3c67190399bcd9b205fd15026c714fee39f))
+
+
+### Bug Fixes
+
+* **rpc:** broken sign message events, closes LEA-2151 ([f7378fd](https://github.com/leather-io/extension/commit/f7378fda94fd175755eb352ef68880c85f82f421))
+
+
+### Internal
+
+* minor sbtc updates, closes LEA-1992 ([6c51272](https://github.com/leather-io/extension/commit/6c51272db58d60893b5b3eaa8460944ed35cda66))
+* post-release merge back ([fe1881e](https://github.com/leather-io/extension/commit/fe1881e6e2fb56517f9725857749715495fbe884))
+
+## [6.62.0](https://github.com/leather-io/extension/compare/v6.61.0...v6.62.0) (2025-02-17)
+
+
+### Features
+
+* add item to spam filter ([53c7fdf](https://github.com/leather-io/extension/commit/53c7fdf36b224ca116de0b3627b743238e438a58))
+* **rpc:** stx_transferStx method support, closes LEA-1966 ([9e27507](https://github.com/leather-io/extension/commit/9e275076f279d03093e7db75b81ed592146747b7))
+* stx deploy contract, closes LEA-1956 ([7a2154e](https://github.com/leather-io/extension/commit/7a2154e30d9a7243d6b4ded891fe01b7403a9dde))
+
+
+### Bug Fixes
+
+* add default for post condition mode ([ec3fe92](https://github.com/leather-io/extension/commit/ec3fe928593ff338c4ac6decf68458c1c45cabf1))
+* call contract types ([9ae8f79](https://github.com/leather-io/extension/commit/9ae8f799df15c032d166c9f5973a1a568bf4d510))
+
+
+### Internal
+
+* post-release merge back ([463604c](https://github.com/leather-io/extension/commit/463604c1c3df9c06e0414f4b4e5764d374cb7528))
+* rename stx sign transaction ([526c58f](https://github.com/leather-io/extension/commit/526c58f941677efdf3c4f80b01fff050c4d0ab2f))
+* rpc package usage ([8ba2a9e](https://github.com/leather-io/extension/commit/8ba2a9ec9db561486f4c4b0f39bf1fde6fab5933))
+* share rpc sip30 broadcast tx ([aa75d72](https://github.com/leather-io/extension/commit/aa75d72075cab846f9fa6825453b5d5a135825b7))
+
+## [6.61.0](https://github.com/leather-io/extension/compare/v6.60.1...v6.61.0) (2025-02-12)
+
+
+### Features
+
+* add forgot password flow, LEA-487 ([e4e6120](https://github.com/leather-io/extension/commit/e4e61205e3ef688075cca1cd053a2f72447a4dd1))
+* add stx_signStructuredMessage, closes LEA-1960 ([691180a](https://github.com/leather-io/extension/commit/691180ae74bd71ea4a5d52b7470157fe10795b57))
+* address monitor and btc tx notifications ([aa3d64a](https://github.com/leather-io/extension/commit/aa3d64af811f65c6ae9ace3b819feb12e2cca7ee))
+* disable bitcoin tx notifications ([c9b3234](https://github.com/leather-io/extension/commit/c9b3234e1d3d68d2a4489b09ea52606d6f7c2716))
+* **rpc:** stx_getAddresses, closes LEA-1958 ([cb53bf5](https://github.com/leather-io/extension/commit/cb53bf528be9c45e633471583b558c24b763a024))
+* sip30 stx call contract, closes LEA-1954 ([ea68e3c](https://github.com/leather-io/extension/commit/ea68e3cd3050766568fd7ce18bcc912de4a5f3e1))
+* use spam filter with whitelist ([6bf33a6](https://github.com/leather-io/extension/commit/6bf33a6c54ac407e3276266ea0700d06cf439abb))
+
+
+### Bug Fixes
+
+* prevent tab index to embedded elements ([d84b503](https://github.com/leather-io/extension/commit/d84b5034b2c144b89996f0da2a79297179a9ad73))
+* stacks js v6 mock broadcast tx for swaps ([2562313](https://github.com/leather-io/extension/commit/256231301a171fdea75f991c7542ae5a2ce5d768))
+
+
+### Internal
+
+* post-release merge back ([55643a6](https://github.com/leather-io/extension/commit/55643a6bd2537c1eb6dd24e3bec3cc061a3e6bac))
+* upgrade stacks js, closes LEA-1989 ([9972d22](https://github.com/leather-io/extension/commit/9972d22542500c137ecf77501cdc21b3dc7309b8))
+
+## [6.60.1](https://github.com/leather-io/extension/compare/v6.60.0...v6.60.1) (2025-02-05)
+
+
+### Bug Fixes
+
+* add network validation ([5fd025f](https://github.com/leather-io/extension/commit/5fd025f75bc1fba75a35a8308809607be41b9834))
+* show available metadata for stacks nfts, ref leather-io/extension[#5349](https://github.com/leather-io/extension/issues/5349) ([30a2d8e](https://github.com/leather-io/extension/commit/30a2d8ee5f7f16a909eafa7fd149939b373248d5))
+* **signPsbt:** window not closing ([13ca4b4](https://github.com/leather-io/extension/commit/13ca4b42d6750ef510f63668202d564de619a5a7))
+
+
+### Internal
+
+* address breaking changes in ui badge ([a96407a](https://github.com/leather-io/extension/commit/a96407afd0bb954cb94871d315ff792c0c04aad8))
+* post-release merge back ([bdde723](https://github.com/leather-io/extension/commit/bdde723696463c9f965e25ca8dabb0973ae4302a))
+* remove redundant icon prop ([8895b99](https://github.com/leather-io/extension/commit/8895b99f240535d114ba897fd440a0f85d8633f0))
+
+## [6.60.0](https://github.com/leather-io/extension/compare/v6.59.2...v6.60.0) (2025-01-28)
+
+
+### Features
+
+* **signPsbt:** add txid to return payload, closes [#5292](https://github.com/leather-io/extension/issues/5292) ([c19a902](https://github.com/leather-io/extension/commit/c19a90219cc6f13e5f1731a948612fe8cae9d11d))
+
+
+### Bug Fixes
+
+* allow users to send btc to themselves, ref leather-io/extension[#5349](https://github.com/leather-io/extension/issues/5349) ([a04841d](https://github.com/leather-io/extension/commit/a04841d3804836021faa33534e84bd5024db41ed))
+* go close ledger action navigation, LEA-2078 ([a950b32](https://github.com/leather-io/extension/commit/a950b3241aefec4f6e4ee6bb233b540858644a74))
+* **rpc:** use SIP-30 format for `stx_signTransaction` ([99b84d3](https://github.com/leather-io/extension/commit/99b84d3cc1debc48bdd8127a34a002c5ccab0392))
+* sbtc swap validation ([7de260e](https://github.com/leather-io/extension/commit/7de260ef6ee2fdcc2d08849a866a27b2da804512))
+* stx available balance issues ([6f054bb](https://github.com/leather-io/extension/commit/6f054bb328377f0d598f6bd8e9b3a67ca9c0b0ea))
+
+
+### Internal
+
+* post-release merge back ([2b43e49](https://github.com/leather-io/extension/commit/2b43e4998240ca0bd9a08b275053033e9f3d5461))
+* update path-to-regexp to fix ci audit ([9e4544d](https://github.com/leather-io/extension/commit/9e4544d0a3ba84ce18f268245526383a52824c6e))
+* upgrade utils package ([6e6d17e](https://github.com/leather-io/extension/commit/6e6d17e8dc9c2b6bb4ad4b217a04a4e8ec7e4def))
+
+## [6.59.2](https://github.com/leather-io/extension/compare/v6.59.1...v6.59.2) (2025-01-17)
+
+
+### Bug Fixes
+
+* change swap test timeout time ([43bd1b2](https://github.com/leather-io/extension/commit/43bd1b2935270761109c443a4701c6a5ce822a6a))
+* possible issue introduced with testnet4 ([6adb427](https://github.com/leather-io/extension/commit/6adb427e6b55d13ad9261374d579113c0412ab4b))
+
+
+### Internal
+
+* post-release merge back ([060fd66](https://github.com/leather-io/extension/commit/060fd66b6a3ecf6b12ffa29af6fd680955fca6ec))
+
+## [6.59.1](https://github.com/leather-io/extension/compare/v6.59.0...v6.59.1) (2025-01-16)
+
+
+### Bug Fixes
+
+* rendering the correct src20 image, closes LEA-1993 ([f935e47](https://github.com/leather-io/extension/commit/f935e47c3d645d7556d152ffe01422a8bacb1612))
+
+
+### Internal
+
+* post-release merge back ([54e8f7d](https://github.com/leather-io/extension/commit/54e8f7d48af1941179259c8181ebd9264df17b0a))
+* remove width prop and move to new directory ([42ae048](https://github.com/leather-io/extension/commit/42ae048e53d83b7913c94df60e9c28bd679548f3))
+
+## [6.59.0](https://github.com/leather-io/extension/compare/v6.58.1...v6.59.0) (2025-01-15)
+
+
+### Features
+
+* add rpc send transfer test ([19ec3fe](https://github.com/leather-io/extension/commit/19ec3fe0884b8b3150c3f91e5cfbd11bad1d42b7))
+* display proper image for src20 tokens ([e7da017](https://github.com/leather-io/extension/commit/e7da0172aea8f45fe48ae2f180c924a095717dc9))
+
+
+### Bug Fixes
+
+* btc balance ([05132fe](https://github.com/leather-io/extension/commit/05132fe7fa6afa4c2359fd72b5e3021653b5061b))
+* inscription settings btn styles ([1e3dda7](https://github.com/leather-io/extension/commit/1e3dda7e733a98c535a22ccb5db3e616a7db036b))
+* is multisig condition ([36eb6da](https://github.com/leather-io/extension/commit/36eb6dac51809f258584ff14d491cc746a4b8b37))
+* **stacks:** default to clarity 3, closes [#5983](https://github.com/leather-io/extension/issues/5983) ([38f6907](https://github.com/leather-io/extension/commit/38f690707d72c8df3401c88d434931256ec3b2d1))
+* upgrade query pkg ([aebd822](https://github.com/leather-io/extension/commit/aebd822a1ea5d8c06b20aa541a20030e16128869))
+
+
+### Internal
+
+* bitcoin swaps ([d8dc2fc](https://github.com/leather-io/extension/commit/d8dc2fc526796dd4eaef2f099ddf6492707ca029))
+* post-release merge back ([34d5508](https://github.com/leather-io/extension/commit/34d5508a29b608146864539c00a4ce985d8ea3c4))
+* post-release merge back ([34d6e0d](https://github.com/leather-io/extension/commit/34d6e0de064341aea1cd4f122a44feeaf2aa2dc7))
+* remove gaia account look up ([59945c5](https://github.com/leather-io/extension/commit/59945c51df990a063a19667d850fa535b7951c17))
+* stx available balance ([58dbf85](https://github.com/leather-io/extension/commit/58dbf85eb8288031484e5d0a96ae7f30faabfc0f))
+* update query package ([c2938a5](https://github.com/leather-io/extension/commit/c2938a5c77e3c6e12596a25293be8d6c2e685076))
+
+## [6.58.1](https://github.com/leather-io/extension/compare/v6.58.0...v6.58.1) (2024-12-27)
+
+
+### Bug Fixes
+
+* is multisig condition ([907729a](https://github.com/leather-io/extension/commit/907729a4c66bd79d008ca5dd54a320346672804d))
+
+## [6.58.0](https://github.com/leather-io/extension/compare/v6.57.0...v6.58.0) (2024-12-26)
+
+
+### Features
+
+* add sip10s to account total balance ([0ddf20e](https://github.com/leather-io/extension/commit/0ddf20e8820c0e51b4b373017ee772d386bafa98))
+* granular utxo protection feature ([fbb2fed](https://github.com/leather-io/extension/commit/fbb2fede4512e4dd63ad4e4f686d5c3d9c3f3e76))
+
+
+### Bug Fixes
+
+* account addresses separator ([be6d99e](https://github.com/leather-io/extension/commit/be6d99e186f504146d928b9d942ad1b93804d5fc))
+* avaliable balance tooltip ([6b2ccb6](https://github.com/leather-io/extension/commit/6b2ccb6f7c656f348c2ad36150f2770f8197e7c5))
+* issue with zindex over iframe inscriptions ([881fca3](https://github.com/leather-io/extension/commit/881fca37aaa534f63222830946b973b9a744b76a))
+* styles for inscription options ([48af27a](https://github.com/leather-io/extension/commit/48af27ac1b0d552107a4225ddfe042812ba1b435))
+* utxo protection dropdown ([062eede](https://github.com/leather-io/extension/commit/062eede840de9506057392dc5d1f19b5cac36d2b))
+
+
+### Internal
+
+* post-release merge back ([281d3a5](https://github.com/leather-io/extension/commit/281d3a5a329d2474177a9e44c863a21930e0ced6))
+* post-release merge back ([94fa068](https://github.com/leather-io/extension/commit/94fa068e9e7e10cd6ab8a57c6c7d77a577af2dd9))
+
+## [6.57.0](https://github.com/leather-io/extension/compare/v6.56.1...v6.57.0) (2024-12-23)
+
+
+### Features
+
+* add sip10s to account total balance ([a180644](https://github.com/leather-io/extension/commit/a18064431d2752f5687031be350c3a195ad6061b))
+* granular utxo protection feature ([0f55fc9](https://github.com/leather-io/extension/commit/0f55fc978ce48933f23218d1166a53ac7d9d874c))
+
+
+### Bug Fixes
+
+* styles for inscription options ([d3955fe](https://github.com/leather-io/extension/commit/d3955fed264b7a9bcf1a8c14555c3d682c0e96bc))
+
+## [6.56.1](https://github.com/leather-io/extension/compare/v6.56.0...v6.56.1) (2024-12-21)
+
+
+### Bug Fixes
+
+* add src20 image types, ref leather-io/mono[#724](https://github.com/leather-io/extension/issues/724) ([a11d4b7](https://github.com/leather-io/extension/commit/a11d4b7ecff2913def201effe272e818cfe79e05))
+* broken sbtc supply cap check ([3b22334](https://github.com/leather-io/extension/commit/3b223348a6f3f7f52d74aa8d7a5a45bbb441f03a))
+* sbtc swap updates and bugs ([3703202](https://github.com/leather-io/extension/commit/3703202054cb064d1504109f595cd73d13af7c21))
+
+
+### Internal
+
+* post-release merge back ([49405c5](https://github.com/leather-io/extension/commit/49405c50b00db0d2fde328e4285a6d35024a92b8))
+* update platform to extension ([7660e93](https://github.com/leather-io/extension/commit/7660e935190e5cb019172a1cbdbd966678ffc64f))
+
+## [6.56.0](https://github.com/leather-io/extension/compare/v6.55.0...v6.56.0) (2024-12-18)
+
+
+### Features
+
+* add default set fees, closes [#5930](https://github.com/leather-io/extension/issues/5930) ([e5fb4a8](https://github.com/leather-io/extension/commit/e5fb4a8e1b7b713186b4dd4bd806b3ad9a38a110))
+* add mock alex prices ([e096ff2](https://github.com/leather-io/extension/commit/e096ff27bb97c0d27414cdbf886103f63b6211f0))
+* adds BNS punycode support gobally ([5c7f1e1](https://github.com/leather-io/extension/commit/5c7f1e1798f45081391ff450a231bb73906ee4b6))
+* convert rpc-methods to [@leather](https://github.com/leather).io/rpc types ([238cb11](https://github.com/leather-io/extension/commit/238cb11880297f9f08ec115e230b8706fe5f3416))
+* migrate legacy auth request to approver ux ([5153b22](https://github.com/leather-io/extension/commit/5153b2227ea1aee15521b3645860a84f7d55c87b))
+* redesign send rpc transfer flow ([9c95c58](https://github.com/leather-io/extension/commit/9c95c5851a77f84915b5f3500df00f2089e03119))
+* sbtc integration ([fc1897a](https://github.com/leather-io/extension/commit/fc1897a0d8c3fb2be5df711c6ce5a46a4e82bb6b))
+* sponsored sbtc txns ([2fc9629](https://github.com/leather-io/extension/commit/2fc9629524ee0af0f4da651ee42d37a0ebe652c9))
+
+
+### Bug Fixes
+
+* broken integration test ([3a2535b](https://github.com/leather-io/extension/commit/3a2535b8fb0bd77b092e1189833a299ce746b6cb))
+* disable ledger btc swap ([cff46da](https://github.com/leather-io/extension/commit/cff46da739b54078926d81bf1f5e84d6e474ba90))
+* endless loading in ledger mode ([33881cc](https://github.com/leather-io/extension/commit/33881cc5595cbf161e9552a3574b7357e86fca14))
+* insufficient funds in send max btc flow ([41d75da](https://github.com/leather-io/extension/commit/41d75dab4601a4a4925ec2a2bef9524055fda633))
+* **ledger:** increase fee ([d92081e](https://github.com/leather-io/extension/commit/d92081e873309a706a4d5a44eed3e68c492263bb))
+* **ledger:** legacy auth flow ([788ba20](https://github.com/leather-io/extension/commit/788ba200218642cd7714be8c6c19e0a6e69f4923))
+* manage tokens toggle, closes [#5974](https://github.com/leather-io/extension/issues/5974) ([e25f351](https://github.com/leather-io/extension/commit/e25f3512a76c16e16c597d68ffe684791d2d8b81))
+* review screen errors ([f96b3b6](https://github.com/leather-io/extension/commit/f96b3b6516df9d9809615148f0d6f8602b8660ce))
+* show loading state until total balance is fully loaded ([91cf37f](https://github.com/leather-io/extension/commit/91cf37f44335b3b89033589ccc8dfe5747262719))
+* support regtest address validation ([720fa86](https://github.com/leather-io/extension/commit/720fa86e740d47e388a2b027de82db213c7f9adf))
+* update earn banner ([d0c2efc](https://github.com/leather-io/extension/commit/d0c2efc30ec6c5debcc579866d36e5d3f82f7e5d))
+* virtuoso list fixed height, closes [#5975](https://github.com/leather-io/extension/issues/5975) ([6704ac5](https://github.com/leather-io/extension/commit/6704ac569d8070c63a7ac1dc864798aa8110f475))
+
+
+### Internal
+
+* activity list deposit status ([1f61746](https://github.com/leather-io/extension/commit/1f617461a046b676ac1aeef36539b3fe9ea5cbf8))
+* fix chrome eslint warning ([50ab064](https://github.com/leather-io/extension/commit/50ab06482893c67118a56478b713630037302408))
+* fix links in readme ([742b38d](https://github.com/leather-io/extension/commit/742b38d1015c3ec997896541ebc590787c3d8502))
+* fix unused exports ([90ec152](https://github.com/leather-io/extension/commit/90ec1525a0044485f68d5d66503a53a4b545431a))
+* generic network name validator ([dda886f](https://github.com/leather-io/extension/commit/dda886f0752b5ccba78de23cfb56325db51efbc9))
+* post-release merge back ([0afa9ce](https://github.com/leather-io/extension/commit/0afa9ce6d543b1477a612ca10bb9bc45ccdbf640))
+* post-release merge back ([2fb0203](https://github.com/leather-io/extension/commit/2fb020390ed5d50694f61182e7bdf176d80391dc))
+* post-release merge back ([490d5c7](https://github.com/leather-io/extension/commit/490d5c7c89f5223fcae67cd09fec100be55e3e21))
+* restore @chrome/types ([2533000](https://github.com/leather-io/extension/commit/2533000984fc846440acff314a0c75f30d36e087))
+* update version of leather/rpc ([cae6c9a](https://github.com/leather-io/extension/commit/cae6c9a8bd83fbd2bc5ebee80bc78121aa883012))
+* upgrade storybook ([678b033](https://github.com/leather-io/extension/commit/678b0333a7fdb01dc5035eb02d4abd78b13084b0))
+* use zod for rpc validation ([c38725a](https://github.com/leather-io/extension/commit/c38725aeec071f7bdf983372b7ceb6ba63dc44cb))
+
+## [6.55.0](https://github.com/leather-io/extension/compare/v6.54.0...v6.55.0) (2024-12-17)
+
+
+### Features
+
+* **sbtc:** update contracts with mainnet addresses ([cd58bce](https://github.com/leather-io/extension/commit/cd58bce6ac63e01495c985971a52cf40bed0b641))
+
+## [6.54.0](https://github.com/leather-io/extension/compare/v6.53.0...v6.54.0) (2024-11-25)
+
+
+### Features
+
+* add default set fees, closes [#5930](https://github.com/leather-io/extension/issues/5930) ([95cc7c9](https://github.com/leather-io/extension/commit/95cc7c9430dfdbb727c75dd78c638252a40db203))
+* add mock alex prices ([56502b7](https://github.com/leather-io/extension/commit/56502b7fe6b67fb048c6769a6a519780d9172e4c))
+
+
+### Bug Fixes
+
+* insufficient funds in send max btc flow ([531fd94](https://github.com/leather-io/extension/commit/531fd942a81d8daf7f34f626b0e6d9ac84b0d9c3))
+* manage tokens toggle, closes [#5974](https://github.com/leather-io/extension/issues/5974) ([b515bd9](https://github.com/leather-io/extension/commit/b515bd93f0dd38d34c0ed8633c7e73d010ec975d))
+* support regtest address validation ([33715d1](https://github.com/leather-io/extension/commit/33715d1d984613c2b8a83512c69a3723f217fa01))
+* virtuoso list fixed height, closes [#5975](https://github.com/leather-io/extension/issues/5975) ([2987bde](https://github.com/leather-io/extension/commit/2987bde02dc7f5de1eafd639ebdde285c0e7b807))
+
+
+### Internal
+
+* generic network name validator ([64a6aac](https://github.com/leather-io/extension/commit/64a6aac951e2285663ca6c895ac7a757337eaf08))
+* upgrade storybook ([359a17d](https://github.com/leather-io/extension/commit/359a17d7bddbc277406f162746d5e64a23f479ad))
+* use zod for rpc validation ([6bbd9b1](https://github.com/leather-io/extension/commit/6bbd9b1eb9211f6f0176e3aa0b2e8407d3fd6c87))
+
+## [6.53.0](https://github.com/leather-io/extension/compare/v6.52.0...v6.53.0) (2024-11-15)
+
+
+### Features
+
+* change stacks bns name owner fetch fn ([efb409c](https://github.com/leather-io/extension/commit/efb409ca3de5ece98050c24f4065272827afb215))
+* fetch zonefile data from bns v2 api ([a677d4f](https://github.com/leather-io/extension/commit/a677d4fccf4f8a9e5b3592984ec49d5bcaa79d14))
+
+
+### Bug Fixes
+
+* bns overflow issue ([542ee27](https://github.com/leather-io/extension/commit/542ee27354b6f01a90b2ee5bd0e56ad9807c573b))
+* do not dismount inscription content on viewport exit ([c7fb8ac](https://github.com/leather-io/extension/commit/c7fb8acaad200bfdc3be0a82e7c94e9cf53e17c7))
+* go back from btc and stx choose fee step ([e3cfac7](https://github.com/leather-io/extension/commit/e3cfac7c84bdca6fe22af29eccf9bbcdd7ce857d))
+
+
+### Internal
+
+* post-release merge back ([744820e](https://github.com/leather-io/extension/commit/744820ed7acbeeb3c6610bf56c235f5c4886e76c))
+
+## [6.52.0](https://github.com/leather-io/extension/compare/v6.51.1...v6.52.0) (2024-11-11)
+
+
+### Features
+
+* add bash script to run code checks simultaneously ([e38af3e](https://github.com/leather-io/extension/commit/e38af3e57bcca2e8f36dedb835785c098052a9d3))
+* add bns v2 names integration test ([fb8cf66](https://github.com/leather-io/extension/commit/fb8cf66c2399f8b0e6106f691872dc3330f41e0e))
+* add cancel transaction, ref LEA-958 ([7e16463](https://github.com/leather-io/extension/commit/7e164630277b124966c33c57f115615a333e8b9f))
+* add error analytics ([8625fe7](https://github.com/leather-io/extension/commit/8625fe7d9b29386e39839df05d26122ca7b9aa69))
+* add sip10 tokens send test ([2b5a954](https://github.com/leather-io/extension/commit/2b5a954e07c2ecc9a8a316d05df8668d9a4ea9ad))
+* fetch bns name from bns v2 api, closes LEA-1659 ([f7aaec3](https://github.com/leather-io/extension/commit/f7aaec39c7aab80698f8fba1164b3435cc586ece))
+* hide bns archive collectible ([7ef1703](https://github.com/leather-io/extension/commit/7ef170372a8ce2c23d2de983c412f4940325896e))
+* remove stacks tx estimated time, LEA-1686 ([fe2a20b](https://github.com/leather-io/extension/commit/fe2a20baaf8af1930cd85ea5db197f402e7258dd))
+
+
+### Bug Fixes
+
+* codeblock colors ([5cd2b81](https://github.com/leather-io/extension/commit/5cd2b81eeefa35ca01a9c2350fc5a2f898942253))
+* manage tokens performance ([e2c4ed8](https://github.com/leather-io/extension/commit/e2c4ed846481f97807f82e203d88c521148255c9))
+* multisig transfer send amount, closes [#5941](https://github.com/leather-io/extension/issues/5941) ([e464419](https://github.com/leather-io/extension/commit/e464419a4df67655445c7fa0f47f6923ed2d27a8))
+* polyfill storybook webpack node deps ([4ffef3b](https://github.com/leather-io/extension/commit/4ffef3b5cc5591be6df328413b7b60476f1e3de4))
+* propagate contract preview handler, closes [#5059](https://github.com/leather-io/extension/issues/5059) ([1da243a](https://github.com/leather-io/extension/commit/1da243a928f0105ff5b160740bff942d0c3b1943))
+* update AddressDisplayer occurrences to reflect changes from the ui library ([3e09e9e](https://github.com/leather-io/extension/commit/3e09e9e0747f2ee6a56a3a39b8c2372376f95dc1))
+* use correct Fira Code weights ([ddbafe8](https://github.com/leather-io/extension/commit/ddbafe843bd45f2a7f73dad2f3424fe41947f14d))
+
+
+### Internal
+
+* apply mono package updates ([ec1f44b](https://github.com/leather-io/extension/commit/ec1f44ba12ae99128f0020caad4d6e4feb28f603))
+* **ordinals:** remove use of recursive look up of inscriptions ([5a77d53](https://github.com/leather-io/extension/commit/5a77d537ce8092e9390887fa2a8f23933d468971))
+* post-release merge back ([27e05c4](https://github.com/leather-io/extension/commit/27e05c497a3d1dbf3bc3b0b8d02becd191d1eef4))
+* update deps and type issues ([632a554](https://github.com/leather-io/extension/commit/632a5549d4194cacf9ee9602bb4e4092edf5a403))
+* upgrade playwright ([a20ef73](https://github.com/leather-io/extension/commit/a20ef734480d56f7c58dbd67f771e376d15703ea))
+
 ## [6.51.1](https://github.com/leather-io/extension/compare/v6.51.0...v6.51.1) (2024-10-28)
 
 

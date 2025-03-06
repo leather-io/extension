@@ -4,6 +4,7 @@ import {
   TEST_BNS_RESOLVED_ADDRESS,
   TEST_TESTNET_ACCOUNT_2_STX_ADDRESS,
 } from '@tests/mocks/constants';
+import { mockBnsV2ZoneFileLookup } from '@tests/mocks/mock-stacks-bns';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { getDisplayerAddress } from '@tests/utils';
@@ -207,6 +208,11 @@ test.describe('send stx: tests on mainnet', () => {
 
   test.describe('send form input fields', () => {
     test('that recipient address matches bns name', async ({ sendPage }) => {
+      await mockBnsV2ZoneFileLookup(sendPage.page)({
+        name: TEST_BNS_NAME,
+        owner: TEST_BNS_RESOLVED_ADDRESS,
+        btcAddress: 'unused-btc-address',
+      });
       await sendPage.amountInput.fill('.0001');
       await sendPage.amountInput.blur();
       await sendPage.recipientSelectRecipientTypeDropdown.click();
@@ -227,8 +233,8 @@ test.describe('send stx: tests on mainnet', () => {
         .innerText();
       const fee = Number(feeToBePaid.split(' ')[0]);
       // Using min/max fee caps
-      const isMiddleFee = fee >= 0.003 && fee <= 0.75;
-      test.expect(isMiddleFee).toBeTruthy();
+      const isMiddleFee = fee === 0.0004;
+      test.expect(isMiddleFee).toEqual(true);
     });
 
     test('that low fee estimate can be selected', async ({ sendPage }) => {
@@ -239,8 +245,8 @@ test.describe('send stx: tests on mainnet', () => {
         .innerText();
       const fee = Number(feeToBePaid.split(' ')[0]);
       // Using min/max fee caps
-      const isLowFee = fee >= 0.0025 && fee <= 0.5;
-      test.expect(isLowFee).toBeTruthy();
+      const isLowFee = fee === 0.0002;
+      test.expect(isLowFee).toEqual(true);
     });
   });
 });

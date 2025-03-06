@@ -20,6 +20,8 @@ test.describe('Send sip10', () => {
   test('can send sip10 token', async ({ sendPage }) => {
     await sendPage.amountInput.fill(amount);
     await sendPage.recipientInput.fill(TEST_ACCOUNT_2_STX_ADDRESS);
+    await sendPage.recipientInput.blur();
+
     await sendPage.previewSendTxButton.click();
     const details = await sendPage.confirmationDetails.allInnerTexts();
 

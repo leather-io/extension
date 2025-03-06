@@ -1,24 +1,23 @@
-import { SignPsbtRequestParams } from '@btckit/types';
-import { BrowserContext, Page } from '@playwright/test';
+import { BrowserContext, Page, type Route } from '@playwright/test';
+import { HDKey } from '@scure/bip32';
+import { mnemonicToSeedSync } from '@scure/bip39';
+import * as btc from '@scure/btc-signer';
+import { bytesToHex } from '@stacks/common';
+import { TEST_ACCOUNT_SECRET_KEY } from '@tests/page-object-models/onboarding.page';
 
-import { WalletDefaultNetworkConfigurationIds } from '@leather.io/models';
+import {
+  type BtcSignerNetwork,
+  makeNativeSegwitAddressIndexDerivationPath,
+} from '@leather.io/bitcoin';
+import type { RpcParams, signPsbt } from '@leather.io/rpc';
 
 import { test } from '../../fixtures/fixtures';
 
-// TODO: Refactor these tests to create the PSBT instances with btc.Transaction
-// rather than using the pre-made hex payload. There is currently an open issue
-// with playwright that is preventing us from using btc-signer lib here.
-// https://github.com/microsoft/playwright/issues/17075'
-
-// See test-app for PSBT used in these tests
-const unsignedPsbtHexWithThreeInputs =
-  '70736274ff0100a402000000030c9199d8079e6fe8a6c78ac9c4e0311c97c9fcdc8b5586c56d191b6d98c0035e0000000000ffffffff47b2d3b4e816729d3a4b689a3b5c3383bce0709b648b4fbfc90a08ebb17ec8130000000000ffffffff8bf7b815a030190b30d5937b3426550d7e0609242adaa8b114577e1363211fed0000000000ffffffff016400000000000000160014a8113965cee4d5ffa2d9996a204866a58200131d00000000000100710100000001b39d61fbab1cb5f2c082f701e749b30b5b99159b4fb5382be9a190f7544e630c0000000000fdffffff0240fa100000000000160014a8113965cee4d5ffa2d9996a204866a58200131d9e652e020000000016001436d197d642a9b02fa0d31b34fe0eab93f273a3c841b2260000010071010000000126496ccdbab53f2956a2b45e052479e8bb8f157fb0169f91413edbd863e8e38b010000000000000000021027000000000000160014a8113965cee4d5ffa2d9996a204866a58200131df3140000000000001600148027825ee06ad337f9716df8137a1b651163c5b041b226000001007101000000018bf7b815a030190b30d5937b3426550d7e0609242adaa8b114577e1363211fed01000000000000000002701700000000000016001419f793aca8e151a4f0aad0c94656a40bdc4fc8793467160000000000160014a8113965cee4d5ffa2d9996a204866a58200131d000000000000';
-
-const signedAllPsbt =
-  '70736274ff0100a402000000030c9199d8079e6fe8a6c78ac9c4e0311c97c9fcdc8b5586c56d191b6d98c0035e0000000000ffffffff47b2d3b4e816729d3a4b689a3b5c3383bce0709b648b4fbfc90a08ebb17ec8130000000000ffffffff8bf7b815a030190b30d5937b3426550d7e0609242adaa8b114577e1363211fed0000000000ffffffff016400000000000000160014a8113965cee4d5ffa2d9996a204866a58200131d00000000000100710100000001b39d61fbab1cb5f2c082f701e749b30b5b99159b4fb5382be9a190f7544e630c0000000000fdffffff0240fa100000000000160014a8113965cee4d5ffa2d9996a204866a58200131d9e652e020000000016001436d197d642a9b02fa0d31b34fe0eab93f273a3c841b22600220203fe21e3444109e30ff7d19da0f530c344cad2e35fbee89afb2413858e4a9d7aa54830450221009b5f6568ae904b9c2c1fcd318e269b6092bf6355280b2efa409cc69ac8ba8cb302204c708d139f895e7fe3d61446f4ead9fba6808ce064194b7ec7d8fae1f26444900100010071010000000126496ccdbab53f2956a2b45e052479e8bb8f157fb0169f91413edbd863e8e38b010000000000000000021027000000000000160014a8113965cee4d5ffa2d9996a204866a58200131df3140000000000001600148027825ee06ad337f9716df8137a1b651163c5b041b22600220203fe21e3444109e30ff7d19da0f530c344cad2e35fbee89afb2413858e4a9d7aa547304402200630e0323e156df379f2829543771424613d979395f1717403f43279e9e7fa5c02207dce2e66cad0314f3190e353114c07e91f797b65217d6ca0101a807ce84af21a010001007101000000018bf7b815a030190b30d5937b3426550d7e0609242adaa8b114577e1363211fed01000000000000000002701700000000000016001419f793aca8e151a4f0aad0c94656a40bdc4fc8793467160000000000160014a8113965cee4d5ffa2d9996a204866a58200131d000000000000';
-
-const signedOnlyIndexZeroPsbt =
-  '70736274ff0100a402000000030c9199d8079e6fe8a6c78ac9c4e0311c97c9fcdc8b5586c56d191b6d98c0035e0000000000ffffffff47b2d3b4e816729d3a4b689a3b5c3383bce0709b648b4fbfc90a08ebb17ec8130000000000ffffffff8bf7b815a030190b30d5937b3426550d7e0609242adaa8b114577e1363211fed0000000000ffffffff016400000000000000160014a8113965cee4d5ffa2d9996a204866a58200131d00000000000100710100000001b39d61fbab1cb5f2c082f701e749b30b5b99159b4fb5382be9a190f7544e630c0000000000fdffffff0240fa100000000000160014a8113965cee4d5ffa2d9996a204866a58200131d9e652e020000000016001436d197d642a9b02fa0d31b34fe0eab93f273a3c841b22600220203fe21e3444109e30ff7d19da0f530c344cad2e35fbee89afb2413858e4a9d7aa54830450221009b5f6568ae904b9c2c1fcd318e269b6092bf6355280b2efa409cc69ac8ba8cb302204c708d139f895e7fe3d61446f4ead9fba6808ce064194b7ec7d8fae1f26444900100010071010000000126496ccdbab53f2956a2b45e052479e8bb8f157fb0169f91413edbd863e8e38b010000000000000000021027000000000000160014a8113965cee4d5ffa2d9996a204866a58200131df3140000000000001600148027825ee06ad337f9716df8137a1b651163c5b041b226000001007101000000018bf7b815a030190b30d5937b3426550d7e0609242adaa8b114577e1363211fed01000000000000000002701700000000000016001419f793aca8e151a4f0aad0c94656a40bdc4fc8793467160000000000160014a8113965cee4d5ffa2d9996a204866a58200131d000000000000';
+function createKeychainFromTestMnmeonic() {
+  const seed = mnemonicToSeedSync(TEST_ACCOUNT_SECRET_KEY);
+  const keychain = HDKey.fromMasterSeed(seed);
+  return keychain.derive(makeNativeSegwitAddressIndexDerivationPath('testnet', 0, 0));
+}
 
 test.describe('Sign PSBT', () => {
   test.beforeEach(async ({ extensionId, globalPage, onboardingPage, page }) => {
@@ -26,6 +25,40 @@ test.describe('Sign PSBT', () => {
     await onboardingPage.signInWithTestAccount(extensionId);
     await page.goto('localhost:3000');
   });
+
+  const addressKeychain = createKeychainFromTestMnmeonic();
+  if (!addressKeychain.publicKey) throw new Error('No publicKey');
+
+  const bitcoinTestnet: BtcSignerNetwork = {
+    bech32: 'tb',
+    pubKeyHash: 0x6f,
+    scriptHash: 0xc4,
+    wif: 0xef,
+  };
+
+  function createTestPsbt() {
+    const psbt = new btc.Transaction();
+    psbt.addInput({
+      txid: '2965dc62a012028b529c902da59606d65d35353c966aeaf9287f534547609f5f',
+      index: 1,
+      witnessUtxo: {
+        amount: 4805n,
+        script: btc.p2wpkh(addressKeychain.publicKey!, bitcoinTestnet).script,
+      },
+    });
+
+    psbt.addInput({
+      txid: '2f8d36ef381ae03a7613ff9f91088a2072363a0ef4c83a51c1fed0a3230869fe',
+      index: 1,
+      witnessUtxo: {
+        amount: 15855487n,
+        script: btc.p2wpkh(addressKeychain.publicKey!, bitcoinTestnet).script,
+      },
+    });
+
+    psbt.addOutputAddress('tb1q4qgnjewwun2llgken94zqjrx5kpqqycaz5522d', 1000n, bitcoinTestnet);
+    return psbt;
+  }
 
   function clickActionButton(context: BrowserContext) {
     return async (buttonToPress: 'Cancel' | 'Confirm') => {
@@ -45,20 +78,18 @@ test.describe('Sign PSBT', () => {
     await btn.click();
   }
 
-  async function interceptBroadcastRequest(context: BrowserContext) {
+  async function interceptBroadcastRequest(
+    context: BrowserContext,
+    callback: (route: Route) => Promise<void>
+  ) {
     const popup = await context.waitForEvent('page');
-    const requestPromise = popup.waitForRequest('**/*');
-    await popup.route('**/*', async route => await route.abort());
+    const requestPromise = popup.waitForRequest('**/api/tx');
+    await popup.route('**/api/tx', async route => await callback(route));
     return requestPromise;
   }
 
-  const signAllParams = {
-    hex: unsignedPsbtHexWithThreeInputs,
-    network: WalletDefaultNetworkConfigurationIds.testnet,
-  };
-
   function initiatePsbtSigning(page: Page) {
-    return async (params: SignPsbtRequestParams & { broadcast?: boolean }) =>
+    return async (params: RpcParams<typeof signPsbt> & { broadcast?: boolean }) =>
       page.evaluate(
         async params =>
           (window as any).LeatherProvider.request('signPsbt', {
@@ -68,51 +99,112 @@ test.describe('Sign PSBT', () => {
       );
   }
 
+  function createExpectedResult(hex: string, txid?: string) {
+    return {
+      jsonrpc: '2.0',
+      result: txid ? { hex, txid } : { hex },
+    };
+  }
+
+  function createExpectedError(code: number, message: string) {
+    return {
+      jsonrpc: '2.0',
+      error: { code, message },
+    };
+  }
+
+  // Hard coded result of tx above
+  const unsignedPsbtHexWithTwoInputs =
+    '70736274ff01007b02000000025f9f604745537f28f9ea6a963c35355dd60696a52d909c528b0212a062dc65290100000000fffffffffe690823a3d0fec1513ac8f40e3a3672208a08919fff13763ae01a38ef368d2f0100000000ffffffff01e803000000000000160014a8113965cee4d5ffa2d9996a204866a58200131d000000000001011fc512000000000000160014a8113965cee4d5ffa2d9996a204866a58200131d0001011f7feff10000000000160014a8113965cee4d5ffa2d9996a204866a58200131d0000';
+
+  test.expect(bytesToHex(createTestPsbt().toPSBT())).toEqual(unsignedPsbtHexWithTwoInputs);
+
   test('that all inputs are signed even if the number of inputs is greater than vout index', async ({
     page,
     context,
   }) => {
+    const psbt = createTestPsbt();
+    const reqPromise = interceptBroadcastRequest(context, route =>
+      route.fulfill({
+        body: 'not-a-real-txid-response',
+      })
+    );
     const [result] = await Promise.all([
-      initiatePsbtSigning(page)(signAllParams),
+      initiatePsbtSigning(page)({
+        network: 'testnet',
+        hex: bytesToHex(psbt.toPSBT()),
+        broadcast: true,
+      }),
       clickActionButton(context)('Confirm'),
     ]);
 
+    await reqPromise;
+
     delete result.id;
 
-    test.expect(result).toEqual({
-      jsonrpc: '2.0',
-      result: { hex: signedAllPsbt },
-    });
+    psbt.sign(addressKeychain.privateKey!);
+
+    test
+      .expect(result)
+      .toEqual(createExpectedResult(bytesToHex(psbt.toPSBT()), 'not-a-real-txid-response'));
   });
 
   test('that only requested inputs are signed', async ({ page, context }) => {
+    const psbt = createTestPsbt();
     const [result] = await Promise.all([
-      initiatePsbtSigning(page)({ ...signAllParams, signAtIndex: 0 }),
+      initiatePsbtSigning(page)({
+        network: 'testnet',
+        hex: bytesToHex(psbt.toPSBT()),
+        signAtIndex: 0,
+        broadcast: false,
+      }),
       clickActionButton(context)('Confirm'),
     ]);
 
     delete result.id;
 
-    test.expect(result).toEqual({
-      jsonrpc: '2.0',
-      result: { hex: signedOnlyIndexZeroPsbt },
-    });
+    psbt.signIdx(addressKeychain.privateKey!, 0);
+
+    test.expect(result).toEqual(createExpectedResult(bytesToHex(psbt.toPSBT())));
   });
 
   test('that the request can be signed and broadcast', async ({ page, context }) => {
-    const requestPromise = interceptBroadcastRequest(context);
+    const psbt = createTestPsbt();
+    const requestPromise = interceptBroadcastRequest(context, route =>
+      route.fulfill({
+        body: 'not-a-real-txid-response',
+      })
+    );
 
     const [result] = await Promise.all([
-      initiatePsbtSigning(page)({ ...signAllParams, broadcast: true }),
+      initiatePsbtSigning(page)({
+        network: 'testnet',
+        hex: bytesToHex(psbt.toPSBT()),
+        broadcast: true,
+      }),
       clickActionButton(context)('Confirm'),
     ]);
 
+    await requestPromise;
+
     delete result.id;
 
-    test.expect(result).toEqual({
-      jsonrpc: '2.0',
-      result: { hex: signedAllPsbt },
-    });
+    psbt.signIdx(addressKeychain.privateKey!, 0);
+
+    test
+      .expect(result)
+      .toEqual(
+        createExpectedResult(
+          '70736274ff01007b02000000025f9f604745537f28f9ea6a963c35355dd60696a52d909c528b0212a062dc65290100000000fffffffffe690823a3d0fec1513ac8f40e3a3672208a08919fff13763ae01a38ef368d2f0100000000ffffffff01e803000000000000160014a8113965cee4d5ffa2d9996a204866a58200131d000000000001011fc512000000000000160014a8113965cee4d5ffa2d9996a204866a58200131d220203fe21e3444109e30ff7d19da0f530c344cad2e35fbee89afb2413858e4a9d7aa5483045022100d3019073de66ea52a3c93edc9a1b8bb1c9f64902ade9983c588abb45ee5db04d02201011e4b245b115c6f5a80c3ae540f4a9e8c0fa52ca0a459d461917907385cfa7010001011f7feff10000000000160014a8113965cee4d5ffa2d9996a204866a58200131d220203fe21e3444109e30ff7d19da0f530c344cad2e35fbee89afb2413858e4a9d7aa54730440220092a70ffba140cf72576969b22e7da9b510ece28365f558724aab1b80daf952c0220524f8dff67bc5661f5c95043e02ffd926bc9ee53042195fcbd7cd6aad37848dc010000',
+          'not-a-real-txid-response'
+        )
+      );
+
+    psbt.sign(addressKeychain.privateKey!);
+
+    test
+      .expect(result)
+      .toEqual(createExpectedResult(bytesToHex(psbt.toPSBT()), 'not-a-real-txid-response'));
 
     const request = await requestPromise;
     const requestBody = request.postDataBuffer();
@@ -120,40 +212,62 @@ test.describe('Sign PSBT', () => {
   });
 
   test('that the request to sign can be canceled', async ({ page, context }) => {
+    const psbt = createTestPsbt();
     const [result] = await Promise.all([
-      initiatePsbtSigning(page)(signAllParams),
+      initiatePsbtSigning(page)({
+        network: 'testnet',
+        hex: bytesToHex(psbt.toPSBT()),
+        broadcast: false,
+      }),
       clickActionButton(context)('Cancel'),
     ]);
 
     delete result.id;
 
-    test.expect(result).toEqual({
-      jsonrpc: '2.0',
-      error: {
-        code: 4001,
-        message: 'User rejected signing PSBT request',
-      },
-    });
+    test.expect(result).toEqual(createExpectedError(4001, 'User rejected signing PSBT request'));
   });
 
   test('that a failed request occurs if an invalid index is provided', async ({
     page,
     context,
   }) => {
+    const psbt = createTestPsbt();
+
     const [result] = await Promise.all([
-      initiatePsbtSigning(page)({ ...signAllParams, signAtIndex: 4 }),
+      initiatePsbtSigning(page)({
+        network: 'testnet',
+        hex: bytesToHex(psbt.toPSBT()),
+        signAtIndex: 4,
+        broadcast: false,
+      }),
       clickActionButton(context)('Confirm'),
       clickErrorCloseWindowButton(context),
     ]);
 
     delete result.id;
 
-    test.expect(result).toEqual({
-      jsonrpc: '2.0',
-      error: {
-        code: 4001,
-        message: 'User rejected signing PSBT request',
-      },
-    });
+    test.expect(result).toEqual(createExpectedError(4001, 'User rejected signing PSBT request'));
+  });
+
+  test('that failed broadcasts return an error to the app', async ({ page, context }) => {
+    const psbt = createTestPsbt();
+    const requestPromise = interceptBroadcastRequest(context, route =>
+      route.fulfill({ status: 500 })
+    );
+
+    const [result] = await Promise.all([
+      initiatePsbtSigning(page)({
+        network: 'testnet',
+        hex: bytesToHex(psbt.toPSBT()),
+        broadcast: true,
+      }),
+      clickActionButton(context)('Confirm'),
+    ]);
+
+    await requestPromise;
+
+    delete result.id;
+
+    test.expect(result).toEqual(createExpectedError(4002, 'Failed to broadcast transaction'));
   });
 });

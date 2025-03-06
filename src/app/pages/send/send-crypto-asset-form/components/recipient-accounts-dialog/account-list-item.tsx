@@ -6,7 +6,7 @@ import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { AccountTotalBalance } from '@app/components/account-total-balance';
-import { AcccountAddresses } from '@app/components/account/account-addresses';
+import { AccountAddresses } from '@app/components/account/account-addresses';
 import { AccountListItemLayout } from '@app/components/account/account-list-item.layout';
 import { AccountNameLayout } from '@app/components/account/account-name';
 import { useNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -19,7 +19,7 @@ interface AccountListItemProps {
   onClose(): void;
 }
 export const AccountListItem = memo(({ index, stacksAccount, onClose }: AccountListItemProps) => {
-  const { setFieldValue, values, setFieldTouched } = useFormikContext<
+  const { setFieldValue, values } = useFormikContext<
     BitcoinSendFormValues | StacksSendFormValues
   >();
   const stacksAddress = stacksAccount?.address || '';
@@ -30,13 +30,12 @@ export const AccountListItem = memo(({ index, stacksAccount, onClose }: AccountL
   const onSelectAccount = () => {
     const isBitcoin = values.symbol === 'BTC';
     void setFieldValue('recipient', isBitcoin ? bitcoinAddress : stacksAddress, false);
-    void setFieldTouched('recipient', false);
     onClose();
   };
 
   return (
     <AccountListItemLayout
-      accountAddresses={<AcccountAddresses index={index} />}
+      accountAddresses={<AccountAddresses index={index} />}
       accountName={<AccountNameLayout>{name}</AccountNameLayout>}
       avatar={
         <AccountAvatarItem

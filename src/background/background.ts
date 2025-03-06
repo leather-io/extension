@@ -1,9 +1,10 @@
 //
 // This file is the entrypoint to the extension's background script
 // https://developer.chrome.com/docs/extensions/mv3/architecture-overview/#background_script
+import type { RpcRequests } from '@leather.io/rpc';
+
 import { logger } from '@shared/logger';
 import { CONTENT_SCRIPT_PORT, type LegacyMessageFromContentScript } from '@shared/message-types';
-import { WalletRequests } from '@shared/rpc/rpc-methods';
 import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-log';
 
 import { initContextMenuActions } from './init-context-menus';
@@ -13,6 +14,7 @@ import {
   isLegacyMessage,
 } from './messaging/legacy/legacy-external-message-handler';
 import { rpcMessageHandler } from './messaging/rpc-message-handler';
+import { initAddressMonitor } from './monitors/address-monitor';
 
 initContextMenuActions();
 warnUsersAboutDevToolsDangers();
@@ -29,7 +31,7 @@ chrome.runtime.onInstalled.addListener(async details => {
 chrome.runtime.onConnect.addListener(port => {
   if (port.name !== CONTENT_SCRIPT_PORT) return;
 
-  port.onMessage.addListener((message: LegacyMessageFromContentScript | WalletRequests, port) => {
+  port.onMessage.addListener((message: LegacyMessageFromContentScript | RpcRequests, port) => {
     if (!port.sender?.tab?.id)
       return logger.error('Message reached background script without a corresponding tab');
 
@@ -58,4 +60,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   void internalBackgroundMessageHandler(message, sender, sendResponse);
   // Listener fn must return `true` to indicate the response will be async
   return true;
+});
+
+initAddressMonitor().catch(e => {
+  logger.error('Unable to Initialise Address Monitor: ', e);
 });

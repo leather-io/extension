@@ -149,6 +149,67 @@
     "swapsEnabled": {
       "type": "boolean",
       "description": "Determines whether or not the swaps feature is enabled"
+    },
+    "sbtc": {
+      "type": "object",
+      "description": "Configuration for SBTC",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Determines whether or not SBTC is enabled"
+        },
+        "sponsorshipsEnabled": {
+          "type": "boolean",
+          "description": "Determines whether or not sponsored sBTC transactions are enabled"
+        },
+        "emilyApiUrl": {
+          "type": "string",
+          "description": "URL for the Emily API"
+        },
+        "sponsorshipApiUrl": {
+          "type": "object",
+          "properties": {
+            "mainnet": {
+              "type": "string",
+              "description": "Mainnet URL for the Leather Sponsor API"
+            },
+            "testnet": {
+              "type": "string",
+              "description": "Testnet URL for the Leather Sponsor API"
+            }
+          }
+        },
+        "showPromoLinkOnNetworks": {
+          "type": "array",
+          "description": "Networks on which the promo link should be shown",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contracts": {
+          "type": "object",
+          "properties": {
+            "mainnet": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "string",
+                  "description": "Mainnet contract address"
+                }
+              }
+            },
+            "testnet": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "string",
+                  "description": "Testnet contract address"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "$defs": {

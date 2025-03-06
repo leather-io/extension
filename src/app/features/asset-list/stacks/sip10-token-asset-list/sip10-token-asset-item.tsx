@@ -37,13 +37,15 @@ export function Sip10TokenAssetItem({
   const { contractId, imageCanonicalUri, name, symbol } = info;
 
   const icon = (
-    <StacksAssetAvatar
-      color="white"
-      gradientString={contractId}
-      imageCanonicalUri={getSafeImageCanonicalUri(imageCanonicalUri, name)}
-    >
-      {name[0]}
-    </StacksAssetAvatar>
+    <>
+      <StacksAssetAvatar
+        color="white"
+        gradientString={contractId}
+        img={getSafeImageCanonicalUri(imageCanonicalUri, name)}
+      >
+        {name[0]}
+      </StacksAssetAvatar>
+    </>
   );
 
   const captionLeft = symbol;

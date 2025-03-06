@@ -2,9 +2,9 @@ import { type Dispatch, type SetStateAction, useEffect } from 'react';
 
 import { Stack } from 'leather-styles/jsx';
 
-import { type Sip10TokenAssetDetails, useAlexCurrencyPriceAsMarketData } from '@leather.io/query';
+import { type Sip10TokenAssetDetails } from '@leather.io/query';
 
-import { getPrincipalFromContractId } from '@app/common/utils';
+import { useSip10FiatMarketData } from '@app/common/hooks/use-calculate-sip10-fiat-value';
 
 import type { AssetRightElementVariant } from '../../asset-list';
 import { Sip10TokenAssetItem } from './sip10-token-asset-item';
@@ -25,7 +25,7 @@ export function Sip10TokenAssetList({
   preEnabledTokensIds,
   setHasManageableTokens,
 }: Sip10TokenAssetListProps) {
-  const priceAsMarketData = useAlexCurrencyPriceAsMarketData();
+  const { getTokenMarketData } = useSip10FiatMarketData();
 
   useEffect(() => {
     if (tokens.length > 0 && setHasManageableTokens) {
@@ -44,8 +44,8 @@ export function Sip10TokenAssetList({
           key={token.info.name + token.info.contractId}
           info={token.info}
           isLoading={isLoading}
-          marketData={priceAsMarketData(
-            getPrincipalFromContractId(token.info.contractId),
+          marketData={getTokenMarketData(
+            token.info.contractId,
             token.balance.availableBalance.symbol
           )}
           onSelectAsset={onSelectAsset}

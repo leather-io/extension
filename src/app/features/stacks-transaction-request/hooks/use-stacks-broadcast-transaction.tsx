@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { AuthType, StacksTransaction } from '@stacks/transactions';
+import { AuthType, StacksTransactionWire } from '@stacks/transactions';
 
 import type { CryptoCurrency } from '@leather.io/models';
 import { delay, isError, isString } from '@leather.io/utils';
@@ -28,15 +28,16 @@ async function simulateShortDelayToAvoidUndefinedTabId() {
 }
 
 interface UseStacksBroadcastTransactionArgs {
-  token: CryptoCurrency;
-  decimals?: number;
   actionType?: StacksTransactionActionType;
+  decimals?: number;
+  token: CryptoCurrency;
+  showSummaryPage?: boolean;
 }
-
 export function useStacksBroadcastTransaction({
-  token,
-  decimals,
   actionType,
+  decimals,
+  token,
+  showSummaryPage = true,
 }: UseStacksBroadcastTransactionArgs) {
   const signStacksTransaction = useSignStacksTransaction();
   const [isBroadcasting, setIsBroadcasting] = useState(false);
@@ -46,15 +47,15 @@ export function useStacksBroadcastTransaction({
   const navigate = useNavigate();
   const toast = useToast();
 
-  const isIncreaseFeeTransaction = actionType === StacksTransactionActionType.IncreaseFee;
   const isCancelTransaction = actionType === StacksTransactionActionType.Cancel;
+  const isIncreaseFeeTransaction = actionType === StacksTransactionActionType.IncreaseFee;
 
   const broadcastTransactionFn = useSubmitTransactionCallback({
-    loadingKey: LoadingKeys.SUBMIT_SEND_FORM_TRANSACTION,
+    loadingKey: LoadingKeys.SUBMIT_STACKS_TRANSACTION,
   });
 
   return useMemo(() => {
-    function handlePreviewSuccess(signedTx: StacksTransaction, txId?: string) {
+    function handlePreviewSuccess(signedTx: StacksTransactionWire, txId?: string) {
       if (requestToken && tabId) {
         finalizeTxSignature({
           requestPayload: requestToken,
@@ -66,22 +67,23 @@ export function useStacksBroadcastTransaction({
         });
       }
       if (txId) {
-        if (isIncreaseFeeTransaction || isCancelTransaction) {
+        if (isCancelTransaction || isIncreaseFeeTransaction) {
           navigate(RouteUrls.Activity);
           return;
         }
 
-        navigate(
-          RouteUrls.SentStxTxSummary.replace(':symbol', token.toLowerCase()).replace(
-            ':txId',
-            `${txId}`
-          ),
-          formSentSummaryTxState(txId, signedTx, decimals)
-        );
+        if (showSummaryPage)
+          navigate(
+            RouteUrls.SentStxTxSummary.replace(':symbol', token.toLowerCase()).replace(
+              ':txId',
+              `${txId}`
+            ),
+            formSentSummaryTxState ? formSentSummaryTxState(txId, signedTx, decimals) : {}
+          );
       }
     }
 
-    async function broadcastTransactionAction(signedTx: StacksTransaction) {
+    async function broadcastTransactionAction(signedTx: StacksTransactionWire) {
       if (!signedTx) {
         logger.error('Cannot broadcast transaction, no tx in state');
         toast.error('Unable to broadcast transaction');
@@ -94,19 +96,16 @@ export function useStacksBroadcastTransaction({
           await simulateShortDelayToAvoidUndefinedTabId();
           handlePreviewSuccess(signedTx);
         } else {
-          await broadcastTransactionFn({
+          return await broadcastTransactionFn({
             onError(e: Error | string) {
               const message = isString(e) ? e : e.message;
               navigate(RouteUrls.TransactionBroadcastError, { state: { message } });
             },
             onSuccess(txId) {
               handlePreviewSuccess(signedTx, txId);
-              if (isIncreaseFeeTransaction) {
-                toast.success('Fee increased successfully');
-              }
-              if (isCancelTransaction) {
-                toast.success('Transaction cancelled successfully');
-              }
+              if (isCancelTransaction) return toast.success('Transaction cancelled successfully');
+              if (isIncreaseFeeTransaction) return toast.success('Fee increased successfully');
+              return;
             },
             replaceByFee: false,
           })(signedTx);
@@ -120,13 +119,13 @@ export function useStacksBroadcastTransaction({
       }
     }
 
-    async function broadcastTransaction(unsignedTx: StacksTransaction) {
+    async function broadcastTransaction(unsignedTx: StacksTransactionWire) {
       try {
         if (!unsignedTx) return;
         const signedTx = await signStacksTransaction(unsignedTx);
         // TODO: Maybe better error handling here?
         if (!signedTx) return;
-        await broadcastTransactionAction(signedTx);
+        return await broadcastTransactionAction(signedTx);
       } catch (e) {}
     }
 
@@ -138,6 +137,9 @@ export function useStacksBroadcastTransaction({
     isBroadcasting,
     requestToken,
     tabId,
+    isCancelTransaction,
+    isIncreaseFeeTransaction,
+    showSummaryPage,
     navigate,
     token,
     formSentSummaryTxState,
@@ -145,7 +147,5 @@ export function useStacksBroadcastTransaction({
     toast,
     broadcastTransactionFn,
     signStacksTransaction,
-    isIncreaseFeeTransaction,
-    isCancelTransaction,
   ]);
 }

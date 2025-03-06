@@ -4,6 +4,7 @@ export enum RouteUrls {
   BackUpSecretKey = '/back-up-secret-key',
   SetPassword = '/set-password',
   SignIn = '/sign-in',
+  ForgotPassword = '/forgot-password',
 
   // Ledger routes
   ConnectLedger = 'connect-your-ledger',
@@ -72,11 +73,11 @@ export enum RouteUrls {
   SendOrdinalInscriptionError = 'error',
 
   // Swap routes
-  Swap = '/swap/:base/:quote?',
+  Swap = '/swap/{chain}/:base/:quote?',
   SwapAssetSelectBase = 'select-base',
   SwapAssetSelectQuote = 'select-quote',
+  SwapReview = '/swap/{chain}/:base/:quote/review',
   SwapError = '/swap/error',
-  SwapReview = '/swap/:base/:quote/review',
 
   // Legacy request routes
   ProfileUpdateRequest = '/update-profile',
@@ -90,11 +91,12 @@ export enum RouteUrls {
   RpcSignPsbt = '/sign-psbt',
   RpcSignPsbtSummary = '/sign-psbt/summary',
   RpcSendTransfer = '/send-transfer',
-  RpcSendTransferChooseFee = '/send-transfer/choose-fee',
   RpcSendTransferConfirmation = '/send-transfer/confirm',
   RpcSendTransferSummary = '/send-transfer/summary',
   RpcSignBip322Message = '/sign-bip322-message',
   RpcStacksSignature = '/sign-stacks-message',
+
+  EditFee = '/edit-fee',
 
   // Popup routes
   ChooseAccount = '/choose-account',
@@ -104,5 +106,10 @@ export enum RouteUrls {
   UnauthorizedRequest = '/unauthorized-request',
 
   // Request routes stacks
-  RpcSignStacksTransaction = '/sign-stacks-transaction',
+  RpcStxSignTransaction = '/stx-sign-transaction',
+  RpcStxCallContract = '/stx-call-contract',
+  RpcStxDeployContract = '/stx-deploy-contract',
+  RpcStxTransferStx = '/stx-transfer-stx',
+  RpcStxTransferSip9Nft = '/stx-transfer-sip9-nft',
+  RpcStxTransferSip10Ft = '/stx-transfer-sip10-ft',
 }

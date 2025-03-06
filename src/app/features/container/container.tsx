@@ -17,8 +17,9 @@ import { useOnChangeAccount } from '@app/routes/hooks/use-on-change-account';
 import { useOnSignOut } from '@app/routes/hooks/use-on-sign-out';
 import { useOnWalletLock } from '@app/routes/hooks/use-on-wallet-lock';
 import { useAppDispatch, useHasStateRehydrated } from '@app/store';
-import { stxChainSlice } from '@app/store/chains/stx-chain.slice';
+import { switchAccount } from '@app/store/chains/stx-chain.actions';
 
+import { useSyncAddressMonitor } from '../address-monitor/use-sync-address-monitor';
 import { useRestoreFormState } from '../popup-send-form-restoration/use-restore-form-state';
 
 export function Container() {
@@ -28,13 +29,13 @@ export function Container() {
   const dispatch = useAppDispatch();
 
   const hasStateRehydrated = useHasStateRehydrated();
-
+  useSyncAddressMonitor();
   useOnWalletLock(() => closeWindow());
   useOnSignOut(() => closeWindow());
   useRestoreFormState();
   useInitalizeAnalytics();
   useHandleQueuedBackgroundAnalytics();
-  useOnChangeAccount(index => dispatch(stxChainSlice.actions.switchAccount(index)));
+  useOnChangeAccount(index => dispatch(switchAccount(index)));
 
   useEffect(() => void analytics.page('view', `${pathname}`), [pathname]);
 

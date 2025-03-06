@@ -6,6 +6,7 @@ import { getAssetDisplayName } from '@leather.io/utils';
 import { useManageTokens } from '@app/common/hooks/use-manage-tokens';
 import { CryptoAssetItem } from '@app/components/crypto-asset-item/crypto-asset-item';
 import type { Src20TokenAssetDetails } from '@app/components/loaders/src20-tokens-loader';
+import { Src20Image } from '@app/components/src20/src20-image';
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 import type { AssetRightElementVariant } from '../../asset-list';
@@ -34,7 +35,11 @@ export function Src20TokenAssetList({
   return tokens.map((token, i) => {
     const key = `${token.info.id}${i}`;
     const captionLeft = getAssetDisplayName(token.info).toUpperCase();
-    const icon = <Src20AvatarIcon />;
+    const icon = token.info.deploy_img ? (
+      <Src20Image src={token.info.deploy_img} />
+    ) : (
+      <Src20AvatarIcon />
+    );
     const titleLeft = token.info.symbol.toUpperCase();
     const symbol = token.info.symbol;
 

@@ -7,12 +7,14 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
+import { useBalances } from '@app/common/hooks/balance/use-balances';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 import { whenPageMode } from '@app/common/utils';
+import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { ActivityList } from '@app/features/activity-list/activity-list';
 import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
+import { SbtcPromoCard } from '@app/features/sbtc-promo-card/sbtc-promo-card';
 import { Assets } from '@app/pages/home/components/assets';
 import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
@@ -25,6 +27,8 @@ import { AccountCard } from '@app/ui/components/account/account.card';
 
 import { AccountActions } from './components/account-actions';
 import { HomeTabs } from './components/home-tabs';
+
+const leatherEarnUrl = 'https://earn.leather.io';
 
 export function Home() {
   const { decodedAuthRequest } = useOnboardingState();
@@ -41,7 +45,7 @@ export function Home() {
   });
 
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const { totalUsdBalance, isLoading, isLoadingAdditionalData } = useTotalBalance({
+  const { totalUsdBalance, availableUsdBalance, isPending, isLoadingAdditionalData } = useBalances({
     btcAddress,
     stxAddress: account?.address || '',
   });
@@ -65,16 +69,18 @@ export function Home() {
       <Box px={{ base: 'space.05', md: 0 }} pb={{ base: 'space.05', md: 0 }}>
         <AccountCard
           name={name}
-          balance={totalUsdBalance}
+          availableBalance={availableUsdBalance}
+          totalBalance={totalUsdBalance}
           toggleSwitchAccount={() => toggleSwitchAccount()}
           isFetchingBnsName={isFetchingBnsName}
-          isLoadingBalance={isLoading}
+          isLoadingBalance={isPending}
           isLoadingAdditionalData={isLoadingAdditionalData}
           isBalancePrivate={isPrivateMode}
           onShowBalance={togglePrivateMode}
         >
           <AccountActions />
         </AccountCard>
+        <SbtcPromoCard mt="space.05" onClick={() => openInNewTab(leatherEarnUrl)} />
       </Box>
       {whenPageMode({ full: <FeedbackButton />, popup: null })}
       <HomeTabs>

@@ -1,16 +1,17 @@
 import { memo, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
 import { Flex, HStack, Stack } from 'leather-styles/jsx';
 
 import { useStxAvailableUnlockedBalance } from '@leather.io/query';
+import { TransactionTypes } from '@leather.io/stacks';
 import { Button, Caption } from '@leather.io/ui';
 import { truncateMiddle } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
+import type { STXTransferPayload } from '@shared/utils/legacy-requests';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { stacksValue } from '@app/common/stacks-utils';
@@ -112,7 +113,7 @@ export const NoContractErrorMessage = memo(props => {
       title="Contract not found"
       body={`The contract (${truncateMiddle(pendingTransaction.contractAddress)}.${
         pendingTransaction.contractName
-      }) that you are trying to call cannot be found on ${network.mode}.`}
+      }) that you are trying to call cannot be found on ${network.chain.bitcoin.mode}.`}
       {...props}
     />
   );

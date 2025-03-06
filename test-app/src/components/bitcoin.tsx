@@ -4,10 +4,10 @@ import { AppContext } from '@common/context';
 import { stacksTestnetNetwork } from '@common/utils';
 import * as btc from '@scure/btc-signer';
 import { bytesToHex, hexToBytes } from '@stacks/common';
-import { PsbtData, PsbtRequestOptions } from '@stacks/connect';
-import { useConnect } from '@stacks/connect-react';
+import { PsbtData, PsbtRequestOptions } from '@stacks/connect-jwt';
+import { useConnect } from '@stacks/connect-react-jwt';
 import { StacksNetwork } from '@stacks/network';
-import { Box, styled } from 'leather-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 interface BitcoinNetwork {
   bech32: string;
@@ -351,167 +351,186 @@ export const Bitcoin = () => {
   };
 
   return (
-    <Box py={6}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+      }}
+    >
       <styled.h2>Bitcoin Testnet</styled.h2>
       <styled.span>Try testing Partially Signed Bitcoin Transactions.</styled.span>
-      <styled.button
-        mt={3}
-        onClick={() => signTx(buildTestNativeSegwitPsbtRequest(segwitPubKey), stacksTestnetNetwork)}
+
+      <div
+        style={{
+          padding: '24px 0',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '16px',
+          width: '100%',
+        }}
       >
-        Sign PSBT (Segwit)
-      </styled.button>
-      <styled.button
-        ml={3}
-        mt={3}
-        onClick={() =>
-          signTx(buildTestNativeSegwitPsbtRequestWithIndexes(segwitPubKey), stacksTestnetNetwork)
-        }
-      >
-        Sign PSBT at indexes (SegWit)
-      </styled.button>
-      <styled.button
-        ml={3}
-        mt={3}
-        onClick={() => signTx(buildTestTaprootPsbtRequest(taprootPubKey), stacksTestnetNetwork)}
-      >
-        Sign PSBT (Taproot)
-      </styled.button>
-      <styled.button
-        ml={3}
-        mt={3}
-        onClick={() =>
-          signTx(buildTestTaprootPsbtRequestWithIndex(taprootPubKey), stacksTestnetNetwork)
-        }
-      >
-        Sign PSBT at index failure (Taproot)
-      </styled.button>
-      <styled.button
-        mt={3}
-        onClick={() => {
-          console.log('requesting');
-          window.btc
-            ?.request('sendTransfer', {
-              address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
-              amount: '10000',
+        <styled.button
+          mt={3}
+          onClick={() =>
+            signTx(buildTestNativeSegwitPsbtRequest(segwitPubKey), stacksTestnetNetwork)
+          }
+        >
+          Sign PSBT (Segwit)
+        </styled.button>
+        <styled.button
+          ml={3}
+          mt={3}
+          onClick={() =>
+            signTx(buildTestNativeSegwitPsbtRequestWithIndexes(segwitPubKey), stacksTestnetNetwork)
+          }
+        >
+          Sign PSBT at indexes (SegWit)
+        </styled.button>
+        <styled.button
+          ml={3}
+          mt={3}
+          onClick={() => signTx(buildTestTaprootPsbtRequest(taprootPubKey), stacksTestnetNetwork)}
+        >
+          Sign PSBT (Taproot)
+        </styled.button>
+        <styled.button
+          ml={3}
+          mt={3}
+          onClick={() =>
+            signTx(buildTestTaprootPsbtRequestWithIndex(taprootPubKey), stacksTestnetNetwork)
+          }
+        >
+          Sign PSBT at index failure (Taproot)
+        </styled.button>
+        <styled.button
+          mt={3}
+          onClick={() => {
+            console.log('requesting');
+            window.btc
+              ?.request('sendTransfer', {
+                address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
+                amount: '10000',
+                network: 'testnet',
+              })
+              .then(resp => {
+                console.log({ sucesss: resp });
+              })
+              .catch(error => {
+                console.log({ error });
+              });
+          }}
+        >
+          Send transfer
+        </styled.button>
+        <styled.button
+          mt={3}
+          onClick={() => {
+            console.log('requesting');
+            (window as any).LeatherProvider?.request('sendTransfer', {
+              recipients: [
+                {
+                  address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
+                  amount: '800',
+                },
+                {
+                  address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
+                  amount: '900',
+                },
+              ],
               network: 'testnet',
             })
-            .then(resp => {
-              console.log({ sucesss: resp });
+              .then((resp: any) => {
+                console.log({ sucesss: resp });
+              })
+              .catch((error: Error) => {
+                console.log({ error });
+              });
+          }}
+        >
+          Send transfer to multiple addresses
+        </styled.button>
+        <styled.button
+          mt={3}
+          onClick={() => {
+            console.log('requesting');
+            (window as any).LeatherProvider?.request('sendTransfer', {
+              recipients: [
+                {
+                  address: 'bc1qps90ws94pvk548y9jg03gn5lwjqnyud4lg6y56',
+                  amount: '800',
+                },
+                {
+                  address: 'bc1qyrtw5v0rkmytg0gu34f06fxpyfk24x7jevtvx3',
+                  amount: '10000',
+                },
+              ],
+              network: 'mainnet',
             })
-            .catch(error => {
-              console.log({ error });
-            });
-        }}
-      >
-        Send transfer
-      </styled.button>
-      <styled.button
-        mt={3}
-        onClick={() => {
-          console.log('requesting');
-          (window as any).LeatherProvider?.request('sendTransfer', {
-            recipients: [
-              {
-                address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
-                amount: '800',
-              },
-              {
-                address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
-                amount: '10000',
-              },
-            ],
-            network: 'testnet',
-          })
-            .then((resp: any) => {
-              console.log({ sucesss: resp });
+              .then((resp: any) => {
+                console.log({ sucesss: resp });
+              })
+              .catch((error: Error) => {
+                console.log({ error });
+              });
+          }}
+        >
+          Send native segwit transfer to multiple addresses
+        </styled.button>
+        <styled.button
+          mt={3}
+          onClick={() => {
+            console.log('requesting');
+            (window as any).LeatherProvider?.request('sendTransfer', {
+              recipients: [
+                {
+                  address: 'bc1p8nyc4sl8agqfjs2rq4yer6wnhd89naw05s0ha8hpmg8j36ht6yvswqyaxm',
+                  amount: '800',
+                },
+                {
+                  address: 'bc1p8nyc4sl8agqfjs2rq4yer6wnhd89naw05s0ha8hpmg8j36ht6yvswqyaxm',
+                  amount: '10000',
+                },
+              ],
+              network: 'mainnet',
             })
-            .catch((error: Error) => {
-              console.log({ error });
-            });
-        }}
-      >
-        Send transfer to multiple addresses
-      </styled.button>
-      <styled.button
-        mt={3}
-        onClick={() => {
-          console.log('requesting');
-          (window as any).LeatherProvider?.request('sendTransfer', {
-            recipients: [
-              {
-                address: 'bc1qps90ws94pvk548y9jg03gn5lwjqnyud4lg6y56',
-                amount: '800',
-              },
-              {
-                address: 'bc1qps90ws94pvk548y9jg03gn5lwjqnyud4lg6y56',
-                amount: '10000',
-              },
-            ],
-            network: 'mainnet',
-          })
-            .then((resp: any) => {
-              console.log({ sucesss: resp });
+              .then((resp: any) => {
+                console.log({ sucesss: resp });
+              })
+              .catch((error: Error) => {
+                console.log({ error });
+              });
+          }}
+        >
+          Send taproot transfer to multiple addresses
+        </styled.button>
+        <styled.button
+          mt={3}
+          onClick={() => {
+            console.log('requesting');
+            (window as any).LeatherProvider?.request('sendTransfer', {
+              recipients: [
+                {
+                  address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
+                  amount: '10000',
+                },
+                {
+                  address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
+                  amount: '10000',
+                },
+              ],
             })
-            .catch((error: Error) => {
-              console.log({ error });
-            });
-        }}
-      >
-        Send native segwit transfer to multiple addresses
-      </styled.button>
-      <styled.button
-        mt={3}
-        onClick={() => {
-          console.log('requesting');
-          (window as any).LeatherProvider?.request('sendTransfer', {
-            recipients: [
-              {
-                address: 'bc1p8nyc4sl8agqfjs2rq4yer6wnhd89naw05s0ha8hpmg8j36ht6yvswqyaxm',
-                amount: '800',
-              },
-              {
-                address: 'bc1p8nyc4sl8agqfjs2rq4yer6wnhd89naw05s0ha8hpmg8j36ht6yvswqyaxm',
-                amount: '10000',
-              },
-            ],
-            network: 'mainnet',
-          })
-            .then((resp: any) => {
-              console.log({ sucesss: resp });
-            })
-            .catch((error: Error) => {
-              console.log({ error });
-            });
-        }}
-      >
-        Send taproot transfer to multiple addresses
-      </styled.button>
-      <styled.button
-        mt={3}
-        onClick={() => {
-          console.log('requesting');
-          (window as any).LeatherProvider?.request('sendTransfer', {
-            recipients: [
-              {
-                address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
-                amount: '10000',
-              },
-              {
-                address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
-                amount: '10000',
-              },
-            ],
-          })
-            .then((resp: any) => {
-              console.log({ sucesss: resp });
-            })
-            .catch((error: Error) => {
-              console.log({ error });
-            });
-        }}
-      >
-        Send transfer validate error
-      </styled.button>
-    </Box>
+              .then((resp: any) => {
+                console.log({ sucesss: resp });
+              })
+              .catch((error: Error) => {
+                console.log({ error });
+              });
+          }}
+        >
+          Send transfer validate error
+        </styled.button>
+      </div>
+    </div>
   );
 };

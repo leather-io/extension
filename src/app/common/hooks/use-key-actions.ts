@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { generateSecretKey } from '@stacks/wallet-sdk';
 
-import { useBitcoinClient } from '@leather.io/query';
+import { useBitcoinClient, useBnsV2Client } from '@leather.io/query';
 
 import { logger } from '@shared/logger';
 import { InternalMethods } from '@shared/message-types';
@@ -13,7 +13,7 @@ import { analytics } from '@shared/utils/analytics';
 import { queryClient } from '@app/common/persistence';
 import { partiallyClearLocalStorage } from '@app/common/store-utils';
 import { useAppDispatch } from '@app/store';
-import { createNewAccount, stxChainActions } from '@app/store/chains/stx-chain.actions';
+import { createNewAccount, switchAccount } from '@app/store/chains/stx-chain.actions';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
 import { bitcoinKeysSlice } from '@app/store/ledger/bitcoin/bitcoin-key.slice';
@@ -29,11 +29,14 @@ export function useKeyActions() {
   const defaultKeyDetails = useCurrentKeyDetails();
   const btcClient = useBitcoinClient();
   const stxClient = useStacksClient();
+  const bnsV2Client = useBnsV2Client();
 
   return useMemo(
     () => ({
       async setPassword(password: string) {
-        return dispatch(keyActions.setWalletEncryptionPassword({ password, stxClient, btcClient }));
+        return dispatch(
+          keyActions.setWalletEncryptionPassword({ password, stxClient, btcClient, bnsV2Client })
+        );
       },
 
       generateWalletKey() {
@@ -51,7 +54,7 @@ export function useKeyActions() {
 
       switchAccount(accountIndex: number) {
         sendMessage({ method: InternalMethods.AccountChanged, payload: { accountIndex } });
-        return dispatch(stxChainActions.switchAccount(accountIndex));
+        return dispatch(switchAccount(accountIndex));
       },
 
       async createNewAccount() {
@@ -76,6 +79,6 @@ export function useKeyActions() {
         return dispatch(inMemoryKeyActions.lockWallet());
       },
     }),
-    [btcClient, defaultKeyDetails, dispatch, stxClient]
+    [bnsV2Client, btcClient, defaultKeyDetails, dispatch, stxClient]
   );
 }

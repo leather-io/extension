@@ -14,16 +14,16 @@ export function useGetLegacyAuthBitcoinAddresses() {
     return {
       btcAddress: {
         p2tr: {
-          mainnet: taprootAccount?.mainnet?.payment.address,
-          testnet: taprootAccount?.testnet?.payment.address,
-          regtest: taprootAccount?.regtest?.payment.address,
-          signet: taprootAccount?.signet?.payment.address,
+          mainnet: taprootAccount?.mainnet?.payment?.address,
+          testnet: taprootAccount?.testnet?.payment?.address,
+          regtest: taprootAccount?.regtest?.payment?.address,
+          signet: taprootAccount?.signet?.payment?.address,
         },
         p2wpkh: {
-          mainnet: nativeSegwitAccount?.mainnet?.payment.address,
-          testnet: nativeSegwitAccount?.testnet?.payment.address,
-          regtest: nativeSegwitAccount?.regtest?.payment.address,
-          signet: nativeSegwitAccount?.signet?.payment.address,
+          mainnet: nativeSegwitAccount?.mainnet?.payment?.address,
+          testnet: nativeSegwitAccount?.testnet?.payment?.address,
+          regtest: nativeSegwitAccount?.regtest?.payment?.address,
+          signet: nativeSegwitAccount?.signet?.payment?.address,
         },
       },
       btcPublicKey: {

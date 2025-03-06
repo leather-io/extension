@@ -1,13 +1,18 @@
 import { useMemo, useState } from 'react';
 
-import { PaymentTypes, RpcErrorCode } from '@btckit/types';
 import * as btc from '@scure/btc-signer';
 import * as bitcoin from 'bitcoinjs-lib';
 
-import { signBip322MessageSimple } from '@leather.io/bitcoin';
+import { createBitcoinAddress, signBip322MessageSimple } from '@leather.io/bitcoin';
+import { BitcoinAddress } from '@leather.io/models';
+import {
+  PaymentTypes,
+  RpcErrorCode,
+  createRpcErrorResponse,
+  createRpcSuccessResponse,
+} from '@leather.io/rpc';
 
 import { logger } from '@shared/logger';
-import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { closeWindow, createDelay } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
 
@@ -45,7 +50,7 @@ const shortPauseBeforeToast = createDelay(250);
 const allowTimeForUserToReadToast = createDelay(1200);
 
 interface SignBip322MessageFactoryArgs {
-  address: string;
+  address: BitcoinAddress;
   signPsbt(a: bitcoin.Psbt): Promise<btc.Transaction>;
 }
 function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFactoryArgs) {
@@ -66,7 +71,7 @@ function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFac
       if (!tabId) return;
       chrome.tabs.sendMessage(
         tabId,
-        makeRpcErrorResponse('signMessage', {
+        createRpcErrorResponse('signMessage', {
           id: requestId,
           error: {
             code: RpcErrorCode.USER_REJECTION,
@@ -96,7 +101,7 @@ function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFac
 
       chrome.tabs.sendMessage(
         tabId,
-        makeRpcSuccessResponse('signMessage', {
+        createRpcSuccessResponse('signMessage', {
           id: requestId,
           result: { signature, address, message },
         })
@@ -116,16 +121,16 @@ function useSignBip322MessageTaproot() {
   const currentTaprootAccount = useCurrentTaprootAccount();
   if (!currentTaprootAccount) throw new Error('No keychain for current account');
   const sign = useSignBitcoinTx();
-  const signer = createTaprootSigner(0);
+  const {
+    payment: { tapInternalKey, address },
+  } = createTaprootSigner(0);
 
   async function signPsbt(psbt: bitcoin.Psbt) {
-    psbt.data.inputs.forEach(
-      input => (input.tapInternalKey = Buffer.from(signer.payment.tapInternalKey))
-    );
+    psbt.data.inputs.forEach(input => (input.tapInternalKey = Buffer.from(tapInternalKey)));
     return sign(psbt.toBuffer());
   }
-
-  return useSignBip322MessageFactory({ address: signer.payment.address ?? '', signPsbt });
+  const signerAddress = createBitcoinAddress(address ?? '');
+  return useSignBip322MessageFactory({ address: signerAddress, signPsbt });
 }
 
 function useSignBip322MessageNativeSegwit() {
@@ -136,14 +141,16 @@ function useSignBip322MessageNativeSegwit() {
   if (!currentNativeSegwitAccount) throw new Error('No keychain for current account');
   const sign = useSignBitcoinTx();
 
-  const signer = createNativeSegwitSigner(0);
+  const {
+    payment: { address },
+  } = createNativeSegwitSigner(0);
 
   async function signPsbt(psbt: bitcoin.Psbt) {
     return sign(psbt.toBuffer());
   }
 
   return useSignBip322MessageFactory({
-    address: signer.payment.address ?? '',
+    address: createBitcoinAddress(address ?? ''),
     signPsbt,
   });
 }

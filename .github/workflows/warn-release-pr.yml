@@ -1,0 +1,32 @@
+name: Warn on Release Branch
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  warn-on-release-branch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if branch name starts with "release"
+        id: check_branch
+        run: |
+          if [[ "${{ github.head_ref }}" == release* ]]; then
+            echo "branch_is_release=true" >> $GITHUB_ENV
+          else
+            echo "branch_is_release=false" >> $GITHUB_ENV
+          fi
+
+      - name: Post warning comment
+        if: env.branch_is_release == 'true'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.LEATHER_BOT }}
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: "⚠️ **This Pull Request must be merged** not rebased </br></br> Need to update the release? Merge the change to `dev`, \`git reset --hard origin/dev` and force push the changes"
+            })

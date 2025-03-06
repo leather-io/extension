@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useConnect } from '@stacks/connect-react';
+import { useConnect } from '@stacks/connect-react-jwt';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Box, styled } from 'leather-styles/jsx';
 

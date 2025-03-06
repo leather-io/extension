@@ -1,6 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import { styled } from 'leather-styles/jsx';
+import { HStack, styled } from 'leather-styles/jsx';
 
 import type { Blockchain } from '@leather.io/models';
 import { Button, LedgerIcon } from '@leather.io/ui';
@@ -15,6 +15,7 @@ interface ConnectLedgerButtonProps {
 }
 export function ConnectLedgerButton({ chain }: ConnectLedgerButtonProps) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const onClick = () => {
     navigate(`${chain}/connect-your-ledger`, {
@@ -22,21 +23,17 @@ export function ConnectLedgerButton({ chain }: ConnectLedgerButtonProps) {
       state: {
         [immediatelyAttemptLedgerConnection]: true,
         backgroundLocation: { pathname: RouteUrls.Home },
+        fromLocation: location,
       },
     });
   };
 
   return (
-    <Button
-      display="flex"
-      alignItems="center"
-      variant="outline"
-      size="sm"
-      gap="space.02"
-      onClick={onClick}
-    >
-      <LedgerIcon />
-      <styled.span textStyle="label.02">Connect&nbsp;{capitalize(chain)}</styled.span>
+    <Button variant="outline" size="sm" onClick={onClick}>
+      <HStack>
+        <LedgerIcon />
+        <styled.span textStyle="label.02">Connect&nbsp;{capitalize(chain)}</styled.span>
+      </HStack>
     </Button>
   );
 }

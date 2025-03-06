@@ -1,11 +1,12 @@
+import { createRpcSuccessResponse, open } from '@leather.io/rpc';
+
 import { RouteUrls } from '@shared/route-urls';
-import { OpenRequest } from '@shared/rpc/methods/open';
-import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
 import { makeSearchParamsWithDefaults, triggerRequestWindowOpen } from '../messaging-utils';
-import { trackRpcRequestSuccess } from '../rpc-message-handler';
+import { trackRpcRequestSuccess } from '../rpc-helpers';
+import { defineRpcRequestHandler } from '../rpc-message-handler';
 
-export async function rpcOpen(message: OpenRequest, port: chrome.runtime.Port) {
+export const openHandler = defineRpcRequestHandler(open.method, async (message, port) => {
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['requestId', message.id]]);
 
   await triggerRequestWindowOpen(RouteUrls.Home, urlParams);
@@ -13,9 +14,9 @@ export async function rpcOpen(message: OpenRequest, port: chrome.runtime.Port) {
 
   chrome.tabs.sendMessage(
     tabId,
-    makeRpcSuccessResponse('open', {
+    createRpcSuccessResponse('open', {
       id: message.id,
       result: { message: 'Success' },
     })
   );
-}
+});

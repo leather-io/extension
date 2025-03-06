@@ -1,4 +1,5 @@
-import { PaymentTypes } from '@btckit/types';
+import { useLocation } from 'react-router-dom';
+
 import { bytesToHex } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 import { Psbt } from 'bitcoinjs-lib';
@@ -13,13 +14,13 @@ import {
 } from '@leather.io/bitcoin';
 import { extractAddressIndexFromPath } from '@leather.io/crypto';
 import { bitcoinNetworkToNetworkMode } from '@leather.io/models';
-import { isNumber, isUndefined } from '@leather.io/utils';
+import { PaymentTypes } from '@leather.io/rpc';
+import { isNumber, isString, isUndefined } from '@leather.io/utils';
 
 import {
   BitcoinInputSigningConfig,
   getAssumedZeroIndexSigningConfig,
 } from '@shared/crypto/bitcoin/signer-config';
-import { allSighashTypes } from '@shared/rpc/methods/sign-psbt';
 import { analytics } from '@shared/utils/analytics';
 
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -38,6 +39,7 @@ import {
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
+import { allSighashTypes } from './bitcoin-signer';
 import {
   useCurrentAccountNativeSegwitSigner,
   useCurrentNativeSegwitAccount,
@@ -257,6 +259,7 @@ export function useGetAssumedZeroIndexSigningConfig() {
 export function useSignBitcoinTx() {
   const { whenWallet } = useWalletType();
   const ledgerNavigate = useLedgerNavigate();
+  const location = useLocation();
   const signSoftwareTx = useSignBitcoinSoftwareTx();
   const getDefaultSigningConfig = useGetAssumedZeroIndexSigningConfig();
 
@@ -277,7 +280,11 @@ export function useSignBitcoinTx() {
         // many routes, in order to achieve a consistent API between
         // Ledger/software, we subscribe to the event that occurs when the
         // unsigned tx is signed
-        ledgerNavigate.toConnectAndSignBitcoinTransactionStep(psbt, getSigningConfig(inputsToSign));
+        ledgerNavigate.toConnectAndSignBitcoinTransactionStep(
+          psbt,
+          getSigningConfig(inputsToSign),
+          location
+        );
         return listenForBitcoinTxLedgerSigning(bytesToHex(psbt));
       },
       async software() {
@@ -287,12 +294,21 @@ export function useSignBitcoinTx() {
   };
 }
 
-export function useCurrentBitcoinAccountXpubs() {
-  const taprootAccount = useCurrentTaprootAccount();
+export function useCurrentBitcoinAccountNativeSegwitXpub() {
   const nativeSegwitAccount = useCurrentNativeSegwitAccount();
+  if (!nativeSegwitAccount) return null;
+  return `wpkh(${nativeSegwitAccount?.keychain.publicExtendedKey})`;
+}
 
-  return [
-    `wpkh(${nativeSegwitAccount?.keychain.publicExtendedKey})`,
-    `tr(${taprootAccount?.keychain.publicExtendedKey})`,
-  ];
+function useCurrentBitcoinAccountTaprootXpub() {
+  const taprootAccount = useCurrentTaprootAccount();
+  if (!taprootAccount) return null;
+  return `tr(${taprootAccount?.keychain.publicExtendedKey})`;
+}
+
+export function useCurrentBitcoinAccountXpubs() {
+  const taprootXpub = useCurrentBitcoinAccountTaprootXpub();
+  const nativeSegwitXpub = useCurrentBitcoinAccountNativeSegwitXpub();
+  // Not sure why this type cast is necessary, but thinks its string | null without
+  return [taprootXpub, nativeSegwitXpub].filter(xpub => isString(xpub)) as string[];
 }

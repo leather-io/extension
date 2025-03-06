@@ -5,11 +5,9 @@ import { RouteUrls } from '@shared/route-urls';
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { AccountGate } from '@app/routes/account-gate';
 
+import { FeeEditor } from '../../features/fee-editor/fee-editor';
 import { RpcSendTransfer } from './rpc-send-transfer';
-import { RpcSendTransferChooseFee } from './rpc-send-transfer-choose-fee';
-import { RpcSendTransferConfirmation } from './rpc-send-transfer-confirmation';
 import { RpcSendTransferContainer } from './rpc-send-transfer-container';
-import { RpcSendTransferSummary } from './rpc-send-transfer-summary';
 
 export const rpcSendTransferRoutes = (
   <Route
@@ -19,11 +17,9 @@ export const rpcSendTransferRoutes = (
       </AccountGate>
     }
   >
-    <Route path={RouteUrls.RpcSendTransfer} element={<RpcSendTransfer />} />
-    <Route path={RouteUrls.RpcSendTransferChooseFee} element={<RpcSendTransferChooseFee />}>
+    <Route path={RouteUrls.RpcSendTransfer} element={<RpcSendTransfer />}>
       {ledgerBitcoinTxSigningRoutes}
     </Route>
-    <Route path={RouteUrls.RpcSendTransferConfirmation} element={<RpcSendTransferConfirmation />} />
-    <Route path={RouteUrls.RpcSendTransferSummary} element={<RpcSendTransferSummary />} />
+    <Route path={RouteUrls.EditFee} element={<FeeEditor />} />
   </Route>
 );

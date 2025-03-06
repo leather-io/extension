@@ -1,8 +1,8 @@
-import { PaymentTypes } from '@btckit/types';
-import * as yup from 'yup';
+import { z } from 'zod';
 
-import { WalletDefaultNetworkConfigurationIds } from '@leather.io/models';
+import type { PaymentTypes } from '@leather.io/rpc';
 
+import { defaultNetworkIdSchema } from '../rpc-schemas';
 import {
   accountSchema,
   formatValidationErrors,
@@ -10,18 +10,14 @@ import {
   validateRpcParams,
 } from './validation.utils';
 
-// TODO: Import Bip322MessageTypes from btckit when updated
-type SupportedBip322MessageTypes = 'bip322';
-
-const rpcSignMessageParamsSchema = yup.object().shape({
-  type: yup.string<SupportedBip322MessageTypes>(),
-  account: accountSchema,
-  message: yup.string().required(),
-  network: yup.string().oneOf(Object.values(WalletDefaultNetworkConfigurationIds)),
-  paymentType: yup.string<PaymentTypes>(),
+const rpcSignMessageParamsSchema = z.object({
+  type: z.enum(['bip322']).optional(),
+  account: accountSchema.optional(),
+  message: z.string(),
+  network: defaultNetworkIdSchema.optional(),
+  paymentType: z.enum(['p2tr', 'p2wpkh'] as [PaymentTypes, PaymentTypes]).optional(),
 });
 
-// TODO: Import param types from btckit when updated
 export function validateRpcSignMessageParams(obj: unknown) {
   return validateRpcParams(obj, rpcSignMessageParamsSchema);
 }

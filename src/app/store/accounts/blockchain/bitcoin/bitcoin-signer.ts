@@ -2,9 +2,11 @@ import { useCallback } from 'react';
 
 import { HDKey, Versions } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
+import { SigHash } from '@scure/btc-signer';
 
 import {
   BitcoinAccount,
+  BitcoinSigner,
   deriveAddressIndexKeychainFromAccount,
   makeNativeSegwitAddressIndexDerivationPath,
   makeTaprootAddressIndexDerivationPath,
@@ -12,20 +14,28 @@ import {
 } from '@leather.io/bitcoin';
 import type { BitcoinNetworkModes } from '@leather.io/models';
 
-import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
-
 import { useBitcoinExtendedPublicKeyVersions } from './bitcoin-keychain';
 
-export interface Signer<Payment> {
-  network: BitcoinNetworkModes;
-  payment: Payment;
-  keychain: HDKey;
-  derivationPath: string;
-  address: string;
-  publicKey: Uint8Array;
-  sign(tx: btc.Transaction): void;
-  signIndex(tx: btc.Transaction, index: number, allowedSighash?: AllowedSighashTypes[]): void;
+enum SignatureHash {
+  DEFAULT = 0x00,
+  ALL = 0x01,
+  NONE = 0x02,
+  SINGLE = 0x03,
+  ALL_ANYONECANPAY = 0x81,
+  NONE_ANYONECANPAY = 0x82,
+  SINGLE_ANYONECANPAY = 0x83,
 }
+export const allSighashTypes = [
+  SigHash.DEFAULT,
+  SignatureHash.ALL,
+  SignatureHash.NONE,
+  SignatureHash.SINGLE,
+  SigHash.ALL_ANYONECANPAY,
+  SignatureHash.ALL_ANYONECANPAY,
+  SignatureHash.NONE_ANYONECANPAY,
+  SignatureHash.SINGLE_ANYONECANPAY,
+];
+type AllowedSighashTypes = SignatureHash | SigHash;
 
 interface MakeBitcoinSignerArgs {
   keychain: HDKey;
@@ -67,7 +77,7 @@ export function bitcoinAddressIndexSignerFactory<T extends BitcoinAddressIndexSi
   args: T
 ) {
   const { accountIndex, network, paymentFn, accountKeychain, extendedPublicKeyVersions } = args;
-  return (addressIndex: number): Signer<ReturnType<T['paymentFn']>> => {
+  return (addressIndex: number): BitcoinSigner<ReturnType<T['paymentFn']>> => {
     const addressIndexKeychain =
       deriveAddressIndexKeychainFromAccount(accountKeychain)(addressIndex);
 

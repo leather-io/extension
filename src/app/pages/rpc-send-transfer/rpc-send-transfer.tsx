@@ -1,34 +1,91 @@
-import BigNumber from 'bignumber.js';
+import { useMemo } from 'react';
+import { Outlet } from 'react-router-dom';
 
-import { Button } from '@leather.io/ui';
-import { createMoney, formatMoneyPadded } from '@leather.io/utils';
+import { Box } from 'leather-styles/jsx';
 
-import { InfoCardFooter } from '@app/components/info-card/info-card';
+import { Approver } from '@leather.io/ui';
+import { baseCurrencyAmountInQuote, i18nFormatCurrency, sumMoney } from '@leather.io/utils';
+
+import { analytics } from '@shared/utils/analytics';
+
+import { focusTabAndWindow } from '@app/common/focus-tab';
+import { ApproveBitcoinTransactionSwitchAccount } from '@app/components/approve-transaction/approve-bitcoin-transaction-switch-account';
+import { ApproveTransactionError } from '@app/components/approve-transaction/approve-transaction-error';
+import { ApproveTransactionHeader } from '@app/components/approve-transaction/approve-transaction-header';
+import { ApproveTransactionRecipients } from '@app/components/approve-transaction/approve-transaction-recipients';
+import { ApproveTransactionActionsTitle } from '@app/components/approve-transaction/approve-transaction-title';
+import { ApproveTransactionWrapper } from '@app/components/approve-transaction/approve-transaction-wrapper';
+import { BackgroundOverlay } from '@app/components/loading-overlay';
+import { FeeEditor } from '@app/features/fee-editor/fee-editor';
+import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
-import { SendTransferDetails } from './components/send-transfer-details';
-import { SendTransferHeader } from './components/send-transfer-header';
-import { useRpcSendTransfer } from './use-rpc-send-transfer';
+import { useRpcSendTransferContext } from './rpc-send-transfer.context';
+import { useRpcSendTransferActions } from './use-rpc-send-transfer-actions';
 
 export function RpcSendTransfer() {
-  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const { recipients, recipientsAddresses, totalAmount, onChooseTransferFee, origin } =
-    useRpcSendTransfer();
-  const amountAsMoney = createMoney(new BigNumber(totalAmount), 'BTC');
-  const formattedMoney = formatMoneyPadded(amountAsMoney);
+  const { availableBalance, isLoadingFees, marketData, selectedFee } = useFeeEditorContext();
+  const {
+    recipients,
+    recipientAddresses,
+    amount,
+    origin,
+    isLoading,
+    tabId,
+    onUserActivatesFeeEditor,
+    onUserActivatesSwitchAccount,
+  } = useRpcSendTransferContext();
 
-  useBreakOnNonCompliantEntity(recipientsAddresses);
+  useBreakOnNonCompliantEntity(recipientAddresses);
+
+  const isInsufficientBalance = availableBalance.amount.isLessThan(amount.amount);
+  const { approverActions, isBroadcasting, isSubmitted } = useRpcSendTransferActions();
+  const showOverlay = isBroadcasting || isSubmitted;
+
+  const totalFiatValue = useMemo(() => {
+    const fee = selectedFee?.feeValue;
+    if (!fee) return '';
+    return i18nFormatCurrency(baseCurrencyAmountInQuote(sumMoney([amount, fee]), marketData));
+  }, [amount, marketData, selectedFee?.feeValue]);
 
   return (
     <>
-      <SendTransferHeader amount={formattedMoney} origin={origin} />
-      <SendTransferDetails recipients={recipients} currentAddress={nativeSegwitSigner.address} />
-      <InfoCardFooter>
-        <Button borderRadius="sm" flexGrow={1} onClick={onChooseTransferFee}>
-          Continue
-        </Button>
-      </InfoCardFooter>
+      <ApproveTransactionWrapper showOverlay={showOverlay}>
+        <Approver requester={origin} width="100%">
+          <Box position="relative">
+            <BackgroundOverlay show={showOverlay} />
+            <ApproveTransactionHeader
+              title="Send Bitcoin"
+              href="https://leather.io/guides/connect-dapps"
+              onPressRequestedByLink={e => {
+                e.preventDefault();
+                void analytics.track('user_clicked_requested_by_link', {
+                  endpoint: 'sendTransfer',
+                });
+                focusTabAndWindow(tabId);
+              }}
+            />
+            <ApproveBitcoinTransactionSwitchAccount
+              toggleSwitchAccount={onUserActivatesSwitchAccount}
+            />
+            <ApproveTransactionRecipients recipients={recipients} />
+            <FeeEditor.Trigger
+              isLoading={isLoadingFees}
+              marketData={marketData}
+              onEditFee={onUserActivatesFeeEditor}
+              selectedFee={selectedFee}
+            />
+          </Box>
+          <Approver.Actions actions={approverActions}>
+            <ApproveTransactionActionsTitle amount={totalFiatValue} isLoading={isLoading} />
+            <ApproveTransactionError
+              isLoading={isLoading}
+              isInsufficientBalance={isInsufficientBalance}
+            />
+          </Approver.Actions>
+        </Approver>
+      </ApproveTransactionWrapper>
+      <Outlet />
     </>
   );
 }

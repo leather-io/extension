@@ -44,7 +44,6 @@ export function StacksCommonSendForm({
   amountField,
   selectedAssetField,
   fees,
-
   availableTokenBalance,
 }: StacksCommonSendFormProps) {
   const navigate = useNavigate();
@@ -71,7 +70,6 @@ export function StacksCommonSendForm({
                       <Button
                         aria-busy={props.isValidating}
                         data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
-                        onClick={() => props.handleSubmit()}
                         type="submit"
                         fullWidth
                       >

@@ -12,10 +12,17 @@ import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-tra
 import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
 import { RpcSignPsbtSummary } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt-summary';
 import { RpcStacksMessageSigning } from '@app/pages/rpc-sign-stacks-message/rpc-sign-stacks-message';
-import { RpcSignStacksTransaction } from '@app/pages/rpc-sign-stacks-transaction/rpc-sign-stacks-transaction';
+import { RpcStxCallContract } from '@app/pages/rpc-stx-call-contract/rpc-stx-call-contract';
+import { RpcStxDeployContract } from '@app/pages/rpc-stx-deploy-contract/rpc-stx-deploy-contract';
+import { RpcStxSignTransaction } from '@app/pages/rpc-stx-sign-transaction/rpc-stx-sign-transaction';
+import { RpcStxTransferSip9Nft } from '@app/pages/rpc-stx-transfer-sip9-nft/rpc-stx-transfer-sip9-nft';
+import { RpcStxTransferSip10Ft } from '@app/pages/rpc-stx-transfer-sip10-ft/rpc-stx-transfer-sip10-ft';
+import { RpcStxTransferStx } from '@app/pages/rpc-stx-transfer-stx/rpc-stx-transfer-stx';
 import { AccountGate } from '@app/routes/account-gate';
 
 import { SuspenseLoadingSpinner } from './app-routes';
+
+const editNonceSheetRoute = <Route path={RouteUrls.EditNonce} element={<EditNonceSheet />} />;
 
 export const rpcRequestRoutes = (
   <>
@@ -27,7 +34,9 @@ export const rpcRequestRoutes = (
         </AccountGate>
       }
     />
+
     {rpcSendTransferRoutes}
+
     <Route
       path={RouteUrls.RpcSignBip322Message}
       lazy={async () => {
@@ -71,15 +80,75 @@ export const rpcRequestRoutes = (
     </Route>
 
     <Route
-      path={RouteUrls.RpcSignStacksTransaction}
+      path={RouteUrls.RpcStxSignTransaction}
       element={
         <AccountGate>
-          <RpcSignStacksTransaction />
+          <RpcStxSignTransaction />
         </AccountGate>
       }
     >
+      {editNonceSheetRoute}
       {ledgerStacksTxSigningRoutes}
-      <Route path={RouteUrls.EditNonce} element={<EditNonceSheet />} />
+    </Route>
+
+    <Route
+      path={RouteUrls.RpcStxCallContract}
+      element={
+        <AccountGate>
+          <RpcStxCallContract />
+        </AccountGate>
+      }
+    >
+      {editNonceSheetRoute}
+      {ledgerStacksTxSigningRoutes}
+    </Route>
+
+    <Route
+      path={RouteUrls.RpcStxDeployContract}
+      element={
+        <AccountGate>
+          <RpcStxDeployContract />
+        </AccountGate>
+      }
+    >
+      {editNonceSheetRoute}
+      {ledgerStacksTxSigningRoutes}
+    </Route>
+
+    <Route
+      path={RouteUrls.RpcStxTransferStx}
+      element={
+        <AccountGate>
+          <RpcStxTransferStx />
+        </AccountGate>
+      }
+    >
+      {editNonceSheetRoute}
+      {ledgerStacksTxSigningRoutes}
+    </Route>
+
+    <Route
+      path={RouteUrls.RpcStxTransferSip9Nft}
+      element={
+        <AccountGate>
+          <RpcStxTransferSip9Nft />
+        </AccountGate>
+      }
+    >
+      {editNonceSheetRoute}
+      {ledgerStacksTxSigningRoutes}
+    </Route>
+
+    <Route
+      path={RouteUrls.RpcStxTransferSip10Ft}
+      element={
+        <AccountGate>
+          <RpcStxTransferSip10Ft />
+        </AccountGate>
+      }
+    >
+      {editNonceSheetRoute}
+      {ledgerStacksTxSigningRoutes}
     </Route>
   </>
 );

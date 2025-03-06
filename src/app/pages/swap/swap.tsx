@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { useFormikContext } from 'formik';
@@ -7,46 +6,21 @@ import { useFormikContext } from 'formik';
 import { Button } from '@leather.io/ui';
 import { isUndefined } from '@leather.io/utils';
 
+import type { SwapFormValues } from '@shared/models/form.model';
+
 import { Card } from '@app/components/layout';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 
 import { SwapAssetSelectBase } from './components/swap-asset-select/swap-asset-select-base';
 import { SwapAssetSelectQuote } from './components/swap-asset-select/swap-asset-select-quote';
-import { SwapFormValues } from './hooks/use-swap-form';
-import { useSwapContext } from './swap.context';
+import { useSwapRouteParams } from './hooks/use-swap-route-params';
+import { type BaseSwapContext, useSwapContext } from './swap.context';
 
-export function Swap() {
-  const {
-    isFetchingExchangeRate,
-    isPreparingSwapReview,
-    swappableAssetsBase,
-    swappableAssetsQuote,
-  } = useSwapContext();
-  const { dirty, isValid, setFieldValue, values, validateForm } =
-    useFormikContext<SwapFormValues>();
-  const { base, quote } = useParams();
+export function Swap<T extends BaseSwapContext<T>>() {
+  const { isFetchingExchangeRate, isPreparingSwapReview } = useSwapContext<T>();
+  const { dirty, isValid, values } = useFormikContext<SwapFormValues>();
 
-  useEffect(() => {
-    if (base)
-      void setFieldValue(
-        'swapAssetBase',
-        swappableAssetsBase.find(asset => asset.name === base)
-      );
-    if (quote)
-      void setFieldValue(
-        'swapAssetQuote',
-        swappableAssetsQuote.find(asset => asset.name === quote)
-      );
-    void validateForm();
-  }, [
-    base,
-    quote,
-    setFieldValue,
-    swappableAssetsBase,
-    swappableAssetsQuote,
-    validateForm,
-    values.swapAssetBase,
-  ]);
+  useSwapRouteParams();
 
   if (isUndefined(values.swapAssetBase)) return <LoadingSpinner height="300px" />;
 
@@ -67,7 +41,6 @@ export function Swap() {
     >
       <SwapAssetSelectBase />
       <SwapAssetSelectQuote />
-
       <Outlet />
     </Card>
   );

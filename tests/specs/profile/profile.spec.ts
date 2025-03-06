@@ -3,6 +3,8 @@ import { TestAppPage } from '@tests/page-object-models/test-app.page';
 import { UpdateProfileRequestPage } from '@tests/page-object-models/update-profile-request.page';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 
+import { delay } from '@leather.io/utils';
+
 import { test } from '../../fixtures/fixtures';
 
 test.describe.configure({ mode: 'serial' });
@@ -20,7 +22,8 @@ test.describe('Profile updating', () => {
     const newPagePromise = context.waitForEvent('page');
     await testAppPage.page.getByTestId(OnboardingSelectors.SignUpBtn).click();
     const accountsPage = await newPagePromise;
-    await accountsPage.getByTestId('switch-account-item-0').click({ force: true });
+    await delay(2000);
+    await accountsPage.getByRole('button').getByText('Confirm').click({ force: true });
     await testAppPage.page.bringToFront();
     await testAppPage.page.click('text=Profile', {
       timeout: 30000,
@@ -51,7 +54,10 @@ test.describe('Gaia profile request', () => {
     const newPagePromise = context.waitForEvent('page');
     await testAppPage.page.getByTestId(OnboardingSelectors.SignUpBtn).click();
     const accountsPage = await newPagePromise;
+    await delay(2000);
+    await accountsPage.getByTestId('switch-account-item-0').click({ force: true });
     await accountsPage.getByTestId('switch-account-item-1').click({ force: true });
+    await accountsPage.getByRole('button').getByText('Confirm').click({ force: true });
     await testAppPage.page.bringToFront();
     await testAppPage.page.click('text=Profile', {
       timeout: 30000,
@@ -81,10 +87,10 @@ test.describe('Gaia profile request', () => {
     await profileUpdatingPage.clickUpdateProfileButton();
 
     const request = await requestPromise;
-    const requestBody = request.postDataBuffer();
+    const requestBody = request.postData();
     if (!requestBody) return;
 
-    const { decodedToken } = JSON.parse(requestBody.toString())[0];
+    const { decodedToken } = JSON.parse(requestBody)[0];
     test.expect(decodedToken).toBeDefined();
 
     test.expect(decodedToken?.header?.alg).toEqual('ES256K');

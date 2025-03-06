@@ -1,10 +1,12 @@
-import { ChainID } from '@stacks/transactions';
+import { ChainId } from '@stacks/network';
 
 import {
   BITCOIN_API_BASE_URL_MAINNET,
   BITCOIN_API_BASE_URL_TESTNET3,
+  type BitcoinNetwork,
   type NetworkConfiguration,
   bitcoinNetworkToNetworkMode,
+  bitcoinNetworks,
 } from '@leather.io/models';
 
 import { PersistedNetworkConfiguration } from './networks.slice';
@@ -33,7 +35,7 @@ export function findMatchingNetworkKey({
     const network = networks[key];
     return (
       network.chain.stacks.url === coreApiUrl ||
-      network.chain.stacks.chainId === (Number(networkChainId) as ChainID)
+      network.chain.stacks.chainId === (Number(networkChainId) as ChainId)
     );
   });
   if (chainIdMatch) return chainIdMatch;
@@ -45,7 +47,7 @@ function checkBitcoinNetworkProperties(
   network: PersistedNetworkConfiguration
 ): PersistedNetworkConfiguration {
   if (!network.bitcoinNetwork || !network.bitcoinUrl) {
-    const bitcoinNetwork = network.chainId === ChainID.Mainnet ? 'mainnet' : 'testnet3';
+    const bitcoinNetwork = network.chainId === ChainId.Mainnet ? 'mainnet' : 'testnet3';
     return {
       id: network.id,
       name: network.name,
@@ -55,13 +57,17 @@ function checkBitcoinNetworkProperties(
       bitcoinNetwork,
       mode: bitcoinNetworkToNetworkMode(bitcoinNetwork),
       bitcoinUrl:
-        network.chainId === ChainID.Mainnet
+        network.chainId === ChainId.Mainnet
           ? BITCOIN_API_BASE_URL_MAINNET
           : BITCOIN_API_BASE_URL_TESTNET3,
     };
   } else {
     return network;
   }
+}
+
+function isValidBitcoinNetwork(network: string): network is BitcoinNetwork {
+  return bitcoinNetworks.includes(network as BitcoinNetwork);
 }
 
 export function transformNetworkStateToMultichainStucture(
@@ -82,14 +88,16 @@ export function transformNetworkStateToMultichainStucture(
             chain: {
               stacks: {
                 blockchain: 'stacks',
-                url: url,
+                url,
                 chainId,
                 subnetChainId,
               },
               bitcoin: {
                 blockchain: 'bitcoin',
-                bitcoinNetwork: bitcoinNetwork ?? 'testnet',
-                mode: bitcoinNetworkToNetworkMode(bitcoinNetwork ?? 'testnet'),
+                bitcoinNetwork: isValidBitcoinNetwork(bitcoinNetwork) ? bitcoinNetwork : 'testnet4',
+                mode: isValidBitcoinNetwork(bitcoinNetwork)
+                  ? bitcoinNetworkToNetworkMode(bitcoinNetwork)
+                  : 'testnet',
                 bitcoinUrl: bitcoinUrl ?? BITCOIN_API_BASE_URL_TESTNET3,
               },
             },

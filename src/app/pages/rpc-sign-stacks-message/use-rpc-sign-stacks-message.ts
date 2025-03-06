@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
-import { RpcErrorCode } from '@btckit/types';
-import { StacksNetwork } from '@stacks/network';
+import { networkFromName } from '@stacks/network';
 import { deserializeCV } from '@stacks/transactions';
 
-import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
+import { RpcErrorCode, createRpcErrorResponse, createRpcSuccessResponse } from '@leather.io/rpc';
+
 import {
   isSignableMessageType,
   isStructuredMessageType,
@@ -28,7 +28,7 @@ function getNetwork(networkName: string | null) {
     networkName === 'devnet' ||
     networkName === 'mocknet'
   ) {
-    return StacksNetwork.fromName(networkName);
+    return networkFromName(networkName);
   }
   return;
 }
@@ -44,13 +44,14 @@ export function useRpcStacksMessagePayload() {
       appName,
     } satisfies Utf8Payload;
   }
+
   if (isStructuredMessageType(messageType)) {
     if (!domain) return null;
 
     return {
       messageType: 'structured' as const,
-      message: deserializeCV(Buffer.from(message, 'hex')),
-      domain: deserializeCV(Buffer.from(domain, 'hex')),
+      message: deserializeCV(message),
+      domain: deserializeCV(domain),
       network: getNetwork(network),
       appName,
     } satisfies StructuredPayload;
@@ -93,9 +94,12 @@ export function useRpcSignStacksMessage() {
     onSignMessageCompleted(messageSignature) {
       chrome.tabs.sendMessage(
         tabId,
-        makeRpcSuccessResponse('stx_signMessage', {
+        createRpcSuccessResponse('stx_signMessage', {
           id: requestId,
-          result: { signature: messageSignature.signature },
+          result: {
+            signature: messageSignature.signature,
+            publicKey: messageSignature.publicKey,
+          },
         })
       );
       closeWindow();
@@ -108,7 +112,7 @@ export function useRpcSignStacksMessage() {
     void analytics.track('request_signature_cancel');
     chrome.tabs.sendMessage(
       tabId,
-      makeRpcErrorResponse('stx_signMessage', {
+      createRpcErrorResponse('stx_signMessage', {
         id: requestId,
         error: {
           message: 'User denied signing',

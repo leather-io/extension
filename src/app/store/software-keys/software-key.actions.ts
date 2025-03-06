@@ -2,8 +2,9 @@ import { AddressVersion } from '@stacks/transactions';
 
 import {
   type BitcoinClient,
+  type BnsV2Client,
+  BnsV2QueryPrefixes,
   type StacksClient,
-  StacksQueryPrefixes,
   fetchNamesForAddress,
 } from '@leather.io/query';
 
@@ -13,7 +14,6 @@ import { defaultWalletKeyId } from '@shared/utils';
 import { identifyUser } from '@shared/utils/analytics';
 
 import { recurseAccountsForActivity } from '@app/common/account-restoration/account-restore';
-import { checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex } from '@app/common/account-restoration/legacy-gaia-config-lookup';
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
 import { queryClient } from '@app/common/persistence';
 import { AppThunk } from '@app/store';
@@ -21,6 +21,7 @@ import { initalizeWalletSession } from '@app/store/session-restore';
 
 import { getNativeSegwitMainnetAddressFromMnemonic } from '../accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { getStacksAddressByIndex } from '../accounts/blockchain/stacks/stacks-keychain';
+import { initializeIndexZeroAccount } from '../chains/stx-chain.actions';
 import { stxChainSlice } from '../chains/stx-chain.slice';
 import { selectDefaultWalletKey } from '../in-memory-key/in-memory-key.selectors';
 import { inMemoryKeySlice } from '../in-memory-key/in-memory-key.slice';
@@ -31,8 +32,9 @@ function setWalletEncryptionPassword(args: {
   password: string;
   stxClient: StacksClient;
   btcClient: BitcoinClient;
+  bnsV2Client: BnsV2Client;
 }): AppThunk {
-  const { password, stxClient, btcClient } = args;
+  const { password, stxClient, btcClient, bnsV2Client } = args;
 
   return async (dispatch, getState) => {
     const secretKey = selectDefaultWalletKey(getState());
@@ -45,9 +47,6 @@ function setWalletEncryptionPassword(args: {
 
     await initalizeWalletSession(encryptionKey);
 
-    const legacyAccountActivityLookup =
-      await checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex(secretKey);
-
     async function doesStacksAddressHaveBalance(address: string) {
       const controller = new AbortController();
       const resp = await stxClient.getAccountBalance(address, controller.signal);
@@ -57,11 +56,12 @@ function setWalletEncryptionPassword(args: {
     async function doesStacksAddressHaveBnsName(address: string) {
       const controller = new AbortController();
       const resp = await fetchNamesForAddress({
-        address,
+        client: bnsV2Client,
+        address: address,
         network: 'mainnet',
         signal: controller.signal,
       });
-      queryClient.setQueryData([StacksQueryPrefixes.GetBnsNamesByAddress, address], resp);
+      queryClient.setQueryData([BnsV2QueryPrefixes.GetBnsNamesByAddress, address], resp);
       return resp.names.length > 0;
     }
 
@@ -77,6 +77,8 @@ function setWalletEncryptionPassword(args: {
     // and the user shouldn't have to wait before being directed to homepage.
     logger.info('Initiating recursive account activity lookup');
     try {
+      const start = performance.now();
+
       void recurseAccountsForActivity({
         async doesAddressHaveActivityFn(index) {
           const stxAddress = getStacksAddressByIndex(
@@ -92,9 +94,12 @@ function setWalletEncryptionPassword(args: {
           return hasStxBalance || hasNames || hasBtcBalance;
         },
       }).then(recursiveActivityIndex => {
-        if (recursiveActivityIndex <= legacyAccountActivityLookup) return;
-        logger.info('Found account activity at higher index', { recursiveActivityIndex });
         dispatch(stxChainSlice.actions.restoreAccountIndex(recursiveActivityIndex));
+        const end = performance.now();
+        logger.info('Found account activity at higher index', {
+          recursiveActivityIndex,
+          time: (end - start) / 1000 + ' seconds',
+        });
       });
     } catch (e) {
       // Errors during account restore are non-critical and can fail silently
@@ -108,8 +113,7 @@ function setWalletEncryptionPassword(args: {
         encryptedSecretKey,
       })
     );
-    if (legacyAccountActivityLookup !== 0)
-      dispatch(stxChainSlice.actions.restoreAccountIndex(legacyAccountActivityLookup));
+    dispatch(initializeIndexZeroAccount());
   };
 }
 

@@ -1,8 +1,7 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { bytesToHex } from '@stacks/common';
-import { StacksTransaction } from '@stacks/transactions';
+import { StacksTransactionWire } from '@stacks/transactions';
 import { AxiosError } from 'axios';
 
 import type { UtxoResponseItem } from '@leather.io/query';
@@ -19,7 +18,7 @@ interface ConfirmationRouteState {
 interface ConfirmationRouteStacksSip10Args {
   decimals?: number;
   name?: string;
-  tx: StacksTransaction;
+  tx: StacksTransactionWire;
 }
 
 interface ConfirmationRouteBtcArgs {
@@ -36,16 +35,12 @@ export function useSendFormNavigate() {
 
   return useMemo(
     () => ({
-      backToSendForm(state: any) {
-        return navigate('../', { relative: 'path', replace: true, state });
-      },
       toChooseTransactionFee(
         isSendingMax: boolean,
         utxos: UtxoResponseItem[],
         values: BitcoinSendFormValues
       ) {
         return navigate(RouteUrls.SendBtcChooseFee, {
-          replace: true,
           state: {
             isSendingMax,
             utxos,
@@ -70,11 +65,10 @@ export function useSendFormNavigate() {
           } as ConfirmationRouteState,
         });
       },
-      toConfirmAndSignStxTransaction(tx: StacksTransaction, showFeeChangeWarning: boolean) {
+      toConfirmAndSignStxTransaction(tx: StacksTransactionWire, showFeeChangeWarning: boolean) {
         return navigate(RouteUrls.SendStxConfirmation, {
-          replace: true,
           state: {
-            tx: bytesToHex(tx.serialize()),
+            tx: tx.serialize(),
             showFeeChangeWarning,
           } as ConfirmationRouteState,
         });
@@ -88,7 +82,7 @@ export function useSendFormNavigate() {
           state: {
             decimals,
             token: name,
-            tx: bytesToHex(tx.serialize()),
+            tx: tx.serialize(),
           } as ConfirmationRouteState,
         });
       },

@@ -4,27 +4,42 @@ import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { ChevronDownIcon, Link, SkeletonLoader, shimmerStyles } from '@leather.io/ui';
+import {
+  ChevronDownIcon,
+  Flag,
+  InfoCircleIcon,
+  Link,
+  SkeletonLoader,
+  shimmerStyles,
+} from '@leather.io/ui';
 
+import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
 import { useScaleText } from '@app/common/hooks/use-scale-text';
 import { AccountNameLayout } from '@app/components/account/account-name';
 import { PrivateTextLayout } from '@app/components/privacy/private-text.layout';
 
+import { BasicTooltip } from '../tooltip/basic-tooltip';
+
+const availableBalanceTooltipLabel =
+  'Total balance minus locked amounts, outbound transfers, protected collectibles and uneconomical UTXOs';
+
 interface AccountCardProps {
   name: string;
-  balance: string;
+  availableBalance: string;
+  totalBalance: string;
   children: ReactNode;
-  toggleSwitchAccount(): void;
   isFetchingBnsName: boolean;
   isLoadingBalance: boolean;
   isLoadingAdditionalData?: boolean;
   isBalancePrivate?: boolean;
+  toggleSwitchAccount(): void;
   onShowBalance?(): void;
 }
 
 export function AccountCard({
   name,
-  balance,
+  availableBalance,
+  totalBalance,
   toggleSwitchAccount,
   onShowBalance,
   children,
@@ -34,6 +49,8 @@ export function AccountCard({
   isBalancePrivate,
 }: AccountCardProps) {
   const scaleTextRef = useScaleText();
+  const isAtLeastMd = useViewportMinWidth('md');
+  const tooltipSide = isAtLeastMd ? 'right' : 'bottom';
 
   return (
     <Flex
@@ -69,7 +86,7 @@ export function AccountCard({
       </Flex>
       <Flex flexDir={{ base: 'column', md: 'row' }} justify="space-between">
         <Box mb="space.05" mt="space.04">
-          <SkeletonLoader width="200px" height="38px" isLoading={isLoadingBalance}>
+          <SkeletonLoader width="200px" height="46px" isLoading={isLoadingBalance}>
             <styled.h1
               textStyle="heading.02"
               data-state={isLoadingAdditionalData ? 'loading' : undefined}
@@ -89,9 +106,25 @@ export function AccountCard({
                 display="inline-block"
                 overflow="hidden"
               >
-                {balance}
+                {totalBalance}
               </PrivateTextLayout>
             </styled.h1>
+            <styled.h2 textStyle="label.02" color="ink.text-subdued" mt="space.01">
+              Available balance:
+              <styled.span ml="space.01">
+                <BasicTooltip side={tooltipSide} label={availableBalanceTooltipLabel}>
+                  <Flag
+                    reverse
+                    spacing="space.01"
+                    img={
+                      <InfoCircleIcon color="ink.text-subdued" display="inline" variant="small" />
+                    }
+                  >
+                    {availableBalance}
+                  </Flag>
+                </BasicTooltip>
+              </styled.span>
+            </styled.h2>
           </SkeletonLoader>
         </Box>
         {children}

@@ -45,6 +45,10 @@ const selectCurrentTaprootAccount = createSelector(
   (taprootKeychain, accountIndex) => taprootKeychain(accountIndex)
 );
 
+export function useGenerateTaprootAccount() {
+  return useSelector(selectCurrentNetworkTaprootAccountBuilder);
+}
+
 export function useTaprootAccount(accountIndex: number) {
   const generateTaprootAccount = useSelector(selectCurrentNetworkTaprootAccountBuilder);
   return useMemo(

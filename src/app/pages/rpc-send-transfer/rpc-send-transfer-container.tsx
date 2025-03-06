@@ -1,40 +1,59 @@
-import { useState } from 'react';
-import { Outlet, useOutletContext } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
-import { Flex } from 'leather-styles/jsx';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 
-import type { BtcFeeType } from '@leather.io/models';
+import { RouteUrls } from '@shared/route-urls';
 
-import { closeWindow } from '@shared/utils';
+import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
+import { BitcoinUtxosLoader } from '@app/components/loaders/bitcoin-utxos-loader';
+import { BitcoinFeeEditorProvider } from '@app/features/fee-editor/bitcoin/bitcoin-fee-editor.provider';
+import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 
-import { PopupHeader } from '@app/features/container/headers/popup.header';
-
+import { type RpcSendTransferContext, RpcSendTransferProvider } from './rpc-send-transfer.context';
 import { useRpcSendTransfer } from './use-rpc-send-transfer';
 
-interface RpcSendTransferContextState {
-  selectedFeeType: BtcFeeType;
-  setSelectedFeeType(value: BtcFeeType | null): void;
-}
-export function useRpcSendTransferState() {
-  const context = useOutletContext<RpcSendTransferContextState>();
-  return { ...context };
-}
-
 export function RpcSendTransferContainer() {
-  const [selectedFeeType, setSelectedFeeType] = useState<BtcFeeType | null>(null);
-  const { origin } = useRpcSendTransfer();
+  const sendTransferState = useRpcSendTransfer();
+  const { toggleSwitchAccount } = useSwitchAccountSheet();
+  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
+  const btcBalance = useCurrentBtcCryptoAssetBalanceNativeSegwit();
+  const navigate = useNavigate();
 
-  if (origin === null) {
-    closeWindow();
-    throw new Error('Origin is null');
-  }
+  const { recipients, amount } = sendTransferState;
+
+  const rpcSendTransferContext: RpcSendTransferContext = {
+    isLoading: btcBalance.isLoadingAllData,
+    onUserActivatesFeeEditor: () => navigate(RouteUrls.EditFee),
+    onUserActivatesSwitchAccount: toggleSwitchAccount,
+    utxos: [],
+    ...sendTransferState,
+  };
 
   return (
-    <>
-      <PopupHeader showSwitchAccount balance="all" />
-      <Flex alignItems="center" flexDirection="column" p="space.05" width="100%">
-        <Outlet context={{ selectedFeeType, setSelectedFeeType }} />
-      </Flex>
-    </>
+    <BitcoinUtxosLoader>
+      {utxos => (
+        <BitcoinFeeEditorProvider
+          amount={amount}
+          availableBalance={btcBalance.balance.availableBalance}
+          isSendingMax={false}
+          marketData={btcMarketData}
+          onGoBack={() => navigate(RouteUrls.RpcSendTransfer)}
+          recipients={recipients}
+          utxos={utxos}
+        >
+          <RpcSendTransferProvider
+            value={{
+              ...rpcSendTransferContext,
+              isLoading: btcBalance.isLoadingAllData,
+              onUserActivatesFeeEditor: () => navigate(RouteUrls.EditFee),
+              onUserActivatesSwitchAccount: toggleSwitchAccount,
+              utxos,
+            }}
+          >
+            <Outlet />
+          </RpcSendTransferProvider>
+        </BitcoinFeeEditorProvider>
+      )}
+    </BitcoinUtxosLoader>
   );
 }

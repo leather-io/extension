@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
 
 import { Title } from '@leather.io/ui';
-import { spamFilter } from '@leather.io/utils';
 
 import { useOnResizeListener } from '@app/common/hooks/use-on-resize-listener';
+import { useSpamFilterWithWhitelist } from '@app/common/spam-filter/use-spam-filter';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface TransactionTitleProps {
@@ -17,6 +17,8 @@ export function TransactionTitle(props: TransactionTitleProps) {
     element?.scrollWidth > element?.clientWidth
   );
   const onResize = () => setIsEllipsisActive(element?.scrollWidth > element?.clientWidth);
+
+  const spamFilter = useSpamFilterWithWhitelist();
 
   useOnResizeListener(onResize);
 

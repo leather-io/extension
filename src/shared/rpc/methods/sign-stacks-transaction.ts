@@ -1,36 +1,11 @@
-import { DefineRpcMethod, RpcRequest, RpcResponse } from '@btckit/types';
-import { StacksNetworks } from '@stacks/network';
-import * as yup from 'yup';
+import { stxSignTransaction } from '@leather.io/rpc';
 
 import { formatValidationErrors, getRpcParamErrors, validateRpcParams } from './validation.utils';
 
-const rpcSignStacksTransactionParamsSchema = yup.object().shape({
-  stxAddress: yup.string(),
-  txHex: yup.string().required(),
-  attachment: yup.string(),
-  network: yup.string().oneOf(StacksNetworks),
-});
-
 export function validateRpcSignStacksTransactionParams(obj: unknown) {
-  return validateRpcParams(obj, rpcSignStacksTransactionParamsSchema);
+  return validateRpcParams(obj, stxSignTransaction.params);
 }
 
 export function getRpcSignStacksTransactionParamErrors(obj: unknown) {
-  return formatValidationErrors(getRpcParamErrors(obj, rpcSignStacksTransactionParamsSchema));
+  return formatValidationErrors(getRpcParamErrors(obj, stxSignTransaction.params));
 }
-
-type SignStacksTransactionRequestParams = yup.InferType<
-  typeof rpcSignStacksTransactionParamsSchema
->;
-
-export type SignStacksTransactionRequest = RpcRequest<
-  'stx_signTransaction',
-  SignStacksTransactionRequestParams
->;
-
-type SignStacksTransactionResponse = RpcResponse<{ txHex: string }>;
-
-export type SignStacksTransaction = DefineRpcMethod<
-  SignStacksTransactionRequest,
-  SignStacksTransactionResponse
->;

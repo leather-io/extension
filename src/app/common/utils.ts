@@ -1,5 +1,3 @@
-import { hexToBytes } from '@stacks/common';
-import { BytesReader, PostCondition, deserializePostCondition } from '@stacks/transactions';
 import { toUnicode } from 'punycode';
 
 import { KEBAB_REGEX } from '@leather.io/constants';
@@ -28,10 +26,9 @@ export function makeStacksTxExplorerLink({
   txid,
   isNakamoto = false,
 }: MakeStacksTxExplorerLinkArgs) {
+  if (mode === 'regtest') return 'http://localhost:8000/txid/' + txid;
   searchParams.append('chain', mode);
-  if (isNakamoto) {
-    searchParams.append('api', HIRO_API_BASE_URL_NAKAMOTO_TESTNET);
-  }
+  if (isNakamoto) searchParams.append('api', HIRO_API_BASE_URL_NAKAMOTO_TESTNET);
   return `${HIRO_EXPLORER_URL}/txid/${txid}?${searchParams.toString()}`;
 }
 
@@ -103,11 +100,6 @@ export function getTicker(value: string) {
     name = `${getLetters(name, 3)}`;
   }
   return name.toUpperCase();
-}
-
-export function postConditionFromString(postCondition: string): PostCondition {
-  const reader = new BytesReader(hexToBytes(postCondition));
-  return deserializePostCondition(reader);
 }
 
 function isUtf8(buf?: Buffer | Uint8Array): boolean {
@@ -193,7 +185,7 @@ function cleanHex(hexWithMaybePrefix: string): string {
     : hexWithMaybePrefix;
 }
 
-export function hexToBuff(hex: string): Buffer {
+function hexToBuff(hex: string): Buffer {
   return Buffer.from(cleanHex(hex), 'hex');
 }
 
@@ -203,18 +195,6 @@ export function hexToHumanReadable(hex: string) {
   if (isUtf8(buff)) return buff.toString('utf8');
   return `0x${hex}`;
 }
-
-export const slugify = (...args: (string | number)[]): string => {
-  const value = args.join(' ');
-
-  return value
-    .normalize('NFD') // split an accented letter in the base letter and the accent
-    .replace(/[\u0300-\u036f]/g, '') // remove all previously split accents
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9 ]/g, '') // remove all chars not letters, numbers and spaces (to be replaced)
-    .replace(/\s+/g, '-'); // separator
-};
 
 export function getUrlHostname(url: string) {
   return new URL(url).hostname;
@@ -231,14 +211,6 @@ export function addPortSuffix(url: string) {
 
 export function with0x(value: string): string {
   return !value.startsWith('0x') ? `0x${value}` : value;
-}
-
-export function getPrincipalFromContractId(identifier: string) {
-  return identifier.split('::')[0];
-}
-
-export function formatContractId(address: string, name: string) {
-  return `${address}.${name}`;
 }
 
 export function doesBrowserSupportWebUsbApi() {

@@ -3,22 +3,20 @@ import { HStack } from 'leather-styles/jsx';
 import { BulletSeparator, Caption } from '@leather.io/ui';
 import { truncateMiddle } from '@leather.io/utils';
 
-import { BitcoinNativeSegwitAccountLoader } from '../loaders/bitcoin-account-loader';
-import { StacksAccountLoader } from '../loaders/stacks-account-loader';
+import { useBitcoinNativeSegwitAccountLoader } from '../loaders/bitcoin-account-loader';
+import { useStacksAccountLoader } from '../loaders/stacks-account-loader';
 
 interface AccountAddressesProps {
   index: number;
 }
-export function AcccountAddresses({ index }: AccountAddressesProps) {
+export function AccountAddresses({ index }: AccountAddressesProps) {
+  const account = useStacksAccountLoader({ index });
+  const signer = useBitcoinNativeSegwitAccountLoader({ index });
   return (
     <HStack alignItems="center" gap="space.02" whiteSpace="nowrap">
       <BulletSeparator>
-        <StacksAccountLoader index={index}>
-          {account => <Caption>{truncateMiddle(account.address, 4)}</Caption>}
-        </StacksAccountLoader>
-        <BitcoinNativeSegwitAccountLoader index={index}>
-          {signer => <Caption>{truncateMiddle(signer.address, 4)}</Caption>}
-        </BitcoinNativeSegwitAccountLoader>
+        {account ? <Caption>{truncateMiddle(account.address, 4)}</Caption> : null}
+        {signer ? <Caption>{truncateMiddle(signer.address, 4)}</Caption> : null}
       </BulletSeparator>
     </HStack>
   );

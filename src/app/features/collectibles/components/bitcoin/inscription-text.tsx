@@ -5,12 +5,12 @@ import { OrdinalAvatarIcon } from '@leather.io/ui';
 
 import { parseJson } from '@app/components/json';
 
-import { CollectibleText } from '../_collectible-types/collectible-text';
+import { CollectibleText } from '../../../../components/collectibles/collectible-text';
 
 interface InscriptionTextProps {
   contentSrc: string;
   inscriptionNumber: number;
-  onClickCallToAction(): void;
+  onClickCallToAction?(): void;
   onClickSend(): void;
 }
 export function InscriptionText({

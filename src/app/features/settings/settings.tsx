@@ -7,6 +7,8 @@ import { Flex, Stack, styled } from 'leather-styles/jsx';
 
 import {
   ArrowsRepeatLeftRightIcon,
+  BellAlarmIcon,
+  BellIcon,
   Caption,
   DropdownMenu,
   ExitIcon,
@@ -39,10 +41,17 @@ import { SignOut } from '@app/features/settings/sign-out/sign-out-confirm';
 import { ThemeSheet } from '@app/features/settings/theme/theme-dialog';
 import { useLedgerDeviceTargetId } from '@app/store/ledger/ledger.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
-import { useTogglePrivateMode } from '@app/store/settings/settings.actions';
-import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
+import {
+  useToggleNotificationsEnabled,
+  useTogglePrivateMode,
+} from '@app/store/settings/settings.actions';
+import {
+  useIsNotificationsEnabled,
+  useIsPrivateMode,
+} from '@app/store/settings/settings.selectors';
 
 import { extractDeviceNameFromKnownTargetIds } from '../ledger/utils/generic-ledger-utils';
+import { useToast } from '../toasts/use-toast';
 import { AdvancedMenuItems } from './components/advanced-menu-items';
 import { LedgerDeviceItemRow } from './components/ledger-item-row';
 
@@ -73,9 +82,14 @@ export function Settings({
   const isPrivateMode = useIsPrivateMode();
   const togglePrivateMode = useTogglePrivateMode();
 
+  const isNotificationsEnabled = useIsNotificationsEnabled();
+  const toggleNotificationsEnabled = useToggleNotificationsEnabled();
+
   const location = useLocation();
 
   const { isPressed: showAdvancedMenuOptions } = useModifierKey('alt', 120);
+
+  const toast = useToast();
 
   const bottomGroupItems = useMemo(
     () =>
@@ -206,6 +220,22 @@ export function Settings({
                 <Flag img={isPrivateMode ? <Eye1ClosedIcon /> : <Eye1Icon />}>
                   <Flex justifyContent="space-between" textStyle="label.02">
                     Toggle privacy
+                  </Flex>
+                </Flag>
+              </DropdownMenu.Item>
+
+              <DropdownMenu.Item
+                data-testid={SettingsSelectors.ToggleNotifications}
+                onSelect={() => {
+                  toggleNotificationsEnabled();
+                  toast.info(
+                    isNotificationsEnabled ? 'Notifications disabled' : 'Notifications enabled'
+                  );
+                }}
+              >
+                <Flag img={isNotificationsEnabled ? <BellAlarmIcon /> : <BellIcon />}>
+                  <Flex justifyContent="space-between" textStyle="label.02">
+                    Toggle notifications
                   </Flex>
                 </Flag>
               </DropdownMenu.Item>

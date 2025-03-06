@@ -1,6 +1,6 @@
 import { useIsFetching } from '@tanstack/react-query';
 
-import { BitcoinQueryPrefixes, StacksQueryPrefixes } from '@leather.io/query';
+import { BitcoinQueryPrefixes, BnsV2QueryPrefixes, StacksQueryPrefixes } from '@leather.io/query';
 import { sumNumbers } from '@leather.io/utils';
 
 function areAnyQueriesFetching(...args: number[]) {
@@ -16,7 +16,7 @@ export function useIsFetchingCollectiblesRelatedQuery() {
   const n5 = useIsFetching({ queryKey: [BitcoinQueryPrefixes.GetInscriptions] });
 
   // BNS
-  const n6 = useIsFetching({ queryKey: [StacksQueryPrefixes.GetBnsNamesByAddress] });
+  const n6 = useIsFetching({ queryKey: [BnsV2QueryPrefixes.GetBnsNamesByAddress] });
 
   // NFTs
   const n7 = useIsFetching({ queryKey: [StacksQueryPrefixes.GetNftMetadata] });
