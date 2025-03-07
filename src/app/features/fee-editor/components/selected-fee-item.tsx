@@ -32,8 +32,7 @@ export function SelectedFeeItem({
   });
   return (
     <Approver.Section>
-      <Approver.Subheader>Fee</Approver.Subheader>
-      <Pressable onClick={onEditFee} mb="space.02">
+      <Pressable onClick={onEditFee} my="space.02">
         <ItemLayout
           img={<FeeItemIcon feeType={selectedFee.type} />}
           titleLeft={titleLeft}

@@ -1,5 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import type { StacksTransactionWire } from '@stacks/transactions';
+
 import {
   useCryptoCurrencyMarketDataMeanAverage,
   useStxCryptoAssetBalance,
@@ -8,29 +10,32 @@ import { stxCallContract } from '@leather.io/rpc';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { useRpcSip30BroadcastTransaction } from '@app/common/rpc/use-rpc-sip30-broadcast-transaction';
+import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 import { StacksNonceLoader } from '@app/components/loaders/stacks-nonce-loader';
 import { StacksFeeEditorProvider } from '@app/features/fee-editor/stacks/stacks-fee-editor.provider';
-import { NonceEditorProvider } from '@app/features/nonce-editor/nonce-editor.context';
+import { NonceEditorProvider } from '@app/features/nonce-editor/nonce-editor.provider';
+import { RpcRequestProvider } from '@app/features/rpc-request/rpc-request-provider';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-import { RpcCallContractProvider } from './rpc-stx-call-contract.context';
+import { useRpcStxCallContract } from './use-rpc-stx-call-contract';
+
+export interface RpcCallContractRequest {
+  unsignedTx: StacksTransactionWire;
+}
 
 export function RpcStxCallContractContainer() {
   const navigate = useNavigate();
   const stxMarketData = useCryptoCurrencyMarketDataMeanAverage('STX');
   const stxAddress = useCurrentStacksAccountAddress();
-  const { filteredBalanceQuery } = useStxCryptoAssetBalance(stxAddress);
+  const { isLoadingAdditionalData, filteredBalanceQuery } = useStxCryptoAssetBalance(stxAddress);
   const availableBalance = filteredBalanceQuery.data?.availableUnlockedBalance;
-  const { onSignStacksTransaction, stacksTransaction, txSender } = useRpcSip30BroadcastTransaction(
-    stxCallContract.method
-  );
+  const { unsignedTx } = useRpcStxCallContract();
 
-  useBreakOnNonCompliantEntity(txSender);
+  useBreakOnNonCompliantEntity(unsignedTx && getTxSenderAddress(unsignedTx));
 
   // Handle these better?
-  if (!availableBalance || !stacksTransaction) return null;
+  if (!availableBalance || !unsignedTx) return null;
 
   return (
     <StacksNonceLoader>
@@ -39,18 +44,19 @@ export function RpcStxCallContractContainer() {
           availableBalance={availableBalance}
           marketData={stxMarketData}
           onGoBack={() => navigate(RouteUrls.RpcStxCallContract)}
-          unsignedTx={stacksTransaction}
+          unsignedTx={unsignedTx}
         >
-          <NonceEditorProvider value={{ nonce }}>
-            <RpcCallContractProvider
-              value={{
-                unsignedTx: stacksTransaction,
-                onSignStacksTransaction,
-                onUserActivatesFeeEditor: () => navigate(RouteUrls.EditFee),
-              }}
+          <NonceEditorProvider
+            nonce={nonce}
+            onGoBack={() => navigate(RouteUrls.RpcStxCallContract)}
+          >
+            <RpcRequestProvider<RpcCallContractRequest>
+              isLoading={isLoadingAdditionalData}
+              method={stxCallContract.method}
+              requestData={{ unsignedTx }}
             >
               <Outlet />
-            </RpcCallContractProvider>
+            </RpcRequestProvider>
           </NonceEditorProvider>
         </StacksFeeEditorProvider>
       )}

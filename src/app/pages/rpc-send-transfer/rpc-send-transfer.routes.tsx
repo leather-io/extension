@@ -20,6 +20,6 @@ export const rpcSendTransferRoutes = (
     <Route path={RouteUrls.RpcSendTransfer} element={<RpcSendTransfer />}>
       {ledgerBitcoinTxSigningRoutes}
     </Route>
-    <Route path={RouteUrls.EditFee} element={<FeeEditor />} />
+    <Route path={RouteUrls.FeeEditor} element={<FeeEditor />} />
   </Route>
 );

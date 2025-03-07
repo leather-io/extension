@@ -1,51 +1,92 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
-import {
-  useCryptoCurrencyMarketDataMeanAverage,
-  useStxCryptoAssetBalance,
-} from '@leather.io/query';
+import { Box } from 'leather-styles/jsx';
+
 import { stxCallContract } from '@leather.io/rpc';
+import { Approver } from '@leather.io/ui';
+import { baseCurrencyAmountInQuote, i18nFormatCurrency } from '@leather.io/utils';
 
-import { RouteUrls } from '@shared/route-urls';
+import { closeWindow } from '@shared/utils';
 
-import { useRpcSip30BroadcastTransaction } from '@app/common/rpc/use-rpc-sip30-broadcast-transaction';
-import { StacksFeeEditorProvider } from '@app/features/fee-editor/stacks/stacks-fee-editor.provider';
-import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
-import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useRpcBroadcastStacksTransaction } from '@app/common/rpc/use-rpc-broadcast-stacks-transaction';
+import { ApproveTransactionError } from '@app/components/approve-transaction/approve-transaction-error';
+import { ApproveTransactionHeader } from '@app/components/approve-transaction/approve-transaction-header';
+import { ApproveTransactionActionsTitle } from '@app/components/approve-transaction/approve-transaction-title';
+import { ApproveTransactionWrapper } from '@app/components/approve-transaction/approve-transaction-wrapper';
+import { getApproveTransactionActions } from '@app/components/approve-transaction/get-approve-transaction-actions';
+import { BackgroundOverlay } from '@app/components/loading-overlay';
+import { FeeEditor } from '@app/features/fee-editor/fee-editor';
+import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
+import { NonceEditor } from '@app/features/nonce-editor/nonce-editor';
+import { useNonceEditorContext } from '@app/features/nonce-editor/nonce-editor.context';
+import { useRpcRequestContext } from '@app/features/rpc-request/rpc-request.context';
+import { useUiState } from '@app/store/ui/ui.slice';
 
-import { RpcCallContractProvider } from './rpc-stx-call-contract.context';
+import type { RpcCallContractRequest } from './rpc-stx-call-contract-container';
 
 export function RpcStxCallContract() {
-  const navigate = useNavigate();
-  const stxMarketData = useCryptoCurrencyMarketDataMeanAverage('STX');
-  const stxAddress = useCurrentStacksAccountAddress();
-  const { filteredBalanceQuery } = useStxCryptoAssetBalance(stxAddress);
-  const availableBalance = filteredBalanceQuery.data?.availableUnlockedBalance;
-  const { onSignStacksTransaction, stacksTransaction, txSender } = useRpcSip30BroadcastTransaction(
-    stxCallContract.method
+  const { availableBalance, isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
+    useFeeEditorContext();
+  const { nonce, onUserActivatesNonceEditor } = useNonceEditorContext();
+  const { isLoadingData, origin, onClickRequestedByLink, rpcRequest } =
+    useRpcRequestContext<RpcCallContractRequest>();
+  const broadcastTransaction = useRpcBroadcastStacksTransaction(stxCallContract.method);
+  const { isBroadcasting, isSubmitted } = useUiState();
+
+  const showOverlay = isBroadcasting || isSubmitted;
+  const isInsufficientBalance = !!(
+    selectedFee.feeValue && availableBalance.amount.isLessThan(selectedFee.feeValue.amount)
   );
 
-  useBreakOnNonCompliantEntity(txSender);
-
-  // Use a balance loader?
-  if (!availableBalance) return null;
-
   return (
-    <StacksFeeEditorProvider
-      availableBalance={availableBalance}
-      marketData={stxMarketData}
-      onGoBack={() => navigate(RouteUrls.RpcStxCallContract)}
-      unsignedTx={stacksTransaction}
-    >
-      <RpcCallContractProvider
-        value={{
-          unsignedTx: stacksTransaction,
-          onSignStacksTransaction,
-          onUserActivatesFeeEditor: () => navigate(RouteUrls.EditFee),
-        }}
-      >
-        <Outlet />
-      </RpcCallContractProvider>
-    </StacksFeeEditorProvider>
+    <>
+      <ApproveTransactionWrapper showOverlay={showOverlay}>
+        <Approver requester={origin} width="100%">
+          <Box position="relative">
+            <BackgroundOverlay show={showOverlay} />
+            <ApproveTransactionHeader
+              title="Sign Transaction"
+              href="https://leather.io/guides/connect-dapps"
+              onPressRequestedByLink={e => {
+                e.preventDefault();
+                onClickRequestedByLink();
+              }}
+            />
+            <FeeEditor.Trigger
+              isLoading={isLoadingFees}
+              marketData={marketData}
+              onEditFee={onUserActivatesFeeEditor}
+              selectedFee={selectedFee}
+            />
+            <NonceEditor.Trigger nonce={nonce} onEditNonce={onUserActivatesNonceEditor} />
+          </Box>
+          <Approver.Actions
+            actions={getApproveTransactionActions({
+              isBroadcasting,
+              isSubmitted,
+              isInsufficientBalance,
+              isLoading: isLoadingData,
+              onApprove: () =>
+                broadcastTransaction(rpcRequest.unsignedTx, { fee: selectedFee.feeValue, nonce }),
+              onCancel: () => closeWindow(),
+            })}
+          >
+            <ApproveTransactionActionsTitle
+              amount={
+                selectedFee.feeValue !== null
+                  ? i18nFormatCurrency(baseCurrencyAmountInQuote(selectedFee.feeValue, marketData))
+                  : ''
+              }
+              isLoading={isLoadingData}
+            />
+            <ApproveTransactionError
+              isLoading={isLoadingData}
+              isInsufficientBalance={isInsufficientBalance}
+            />
+          </Approver.Actions>
+        </Approver>
+      </ApproveTransactionWrapper>
+      <Outlet />
+    </>
   );
 }

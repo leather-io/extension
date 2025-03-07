@@ -24,15 +24,15 @@ import { useRpcSendTransferContext } from './rpc-send-transfer.context';
 import { useRpcSendTransferActions } from './use-rpc-send-transfer-actions';
 
 export function RpcSendTransfer() {
-  const { availableBalance, isLoadingFees, marketData, selectedFee } = useFeeEditorContext();
+  const { availableBalance, isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
+    useFeeEditorContext();
   const {
     recipients,
     recipientAddresses,
     amount,
     origin,
-    isLoading,
+    isLoadingBalance,
     tabId,
-    onUserActivatesFeeEditor,
     onUserActivatesSwitchAccount,
   } = useRpcSendTransferContext();
 
@@ -77,9 +77,9 @@ export function RpcSendTransfer() {
             />
           </Box>
           <Approver.Actions actions={approverActions}>
-            <ApproveTransactionActionsTitle amount={totalFiatValue} isLoading={isLoading} />
+            <ApproveTransactionActionsTitle amount={totalFiatValue} isLoading={isLoadingBalance} />
             <ApproveTransactionError
-              isLoading={isLoading}
+              isLoading={isLoadingBalance}
               isInsufficientBalance={isInsufficientBalance}
             />
           </Approver.Actions>

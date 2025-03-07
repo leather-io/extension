@@ -6,13 +6,14 @@ import { type RpcMethodNames, createRpcSuccessResponse } from '@leather.io/rpc';
 import { isUndefined } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
+import { RpcErrorMessage } from '@shared/rpc/methods/validation.utils';
 import { closeWindow } from '@shared/utils';
-import { type TransactionPayload } from '@shared/utils/legacy-requests';
-
 import {
-  useLegacyTxPayloadFromRpcRequest,
-  useRpcRequestParams,
-} from '@app/common/rpc/use-rpc-request';
+  type TransactionPayload,
+  getLegacyTransactionPayloadFromToken,
+} from '@shared/utils/legacy-requests';
+
+import { useRpcRequestParams } from '@app/common/rpc/use-rpc-request-params';
 import {
   type GenerateUnsignedTransactionOptions,
   generateUnsignedTransaction,
@@ -24,6 +25,15 @@ import {
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
+
+import { initialSearchParams } from '../initial-search-params';
+
+// Duplicate of `useTransactionRequestState`, remove with legacy requests
+function useLegacyTxPayloadFromRpcRequest() {
+  const request = initialSearchParams.get('request');
+  if (!request) throw new Error(RpcErrorMessage.UndefinedParams);
+  return useMemo(() => getLegacyTransactionPayloadFromToken(request), [request]);
+}
 
 function useUnsignedStacksTransaction(request: TransactionPayload) {
   const account = useCurrentStacksAccount();
@@ -49,7 +59,7 @@ function useUnsignedStacksTransaction(request: TransactionPayload) {
   return tx.result;
 }
 
-export function useRpcSip30BroadcastTransaction(method: RpcMethodNames) {
+export function useLegacyRequestBroadcastTransaction(method: RpcMethodNames) {
   const { origin, requestId, tabId } = useRpcRequestParams();
   const txPayload = useLegacyTxPayloadFromRpcRequest();
   const stacksTransaction = useUnsignedStacksTransaction(txPayload);

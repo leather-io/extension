@@ -5,13 +5,13 @@ import { formatDustUsdAmounts, formatMoneyPadded, i18nFormatCurrency } from '@le
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useConvertCryptoCurrencyToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
+import { AccountBitcoinAddress } from '@app/components/account/account-bitcoin-address';
+import { AccountNameLayout } from '@app/components/account/account-name';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { AccountAvatarItem } from '@app/ui/components/account/account-avatar/account-avatar-item';
 
-import { AccountBitcoinAddress } from '../account/account-bitcoin-address';
-import { AccountNameLayout } from '../account/account-name';
 import { ApproveTransactionSwitchAccount } from './approve-transaction-switch-account';
 
 interface ApproveBitcoinTransactionSwitchAccountProps {

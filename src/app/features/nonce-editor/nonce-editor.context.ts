@@ -8,6 +8,7 @@ interface NonceEditorContext {
   onGoBack(): void;
   onSetLoadedNonce(value: Nonce): void;
   onSetNonce(value: Nonce): void;
+  onUserActivatesNonceEditor(): void;
 }
 
 export const nonceEditorContext = createContext<NonceEditorContext | null>(null);

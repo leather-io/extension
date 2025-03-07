@@ -2,6 +2,7 @@ import { Route } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { BroadcastErrorSheet } from '@app/components/broadcast-error-dialog/broadcast-error-dialog';
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { NonceEditor } from '@app/features/nonce-editor/nonce-editor';
 import { AccountGate } from '@app/routes/account-gate';
@@ -18,10 +19,11 @@ export const rpcStxCallContractRoutes = (
       </AccountGate>
     }
   >
-    <Route path={RouteUrls.RpcSendTransfer} element={<RpcStxCallContract />}>
+    <Route path={RouteUrls.RpcStxCallContract} element={<RpcStxCallContract />}>
       {ledgerBitcoinTxSigningRoutes}
     </Route>
-    <Route path={RouteUrls.EditFee} element={<FeeEditor />} />
-    <Route path={RouteUrls.EditFee} element={<NonceEditor />} />
+    <Route path={RouteUrls.FeeEditor} element={<FeeEditor />} />
+    <Route path={RouteUrls.NonceEditor} element={<NonceEditor />} />
+    <Route path={RouteUrls.BroadcastError} element={<BroadcastErrorSheet />} />
   </Route>
 );

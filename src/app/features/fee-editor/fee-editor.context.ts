@@ -32,6 +32,7 @@ interface FeeEditorContext {
   onSetCustomFeeRate(value: string | null): void;
   onSetLoadedFee(value: Fee): void;
   onSetSelectedFee(value: Fee): void;
+  onUserActivatesFeeEditor(): void;
 }
 
 export const feeEditorContext = createContext<FeeEditorContext | null>(null);

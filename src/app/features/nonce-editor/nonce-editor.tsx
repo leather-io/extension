@@ -1,4 +1,4 @@
-import { Center, Stack, styled } from 'leather-styles/jsx';
+import { Center, styled } from 'leather-styles/jsx';
 
 import { Approver, Button } from '@leather.io/ui';
 
@@ -6,11 +6,9 @@ import { useOnMount } from '@app/common/hooks/use-on-mount';
 
 import { useNonceEditorContext } from './nonce-editor.context';
 import { NonceInput } from './nonce-input';
+import { NonceItem } from './nonce-item';
 
-interface NonceEditorProps {
-  children?: React.ReactNode;
-}
-function NonceEditor({ children }: NonceEditorProps) {
+function NonceEditor() {
   const { nonce, loadedNonce, onGoBack, onSetLoadedNonce, onSetNonce } = useNonceEditorContext();
 
   useOnMount(() => {
@@ -36,7 +34,7 @@ function NonceEditor({ children }: NonceEditorProps) {
         </Center>
       </Approver.Section>
       <Approver.Section>
-        <NonceInput />
+        <NonceInput nonce={nonce} onSetNonce={onSetNonce} />
       </Approver.Section>
       <Approver.Actions
         actions={[

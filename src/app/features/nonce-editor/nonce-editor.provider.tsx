@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { RouteUrls } from '@shared/route-urls';
 
 import type { HasChildren } from '@app/common/has-children';
 
@@ -16,6 +19,8 @@ export function NonceEditorProvider({
   const [loadedNonce, setLoadedNonce] = useState<Nonce>(currentNonce);
   const [nonce, setNonce] = useState<Nonce>(currentNonce);
 
+  const navigate = useNavigate();
+
   return (
     <NonceEditorContext.Provider
       value={{
@@ -24,6 +29,7 @@ export function NonceEditorProvider({
         onGoBack,
         onSetLoadedNonce: (value: Nonce) => setLoadedNonce(value),
         onSetNonce: (value: Nonce) => setNonce(value),
+        onUserActivatesNonceEditor: () => navigate(RouteUrls.NonceEditor),
       }}
     >
       {children}

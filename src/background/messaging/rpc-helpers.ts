@@ -43,7 +43,7 @@ export async function handleRpcMessage({
       id: requestId,
       error: {
         code: RpcErrorCode.USER_REJECTION,
-        message: RpcErrorMessage.UserRejectedSigning,
+        message: RpcErrorMessage.UserRejectedRequest,
       },
     }),
   });

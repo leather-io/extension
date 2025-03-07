@@ -1,8 +1,6 @@
 import {
   ClarityVersion,
   PostConditionMode,
-  type UnsignedContractCallOptions,
-  type UnsignedContractDeployOptions,
   deserializeCV,
   makeUnsignedContractCall,
   makeUnsignedContractDeploy,
@@ -63,8 +61,7 @@ function generateUnsignedContractCallTx(args: GenerateUnsignedContractCallTxArgs
     postConditions: getPostConditions(postConditions?.map(pc => ensurePostConditionWireFormat(pc))),
     network,
     sponsored,
-    // Casting type bc `@stacks/transactions` is incorrect, not allowing PostConditionWire[]
-  } as unknown as UnsignedContractCallOptions;
+  };
   return makeUnsignedContractCall(options);
 }
 
@@ -83,7 +80,7 @@ function generateUnsignedContractDeployTx(args: GenerateUnsignedContractDeployTx
     postConditions: getPostConditions(postConditions?.map(pc => ensurePostConditionWireFormat(pc))),
     network,
     clarityVersion: ClarityVersion.Clarity3,
-  } satisfies UnsignedContractDeployOptions;
+  };
 
   return makeUnsignedContractDeploy(options);
 }

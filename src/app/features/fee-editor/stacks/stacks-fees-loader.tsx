@@ -15,8 +15,8 @@ interface StacksFeesLoaderProps {
   ): React.ReactNode;
   unsignedTx?: StacksTransactionWire;
 }
-export function StacksFeesLoader({ children }: StacksFeesLoaderProps) {
-  const { data: stxFees, isLoading } = useCalculateStacksTxFees();
+export function StacksFeesLoader({ children, unsignedTx }: StacksFeesLoaderProps) {
+  const { data: stxFees, isLoading } = useCalculateStacksTxFees(unsignedTx);
 
   const fees = useMemo<Fees | undefined>(() => {
     if (!stxFees) return;

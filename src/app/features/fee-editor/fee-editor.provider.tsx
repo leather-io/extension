@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import type { MarketData, Money } from '@leather.io/models';
+
+import { RouteUrls } from '@shared/route-urls';
 
 import type { HasChildren } from '@app/common/has-children';
 
@@ -29,6 +32,7 @@ export function FeeEditorProvider({
   const [loadedFee, setLoadedFee] = useState<Fee>(defaultFee);
   const [selectedFee, setSelectedFee] = useState<Fee>(defaultFee);
   const [customFeeRate, setCustomFeeRate] = useState<string>(defaultCustomFeeRate);
+  const navigate = useNavigate();
 
   return (
     <FeeEditorContext.Provider
@@ -45,6 +49,7 @@ export function FeeEditorProvider({
         onSetLoadedFee: (value: Fee) => setLoadedFee(value),
         onSetCustomFeeRate: (value: string) => setCustomFeeRate(value),
         onSetSelectedFee: (value: Fee) => setSelectedFee(value),
+        onUserActivatesFeeEditor: () => navigate(RouteUrls.FeeEditor),
       }}
     >
       {children}

@@ -18,7 +18,8 @@ import { useRpcSendTransferContext } from './rpc-send-transfer.context';
 
 export function useRpcSendTransferActions() {
   const { availableBalance, selectedFee } = useFeeEditorContext();
-  const { amount, isLoading, recipients, requestId, tabId, utxos } = useRpcSendTransferContext();
+  const { amount, isLoadingBalance, recipients, requestId, tabId, utxos } =
+    useRpcSendTransferContext();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isBroadcasting, setIsBroadcasting] = useState(false);
   const generateTx = useGenerateUnsignedNativeSegwitTx({ throwError: true });
@@ -86,7 +87,7 @@ export function useRpcSendTransferActions() {
     }
 
     return getApproveTransactionActions({
-      isLoading,
+      isLoading: isLoadingBalance,
       isInsufficientBalance,
       isBroadcasting,
       isSubmitted,
@@ -94,7 +95,7 @@ export function useRpcSendTransferActions() {
       onApprove,
     });
   }, [
-    isLoading,
+    isLoadingBalance,
     isInsufficientBalance,
     isBroadcasting,
     isSubmitted,
