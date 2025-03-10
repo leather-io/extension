@@ -31,13 +31,11 @@ interface UseStacksBroadcastTransactionArgs {
   actionType?: StacksTransactionActionType;
   decimals?: number;
   token: CryptoCurrency;
-  showSummaryPage?: boolean;
 }
 export function useStacksBroadcastTransaction({
   actionType,
   decimals,
   token,
-  showSummaryPage = true,
 }: UseStacksBroadcastTransactionArgs) {
   const signStacksTransaction = useSignStacksTransaction();
   const [isBroadcasting, setIsBroadcasting] = useState(false);
@@ -49,6 +47,9 @@ export function useStacksBroadcastTransaction({
 
   const isCancelTransaction = actionType === StacksTransactionActionType.Cancel;
   const isIncreaseFeeTransaction = actionType === StacksTransactionActionType.IncreaseFee;
+  const isRpcRequest = actionType === StacksTransactionActionType.RpcRequest;
+
+  const showSummaryPage = !isCancelTransaction && !isIncreaseFeeTransaction && !isRpcRequest;
 
   const broadcastTransactionFn = useSubmitTransactionCallback({
     loadingKey: LoadingKeys.SUBMIT_STACKS_TRANSACTION,
@@ -67,19 +68,13 @@ export function useStacksBroadcastTransaction({
         });
       }
       if (txId) {
-        if (isCancelTransaction || isIncreaseFeeTransaction) {
-          navigate(RouteUrls.Activity);
-          return;
-        }
-
-        if (showSummaryPage)
-          navigate(
-            RouteUrls.SentStxTxSummary.replace(':symbol', token.toLowerCase()).replace(
-              ':txId',
-              `${txId}`
-            ),
-            formSentSummaryTxState ? formSentSummaryTxState(txId, signedTx, decimals) : {}
-          );
+        navigate(
+          RouteUrls.SentStxTxSummary.replace(':symbol', token.toLowerCase()).replace(
+            ':txId',
+            `${txId}`
+          ),
+          formSentSummaryTxState ? formSentSummaryTxState(txId, signedTx, decimals) : {}
+        );
       }
     }
 
@@ -102,7 +97,8 @@ export function useStacksBroadcastTransaction({
               navigate(RouteUrls.TransactionBroadcastError, { state: { message } });
             },
             onSuccess(txId) {
-              handlePreviewSuccess(signedTx, txId);
+              if (showSummaryPage) return handlePreviewSuccess(signedTx, txId);
+              navigate(RouteUrls.Activity);
               if (isCancelTransaction) return toast.success('Transaction cancelled successfully');
               if (isIncreaseFeeTransaction) return toast.success('Fee increased successfully');
               return;
