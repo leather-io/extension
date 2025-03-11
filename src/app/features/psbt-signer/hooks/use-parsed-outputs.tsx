@@ -42,7 +42,7 @@ export function useParsedOutputs({ isPsbtMutable, outputs, network }: UseParsedO
             outputAddress === bitcoinAddressNativeSegwit || outputAddress === bitcoinAddressTaproot;
 
           return {
-            address: outputAddress,
+            address: outputAddress ?? '',
             isMutable: isPsbtMutable,
             toSign: isCurrentAddress,
             value: Number(output.amount),

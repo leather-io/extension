@@ -40,7 +40,7 @@ export function useParsedInputs({ inputs, indexesToSign }: UseParsedInputsArgs) 
     () =>
       inputs.map((input, i) => {
         const inputAddress = isDefined(input.index)
-          ? getBitcoinInputAddress(input, bitcoinNetwork)
+          ? (getBitcoinInputAddress(input, bitcoinNetwork) ?? '')
           : '';
         const isCurrentAddress =
           inputAddress === bitcoinAddressNativeSegwit || inputAddress === bitcoinAddressTaproot;
