@@ -12,7 +12,7 @@ import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/account
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
 export interface PsbtOutput {
-  address: string;
+  address: string | null;
   isMutable: boolean;
   toSign: boolean;
   value: number;
@@ -42,7 +42,7 @@ export function useParsedOutputs({ isPsbtMutable, outputs, network }: UseParsedO
             outputAddress === bitcoinAddressNativeSegwit || outputAddress === bitcoinAddressTaproot;
 
           return {
-            address: outputAddress ?? '',
+            address: outputAddress,
             isMutable: isPsbtMutable,
             toSign: isCurrentAddress,
             value: Number(output.amount),
