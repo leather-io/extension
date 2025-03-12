@@ -1,3 +1,29 @@
+## [6.65.1](https://github.com/leather-io/extension/compare/v6.65.0...v6.65.1) (2025-03-12)
+
+
+### Bug Fixes
+
+* default to port 8000 for devnet, closes [#2174](https://github.com/leather-io/extension/issues/2174) ([144e486](https://github.com/leather-io/extension/commit/144e486a9105e0452305531aa3ade3399a1366a7))
+* error during formating causing broadcast error ([06c46e4](https://github.com/leather-io/extension/commit/06c46e4da9e04b70eed1ec9055f515377e86d9f2))
+* improve copy ([6e753a5](https://github.com/leather-io/extension/commit/6e753a567dc3b9ebbbabdcd2a63740191141535b))
+* psbt null output address ([213c9f8](https://github.com/leather-io/extension/commit/213c9f8b859b7093665e1623191271763918bff2))
+* **rpc:** prevent opening on fail ([a6779ab](https://github.com/leather-io/extension/commit/a6779ab433198c41ab19f1b10a7c931d3cd525c2))
+* sip30 success response, closes [#6152](https://github.com/leather-io/extension/issues/6152) ([932d943](https://github.com/leather-io/extension/commit/932d9432db75048d8703093e5aac9be676f6c600))
+* support networks on tx calls ([5470809](https://github.com/leather-io/extension/commit/5470809754c19b12b3c2c6ac1d9ccf693335f5b7))
+* unhandled stx tx broadcast error, LEA-2203 ([e76ea3e](https://github.com/leather-io/extension/commit/e76ea3e4a409bc4c77b4c8bcb686a02ae4998daf))
+
+
+### Internal
+
+* address fee editor naming concerns ([c431de7](https://github.com/leather-io/extension/commit/c431de791de4366cac5e68375292b074eb5d763b))
+* conditional logging of tx montior events ([5953ff5](https://github.com/leather-io/extension/commit/5953ff59dac2bfbdaddf6fca072c5a90c8b045d0))
+* post-release merge back ([b0d40ad](https://github.com/leather-io/extension/commit/b0d40ad572807bd525f92a9bbddd3c2cd2e7cbe0))
+* rpc send transfer ([b9205bb](https://github.com/leather-io/extension/commit/b9205bb9b9d73327153c6eef19542b8965afb19c))
+* **rpc:** register rpc request handlers ([8e4169a](https://github.com/leather-io/extension/commit/8e4169a1fd78b349a86f6419efac468f2e165705))
+* send transfer fees to shared fee editor ([0d1ec64](https://github.com/leather-io/extension/commit/0d1ec643f316948eced90c1503112a767091c576))
+* update leather packages ([b053574](https://github.com/leather-io/extension/commit/b053574c783ba338fbe32046bf6fdc0b1a0dff6e))
+* use loaders and remove effect hooks ([f1a9a41](https://github.com/leather-io/extension/commit/f1a9a41081f6937b50161eb43384836a02dd77c5))
+
 ## [6.65.0](https://github.com/leather-io/extension/compare/v6.64.0...v6.65.0) (2025-03-03)
 
 
