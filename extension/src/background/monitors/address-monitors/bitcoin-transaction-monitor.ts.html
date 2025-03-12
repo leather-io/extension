@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/71</span>
+                <span class='fraction'>0/74</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/31</span>
+                <span class='fraction'>0/33</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/68</span>
+                <span class='fraction'>0/70</span>
             </div>
         
             
@@ -238,7 +238,13 @@
 <a name='L173'></a><a href='#L173'>173</a>
 <a name='L174'></a><a href='#L174'>174</a>
 <a name='L175'></a><a href='#L175'>175</a>
-<a name='L176'></a><a href='#L176'>176</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -250,6 +256,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -417,6 +429,7 @@
 &nbsp;
 import { isDefined } from '@leather.io/utils';
 &nbsp;
+import { DEBUG_TX_MONITOR } from '@shared/environment';
 import { logger } from '@shared/logger';
 &nbsp;
 import type { AddressMonitor, MonitoredAddress } from '../address-monitor';
@@ -426,6 +439,11 @@ import {
   readMempooWsBtcPriceUsd,
   readMempoolWsBitcoinTxAddressResult,
 } from './bitcoin-transaction-monitor/mempool-ws';
+&nbsp;
+function <span class="fstat-no" title="function not covered" >logTxMonitorEvent(m</span>essage: string, ...args: unknown[]) {
+<span class="cstat-no" title="statement not covered" >  if (!DEBUG_TX_MONITOR) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >  logger.debug(message, ...args);</span>
+}
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >createBitcoinTransactionMonitor(a</span>ddresses: MonitoredAddress[]): AddressMonitor {
   let _ws: WebSocket | null = <span class="cstat-no" title="statement not covered" >null;</span>
@@ -450,7 +468,7 @@ export function <span class="fstat-no" title="function not covered" >createBitco
 <span class="cstat-no" title="statement not covered" >        sendWsTrackAddressSubscribe();</span>
       }
     } else {
-<span class="cstat-no" title="statement not covered" >      logger.debug('Disconnecting Bitcon Tx Monitor');</span>
+<span class="cstat-no" title="statement not covered" >      logTxMonitorEvent('Disconnecting Bitcon Tx Monitor');</span>
 <span class="cstat-no" title="statement not covered" >      cleanup();</span>
     }
   }
@@ -477,7 +495,7 @@ export function <span class="fstat-no" title="function not covered" >createBitco
 &nbsp;
   function <span class="fstat-no" title="function not covered" >sendWsTrackAddressSubscribe() {</span>
     const addresses = <span class="cstat-no" title="statement not covered" >_addresses.map(<span class="fstat-no" title="function not covered" >a =&gt; <span class="cstat-no" title="statement not covered" >a</span>.address)</span>;</span>
-<span class="cstat-no" title="statement not covered" >    logger.debug(`Subscribing to ${addresses.length} Track Addresses`);</span>
+<span class="cstat-no" title="statement not covered" >    logTxMonitorEvent(`Subscribing to ${addresses.length} Track Addresses`);</span>
 <span class="cstat-no" title="statement not covered" >    _ws!.send(</span>
       JSON.stringify({
         'track-addresses': addresses,
@@ -498,14 +516,14 @@ export function <span class="fstat-no" title="function not covered" >createBitco
   }
 &nbsp;
   function <span class="fstat-no" title="function not covered" >connect() {</span>
-<span class="cstat-no" title="statement not covered" >    logger.debug('Connecting Bitcoin Tx Monitor');</span>
+<span class="cstat-no" title="statement not covered" >    logTxMonitorEvent('Connecting Bitcoin Tx Monitor');</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    cleanup();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _ws = new WebSocket('wss://leather.mempool.space/api/v1/ws');</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _ws.onopen = <span class="fstat-no" title="function not covered" >async () =&gt; {</span></span>
-<span class="cstat-no" title="statement not covered" >      logger.debug('Connected to Mempool WebSocket');</span>
+<span class="cstat-no" title="statement not covered" >      logTxMonitorEvent('Connected to Mempool WebSocket');</span>
 <span class="cstat-no" title="statement not covered" >      sendWsTrackAddressSubscribe();</span>
 <span class="cstat-no" title="statement not covered" >      startKeepAlive();</span>
 <span class="cstat-no" title="statement not covered" >      fetchBtcPrice();</span>
@@ -520,7 +538,7 @@ export function <span class="fstat-no" title="function not covered" >createBitco
     };
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _ws.onclose = <span class="fstat-no" title="function not covered" >event =&gt; {</span></span>
-<span class="cstat-no" title="statement not covered" >      logger.debug('Disconnected from Mempool WebSocket.', event.reason);</span>
+<span class="cstat-no" title="statement not covered" >      logTxMonitorEvent('Disconnected from Mempool WebSocket.', event.reason);</span>
 <span class="cstat-no" title="statement not covered" >      if (_addresses.length &gt; 0) {</span>
 <span class="cstat-no" title="statement not covered" >        setTimeout(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >          connect();</span>
@@ -536,7 +554,7 @@ export function <span class="fstat-no" title="function not covered" >createBitco
 <span class="cstat-no" title="statement not covered" >        _btcPriceUsd = readMempooWsBtcPriceUsd(res.data);</span>
       })
       .catch(<span class="fstat-no" title="function not covered" >e =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        logger.debug('Unable to fetch BTC price, ', e);</span>
+<span class="cstat-no" title="statement not covered" >        logTxMonitorEvent('Unable to fetch BTC price, ', e);</span>
       });
   }
 &nbsp;
@@ -595,7 +613,7 @@ export function <span class="fstat-no" title="function not covered" >createBitco
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-03T14:59:26.595Z
+                at 2025-03-12T14:00:32.543Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

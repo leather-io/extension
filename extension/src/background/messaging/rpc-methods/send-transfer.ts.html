@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -192,26 +192,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -224,6 +205,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -254,6 +253,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -267,11 +267,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
   RpcErrorCode,
-  type RpcRequest,
   type RpcSendTransferLegacyParams,
   type RpcSendTransferParams,
   createRpcErrorResponse,
-  type sendTransfer,
+  sendTransfer,
 } from '@leather.io/rpc';
 import { isUndefined } from '@leather.io/utils';
 &nbsp;
@@ -291,81 +290,82 @@ import {
   makeSearchParamsWithDefaults,
   triggerRequestWindowOpen,
 } from '../messaging-utils';
-import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-message-handler';
+import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
+import { defineRpcRequestHandler } from '../rpc-message-handler';
 &nbsp;
-export async function <span class="fstat-no" title="function not covered" >rpcSendTransfer(</span>
-  message: RpcRequest&lt;typeof sendTransfer&gt;,
-  port: chrome.runtime.Port
-) {
-<span class="cstat-no" title="statement not covered" >  if (isUndefined(message.params)) {</span>
-<span class="cstat-no" title="statement not covered" >    void trackRpcRequestError({ endpoint: 'sendTransfer', error: 'Undefined parameters' });</span>
+export const sendTransferHandler = <span class="cstat-no" title="statement not covered" >defineRpcRequestHandler(</span>
+  sendTransfer.method,
+<span class="fstat-no" title="function not covered" >  async (m</span>essage, port) =&gt; {
+<span class="cstat-no" title="statement not covered" >    if (isUndefined(message.params)) {</span>
+<span class="cstat-no" title="statement not covered" >      void trackRpcRequestError({ endpoint: 'sendTransfer', error: 'Undefined parameters' });</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    chrome.tabs.sendMessage(</span>
-      getTabIdFromPort(port),
-      createRpcErrorResponse('sendTransfer', {
-        id: message.id,
-        error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
-      })
-    );
-<span class="cstat-no" title="statement not covered" >    return;</span>
-  }
+<span class="cstat-no" title="statement not covered" >      chrome.tabs.sendMessage(</span>
+        getTabIdFromPort(port),
+        createRpcErrorResponse('sendTransfer', {
+          id: message.id,
+          error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
+        })
+      );
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
 &nbsp;
-  // Legacy params support for backward compatibility
-  const params = <span class="cstat-no" title="statement not covered" >validateRpcSendTransferLegacyParams(message.params)</span>
-    ? convertRpcSendTransferLegacyParamsToNew(message.params as RpcSendTransferLegacyParams)
-    : (message.params as RpcSendTransferParams);
+    // Legacy params support for backward compatibility
+    const params = <span class="cstat-no" title="statement not covered" >validateRpcSendTransferLegacyParams(message.params)</span>
+      ? convertRpcSendTransferLegacyParamsToNew(message.params as RpcSendTransferLegacyParams)
+      : (message.params as RpcSendTransferParams);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!validateRpcSendTransferParams(params)) {</span>
-<span class="cstat-no" title="statement not covered" >    void trackRpcRequestError({ endpoint: 'sendTransfer', error: 'Invalid parameters' });</span>
+<span class="cstat-no" title="statement not covered" >    if (!validateRpcSendTransferParams(params)) {</span>
+<span class="cstat-no" title="statement not covered" >      void trackRpcRequestError({ endpoint: 'sendTransfer', error: 'Invalid parameters' });</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    chrome.tabs.sendMessage(</span>
-      getTabIdFromPort(port),
-      createRpcErrorResponse('sendTransfer', {
+<span class="cstat-no" title="statement not covered" >      chrome.tabs.sendMessage(</span>
+        getTabIdFromPort(port),
+        createRpcErrorResponse('sendTransfer', {
+          id: message.id,
+          error: {
+            code: RpcErrorCode.INVALID_PARAMS,
+            message: getRpcSendTransferParamErrors(params),
+          },
+        })
+      );
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    void trackRpcRequestSuccess({ endpoint: message.method });</span>
+&nbsp;
+    const recipients: [string, string][] = <span class="cstat-no" title="statement not covered" >params.recipients.map(<span class="fstat-no" title="function not covered" >({</span> address }) =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      'recipient',
+      address,
+    ]);
+    const amounts: [string, string][] = <span class="cstat-no" title="statement not covered" >params.recipients.map(<span class="fstat-no" title="function not covered" >({</span> amount }) =&gt; <span class="cstat-no" title="statement not covered" >['amount', amount])</span>;</span>
+&nbsp;
+    const requestParams: RequestParams = <span class="cstat-no" title="statement not covered" >[</span>
+      ...recipients,
+      ...amounts,
+      ['network', params.network ?? defaultRpcSendTransferNetwork],
+      ['requestId', message.id],
+    ];
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (params.account) {</span>
+<span class="cstat-no" title="statement not covered" >      requestParams.push(['accountIndex', params.account.toString()]);</span>
+    }
+&nbsp;
+    const { urlParams, tabId } = <span class="cstat-no" title="statement not covered" >makeSearchParamsWithDefaults(port, requestParams);</span>
+&nbsp;
+    const { id } = <span class="cstat-no" title="statement not covered" >await triggerRequestWindowOpen(RouteUrls.RpcSendTransfer, urlParams);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    listenForPopupClose({</span>
+      tabId,
+      id,
+      response: createRpcErrorResponse('sendTransfer', {
         id: message.id,
         error: {
-          code: RpcErrorCode.INVALID_PARAMS,
-          message: getRpcSendTransferParamErrors(params),
+          code: RpcErrorCode.USER_REJECTION,
+          message: 'User rejected signing the transaction',
         },
-      })
-    );
-<span class="cstat-no" title="statement not covered" >    return;</span>
+      }),
+    });
   }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  void trackRpcRequestSuccess({ endpoint: message.method });</span>
-&nbsp;
-  const recipients: [string, string][] = <span class="cstat-no" title="statement not covered" >params.recipients.map(<span class="fstat-no" title="function not covered" >({</span> address }) =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
-    'recipient',
-    address,
-  ]);
-  const amounts: [string, string][] = <span class="cstat-no" title="statement not covered" >params.recipients.map(<span class="fstat-no" title="function not covered" >({</span> amount }) =&gt; <span class="cstat-no" title="statement not covered" >['amount', amount])</span>;</span>
-&nbsp;
-  const requestParams: RequestParams = <span class="cstat-no" title="statement not covered" >[</span>
-    ...recipients,
-    ...amounts,
-    ['network', params.network ?? defaultRpcSendTransferNetwork],
-    ['requestId', message.id],
-  ];
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  if (params.account) {</span>
-<span class="cstat-no" title="statement not covered" >    requestParams.push(['accountIndex', params.account.toString()]);</span>
-  }
-&nbsp;
-  const { urlParams, tabId } = <span class="cstat-no" title="statement not covered" >makeSearchParamsWithDefaults(port, requestParams);</span>
-&nbsp;
-  const { id } = <span class="cstat-no" title="statement not covered" >await triggerRequestWindowOpen(RouteUrls.RpcSendTransfer, urlParams);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  listenForPopupClose({</span>
-    tabId,
-    id,
-    response: createRpcErrorResponse('sendTransfer', {
-      id: message.id,
-      error: {
-        code: RpcErrorCode.USER_REJECTION,
-        message: 'User rejected signing the transaction',
-      },
-    }),
-  });
-}
+);
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -373,7 +373,7 @@ export async function <span class="fstat-no" title="function not covered" >rpcSe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-03T14:59:26.595Z
+                at 2025-03-12T14:00:32.543Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

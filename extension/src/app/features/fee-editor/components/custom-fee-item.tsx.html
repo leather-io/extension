@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/components/fees/custom-fee-item.tsx</title>
+    <title>Code coverage report for extension/src/app/features/fee-editor/components/custom-fee-item.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/components/fees</a> custom-fee-item.tsx</h1>
+        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/features/fee-editor/components</a> custom-fee-item.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -152,12 +152,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -201,6 +200,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -218,33 +218,32 @@ import { Stack } from 'leather-styles/jsx';
 &nbsp;
 import { Button, Input, ItemLayout } from '@leather.io/ui';
 &nbsp;
-import type { FeeItemProps } from './fee-item';
+import { type Fee, useFeeEditorContext } from '../fee-editor.context';
+import { formatFeeItem } from '../fee-editor.utils';
 import { FeeItemIcon } from './fee-item-icon';
 &nbsp;
-interface CustomFeeItemProps extends FeeItemProps {
-  fee: string | null;
-  setFee(fee: string): void;
+interface CustomFeeItemProps {
+  fee: Fee;
 }
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >CustomFeeItem({</span>
-  fee,
-  setFee,
-  feeType,
-  onSelect,
-  isSelected,
-  captionLeft,
-  titleRight,
-  captionRight,
-}: CustomFeeItemProps) {
+export function <span class="fstat-no" title="function not covered" >CustomFeeItem({</span> fee }: CustomFeeItemProps) {
   const inputRef = <span class="cstat-no" title="statement not covered" >useRef&lt;HTMLInputElement&gt;(null);</span>
+  const { customFeeRate, marketData, selectedFee, onSetCustomFeeRate, onSetSelectedFee } =
+<span class="cstat-no" title="statement not covered" >    useFeeEditorContext();</span>
+&nbsp;
+  const { captionLeft, titleRight, captionRight } = <span class="cstat-no" title="statement not covered" >formatFeeItem({</span>
+    fee,
+    marketData,
+  });
+&nbsp;
+  const isSelected = <span class="cstat-no" title="statement not covered" >selectedFee?.type === fee.type;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Button
-      onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>nSelect(feeType)}</span>
+      onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>nSetSelectedFee(fee)}</span>
       variant="outline"
       borderWidth={isSelected ? '2px' : '1px'}
       borderColor={isSelected ? 'ink.border-selected' : 'ink.border-default'}
-      // Add margin compensation when not selected to maintain consistent size
+      // Add margin compensation to maintain consistent size
       margin={isSelected ? '0px' : '1px'}
     &gt;
       &lt;ItemLayout
@@ -274,8 +273,9 @@ export function <span class="fstat-no" title="function not covered" >CustomFeeIt
               &lt;Input.Root style={{ minHeight: '40px' }}&gt;
                 &lt;Input.Field
                   ref={inputRef}
-                  onChange={<span class="fstat-no" title="function not covered" >e =&gt; <span class="cstat-no" title="statement not covered" >s</span>etFee(e.target.value)}</span>
-                  value={fee ?? ''}
+                  onChange={<span class="fstat-no" title="function not covered" >e =&gt; <span class="cstat-no" title="statement not covered" >o</span>nSetCustomFeeRate(e.target.value)}</span>
+                  placeholder="0"
+                  value={customFeeRate ?? ''}
                 /&gt;
               &lt;/Input.Root&gt;
             &lt;/Stack&gt;
@@ -292,16 +292,16 @@ export function <span class="fstat-no" title="function not covered" >CustomFeeIt
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-03T14:59:26.595Z
+                at 2025-03-12T14:00:32.543Z
             </div>
-        <script src="../../../../../prettify.js"></script>
+        <script src="../../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../../sorter.js"></script>
-        <script src="../../../../../block-navigation.js"></script>
+        <script src="../../../../../../sorter.js"></script>
+        <script src="../../../../../../block-navigation.js"></script>
     </body>
 </html>
     

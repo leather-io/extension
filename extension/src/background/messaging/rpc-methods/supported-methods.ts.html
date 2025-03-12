@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -113,12 +113,13 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -163,56 +164,58 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { type RpcRequest, createRpcSuccessResponse, supportedMethods } from '@leather.io/rpc';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createRpcSuccessResponse, supportedMethods } from '@leather.io/rpc';
 &nbsp;
 import { makeSearchParamsWithDefaults } from '../messaging-utils';
+import { defineRpcRequestHandler } from '../rpc-message-handler';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >rpcSupportedMethods(</span>
-  message: RpcRequest&lt;typeof supportedMethods&gt;,
-  port: chrome.runtime.Port
-) {
-  const { tabId } = <span class="cstat-no" title="statement not covered" >makeSearchParamsWithDefaults(port);</span>
-<span class="cstat-no" title="statement not covered" >  chrome.tabs.sendMessage(</span>
-    tabId,
-    createRpcSuccessResponse(supportedMethods.method, {
-      id: message.id,
-      result: {
-        documentation: 'https://leather.gitbook.io/developers/home/welcome',
-        methods: [
-          {
-            name: 'open',
-            docsUrl: ['https://leather.gitbook.io/developers/bitcoin/connect-users/open'],
-          },
-          {
-            name: 'getAddresses',
-            docsUrl: [
-              'https://leather.gitbook.io/developers/bitcoin/connect-users/get-addresses',
-              'https://btckit.org/docs/requests/getaddresses',
-            ],
-          },
-          {
-            name: 'signMessage',
-            docsUrl: 'https://leather.gitbook.io/developers/bitcoin/sign-messages',
-          },
-          {
-            name: 'sendTransfer',
-            docsUrl:
-              'https://leather.gitbook.io/developers/bitcoin/sign-transactions/sending-bitcoin',
-          },
-          {
-            name: 'signPsbt',
-            docsUrl:
-              'https://leather.gitbook.io/developers/bitcoin/sign-transactions/partially-signed-bitcoin-transactions-psbts',
-          },
-          {
-            name: 'openSwap',
-            docsUrl: 'https://leather.gitbook.io/developers/bitcoin/swaps/open-swap',
-          },
-        ],
-      },
-    })
-  );
-}
+export const supportedMethodsHandler = <span class="cstat-no" title="statement not covered" >defineRpcRequestHandler(</span>
+  supportedMethods.method,
+<span class="fstat-no" title="function not covered" >  (m</span>essage, port) =&gt; {
+    const { tabId } = <span class="cstat-no" title="statement not covered" >makeSearchParamsWithDefaults(port);</span>
+<span class="cstat-no" title="statement not covered" >    chrome.tabs.sendMessage(</span>
+      tabId,
+      createRpcSuccessResponse(supportedMethods.method, {
+        id: message.id,
+        result: {
+          documentation: 'https://leather.gitbook.io/developers/home/welcome',
+          methods: [
+            {
+              name: 'open',
+              docsUrl: ['https://leather.gitbook.io/developers/bitcoin/connect-users/open'],
+            },
+            {
+              name: 'getAddresses',
+              docsUrl: [
+                'https://leather.gitbook.io/developers/bitcoin/connect-users/get-addresses',
+                'https://btckit.org/docs/requests/getaddresses',
+              ],
+            },
+            {
+              name: 'signMessage',
+              docsUrl: 'https://leather.gitbook.io/developers/bitcoin/sign-messages',
+            },
+            {
+              name: 'sendTransfer',
+              docsUrl:
+                'https://leather.gitbook.io/developers/bitcoin/sign-transactions/sending-bitcoin',
+            },
+            {
+              name: 'signPsbt',
+              docsUrl:
+                'https://leather.gitbook.io/developers/bitcoin/sign-transactions/partially-signed-bitcoin-transactions-psbts',
+            },
+            {
+              name: 'openSwap',
+              docsUrl: 'https://leather.gitbook.io/developers/bitcoin/swaps/open-swap',
+            },
+          ],
+        },
+      })
+    );
+  }
+);
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -220,7 +223,7 @@ export function <span class="fstat-no" title="function not covered" >rpcSupporte
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-03T14:59:26.595Z
+                at 2025-03-12T14:00:32.543Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

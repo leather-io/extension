@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/components/fees/fee-item-icon.tsx</title>
+    <title>Code coverage report for extension/src/app/pages/rpc-send-transfer/rpc-send-transfer.context.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/components/fees</a> fee-item-icon.tsx</h1>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/pages/rpc-send-transfer</a> rpc-send-transfer.context.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -105,51 +105,51 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { ReactNode } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createContext, useContext } from 'react';
 &nbsp;
-import {
-  AnimalChameleonIcon,
-  AnimalEagleIcon,
-  AnimalRabbitIcon,
-  AnimalSnailIcon,
-} from '@leather.io/ui';
+import type { Money } from '@leather.io/models';
+import type { UtxoResponseItem } from '@leather.io/query';
 &nbsp;
-import type { FeeType } from '@app/common/fees/use-fees';
+import type { TransferRecipient } from '@shared/models/form.model';
 &nbsp;
-import { IconWrapper } from '../icon-wrapper';
+import type { RpcRequestContext } from '@app/common/rpc/use-rpc-request';
 &nbsp;
-const feeTypeToIconMap: Record&lt;FeeType, ReactNode&gt; = <span class="cstat-no" title="statement not covered" >{</span>
-  slow: &lt;AnimalSnailIcon /&gt;,
-  standard: &lt;AnimalRabbitIcon /&gt;,
-  fast: &lt;AnimalEagleIcon /&gt;,
-  custom: &lt;AnimalChameleonIcon /&gt;,
-};
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >FeeItemIcon({</span> feeType }: { feeType: FeeType }) {
-  const icon = <span class="cstat-no" title="statement not covered" >feeTypeToIconMap[feeType] || null;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!icon) {</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error('Invalid fee type');</span>
-  }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return &lt;IconWrapper&gt;{icon}&lt;/IconWrapper&gt;;</span>
+export interface RpcSendTransferContext extends RpcRequestContext {
+  amount: Money;
+  isLoading: boolean;
+  recipients: TransferRecipient[];
+  recipientAddresses: string[];
+  utxos: UtxoResponseItem[];
+  onUserActivatesFeeEditor(): void;
+  onUserActivatesSwitchAccount(): void;
 }
+&nbsp;
+const rpcSendTransferContext = <span class="cstat-no" title="statement not covered" >createContext&lt;RpcSendTransferContext | null&gt;(null);</span>
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >useRpcSendTransferContext() {</span>
+  const context = <span class="cstat-no" title="statement not covered" >useContext(rpcSendTransferContext);</span>
+<span class="cstat-no" title="statement not covered" >  if (!context)</span>
+<span class="cstat-no" title="statement not covered" >    throw new Error('`useRpcSendTransferContext` must be used within a `RpcSendTransferProvider`');</span>
+<span class="cstat-no" title="statement not covered" >  return context;</span>
+}
+&nbsp;
+export const RpcSendTransferProvider = <span class="cstat-no" title="statement not covered" >rpcSendTransferContext.Provider;</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -157,7 +157,7 @@ export function <span class="fstat-no" title="function not covered" >FeeItemIcon
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-03T14:59:26.595Z
+                at 2025-03-12T14:00:32.543Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

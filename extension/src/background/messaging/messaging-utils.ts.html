@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/55</span>
+                <span class='fraction'>0/56</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/48</span>
+                <span class='fraction'>0/49</span>
             </div>
         
             
@@ -244,7 +244,10 @@
 <a name='L179'></a><a href='#L179'>179</a>
 <a name='L180'></a><a href='#L180'>180</a>
 <a name='L181'></a><a href='#L181'>181</a>
-<a name='L182'></a><a href='#L182'>182</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -361,25 +364,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -388,6 +377,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -451,7 +457,7 @@ import {
 &nbsp;
 import { popup } from '@background/popup';
 &nbsp;
-import { trackRpcRequestError } from './rpc-message-handler';
+import { trackRpcRequestError } from './rpc-helpers';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >getTabIdFromPort(p</span>ort: chrome.runtime.Port) {
 <span class="cstat-no" title="statement not covered" >  return port.sender?.tab?.id ?? 0;</span>
@@ -528,6 +534,8 @@ export function <span class="fstat-no" title="function not covered" >encodePostC
 <span class="cstat-no" title="statement not covered" >  return postConditions.map(<span class="fstat-no" title="function not covered" >pc =&gt; <span class="cstat-no" title="statement not covered" >s</span>erializePostConditionWire(pc))</span>;</span>
 }
 &nbsp;
+type ValidationResult = 'success' | 'failure';
+&nbsp;
 interface ValidateRequestParamsArgs {
   id: string;
   method: RpcMethodNames;
@@ -541,7 +549,7 @@ export function <span class="fstat-no" title="function not covered" >validateReq
   params,
   port,
   schema,
-}: ValidateRequestParamsArgs) {
+}: ValidateRequestParamsArgs): { status: ValidationResult } {
 <span class="cstat-no" title="statement not covered" >  if (isUndefined(params)) {</span>
 <span class="cstat-no" title="statement not covered" >    void trackRpcRequestError({ endpoint: method, error: RpcErrorMessage.UndefinedParams });</span>
 <span class="cstat-no" title="statement not covered" >    chrome.tabs.sendMessage(</span>
@@ -551,7 +559,7 @@ export function <span class="fstat-no" title="function not covered" >validateReq
         error: { code: RpcErrorCode.INVALID_REQUEST, message: RpcErrorMessage.UndefinedParams },
       })
     );
-<span class="cstat-no" title="statement not covered" >    return;</span>
+<span class="cstat-no" title="statement not covered" >    return { status: 'failure' };</span>
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!validateRpcParams(params, schema)) {</span>
@@ -567,8 +575,9 @@ export function <span class="fstat-no" title="function not covered" >validateReq
         },
       })
     );
-<span class="cstat-no" title="statement not covered" >    return;</span>
+<span class="cstat-no" title="statement not covered" >    return { status: 'failure' };</span>
   }
+<span class="cstat-no" title="statement not covered" >  return { status: 'success' };</span>
 }
 &nbsp;
 type BaseStacksTransactionRpcParams = z.infer&lt;typeof baseStacksTransactionConfigSchema&gt;;
@@ -613,7 +622,7 @@ export function <span class="fstat-no" title="function not covered" >getAddressF
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-03T14:59:26.595Z
+                at 2025-03-12T14:00:32.543Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
