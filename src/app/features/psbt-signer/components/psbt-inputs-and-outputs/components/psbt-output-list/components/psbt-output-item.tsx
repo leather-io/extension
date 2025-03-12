@@ -8,9 +8,7 @@ import { PsbtInputOutputItemLayout } from '../../psbt-input-output-item.layout';
 const hoverLabel = 'Value you’ll receive after this transaction is complete.';
 
 export function PsbtOutputItem({ output }: { output: PsbtOutput }) {
-  const isUnknownAddress = output.address === 'unknown';
-
-  if (isUnknownAddress) return null;
+  if (output.address === null) return null;
 
   return (
     <PsbtInputOutputItemLayout

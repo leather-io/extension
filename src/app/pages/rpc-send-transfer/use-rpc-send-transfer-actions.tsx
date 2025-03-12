@@ -1,53 +1,32 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import type { Money } from '@leather.io/models';
-import { type UtxoResponseItem, useBitcoinBroadcastTransaction } from '@leather.io/query';
+import { useBitcoinBroadcastTransaction } from '@leather.io/query';
 import { createRpcSuccessResponse } from '@leather.io/rpc';
 
 import { logger } from '@shared/logger';
-import type { TransferRecipient } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
 
-import type { FeeDisplayInfo } from '@app/common/fees/use-fees';
 import { useGenerateUnsignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
-import { getApproveActions } from '@app/components/approve-transaction/get-approve-actions';
-import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { getApproveTransactionActions } from '@app/components/approve-transaction/get-approve-transaction-actions';
+import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 
-interface UseSendTransferApproveActionsArgs {
-  amountAsMoney: Money;
-  recipients: TransferRecipient[];
-  utxos: UtxoResponseItem[];
-  selectedFeeData: FeeDisplayInfo;
-  requestId: string;
-  tabId: number | null;
-}
+import { useRpcSendTransferContext } from './rpc-send-transfer.context';
 
-export function useSendTransferApproveActions({
-  amountAsMoney,
-  recipients,
-  utxos,
-  selectedFeeData,
-  requestId,
-  tabId,
-}: UseSendTransferApproveActionsArgs) {
-  const navigate = useNavigate();
-
+export function useRpcSendTransferActions() {
+  const { availableBalance, selectedFee } = useFeeEditorContext();
+  const { amount, isLoading, recipients, requestId, tabId, utxos } = useRpcSendTransferContext();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isBroadcasting, setIsBroadcasting] = useState(false);
   const generateTx = useGenerateUnsignedNativeSegwitTx({ throwError: true });
   const signTransaction = useSignBitcoinTx();
-  const btcBalance = useCurrentBtcCryptoAssetBalanceNativeSegwit();
   const { broadcastTx } = useBitcoinBroadcastTransaction();
+  const navigate = useNavigate();
 
-  const isLoading = btcBalance.isLoadingAllData;
-
-  const isInsufficientBalance = btcBalance.balance.availableBalance.amount.isLessThan(
-    amountAsMoney.amount
-  );
+  const isInsufficientBalance = availableBalance.amount.isLessThan(amount.amount);
 
   const approverActions = useMemo(() => {
     function onCancel() {
@@ -68,9 +47,9 @@ export function useSendTransferApproveActions({
       }
 
       try {
-        const feeRate = selectedFeeData.feeRate;
-        const resp = await generateTx({ amount: amountAsMoney, recipients }, feeRate, utxos);
-
+        const feeRate = selectedFee?.feeRate;
+        if (!feeRate) return logger.error('No fee rate to generate tx');
+        const resp = await generateTx({ amount, recipients }, feeRate, utxos);
         if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
 
         const tx = await signTransaction(resp.psbt);
@@ -84,7 +63,7 @@ export function useSendTransferApproveActions({
 
             void analytics.track('broadcast_transaction', {
               symbol: 'btc',
-              amount: amountAsMoney.amount.toNumber(),
+              amount: amount.amount.toNumber(),
             });
 
             chrome.tabs.sendMessage(
@@ -106,7 +85,7 @@ export function useSendTransferApproveActions({
       }
     }
 
-    return getApproveActions({
+    return getApproveTransactionActions({
       isLoading,
       isInsufficientBalance,
       isBroadcasting,
@@ -115,20 +94,20 @@ export function useSendTransferApproveActions({
       onApprove,
     });
   }, [
-    amountAsMoney,
-    broadcastTx,
-    generateTx,
     isLoading,
     isInsufficientBalance,
     isBroadcasting,
     isSubmitted,
     navigate,
+    selectedFee?.feeRate,
+    generateTx,
+    amount,
     recipients,
-    requestId,
-    selectedFeeData.feeRate,
-    signTransaction,
-    tabId,
     utxos,
+    signTransaction,
+    broadcastTx,
+    tabId,
+    requestId,
   ]);
 
   return {

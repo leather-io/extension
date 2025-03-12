@@ -26,10 +26,9 @@ export function makeStacksTxExplorerLink({
   txid,
   isNakamoto = false,
 }: MakeStacksTxExplorerLinkArgs) {
+  if (mode === 'regtest') return 'http://localhost:8000/txid/' + txid;
   searchParams.append('chain', mode);
-  if (isNakamoto) {
-    searchParams.append('api', HIRO_API_BASE_URL_NAKAMOTO_TESTNET);
-  }
+  if (isNakamoto) searchParams.append('api', HIRO_API_BASE_URL_NAKAMOTO_TESTNET);
   return `${HIRO_EXPLORER_URL}/txid/${txid}?${searchParams.toString()}`;
 }
 

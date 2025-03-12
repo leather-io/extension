@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { isDefined } from '@leather.io/utils';
 
+import { DEBUG_TX_MONITOR } from '@shared/environment';
 import { logger } from '@shared/logger';
 
 import type { AddressMonitor, MonitoredAddress } from '../address-monitor';
@@ -11,6 +12,11 @@ import {
   readMempooWsBtcPriceUsd,
   readMempoolWsBitcoinTxAddressResult,
 } from './bitcoin-transaction-monitor/mempool-ws';
+
+function logTxMonitorEvent(message: string, ...args: unknown[]) {
+  if (!DEBUG_TX_MONITOR) return;
+  logger.debug(message, ...args);
+}
 
 export function createBitcoinTransactionMonitor(addresses: MonitoredAddress[]): AddressMonitor {
   let _ws: WebSocket | null = null;
@@ -35,7 +41,7 @@ export function createBitcoinTransactionMonitor(addresses: MonitoredAddress[]): 
         sendWsTrackAddressSubscribe();
       }
     } else {
-      logger.debug('Disconnecting Bitcon Tx Monitor');
+      logTxMonitorEvent('Disconnecting Bitcon Tx Monitor');
       cleanup();
     }
   }
@@ -62,7 +68,7 @@ export function createBitcoinTransactionMonitor(addresses: MonitoredAddress[]): 
 
   function sendWsTrackAddressSubscribe() {
     const addresses = _addresses.map(a => a.address);
-    logger.debug(`Subscribing to ${addresses.length} Track Addresses`);
+    logTxMonitorEvent(`Subscribing to ${addresses.length} Track Addresses`);
     _ws!.send(
       JSON.stringify({
         'track-addresses': addresses,
@@ -83,14 +89,14 @@ export function createBitcoinTransactionMonitor(addresses: MonitoredAddress[]): 
   }
 
   function connect() {
-    logger.debug('Connecting Bitcoin Tx Monitor');
+    logTxMonitorEvent('Connecting Bitcoin Tx Monitor');
 
     cleanup();
 
     _ws = new WebSocket('wss://leather.mempool.space/api/v1/ws');
 
     _ws.onopen = async () => {
-      logger.debug('Connected to Mempool WebSocket');
+      logTxMonitorEvent('Connected to Mempool WebSocket');
       sendWsTrackAddressSubscribe();
       startKeepAlive();
       fetchBtcPrice();
@@ -105,7 +111,7 @@ export function createBitcoinTransactionMonitor(addresses: MonitoredAddress[]): 
     };
 
     _ws.onclose = event => {
-      logger.debug('Disconnected from Mempool WebSocket.', event.reason);
+      logTxMonitorEvent('Disconnected from Mempool WebSocket.', event.reason);
       if (_addresses.length > 0) {
         setTimeout(() => {
           connect();
@@ -121,7 +127,7 @@ export function createBitcoinTransactionMonitor(addresses: MonitoredAddress[]): 
         _btcPriceUsd = readMempooWsBtcPriceUsd(res.data);
       })
       .catch(e => {
-        logger.debug('Unable to fetch BTC price, ', e);
+        logTxMonitorEvent('Unable to fetch BTC price, ', e);
       });
   }
 

@@ -1,0 +1,24 @@
+name: PR Label Guard
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - labeled
+      - unlabeled
+
+jobs:
+  check-needs-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'PR missing information'
+        if: contains(join(github.event.pull_request.labels.*.name, ' '), 'needs:')
+        run: |
+          echo "::error::PR build failed due to unmet requirements. All labels prefixed with `needs:` should be addressed. Once the change is made and the PR is updated you may remove the label."
+          exit 1
+
+      - name: PR build passed
+        run: |
+          echo "PR build passed. All requirements met ✅"
+          exit 0

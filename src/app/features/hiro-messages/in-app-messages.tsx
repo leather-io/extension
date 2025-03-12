@@ -15,7 +15,7 @@ export function InAppMessages(props: FlexProps) {
   const location = useLocation();
   const messages = useRemoteLeatherMessages();
 
-  const { mode } = useCurrentNetworkState();
+  const { chain } = useCurrentNetworkState();
   const dismissMessage = useDismissMessage();
   const dismissedIds = useDismissedMessageIds();
 
@@ -25,7 +25,7 @@ export function InAppMessages(props: FlexProps) {
 
   if (!firstMessage) return null;
 
-  if (firstMessage.chainTarget !== 'all' && firstMessage.chainTarget !== mode) {
+  if (firstMessage.chainTarget !== 'all' && firstMessage.chainTarget !== chain.bitcoin.mode) {
     return null;
   }
 

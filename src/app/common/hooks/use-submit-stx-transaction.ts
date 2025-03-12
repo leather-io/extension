@@ -10,7 +10,6 @@ import { analytics } from '@shared/utils/analytics';
 import { getErrorMessage } from '@app/common/get-error-message';
 import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-all-account-data';
 import { useLoading } from '@app/common/hooks/use-loading';
-import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 
@@ -36,25 +35,30 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
         setIsLoading();
         try {
           const response = await broadcastTransaction({ transaction, network: stacksNetwork });
+
           if ('error' in response) {
-            logger.error('Transaction broadcast', response);
+            logger.error('Transaction failed to broadcast', response);
             if (response.reason) toast.error(getErrorMessage(response.reason));
             onError(response.error);
             return setIsIdle();
-          } else {
-            logger.info('Transaction broadcast', response);
-
-            await delay(500);
-
-            void analytics.track('broadcast_transaction', {
-              symbol: 'stx',
-            });
-            const txid = safelyFormatHexTxid(response.txid);
-            onSuccess(txid);
-            setIsIdle();
-            await refreshAccountData(timeForApiToUpdate);
-            return { txid, transaction };
           }
+
+          if (!response.txid) {
+            logger.error('Transaction failed to broadcast', response);
+            return setIsIdle();
+          }
+
+          logger.info('Transaction broadcast', response);
+
+          await delay(500);
+
+          void analytics.track('broadcast_transaction', {
+            symbol: 'stx',
+          });
+          onSuccess(response.txid);
+          setIsIdle();
+          await refreshAccountData(timeForApiToUpdate);
+          return { txid: response.txid, transaction };
         } catch (error) {
           logger.error('Transaction callback', { error });
           onError(isError(error) ? error : { name: '', message: '' });

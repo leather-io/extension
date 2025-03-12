@@ -2,32 +2,30 @@ import { useMemo } from 'react';
 
 import { type Money, btcTxTimeMap } from '@leather.io/models';
 import { type UtxoResponseItem, useAverageBitcoinFeeRates } from '@leather.io/query';
-import { isUndefined } from '@leather.io/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 
-import type { FeesRawData } from '@app/common/fees/use-fees';
+import type { Fee, Fees } from '../fee-editor.context';
+import { getApproximateFee, getBitcoinFee, getBitcoinSendMaxFee } from './bitcoin-fees.utils';
 
-import {
-  type RawFee,
-  getApproximateFee,
-  getBitcoinFee,
-  getBitcoinSendMaxFee,
-} from './bitcoin-fees.utils';
-
-interface UseBitcoinFeeDataArgs {
+interface BitcoinFeesLoaderProps {
   amount: Money;
+  children(
+    fees: Fees | undefined,
+    isLoading: boolean,
+    getCustomFee: (rate: number) => Fee
+  ): React.ReactNode;
   isSendingMax?: boolean;
   recipients: TransferRecipient[];
   utxos: UtxoResponseItem[];
 }
-
-export function useBitcoinFeeData({
+export function BitcoinFeesLoader({
   amount,
+  children,
+  isSendingMax,
   recipients,
   utxos,
-  isSendingMax,
-}: UseBitcoinFeeDataArgs) {
+}: BitcoinFeesLoaderProps) {
   const { data: feeRates, isLoading } = useAverageBitcoinFeeRates();
 
   const satAmount = amount.amount.toNumber();
@@ -40,27 +38,8 @@ export function useBitcoinFeeData({
     };
   }, [satAmount, recipients, utxos]);
 
-  function getCustomFeeData(feeRate: number): RawFee {
-    const determineUtxosForFeeArgs = {
-      ...determineUtxosDefaultArgs,
-      feeRate,
-    };
-    const fee = isSendingMax
-      ? getBitcoinSendMaxFee(determineUtxosForFeeArgs)
-      : getBitcoinFee(determineUtxosForFeeArgs);
-
-    return {
-      type: 'custom',
-      baseUnitsFeeValue: fee,
-      feeRate,
-      time: '',
-    };
-  }
-
-  const fees = useMemo<FeesRawData>(() => {
-    if (isUndefined(feeRates)) {
-      return {} as FeesRawData;
-    }
+  const fees = useMemo<Fees | undefined>(() => {
+    if (!feeRates) return;
 
     const determineUtxosForHighFeeArgs = {
       ...determineUtxosDefaultArgs,
@@ -103,28 +82,48 @@ export function useBitcoinFeeData({
     return {
       slow: {
         type: 'slow',
-        baseUnitsFeeValue: lowFee,
         feeRate: feeRates.hourFee.toNumber(),
+        feeValue: lowFee,
         time: btcTxTimeMap.hourFee,
       },
       standard: {
         type: 'standard',
-        baseUnitsFeeValue: standardFee,
         feeRate: feeRates.halfHourFee.toNumber(),
+        feeValue: standardFee,
         time: btcTxTimeMap.halfHourFee,
       },
       fast: {
         type: 'fast',
-        baseUnitsFeeValue: highFee,
         feeRate: feeRates.fastestFee.toNumber(),
+        feeValue: highFee,
         time: btcTxTimeMap.fastestFee,
       },
+      // Load custom as standard fee
+      custom: {
+        type: 'custom',
+        feeRate: feeRates.halfHourFee.toNumber(),
+        feeValue: standardFee,
+        time: '',
+      },
     };
-  }, [feeRates, recipients, utxos, determineUtxosDefaultArgs, isSendingMax]);
+  }, [feeRates, determineUtxosDefaultArgs, isSendingMax, recipients, utxos]);
 
-  return {
-    getCustomFeeData,
-    fees,
-    isLoading,
-  };
+  function getCustomFee(feeRate: number): Fee {
+    const determineUtxosForFeeArgs = {
+      ...determineUtxosDefaultArgs,
+      feeRate,
+    };
+    const feeAsMoney = isSendingMax
+      ? getBitcoinSendMaxFee(determineUtxosForFeeArgs)
+      : getBitcoinFee(determineUtxosForFeeArgs);
+
+    return {
+      type: 'custom',
+      feeRate,
+      feeValue: feeAsMoney,
+      time: '',
+    };
+  }
+
+  return children(fees, isLoading, getCustomFee);
 }

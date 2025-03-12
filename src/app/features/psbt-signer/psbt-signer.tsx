@@ -72,7 +72,7 @@ export function PsbtSigner(props: PsbtSignerProps) {
     outputs: psbtTxOutputs,
   });
 
-  useBreakOnNonCompliantEntity(psbtOutputs.map(output => output.address));
+  useBreakOnNonCompliantEntity(psbtOutputs.map(output => output.address ?? ''));
 
   const psbtSignerContext: PsbtSignerContext = {
     accountInscriptionsBeingTransferred,

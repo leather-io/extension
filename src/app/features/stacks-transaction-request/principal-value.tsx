@@ -9,13 +9,17 @@ interface PrincipalValueProps {
 }
 export function PrincipalValue(props: PrincipalValueProps) {
   const { address } = props;
-  const { mode, isNakamotoTestnet } = useCurrentNetworkState();
+  const { chain, isNakamotoTestnet } = useCurrentNetworkState();
 
   return (
     <Link
       onClick={() =>
         openInNewTab(
-          makeStacksAddressExplorerLink({ mode, address, isNakamoto: isNakamotoTestnet })
+          makeStacksAddressExplorerLink({
+            mode: chain.bitcoin.mode,
+            address,
+            isNakamoto: isNakamotoTestnet,
+          })
         )
       }
       size="sm"

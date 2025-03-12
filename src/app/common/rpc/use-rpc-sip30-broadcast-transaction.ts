@@ -17,7 +17,10 @@ import {
   type GenerateUnsignedTransactionOptions,
   generateUnsignedTransaction,
 } from '@app/common/transactions/stacks/generate-unsigned-txs';
-import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
+import {
+  StacksTransactionActionType,
+  getTxSenderAddress,
+} from '@app/common/transactions/stacks/transaction.utils';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
@@ -51,8 +54,8 @@ export function useRpcSip30BroadcastTransaction(method: RpcMethodNames) {
   const txPayload = useLegacyTxPayloadFromRpcRequest();
   const stacksTransaction = useUnsignedStacksTransaction(txPayload);
   const { stacksBroadcastTransaction } = useStacksBroadcastTransaction({
+    actionType: StacksTransactionActionType.RpcRequest,
     token: '',
-    showSummaryPage: false,
   });
 
   return useMemo(

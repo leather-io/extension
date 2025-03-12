@@ -67,7 +67,7 @@ export const rpcSendTransferParamsSchema = z
           );
           return uniqueArray(inferredNetworksByAddress).length === 1;
         },
-        { message: 'Cannot tranfer to addresses of different networks', path: ['recipients'] }
+        { message: 'Cannot transfer to addresses of different networks', path: ['recipients'] }
       ),
   })
   .refine(

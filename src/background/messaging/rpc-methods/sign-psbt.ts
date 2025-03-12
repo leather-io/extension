@@ -1,7 +1,7 @@
 import * as btc from '@scure/btc-signer';
 import { hexToBytes } from '@stacks/common';
 
-import { RpcErrorCode, type RpcRequest, createRpcErrorResponse, signPsbt } from '@leather.io/rpc';
+import { RpcErrorCode, createRpcErrorResponse, signPsbt } from '@leather.io/rpc';
 import { ensureArray, isDefined, isUndefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -18,7 +18,8 @@ import {
   makeSearchParamsWithDefaults,
   triggerRequestWindowOpen,
 } from '../messaging-utils';
-import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-message-handler';
+import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
+import { defineRpcRequestHandler } from '../rpc-message-handler';
 
 function validatePsbt(hex: string) {
   try {
@@ -36,8 +37,7 @@ function validateRpcSignPsbtParams(obj: unknown) {
 function getRpcSignPsbtParamErrors(obj: unknown) {
   return formatValidationErrors(getRpcParamErrors(obj, signPsbt.params));
 }
-
-export async function rpcSignPsbt(message: RpcRequest<typeof signPsbt>, port: chrome.runtime.Port) {
+export const signPsbtHandler = defineRpcRequestHandler(signPsbt.method, async (message, port) => {
   if (isUndefined(message.params)) {
     void trackRpcRequestError({ endpoint: message.method, error: 'Undefined parameters' });
     chrome.tabs.sendMessage(
@@ -117,4 +117,4 @@ export async function rpcSignPsbt(message: RpcRequest<typeof signPsbt>, port: ch
       },
     }),
   });
-}
+});

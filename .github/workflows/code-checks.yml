@@ -92,15 +92,6 @@ jobs:
       - name: Check exact versions
         uses: ./.github/actions/check-version-lock
 
-  audit:
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/provision
-
-      - name: Audit
-        run: pnpm audit-ci --high --skip-dev
-
   typecheck:
     runs-on: ubuntu-24.04
     steps:
@@ -131,3 +122,12 @@ jobs:
       - name: Package extension
         run: sh build-ext.sh
         shell: bash
+
+  audit-dependencies:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/provision
+
+      - name: Audit
+        run: pnpm audit-ci --high --skip-dev

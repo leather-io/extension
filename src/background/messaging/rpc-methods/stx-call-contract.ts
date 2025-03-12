@@ -1,18 +1,19 @@
 import { serializeCV } from '@stacks/transactions';
 import { createUnsecuredToken } from 'jsontokens';
 
-import { type RpcParams, type RpcRequest, stxCallContract } from '@leather.io/rpc';
+import { type RpcParams, stxCallContract } from '@leather.io/rpc';
 import { TransactionTypes, getStacksContractName } from '@leather.io/stacks';
 import { isString } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { handleRpcMessage } from '../handle-rpc-message';
 import {
   type RequestParams,
   getStxDefaultMessageParamsToTransactionRequest,
   validateRequestParams,
 } from '../messaging-utils';
+import { handleRpcMessage } from '../rpc-helpers';
+import { defineRpcRequestHandler } from '../rpc-message-handler';
 
 function getMessageParamsToTransactionRequest(params: RpcParams<typeof stxCallContract>) {
   const contractName = getStacksContractName(params.contract);
@@ -27,28 +28,30 @@ function getMessageParamsToTransactionRequest(params: RpcParams<typeof stxCallCo
     ...defaultParams,
   };
 }
+export const stxCallContractHandler = defineRpcRequestHandler(
+  stxCallContract.method,
+  async (message, port) => {
+    const { id: requestId, method, params } = message;
+    const { status } = validateRequestParams({
+      id: requestId,
+      method,
+      params,
+      port,
+      schema: stxCallContract.params,
+    });
+    if (status === 'failure') return;
+    const requestParams: RequestParams = [
+      ['requestId', requestId],
+      ['request', createUnsecuredToken(getMessageParamsToTransactionRequest(message.params))],
+    ];
+    if (params.network) requestParams.push(['network', params.network]);
 
-export async function rpcStxCallContract(
-  message: RpcRequest<typeof stxCallContract>,
-  port: chrome.runtime.Port
-) {
-  const { id: requestId, method, params } = message;
-  validateRequestParams({
-    id: requestId,
-    method,
-    params,
-    port,
-    schema: stxCallContract.params,
-  });
-  const requestParams: RequestParams = [
-    ['requestId', requestId],
-    ['request', createUnsecuredToken(getMessageParamsToTransactionRequest(message.params))],
-  ];
-  return handleRpcMessage({
-    method: message.method,
-    path: RouteUrls.RpcStxCallContract,
-    port,
-    requestParams,
-    requestId: message.id,
-  });
-}
+    return handleRpcMessage({
+      method: message.method,
+      path: RouteUrls.RpcStxCallContract,
+      port,
+      requestParams,
+      requestId: message.id,
+    });
+  }
+);

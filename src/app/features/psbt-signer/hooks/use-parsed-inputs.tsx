@@ -15,7 +15,7 @@ import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blo
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 export interface PsbtInput {
-  address: string;
+  address: string | null;
   index?: number;
   inscription?: Inscription;
   isMutable: boolean;
@@ -41,7 +41,7 @@ export function useParsedInputs({ inputs, indexesToSign }: UseParsedInputsArgs) 
       inputs.map((input, i) => {
         const inputAddress = isDefined(input.index)
           ? getBitcoinInputAddress(input, bitcoinNetwork)
-          : '';
+          : null;
         const isCurrentAddress =
           inputAddress === bitcoinAddressNativeSegwit || inputAddress === bitcoinAddressTaproot;
         // Flags when not signing ALL inputs/outputs (NONE, SINGLE, and ANYONECANPAY)
