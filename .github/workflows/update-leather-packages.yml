@@ -21,6 +21,14 @@ jobs:
         id: update-packages
         run: echo output=$(pnpm update "@leather.io/*" --latest | grep -v '^Progress') >> $GITHUB_OUTPUT
 
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.LEATHER_BOT_GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.LEATHER_BOT_GPG_PASSPHRASE }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
@@ -30,6 +38,7 @@ jobs:
           title: '[bot] ci: update npm packages'
           committer: 'leather-bot <leather-bot@users.noreply.github.com>'
           author: 'leather-bot <leather-bot@users.noreply.github.com>'
+          signoff: true
           body: |
             Updating packages
 
