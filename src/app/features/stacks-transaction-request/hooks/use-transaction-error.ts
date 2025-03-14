@@ -18,7 +18,7 @@ import { initialSearchParams } from '@app/common/initial-search-params';
 import { validateStacksAddress } from '@app/common/stacks-utils';
 import { TransactionErrorReason } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
 import { useCheckSbtcSponsorshipEligible } from '@app/query/sbtc/sponsored-transactions.hooks';
-import { useGetContractInterfaceQuery } from '@app/query/stacks/contract.query';
+import { useGetContractInterfaceQuery } from '@app/query/stacks/legacy-request-contract.query';
 import {
   useCurrentStacksAccount,
   useCurrentStacksAccountAddress,

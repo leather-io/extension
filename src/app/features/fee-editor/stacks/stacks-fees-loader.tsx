@@ -23,26 +23,26 @@ export function StacksFeesLoader({ children, unsignedTx }: StacksFeesLoaderProps
 
     return {
       slow: {
-        type: 'slow',
+        priority: 'slow',
         feeRate: stxFees.estimates[0].feeRate,
         feeValue: stxFees.estimates[0].fee,
         time: feePriorityTimeMap.slow,
       },
       standard: {
-        type: 'standard',
+        priority: 'standard',
         feeRate: stxFees.estimates[1].feeRate,
         feeValue: stxFees.estimates[1].fee,
         time: feePriorityTimeMap.standard,
       },
       fast: {
-        type: 'fast',
+        priority: 'fast',
         feeRate: stxFees.estimates[2].feeRate,
         feeValue: stxFees.estimates[2].fee,
         time: feePriorityTimeMap.fast,
       },
       // Load custom as standard fee
       custom: {
-        type: 'custom',
+        priority: 'custom',
         feeRate: stxFees.estimates[1].feeRate,
         feeValue: stxFees.estimates[1].fee,
         time: feePriorityTimeMap.custom,
@@ -50,11 +50,11 @@ export function StacksFeesLoader({ children, unsignedTx }: StacksFeesLoaderProps
     };
   }, [stxFees]);
 
-  function getCustomFee(feeRate: number): Fee {
+  function getCustomFee(fee: number): Fee {
     return {
-      type: 'custom',
-      feeRate,
-      feeValue: createMoney(feeRate, 'STX'), // * tx size,
+      priority: 'custom',
+      feeRate: 0,
+      feeValue: createMoney(fee, 'STX'),
       time: '',
     };
   }

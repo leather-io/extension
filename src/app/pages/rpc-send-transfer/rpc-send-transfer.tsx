@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { Outlet } from 'react-router-dom';
 
 import { Box } from 'leather-styles/jsx';
 
@@ -49,43 +48,41 @@ export function RpcSendTransfer() {
   }, [amount, marketData, selectedFee?.feeValue]);
 
   return (
-    <>
-      <ApproveTransactionWrapper showOverlay={showOverlay}>
-        <Approver requester={origin} width="100%">
-          <Box position="relative">
-            <BackgroundOverlay show={showOverlay} />
-            <ApproveTransactionHeader
-              title="Send Bitcoin"
-              href="https://leather.io/guides/connect-dapps"
-              onPressRequestedByLink={e => {
-                e.preventDefault();
-                void analytics.track('user_clicked_requested_by_link', {
-                  endpoint: 'sendTransfer',
-                });
-                focusTabAndWindow(tabId);
-              }}
-            />
-            <ApproveBitcoinTransactionSwitchAccount
-              toggleSwitchAccount={onUserActivatesSwitchAccount}
-            />
-            <ApproveTransactionRecipients recipients={recipients} />
-            <FeeEditor.Trigger
-              isLoading={isLoadingFees}
-              marketData={marketData}
-              onEditFee={onUserActivatesFeeEditor}
-              selectedFee={selectedFee}
-            />
-          </Box>
-          <Approver.Actions actions={approverActions}>
-            <ApproveTransactionActionsTitle amount={totalFiatValue} isLoading={isLoadingBalance} />
-            <ApproveTransactionError
-              isLoading={isLoadingBalance}
-              isInsufficientBalance={isInsufficientBalance}
-            />
-          </Approver.Actions>
-        </Approver>
-      </ApproveTransactionWrapper>
-      <Outlet />
-    </>
+    <ApproveTransactionWrapper showOverlay={showOverlay}>
+      <Approver requester={origin} width="100%">
+        <Box position="relative">
+          <BackgroundOverlay show={showOverlay} />
+          <ApproveTransactionHeader
+            title="Send Bitcoin"
+            href="https://leather.io/guides/connect-dapps"
+            onPressRequestedByLink={e => {
+              e.preventDefault();
+              void analytics.track('user_clicked_requested_by_link', {
+                endpoint: 'sendTransfer',
+              });
+              focusTabAndWindow(tabId);
+            }}
+          />
+          <ApproveBitcoinTransactionSwitchAccount
+            toggleSwitchAccount={onUserActivatesSwitchAccount}
+          />
+          <ApproveTransactionRecipients recipients={recipients} />
+          <FeeEditor.Trigger
+            feeType="fee-rate"
+            isLoading={isLoadingFees}
+            marketData={marketData}
+            onEditFee={onUserActivatesFeeEditor}
+            selectedFee={selectedFee}
+          />
+        </Box>
+        <Approver.Actions actions={approverActions}>
+          <ApproveTransactionActionsTitle amount={totalFiatValue} isLoading={isLoadingBalance} />
+          <ApproveTransactionError
+            isLoading={isLoadingBalance}
+            isInsufficientBalance={isInsufficientBalance}
+          />
+        </Approver.Actions>
+      </Approver>
+    </ApproveTransactionWrapper>
   );
 }

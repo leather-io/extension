@@ -29,6 +29,7 @@ export function StacksFeeEditorProvider({
           <FeeEditorProvider
             availableBalance={availableBalance}
             fees={fees}
+            feeType="fee-value"
             getCustomFee={getCustomFee}
             isLoadingFees={isLoading}
             marketData={marketData}

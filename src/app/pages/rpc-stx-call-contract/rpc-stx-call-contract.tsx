@@ -22,6 +22,7 @@ import { useNonceEditorContext } from '@app/features/nonce-editor/nonce-editor.c
 import { useRpcRequestContext } from '@app/features/rpc-request/rpc-request.context';
 import { useUiState } from '@app/store/ui/ui.slice';
 
+import { ApproveContractCallDetails } from './approve-contract-call-details';
 import type { RpcCallContractRequest } from './rpc-stx-call-contract-container';
 
 export function RpcStxCallContract() {
@@ -45,14 +46,16 @@ export function RpcStxCallContract() {
           <Box position="relative">
             <BackgroundOverlay show={showOverlay} />
             <ApproveTransactionHeader
-              title="Sign Transaction"
+              title="Sign contract"
               href="https://leather.io/guides/connect-dapps"
               onPressRequestedByLink={e => {
                 e.preventDefault();
                 onClickRequestedByLink();
               }}
             />
+            <ApproveContractCallDetails />
             <FeeEditor.Trigger
+              feeType="fee-value"
               isLoading={isLoadingFees}
               marketData={marketData}
               onEditFee={onUserActivatesFeeEditor}

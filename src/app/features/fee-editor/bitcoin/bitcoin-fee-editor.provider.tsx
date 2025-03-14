@@ -41,6 +41,7 @@ export function BitcoinFeeEditorProvider({
           <FeeEditorProvider
             availableBalance={availableBalance}
             fees={fees}
+            feeType="fee-rate"
             getCustomFee={getCustomFee}
             isLoadingFees={isLoading}
             marketData={marketData}

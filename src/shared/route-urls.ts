@@ -111,7 +111,7 @@ export enum RouteUrls {
   RpcStxTransferSip9Nft = '/stx-transfer-sip9-nft',
   RpcStxTransferSip10Ft = '/stx-transfer-sip10-ft',
 
-  FeeEditor = '/edit-fee',
-  NonceEditor = '/edit-nonce',
-  BroadcastError = '/broadcast-error',
+  FeeEditor = 'edit-fee',
+  NonceEditor = 'edit-nonce-temp',
+  BroadcastError = 'broadcast-error-temp',
 }

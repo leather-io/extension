@@ -81,26 +81,26 @@ export function BitcoinFeesLoader({
 
     return {
       slow: {
-        type: 'slow',
+        priority: 'slow',
         feeRate: feeRates.hourFee.toNumber(),
         feeValue: lowFee,
         time: feePriorityTimeMap.slow,
       },
       standard: {
-        type: 'standard',
+        priority: 'standard',
         feeRate: feeRates.halfHourFee.toNumber(),
         feeValue: standardFee,
         time: feePriorityTimeMap.standard,
       },
       fast: {
-        type: 'fast',
+        priority: 'fast',
         feeRate: feeRates.fastestFee.toNumber(),
         feeValue: highFee,
         time: feePriorityTimeMap.fast,
       },
       // Load custom as standard fee
       custom: {
-        type: 'custom',
+        priority: 'custom',
         feeRate: feeRates.halfHourFee.toNumber(),
         feeValue: standardFee,
         time: feePriorityTimeMap.custom,
@@ -118,7 +118,7 @@ export function BitcoinFeesLoader({
       : getBitcoinFee(determineUtxosForFeeArgs);
 
     return {
-      type: 'custom',
+      priority: 'custom',
       feeRate,
       feeValue,
       time: '',

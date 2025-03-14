@@ -1,6 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { type StacksClient, StacksQueryPrefixes, useStacksClient } from '@leather.io/query';
+import {
+  type ContractInterfaceFunction,
+  type StacksClient,
+  StacksQueryPrefixes,
+  useStacksClient,
+} from '@leather.io/query';
 import { TransactionTypes } from '@leather.io/stacks';
 
 import type { ContractCallPayload, TransactionPayload } from '@shared/utils/legacy-requests';
@@ -14,7 +19,10 @@ interface CreateGetContractInterfaceQueryOptionsArgs {
   client: StacksClient;
   transactionRequest: TransactionPayload | null;
 }
-export function createGetContractInterfaceQueryOptions({
+/**
+ * @deprecated Legacy transaction request
+ */
+function createGetContractInterfaceQueryOptions({
   client,
   transactionRequest,
 }: CreateGetContractInterfaceQueryOptionsArgs) {
@@ -36,7 +44,25 @@ export function createGetContractInterfaceQueryOptions({
   } as const;
 }
 
+/**
+ * @deprecated Legacy transaction request
+ */
 export function useGetContractInterfaceQuery(transactionRequest: TransactionPayload | null) {
   const client = useStacksClient();
   return useQuery(createGetContractInterfaceQueryOptions({ client, transactionRequest }));
+}
+
+/**
+ * @deprecated Legacy transaction request
+ */
+export function useLegacyRequestContractFunction(transactionRequest: TransactionPayload | null) {
+  const client = useStacksClient();
+  return useQuery({
+    ...createGetContractInterfaceQueryOptions({ client, transactionRequest }),
+    select: resp =>
+      resp?.functions.find((func: ContractInterfaceFunction) => {
+        if (!transactionRequest || transactionRequest.txType !== 'contract_call') return;
+        return func.name === transactionRequest?.functionName;
+      }),
+  });
 }

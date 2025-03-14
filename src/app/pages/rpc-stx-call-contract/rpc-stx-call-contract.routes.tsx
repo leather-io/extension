@@ -13,17 +13,17 @@ import { RpcStxCallContractContainer } from './rpc-stx-call-contract-container';
 
 export const rpcStxCallContractRoutes = (
   <Route
+    path={RouteUrls.RpcStxCallContract}
     element={
       <AccountGate>
         <RpcStxCallContractContainer />
       </AccountGate>
     }
   >
-    <Route path={RouteUrls.RpcStxCallContract} element={<RpcStxCallContract />}>
-      {ledgerBitcoinTxSigningRoutes}
-    </Route>
+    <Route index element={<RpcStxCallContract />} />
     <Route path={RouteUrls.FeeEditor} element={<FeeEditor />} />
     <Route path={RouteUrls.NonceEditor} element={<NonceEditor />} />
     <Route path={RouteUrls.BroadcastError} element={<BroadcastErrorSheet />} />
+    {ledgerBitcoinTxSigningRoutes}
   </Route>
 );

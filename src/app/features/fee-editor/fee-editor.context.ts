@@ -11,17 +11,19 @@ export const feePriorityTimeMap: Record<FeePriority, string> = {
 };
 
 export interface Fee {
-  type: FeePriority;
+  priority: FeePriority;
   feeRate: number | null;
   feeValue: Money | null;
   time: string;
 }
 
 export type Fees = Record<FeePriority, Fee>;
+export type FeeType = 'fee-value' | 'fee-rate';
 
 interface FeeEditorContext {
   availableBalance: Money;
-  customFeeRate: string;
+  customFee: string;
+  feeType: FeeType;
   loadedFee: Fee;
   isLoadingFees: boolean;
   marketData: MarketData;
@@ -29,7 +31,7 @@ interface FeeEditorContext {
   selectedFee: Fee;
   getCustomFee(rate: number): Fee;
   onGoBack(): void;
-  onSetCustomFeeRate(value: string | null): void;
+  onSetCustomFee(value: string | null): void;
   onSetLoadedFee(value: Fee): void;
   onSetSelectedFee(value: Fee): void;
   onUserActivatesFeeEditor(): void;

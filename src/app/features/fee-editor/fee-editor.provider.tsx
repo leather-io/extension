@@ -7,11 +7,17 @@ import { RouteUrls } from '@shared/route-urls';
 
 import type { HasChildren } from '@app/common/has-children';
 
-import { type Fee, feeEditorContext as FeeEditorContext, type Fees } from './fee-editor.context';
+import {
+  type Fee,
+  feeEditorContext as FeeEditorContext,
+  type FeeType,
+  type Fees,
+} from './fee-editor.context';
 
 interface FeeEditorProviderProps extends HasChildren {
   availableBalance: Money;
   fees: Fees;
+  feeType: FeeType;
   getCustomFee(rate: number): Fee;
   isLoadingFees: boolean;
   marketData: MarketData;
@@ -21,17 +27,21 @@ export function FeeEditorProvider({
   availableBalance,
   children,
   fees,
+  feeType,
   getCustomFee,
   isLoadingFees,
   marketData,
   onGoBack,
 }: FeeEditorProviderProps) {
   const defaultFee = fees.standard;
-  const defaultCustomFeeRate = fees.custom.feeRate?.toString() ?? '';
+  const defaultCustomFee =
+    feeType === 'fee-rate'
+      ? fees.custom.feeRate?.toString()
+      : defaultFee.feeValue?.amount.toString();
 
   const [loadedFee, setLoadedFee] = useState<Fee>(defaultFee);
   const [selectedFee, setSelectedFee] = useState<Fee>(defaultFee);
-  const [customFeeRate, setCustomFeeRate] = useState<string>(defaultCustomFeeRate);
+  const [customFee, setCustomFee] = useState<string>(defaultCustomFee ?? '');
   const navigate = useNavigate();
 
   return (
@@ -41,13 +51,14 @@ export function FeeEditorProvider({
         availableBalance,
         marketData,
         fees,
+        feeType,
         loadedFee,
-        customFeeRate,
+        customFee,
         selectedFee,
         getCustomFee,
         onGoBack,
         onSetLoadedFee: (value: Fee) => setLoadedFee(value),
-        onSetCustomFeeRate: (value: string) => setCustomFeeRate(value),
+        onSetCustomFee: (value: string) => setCustomFee(value),
         onSetSelectedFee: (value: Fee) => setSelectedFee(value),
         onUserActivatesFeeEditor: () => navigate(RouteUrls.FeeEditor),
       }}
