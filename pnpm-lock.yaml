@@ -46,8 +46,8 @@ importers:
         specifier: 3.9.1
         version: 3.9.1(react-hook-form@7.53.1(react@18.3.1))
       '@leather.io/analytics':
-        specifier: 2.0.1
-        version: 2.0.1
+        specifier: 3.4.0
+        version: 3.4.0
       '@leather.io/bitcoin':
         specifier: 0.21.1
         version: 0.21.1
@@ -3489,8 +3489,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@leather.io/analytics@2.0.1':
-    resolution: {integrity: sha512-C4fcEZZ9la+UMhqDqEZIIMDMmmedDuhhlnqb7HFlGVUg5/EKrBbS4Kvcp36sv/Uz02h+DuoubTsoJ/rFkqq6Bw==}
+  '@leather.io/analytics@3.4.0':
+    resolution: {integrity: sha512-LPKZAj2JwKavdC08JhoWzB9NxyR8pmKAo9bNOBCL5fOgIcZHxm0x5KKtfk9lKJXFNqYAP9/qWsuULjN0kA6jiQ==}
 
   '@leather.io/bitcoin@0.21.1':
     resolution: {integrity: sha512-qAwcUWlIAL8Yz+XcdgK/BdqSIeEXDlDpyDd6NPir9t1pjE0SXbrj1Xu0ovHUDSbOLglAXOaS1twHTznWF5VgRA==}
@@ -19802,7 +19802,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@leather.io/analytics@2.0.1': {}
+  '@leather.io/analytics@3.4.0': {}
 
   '@leather.io/bitcoin@0.21.1':
     dependencies:

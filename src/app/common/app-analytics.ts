@@ -20,8 +20,7 @@ import { flow, origin } from './initial-search-params';
 
 const defaultStaticAnalyticContext = {
   ip: '0.0.0.0',
-  platform: 'web',
-  product: 'extension',
+  platform: 'extension',
   version: VERSION,
   ...(flow && { flow }),
   ...(origin && { origin }),
