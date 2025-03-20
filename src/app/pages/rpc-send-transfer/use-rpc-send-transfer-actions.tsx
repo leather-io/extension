@@ -58,6 +58,7 @@ export function useRpcSendTransferActions() {
 
         await broadcastTx({
           tx: tx.hex,
+          skipSpendableCheckUtxoIds: 'all',
           async onSuccess(txid) {
             setIsBroadcasting(false);
 
