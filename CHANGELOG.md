@@ -1,3 +1,20 @@
+## [6.65.2](https://github.com/leather-io/extension/compare/v6.65.1...v6.65.2) (2025-03-25)
+
+
+### Bug Fixes
+
+* provide feedback to user while broadcasting, closes [#6193](https://github.com/leather-io/extension/issues/6193) ([9039340](https://github.com/leather-io/extension/commit/903934054d245ad5e43282284d3d4c3bcc66c218))
+* remove skipping utxos check unless test env ([2908ade](https://github.com/leather-io/extension/commit/2908adea69917bf2dc43b7ebb7a978fce707d53b))
+* settings test ([a713d83](https://github.com/leather-io/extension/commit/a713d834cab347d54e6a45bba8c6556cb3e21f3f))
+* test ci fix ([cf1bacb](https://github.com/leather-io/extension/commit/cf1bacbceb73684ebca6445b5eccf1a64fae0102))
+* update analytics usage ([ca1e268](https://github.com/leather-io/extension/commit/ca1e2683fa15a5a5b751dc30d2ba2c55caaf0b99))
+
+
+### Internal
+
+* address breaking changes in Avatar ([653cf71](https://github.com/leather-io/extension/commit/653cf712f22c32e62970688c4fbd669f375d51ea))
+* post-release merge back ([3f72e5e](https://github.com/leather-io/extension/commit/3f72e5e01d70ce36ebd135374e8ffed1f4452d0e))
+
 ## [6.65.1](https://github.com/leather-io/extension/compare/v6.65.0...v6.65.1) (2025-03-12)
 
 
