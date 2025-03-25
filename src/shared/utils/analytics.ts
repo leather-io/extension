@@ -35,9 +35,9 @@ export const analytics = configureAnalyticsClient<AnalyticsBrowser>({
 export function decorateAnalyticsEventsWithContext(
   getEventContextProperties: () => Record<string, unknown>
 ) {
-  void analytics.client.ready(
+  void segmentClient.ready(
     () =>
-      void analytics.client.addSourceMiddleware(({ payload, next }) => {
+      void segmentClient.addSourceMiddleware(({ payload, next }) => {
         Object.entries(getEventContextProperties()).forEach(([key, value]) => {
           payload.obj.context = payload.obj.context || {};
           payload.obj.context.ip = '0.0.0.0';

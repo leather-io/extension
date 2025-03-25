@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useBitcoinBroadcastTransaction } from '@leather.io/query';
 import { createRpcSuccessResponse } from '@leather.io/rpc';
 
+import { IS_TEST_ENV } from '@shared/environment';
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
@@ -58,6 +59,10 @@ export function useRpcSendTransferActions() {
 
         await broadcastTx({
           tx: tx.hex,
+          // TODO: Add map for inscriptions after query hooks are relocated. This conditional
+          // should be removed once the fix is identified in the broadcast hook.
+          // `utxosOfSpendableInscriptions.map(utxo => utxo.txid)`
+          skipSpendableCheckUtxoIds: IS_TEST_ENV ? 'all' : undefined,
           async onSuccess(txid) {
             setIsBroadcasting(false);
 

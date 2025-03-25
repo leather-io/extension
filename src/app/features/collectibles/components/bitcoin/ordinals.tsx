@@ -19,7 +19,7 @@ export function Ordinals() {
         ordinals_count: inscriptionsLength,
       });
     }
-    void analytics.identify({ ordinals_count: inscriptionsLength });
+    void analytics.identify(undefined, { ordinals_count: inscriptionsLength });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [results.inscriptions?.length]);
 

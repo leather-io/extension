@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { hexToBytes } from '@noble/hashes/utils';
@@ -55,6 +55,7 @@ function useBtcSendFormConfirmationState() {
 }
 
 export function BtcSendFormConfirmation() {
+  const [isBroadcasting, setIsBroadcasting] = useState(false);
   const navigate = useNavigate();
   const { tx, recipient, fee, arrivesIn, feeRowValue } = useBtcSendFormConfirmationState();
 
@@ -63,7 +64,7 @@ export function BtcSendFormConfirmation() {
   const { filteredUtxosQuery } = useCurrentNativeSegwitUtxos();
 
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
-  const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
+  const { broadcastTx } = useBitcoinBroadcastTransaction();
 
   const decodedTx = decodeBitcoinTx(transaction.hex);
 
@@ -85,6 +86,7 @@ export function BtcSendFormConfirmation() {
   const utxosOfSpendableInscriptions = useInscribedSpendableUtxos();
 
   async function initiateTransaction() {
+    setIsBroadcasting(true);
     await broadcastTx({
       skipSpendableCheckUtxoIds: utxosOfSpendableInscriptions.map(utxo => utxo.txid),
       tx: transaction.hex,
@@ -114,6 +116,7 @@ export function BtcSendFormConfirmation() {
         nav.toErrorPage(e);
       },
     });
+    setIsBroadcasting(false);
   }
 
   function formBtcTxSummaryState(txId: string) {

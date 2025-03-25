@@ -18,7 +18,7 @@ export function Stamps() {
       void analytics.track('view_collectibles', {
         stamps_count: stamps.length,
       });
-      void analytics.identify({ stamps_count: stamps.length });
+      void analytics.identify(undefined, { stamps_count: stamps.length });
     }
   }, [stamps]);
 

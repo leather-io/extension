@@ -7,7 +7,7 @@ export function StacksIconComponent() {
   return (
     <>
       <Box>
-        <StxAvatarIcon size="xxl" />
+        <StxAvatarIcon size="xl" />
       </Box>
       <Box>
         <img src={ReceiveFundsEllipses} width="24px" />
@@ -19,7 +19,7 @@ export function StacksIconComponent() {
 export function BitcoinIconComponent() {
   return (
     <>
-      <BtcAvatarIcon size="xxl" />
+      <BtcAvatarIcon size="xl" />
       <Box>
         <img src={ReceiveFundsEllipses} width="24px" />
       </Box>
