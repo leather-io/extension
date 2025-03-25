@@ -3,13 +3,13 @@ import BigNumber from 'bignumber.js';
 import { useFormikContext } from 'formik';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import type { SwapAsset } from '@leather.io/query';
 import { ChevronRightIcon } from '@leather.io/ui';
 import { createMoneyFromDecimal, formatMoney, isDefined, isUndefined } from '@leather.io/utils';
 
 import type { SwapFormValues } from '@shared/models/form.model';
 
 import { useSwapContext } from '@app/pages/swap/swap.context';
+import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 
 import type { StacksSwapContext } from '../../providers/stacks-swap-provider';
 import { toCommaSeparatedWithAnd } from '../../swap.utils';

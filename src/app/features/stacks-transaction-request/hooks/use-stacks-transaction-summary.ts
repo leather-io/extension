@@ -12,7 +12,6 @@ import {
 import BigNumber from 'bignumber.js';
 
 import type { CryptoCurrency } from '@leather.io/models';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import {
   baseCurrencyAmountInQuote,
   convertToMoneyTypeWithDefaultOfZero,
@@ -25,6 +24,7 @@ import {
 } from '@leather.io/utils';
 
 import { removeTrailingNullCharacters } from '@app/common/utils';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
 function safeAddressToString(address: string) {
   try {

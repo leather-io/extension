@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 
-import { useNextNonce } from '@leather.io/query';
 import { type RpcMethodNames, createRpcSuccessResponse } from '@leather.io/rpc';
 import { isUndefined } from '@leather.io/utils';
 
@@ -22,6 +21,7 @@ import {
   getTxSenderAddress,
 } from '@app/common/transactions/stacks/transaction.utils';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 

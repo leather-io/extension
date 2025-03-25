@@ -1,7 +1,6 @@
-import { type Sip10TokenAssetDetails } from '@leather.io/query';
-
 import { useCombinedFilteredSip10Tokens } from '@app/common/hooks/use-filtered-sip10-tokens';
 import { type AssetFilter, useManageTokens } from '@app/common/hooks/use-manage-tokens';
+import type { Sip10TokenAssetDetails } from '@app/query/stacks/sip10/sip10-tokens.hooks';
 
 interface Sip10TokensLoaderProps {
   address: string;

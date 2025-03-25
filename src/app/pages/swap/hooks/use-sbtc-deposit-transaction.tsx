@@ -16,7 +16,7 @@ import {
 
 import { BitcoinSigner } from '@leather.io/bitcoin';
 import type { BitcoinNetworkModes } from '@leather.io/models';
-import { type UtxoResponseItem, useAverageBitcoinFeeRates } from '@leather.io/query';
+import { type UtxoResponseItem } from '@leather.io/query';
 import { btcToSat, createMoney } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
@@ -28,6 +28,7 @@ import {
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useToast } from '@app/features/toasts/use-toast';
+import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';

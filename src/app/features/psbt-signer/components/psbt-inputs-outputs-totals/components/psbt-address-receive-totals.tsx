@@ -1,8 +1,8 @@
-import { useCalculateBitcoinFiatValue } from '@leather.io/query';
 import { formatMoney, i18nFormatCurrency, truncateMiddle } from '@leather.io/utils';
 
 import { removeMinusSign } from '@app/common/utils';
 import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
+import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 
 import { PsbtAddressTotalItem } from './psbt-address-total-item';
 import { PsbtInscription } from './psbt-inscription';

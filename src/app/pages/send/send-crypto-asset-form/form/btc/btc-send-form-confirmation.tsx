@@ -10,10 +10,6 @@ import get from 'lodash.get';
 
 import { decodeBitcoinTx } from '@leather.io/bitcoin';
 import type { CryptoCurrency } from '@leather.io/models';
-import {
-  useBitcoinBroadcastTransaction,
-  useCryptoCurrencyMarketDataMeanAverage,
-} from '@leather.io/query';
 import { Button } from '@leather.io/ui';
 import {
   baseCurrencyAmountInQuote,
@@ -38,6 +34,8 @@ import { Card, Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 import { useInscribedSpendableUtxos } from '@app/features/discarded-inscriptions/use-inscribed-spendable-utxos';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
+import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 

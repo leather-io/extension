@@ -1,9 +1,11 @@
 import { useMemo } from 'react';
 
 import { type Money, btcTxTimeMap } from '@leather.io/models';
-import { type UtxoResponseItem, useAverageBitcoinFeeRates } from '@leather.io/query';
+import { type UtxoResponseItem } from '@leather.io/query';
 
 import type { TransferRecipient } from '@shared/models/form.model';
+
+import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 
 import type { Fee, Fees } from '../fee-editor.context';
 import { getApproximateFee, getBitcoinFee, getBitcoinSendMaxFee } from './bitcoin-fees.utils';

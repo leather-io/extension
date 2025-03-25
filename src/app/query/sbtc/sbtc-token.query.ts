@@ -1,16 +1,14 @@
 import BigNumber from 'bignumber.js';
 
 import { BTC_DECIMALS } from '@leather.io/constants';
-import {
-  type Sip10TokenAssetDetails,
-  useStacksAccountBalanceFungibleTokens,
-  useStacksFungibleTokensMetadata,
-} from '@leather.io/query';
 import { createBaseCryptoAssetBalance, createMoney, isDefined } from '@leather.io/utils';
 
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useConfigSbtc } from '../common/remote-config/remote-config.query';
+import { useStacksAccountBalanceFungibleTokens } from '../stacks/balance/account-balance.hooks';
+import type { Sip10TokenAssetDetails } from '../stacks/sip10/sip10-tokens.hooks';
+import { useStacksFungibleTokensMetadata } from '../stacks/token-metadata/fungible-tokens/fungible-token-metadata.hooks';
 
 function useSbtcTokenCryptoAssetBalance() {
   const { contractId } = useConfigSbtc();

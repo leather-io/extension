@@ -2,12 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { z } from 'zod';
 
-import { useStacksClient } from '@leather.io/query';
 import { getStacksAssetStringParts } from '@leather.io/stacks';
 
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useConfigSbtc } from '../common/remote-config/remote-config.query';
+import { useStacksClient } from '../stacks/stacks-client';
 
 export const defaultSbtcLimits = {
   pegCap: 1000000000000,

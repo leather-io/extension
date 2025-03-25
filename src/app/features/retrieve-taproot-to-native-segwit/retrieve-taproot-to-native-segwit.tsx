@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { Stack } from 'leather-styles/jsx';
 
-import { useBitcoinBroadcastTransaction } from '@leather.io/query';
 import { Link } from '@leather.io/ui';
 import { delay, formatMoneyPadded, truncateMiddle } from '@leather.io/utils';
 
@@ -16,6 +15,7 @@ import {
   useCurrentTaprootAccountBalance,
   useCurrentTaprootAccountUninscribedUtxos,
 } from '@app/query/bitcoin/ordinals/inscriptions/inscriptions.query';
+import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { RetrieveTaprootToNativeSegwitLayout } from './components/retrieve-taproot-to-native-segwit.layout';

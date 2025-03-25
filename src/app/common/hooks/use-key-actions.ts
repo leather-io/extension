@@ -2,8 +2,6 @@ import { useMemo } from 'react';
 
 import { generateSecretKey } from '@stacks/wallet-sdk';
 
-import { useBitcoinClient, useBnsV2Client } from '@leather.io/query';
-
 import { logger } from '@shared/logger';
 import { InternalMethods } from '@shared/message-types';
 import { sendMessage } from '@shared/messages';
@@ -12,6 +10,8 @@ import { analytics } from '@shared/utils/analytics';
 
 import { queryClient } from '@app/common/persistence';
 import { partiallyClearLocalStorage } from '@app/common/store-utils';
+import { useBitcoinClient } from '@app/query/bitcoin/clients/bitcoin-client';
+import { useBnsV2Client } from '@app/query/stacks/bns/bns-v2-client';
 import { useAppDispatch } from '@app/store';
 import { createNewAccount, switchAccount } from '@app/store/chains/stx-chain.actions';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';

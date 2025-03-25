@@ -5,11 +5,11 @@ import { bytesToHex } from '@stacks/common';
 
 import { getBitcoinInputAddress, getBtcSignerLibNetworkConfigByMode } from '@leather.io/bitcoin';
 import type { Inscription } from '@leather.io/models';
-import { useInscriptionsByOutputs } from '@leather.io/query';
 import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { getBitcoinInputValue } from '@shared/crypto/bitcoin/bitcoin.utils';
 
+import { useInscriptionsByOutputs } from '@app/query/bitcoin/ordinals/inscriptions-by-param.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';

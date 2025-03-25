@@ -5,12 +5,12 @@ import { Form, Formik } from 'formik';
 import { Box } from 'leather-styles/jsx';
 
 import type { CryptoCurrency } from '@leather.io/models';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import { BtcAvatarIcon, Button, Callout, Link } from '@leather.io/ui';
 import { formatMoney } from '@leather.io/utils';
 
 import { AvailableBalance, ButtonRow, Card, Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 import { AmountField } from '../../components/amount-field';

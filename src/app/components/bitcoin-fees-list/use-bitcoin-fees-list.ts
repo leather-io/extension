@@ -1,11 +1,7 @@
 import { useMemo } from 'react';
 
 import { BtcFeeType, Money, btcTxTimeMap } from '@leather.io/models';
-import {
-  type UtxoResponseItem,
-  useAverageBitcoinFeeRates,
-  useCryptoCurrencyMarketDataMeanAverage,
-} from '@leather.io/query';
+import { type UtxoResponseItem } from '@leather.io/query';
 import {
   baseCurrencyAmountInQuote,
   createMoney,
@@ -19,6 +15,8 @@ import {
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
 import { FeesListItem } from './bitcoin-fees-list';
 

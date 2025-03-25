@@ -1,13 +1,13 @@
 import { useMemo } from 'react';
 
-import {
-  type Sip10CryptoAssetFilter,
-  filterSip10Tokens,
-  useAlexSwappableAssets,
-  useFilteredSip10Tokens,
-} from '@leather.io/query';
+import { type Sip10CryptoAssetFilter } from '@leather.io/query';
 
 import { useBitflowSwappableAssets } from '@app/pages/swap/hooks/use-bitflow-swappable-assets';
+import { useAlexSwappableAssets } from '@app/query/common/alex-sdk/alex-sdk.hooks';
+import {
+  filterSip10Tokens,
+  useFilteredSip10Tokens,
+} from '@app/query/stacks/sip10/sip10-tokens.hooks';
 
 interface UseSip10TokensArgs {
   address: string;

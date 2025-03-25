@@ -1,12 +1,10 @@
 import { useMemo } from 'react';
 
-import {
-  useCryptoCurrencyMarketDataMeanAverage,
-  useStxCryptoAssetBalance,
-} from '@leather.io/query';
 import { baseCurrencyAmountInQuote, createMoney, i18nFormatCurrency } from '@leather.io/utils';
 
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
+import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
 
 import { useSip10ManagedTokensBalance } from './use-sip10-balance';
 

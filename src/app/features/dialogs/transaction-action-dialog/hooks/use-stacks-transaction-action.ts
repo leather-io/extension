@@ -2,11 +2,6 @@ import { useCallback } from 'react';
 
 import * as yup from 'yup';
 
-import {
-  useGetTransactionByIdQuery,
-  useStacksRawTransaction,
-  useStxAvailableUnlockedBalance,
-} from '@leather.io/query';
 import { TransactionTypes, getStacksBurnAddress } from '@leather.io/stacks';
 import { stxToMicroStx } from '@leather.io/utils';
 
@@ -18,6 +13,9 @@ import {
 import { StacksTransactionActionType } from '@app/common/transactions/stacks/transaction.utils';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
+import { useStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
+import { useStacksRawTransaction } from '@app/query/stacks/transactions/raw-transaction-by-id.hooks';
+import { useGetTransactionByIdQuery } from '@app/query/stacks/transactions/transactions-by-id.query';
 import {
   useCurrentStacksAccount,
   useCurrentStacksAccountAddress,

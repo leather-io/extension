@@ -8,7 +8,7 @@ import {
 } from '@stacks/wallet-sdk';
 
 import { gaiaUrl } from '@leather.io/constants';
-import { hiroApiRequestsPriorityLevels, useHiroApiRateLimiter } from '@leather.io/query';
+import { hiroApiRequestsPriorityLevels } from '@leather.io/query';
 
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { logger } from '@shared/logger';
@@ -17,6 +17,7 @@ import { useAuthRequestParams } from '@app/common/hooks/auth/use-auth-request-pa
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useWalletType } from '@app/common/use-wallet-type';
+import { useHiroApiRateLimiter } from '@app/query/rate-limiter/hiro-rate-limiter';
 import {
   useLegacyStacksWallet,
   useStacksAccounts,

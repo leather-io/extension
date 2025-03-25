@@ -1,7 +1,7 @@
-import { type UseQueryOptions, useQueries } from '@tanstack/react-query';
+import { useQueries } from '@tanstack/react-query';
 import axios from 'axios';
 
-import { type BitcoinNetworkModes } from '@leather.io/models';
+import { makeComplianceQuery } from '@leather.io/query';
 import { ensureArray, isEmptyString } from '@leather.io/utils';
 
 import { analytics } from '@shared/utils/analytics';
@@ -43,33 +43,12 @@ export async function checkEntityAddressIsCompliant(address: string): Promise<Co
   return { ...entityReport, isOnSanctionsList };
 }
 
-const oneWeekInMs = 604_800_000;
-
-function makeComplianceQuery(
-  address: string,
-  network: BitcoinNetworkModes
-): UseQueryOptions<ComplianceReport> {
-  return {
-    enabled: network === 'mainnet',
-    queryKey: ['address-compliance-check', address],
-    async queryFn() {
-      return checkEntityAddressIsCompliant(address);
-    },
-    gcTime: Infinity,
-    staleTime: oneWeekInMs,
-    refetchInterval: oneWeekInMs,
-    refetchOnMount: false,
-    refetchOnReconnect: false,
-    refetchOnWindowFocus: false,
-  };
-}
-
-function useCheckAddressComplianceQueries(addresses: string[]) {
+export function useCheckAddressComplianceQueries(addresses: string[]) {
   const network = useCurrentNetwork();
   return useQueries({
     queries: addresses
       .filter(address => !isEmptyString(address))
-      .map(address => makeComplianceQuery(address, network.chain.bitcoin.mode)),
+      .map(address => makeComplianceQuery({ address, networkMode: network.chain.bitcoin.mode })),
   });
 }
 
