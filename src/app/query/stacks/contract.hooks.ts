@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { type ContractInterfaceFunction, useStacksClient } from '@leather.io/query';
+import { type ContractInterfaceFunction } from '@leather.io/query';
 
 import type { TransactionPayload } from '@shared/utils/legacy-requests';
 
 import { createGetContractInterfaceQueryOptions } from './contract.query';
+import { useStacksClient } from './stacks-client';
 
 export function useContractFunction(transactionRequest: TransactionPayload | null) {
   const client = useStacksClient();

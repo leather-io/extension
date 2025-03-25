@@ -4,10 +4,10 @@ import * as btc from '@scure/btc-signer';
 
 import { extractAddressIndexFromPath } from '@leather.io/crypto';
 import type { Money } from '@leather.io/models';
-import { useAverageBitcoinFeeRates } from '@leather.io/query';
 import { createMoney, sumNumbers } from '@leather.io/utils';
 
 import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-size-fee-estimator';
+import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import {
   useCurrentTaprootAccountUninscribedUtxos,
   useNumberOfInscriptionsOnUtxo,

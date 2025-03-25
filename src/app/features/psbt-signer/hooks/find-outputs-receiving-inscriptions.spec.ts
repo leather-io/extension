@@ -26,7 +26,7 @@ describe('find outputs receiving inscriptions', () => {
       psbtOutputs: mockPsbtOutputs2,
     });
     expect(outputsReceivingInscriptions[0]).toEqual({
-      address: 'bc1p9pnzvq52956jht5deha82qp96pxw0a0tvey6fhdea7vwhf33tarskqq3nr',
+      address: 'bc1qvcfy9yxjl3303jurcrs4sd49frjrmjk7x045r6',
       inscription: mockInscription2,
     });
   });

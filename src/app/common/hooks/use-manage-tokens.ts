@@ -1,6 +1,7 @@
-import { useConfigTokensEnabledByDefault } from '@leather.io/query';
-
-import { useConfigSbtc } from '@app/query/common/remote-config/remote-config.query';
+import {
+  useConfigSbtc,
+  useConfigTokensEnabledByDefault,
+} from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useUserAllTokens } from '@app/store/manage-tokens/manage-tokens.slice';
 

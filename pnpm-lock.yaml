@@ -64,8 +64,8 @@ importers:
         specifier: 1.1.3
         version: 1.1.3(encoding@0.1.13)
       '@leather.io/query':
-        specifier: 2.30.1
-        version: 2.30.1(encoding@0.1.13)(react@18.3.1)
+        specifier: 2.32.0
+        version: 2.32.0(encoding@0.1.13)
       '@leather.io/rpc':
         specifier: 2.9.1
         version: 2.9.1(encoding@0.1.13)
@@ -192,6 +192,9 @@ importers:
       '@zondax/ledger-stacks':
         specifier: 1.0.4
         version: 1.0.4(encoding@0.1.13)
+      alex-sdk:
+        specifier: 2.1.4
+        version: 2.1.4(@stacks/network@7.0.2(encoding@0.1.13))(@stacks/transactions@7.0.5(encoding@0.1.13))
       are-passive-events-supported:
         specifier: 1.1.1
         version: 1.1.1
@@ -291,6 +294,9 @@ importers:
       os-browserify:
         specifier: 0.3.0
         version: 0.3.0
+      p-queue:
+        specifier: 8.0.1
+        version: 8.0.1
       pino:
         specifier: 8.19.0
         version: 8.19.0
@@ -3492,6 +3498,9 @@ packages:
   '@leather.io/bitcoin@0.21.1':
     resolution: {integrity: sha512-qAwcUWlIAL8Yz+XcdgK/BdqSIeEXDlDpyDd6NPir9t1pjE0SXbrj1Xu0ovHUDSbOLglAXOaS1twHTznWF5VgRA==}
 
+  '@leather.io/bitcoin@0.22.1':
+    resolution: {integrity: sha512-cD65ski4qHVMyV8ER1PgIcLZw4roKJsH4nusfezinnwFLdpel5hlh3/bmmO5OClAtn4gxoMN6NcgDoOI5dSUZQ==}
+
   '@leather.io/constants@0.18.0':
     resolution: {integrity: sha512-xIc8sQHnzprdDrGZSme5D+Ur/ysDvkDeykuv0stQYAeJra3wx0K/L3q4vxKX0kpZfKspWPQXfqGt8FX3rrnnuA==}
 
@@ -3500,6 +3509,9 @@ packages:
 
   '@leather.io/crypto@1.6.51':
     resolution: {integrity: sha512-trqIqM8nyfGdsUXm4SUDrTLFGFOZSvFXNTxiNZPDGXvPC4F4D0tWSLzN4bWZEko4uLVvBZ0Y2HR4ksoXrGHG4w==}
+
+  '@leather.io/crypto@1.6.53':
+    resolution: {integrity: sha512-3h2iaLMp5Lpx/JRbDb+sFkmBg3JOsVxQg5KBd6Wo4MV8qKO6VV/1LoEFd2TUKma9w6DCjkT3DVOt/ecW4GTQ2w==}
 
   '@leather.io/eslint-config@0.7.0':
     resolution: {integrity: sha512-4K7olfSC+mJnG90TSaLIlytp14yDprGXwe1+oP9TLQbuPFpJai3/+g5Bp/FeUC4NZ23UVbAlGXFCav2amBb77w==}
@@ -3522,16 +3534,20 @@ packages:
   '@leather.io/provider@1.1.3':
     resolution: {integrity: sha512-le/V+yK37h25cfhSTsQR0OjbGzD/cNY7zM3YDu2d7xq+Z6TWjwa17fhLAdQqRPgQyvFEIEPtnoYMGej5yAZ15Q==}
 
-  '@leather.io/query@2.30.1':
-    resolution: {integrity: sha512-wbM3R99DrKwDh8vlUpp64ThazPSAUO9YYUKpxG+77RpG8fsC/WgeiOlSaKOY22v6DuFxAoRooKRkj/heK43Naw==}
-    peerDependencies:
-      react: '*'
+  '@leather.io/query@2.32.0':
+    resolution: {integrity: sha512-U+LOyverkYY0aNP6OfTl3or8VFMn+ui7sDJCLEPJXSKcjay1Jq1h6Araoq3Nn9dJZeI0oWge2x90wdkbvdXKSA==}
 
   '@leather.io/rpc@2.9.1':
     resolution: {integrity: sha512-FY1n7pk4kGVkhopYJxreqov8iwRymNEW4vD0SAFihoHmHQ1Sj8G4z+j8z/om942ZGTVVVqHXsRlNTiXAqyWGFg==}
 
+  '@leather.io/rpc@2.9.3':
+    resolution: {integrity: sha512-UKOyp1ybWTD7nLaGwebG5e0lWwSi5kH5RGXHsoG+hbuNmbGlZcEDOjdRNlVbH/mrEqDdhRAi1DmL1EvujajL0Q==}
+
   '@leather.io/stacks@1.7.3':
     resolution: {integrity: sha512-PXfxiLQYL7vYDRVg6fpGbUD6c91zwt/HWnF1MbeDUpPYhWrfwlNo54hZuuJfT5jiw78MAkW14GBV53OBzAMs4A==}
+
+  '@leather.io/stacks@1.7.5':
+    resolution: {integrity: sha512-HmqrVIv23VY825KdJotpQB9G/M6j24GJSHx5Xz3ocD4ONHPhwMMUae4QgtbhM83wB6/lmwMr17wqUcdVzQhxfA==}
 
   '@leather.io/tokens@0.12.11':
     resolution: {integrity: sha512-/DF23QC8e5vIeVNQvagP5sMzSfgyZjvUW3XDo2FFRTM1T4YuCrPB8Gh03ElDMSp6CMLVStpsMROj7y7pU9eH7Q==}
@@ -3547,6 +3563,9 @@ packages:
 
   '@leather.io/utils@0.30.0':
     resolution: {integrity: sha512-mYbUADP4V68nUB2g8yqA9hMszPAmgnrEPTdC272fL/awcunuMa4LDHFW9LDYvpf978h0ILAC5aLw1en7nE4AYA==}
+
+  '@leather.io/utils@0.31.0':
+    resolution: {integrity: sha512-c0qeMGZJRFeUFVQXyUAetvBWm/g+tpVDTxFJ4LCaw6A844ePrZMCZu2lkSHY4euzOKlZKYXoEzyj7SyV69rS7Q==}
 
   '@ledgerhq/devices@8.4.2':
     resolution: {integrity: sha512-oWNTp3jCMaEvRHsXNYE/yo+PFMgXAJGFHLOU1UdE4/fYkniHbD9wdxwyZrZvrxr9hNw4/9wHiThyITwPtMzG7g==}
@@ -5251,6 +5270,9 @@ packages:
   '@schemastore/web-manifest@0.0.6':
     resolution: {integrity: sha512-mhMEg7qUdpPuqdTAs2xh2GBAISAE++74uFX3y84G0GPwkBF1kdiDVypKbHIbizYTEFty+Ieurxoagq9KRkgEiw==}
 
+  '@scure/base@1.1.1':
+    resolution: {integrity: sha512-ZxOhsSyxYwLJj3pLZCefNitxsj093tb2vq90mp2txoYeBqbcjDjqFhyM8eUjq/uFm6zJ+mUuqxlS2FkuSY1MTA==}
+
   '@scure/base@1.1.9':
     resolution: {integrity: sha512-8YKhl8GHiNI/pU2VMaofa2Tor7PJRAjwQLBBuilkJ9L5+13yVbC7JO/wS7piioAvPSwR3JKM1IJ/u4xQzbcXKg==}
 
@@ -5490,8 +5512,8 @@ packages:
   '@stacks/encryption@7.0.2':
     resolution: {integrity: sha512-3evRvxPqVzQAhcZ8uacQrVfAETUMIV8VyKkHGsd4QZroGWlvXQheLV3CFeDttFb304QcKq/oKv1clOvQ2shaAw==}
 
-  '@stacks/encryption@7.0.4':
-    resolution: {integrity: sha512-MIoRURjfIWN/1WpUGthY1jz7gCN/A76VV6G04MGw7Haiy1jW3Vhprf0kkoYKcQSu+NPyE9PWhaKjRXN4ZS/SwA==}
+  '@stacks/encryption@7.0.5':
+    resolution: {integrity: sha512-X42ZuUPX6vRb3JCt5nkqFunef9EeOLfHXjsKUD2HcOJT7hgC6p6VNTs5iwy/aOQMZdVsxFYAy56m5DbStPU06Q==}
 
   '@stacks/network@4.3.5':
     resolution: {integrity: sha512-TC4+AkuT6qi3MoEGxTftA+4BNp99QvGnI+qtKQkoA1m0KDr8b9hSBUhugJHRhQbWuo7D6q0+JagYEGxLID29Kw==}
@@ -5519,6 +5541,12 @@ packages:
 
   '@stacks/rpc-client@1.0.3':
     resolution: {integrity: sha512-lao7MKCq39VA86v2rJzmgjHKG5bg9LWdLSzvktuEy3lfatVki/hRm6sitkmNhYVcdUVp3YV9gyW6mvu7U9weWw==}
+
+  '@stacks/stacking@7.0.5':
+    resolution: {integrity: sha512-OOjb1BRqGkAn/BunKKdF2olZ0NjHX8uZ6+EHCLuBZbny22hwf22jnqScRE6H4kXJsreF11RLktJEUfBagJrQ1A==}
+
+  '@stacks/stacks-blockchain-api-types@0.61.0':
+    resolution: {integrity: sha512-yPOfTUboo5eA9BZL/hqMcM71GstrFs9YWzOrJFPeP4cOO1wgYvAcckgBRbgiE3NqeX0A7SLZLDAXLZbATuRq9w==}
 
   '@stacks/stacks-blockchain-api-types@7.8.2':
     resolution: {integrity: sha512-wcDSdgIZx/ttQfUTPtGJOIyEkTOjmCsC79TaIyxTIiihSgrGppqTuzkwHD/DyuQkcJtUZvDTxMsAXkBKShE1kw==}
@@ -19959,6 +19987,27 @@ snapshots:
       just-memoize: 2.2.0
       varuint-bitcoin: 1.1.2
 
+  '@leather.io/bitcoin@0.22.1':
+    dependencies:
+      '@bitcoinerlab/secp256k1': 1.0.2
+      '@leather.io/constants': 0.18.1
+      '@leather.io/crypto': 1.6.53
+      '@leather.io/models': 0.30.0
+      '@leather.io/utils': 0.31.0
+      '@noble/hashes': 1.5.0
+      '@noble/secp256k1': 2.1.0
+      '@scure/base': 1.2.4
+      '@scure/bip32': 1.6.2
+      '@scure/bip39': 1.5.4
+      '@scure/btc-signer': 1.6.0
+      bignumber.js: 9.1.2
+      bip32: 4.0.0
+      bitcoin-address-validation: 2.2.3
+      bitcoinjs-lib: 6.1.5
+      ecpair: 2.1.0
+      just-memoize: 2.2.0
+      varuint-bitcoin: 1.1.2
+
   '@leather.io/constants@0.18.0':
     dependencies:
       '@leather.io/models': 0.29.0
@@ -19970,6 +20019,13 @@ snapshots:
   '@leather.io/crypto@1.6.51':
     dependencies:
       '@leather.io/utils': 0.29.0
+      '@scure/bip32': 1.6.2
+      '@scure/bip39': 1.5.4
+      just-memoize: 2.2.0
+
+  '@leather.io/crypto@1.6.53':
+    dependencies:
+      '@leather.io/utils': 0.31.0
       '@scure/bip32': 1.6.2
       '@scure/bip39': 1.5.4
       just-memoize: 2.2.0
@@ -20034,31 +20090,30 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@leather.io/query@2.30.1(encoding@0.1.13)(react@18.3.1)':
+  '@leather.io/query@2.32.0(encoding@0.1.13)':
     dependencies:
       '@fungible-systems/zone-file': 2.0.0
       '@hirosystems/token-metadata-api-client': 1.2.0(encoding@0.1.13)
-      '@leather.io/bitcoin': 0.21.1
-      '@leather.io/constants': 0.18.0
-      '@leather.io/models': 0.29.0
-      '@leather.io/rpc': 2.9.1(encoding@0.1.13)
-      '@leather.io/stacks': 1.7.3(encoding@0.1.13)
-      '@leather.io/utils': 0.29.0
+      '@leather.io/bitcoin': 0.22.1
+      '@leather.io/constants': 0.18.1
+      '@leather.io/models': 0.30.0
+      '@leather.io/rpc': 2.9.3(encoding@0.1.13)
+      '@leather.io/stacks': 1.7.5(encoding@0.1.13)
+      '@leather.io/utils': 0.31.0
       '@noble/hashes': 1.5.0
       '@scure/base': 1.2.4
       '@scure/bip32': 1.6.2
       '@scure/btc-signer': 1.6.0
       '@stacks/common': 7.0.2
       '@stacks/network': 7.0.2(encoding@0.1.13)
+      '@stacks/stacking': 7.0.5(encoding@0.1.13)
       '@stacks/stacks-blockchain-api-types': 7.8.2
       '@stacks/transactions': 7.0.5(encoding@0.1.13)
-      '@tanstack/react-query': 5.59.16(react@18.3.1)
       alex-sdk: 2.1.4(@stacks/network@7.0.2(encoding@0.1.13))(@stacks/transactions@7.0.5(encoding@0.1.13))
       axios: 1.8.2
       bignumber.js: 9.1.2
       lodash.get: 4.4.2
       p-queue: 8.0.1
-      react: 18.3.1
       url-join: 5.0.0
       uuid: 10.0.0
       yup: 1.3.3
@@ -20078,12 +20133,41 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
+  '@leather.io/rpc@2.9.3(encoding@0.1.13)':
+    dependencies:
+      '@leather.io/models': 0.30.0
+      '@leather.io/utils': 0.31.0
+      '@scure/btc-signer': 1.6.0
+      '@stacks/network': 7.0.2(encoding@0.1.13)
+      '@stacks/transactions': 7.0.5(encoding@0.1.13)
+      zod: 3.24.1
+    transitivePeerDependencies:
+      - encoding
+
   '@leather.io/stacks@1.7.3(encoding@0.1.13)':
     dependencies:
       '@leather.io/constants': 0.18.0
       '@leather.io/crypto': 1.6.51
       '@leather.io/models': 0.29.0
       '@leather.io/utils': 0.29.0
+      '@noble/hashes': 1.5.0
+      '@scure/bip32': 1.6.2
+      '@stacks/common': 7.0.2
+      '@stacks/encryption': 7.0.2
+      '@stacks/network': 7.0.2(encoding@0.1.13)
+      '@stacks/stacks-blockchain-api-types': 7.8.2
+      '@stacks/transactions': 7.0.5(encoding@0.1.13)
+      bignumber.js: 9.1.2
+      c32check: 2.0.0
+    transitivePeerDependencies:
+      - encoding
+
+  '@leather.io/stacks@1.7.5(encoding@0.1.13)':
+    dependencies:
+      '@leather.io/constants': 0.18.1
+      '@leather.io/crypto': 1.6.53
+      '@leather.io/models': 0.30.0
+      '@leather.io/utils': 0.31.0
       '@noble/hashes': 1.5.0
       '@scure/bip32': 1.6.2
       '@stacks/common': 7.0.2
@@ -20170,6 +20254,12 @@ snapshots:
       bignumber.js: 9.1.2
 
   '@leather.io/utils@0.30.0':
+    dependencies:
+      '@leather.io/constants': 0.18.1
+      '@leather.io/models': 0.30.0
+      bignumber.js: 9.1.2
+
+  '@leather.io/utils@0.31.0':
     dependencies:
       '@leather.io/constants': 0.18.1
       '@leather.io/models': 0.30.0
@@ -23084,6 +23174,8 @@ snapshots:
 
   '@schemastore/web-manifest@0.0.6': {}
 
+  '@scure/base@1.1.1': {}
+
   '@scure/base@1.1.9': {}
 
   '@scure/base@1.2.4': {}
@@ -23375,7 +23467,7 @@ snapshots:
     dependencies:
       '@noble/secp256k1': 1.7.1
       '@stacks/common': 7.0.2
-      '@stacks/encryption': 7.0.4
+      '@stacks/encryption': 7.0.5
       '@stacks/network': 7.0.2(encoding@0.1.13)
       '@stacks/profile': 7.0.4(encoding@0.1.13)
       cross-fetch: 3.1.8(encoding@0.1.13)
@@ -23443,7 +23535,7 @@ snapshots:
       ripemd160-min: 0.0.6
       varuint-bitcoin: 1.1.2
 
-  '@stacks/encryption@7.0.4':
+  '@stacks/encryption@7.0.5':
     dependencies:
       '@noble/hashes': 1.1.5
       '@noble/secp256k1': 1.7.1
@@ -23533,13 +23625,28 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
+  '@stacks/stacking@7.0.5(encoding@0.1.13)':
+    dependencies:
+      '@noble/hashes': 1.1.5
+      '@scure/base': 1.1.1
+      '@stacks/common': 7.0.2
+      '@stacks/encryption': 7.0.5
+      '@stacks/network': 7.0.2(encoding@0.1.13)
+      '@stacks/stacks-blockchain-api-types': 0.61.0
+      '@stacks/transactions': 7.0.5(encoding@0.1.13)
+      bs58: 5.0.0
+    transitivePeerDependencies:
+      - encoding
+
+  '@stacks/stacks-blockchain-api-types@0.61.0': {}
+
   '@stacks/stacks-blockchain-api-types@7.8.2': {}
 
   '@stacks/storage@7.0.4(encoding@0.1.13)':
     dependencies:
       '@stacks/auth': 7.0.4(encoding@0.1.13)
       '@stacks/common': 7.0.2
-      '@stacks/encryption': 7.0.4
+      '@stacks/encryption': 7.0.5
       '@stacks/network': 7.0.2(encoding@0.1.13)
       base64-js: 1.5.1
       jsontokens: 4.0.1

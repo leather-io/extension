@@ -2,9 +2,8 @@ import { type Dispatch, type SetStateAction, useEffect } from 'react';
 
 import { Stack } from 'leather-styles/jsx';
 
-import { type Sip10TokenAssetDetails } from '@leather.io/query';
-
 import { useSip10FiatMarketData } from '@app/common/hooks/use-calculate-sip10-fiat-value';
+import type { Sip10TokenAssetDetails } from '@app/query/stacks/sip10/sip10-tokens.hooks';
 
 import type { AssetRightElementVariant } from '../../asset-list';
 import { Sip10TokenAssetItem } from './sip10-token-asset-item';

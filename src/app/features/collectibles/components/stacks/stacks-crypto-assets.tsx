@@ -1,13 +1,10 @@
 import { useEffect } from 'react';
 
-import {
-  useGetBnsNamesOwnedByAddressQuery,
-  useStacksNonFungibleTokensMetadata,
-} from '@leather.io/query';
-
 import { analytics } from '@shared/utils/analytics';
 
 import { parseIfValidPunycode } from '@app/common/utils';
+import { useGetBnsNamesOwnedByAddressQuery } from '@app/query/stacks/bns/bns.query';
+import { useStacksNonFungibleTokensMetadata } from '@app/query/stacks/token-metadata/non-fungible-tokens/non-fungible-token-metadata.hooks';
 
 import { StacksBnsName } from './stacks-bns-name';
 import { StacksNonFungibleTokens } from './stacks-non-fungible-tokens';

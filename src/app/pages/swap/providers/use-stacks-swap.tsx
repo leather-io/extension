@@ -7,7 +7,6 @@ import { PostConditionMode } from '@stacks/transactions';
 import { serializeCV } from '@stacks/transactions-v6';
 import type { RouteQuote } from 'bitflow-sdk';
 
-import { type SwapAsset } from '@leather.io/query';
 import { isError, isUndefined } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
@@ -15,6 +14,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { bitflow } from '@shared/utils/bitflow-sdk';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
+import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentStacksNetworkStateV6 } from '@app/store/networks/networks.hooks';
 import { generateStacksContractCallUnsignedTxV6 } from '@app/store/transactions/contract-call-v6';

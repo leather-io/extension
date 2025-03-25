@@ -10,8 +10,6 @@ import {
   createNumberOfInscriptionsFn,
   filterUninscribedUtxosToRecoverFromTaproot,
   filterUtxosWithInscriptions,
-  useBitcoinClient,
-  useGetTaprootUtxosByAddressQuery,
   utxosToBalance,
 } from '@leather.io/query';
 import { isString } from '@leather.io/utils';
@@ -22,6 +20,9 @@ import {
   useCurrentBitcoinAccountXpubs,
 } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+
+import { useGetTaprootUtxosByAddressQuery } from '../../address/utxos-by-address.query';
+import { useBitcoinClient } from '../../clients/bitcoin-client';
 
 interface UseInscriptionArgs {
   xpubs: string[];

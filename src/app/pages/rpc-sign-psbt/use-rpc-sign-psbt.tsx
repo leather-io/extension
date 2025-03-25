@@ -4,11 +4,6 @@ import { hexToBytes } from '@noble/hashes/utils';
 import { bytesToHex } from '@stacks/common';
 
 import type { Money } from '@leather.io/models';
-import {
-  useBitcoinBroadcastTransaction,
-  useCalculateBitcoinFiatValue,
-  useCryptoCurrencyMarketDataMeanAverage,
-} from '@leather.io/query';
 import { RpcErrorCode, createRpcErrorResponse, createRpcSuccessResponse } from '@leather.io/rpc';
 import {
   formatMoney,
@@ -26,6 +21,11 @@ import { SignPsbtArgs } from '@app/common/psbt/requests';
 import { useRpcSignPsbtParams } from '@app/common/psbt/use-psbt-request-params';
 import { usePsbtSigner } from '@app/features/psbt-signer/hooks/use-psbt-signer';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
+import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
+import {
+  useCalculateBitcoinFiatValue,
+  useCryptoCurrencyMarketDataMeanAverage,
+} from '@app/query/common/market-data/market-data.hooks';
 import { useGetAssumedZeroIndexSigningConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 
 interface BroadcastSignedPsbtTxArgs {

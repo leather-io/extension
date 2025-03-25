@@ -7,11 +7,6 @@ import * as yup from 'yup';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@leather.io/constants';
 import { FeeTypes } from '@leather.io/models';
-import {
-  useCalculateStacksTxFees,
-  useNextNonce,
-  useStxCryptoAssetBalance,
-} from '@leather.io/query';
 import { Link } from '@leather.io/ui';
 import { isString } from '@leather.io/utils';
 
@@ -44,6 +39,9 @@ import { TransactionError } from '@app/features/stacks-transaction-request/trans
 import { useConfigSbtc } from '@app/query/common/remote-config/remote-config.query';
 import { useCheckSbtcSponsorshipEligible } from '@app/query/sbtc/sponsored-transactions.hooks';
 import { submitSponsoredSbtcTransaction } from '@app/query/sbtc/sponsored-transactions.query';
+import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
+import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import {
   useTransactionRequest,

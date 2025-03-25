@@ -3,7 +3,6 @@ import { Navigate } from 'react-router-dom';
 
 import { Flex, HStack, Stack } from 'leather-styles/jsx';
 
-import { useStxAvailableUnlockedBalance } from '@leather.io/query';
 import { TransactionTypes } from '@leather.io/stacks';
 import { Button, Caption } from '@leather.io/ui';
 import { truncateMiddle } from '@leather.io/utils';
@@ -17,6 +16,7 @@ import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { stacksValue } from '@app/common/stacks-utils';
 import { SwitchAccountSheet } from '@app/features/dialogs/switch-account-sheet/switch-account-sheet';
 import { ErrorMessage } from '@app/features/stacks-transaction-request/transaction-error/error-message';
+import { useStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';

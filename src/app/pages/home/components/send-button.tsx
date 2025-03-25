@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 
-import { useStxCryptoAssetBalance, useTransferableSip10Tokens } from '@leather.io/query';
 import { IconButton, PaperPlaneIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -11,6 +10,8 @@ import { RouteUrls } from '@shared/route-urls';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
+import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
+import { useTransferableSip10Tokens } from '@app/query/stacks/sip10/sip10-tokens.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 

@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
 import type { RouteQuote } from 'bitflow-sdk';
 
-import type { SwapAsset } from '@leather.io/query';
 import { capitalize, isDefined } from '@leather.io/utils';
+
+import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 
 function estimateLiquidityFee(dexPath: string[]) {
   return new BigNumber(dexPath.length).times(0.3).toNumber();

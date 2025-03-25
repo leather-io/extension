@@ -1,7 +1,7 @@
 import type { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
 
 import { FtTransfer } from '@leather.io/models';
-import { isFtAsset, useGetFungibleTokenMetadataQuery } from '@leather.io/query';
+import { isFtAsset } from '@leather.io/query';
 import { getPrincipalFromAssetString } from '@leather.io/stacks';
 import { ArrowDownIcon, ArrowUpIcon } from '@leather.io/ui';
 
@@ -14,6 +14,7 @@ import {
 } from '@app/common/transactions/stacks/transaction.utils';
 import { StacksAssetAvatar } from '@app/components/stacks-asset-avatar';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
+import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/token-metadata/fungible-tokens/fungible-token-metadata.query';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { TxTransferIconWrapper } from './tx-transfer-icon-wrapper';

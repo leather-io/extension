@@ -4,11 +4,6 @@ import { FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
 import { STX_DECIMALS } from '@leather.io/constants';
-import {
-  useCalculateStacksTxFees,
-  useStacksValidateFeeByNonce,
-  useStxCryptoAssetBalance,
-} from '@leather.io/query';
 import { convertAmountToBaseUnit, createMoney } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
@@ -20,6 +15,9 @@ import {
 } from '@app/common/validation/forms/amount-validators';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
+import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
+import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
+import { useStacksValidateFeeByNonce } from '@app/query/stacks/mempool/mempool.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import {
   useGenerateStxTokenTransferUnsignedTx,

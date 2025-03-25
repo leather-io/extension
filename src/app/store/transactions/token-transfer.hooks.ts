@@ -15,7 +15,6 @@ import {
 } from '@stacks/transactions';
 
 import type { Sip10CryptoAssetInfo } from '@leather.io/models';
-import { useNextNonce } from '@leather.io/query';
 import { TransactionTypes, getStacksAssetStringParts } from '@leather.io/stacks';
 import { stxToMicroStx } from '@leather.io/utils';
 
@@ -28,6 +27,7 @@ import {
   GenerateUnsignedTransactionOptions,
   generateUnsignedTransaction,
 } from '@app/common/transactions/stacks/generate-unsigned-txs';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 
 import { useCurrentStacksAccount } from '../accounts/blockchain/stacks/stacks-account.hooks';

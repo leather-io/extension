@@ -1,7 +1,7 @@
 import type { CryptoAssetBalance, Stx20CryptoAssetInfo } from '@leather.io/models';
-import { useStx20Tokens } from '@leather.io/query';
 
 import { type AssetFilter, useManageTokens } from '@app/common/hooks/use-manage-tokens';
+import { useStx20Tokens } from '@app/query/stacks/stx20/stx20-tokens.hooks';
 
 interface Stx20TokensLoaderProps {
   address: string;

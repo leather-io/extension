@@ -1,5 +1,6 @@
 import type { Inscription, Money } from '@leather.io/models';
-import type { SwapAsset } from '@leather.io/query';
+
+import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 
 export interface BitcoinSendFormValues {
   amount: number | string;

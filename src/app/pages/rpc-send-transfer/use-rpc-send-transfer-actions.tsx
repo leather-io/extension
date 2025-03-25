@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useBitcoinBroadcastTransaction } from '@leather.io/query';
 import { createRpcSuccessResponse } from '@leather.io/rpc';
 
 import { IS_TEST_ENV } from '@shared/environment';
@@ -13,6 +12,7 @@ import { analytics } from '@shared/utils/analytics';
 import { useGenerateUnsignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import { getApproveTransactionActions } from '@app/components/approve-transaction/get-approve-transaction-actions';
 import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
+import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 
 import { useRpcSendTransferContext } from './rpc-send-transfer.context';

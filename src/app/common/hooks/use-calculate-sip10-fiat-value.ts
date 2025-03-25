@@ -1,13 +1,11 @@
 import { useMemo } from 'react';
 
 import { type MarketData, createMarketData, createMarketPair } from '@leather.io/models';
-import {
-  useAlexCurrencyPriceAsMarketData,
-  useCryptoCurrencyMarketDataMeanAverage,
-} from '@leather.io/query';
 import { getPrincipalFromAssetString } from '@leather.io/stacks';
 import { createMoney } from '@leather.io/utils';
 
+import { useAlexCurrencyPriceAsMarketData } from '@app/query/common/alex-sdk/alex-sdk.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useConfigSbtc } from '@app/query/common/remote-config/remote-config.query';
 
 function castBitcoinMarketDataToSbtcMarketData(bitcoinMarketData: MarketData) {

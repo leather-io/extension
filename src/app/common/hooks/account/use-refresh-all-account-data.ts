@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 
-import { useGetAddressMempoolTransactionsQuery } from '@leather.io/query';
 import { delay } from '@leather.io/utils';
 
+import { useGetAddressMempoolTransactionsQuery } from '@app/query/stacks/mempool/mempool.query';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 // TODO: Can this be removed? It seems like we should be able
