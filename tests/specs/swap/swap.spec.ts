@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { mockStacksBroadcastTransactionV6 } from '@tests/mocks/mock-stacks-txs';
+import { mockStacksBroadcastTransaction } from '@tests/mocks/mock-stacks-txs';
 
 import { test } from '../../fixtures/fixtures';
 
@@ -8,7 +8,7 @@ test.describe('Swaps', () => {
     test.setTimeout(60_000);
 
     await globalPage.setupAndUseApiCalls(extensionId);
-    await mockStacksBroadcastTransactionV6(globalPage.page);
+    await mockStacksBroadcastTransaction(globalPage.page);
     await onboardingPage.signInWithTestAccount(extensionId);
     await homePage.swapButton.click();
     await swapPage.waitForSwapPageReady();

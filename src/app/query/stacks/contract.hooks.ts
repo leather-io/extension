@@ -1,6 +1,5 @@
+import type { ClarityAbiFunction } from '@stacks/transactions';
 import { useQuery } from '@tanstack/react-query';
-
-import { type ContractInterfaceFunction } from '@leather.io/query';
 
 import type { TransactionPayload } from '@shared/utils/legacy-requests';
 
@@ -12,7 +11,7 @@ export function useContractFunction(transactionRequest: TransactionPayload | nul
   return useQuery({
     ...createGetContractInterfaceQueryOptions({ client, transactionRequest }),
     select: resp =>
-      resp?.functions.find((func: ContractInterfaceFunction) => {
+      resp?.functions.find((func: ClarityAbiFunction) => {
         if (!transactionRequest || transactionRequest.txType !== 'contract_call') return;
         return func.name === transactionRequest?.functionName;
       }),
