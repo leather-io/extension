@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
 import {
-  createGetStacksAccountBalanceQueryOptions,
-  createStxCryptoAssetBalance,
-  createStxMoney,
+  createGetSip10AddressBalancesQueryOptions,
+  createGetStxAddressBalanceQueryOptions,
 } from '@leather.io/query';
 import { createMoney } from '@leather.io/utils';
 
@@ -14,13 +13,14 @@ import {
   useMempoolTxsOutboundBalance,
 } from '../mempool/mempool.hooks';
 import { useStacksClient } from '../stacks-client';
+import { createStxCryptoAssetBalance, createStxMoney } from './account-balance.utils';
 
 function useStxBalanceQuery(address: string) {
   const client = useStacksClient();
   const network = useCurrentNetworkState();
 
   return useQuery({
-    ...createGetStacksAccountBalanceQueryOptions({
+    ...createGetStxAddressBalanceQueryOptions({
       address,
       client,
       network: network.chain.stacks.url,
@@ -42,7 +42,7 @@ export function useStxCryptoAssetBalance(address: string) {
     useMempoolTxsOutboundBalance(address);
 
   const filteredBalanceQuery = useQuery({
-    ...createGetStacksAccountBalanceQueryOptions({
+    ...createGetStxAddressBalanceQueryOptions({
       address,
       client,
       network: network.chain.stacks.url,
@@ -72,11 +72,10 @@ export function useStacksAccountBalanceFungibleTokens(address: string) {
   const network = useCurrentNetworkState();
 
   return useQuery({
-    ...createGetStacksAccountBalanceQueryOptions({
+    ...createGetSip10AddressBalancesQueryOptions({
       address,
       client,
       network: network.chain.stacks.url,
     }),
-    select: resp => resp.fungible_tokens,
   });
 }

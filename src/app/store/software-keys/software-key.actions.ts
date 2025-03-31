@@ -49,8 +49,8 @@ function setWalletEncryptionPassword(args: {
 
     async function doesStacksAddressHaveBalance(address: string) {
       const controller = new AbortController();
-      const resp = await stxClient.getAccountBalance(address, controller.signal);
-      return Number(resp.stx.balance) > 0;
+      const resp = await stxClient.getStxAddressBalance(address, controller.signal);
+      return Number(resp.balance) > 0;
     }
 
     async function doesStacksAddressHaveBnsName(address: string) {
