@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import { TransactionInput } from '@scure/btc-signer/psbt';
 import { bytesToHex } from '@stacks/common';
 
-import { BitcoinClient, getNumberOfInscriptionOnUtxoUsingOrdinalsCom } from '@leather.io/query';
+import { BitcoinClient, getNumberOfInscriptionsOnUtxoUsingOrdinalsCom } from '@leather.io/query';
 import { isUndefined } from '@leather.io/utils';
 
 import { useCurrentNetworkState, useIsLeatherTestingEnv } from '@app/query/leather-query-provider';
@@ -91,7 +91,7 @@ export function useCheckUnspendableUtxos(blockTxAction?: () => void) {
             if (isUndefined(inscriptionIndex)) {
               throw new Error('Inscription index is missing in the input');
             }
-            const num = await getNumberOfInscriptionOnUtxoUsingOrdinalsCom(id, inscriptionIndex);
+            const num = await getNumberOfInscriptionsOnUtxoUsingOrdinalsCom(id, inscriptionIndex);
             return num > 0;
           })
         );
