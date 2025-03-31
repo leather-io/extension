@@ -38,13 +38,14 @@ export function filterSip10Tokens(
 }
 
 function useSip10TokensCryptoAssetBalance(address: string) {
-  const { data: tokens = {} } = useStacksAccountBalanceFungibleTokens(address);
-  return useStacksFungibleTokensBalance(tokens);
+  const query = useStacksAccountBalanceFungibleTokens(address);
+  return useStacksFungibleTokensBalance(query.data?.results ?? []);
 }
 
 function useSip10TokensCryptoAssetInfo(address: string) {
-  const { data: tokens = {} } = useStacksAccountBalanceFungibleTokens(address);
-  return useStacksFungibleTokensMetadata(Object.keys(tokens));
+  const query = useStacksAccountBalanceFungibleTokens(address);
+  const tokens = query.data?.results.map(ft => ft.token);
+  return useStacksFungibleTokensMetadata(tokens ?? []);
 }
 
 export interface Sip10TokenAssetDetails {
