@@ -14,11 +14,6 @@ import { getPostCondition } from '@leather.io/stacks';
 
 import { stacksValue } from '@app/common/stacks-utils';
 
-// TODO: Refactor pc utils to use with Approver UX
-//
-// These were used with legacy tx requests, so we have to keep them
-// until we are able to remove that code entirely.
-
 export const getIconStringFromPostCondition = (
   pc: STXPostConditionWire | FungiblePostConditionWire | NonFungiblePostConditionWire
 ) => {

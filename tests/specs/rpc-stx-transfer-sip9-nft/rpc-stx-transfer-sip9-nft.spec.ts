@@ -60,7 +60,7 @@ test.describe('RPC: stx_transferSip9Nft', () => {
       jsonrpc: '2.0',
       error: {
         code: 4001,
-        message: RpcErrorMessage.UserRejectedRequest,
+        message: RpcErrorMessage.UserRejectedSigning,
       },
     });
   });

@@ -1,22 +1,33 @@
-import {
-  RpcErrorCode,
-  createRpcErrorResponse,
-  encodeBase64Json,
-  stxCallContract,
-} from '@leather.io/rpc';
+import { serializeCV } from '@stacks/transactions';
+import { createUnsecuredToken } from 'jsontokens';
+
+import { type RpcParams, stxCallContract } from '@leather.io/rpc';
+import { TransactionTypes, getStacksContractName } from '@leather.io/stacks';
+import { isString } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
-import { RpcErrorMessage } from '@shared/rpc/methods/validation.utils';
 
 import {
-  listenForPopupClose,
-  makeSearchParamsWithDefaults,
-  triggerRequestWindowOpen,
+  type RequestParams,
+  getStxDefaultMessageParamsToTransactionRequest,
   validateRequestParams,
 } from '../messaging-utils';
-import { trackRpcRequestSuccess } from '../rpc-helpers';
+import { handleRpcMessage } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
 
+function getMessageParamsToTransactionRequest(params: RpcParams<typeof stxCallContract>) {
+  const contractName = getStacksContractName(params.contract);
+  const defaultParams = getStxDefaultMessageParamsToTransactionRequest(params);
+
+  return {
+    txType: TransactionTypes.ContractCall,
+    contractAddress: params.contract.split('.')[0],
+    contractName,
+    functionArgs: (params.functionArgs ?? []).map(arg => (isString(arg) ? arg : serializeCV(arg))),
+    functionName: params.functionName,
+    ...defaultParams,
+  };
+}
 export const stxCallContractHandler = defineRpcRequestHandler(
   stxCallContract.method,
   async (message, port) => {
@@ -29,27 +40,18 @@ export const stxCallContractHandler = defineRpcRequestHandler(
       schema: stxCallContract.params,
     });
     if (status === 'failure') return;
-    const { tabId, urlParams } = makeSearchParamsWithDefaults(port, [
-      ['requestId', message.id],
-      ['rpcRequest', encodeBase64Json(message)],
-    ]);
+    const requestParams: RequestParams = [
+      ['requestId', requestId],
+      ['request', createUnsecuredToken(getMessageParamsToTransactionRequest(message.params))],
+    ];
+    if (params.network) requestParams.push(['network', params.network]);
 
-    if (message.params && message.params.network) {
-      urlParams.append('network', message.params.network);
-    }
-    const { id } = await triggerRequestWindowOpen(RouteUrls.RpcStxCallContract, urlParams);
-    void trackRpcRequestSuccess({ endpoint: message.method });
-
-    listenForPopupClose({
-      tabId,
-      id,
-      response: createRpcErrorResponse(method, {
-        id: requestId,
-        error: {
-          code: RpcErrorCode.USER_REJECTION,
-          message: RpcErrorMessage.UserRejectedRequest,
-        },
-      }),
+    return handleRpcMessage({
+      method: message.method,
+      path: RouteUrls.RpcStxCallContract,
+      port,
+      requestParams,
+      requestId: message.id,
     });
   }
 );

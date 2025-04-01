@@ -5,19 +5,15 @@ import type { UtxoResponseItem } from '@leather.io/query';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 
-interface RpcTransactionRequestContext {
-  origin: string;
-  requestId: string;
-  tabId: number;
-}
+import type { RpcRequestContext } from '@app/common/rpc/use-rpc-request';
 
-export interface RpcSendTransferContext extends RpcTransactionRequestContext {
+export interface RpcSendTransferContext extends RpcRequestContext {
   amount: Money;
-  isLoadingBalance: boolean;
+  isLoading: boolean;
   recipients: TransferRecipient[];
   recipientAddresses: string[];
   utxos: UtxoResponseItem[];
-  // TODO: Create `SwitchAccountEditor` and relocate
+  onUserActivatesFeeEditor(): void;
   onUserActivatesSwitchAccount(): void;
 }
 

@@ -18,8 +18,8 @@ const feeTypeToIconMap: Record<FeePriority, ReactNode> = {
   custom: <AnimalChameleonIcon />,
 };
 
-export function FeeItemIcon({ priority }: { priority: FeePriority }) {
-  const icon = feeTypeToIconMap[priority] || null;
+export function FeeItemIcon({ feeType }: { feeType: FeePriority }) {
+  const icon = feeTypeToIconMap[feeType] || null;
 
   if (!icon) {
     throw new Error('Invalid fee type');
