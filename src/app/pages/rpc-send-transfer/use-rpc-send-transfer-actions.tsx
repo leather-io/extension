@@ -10,7 +10,7 @@ import { closeWindow } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
 
 import { useGenerateUnsignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
-import { getTransactionActions } from '@app/components/rpc-transaction-request/get-transaction-actions';
+import { getApproveTransactionActions } from '@app/components/approve-transaction/get-approve-transaction-actions';
 import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
@@ -19,8 +19,7 @@ import { useRpcSendTransferContext } from './rpc-send-transfer.context';
 
 export function useRpcSendTransferActions() {
   const { availableBalance, selectedFee } = useFeeEditorContext();
-  const { amount, isLoadingBalance, recipients, requestId, tabId, utxos } =
-    useRpcSendTransferContext();
+  const { amount, isLoading, recipients, requestId, tabId, utxos } = useRpcSendTransferContext();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isBroadcasting, setIsBroadcasting] = useState(false);
   const generateTx = useGenerateUnsignedNativeSegwitTx({ throwError: true });
@@ -91,8 +90,8 @@ export function useRpcSendTransferActions() {
       }
     }
 
-    return getTransactionActions({
-      isLoading: isLoadingBalance,
+    return getApproveTransactionActions({
+      isLoading,
       isInsufficientBalance,
       isBroadcasting,
       isSubmitted,
@@ -100,7 +99,7 @@ export function useRpcSendTransferActions() {
       onApprove,
     });
   }, [
-    isLoadingBalance,
+    isLoading,
     isInsufficientBalance,
     isBroadcasting,
     isSubmitted,

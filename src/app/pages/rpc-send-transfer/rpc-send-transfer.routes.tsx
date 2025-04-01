@@ -11,15 +11,15 @@ import { RpcSendTransferContainer } from './rpc-send-transfer-container';
 
 export const rpcSendTransferRoutes = (
   <Route
-    path={RouteUrls.RpcSendTransfer}
     element={
       <AccountGate>
         <RpcSendTransferContainer />
       </AccountGate>
     }
   >
-    <Route index element={<RpcSendTransfer />} />
-    <Route path={RouteUrls.FeeEditor} element={<FeeEditor />} />
-    {ledgerBitcoinTxSigningRoutes}
+    <Route path={RouteUrls.RpcSendTransfer} element={<RpcSendTransfer />}>
+      {ledgerBitcoinTxSigningRoutes}
+    </Route>
+    <Route path={RouteUrls.EditFee} element={<FeeEditor />} />
   </Route>
 );

@@ -13,23 +13,15 @@ describe('formatFeeItem', () => {
   };
 
   const mockRawFee: Fee = {
-    priority: 'standard',
+    type: 'standard',
+    feeValue: createMoney(1000, 'BTC'),
     feeRate: 5,
-    txFee: createMoney(1000, 'BTC'),
-    time: '~10 minutes',
-  };
-
-  const mockNullRawFee: Fee = {
-    priority: 'standard',
-    feeRate: 5,
-    txFee: null,
     time: '~10 minutes',
   };
 
   it('formats fee information correctly', () => {
     const result = formatFeeItem({
       fee: mockRawFee,
-      feeType: 'fee-rate',
       marketData: mockMarketData,
     });
 
@@ -44,13 +36,14 @@ describe('formatFeeItem', () => {
   it('handles null fee values', () => {
     const result = formatFeeItem({
       fee: {
-        ...mockNullRawFee,
+        ...mockRawFee,
+        feeValue: null,
+        feeRate: null,
       },
-      feeType: 'fee-rate',
       marketData: mockMarketData,
     });
 
     expect(result.titleRight).toBe('N/A');
-    expect(result.captionRight).toBe(null);
+    expect(result.captionRight).toBe('N/A');
   });
 });

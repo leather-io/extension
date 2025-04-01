@@ -1,12 +1,11 @@
 import { z } from 'zod';
 import { fromError } from 'zod-validation-error';
 
-export const RpcErrorMessage = {
-  InvalidParams: 'Invalid parameters',
-  NullOrigin: 'Origin is null',
-  UndefinedParams: 'Undefined parameters',
-  UserRejectedRequest: 'User rejected request',
-} as const;
+export enum RpcErrorMessage {
+  InvalidParams = 'Invalid parameters',
+  UndefinedParams = 'Undefined parameters',
+  UserRejectedSigning = 'User rejected transaction signing request',
+}
 
 export const accountSchema = z.number().int();
 

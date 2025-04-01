@@ -14,16 +14,15 @@ interface CustomFeeItemProps {
 }
 export function CustomFeeItem({ fee }: CustomFeeItemProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { customFee, feeType, marketData, selectedFee, onSetCustomFee, onSetSelectedFee } =
+  const { customFeeRate, marketData, selectedFee, onSetCustomFeeRate, onSetSelectedFee } =
     useFeeEditorContext();
 
   const { captionLeft, titleRight, captionRight } = formatFeeItem({
     fee,
-    feeType,
     marketData,
   });
 
-  const isSelected = selectedFee?.priority === fee.priority;
+  const isSelected = selectedFee?.type === fee.type;
 
   return (
     <Button
@@ -35,7 +34,7 @@ export function CustomFeeItem({ fee }: CustomFeeItemProps) {
       margin={isSelected ? '0px' : '1px'}
     >
       <ItemLayout
-        img={<FeeItemIcon priority="custom" />}
+        img={<FeeItemIcon feeType="custom" />}
         titleLeft="Custom"
         captionLeft={captionLeft}
         titleRight={titleRight}
@@ -61,9 +60,9 @@ export function CustomFeeItem({ fee }: CustomFeeItemProps) {
               <Input.Root style={{ minHeight: '40px' }}>
                 <Input.Field
                   ref={inputRef}
-                  onChange={e => onSetCustomFee(e.target.value)}
+                  onChange={e => onSetCustomFeeRate(e.target.value)}
                   placeholder="0"
-                  value={customFee ?? ''}
+                  value={customFeeRate ?? ''}
                 />
               </Input.Root>
             </Stack>

@@ -15,14 +15,14 @@ import { logger } from '@shared/logger';
 import { analytics } from '@shared/utils/analytics';
 
 import { focusTabAndWindow } from '@app/common/focus-tab';
-import { useRpcRequestParams } from '@app/common/hooks/use-rpc-request-params';
 import { initialSearchParams } from '@app/common/initial-search-params';
+import { useRpcRequestParams } from '@app/common/rpc/use-rpc-request';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useAppPermissions } from '@app/store/app-permissions/app-permissions.slice';
 
-// We reuse this flow for both of these requests, so here we make a union of two
+// We reuse this flow for both of these requsts, so here we make a union of two
 // possible requests
 const getAddressesRequests = z.union([getAddresses.request, stxGetAddresses.request]);
 const { decode } = createRequestEncoder(getAddressesRequests);
@@ -41,14 +41,14 @@ export function useGetAddresses() {
   const createTaprootSigner = useCurrentAccountTaprootSigner();
   const stacksAccount = useCurrentStacksAccount();
 
-  function focusInitiatingTab() {
+  function focusInitatingTab() {
     void analytics.track('user_clicked_requested_by_link', { endpoint: request.method });
     focusTabAndWindow(tabId);
   }
 
   return {
     origin,
-    focusInitiatingTab,
+    focusInitatingTab,
     onUserApproveGetAddresses() {
       if (!tabId || !origin) {
         logger.error('Cannot give app accounts: missing tabId, origin');

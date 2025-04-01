@@ -114,7 +114,7 @@ export class HomePage {
   }
 
   async clickSettingsButton() {
-    await this.settingsButton.click({ force: true });
+    await this.settingsButton.click();
   }
 
   async goToSecretKey() {
