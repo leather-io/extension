@@ -14,7 +14,7 @@ import {
   RequestParams,
   listenForPopupClose,
   makeSearchParamsWithDefaults,
-  triggerRequestWindowOpen,
+  triggerRequestPopupWindowOpen,
 } from './messaging-utils';
 
 interface HandleRpcMessageArgs {
@@ -34,7 +34,7 @@ export async function handleRpcMessage({
   void trackRpcRequestSuccess({ endpoint: method });
 
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
-  const { id } = await triggerRequestWindowOpen(path, urlParams);
+  const { id } = await triggerRequestPopupWindowOpen(path, urlParams);
 
   listenForPopupClose({
     tabId,
@@ -62,4 +62,8 @@ interface TrackRpcRequestError {
 }
 export async function trackRpcRequestError(args: TrackRpcRequestError) {
   return queueAnalyticsRequest('rpc_request_error', { ...args });
+}
+
+export function openNewTabWithWallet() {
+  return chrome.tabs.create({ url: chrome.runtime.getURL('index.html') });
 }

@@ -12,33 +12,39 @@ import {
 import { createUnsecuredToken } from 'jsontokens';
 
 import { extractKeyFromDescriptor } from '@leather.io/crypto';
+import type { NetworkModes } from '@leather.io/models';
 import { type RpcParams, stxTransferSip9Nft } from '@leather.io/rpc';
 import { TransactionTypes, getStacksAssetStringParts } from '@leather.io/stacks';
 
 import { RouteUrls } from '@shared/route-urls';
 import { makeNftPostCondition } from '@shared/utils/post-conditions';
 
-import { getRootState } from '@background/get-root-state';
+import type { RootState } from '@app/store';
+import { getRootState, sendMissingStateErrorToTab } from '@background/get-root-state';
 
 import {
   type RequestParams,
   getAddressFromAssetString,
   getStxDefaultMessageParamsToTransactionRequest,
+  getTabIdFromPort,
   validateRequestParams,
 } from '../messaging-utils';
 import { handleRpcMessage } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
 
-async function getMessageParamsToTransactionRequest(params: RpcParams<typeof stxTransferSip9Nft>) {
+async function getMessageParamsToTransactionRequest(
+  state: RootState,
+  params: RpcParams<typeof stxTransferSip9Nft>
+) {
   const { contractAddress, contractAssetName, contractName } = getStacksAssetStringParts(
     params.asset
   );
-  const state = await getRootState();
+
   const descriptor = state.chains.stx.default.currentAccountStacksDescriptor;
   const publicKey = createStacksPublicKey(extractKeyFromDescriptor(descriptor)).data;
   const currentStacksAddress = publicKeyToAddressSingleSig(
     publicKey,
-    state.networks.currentNetworkId
+    state.networks.currentNetworkId as NetworkModes
   );
 
   const fnArgs: ClarityValue[] = [
@@ -73,6 +79,7 @@ export const stxTransferSip9NftHandler = defineRpcRequestHandler(
   stxTransferSip9Nft.method,
   async (message, port) => {
     const { id: requestId, method, params } = message;
+    const tabId = getTabIdFromPort(port);
     const { status } = validateRequestParams({
       id: requestId,
       method,
@@ -80,8 +87,17 @@ export const stxTransferSip9NftHandler = defineRpcRequestHandler(
       port,
       schema: stxTransferSip9Nft.params,
     });
+
     if (status === 'failure') return;
-    const txRequest = await getMessageParamsToTransactionRequest(params);
+
+    const state = await getRootState();
+
+    if (!state) {
+      sendMissingStateErrorToTab({ tabId, method: message.method, id: message.id });
+      return;
+    }
+
+    const txRequest = await getMessageParamsToTransactionRequest(state, params);
     const requestParams: RequestParams = [
       ['requestId', requestId],
       ['request', createUnsecuredToken(txRequest)],

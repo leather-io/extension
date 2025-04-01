@@ -1,6 +1,6 @@
 import { ReactNode, useState } from 'react';
 
-import { isValidUrl } from '@shared/utils/validate-url';
+import { isValidUrl } from '@shared/utils/urls';
 
 import { CollectibleItemLayout, CollectibleItemLayoutProps } from './collectible-item.layout';
 import { ImageUnavailable } from './image-unavailable';
