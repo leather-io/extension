@@ -16,7 +16,7 @@ import {
   getTabIdFromPort,
   listenForPopupClose,
   makeSearchParamsWithDefaults,
-  triggerRequestWindowOpen,
+  triggerRequestPopupWindowOpen,
 } from '../messaging-utils';
 import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
@@ -104,7 +104,7 @@ export const signPsbtHandler = defineRpcRequestHandler(signPsbt.method, async (m
 
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
 
-  const { id } = await triggerRequestWindowOpen(RouteUrls.RpcSignPsbt, urlParams);
+  const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcSignPsbt, urlParams);
 
   listenForPopupClose({
     tabId,

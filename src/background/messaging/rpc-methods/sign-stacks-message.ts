@@ -21,7 +21,7 @@ import {
   getTabIdFromPort,
   listenForPopupClose,
   makeSearchParamsWithDefaults,
-  triggerRequestWindowOpen,
+  triggerRequestPopupWindowOpen,
 } from '../messaging-utils';
 import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
@@ -63,7 +63,7 @@ async function handleRpcSignStacksMessage(
 
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
 
-  const { id } = await triggerRequestWindowOpen(RouteUrls.RpcStacksSignature, urlParams);
+  const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcStacksSignature, urlParams);
 
   listenForPopupClose({
     tabId,

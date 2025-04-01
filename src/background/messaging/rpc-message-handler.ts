@@ -1,5 +1,5 @@
 import {
-  type LeatherRpcMethodMap,
+  RpcEndpointMap,
   RpcErrorCode,
   type RpcRequests,
   createRpcErrorResponse,
@@ -27,21 +27,21 @@ import { supportedMethodsHandler } from './rpc-methods/supported-methods';
 type RpcHandler<T> = (request: T, port: chrome.runtime.Port) => Promise<void> | void;
 
 type RpcHandlers = {
-  [Method in keyof LeatherRpcMethodMap]: RpcHandler<LeatherRpcMethodMap[Method]['request']>;
+  [Method in keyof RpcEndpointMap]: RpcHandler<RpcEndpointMap[Method]['request']>;
 };
 
 const rpcHandlers: Partial<RpcHandlers> = {};
 
 function registerRpcRequestHandler<M extends RpcRequests['method']>(
   method: M,
-  handler: RpcHandler<LeatherRpcMethodMap[M]['request']>
+  handler: RpcHandler<RpcEndpointMap[M]['request']>
 ) {
   rpcHandlers[method] = handler;
 }
 
 export function defineRpcRequestHandler<M extends RpcRequests['method']>(
   method: M,
-  handler: RpcHandler<LeatherRpcMethodMap[M]['request']>
+  handler: RpcHandler<RpcEndpointMap[M]['request']>
 ) {
   return [method, handler] as const;
 }

@@ -14,7 +14,7 @@ import {
 import { isDefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
-import { isValidUrl } from '@shared/utils/validate-url';
+import { isValidUrl } from '@shared/utils/urls';
 
 import { removeTrailingSlash } from '@app/common/url-join';
 import { useNetworksActions } from '@app/store/networks/networks.hooks';

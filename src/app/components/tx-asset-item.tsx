@@ -1,6 +1,6 @@
 import { HStack, HstackProps, styled } from 'leather-styles/jsx';
 
-import { isValidUrl } from '@shared/utils/validate-url';
+import { isValidUrl } from '@shared/utils/urls';
 
 import { StacksAssetAvatar } from '@app/components/stacks-asset-avatar';
 

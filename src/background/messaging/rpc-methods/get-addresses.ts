@@ -12,7 +12,7 @@ import { RouteUrls } from '@shared/route-urls';
 import {
   listenForPopupClose,
   makeSearchParamsWithDefaults,
-  triggerRequestWindowOpen,
+  triggerRequestPopupWindowOpen,
 } from '../messaging-utils';
 import { trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
@@ -31,7 +31,7 @@ function makeRpcAddressesMessageListener(eventName: 'getAddresses' | 'stx_getAdd
       urlParams.append('network', message.params.network);
     }
 
-    const { id } = await triggerRequestWindowOpen(RouteUrls.RpcGetAddresses, urlParams);
+    const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcGetAddresses, urlParams);
     void trackRpcRequestSuccess({ endpoint: message.method });
 
     listenForPopupClose({

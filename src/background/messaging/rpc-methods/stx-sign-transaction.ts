@@ -33,7 +33,7 @@ import {
   getTabIdFromPort,
   listenForPopupClose,
   makeSearchParamsWithDefaults,
-  triggerRequestWindowOpen,
+  triggerRequestPopupWindowOpen,
 } from '../messaging-utils';
 import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
@@ -184,7 +184,7 @@ export const stxSignTransactionHandler = defineRpcRequestHandler(
 
     const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
 
-    const { id } = await triggerRequestWindowOpen(RouteUrls.RpcStxSignTransaction, urlParams);
+    const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcStxSignTransaction, urlParams);
 
     listenForPopupClose({
       tabId,
