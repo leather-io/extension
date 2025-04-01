@@ -1,8 +1,6 @@
 import {
   ClarityVersion,
   PostConditionMode,
-  type UnsignedContractCallOptions,
-  type UnsignedContractDeployOptions,
   deserializeCV,
   makeUnsignedContractCall,
   makeUnsignedContractDeploy,
@@ -62,7 +60,7 @@ function generateUnsignedContractCallTx(args: GenerateUnsignedContractCallTxArgs
     postConditions: getPostConditions(postConditions),
     network,
     sponsored,
-  } satisfies UnsignedContractCallOptions;
+  };
 
   return makeUnsignedContractCall(options);
 }
@@ -82,7 +80,7 @@ function generateUnsignedContractDeployTx(args: GenerateUnsignedContractDeployTx
     postConditions: getPostConditions(postConditions),
     network,
     clarityVersion: ClarityVersion.Clarity3,
-  } satisfies UnsignedContractDeployOptions;
+  };
 
   return makeUnsignedContractDeploy(options);
 }
@@ -107,6 +105,9 @@ function generateUnsignedStxTransferTx(args: GenerateUnsignedStxTransferTxArgs) 
 export type GenerateUnsignedTransactionOptions = GenerateUnsignedTxArgs<
   ContractCallPayload | STXTransferPayload | ContractDeployPayload
 >;
+/**
+ * @deprecated Use updated version from `@leather.io/stacks`
+ */
 export async function generateUnsignedTransaction(options: GenerateUnsignedTransactionOptions) {
   const { txData, publicKey, nonce, fee } = options;
   const isValid = isTransactionTypeSupported(txData.txType);

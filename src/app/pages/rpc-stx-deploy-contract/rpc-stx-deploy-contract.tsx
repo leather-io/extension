@@ -1,14 +1,13 @@
 import { stxDeployContract } from '@leather.io/rpc';
 
-import { useRpcSip30BroadcastTransaction } from '@app/common/rpc/use-rpc-sip30-broadcast-transaction';
+import { useLegacyRequestBroadcastTransaction } from '@app/common/legacy-requests';
 import { StacksHighFeeWarningContainer } from '@app/features/stacks-high-fee-warning/stacks-high-fee-warning-container';
 import { StacksTransactionSigner } from '@app/features/stacks-transaction-request/stacks-transaction-signer';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 
 export function RpcStxDeployContract() {
-  const { onSignStacksTransaction, stacksTransaction, txSender } = useRpcSip30BroadcastTransaction(
-    stxDeployContract.method
-  );
+  const { onSignStacksTransaction, stacksTransaction, txSender } =
+    useLegacyRequestBroadcastTransaction(stxDeployContract.method);
 
   useBreakOnNonCompliantEntity(txSender);
 
