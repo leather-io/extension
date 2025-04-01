@@ -20,11 +20,11 @@ import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
-import { ContractCallDetails } from '@app/features/stacks-transaction-request/contract-call-details/contract-call-details';
 import { ContractDeployDetails } from '@app/features/stacks-transaction-request/contract-deploy-details/contract-deploy-details';
+import { ContractCallDetails } from '@app/features/stacks-transaction-request/legacy-contract-call-details/contract-call-details';
+import { PostConditions } from '@app/features/stacks-transaction-request/legacy-post-conditions/post-conditions';
 import { PageTop } from '@app/features/stacks-transaction-request/page-top';
 import { PostConditionModeWarning } from '@app/features/stacks-transaction-request/post-condition-mode-warning';
-import { PostConditions } from '@app/features/stacks-transaction-request/post-conditions/post-conditions';
 import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx-transfer-details/stx-transfer-details';
 import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
 import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
@@ -45,6 +45,9 @@ interface StacksTransactionSignerProps {
   isMultisig: boolean;
   onSignStacksTransaction(fee: number, nonce: number): Promise<void>;
 }
+/**
+ * @deprecated Legacy transaction request
+ */
 export function StacksTransactionSigner({
   stacksTransaction,
   disableFeeSelection,
