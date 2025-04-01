@@ -1,19 +1,21 @@
 import type { MarketData } from '@leather.io/models';
 import { Approver, ItemLayout, Pressable } from '@leather.io/ui';
 
-import type { Fee } from '@app/features/fee-editor/fee-editor.context';
+import type { Fee, FeeType } from '@app/features/fee-editor/fee-editor.context';
 import { formatFeeItem } from '@app/features/fee-editor/fee-editor.utils';
 
 import { CryptoAssetItemPlaceholder } from '../../../components/crypto-asset-item/crypto-asset-item-placeholder';
 import { FeeItemIcon } from './fee-item-icon';
 
 interface SelectedFeeItemProps {
+  feeType: FeeType;
   isLoading: boolean;
   marketData: MarketData;
   onEditFee(): void;
   selectedFee: Fee | null;
 }
 export function SelectedFeeItem({
+  feeType,
   isLoading,
   marketData,
   onEditFee,
@@ -27,15 +29,15 @@ export function SelectedFeeItem({
       </Approver.Section>
     );
   const { titleLeft, captionLeft, titleRight, captionRight } = formatFeeItem({
+    feeType,
     fee: selectedFee,
     marketData: marketData,
   });
   return (
     <Approver.Section>
-      <Approver.Subheader>Fee</Approver.Subheader>
-      <Pressable onClick={onEditFee} mb="space.02">
+      <Pressable onClick={onEditFee} my="space.02">
         <ItemLayout
-          img={<FeeItemIcon feeType={selectedFee.type} />}
+          img={<FeeItemIcon priority={selectedFee.priority} />}
           titleLeft={titleLeft}
           captionLeft={captionLeft}
           titleRight={titleRight}

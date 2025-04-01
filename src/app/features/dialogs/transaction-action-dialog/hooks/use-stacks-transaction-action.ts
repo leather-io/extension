@@ -12,7 +12,7 @@ import {
 } from '@app/common/transactions/stacks/generate-unsigned-txs';
 import { StacksTransactionActionType } from '@app/common/transactions/stacks/transaction.utils';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
-import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
+import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-legacy-stacks-broadcast-transaction';
 import { useStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useStacksRawTransaction } from '@app/query/stacks/transactions/raw-transaction-by-id.hooks';
 import { useGetTransactionByIdQuery } from '@app/query/stacks/transactions/transactions-by-id.query';

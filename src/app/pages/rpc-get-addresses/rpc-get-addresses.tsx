@@ -8,7 +8,7 @@ import { ConnectAccountLayout } from '../../components/connect-account/connect-a
 import { useGetAddresses } from './use-get-addresses';
 
 export function RpcGetAddresses() {
-  const { focusInitatingTab, origin, onUserApproveGetAddresses } = useGetAddresses();
+  const { focusInitiatingTab, origin, onUserApproveGetAddresses } = useGetAddresses();
 
   useOnOriginTabClose(() => closeWindow());
 
@@ -22,7 +22,7 @@ export function RpcGetAddresses() {
   return (
     <ConnectAccountLayout
       requester={origin}
-      onClickRequestedByLink={focusInitatingTab}
+      onClickRequestedByLink={focusInitiatingTab}
       switchAccount={<CurrentAccountDisplayer onSelectAccount={toggleSwitchAccount} />}
       onUserApprovesGetAddresses={onUserApproveGetAddresses}
     />
