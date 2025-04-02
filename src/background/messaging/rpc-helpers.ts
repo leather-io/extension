@@ -1,14 +1,13 @@
-import { RpcErrorCode, type RpcRequests, createRpcErrorResponse } from '@leather.io/rpc';
+import { type RpcRequests } from '@leather.io/rpc';
 
 import { RouteUrls } from '@shared/route-urls';
-import { RpcErrorMessage } from '@shared/rpc/methods/validation.utils';
 
 import { queueAnalyticsRequest } from '@background/background-analytics';
 
 import {
   RequestParams,
-  listenForPopupClose,
   makeSearchParamsWithDefaults,
+  sendErrorResponseOnUserPopupClose,
   triggerRequestPopupWindowOpen,
 } from './rpc-request-utils';
 
@@ -29,17 +28,7 @@ export async function handleRpcMessage({
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
   const { id } = await triggerRequestPopupWindowOpen(path, urlParams);
 
-  listenForPopupClose({
-    tabId,
-    id,
-    response: createRpcErrorResponse(request.method, {
-      id: request.id,
-      error: {
-        code: RpcErrorCode.USER_REJECTION,
-        message: RpcErrorMessage.UserRejectedSigning,
-      },
-    }),
-  });
+  sendErrorResponseOnUserPopupClose({ tabId, id, request });
 }
 
 interface TrackRpcRequestSuccess {

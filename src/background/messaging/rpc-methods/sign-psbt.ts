@@ -16,8 +16,8 @@ import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
   getTabIdFromPort,
-  listenForPopupClose,
   makeSearchParamsWithDefaults,
+  sendErrorResponseOnUserPopupClose,
   triggerRequestPopupWindowOpen,
 } from '../rpc-request-utils';
 
@@ -106,15 +106,10 @@ export const signPsbtHandler = defineRpcRequestHandler(signPsbt.method, async (r
 
   const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcSignPsbt, urlParams);
 
-  listenForPopupClose({
+  sendErrorResponseOnUserPopupClose({
     tabId,
     id,
-    response: createRpcErrorResponse('signPsbt', {
-      id: request.id,
-      error: {
-        code: RpcErrorCode.USER_REJECTION,
-        message: 'User rejected signing PSBT request',
-      },
-    }),
+    request,
+    message: 'User rejected signing PSBT request',
   });
 });

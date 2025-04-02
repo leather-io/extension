@@ -21,8 +21,8 @@ import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
   getTabIdFromPort,
-  listenForPopupClose,
   makeSearchParamsWithDefaults,
+  sendErrorResponseOnUserPopupClose,
   triggerRequestPopupWindowOpen,
 } from '../rpc-request-utils';
 
@@ -64,18 +64,7 @@ async function handleRpcSignStacksMessage(
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
 
   const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcStacksSignature, urlParams);
-
-  listenForPopupClose({
-    tabId,
-    id,
-    response: createRpcErrorResponse(method, {
-      id: request.id,
-      error: {
-        code: RpcErrorCode.USER_REJECTION,
-        message: 'User rejected the Stacks message signing request',
-      },
-    }),
-  });
+  sendErrorResponseOnUserPopupClose({ tabId, id, request });
 }
 export const stxSignMessageHandler = defineRpcRequestHandler(
   stxSignMessage.method,

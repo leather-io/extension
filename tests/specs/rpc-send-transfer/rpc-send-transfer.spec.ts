@@ -80,7 +80,7 @@ test.describe('RPC: sendTransfer', () => {
       jsonrpc: '2.0',
       error: {
         code: 4001,
-        message: 'User rejected signing the transaction',
+        message: 'User rejected request',
       },
     });
   });

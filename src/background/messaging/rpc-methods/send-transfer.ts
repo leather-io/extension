@@ -21,8 +21,8 @@ import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
   getTabIdFromPort,
-  listenForPopupClose,
   makeSearchParamsWithDefaults,
+  sendErrorResponseOnUserPopupClose,
   triggerRequestPopupWindowOpen,
 } from '../rpc-request-utils';
 
@@ -86,16 +86,6 @@ export const sendTransferHandler = defineRpcRequestHandler(
 
     const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcSendTransfer, urlParams);
 
-    listenForPopupClose({
-      tabId,
-      id,
-      response: createRpcErrorResponse('sendTransfer', {
-        id: request.id,
-        error: {
-          code: RpcErrorCode.USER_REJECTION,
-          message: 'User rejected signing the transaction',
-        },
-      }),
-    });
+    sendErrorResponseOnUserPopupClose({ tabId, id, request });
   }
 );

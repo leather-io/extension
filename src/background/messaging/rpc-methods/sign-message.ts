@@ -18,8 +18,8 @@ import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
   getTabIdFromPort,
-  listenForPopupClose,
   makeSearchParamsWithDefaults,
+  sendErrorResponseOnUserPopupClose,
   triggerRequestPopupWindowOpen,
 } from '../rpc-request-utils';
 
@@ -90,16 +90,6 @@ export const signMessageHandler = defineRpcRequestHandler(
     const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
     const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcSignBip322Message, urlParams);
 
-    listenForPopupClose({
-      tabId,
-      id,
-      response: createRpcErrorResponse('signMessage', {
-        id: request.id,
-        error: {
-          code: RpcErrorCode.USER_REJECTION,
-          message: 'User rejected the message signature',
-        },
-      }),
-    });
+    sendErrorResponseOnUserPopupClose({ tabId, id, request });
   }
 );
