@@ -7,6 +7,7 @@ import * as z from 'zod';
 import {
   RpcErrorCode,
   type RpcMethodNames,
+  type RpcRequests,
   type baseStacksTransactionConfigSchema,
   createRpcErrorResponse,
 } from '@leather.io/rpc';
@@ -63,6 +64,31 @@ export function listenForPopupClose({ id, tabId, response }: ListenForPopupClose
     if (winId !== id || !tabId) return;
     const responseMessage = response;
     chrome.tabs.sendMessage(tabId, responseMessage);
+  });
+}
+
+interface SendErrorResponseOnUserPopupCloseArgs {
+  tabId?: number;
+  id: number;
+  request: RpcRequests;
+  message?: string;
+}
+export function sendErrorResponseOnUserPopupClose({
+  tabId,
+  id,
+  message,
+  request,
+}: SendErrorResponseOnUserPopupCloseArgs) {
+  listenForPopupClose({
+    tabId,
+    id,
+    response: createRpcErrorResponse(request.method, {
+      id: request.id,
+      error: {
+        code: RpcErrorCode.USER_REJECTION,
+        message: message ?? RpcErrorMessage.UserRejectedOperation,
+      },
+    }),
   });
 }
 

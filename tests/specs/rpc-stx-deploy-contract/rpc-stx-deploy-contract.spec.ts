@@ -58,7 +58,7 @@ test.describe('RPC: stx_deployContract', () => {
       jsonrpc: '2.0',
       error: {
         code: 4001,
-        message: RpcErrorMessage.UserRejectedSigning,
+        message: RpcErrorMessage.UserRejectedOperation,
       },
     });
   });

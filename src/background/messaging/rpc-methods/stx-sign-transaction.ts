@@ -33,8 +33,8 @@ import {
   RequestParams,
   encodePostConditions,
   getTabIdFromPort,
-  listenForPopupClose,
   makeSearchParamsWithDefaults,
+  sendErrorResponseOnUserPopupClose,
   triggerRequestPopupWindowOpen,
 } from '../rpc-request-utils';
 
@@ -185,17 +185,6 @@ export const stxSignTransactionHandler = defineRpcRequestHandler(
     const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
 
     const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcStxSignTransaction, urlParams);
-
-    listenForPopupClose({
-      tabId,
-      id,
-      response: createRpcErrorResponse('stx_signTransaction', {
-        id: request.id,
-        error: {
-          code: RpcErrorCode.USER_REJECTION,
-          message: 'User rejected the Stacks transaction signing request',
-        },
-      }),
-    });
+    sendErrorResponseOnUserPopupClose({ tabId, id, request });
   }
 );
