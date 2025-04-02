@@ -1,16 +1,16 @@
 import { createRpcSuccessResponse, supportedMethods } from '@leather.io/rpc';
 
-import { makeSearchParamsWithDefaults } from '../messaging-utils';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
+import { makeSearchParamsWithDefaults } from '../rpc-request-utils';
 
 export const supportedMethodsHandler = defineRpcRequestHandler(
   supportedMethods.method,
-  (message, port) => {
+  (request, port) => {
     const { tabId } = makeSearchParamsWithDefaults(port);
     chrome.tabs.sendMessage(
       tabId,
       createRpcSuccessResponse(supportedMethods.method, {
-        id: message.id,
+        id: request.id,
         result: {
           documentation: 'https://leather.gitbook.io/developers/home/welcome',
           methods: [

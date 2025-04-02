@@ -16,26 +16,26 @@ import {
   validateRpcSendTransferParams,
 } from '@shared/rpc/methods/send-transfer';
 
+import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
+import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
   getTabIdFromPort,
   listenForPopupClose,
   makeSearchParamsWithDefaults,
   triggerRequestPopupWindowOpen,
-} from '../messaging-utils';
-import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
-import { defineRpcRequestHandler } from '../rpc-message-handler';
+} from '../rpc-request-utils';
 
 export const sendTransferHandler = defineRpcRequestHandler(
   sendTransfer.method,
-  async (message, port) => {
-    if (isUndefined(message.params)) {
+  async (request, port) => {
+    if (isUndefined(request.params)) {
       void trackRpcRequestError({ endpoint: 'sendTransfer', error: 'Undefined parameters' });
 
       chrome.tabs.sendMessage(
         getTabIdFromPort(port),
         createRpcErrorResponse('sendTransfer', {
-          id: message.id,
+          id: request.id,
           error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
         })
       );
@@ -43,9 +43,9 @@ export const sendTransferHandler = defineRpcRequestHandler(
     }
 
     // Legacy params support for backward compatibility
-    const params = validateRpcSendTransferLegacyParams(message.params)
-      ? convertRpcSendTransferLegacyParamsToNew(message.params as RpcSendTransferLegacyParams)
-      : (message.params as RpcSendTransferParams);
+    const params = validateRpcSendTransferLegacyParams(request.params)
+      ? convertRpcSendTransferLegacyParamsToNew(request.params as RpcSendTransferLegacyParams)
+      : (request.params as RpcSendTransferParams);
 
     if (!validateRpcSendTransferParams(params)) {
       void trackRpcRequestError({ endpoint: 'sendTransfer', error: 'Invalid parameters' });
@@ -53,7 +53,7 @@ export const sendTransferHandler = defineRpcRequestHandler(
       chrome.tabs.sendMessage(
         getTabIdFromPort(port),
         createRpcErrorResponse('sendTransfer', {
-          id: message.id,
+          id: request.id,
           error: {
             code: RpcErrorCode.INVALID_PARAMS,
             message: getRpcSendTransferParamErrors(params),
@@ -63,7 +63,7 @@ export const sendTransferHandler = defineRpcRequestHandler(
       return;
     }
 
-    void trackRpcRequestSuccess({ endpoint: message.method });
+    void trackRpcRequestSuccess({ endpoint: request.method });
 
     const recipients: [string, string][] = params.recipients.map(({ address }) => [
       'recipient',
@@ -75,7 +75,7 @@ export const sendTransferHandler = defineRpcRequestHandler(
       ...recipients,
       ...amounts,
       ['network', params.network ?? defaultRpcSendTransferNetwork],
-      ['requestId', message.id],
+      ['requestId', request.id],
     ];
 
     if (params.account) {
@@ -90,7 +90,7 @@ export const sendTransferHandler = defineRpcRequestHandler(
       tabId,
       id,
       response: createRpcErrorResponse('sendTransfer', {
-        id: message.id,
+        id: request.id,
         error: {
           code: RpcErrorCode.USER_REJECTION,
           message: 'User rejected signing the transaction',

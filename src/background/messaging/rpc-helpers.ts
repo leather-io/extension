@@ -1,9 +1,4 @@
-import {
-  RpcErrorCode,
-  type RpcMethodNames,
-  type RpcRequests,
-  createRpcErrorResponse,
-} from '@leather.io/rpc';
+import { RpcErrorCode, type RpcRequests, createRpcErrorResponse } from '@leather.io/rpc';
 
 import { RouteUrls } from '@shared/route-urls';
 import { RpcErrorMessage } from '@shared/rpc/methods/validation.utils';
@@ -15,23 +10,21 @@ import {
   listenForPopupClose,
   makeSearchParamsWithDefaults,
   triggerRequestPopupWindowOpen,
-} from './messaging-utils';
+} from './rpc-request-utils';
 
 interface HandleRpcMessageArgs {
-  method: RpcMethodNames;
+  request: RpcRequests;
   path: RouteUrls;
   port: chrome.runtime.Port;
   requestParams: RequestParams;
-  requestId: string;
 }
 export async function handleRpcMessage({
-  method,
+  request,
   path,
   port,
   requestParams,
-  requestId,
 }: HandleRpcMessageArgs) {
-  void trackRpcRequestSuccess({ endpoint: method });
+  void trackRpcRequestSuccess({ endpoint: request.method });
 
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
   const { id } = await triggerRequestPopupWindowOpen(path, urlParams);
@@ -39,8 +32,8 @@ export async function handleRpcMessage({
   listenForPopupClose({
     tabId,
     id,
-    response: createRpcErrorResponse(method, {
-      id: requestId,
+    response: createRpcErrorResponse(request.method, {
+      id: request.id,
       error: {
         code: RpcErrorCode.USER_REJECTION,
         message: RpcErrorMessage.UserRejectedSigning,

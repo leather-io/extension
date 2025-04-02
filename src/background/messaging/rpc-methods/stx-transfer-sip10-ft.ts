@@ -23,15 +23,15 @@ import { makeFtPostCondition } from '@shared/utils/post-conditions';
 import type { RootState } from '@app/store';
 import { getRootState, sendMissingStateErrorToTab } from '@background/get-root-state';
 
+import { handleRpcMessage } from '../rpc-helpers';
+import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   type RequestParams,
   getAddressFromAssetString,
   getStxDefaultMessageParamsToTransactionRequest,
   getTabIdFromPort,
   validateRequestParams,
-} from '../messaging-utils';
-import { handleRpcMessage } from '../rpc-helpers';
-import { defineRpcRequestHandler } from '../rpc-message-handler';
+} from '../rpc-request-utils';
 
 async function getMessageParamsToTransactionRequest(
   state: RootState,
@@ -79,8 +79,8 @@ async function getMessageParamsToTransactionRequest(
 }
 export const stxTransferSip10FtHandler = defineRpcRequestHandler(
   stxTransferSip10Ft.method,
-  async (message, port) => {
-    const { id: requestId, method, params } = message;
+  async (request, port) => {
+    const { id: requestId, method, params } = request;
     const tabId = getTabIdFromPort(port);
 
     const { status } = validateRequestParams({
@@ -96,7 +96,7 @@ export const stxTransferSip10FtHandler = defineRpcRequestHandler(
     const state = await getRootState();
 
     if (!state) {
-      sendMissingStateErrorToTab({ tabId, method: message.method, id: message.id });
+      sendMissingStateErrorToTab({ tabId, method: request.method, id: request.id });
       return;
     }
 
@@ -106,11 +106,10 @@ export const stxTransferSip10FtHandler = defineRpcRequestHandler(
       ['request', createUnsecuredToken(txRequest)],
     ];
     return handleRpcMessage({
-      method: message.method,
+      request,
       path: RouteUrls.RpcStxTransferSip10Ft,
       port,
       requestParams,
-      requestId: message.id,
     });
   }
 );

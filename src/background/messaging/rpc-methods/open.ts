@@ -10,22 +10,22 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { getRootState, sendMissingStateErrorToTab } from '@background/get-root-state';
 
+import { openNewTabWithWallet, trackRpcRequestSuccess } from '../rpc-helpers';
+import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   getHostnameFromPort,
   makeSearchParamsWithDefaults,
   triggerRequestPopupWindowOpen,
-} from '../messaging-utils';
-import { openNewTabWithWallet, trackRpcRequestSuccess } from '../rpc-helpers';
-import { defineRpcRequestHandler } from '../rpc-message-handler';
+} from '../rpc-request-utils';
 
-export const openHandler = defineRpcRequestHandler(open.method, async (message, port) => {
-  const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['requestId', message.id]]);
+export const openHandler = defineRpcRequestHandler(open.method, async (request, port) => {
+  const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['requestId', request.id]]);
 
   const state = await getRootState();
   const hostname = getHostnameFromPort(port);
 
   if (!state) {
-    sendMissingStateErrorToTab({ tabId, method: message.method, id: message.id });
+    sendMissingStateErrorToTab({ tabId, method: request.method, id: request.id });
     return;
   }
 
@@ -35,7 +35,7 @@ export const openHandler = defineRpcRequestHandler(open.method, async (message, 
     chrome.tabs.sendMessage(
       tabId,
       createRpcErrorResponse('open', {
-        id: message.id,
+        id: request.id,
         error: {
           code: RpcErrorCode.UNAUTHENTICATED,
           message: 'Permission denied, user must first connect to the wallet',
@@ -45,7 +45,7 @@ export const openHandler = defineRpcRequestHandler(open.method, async (message, 
     return;
   }
 
-  switch (message.params.mode) {
+  switch (request.params.mode) {
     case 'fullpage':
       openNewTabWithWallet();
       break;
@@ -55,12 +55,12 @@ export const openHandler = defineRpcRequestHandler(open.method, async (message, 
       break;
   }
 
-  void trackRpcRequestSuccess({ endpoint: message.method });
+  void trackRpcRequestSuccess({ endpoint: request.method });
 
   chrome.tabs.sendMessage(
     tabId,
     createRpcSuccessResponse('open', {
-      id: message.id,
+      id: request.id,
       result: { success: true },
     })
   );

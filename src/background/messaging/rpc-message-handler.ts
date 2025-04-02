@@ -5,7 +5,6 @@ import {
   createRpcErrorResponse,
 } from '@leather.io/rpc';
 
-import { getTabIdFromPort, listenForOriginTabClose } from './messaging-utils';
 import { getAddressesHandler, stxGetAddressesHandler } from './rpc-methods/get-addresses';
 import { openHandler } from './rpc-methods/open';
 import { openSwapHandler } from './rpc-methods/open-swap';
@@ -23,6 +22,7 @@ import { stxTransferSip9NftHandler } from './rpc-methods/stx-transfer-sip9-nft';
 import { stxTransferSip10FtHandler } from './rpc-methods/stx-transfer-sip10-ft';
 import { stxTransferStxHandler } from './rpc-methods/stx-transfer-stx';
 import { supportedMethodsHandler } from './rpc-methods/supported-methods';
+import { getTabIdFromPort, listenForOriginTabClose } from './rpc-request-utils';
 
 type RpcHandler<T> = (request: T, port: chrome.runtime.Port) => Promise<void> | void;
 
