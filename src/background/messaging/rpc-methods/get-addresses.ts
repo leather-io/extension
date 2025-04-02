@@ -9,36 +9,36 @@ import {
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { trackRpcRequestSuccess } from '../rpc-helpers';
+import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   listenForPopupClose,
   makeSearchParamsWithDefaults,
   triggerRequestPopupWindowOpen,
-} from '../messaging-utils';
-import { trackRpcRequestSuccess } from '../rpc-helpers';
-import { defineRpcRequestHandler } from '../rpc-message-handler';
+} from '../rpc-request-utils';
 
 function makeRpcAddressesMessageListener(eventName: 'getAddresses' | 'stx_getAddresses') {
   return async (
-    message: RpcRequest<typeof getAddresses> | RpcRequest<typeof stxGetAddresses>,
+    request: RpcRequest<typeof getAddresses> | RpcRequest<typeof stxGetAddresses>,
     port: chrome.runtime.Port
   ) => {
     const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [
-      ['requestId', message.id],
-      ['rpcRequest', encodeBase64Json(message)],
+      ['requestId', request.id],
+      ['rpcRequest', encodeBase64Json(request)],
     ]);
 
-    if (message.params && message.params.network) {
-      urlParams.append('network', message.params.network);
+    if (request.params && request.params.network) {
+      urlParams.append('network', request.params.network);
     }
 
     const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcGetAddresses, urlParams);
-    void trackRpcRequestSuccess({ endpoint: message.method });
+    void trackRpcRequestSuccess({ endpoint: request.method });
 
     listenForPopupClose({
       tabId,
       id,
       response: createRpcErrorResponse(eventName, {
-        id: message.id,
+        id: request.id,
         error: {
           code: RpcErrorCode.USER_REJECTION,
           message: 'User rejected request to get addresses',

@@ -27,6 +27,8 @@ import {
   validateRpcSignStacksTransactionParams,
 } from '@shared/rpc/methods/sign-stacks-transaction';
 
+import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
+import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
   encodePostConditions,
@@ -34,9 +36,7 @@ import {
   listenForPopupClose,
   makeSearchParamsWithDefaults,
   triggerRequestPopupWindowOpen,
-} from '../messaging-utils';
-import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
-import { defineRpcRequestHandler } from '../rpc-message-handler';
+} from '../rpc-request-utils';
 
 const MEMO_DESERIALIZATION_STUB = '\u0000';
 
@@ -113,42 +113,42 @@ function validateStacksTransaction(txHex: string) {
 
 export const stxSignTransactionHandler = defineRpcRequestHandler(
   stxSignTransaction.method,
-  async (message, port) => {
-    if (isUndefined(message.params)) {
-      void trackRpcRequestError({ endpoint: message.method, error: 'Undefined parameters' });
+  async (request, port) => {
+    if (isUndefined(request.params)) {
+      void trackRpcRequestError({ endpoint: request.method, error: 'Undefined parameters' });
       chrome.tabs.sendMessage(
         getTabIdFromPort(port),
         createRpcErrorResponse('stx_signTransaction', {
-          id: message.id,
+          id: request.id,
           error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
         })
       );
       return;
     }
 
-    if (!validateRpcSignStacksTransactionParams(message.params)) {
-      void trackRpcRequestError({ endpoint: message.method, error: 'Invalid parameters' });
+    if (!validateRpcSignStacksTransactionParams(request.params)) {
+      void trackRpcRequestError({ endpoint: request.method, error: 'Invalid parameters' });
 
       chrome.tabs.sendMessage(
         getTabIdFromPort(port),
         createRpcErrorResponse('stx_signTransaction', {
-          id: message.id,
+          id: request.id,
           error: {
             code: RpcErrorCode.INVALID_PARAMS,
-            message: getRpcSignStacksTransactionParamErrors(message.params),
+            message: getRpcSignStacksTransactionParamErrors(request.params),
           },
         })
       );
       return;
     }
 
-    if (!validateStacksTransaction(getStacksTransactionHexFromRequest(message.params))) {
-      void trackRpcRequestError({ endpoint: message.method, error: 'Invalid Stacks transaction' });
+    if (!validateStacksTransaction(getStacksTransactionHexFromRequest(request.params))) {
+      void trackRpcRequestError({ endpoint: request.method, error: 'Invalid Stacks transaction' });
 
       chrome.tabs.sendMessage(
         getTabIdFromPort(port),
         createRpcErrorResponse('stx_signTransaction', {
-          id: message.id,
+          id: request.id,
           error: { code: RpcErrorCode.INVALID_PARAMS, message: 'Invalid Stacks transaction hex' },
         })
       );
@@ -156,11 +156,11 @@ export const stxSignTransactionHandler = defineRpcRequestHandler(
     }
 
     const stacksTransaction = deserializeTransaction(
-      getStacksTransactionHexFromRequest(message.params)
+      getStacksTransactionHexFromRequest(request.params)
     );
-    const request = transactionPayloadToTransactionRequest(
+    const txRequest = transactionPayloadToTransactionRequest(
       stacksTransaction,
-      getAccountAddressFromRequest(message.params)
+      getAccountAddressFromRequest(request.params)
     );
 
     const hashMode = stacksTransaction.auth.spendingCondition.hashMode as MultiSigHashMode;
@@ -171,16 +171,16 @@ export const stxSignTransactionHandler = defineRpcRequestHandler(
       hashMode === AddressHashMode.P2SHNonSequential ||
       hashMode === AddressHashMode.P2WSHNonSequential;
 
-    void trackRpcRequestSuccess({ endpoint: message.method });
+    void trackRpcRequestSuccess({ endpoint: request.method });
 
     const requestParams = [
-      ['txHex', getStacksTransactionHexFromRequest(message.params)],
-      ['requestId', message.id],
-      ['request', createUnsecuredToken(request)],
+      ['txHex', getStacksTransactionHexFromRequest(request.params)],
+      ['requestId', request.id],
+      ['request', createUnsecuredToken(txRequest)],
       ['isMultisig', String(isMultisig)],
     ] satisfies RequestParams;
 
-    if (isDefined(message.params.network)) requestParams.push(['network', message.params.network]);
+    if (isDefined(request.params.network)) requestParams.push(['network', request.params.network]);
 
     const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
 
@@ -190,7 +190,7 @@ export const stxSignTransactionHandler = defineRpcRequestHandler(
       tabId,
       id,
       response: createRpcErrorResponse('stx_signTransaction', {
-        id: message.id,
+        id: request.id,
         error: {
           code: RpcErrorCode.USER_REJECTION,
           message: 'User rejected the Stacks transaction signing request',

@@ -14,7 +14,7 @@ import {
   listenForPopupClose,
   makeSearchParamsWithDefaults,
   triggerRequestPopupWindowOpen,
-} from '@background/messaging/messaging-utils';
+} from '@background/messaging/rpc-request-utils';
 
 export function isLegacyMessage(message: any): message is LegacyMessageFromContentScript {
   // Now that we use a RPC communication style, we can infer
