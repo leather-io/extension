@@ -1,11 +1,11 @@
 import { Outlet } from 'react-router-dom';
 
-import type { StacksTransaction } from '@stacks/transactions-v6';
+import type { StacksTransactionWire } from '@stacks/transactions';
 import type { RouteQuote } from 'bitflow-sdk';
 
 import { defaultSwapFee } from '@leather.io/query';
 
-import type { SbtcSponsorshipEligibilityV6 } from '@app/query/sbtc/sponsored-transactions.query';
+import type { SbtcSponsorshipEligibility } from '@app/query/sbtc/sponsored-transactions.query';
 
 import { SwapForm } from '../form/swap-form';
 import { useAllSwappableAssets } from '../hooks/use-all-swappable-assets';
@@ -17,8 +17,8 @@ export interface StacksSwapContext extends BaseSwapContext<StacksSwapContext> {
   nonce: number | string;
   routeQuote?: RouteQuote;
   slippage: number;
-  sponsorship?: SbtcSponsorshipEligibilityV6;
-  unsignedTx?: StacksTransaction;
+  sponsorship?: SbtcSponsorshipEligibility;
+  unsignedTx?: StacksTransactionWire;
 }
 
 interface StacksSwapProviderProps {
