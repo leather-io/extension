@@ -5,17 +5,17 @@ import { bytesToHex } from '@stacks/common';
 
 import { getBitcoinInputAddress, getBtcSignerLibNetworkConfigByMode } from '@leather.io/bitcoin';
 import type { Inscription } from '@leather.io/models';
-import { useInscriptionsByOutputs } from '@leather.io/query';
 import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { getBitcoinInputValue } from '@shared/crypto/bitcoin/bitcoin.utils';
 
+import { useInscriptionsByOutputs } from '@app/query/bitcoin/ordinals/inscriptions-by-param.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 export interface PsbtInput {
-  address: string;
+  address: string | null;
   index?: number;
   inscription?: Inscription;
   isMutable: boolean;
@@ -41,7 +41,7 @@ export function useParsedInputs({ inputs, indexesToSign }: UseParsedInputsArgs) 
       inputs.map((input, i) => {
         const inputAddress = isDefined(input.index)
           ? getBitcoinInputAddress(input, bitcoinNetwork)
-          : '';
+          : null;
         const isCurrentAddress =
           inputAddress === bitcoinAddressNativeSegwit || inputAddress === bitcoinAddressTaproot;
         // Flags when not signing ALL inputs/outputs (NONE, SINGLE, and ANYONECANPAY)

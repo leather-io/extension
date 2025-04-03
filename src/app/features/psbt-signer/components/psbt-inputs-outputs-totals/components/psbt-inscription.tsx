@@ -1,10 +1,10 @@
 import type { Inscription } from '@leather.io/models';
-import { useInscription } from '@leather.io/query';
 import { OrdinalAvatarIcon } from '@leather.io/ui';
 import { isUndefined } from '@leather.io/utils';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
+import { useInscription } from '@app/query/bitcoin/ordinals/inscription.hooks';
 
 import { PsbtAddressTotalItem } from './psbt-address-total-item';
 

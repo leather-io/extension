@@ -1,13 +1,12 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
-
 import { RouteUrls } from '@shared/route-urls';
 
 import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 import { BitcoinUtxosLoader } from '@app/components/loaders/bitcoin-utxos-loader';
 import { BitcoinFeeEditorProvider } from '@app/features/fee-editor/bitcoin/bitcoin-fee-editor.provider';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
 import { type RpcSendTransferContext, RpcSendTransferProvider } from './rpc-send-transfer.context';
 import { useRpcSendTransfer } from './use-rpc-send-transfer';

@@ -6,7 +6,7 @@ import { STX_DECIMALS } from '@leather.io/constants';
 import type { NetworkConfiguration } from '@leather.io/models';
 import { initBigNumber, microStxToStx } from '@leather.io/utils';
 
-import { isValidUrl } from '@shared/utils/validate-url';
+import { isValidUrl } from '@shared/utils/urls';
 
 import { abbreviateNumber } from '@app/common/utils';
 

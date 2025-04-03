@@ -4,7 +4,7 @@ import { fromError } from 'zod-validation-error';
 export enum RpcErrorMessage {
   InvalidParams = 'Invalid parameters',
   UndefinedParams = 'Undefined parameters',
-  UserRejectedSigning = 'User rejected transaction signing request',
+  UserRejectedOperation = 'User rejected request',
 }
 
 export const accountSchema = z.number().int();

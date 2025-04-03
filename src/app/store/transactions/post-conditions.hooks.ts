@@ -2,12 +2,13 @@ import { useMemo } from 'react';
 
 import { FungiblePostConditionWire, addressToString } from '@stacks/transactions';
 
-import { isFtAsset, useGetFungibleTokenMetadataQuery } from '@leather.io/query';
+import { isFtAsset } from '@leather.io/query';
 import { ensurePostConditionWireFormat, getPostCondition } from '@leather.io/stacks';
 
 import type { TransactionPayload } from '@shared/utils/legacy-requests';
 
 import { handlePostConditions } from '@app/common/transactions/stacks/post-condition.utils';
+import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/token-metadata/fungible-tokens/fungible-token-metadata.query';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useTransactionRequestState } from './requests.hooks';

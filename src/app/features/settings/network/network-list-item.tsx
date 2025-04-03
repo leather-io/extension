@@ -1,6 +1,6 @@
 import { defaultCurrentNetwork } from '@leather.io/models';
-import { useGetStacksNetworkStatusQuery } from '@leather.io/query';
 
+import { useGetStacksNetworkStatusQuery } from '@app/query/stacks/network/network.query';
 import { useCurrentNetworkId, useNetworks } from '@app/store/networks/networks.selectors';
 
 import { NetworkListItemLayout } from './components/network-list-item.layout';

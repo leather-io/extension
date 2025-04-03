@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
 import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather.io/models';
-import { useSip10Token } from '@leather.io/query';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -9,6 +8,7 @@ import { useSip10FiatMarketData } from '@app/common/hooks/use-calculate-sip10-fi
 import { Content } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 import { useToast } from '@app/features/toasts/use-toast';
+import { useSip10Token } from '@app/query/stacks/sip10/sip10-tokens.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { Sip10TokenSendFormContainer } from './sip10-token-send-form-container';

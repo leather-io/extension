@@ -1,10 +1,8 @@
 import type { StxCryptoAssetBalance } from '@leather.io/models';
-import {
-  isErrorTooManyRequests,
-  isFetchedWithSuccess,
-  useStxCryptoAssetBalance,
-} from '@leather.io/query';
+import { isErrorTooManyRequests, isFetchedWithSuccess } from '@leather.io/query';
 import { StxAvatarIcon } from '@leather.io/ui';
+
+import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
 
 import { CryptoAssetItemError } from '../crypto-asset-item/crypto-asset-item-error';
 import { CryptoAssetItemPlaceholder } from '../crypto-asset-item/crypto-asset-item-placeholder';

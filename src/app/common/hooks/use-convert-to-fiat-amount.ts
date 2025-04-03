@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
 
 import type { CryptoCurrency, Money } from '@leather.io/models';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import { baseCurrencyAmountInQuote } from '@leather.io/utils';
+
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
 export function useConvertCryptoCurrencyToFiatAmount(currency: CryptoCurrency) {
   // TODO: unsafe type assumption

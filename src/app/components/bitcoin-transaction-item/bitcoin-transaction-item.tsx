@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { HStack } from 'leather-styles/jsx';
 
 import type { BitcoinTx } from '@leather.io/models';
-import { useInscriptionByOutput } from '@leather.io/query';
 import { BtcAvatarIcon, BulletSeparator, Caption } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -20,6 +19,7 @@ import {
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { IncreaseFeeButton } from '@app/components/stacks-transaction-item/increase-fee-button';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
+import { useInscriptionByOutput } from '@app/query/bitcoin/ordinals/inscriptions-by-param.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 

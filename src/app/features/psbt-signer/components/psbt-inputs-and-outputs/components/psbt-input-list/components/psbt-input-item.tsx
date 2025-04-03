@@ -8,6 +8,8 @@ import { PsbtInputOutputItemLayout } from '../../psbt-input-output-item.layout';
 const hoverLabel = `Value you're approving as contribution to transaction.`;
 
 export function PsbtInputItem({ utxo }: { utxo: PsbtInput }) {
+  if (utxo.address === null) return null;
+
   return (
     <PsbtInputOutputItemLayout
       address={truncateMiddle(utxo.address)}

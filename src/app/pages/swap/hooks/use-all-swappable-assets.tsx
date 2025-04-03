@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 
-import type { SwapAsset } from '@leather.io/query';
 import { isDefined, migratePositiveAssetBalancesToTop } from '@leather.io/utils';
 
+import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useConfigSbtc } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 

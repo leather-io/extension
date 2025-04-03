@@ -9,7 +9,6 @@ import {
   createStacksPrivateKey,
 } from '@stacks/transactions-v6';
 
-import { useNextNonce } from '@leather.io/query';
 import { TransactionTypes } from '@leather.io/stacks';
 import { isUndefined, stxToMicroStx } from '@leather.io/utils';
 
@@ -28,6 +27,7 @@ import {
 } from '@app/features/ledger/flows/stacks-tx-signing/stacks-tx-signing-event-listeners';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useToast } from '@app/features/toasts/use-toast';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import {
   useCurrentStacksAccount,
   useCurrentStacksAccountAddress,

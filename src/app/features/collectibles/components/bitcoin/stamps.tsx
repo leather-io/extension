@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 
-import { useStampsByAddress } from '@leather.io/query';
-
 import { analytics } from '@shared/utils/analytics';
 
+import { useStampsByAddress } from '@app/query/bitcoin/stamps/stamps-by-address.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { Stamp } from './stamp';
@@ -18,7 +17,7 @@ export function Stamps() {
       void analytics.track('view_collectibles', {
         stamps_count: stamps.length,
       });
-      void analytics.identify({ stamps_count: stamps.length });
+      void analytics.identify(undefined, { stamps_count: stamps.length });
     }
   }, [stamps]);
 

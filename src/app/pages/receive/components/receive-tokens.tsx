@@ -4,7 +4,6 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { css } from 'leather-styles/css';
 import { Stack } from 'leather-styles/jsx';
 
-import { useAlexSwappableAssets } from '@leather.io/query';
 import {
   Avatar,
   Brc20AvatarIcon,
@@ -12,12 +11,12 @@ import {
   RunesAvatarIcon,
   Src20AvatarIcon,
   StxAvatarIcon,
-  defaultFallbackDelay,
 } from '@leather.io/ui';
 import { isString } from '@leather.io/utils';
 
 import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { useToast } from '@app/features/toasts/use-toast';
+import { useAlexSwappableAssets } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useConfigRunesEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -118,10 +117,7 @@ export function ReceiveTokens({
           address={asset.address}
           icon={
             isString(asset.icon) ? (
-              <Avatar.Root>
-                <Avatar.Image alt={asset.fallback} src={asset.icon} />
-                <Avatar.Fallback delayMs={defaultFallbackDelay}>{asset.fallback}</Avatar.Fallback>
-              </Avatar.Root>
+              <Avatar image={asset.icon} fallback={asset.fallback} />
             ) : (
               asset.icon
             )

@@ -1,6 +1,4 @@
-function openNewTabWithWallet() {
-  return chrome.tabs.create({ url: 'index.html' });
-}
+import { openNewTabWithWallet } from './messaging/rpc-helpers';
 
 export function initContextMenuActions() {
   chrome.contextMenus.removeAll();

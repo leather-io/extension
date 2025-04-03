@@ -1,5 +1,4 @@
-import { useNextNonce } from '@leather.io/query';
-
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 interface StacksNonceLoaderProps {

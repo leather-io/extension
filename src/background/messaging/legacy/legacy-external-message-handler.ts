@@ -13,8 +13,8 @@ import {
   listenForOriginTabClose,
   listenForPopupClose,
   makeSearchParamsWithDefaults,
-  triggerRequestWindowOpen,
-} from '@background/messaging/messaging-utils';
+  triggerRequestPopupWindowOpen,
+} from '@background/messaging/rpc-request-utils';
 
 export function isLegacyMessage(message: any): message is LegacyMessageFromContentScript {
   // Now that we use a RPC communication style, we can infer
@@ -61,7 +61,7 @@ export async function handleLegacyExternalMethodFormat(
         ['flow', ExternalMethods.authenticationRequest],
       ]);
 
-      const { id } = await triggerRequestWindowOpen(RouteUrls.ChooseAccount, urlParams);
+      const { id } = await triggerRequestPopupWindowOpen(RouteUrls.ChooseAccount, urlParams);
       listenForPopupClose({
         id,
         tabId,
@@ -78,7 +78,7 @@ export async function handleLegacyExternalMethodFormat(
         ...getNetworkParamsFromPayload(payload),
       ]);
 
-      const { id } = await triggerRequestWindowOpen(RouteUrls.TransactionRequest, urlParams);
+      const { id } = await triggerRequestPopupWindowOpen(RouteUrls.TransactionRequest, urlParams);
       listenForPopupClose({
         id,
         tabId,
@@ -96,7 +96,7 @@ export async function handleLegacyExternalMethodFormat(
         ...getNetworkParamsFromPayload(payload),
       ]);
 
-      const { id } = await triggerRequestWindowOpen(RouteUrls.SignatureRequest, urlParams);
+      const { id } = await triggerRequestPopupWindowOpen(RouteUrls.SignatureRequest, urlParams);
       listenForPopupClose({
         id,
         tabId,
@@ -114,7 +114,7 @@ export async function handleLegacyExternalMethodFormat(
         ...getNetworkParamsFromPayload(payload),
       ]);
 
-      const { id } = await triggerRequestWindowOpen(RouteUrls.SignatureRequest, urlParams);
+      const { id } = await triggerRequestPopupWindowOpen(RouteUrls.SignatureRequest, urlParams);
       listenForPopupClose({
         id,
         tabId,
@@ -127,7 +127,7 @@ export async function handleLegacyExternalMethodFormat(
     case ExternalMethods.profileUpdateRequest: {
       const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['request', payload]]);
 
-      const { id } = await triggerRequestWindowOpen(RouteUrls.ProfileUpdateRequest, urlParams);
+      const { id } = await triggerRequestPopupWindowOpen(RouteUrls.ProfileUpdateRequest, urlParams);
       listenForPopupClose({
         id,
         tabId,
@@ -140,7 +140,7 @@ export async function handleLegacyExternalMethodFormat(
     case ExternalMethods.psbtRequest: {
       const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['request', payload]]);
 
-      const { id } = await triggerRequestWindowOpen(RouteUrls.PsbtRequest, urlParams);
+      const { id } = await triggerRequestPopupWindowOpen(RouteUrls.PsbtRequest, urlParams);
       listenForPopupClose({
         id,
         tabId,

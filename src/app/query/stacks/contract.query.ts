@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { type StacksClient, StacksQueryPrefixes, useStacksClient } from '@leather.io/query';
+import { type StacksClient, StacksQueryPrefixes } from '@leather.io/query';
 import { TransactionTypes } from '@leather.io/stacks';
 
 import type { ContractCallPayload, TransactionPayload } from '@shared/utils/legacy-requests';
+
+import { useStacksClient } from './stacks-client';
 
 const queryOptions = {
   staleTime: 30 * 60 * 1000,

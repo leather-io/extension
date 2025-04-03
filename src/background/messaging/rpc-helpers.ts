@@ -1,52 +1,34 @@
-import {
-  RpcErrorCode,
-  type RpcMethodNames,
-  type RpcRequests,
-  createRpcErrorResponse,
-} from '@leather.io/rpc';
+import { type RpcRequests } from '@leather.io/rpc';
 
 import { RouteUrls } from '@shared/route-urls';
-import { RpcErrorMessage } from '@shared/rpc/methods/validation.utils';
 
 import { queueAnalyticsRequest } from '@background/background-analytics';
 
 import {
   RequestParams,
-  listenForPopupClose,
   makeSearchParamsWithDefaults,
-  triggerRequestWindowOpen,
-} from './messaging-utils';
+  sendErrorResponseOnUserPopupClose,
+  triggerRequestPopupWindowOpen,
+} from './rpc-request-utils';
 
 interface HandleRpcMessageArgs {
-  method: RpcMethodNames;
+  request: RpcRequests;
   path: RouteUrls;
   port: chrome.runtime.Port;
   requestParams: RequestParams;
-  requestId: string;
 }
 export async function handleRpcMessage({
-  method,
+  request,
   path,
   port,
   requestParams,
-  requestId,
 }: HandleRpcMessageArgs) {
-  void trackRpcRequestSuccess({ endpoint: method });
+  void trackRpcRequestSuccess({ endpoint: request.method });
 
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
-  const { id } = await triggerRequestWindowOpen(path, urlParams);
+  const { id } = await triggerRequestPopupWindowOpen(path, urlParams);
 
-  listenForPopupClose({
-    tabId,
-    id,
-    response: createRpcErrorResponse(method, {
-      id: requestId,
-      error: {
-        code: RpcErrorCode.USER_REJECTION,
-        message: RpcErrorMessage.UserRejectedSigning,
-      },
-    }),
-  });
+  sendErrorResponseOnUserPopupClose({ tabId, id, request });
 }
 
 interface TrackRpcRequestSuccess {
@@ -62,4 +44,8 @@ interface TrackRpcRequestError {
 }
 export async function trackRpcRequestError(args: TrackRpcRequestError) {
   return queueAnalyticsRequest('rpc_request_error', { ...args });
+}
+
+export function openNewTabWithWallet() {
+  return chrome.tabs.create({ url: chrome.runtime.getURL('index.html') });
 }

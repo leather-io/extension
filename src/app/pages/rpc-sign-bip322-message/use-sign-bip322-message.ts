@@ -75,7 +75,7 @@ function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFac
           id: requestId,
           error: {
             code: RpcErrorCode.USER_REJECTION,
-            message: 'User rejected message signing request',
+            message: 'User rejected request',
           },
         })
       );

@@ -5,13 +5,13 @@ import { TransactionTypes } from '@leather.io/stacks';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { handleRpcMessage } from '../rpc-helpers';
+import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   type RequestParams,
   getStxDefaultMessageParamsToTransactionRequest,
   validateRequestParams,
-} from '../messaging-utils';
-import { handleRpcMessage } from '../rpc-helpers';
-import { defineRpcRequestHandler } from '../rpc-message-handler';
+} from '../rpc-request-utils';
 
 function getMessageParamsToTransactionRequest(params: RpcParams<typeof stxTransferStx>) {
   const defaultParams = getStxDefaultMessageParamsToTransactionRequest(params);
@@ -27,8 +27,8 @@ function getMessageParamsToTransactionRequest(params: RpcParams<typeof stxTransf
 
 export const stxTransferStxHandler = defineRpcRequestHandler(
   stxTransferStx.method,
-  async (message, port) => {
-    const { id: requestId, method, params } = message;
+  async (request, port) => {
+    const { id: requestId, method, params } = request;
     const { status } = validateRequestParams({
       id: requestId,
       method,
@@ -37,17 +37,16 @@ export const stxTransferStxHandler = defineRpcRequestHandler(
       schema: stxTransferStx.params,
     });
     if (status === 'failure') return;
-    const request = getMessageParamsToTransactionRequest(params);
+    const txRequest = getMessageParamsToTransactionRequest(params);
     const requestParams: RequestParams = [
       ['requestId', requestId],
-      ['request', createUnsecuredToken(request)],
+      ['request', createUnsecuredToken(txRequest)],
     ];
     return handleRpcMessage({
-      method: message.method,
+      request,
       path: RouteUrls.RpcStxTransferStx,
       port,
       requestParams,
-      requestId: message.id,
     });
   }
 );

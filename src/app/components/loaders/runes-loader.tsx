@@ -1,7 +1,7 @@
 import type { CryptoAssetBalance, MarketData, RuneCryptoAssetInfo } from '@leather.io/models';
-import { useRuneTokens } from '@leather.io/query';
 
 import { type AssetFilter, useManageTokens } from '@app/common/hooks/use-manage-tokens';
+import { useRuneTokens } from '@app/query/bitcoin/runes/runes.hooks';
 
 interface RunesLoaderProps {
   addresses: string[];

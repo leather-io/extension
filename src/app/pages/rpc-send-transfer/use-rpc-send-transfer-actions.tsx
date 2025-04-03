@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useBitcoinBroadcastTransaction } from '@leather.io/query';
 import { createRpcSuccessResponse } from '@leather.io/rpc';
 
 import { logger } from '@shared/logger';
@@ -11,7 +10,9 @@ import { analytics } from '@shared/utils/analytics';
 
 import { useGenerateUnsignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import { getApproveTransactionActions } from '@app/components/approve-transaction/get-approve-transaction-actions';
+import { useInscribedSpendableUtxos } from '@app/features/discarded-inscriptions/use-inscribed-spendable-utxos';
 import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
+import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 
 import { useRpcSendTransferContext } from './rpc-send-transfer.context';
@@ -24,6 +25,7 @@ export function useRpcSendTransferActions() {
   const generateTx = useGenerateUnsignedNativeSegwitTx({ throwError: true });
   const signTransaction = useSignBitcoinTx();
   const { broadcastTx } = useBitcoinBroadcastTransaction();
+  const utxosOfSpendableInscriptions = useInscribedSpendableUtxos();
   const navigate = useNavigate();
 
   const isInsufficientBalance = availableBalance.amount.isLessThan(amount.amount);
@@ -58,6 +60,7 @@ export function useRpcSendTransferActions() {
 
         await broadcastTx({
           tx: tx.hex,
+          skipSpendableCheckUtxoIds: utxosOfSpendableInscriptions.map(utxo => utxo.txid),
           async onSuccess(txid) {
             setIsBroadcasting(false);
 
@@ -106,6 +109,7 @@ export function useRpcSendTransferActions() {
     utxos,
     signTransaction,
     broadcastTx,
+    utxosOfSpendableInscriptions,
     tabId,
     requestId,
   ]);

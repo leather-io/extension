@@ -138,7 +138,7 @@ test.describe('RPC: stx_signTransaction', () => {
       jsonrpc: '2.0',
       error: {
         code: 4001,
-        message: 'User rejected the Stacks transaction signing request',
+        message: 'User rejected request',
       },
     });
   });
@@ -162,7 +162,7 @@ test.describe('RPC: stx_signTransaction', () => {
         jsonrpc: '2.0',
         error: {
           code: 4001,
-          message: 'User rejected the Stacks transaction signing request',
+          message: 'User rejected request',
         },
       });
     });

@@ -3,13 +3,13 @@ import { createRpcSuccessResponse, openSwap } from '@leather.io/rpc';
 import { RouteUrls } from '@shared/route-urls';
 import { replaceRouteParams } from '@shared/utils/replace-route-params';
 
-import { makeSearchParamsWithDefaults, triggerSwapWindowOpen } from '../messaging-utils';
 import { trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
+import { makeSearchParamsWithDefaults, triggerSwapWindowOpen } from '../rpc-request-utils';
 
-export const openSwapHandler = defineRpcRequestHandler(openSwap.method, async (message, port) => {
-  const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['requestId', message.id]]);
-  const { base = 'STX', quote } = message?.params || {};
+export const openSwapHandler = defineRpcRequestHandler(openSwap.method, async (request, port) => {
+  const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['requestId', request.id]]);
+  const { base = 'STX', quote } = request?.params || {};
 
   if (base === 'BTC') {
     await triggerSwapWindowOpen(
@@ -29,12 +29,12 @@ export const openSwapHandler = defineRpcRequestHandler(openSwap.method, async (m
     urlParams
   );
 
-  void trackRpcRequestSuccess({ endpoint: message.method });
+  void trackRpcRequestSuccess({ endpoint: request.method });
 
   chrome.tabs.sendMessage(
     tabId,
     createRpcSuccessResponse('openSwap', {
-      id: message.id,
+      id: request.id,
       result: { message: 'Success' },
     })
   );

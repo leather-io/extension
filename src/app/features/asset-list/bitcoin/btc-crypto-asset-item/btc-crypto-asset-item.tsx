@@ -1,9 +1,9 @@
 import type { BtcCryptoAssetBalance } from '@leather.io/models';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import { BtcAvatarIcon } from '@leather.io/ui';
 import { baseCurrencyAmountInQuote, i18nFormatCurrency } from '@leather.io/utils';
 
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 interface BtcCryptoAssetItemProps {

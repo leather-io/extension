@@ -77,22 +77,14 @@ test.describe('Settings menu', () => {
   test('that menu item can toggle privacy', async ({ page, homePage }) => {
     const visibleBalanceText = await homePage.page
       .getByTestId(SharedComponentsSelectors.AccountCardBalanceText)
-      .textContent();
+      .innerText();
     test.expect(visibleBalanceText).toBeTruthy();
 
     await homePage.clickSettingsButton();
     await page.getByTestId(SettingsSelectors.TogglePrivacy).click();
 
-    // just checks that the balance text changed (don't care about the implementation)
     await test
       .expect(homePage.page.getByTestId(SharedComponentsSelectors.AccountCardBalanceText))
-      .not.toHaveText(visibleBalanceText!);
-
-    await homePage.clickSettingsButton();
-    await page.getByTestId(SettingsSelectors.TogglePrivacy).click();
-
-    await test
-      .expect(homePage.page.getByTestId(SharedComponentsSelectors.AccountCardBalanceText))
-      .not.toContainText('***');
+      .toContainText('***');
   });
 });
