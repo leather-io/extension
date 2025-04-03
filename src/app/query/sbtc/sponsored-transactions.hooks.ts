@@ -37,13 +37,12 @@ export function useCheckSbtcSponsorshipEligible(
     if (result && stxAddress === lastAddressChecked) {
       return;
     }
-    // use the standard recommended fee from estimates
-    const standardFeeEstimate = stxFees.estimates[FeeTypes.Middle].fee.amount.toNumber();
+
     verifySponsoredSbtcTransaction({
       apiUrl: sbtcConfig.sponsorshipApiUrl,
       baseTx,
       nonce: nextNonce.nonce,
-      fee: standardFeeEstimate,
+      fee: stxFees.estimates[FeeTypes.Middle].fee.amount.toNumber(),
     })
       .then(result => {
         setResult(result);

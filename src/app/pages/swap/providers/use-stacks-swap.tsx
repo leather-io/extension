@@ -1,24 +1,30 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { bytesToHex } from '@stacks/common';
-import { type ContractCallPayload, TransactionTypes } from '@stacks/connect-jwt';
-import { PostConditionMode } from '@stacks/transactions';
-import { serializeCV } from '@stacks/transactions-v6';
+import { PostConditionMode, serializeCV } from '@stacks/transactions';
 import type { RouteQuote } from 'bitflow-sdk';
 
+import { TransactionTypes, getPostConditions } from '@leather.io/stacks';
 import { isError, isUndefined } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 import { bitflow } from '@shared/utils/bitflow-sdk';
+import {
+  type ContractCallPayload,
+  legacyCVToCV,
+  serializeLegacyPostCondition,
+} from '@shared/utils/legacy-requests';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
+import {
+  type GenerateUnsignedTransactionOptions,
+  generateUnsignedTransaction,
+} from '@app/common/transactions/stacks/generate-unsigned-txs';
 import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useCurrentStacksNetworkStateV6 } from '@app/store/networks/networks.hooks';
-import { generateStacksContractCallUnsignedTxV6 } from '@app/store/transactions/contract-call-v6';
-import { useSignStacksTransactionV6 } from '@app/store/transactions/transaction.hooks';
+import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
+import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
 
 import { useSponsorTransactionFees } from '../hooks/use-sponsor-tx-fees';
 import { useStacksBroadcastSwap } from '../hooks/use-stacks-broadcast-swap';
@@ -28,9 +34,9 @@ import type { StacksSwapContext } from './stacks-swap-provider';
 export function useStacksSwap(nonce: number | string) {
   const { setIsLoading, setIsIdle, isLoading } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);
   const currentAccount = useCurrentStacksAccount();
-  const signTx = useSignStacksTransactionV6();
+  const signTx = useSignStacksTransaction();
   const broadcastStacksSwap = useStacksBroadcastSwap();
-  const network = useCurrentStacksNetworkStateV6();
+  const network = useCurrentStacksNetworkState();
   const navigate = useNavigate();
 
   const { checkEligibilityForSponsor, submitSponsoredTx } = useSponsorTransactionFees();
@@ -107,25 +113,29 @@ export function useStacksSwap(nonce: number | string) {
         contractAddress: swapParams.contractAddress,
         contractName: swapParams.contractName,
         functionName: swapParams.functionName,
-        functionArgs: swapParams.functionArgs.map(x => bytesToHex(serializeCV(x))),
+        functionArgs: swapParams.functionArgs.map(arg => serializeCV(legacyCVToCV(arg))),
         postConditionMode: PostConditionMode.Deny,
-        postConditions: swapParams.postConditions,
+        postConditions: getPostConditions(serializeLegacyPostCondition(swapParams.postConditions)),
         publicKey: currentAccount?.stxPublicKey,
         sponsored: false,
         network,
       };
 
-      const unsignedTx = await generateStacksContractCallUnsignedTxV6(payload, {
+      const txOptions: GenerateUnsignedTransactionOptions = {
         fee: swapData.fee?.amount.toNumber(),
-        nonce,
-      });
+        nonce: Number(nonce),
+        publicKey: currentAccount?.stxPublicKey,
+        txData: payload,
+      };
+
+      const unsignedTx = await generateUnsignedTransaction(txOptions);
 
       if (!unsignedTx)
         return logger.error('Attempted to generate unsigned tx, but tx is undefined');
 
       const sponsorship = await checkEligibilityForSponsor({
         transaction: unsignedTx,
-        options: { ...payload, nonce },
+        options: txOptions,
       });
 
       return { routeQuote, sponsorship, unsignedTx };
