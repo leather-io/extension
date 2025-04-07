@@ -158,17 +158,7 @@
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
 <a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a>
-<a name='L100'></a><a href='#L100'>100</a>
-<a name='L101'></a><a href='#L101'>101</a>
-<a name='L102'></a><a href='#L102'>102</a>
-<a name='L103'></a><a href='#L103'>103</a>
-<a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a>
-<a name='L106'></a><a href='#L106'>106</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L96'></a><a href='#L96'>96</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -261,16 +251,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { isSupportedMessageSigningPaymentType } from '@leather.io/bitcoin';
@@ -288,41 +268,41 @@ import {
   validateRpcSignMessageParams,
 } from '@shared/rpc/methods/sign-message';
 &nbsp;
+import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
+import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
   getTabIdFromPort,
-  listenForPopupClose,
   makeSearchParamsWithDefaults,
-  triggerRequestWindowOpen,
-} from '../messaging-utils';
-import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
-import { defineRpcRequestHandler } from '../rpc-message-handler';
+  sendErrorResponseOnUserPopupClose,
+  triggerRequestPopupWindowOpen,
+} from '../rpc-request-utils';
 &nbsp;
 export const signMessageHandler = <span class="cstat-no" title="statement not covered" >defineRpcRequestHandler(</span>
   signMessage.method,
-<span class="fstat-no" title="function not covered" >  async (m</span>essage, port) =&gt; {
-<span class="cstat-no" title="statement not covered" >    if (isUndefined(message.params)) {</span>
+<span class="fstat-no" title="function not covered" >  async (r</span>equest, port) =&gt; {
+<span class="cstat-no" title="statement not covered" >    if (isUndefined(request.params)) {</span>
 <span class="cstat-no" title="statement not covered" >      void trackRpcRequestError({ endpoint: 'signMessage', error: 'Undefined parameters' });</span>
 <span class="cstat-no" title="statement not covered" >      chrome.tabs.sendMessage(</span>
         getTabIdFromPort(port),
         createRpcErrorResponse('signMessage', {
-          id: message.id,
+          id: request.id,
           error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
         })
       );
 <span class="cstat-no" title="statement not covered" >      return;</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!validateRpcSignMessageParams(message.params)) {</span>
+<span class="cstat-no" title="statement not covered" >    if (!validateRpcSignMessageParams(request.params)) {</span>
 <span class="cstat-no" title="statement not covered" >      void trackRpcRequestError({ endpoint: 'signMessage', error: 'Invalid parameters' });</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      chrome.tabs.sendMessage(</span>
         getTabIdFromPort(port),
         createRpcErrorResponse('signMessage', {
-          id: message.id,
+          id: request.id,
           error: {
             code: RpcErrorCode.INVALID_PARAMS,
-            message: getRpcSignMessageParamErrors(message.params),
+            message: getRpcSignMessageParamErrors(request.params),
           },
         })
       );
@@ -330,7 +310,7 @@ export const signMessageHandler = <span class="cstat-no" title="statement not co
     }
 &nbsp;
     const paymentType: Extract&lt;'p2tr' | 'p2wpkh', PaymentTypes&gt; =
-      (<span class="cstat-no" title="statement not covered" >message.params as any).paymentType ?? 'p2wpkh';</span>
+      (<span class="cstat-no" title="statement not covered" >request.params as any).paymentType ?? 'p2wpkh';</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (!isSupportedMessageSigningPaymentType(paymentType)) {</span>
 <span class="cstat-no" title="statement not covered" >      void trackRpcRequestError({ endpoint: 'signMessage', error: 'Unsupported payment type' });</span>
@@ -338,7 +318,7 @@ export const signMessageHandler = <span class="cstat-no" title="statement not co
 <span class="cstat-no" title="statement not covered" >      chrome.tabs.sendMessage(</span>
         getTabIdFromPort(port),
         createRpcErrorResponse('signMessage', {
-          id: message.id,
+          id: request.id,
           error: {
             code: RpcErrorCode.INVALID_PARAMS,
             message:
@@ -349,33 +329,23 @@ export const signMessageHandler = <span class="cstat-no" title="statement not co
 <span class="cstat-no" title="statement not covered" >      return;</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    void trackRpcRequestSuccess({ endpoint: message.method });</span>
+<span class="cstat-no" title="statement not covered" >    void trackRpcRequestSuccess({ endpoint: request.method });</span>
 &nbsp;
     const requestParams: RequestParams = <span class="cstat-no" title="statement not covered" >[</span>
-      ['message', message.params.message],
-      ['network', (message.params as any).network ?? 'mainnet'],
+      ['message', request.params.message],
+      ['network', (request.params as any).network ?? 'mainnet'],
       ['paymentType', paymentType],
-      ['requestId', message.id],
+      ['requestId', request.id],
     ];
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (isDefined((message.params as any).account)) {</span>
-<span class="cstat-no" title="statement not covered" >      requestParams.push(['accountIndex', (message.params as any).account.toString()]);</span>
+<span class="cstat-no" title="statement not covered" >    if (isDefined((request.params as any).account)) {</span>
+<span class="cstat-no" title="statement not covered" >      requestParams.push(['accountIndex', (request.params as any).account.toString()]);</span>
     }
 &nbsp;
     const { urlParams, tabId } = <span class="cstat-no" title="statement not covered" >makeSearchParamsWithDefaults(port, requestParams);</span>
-    const { id } = <span class="cstat-no" title="statement not covered" >await triggerRequestWindowOpen(RouteUrls.RpcSignBip322Message, urlParams);</span>
+    const { id } = <span class="cstat-no" title="statement not covered" >await triggerRequestPopupWindowOpen(RouteUrls.RpcSignBip322Message, urlParams);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    listenForPopupClose({</span>
-      tabId,
-      id,
-      response: createRpcErrorResponse('signMessage', {
-        id: message.id,
-        error: {
-          code: RpcErrorCode.USER_REJECTION,
-          message: 'User rejected the message signature',
-        },
-      }),
-    });
+<span class="cstat-no" title="statement not covered" >    sendErrorResponseOnUserPopupClose({ tabId, id, request });</span>
   }
 );
 &nbsp;</pre></td></tr></table></pre>
@@ -385,7 +355,7 @@ export const signMessageHandler = <span class="cstat-no" title="statement not co
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-25T16:25:43.616Z
+                at 2025-04-07T16:36:52.708Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

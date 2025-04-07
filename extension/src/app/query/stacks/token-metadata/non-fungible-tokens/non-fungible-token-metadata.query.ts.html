@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/query/sbtc/sbtc-token.query.ts</title>
+    <title>Code coverage report for extension/src/app/query/stacks/token-metadata/non-fungible-tokens/non-fungible-token-metadata.query.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/query/sbtc</a> sbtc-token.query.ts</h1>
+        <h1><a href="../../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/query/stacks/token-metadata/non-fungible-tokens</a> non-fungible-token-metadata.query.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -114,20 +114,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -137,45 +123,59 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import BigNumber from 'bignumber.js';
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { hexToCV } from '@stacks/transactions';
+import { type UseQueryResult, useQueries } from '@tanstack/react-query';
 &nbsp;
-import { BTC_DECIMALS } from '@leather.io/constants';
 import {
-  type Sip10TokenAssetDetails,
-  useStacksAccountBalanceFungibleTokens,
-  useStacksFungibleTokensMetadata,
+  type NftAssetResponse,
+  createGetNonFungibleTokenMetadataQueryOptions,
 } from '@leather.io/query';
-import { createBaseCryptoAssetBalance, createMoney, isDefined } from '@leather.io/utils';
+import { getPrincipalFromAssetString } from '@leather.io/stacks';
 &nbsp;
-import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useStacksClient } from '../../stacks-client';
+import { useGetNonFungibleTokenHoldingsQuery } from './non-fungible-token-holdings.query';
 &nbsp;
-import { useConfigSbtc } from '../common/remote-config/remote-config.query';
-&nbsp;
-function <span class="fstat-no" title="function not covered" >useSbtcTokenCryptoAssetBalance() {</span>
-  const { contractId } = <span class="cstat-no" title="statement not covered" >useConfigSbtc();</span>
-  const stxAddress = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccountAddress();</span>
-  const { data: tokens = <span class="branch-0 cbranch-no" title="branch not covered" >{} }</span> = <span class="cstat-no" title="statement not covered" >useStacksAccountBalanceFungibleTokens(stxAddress);</span>
-  const sbtToken = <span class="cstat-no" title="statement not covered" >Object.entries(tokens).find(<span class="fstat-no" title="function not covered" >([</span>key, _v]) =&gt; <span class="cstat-no" title="statement not covered" >key === contractId)</span>?.[1];</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return createBaseCryptoAssetBalance(</span>
-    createMoney(sbtToken ? Number(sbtToken.balance) : new BigNumber(0), 'sBTC', BTC_DECIMALS)
-  );
+function <span class="fstat-no" title="function not covered" >getTokenId(h</span>ex: string) {
+  const clarityValue = <span class="cstat-no" title="statement not covered" >hexToCV(hex);</span>
+<span class="cstat-no" title="statement not covered" >  return clarityValue.type === 'uint' ? Number(clarityValue.value) : 0;</span>
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >useSbtcTokenCryptoAssetInfo() {</span>
-  const { contractId } = <span class="cstat-no" title="statement not covered" >useConfigSbtc();</span>
-  const infoResults = <span class="cstat-no" title="statement not covered" >useStacksFungibleTokensMetadata([contractId]);</span>
-<span class="cstat-no" title="statement not covered" >  return infoResults.map(<span class="fstat-no" title="function not covered" >query =&gt; <span class="cstat-no" title="statement not covered" >q</span>uery.data)</span>.filter(isDefined)[0];</span>
-}
+export function <span class="fstat-no" title="function not covered" >useGetNonFungibleTokenMetadataListQuery(</span>
+  address: string
+): UseQueryResult&lt;NftAssetResponse&gt;[] {
+  const client = <span class="cstat-no" title="statement not covered" >useStacksClient();</span>
+  const nftHoldings = <span class="cstat-no" title="statement not covered" >useGetNonFungibleTokenHoldingsQuery(address);</span>
 &nbsp;
-// Remove if end up not needing, but we might want to use this in the future
-// ts-unused-exports:disable-next-line
-export function <span class="fstat-no" title="function not covered" >useSbtcSip10Token(): Sip10TokenAssetDetails {</span>
-  const balance = <span class="cstat-no" title="statement not covered" >useSbtcTokenCryptoAssetBalance();</span>
-  const info = <span class="cstat-no" title="statement not covered" >useSbtcTokenCryptoAssetInfo();</span>
-<span class="cstat-no" title="statement not covered" >  return { balance, info };</span>
+<span class="cstat-no" title="statement not covered" >  return useQueries({</span>
+    queries: (nftHoldings.data?.results ?? []).map(<span class="fstat-no" title="function not covered" >nft =&gt; {</span>
+      const address = <span class="cstat-no" title="statement not covered" >getPrincipalFromAssetString(nft.asset_identifier);</span>
+      const tokenId = <span class="cstat-no" title="statement not covered" >getTokenId(nft.value.hex);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      return {</span>
+        ...createGetNonFungibleTokenMetadataQueryOptions({
+          address,
+          client,
+          tokenId,
+        }),
+      };
+    }),
+  });
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -184,16 +184,16 @@ export function <span class="fstat-no" title="function not covered" >useSbtcSip1
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-25T16:25:43.616Z
+                at 2025-04-07T16:36:52.708Z
             </div>
-        <script src="../../../../../prettify.js"></script>
+        <script src="../../../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../../sorter.js"></script>
-        <script src="../../../../../block-navigation.js"></script>
+        <script src="../../../../../../../sorter.js"></script>
+        <script src="../../../../../../../block-navigation.js"></script>
     </body>
 </html>
     

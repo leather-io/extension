@@ -178,12 +178,7 @@
 <a name='L113'></a><a href='#L113'>113</a>
 <a name='L114'></a><a href='#L114'>114</a>
 <a name='L115'></a><a href='#L115'>115</a>
-<a name='L116'></a><a href='#L116'>116</a>
-<a name='L117'></a><a href='#L117'>117</a>
-<a name='L118'></a><a href='#L118'>118</a>
-<a name='L119'></a><a href='#L119'>119</a>
-<a name='L120'></a><a href='#L120'>120</a>
-<a name='L121'></a><a href='#L121'>121</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L116'></a><a href='#L116'>116</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -292,11 +287,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -316,15 +306,15 @@ import {
   validateRpcParams,
 } from '@shared/rpc/methods/validation.utils';
 &nbsp;
+import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
+import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
   getTabIdFromPort,
-  listenForPopupClose,
   makeSearchParamsWithDefaults,
-  triggerRequestWindowOpen,
-} from '../messaging-utils';
-import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
-import { defineRpcRequestHandler } from '../rpc-message-handler';
+  sendErrorResponseOnUserPopupClose,
+  triggerRequestPopupWindowOpen,
+} from '../rpc-request-utils';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >validatePsbt(h</span>ex: string) {
 <span class="cstat-no" title="statement not covered" >  try {</span>
@@ -342,41 +332,41 @@ function <span class="fstat-no" title="function not covered" >validateRpcSignPsb
 function <span class="fstat-no" title="function not covered" >getRpcSignPsbtParamErrors(o</span>bj: unknown) {
 <span class="cstat-no" title="statement not covered" >  return formatValidationErrors(getRpcParamErrors(obj, signPsbt.params));</span>
 }
-export const signPsbtHandler = <span class="cstat-no" title="statement not covered" >defineRpcRequestHandler(signPsbt.method, <span class="fstat-no" title="function not covered" >async (m</span>essage, port) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  if (isUndefined(message.params)) {</span>
-<span class="cstat-no" title="statement not covered" >    void trackRpcRequestError({ endpoint: message.method, error: 'Undefined parameters' });</span>
+export const signPsbtHandler = <span class="cstat-no" title="statement not covered" >defineRpcRequestHandler(signPsbt.method, <span class="fstat-no" title="function not covered" >async (r</span>equest, port) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  if (isUndefined(request.params)) {</span>
+<span class="cstat-no" title="statement not covered" >    void trackRpcRequestError({ endpoint: request.method, error: 'Undefined parameters' });</span>
 <span class="cstat-no" title="statement not covered" >    chrome.tabs.sendMessage(</span>
       getTabIdFromPort(port),
-      createRpcErrorResponse(message.method, {
-        id: message.id,
+      createRpcErrorResponse(request.method, {
+        id: request.id,
         error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
       })
     );
 <span class="cstat-no" title="statement not covered" >    return;</span>
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!validateRpcSignPsbtParams(message.params)) {</span>
-<span class="cstat-no" title="statement not covered" >    void trackRpcRequestError({ endpoint: message.method, error: 'Invalid parameters' });</span>
+<span class="cstat-no" title="statement not covered" >  if (!validateRpcSignPsbtParams(request.params)) {</span>
+<span class="cstat-no" title="statement not covered" >    void trackRpcRequestError({ endpoint: request.method, error: 'Invalid parameters' });</span>
 <span class="cstat-no" title="statement not covered" >    chrome.tabs.sendMessage(</span>
       getTabIdFromPort(port),
-      createRpcErrorResponse(message.method, {
-        id: message.id,
+      createRpcErrorResponse(request.method, {
+        id: request.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
-          message: getRpcSignPsbtParamErrors(message.params),
+          message: getRpcSignPsbtParamErrors(request.params),
         },
       })
     );
 <span class="cstat-no" title="statement not covered" >    return;</span>
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!validatePsbt(message.params.hex)) {</span>
-<span class="cstat-no" title="statement not covered" >    void trackRpcRequestError({ endpoint: message.method, error: 'Invalid PSBT' });</span>
+<span class="cstat-no" title="statement not covered" >  if (!validatePsbt(request.params.hex)) {</span>
+<span class="cstat-no" title="statement not covered" >    void trackRpcRequestError({ endpoint: request.method, error: 'Invalid PSBT' });</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    chrome.tabs.sendMessage(</span>
       getTabIdFromPort(port),
       createRpcErrorResponse('signPsbt', {
-        id: message.id,
+        id: request.id,
         error: { code: RpcErrorCode.INVALID_PARAMS, message: 'Invalid PSBT hex' },
       })
     );
@@ -384,43 +374,38 @@ export const signPsbtHandler = <span class="cstat-no" title="statement not cover
   }
 &nbsp;
   const requestParams: RequestParams = <span class="cstat-no" title="statement not covered" >[</span>
-    ['hex', message.params.hex],
-    ['requestId', message.id],
+    ['hex', request.params.hex],
+    ['requestId', request.id],
   ];
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (isDefined(message.params.account)) {</span>
-<span class="cstat-no" title="statement not covered" >    requestParams.push(['accountIndex', message.params.account.toString()]);</span>
+<span class="cstat-no" title="statement not covered" >  if (isDefined(request.params.account)) {</span>
+<span class="cstat-no" title="statement not covered" >    requestParams.push(['accountIndex', request.params.account.toString()]);</span>
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (isDefined(message.params.broadcast)) {</span>
-<span class="cstat-no" title="statement not covered" >    requestParams.push(['broadcast', message.params.broadcast.toString()]);</span>
+<span class="cstat-no" title="statement not covered" >  if (isDefined(request.params.broadcast)) {</span>
+<span class="cstat-no" title="statement not covered" >    requestParams.push(['broadcast', request.params.broadcast.toString()]);</span>
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (isDefined(message.params.network)) {</span>
-<span class="cstat-no" title="statement not covered" >    requestParams.push(['network', message.params.network.toString()]);</span>
+<span class="cstat-no" title="statement not covered" >  if (isDefined(request.params.network)) {</span>
+<span class="cstat-no" title="statement not covered" >    requestParams.push(['network', request.params.network.toString()]);</span>
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (isDefined(message.params.signAtIndex))</span>
-<span class="cstat-no" title="statement not covered" >    ensureArray(message.params.signAtIndex).forEach(<span class="fstat-no" title="function not covered" >index =&gt;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (isDefined(request.params.signAtIndex))</span>
+<span class="cstat-no" title="statement not covered" >    ensureArray(request.params.signAtIndex).forEach(<span class="fstat-no" title="function not covered" >index =&gt;</span></span>
 <span class="cstat-no" title="statement not covered" >      requestParams.push(['signAtIndex', index.toString()])</span>
     );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  void trackRpcRequestSuccess({ endpoint: message.method });</span>
+<span class="cstat-no" title="statement not covered" >  void trackRpcRequestSuccess({ endpoint: request.method });</span>
 &nbsp;
   const { urlParams, tabId } = <span class="cstat-no" title="statement not covered" >makeSearchParamsWithDefaults(port, requestParams);</span>
 &nbsp;
-  const { id } = <span class="cstat-no" title="statement not covered" >await triggerRequestWindowOpen(RouteUrls.RpcSignPsbt, urlParams);</span>
+  const { id } = <span class="cstat-no" title="statement not covered" >await triggerRequestPopupWindowOpen(RouteUrls.RpcSignPsbt, urlParams);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  listenForPopupClose({</span>
+<span class="cstat-no" title="statement not covered" >  sendErrorResponseOnUserPopupClose({</span>
     tabId,
     id,
-    response: createRpcErrorResponse('signPsbt', {
-      id: message.id,
-      error: {
-        code: RpcErrorCode.USER_REJECTION,
-        message: 'User rejected signing PSBT request',
-      },
-    }),
+    request,
+    message: 'User rejected signing PSBT request',
   });
 });
 &nbsp;</pre></td></tr></table></pre>
@@ -430,7 +415,7 @@ export const signPsbtHandler = <span class="cstat-no" title="statement not cover
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-25T16:25:43.616Z
+                at 2025-04-07T16:36:52.708Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

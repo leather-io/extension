@@ -253,18 +253,7 @@
 <a name='L188'></a><a href='#L188'>188</a>
 <a name='L189'></a><a href='#L189'>189</a>
 <a name='L190'></a><a href='#L190'>190</a>
-<a name='L191'></a><a href='#L191'>191</a>
-<a name='L192'></a><a href='#L192'>192</a>
-<a name='L193'></a><a href='#L193'>193</a>
-<a name='L194'></a><a href='#L194'>194</a>
-<a name='L195'></a><a href='#L195'>195</a>
-<a name='L196'></a><a href='#L196'>196</a>
-<a name='L197'></a><a href='#L197'>197</a>
-<a name='L198'></a><a href='#L198'>198</a>
-<a name='L199'></a><a href='#L199'>199</a>
-<a name='L200'></a><a href='#L200'>200</a>
-<a name='L201'></a><a href='#L201'>201</a>
-<a name='L202'></a><a href='#L202'>202</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L191'></a><a href='#L191'>191</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -451,18 +440,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
@@ -494,16 +472,16 @@ import {
   validateRpcSignStacksTransactionParams,
 } from '@shared/rpc/methods/sign-stacks-transaction';
 &nbsp;
+import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
+import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
   encodePostConditions,
   getTabIdFromPort,
-  listenForPopupClose,
   makeSearchParamsWithDefaults,
-  triggerRequestWindowOpen,
-} from '../messaging-utils';
-import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
-import { defineRpcRequestHandler } from '../rpc-message-handler';
+  sendErrorResponseOnUserPopupClose,
+  triggerRequestPopupWindowOpen,
+} from '../rpc-request-utils';
 &nbsp;
 const MEMO_DESERIALIZATION_STUB = <span class="cstat-no" title="statement not covered" >'\u0000';</span>
 &nbsp;
@@ -580,42 +558,42 @@ function <span class="fstat-no" title="function not covered" >validateStacksTran
 &nbsp;
 export const stxSignTransactionHandler = <span class="cstat-no" title="statement not covered" >defineRpcRequestHandler(</span>
   stxSignTransaction.method,
-<span class="fstat-no" title="function not covered" >  async (m</span>essage, port) =&gt; {
-<span class="cstat-no" title="statement not covered" >    if (isUndefined(message.params)) {</span>
-<span class="cstat-no" title="statement not covered" >      void trackRpcRequestError({ endpoint: message.method, error: 'Undefined parameters' });</span>
+<span class="fstat-no" title="function not covered" >  async (r</span>equest, port) =&gt; {
+<span class="cstat-no" title="statement not covered" >    if (isUndefined(request.params)) {</span>
+<span class="cstat-no" title="statement not covered" >      void trackRpcRequestError({ endpoint: request.method, error: 'Undefined parameters' });</span>
 <span class="cstat-no" title="statement not covered" >      chrome.tabs.sendMessage(</span>
         getTabIdFromPort(port),
         createRpcErrorResponse('stx_signTransaction', {
-          id: message.id,
+          id: request.id,
           error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
         })
       );
 <span class="cstat-no" title="statement not covered" >      return;</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!validateRpcSignStacksTransactionParams(message.params)) {</span>
-<span class="cstat-no" title="statement not covered" >      void trackRpcRequestError({ endpoint: message.method, error: 'Invalid parameters' });</span>
+<span class="cstat-no" title="statement not covered" >    if (!validateRpcSignStacksTransactionParams(request.params)) {</span>
+<span class="cstat-no" title="statement not covered" >      void trackRpcRequestError({ endpoint: request.method, error: 'Invalid parameters' });</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      chrome.tabs.sendMessage(</span>
         getTabIdFromPort(port),
         createRpcErrorResponse('stx_signTransaction', {
-          id: message.id,
+          id: request.id,
           error: {
             code: RpcErrorCode.INVALID_PARAMS,
-            message: getRpcSignStacksTransactionParamErrors(message.params),
+            message: getRpcSignStacksTransactionParamErrors(request.params),
           },
         })
       );
 <span class="cstat-no" title="statement not covered" >      return;</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!validateStacksTransaction(getStacksTransactionHexFromRequest(message.params))) {</span>
-<span class="cstat-no" title="statement not covered" >      void trackRpcRequestError({ endpoint: message.method, error: 'Invalid Stacks transaction' });</span>
+<span class="cstat-no" title="statement not covered" >    if (!validateStacksTransaction(getStacksTransactionHexFromRequest(request.params))) {</span>
+<span class="cstat-no" title="statement not covered" >      void trackRpcRequestError({ endpoint: request.method, error: 'Invalid Stacks transaction' });</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      chrome.tabs.sendMessage(</span>
         getTabIdFromPort(port),
         createRpcErrorResponse('stx_signTransaction', {
-          id: message.id,
+          id: request.id,
           error: { code: RpcErrorCode.INVALID_PARAMS, message: 'Invalid Stacks transaction hex' },
         })
       );
@@ -623,11 +601,11 @@ export const stxSignTransactionHandler = <span class="cstat-no" title="statement
     }
 &nbsp;
     const stacksTransaction = <span class="cstat-no" title="statement not covered" >deserializeTransaction(</span>
-      getStacksTransactionHexFromRequest(message.params)
+      getStacksTransactionHexFromRequest(request.params)
     );
-    const request = <span class="cstat-no" title="statement not covered" >transactionPayloadToTransactionRequest(</span>
+    const txRequest = <span class="cstat-no" title="statement not covered" >transactionPayloadToTransactionRequest(</span>
       stacksTransaction,
-      getAccountAddressFromRequest(message.params)
+      getAccountAddressFromRequest(request.params)
     );
 &nbsp;
     const hashMode = <span class="cstat-no" title="statement not covered" >stacksTransaction.auth.spendingCondition.hashMode as MultiSigHashMode;</span>
@@ -638,32 +616,21 @@ export const stxSignTransactionHandler = <span class="cstat-no" title="statement
       hashMode === AddressHashMode.P2SHNonSequential ||
       hashMode === AddressHashMode.P2WSHNonSequential;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    void trackRpcRequestSuccess({ endpoint: message.method });</span>
+<span class="cstat-no" title="statement not covered" >    void trackRpcRequestSuccess({ endpoint: request.method });</span>
 &nbsp;
     const requestParams = <span class="cstat-no" title="statement not covered" >[</span>
-      ['txHex', getStacksTransactionHexFromRequest(message.params)],
-      ['requestId', message.id],
-      ['request', createUnsecuredToken(request)],
+      ['txHex', getStacksTransactionHexFromRequest(request.params)],
+      ['requestId', request.id],
+      ['request', createUnsecuredToken(txRequest)],
       ['isMultisig', String(isMultisig)],
     ] satisfies RequestParams;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (isDefined(message.params.network)) <span class="cstat-no" title="statement not covered" >requestParams.push(['network', message.params.network]);</span></span>
+<span class="cstat-no" title="statement not covered" >    if (isDefined(request.params.network)) <span class="cstat-no" title="statement not covered" >requestParams.push(['network', request.params.network]);</span></span>
 &nbsp;
     const { urlParams, tabId } = <span class="cstat-no" title="statement not covered" >makeSearchParamsWithDefaults(port, requestParams);</span>
 &nbsp;
-    const { id } = <span class="cstat-no" title="statement not covered" >await triggerRequestWindowOpen(RouteUrls.RpcStxSignTransaction, urlParams);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    listenForPopupClose({</span>
-      tabId,
-      id,
-      response: createRpcErrorResponse('stx_signTransaction', {
-        id: message.id,
-        error: {
-          code: RpcErrorCode.USER_REJECTION,
-          message: 'User rejected the Stacks transaction signing request',
-        },
-      }),
-    });
+    const { id } = <span class="cstat-no" title="statement not covered" >await triggerRequestPopupWindowOpen(RouteUrls.RpcStxSignTransaction, urlParams);</span>
+<span class="cstat-no" title="statement not covered" >    sendErrorResponseOnUserPopupClose({ tabId, id, request });</span>
   }
 );
 &nbsp;</pre></td></tr></table></pre>
@@ -673,7 +640,7 @@ export const stxSignTransactionHandler = <span class="cstat-no" title="statement
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-25T16:25:43.616Z
+                at 2025-04-07T16:36:52.708Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
