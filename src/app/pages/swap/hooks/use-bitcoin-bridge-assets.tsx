@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 
 import BtcAvatarIconSrc from '@assets/avatars/btc-avatar-icon.png';
 
-import { type SwapAsset, useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
-
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 export function useBtcSwapAsset() {

@@ -1,7 +1,7 @@
 import { DecodedAuthRequest } from '@shared/models/decoded-auth-request';
 import { closeWindow } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
-import { isValidUrl } from '@shared/utils/validate-url';
+import { isValidUrl } from '@shared/utils/urls';
 
 import { formatAuthResponse } from './finalize-auth-reaponse-format';
 

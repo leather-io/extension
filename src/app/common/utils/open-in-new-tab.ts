@@ -1,5 +1,5 @@
 import { RouteUrls } from '@shared/route-urls';
-import { isValidUrl } from '@shared/utils/validate-url';
+import { isValidUrl } from '@shared/utils/urls';
 
 export function openInNewTab(url: string) {
   if (!isValidUrl(url)) return;

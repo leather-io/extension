@@ -1,17 +1,16 @@
 import BigNumber from 'bignumber.js';
 
 import { type Brc20CryptoAssetInfo, createMarketData, createMarketPair } from '@leather.io/models';
-import {
-  isFetchedWithSuccess,
-  useCalculateBitcoinFiatValue,
-  useConfigOrdinalsbot,
-  useGetBrc20TokensQuery,
-} from '@leather.io/query';
+import { isFetchedWithSuccess } from '@leather.io/query';
 import { createBaseCryptoAssetBalance, createMoney, unitToFractionalUnit } from '@leather.io/utils';
 
+import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
+import { useConfigOrdinalsbot } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
+
+import { useGetBrc20TokensQuery } from './brc20-tokens.query';
 
 // ts-unused-exports:disable-next-line
 export function useBrc20FeatureFlag() {

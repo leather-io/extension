@@ -1,10 +1,9 @@
 import { sanitize } from 'dompurify';
 import { Box } from 'leather-styles/jsx';
 
-import { useGetInscriptionTextContentQuery } from '@leather.io/query';
-
 import { parseJson } from '@app/components/json';
 import { LoadingSpinner } from '@app/components/loading-spinner';
+import { useGetInscriptionTextContentQuery } from '@app/query/bitcoin/ordinals/inscription-text-content.query';
 
 interface InscriptionTextProps {
   contentSrc: string;

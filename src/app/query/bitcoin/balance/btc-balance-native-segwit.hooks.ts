@@ -2,13 +2,14 @@ import { useMemo } from 'react';
 
 import BigNumber from 'bignumber.js';
 
-import { useNativeSegwitUtxosByAddress, useRunesEnabled } from '@leather.io/query';
 import { createMoney, isUndefined, sumNumbers } from '@leather.io/utils';
 
 import { useInscribedSpendableUtxos } from '@app/features/discarded-inscriptions/use-inscribed-spendable-utxos';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
+import { useNativeSegwitUtxosByAddress } from '../address/utxos-by-address.hooks';
 import { useFilterNativeSegwitInscriptions } from '../ordinals/inscriptions/inscriptions.query';
+import { useRunesEnabled } from '../runes/runes.hooks';
 
 const defaultZeroValues = {
   protectedBalance: createMoney(0, 'BTC'),

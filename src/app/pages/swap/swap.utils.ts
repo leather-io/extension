@@ -1,5 +1,4 @@
 import type { MarketData, Money } from '@leather.io/models';
-import type { SwapAsset } from '@leather.io/query';
 import {
   baseCurrencyAmountInQuote,
   createMoney,
@@ -7,6 +6,8 @@ import {
   isMoneyGreaterThanZero,
   unitToFractionalUnit,
 } from '@leather.io/utils';
+
+import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 
 export function convertSwapAssetBalanceToFiat(asset: SwapAsset) {
   if (

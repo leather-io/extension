@@ -2,7 +2,6 @@ import { useAsync } from 'react-async-hook';
 
 import { useFormikContext } from 'formik';
 
-import { useNextNonce } from '@leather.io/query';
 import { isDefined } from '@leather.io/utils';
 
 import {
@@ -11,6 +10,7 @@ import {
   type SwapFormValues,
 } from '@shared/models/form.model';
 
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 export function NonceSetter() {

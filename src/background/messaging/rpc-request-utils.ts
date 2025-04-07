@@ -7,6 +7,7 @@ import * as z from 'zod';
 import {
   RpcErrorCode,
   type RpcMethodNames,
+  type RpcRequests,
   type baseStacksTransactionConfigSchema,
   createRpcErrorResponse,
 } from '@leather.io/rpc';
@@ -21,6 +22,7 @@ import {
   getRpcParamErrorsFormatted,
   validateRpcParams,
 } from '@shared/rpc/methods/validation.utils';
+import { getHostnameFromUrl } from '@shared/utils/urls';
 
 import { popup } from '@background/popup';
 
@@ -33,6 +35,12 @@ export function getTabIdFromPort(port: chrome.runtime.Port) {
 function getOriginFromPort(port: chrome.runtime.Port) {
   if (port.sender?.url) return new URL(port.sender.url).origin;
   return port.sender?.origin;
+}
+
+export function getHostnameFromPort(port: chrome.runtime.Port) {
+  const origin = getOriginFromPort(port);
+  if (!origin) throw new Error('No URL found in port sender');
+  return getHostnameFromUrl(origin);
 }
 
 //
@@ -56,6 +64,31 @@ export function listenForPopupClose({ id, tabId, response }: ListenForPopupClose
     if (winId !== id || !tabId) return;
     const responseMessage = response;
     chrome.tabs.sendMessage(tabId, responseMessage);
+  });
+}
+
+interface SendErrorResponseOnUserPopupCloseArgs {
+  tabId?: number;
+  id: number;
+  request: RpcRequests;
+  message?: string;
+}
+export function sendErrorResponseOnUserPopupClose({
+  tabId,
+  id,
+  message,
+  request,
+}: SendErrorResponseOnUserPopupCloseArgs) {
+  listenForPopupClose({
+    tabId,
+    id,
+    response: createRpcErrorResponse(request.method, {
+      id: request.id,
+      error: {
+        code: RpcErrorCode.USER_REJECTION,
+        message: message ?? RpcErrorMessage.UserRejectedOperation,
+      },
+    }),
   });
 }
 
@@ -87,7 +120,7 @@ export function makeSearchParamsWithDefaults(
 
 const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
-export async function triggerRequestWindowOpen(path: RouteUrls, urlParams: URLSearchParams) {
+export async function triggerRequestPopupWindowOpen(path: RouteUrls, urlParams: URLSearchParams) {
   if (IS_TEST_ENV) return openRequestInFullPage(path, urlParams);
   return popup({ url: `/popup.html#${path}?${urlParams.toString()}` });
 }

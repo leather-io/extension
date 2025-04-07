@@ -1,7 +1,7 @@
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { Stack } from 'leather-styles/jsx';
 
-import type { SwapAsset } from '@leather.io/query';
+import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 
 import { SwapAssetItem } from './swap-asset-item';
 import { useSwapAssetList } from './use-swap-asset-list';

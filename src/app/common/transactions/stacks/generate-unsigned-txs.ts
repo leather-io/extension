@@ -12,7 +12,6 @@ import BN from 'bn.js';
 
 import {
   TransactionTypes,
-  ensurePostConditionWireFormat,
   getPostConditions,
   isTransactionTypeSupported,
 } from '@leather.io/stacks';
@@ -23,7 +22,7 @@ import {
   type STXTransferPayload,
 } from '@shared/utils/legacy-requests';
 
-export function initNonce(nonce?: number) {
+function initNonce(nonce?: number) {
   return nonce !== undefined ? new BN(nonce, 10) : undefined;
 }
 
@@ -60,11 +59,11 @@ function generateUnsignedContractCallTx(args: GenerateUnsignedContractCallTxArgs
     nonce: initNonce(nonce)?.toString(),
     fee: new BN(fee, 10).toString(),
     postConditionMode: postConditionMode ?? PostConditionMode.Deny,
-    postConditions: getPostConditions(postConditions?.map(pc => ensurePostConditionWireFormat(pc))),
+    postConditions: getPostConditions(postConditions),
     network,
     sponsored,
-    // Casting type bc `@stacks/transactions` is incorrect, not allowing PostConditionWire[]
-  } as unknown as UnsignedContractCallOptions;
+  } satisfies UnsignedContractCallOptions;
+
   return makeUnsignedContractCall(options);
 }
 
@@ -80,7 +79,7 @@ function generateUnsignedContractDeployTx(args: GenerateUnsignedContractDeployTx
     fee: new BN(fee, 10)?.toString(),
     publicKey,
     postConditionMode: postConditionMode ?? PostConditionMode.Deny,
-    postConditions: getPostConditions(postConditions?.map(pc => ensurePostConditionWireFormat(pc))),
+    postConditions: getPostConditions(postConditions),
     network,
     clarityVersion: ClarityVersion.Clarity3,
   } satisfies UnsignedContractDeployOptions;

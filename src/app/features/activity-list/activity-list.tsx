@@ -3,20 +3,17 @@ import { Outlet } from 'react-router-dom';
 
 import uniqby from 'lodash.uniqby';
 
-import {
-  useBitcoinPendingTransactions,
-  useGetAccountTransactionsWithTransfersQuery,
-  useGetBitcoinTransactionsByAddressListQuery,
-  useStacksPendingTransactions,
-} from '@leather.io/query';
-
 import { LoadingSpinner } from '@app/components/loading-spinner';
+import { useBitcoinPendingTransactions } from '@app/query/bitcoin/address/transactions-by-address.hooks';
+import { useGetBitcoinTransactionsByAddressListQuery } from '@app/query/bitcoin/address/transactions-by-address.query';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 import {
   useSbtcConfirmedDeposits,
   useSbtcFailedDeposits,
   useSbtcPendingDeposits,
 } from '@app/query/sbtc/sbtc-deposits.query';
+import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
+import { useGetAccountTransactionsWithTransfersQuery } from '@app/query/stacks/transactions/transactions-with-transfers.query';
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';

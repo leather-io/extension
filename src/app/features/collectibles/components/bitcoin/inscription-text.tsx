@@ -1,9 +1,9 @@
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 
-import { useGetInscriptionTextContentQuery } from '@leather.io/query';
 import { OrdinalAvatarIcon } from '@leather.io/ui';
 
 import { parseJson } from '@app/components/json';
+import { useGetInscriptionTextContentQuery } from '@app/query/bitcoin/ordinals/inscription-text-content.query';
 
 import { CollectibleText } from '../../../../components/collectibles/collectible-text';
 

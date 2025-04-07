@@ -3,12 +3,13 @@ import { useCallback } from 'react';
 import type { P2Ret } from '@scure/btc-signer/payment';
 
 import { BitcoinSigner } from '@leather.io/bitcoin';
-import type { SwapAsset, UtxoResponseItem } from '@leather.io/query';
+import type { UtxoResponseItem } from '@leather.io/query';
 import { delay, isUndefined } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
+import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 
 import { useSbtcDepositTransaction } from '../hooks/use-sbtc-deposit-transaction';
 import type { SubmitSwapArgs } from '../swap.context';

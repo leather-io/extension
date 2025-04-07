@@ -11,15 +11,15 @@ import {
   validateRpcParams,
 } from '@shared/rpc/methods/validation.utils';
 
+import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
+import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
   getTabIdFromPort,
-  listenForPopupClose,
   makeSearchParamsWithDefaults,
-  triggerRequestWindowOpen,
-} from '../messaging-utils';
-import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
-import { defineRpcRequestHandler } from '../rpc-message-handler';
+  sendErrorResponseOnUserPopupClose,
+  triggerRequestPopupWindowOpen,
+} from '../rpc-request-utils';
 
 function validatePsbt(hex: string) {
   try {
@@ -37,41 +37,41 @@ function validateRpcSignPsbtParams(obj: unknown) {
 function getRpcSignPsbtParamErrors(obj: unknown) {
   return formatValidationErrors(getRpcParamErrors(obj, signPsbt.params));
 }
-export const signPsbtHandler = defineRpcRequestHandler(signPsbt.method, async (message, port) => {
-  if (isUndefined(message.params)) {
-    void trackRpcRequestError({ endpoint: message.method, error: 'Undefined parameters' });
+export const signPsbtHandler = defineRpcRequestHandler(signPsbt.method, async (request, port) => {
+  if (isUndefined(request.params)) {
+    void trackRpcRequestError({ endpoint: request.method, error: 'Undefined parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      createRpcErrorResponse(message.method, {
-        id: message.id,
+      createRpcErrorResponse(request.method, {
+        id: request.id,
         error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
       })
     );
     return;
   }
 
-  if (!validateRpcSignPsbtParams(message.params)) {
-    void trackRpcRequestError({ endpoint: message.method, error: 'Invalid parameters' });
+  if (!validateRpcSignPsbtParams(request.params)) {
+    void trackRpcRequestError({ endpoint: request.method, error: 'Invalid parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      createRpcErrorResponse(message.method, {
-        id: message.id,
+      createRpcErrorResponse(request.method, {
+        id: request.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
-          message: getRpcSignPsbtParamErrors(message.params),
+          message: getRpcSignPsbtParamErrors(request.params),
         },
       })
     );
     return;
   }
 
-  if (!validatePsbt(message.params.hex)) {
-    void trackRpcRequestError({ endpoint: message.method, error: 'Invalid PSBT' });
+  if (!validatePsbt(request.params.hex)) {
+    void trackRpcRequestError({ endpoint: request.method, error: 'Invalid PSBT' });
 
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       createRpcErrorResponse('signPsbt', {
-        id: message.id,
+        id: request.id,
         error: { code: RpcErrorCode.INVALID_PARAMS, message: 'Invalid PSBT hex' },
       })
     );
@@ -79,42 +79,37 @@ export const signPsbtHandler = defineRpcRequestHandler(signPsbt.method, async (m
   }
 
   const requestParams: RequestParams = [
-    ['hex', message.params.hex],
-    ['requestId', message.id],
+    ['hex', request.params.hex],
+    ['requestId', request.id],
   ];
 
-  if (isDefined(message.params.account)) {
-    requestParams.push(['accountIndex', message.params.account.toString()]);
+  if (isDefined(request.params.account)) {
+    requestParams.push(['accountIndex', request.params.account.toString()]);
   }
 
-  if (isDefined(message.params.broadcast)) {
-    requestParams.push(['broadcast', message.params.broadcast.toString()]);
+  if (isDefined(request.params.broadcast)) {
+    requestParams.push(['broadcast', request.params.broadcast.toString()]);
   }
 
-  if (isDefined(message.params.network)) {
-    requestParams.push(['network', message.params.network.toString()]);
+  if (isDefined(request.params.network)) {
+    requestParams.push(['network', request.params.network.toString()]);
   }
 
-  if (isDefined(message.params.signAtIndex))
-    ensureArray(message.params.signAtIndex).forEach(index =>
+  if (isDefined(request.params.signAtIndex))
+    ensureArray(request.params.signAtIndex).forEach(index =>
       requestParams.push(['signAtIndex', index.toString()])
     );
 
-  void trackRpcRequestSuccess({ endpoint: message.method });
+  void trackRpcRequestSuccess({ endpoint: request.method });
 
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
 
-  const { id } = await triggerRequestWindowOpen(RouteUrls.RpcSignPsbt, urlParams);
+  const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcSignPsbt, urlParams);
 
-  listenForPopupClose({
+  sendErrorResponseOnUserPopupClose({
     tabId,
     id,
-    response: createRpcErrorResponse('signPsbt', {
-      id: message.id,
-      error: {
-        code: RpcErrorCode.USER_REJECTION,
-        message: 'User rejected signing PSBT request',
-      },
-    }),
+    request,
+    message: 'User rejected signing PSBT request',
   });
 });

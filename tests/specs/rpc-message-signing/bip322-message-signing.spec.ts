@@ -62,7 +62,7 @@ test.describe('Message signing', () =>
         jsonrpc: '2.0',
         error: {
           code: 4001,
-          message: 'User rejected message signing request',
+          message: 'User rejected request',
         },
       });
     });

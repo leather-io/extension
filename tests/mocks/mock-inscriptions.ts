@@ -44,7 +44,7 @@ export const mockInscriptionResponse2: InscriptionResponseHiro = {
   location: 'ba39f922074c0d338a13ac10e770a5da47ce09df8310c8d3cfaec13a347e8202:0:0',
   mime_type: '',
   number: 10875335,
-  offset: '600',
+  offset: '200',
   output: '/output/ba39f922074c0d338a13ac10e770a5da47ce09df8310c8d3cfaec13a347e8202:0',
   recursive: false,
   recursion_refs: '',

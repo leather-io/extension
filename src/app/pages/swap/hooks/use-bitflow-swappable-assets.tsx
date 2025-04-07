@@ -5,17 +5,15 @@ import BigNumber from 'bignumber.js';
 import type { Token } from 'bitflow-sdk';
 
 import { type Currency, createMarketData, createMarketPair } from '@leather.io/models';
-import {
-  type SwapAsset,
-  useAlexSdkLatestPricesQuery,
-  useStxAvailableUnlockedBalance,
-  useTransferableSip10Tokens,
-} from '@leather.io/query';
 import { getPrincipalFromAssetString } from '@leather.io/stacks';
 import { convertAmountToFractionalUnit, createMoney, isDefined } from '@leather.io/utils';
 
 import { useSip10FiatMarketData } from '@app/common/hooks/use-calculate-sip10-fiat-value';
 import { createGetBitflowAvailableTokensQueryOptions } from '@app/query/bitflow-sdk/bitflow-available-tokens.query';
+import { useAlexSdkLatestPricesQuery } from '@app/query/common/alex-sdk/alex-sdk-latest-prices.query';
+import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
+import { useStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
+import { useTransferableSip10Tokens } from '@app/query/stacks/sip10/sip10-tokens.hooks';
 
 import { sortSwapAssets } from '../swap.utils';
 

@@ -7,12 +7,7 @@ import * as yup from 'yup';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@leather.io/constants';
 import { FeeTypes } from '@leather.io/models';
-import {
-  defaultStacksFees,
-  useCalculateStacksTxFees,
-  useNextNonce,
-  useStxCryptoAssetBalance,
-} from '@leather.io/query';
+import { defaultStacksFees } from '@leather.io/query';
 import { Link } from '@leather.io/ui';
 import { isDefined, stxToMicroStx } from '@leather.io/utils';
 
@@ -32,6 +27,9 @@ import { PostConditionModeWarning } from '@app/features/stacks-transaction-reque
 import { PostConditions } from '@app/features/stacks-transaction-request/post-conditions/post-conditions';
 import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx-transfer-details/stx-transfer-details';
 import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
+import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
+import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 

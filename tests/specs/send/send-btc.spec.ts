@@ -86,7 +86,7 @@ test.describe('send btc', () => {
     });
 
     test('that prevents transaction if it contains inscribed utxo', async ({ sendPage }) => {
-      await sendPage.page.route('**/ordinals-explorer.generative.xyz/**', async route => {
+      await sendPage.page.route('**/ordinals.com/**', async route => {
         return route.fulfill({
           status: 200,
           contentType: 'text/html',
@@ -109,7 +109,7 @@ test.describe('send btc', () => {
       let id = '';
       let index = '';
 
-      await sendPage.page.route('**/ordinals-explorer.generative.xyz/**', async route => {
+      await sendPage.page.route('**/ordinals.com/**', async route => {
         return route.fulfill({
           status: 500,
           contentType: 'text/html',
@@ -118,7 +118,8 @@ test.describe('send btc', () => {
       });
 
       sendPage.page.on('request', async request => {
-        if (request.url().includes('ordinals-explorer.generative.xyz')) {
+        const parsedUrl = new URL(request.url());
+        if (parsedUrl.host === 'ordinals.com') {
           const url = request.url();
           output = url.split('/').pop() || '';
           id = output.split(':')[0];

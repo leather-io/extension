@@ -5,7 +5,6 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Box, Flex, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { useBitcoinBroadcastTransaction } from '@leather.io/query';
 import { Button, Sheet, SheetHeader } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -16,6 +15,7 @@ import { InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-c
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { Card } from '@app/components/layout';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
+import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 import { useSendInscriptionState } from './components/send-inscription-container';

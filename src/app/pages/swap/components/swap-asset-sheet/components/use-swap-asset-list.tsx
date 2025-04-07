@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import { useFormikContext } from 'formik';
 
-import type { SwapAsset } from '@leather.io/query';
 import {
   convertAmountToFractionalUnit,
   createMoney,
@@ -17,6 +16,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { type BaseSwapContext, useSwapContext } from '@app/pages/swap/swap.context';
 import { constructSwapRoute } from '@app/pages/swap/swap.routes';
+import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 
 import type { SwapAssetListProps } from './swap-asset-list';
 

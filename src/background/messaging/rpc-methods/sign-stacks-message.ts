@@ -16,43 +16,43 @@ import {
   validateRpcSignStacksMessageParams,
 } from '@shared/rpc/methods/sign-stacks-message';
 
+import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
+import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
   getTabIdFromPort,
-  listenForPopupClose,
   makeSearchParamsWithDefaults,
-  triggerRequestWindowOpen,
-} from '../messaging-utils';
-import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
-import { defineRpcRequestHandler } from '../rpc-message-handler';
+  sendErrorResponseOnUserPopupClose,
+  triggerRequestPopupWindowOpen,
+} from '../rpc-request-utils';
 
 async function handleRpcSignStacksMessage(
   method: 'stx_signMessage' | 'stx_signStructuredMessage',
-  message: RpcRequest<typeof stxSignMessage> | RpcRequest<typeof stxSignStructuredMessage>,
+  request: RpcRequest<typeof stxSignMessage> | RpcRequest<typeof stxSignStructuredMessage>,
   port: chrome.runtime.Port,
   requestParams: RequestParams
 ) {
-  if (isUndefined(message.params)) {
+  if (isUndefined(request.params)) {
     void trackRpcRequestError({ endpoint: method, error: 'Undefined parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       createRpcErrorResponse(method, {
-        id: message.id,
+        id: request.id,
         error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
       })
     );
     return;
   }
 
-  if (!validateRpcSignStacksMessageParams(message.params)) {
+  if (!validateRpcSignStacksMessageParams(request.params)) {
     void trackRpcRequestError({ endpoint: method, error: 'Invalid parameters' });
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       createRpcErrorResponse(method, {
-        id: message.id,
+        id: request.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
-          message: getRpcSignStacksMessageParamErrors(message.params),
+          message: getRpcSignStacksMessageParamErrors(request.params),
         },
       })
     );
@@ -63,64 +63,53 @@ async function handleRpcSignStacksMessage(
 
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
 
-  const { id } = await triggerRequestWindowOpen(RouteUrls.RpcStacksSignature, urlParams);
-
-  listenForPopupClose({
-    tabId,
-    id,
-    response: createRpcErrorResponse(method, {
-      id: message.id,
-      error: {
-        code: RpcErrorCode.USER_REJECTION,
-        message: 'User rejected the Stacks message signing request',
-      },
-    }),
-  });
+  const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcStacksSignature, urlParams);
+  sendErrorResponseOnUserPopupClose({ tabId, id, request });
 }
 export const stxSignMessageHandler = defineRpcRequestHandler(
   stxSignMessage.method,
-  async (message, port) => {
+  async (request, port) => {
     const requestParams: RequestParams = [
-      ['message', message.params.message],
-      ['messageType', message.params.messageType ?? 'utf8'],
-      ['requestId', message.id],
+      ['message', request.params.message],
+      ['messageType', request.params.messageType ?? 'utf8'],
+      ['requestId', request.id],
     ];
 
-    if (isDefined(message.params.network)) {
-      requestParams.push(['network', message.params.network.toString()]);
+    if (isDefined(request.params.network)) {
+      requestParams.push(['network', request.params.network.toString()]);
     }
 
-    if ('domain' in message.params) {
+    if ('domain' in request.params) {
       requestParams.push([
         'domain',
-        (message.params as StxSignMessageRequestParamsStructured).domain.toString(),
+        (request.params as StxSignMessageRequestParamsStructured).domain.toString(),
       ]);
     }
 
-    return handleRpcSignStacksMessage(message.method, message, port, requestParams);
+    return handleRpcSignStacksMessage(request.method, request, port, requestParams);
   }
 );
 
 export const stxSignStructuredMessageHandler = defineRpcRequestHandler(
   stxSignStructuredMessage.method,
-  async (message, port) => {
+  async (request, port) => {
     const requestParams: RequestParams = [
-      ['requestId', message.id],
+      ['requestId', request.id],
       ['messageType', 'structured'],
       [
         'message',
-        isString(message.params.message)
-          ? message.params.message
-          : serializeCV(message.params.message),
+        isString(request.params.message)
+          ? request.params.message
+          : serializeCV(request.params.message),
       ],
       [
         'domain',
-        isString(message.params.domain)
-          ? message.params.domain
-          : serializeCV(message.params.domain),
+        isString(request.params.domain)
+          ? request.params.domain
+          : serializeCV(request.params.domain),
       ],
     ];
 
-    return handleRpcSignStacksMessage(message.method, message, port, requestParams);
+    return handleRpcSignStacksMessage(request.method, request, port, requestParams);
   }
 );

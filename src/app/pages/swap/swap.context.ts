@@ -1,9 +1,10 @@
 import { createContext, useContext } from 'react';
 
 import type { Blockchain, Money } from '@leather.io/models';
-import type { SwapAsset } from '@leather.io/query';
 
 import type { SwapFormValues } from '@shared/models/form.model';
+
+import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 
 export interface SubmitSwapArgs<T> {
   isSendingMax?: boolean;

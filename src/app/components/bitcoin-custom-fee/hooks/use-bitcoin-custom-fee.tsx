@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
 import { baseCurrencyAmountInQuote, createMoney, i18nFormatCurrency } from '@leather.io/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
@@ -11,6 +10,7 @@ import {
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
 export const MAX_FEE_RATE_MULTIPLIER = 50;
 

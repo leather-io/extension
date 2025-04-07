@@ -8,11 +8,6 @@ import type { StacksTransactionWire } from '@stacks/transactions';
 import { ActivitySelectors } from '@tests/selectors/activity.selectors';
 import { Flex, Stack } from 'leather-styles/jsx';
 
-import {
-  useGetTransactionByIdQuery,
-  useStacksRawTransaction,
-  useStxAvailableUnlockedBalance,
-} from '@leather.io/query';
 import { Caption, Sheet, SheetHeader, Spinner } from '@leather.io/ui';
 import { microStxToStx, stxToMicroStx } from '@leather.io/utils';
 
@@ -23,6 +18,9 @@ import { StacksTransactionActionType } from '@app/common/transactions/stacks/tra
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { useToast } from '@app/features/toasts/use-toast';
+import { useStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
+import { useStacksRawTransaction } from '@app/query/stacks/transactions/raw-transaction-by-id.hooks';
+import { useGetTransactionByIdQuery } from '@app/query/stacks/transactions/transactions-by-id.query';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { IncreaseFeeField } from './components/increase-fee-field';

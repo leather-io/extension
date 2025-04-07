@@ -5,7 +5,6 @@ import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
 import { BTC_DECIMALS } from '@leather.io/constants';
-import { type SwapAsset } from '@leather.io/query';
 import {
   convertAmountToBaseUnit,
   convertAmountToFractionalUnit,
@@ -16,6 +15,7 @@ import {
 import { FormErrorMessages } from '@shared/error-messages';
 import { type SwapFormValues } from '@shared/models/form.model';
 
+import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import {
   defaultSbtcLimits,
   useGetCurrentSbtcSupply,

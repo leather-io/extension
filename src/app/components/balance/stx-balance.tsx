@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
-import { useStxCryptoAssetBalance } from '@leather.io/query';
 import { Caption } from '@leather.io/ui';
 
 import { stacksValue } from '@app/common/stacks-utils';
 import { PrivateText } from '@app/components/privacy/private-text';
+import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
 
 interface StxBalanceProps {
   address: string;

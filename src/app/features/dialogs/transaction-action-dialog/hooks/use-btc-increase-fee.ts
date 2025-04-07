@@ -6,7 +6,6 @@ import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
 import type { BitcoinTx } from '@leather.io/models';
-import { useBitcoinBroadcastTransaction } from '@leather.io/query';
 import { btcToSat, createMoney, isError } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -23,6 +22,7 @@ import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoi
 import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
