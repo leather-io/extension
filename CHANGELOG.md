@@ -1,3 +1,33 @@
+## [6.66.0](https://github.com/leather-io/extension/compare/v6.65.2...v6.66.0) (2025-04-07)
+
+
+### Features
+
+* move queries back from [@leather](https://github.com/leather).io/query ([8c88d41](https://github.com/leather-io/extension/commit/8c88d414d621bf8c0bcbb2e5cf45143575bfc0ce))
+* open fullpage api, closes LEA-2436 ([36046c3](https://github.com/leather-io/extension/commit/36046c330b530098197e6b175f0e1302155f6d33))
+
+
+### Bug Fixes
+
+* provide feedback to user while broadcasting, closes [#6193](https://github.com/leather-io/extension/issues/6193) ([1f169f8](https://github.com/leather-io/extension/commit/1f169f8228f55419fff6a4095e40751c4df558a1))
+* remove skipping utxos check unless test env ([0bea3b0](https://github.com/leather-io/extension/commit/0bea3b0072c3eec97f8406430bdc3413e9d1e718))
+* settings test ([4510013](https://github.com/leather-io/extension/commit/451001392758ce36744b21432157efbbdd605f27))
+* test ci fix ([894d8f5](https://github.com/leather-io/extension/commit/894d8f5a7a6b2057d8bd369e6e7ac8d0bbcb7ccf))
+* update analytics usage ([d8027a6](https://github.com/leather-io/extension/commit/d8027a6c4f9dfc6c402a9171b2e79e2833b83ea8))
+* utxo check in send transfer ([2c663b4](https://github.com/leather-io/extension/commit/2c663b441942ebcae5d0c4d80eb915a1cce3a061))
+* utxo inscription check, closes LEA-2398 ([02e5274](https://github.com/leather-io/extension/commit/02e527464cf64f6a79c474a63bf46f893541c5f1))
+
+
+### Internal
+
+* address breaking changes in Avatar ([f8afea1](https://github.com/leather-io/extension/commit/f8afea1bb5fc291c06c0e901f1a52380ccfced23))
+* hiro deprecated endpoints, closes LEA-2368 ([a1792ec](https://github.com/leather-io/extension/commit/a1792ec39e3da0e0fc48762a524ab52c658c93a6))
+* post-release merge back ([fefbe03](https://github.com/leather-io/extension/commit/fefbe0305f53db557e76cba73b72961fcdbb70c2))
+* remove stacks transactions v6, closes ENG-10 ([2862c38](https://github.com/leather-io/extension/commit/2862c38b8fd87f336c42c90e05882b9d75cafb30))
+* update wallet config, closes LEA-1307 ([111a242](https://github.com/leather-io/extension/commit/111a242e02d648add47ea2e09aef827ba2ebaf8d))
+* use consistent request naming, m̵e̵s̵s̵a̵g̵e̵ ([f1d4c54](https://github.com/leather-io/extension/commit/f1d4c543e546fc67157b5fa2a52573c40dd8e0a8))
+* use helper for popup closer listner, response ([2339ec5](https://github.com/leather-io/extension/commit/2339ec5b573aff384e9a368a2dba09fbf98601a7))
+
 ## [6.65.2](https://github.com/leather-io/extension/compare/v6.65.1...v6.65.2) (2025-03-25)
 
 
