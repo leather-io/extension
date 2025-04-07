@@ -48,7 +48,7 @@ export function PostConditionItem({
         captionRight={contract}
       />
       {message && (
-        <Box pt="space.03" borderTop="default" borderBottom={!isLast ? 'active' : 'unset'}>
+        <Box py="space.03" borderTop="default" borderBottom={!isLast ? 'active' : 'unset'}>
           <styled.span color="ink.text-subdued" textStyle="caption.01">
             {message}
           </styled.span>
