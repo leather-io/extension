@@ -54,6 +54,9 @@ const TransactionErrorSuspense = memo(() => {
   }
 });
 
+/**
+ * @deprecated Legacy transaction request
+ */
 export function TransactionError() {
   return (
     <Suspense fallback={<></>}>

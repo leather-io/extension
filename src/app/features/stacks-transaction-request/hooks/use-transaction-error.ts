@@ -11,7 +11,7 @@ import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { initialSearchParams } from '@app/common/initial-search-params';
 import { validateStacksAddress } from '@app/common/stacks-utils';
-import { TransactionErrorReason } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
+import { TransactionErrorReason } from '@app/features/stacks-transaction-request/legacy-transaction-error/transaction-error';
 import { useCheckSbtcSponsorshipEligible } from '@app/query/sbtc/sponsored-transactions.hooks';
 import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
