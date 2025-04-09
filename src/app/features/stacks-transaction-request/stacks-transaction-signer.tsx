@@ -23,10 +23,10 @@ import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesti
 import { ContractDeployDetails } from '@app/features/stacks-transaction-request/contract-deploy-details/contract-deploy-details';
 import { ContractCallDetails } from '@app/features/stacks-transaction-request/legacy-contract-call-details/contract-call-details';
 import { PostConditions } from '@app/features/stacks-transaction-request/legacy-post-conditions/post-conditions';
+import { TransactionError } from '@app/features/stacks-transaction-request/legacy-transaction-error/transaction-error';
 import { PageTop } from '@app/features/stacks-transaction-request/page-top';
 import { PostConditionModeWarning } from '@app/features/stacks-transaction-request/post-condition-mode-warning';
 import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx-transfer-details/stx-transfer-details';
-import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
 import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';

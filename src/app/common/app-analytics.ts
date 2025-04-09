@@ -69,7 +69,7 @@ const analyticsQueueItemSchema = z.object({
   properties: z.record(z.unknown()).optional(),
 });
 
-const analyicsQueueSchema = z.array(analyticsQueueItemSchema);
+const analyticsQueueSchema = z.array(analyticsQueueItemSchema);
 
 const analyticsEventKey = 'backgroundAnalyticsRequests';
 
@@ -79,7 +79,7 @@ export function useHandleQueuedBackgroundAnalytics() {
       const queuedEventsStore = await chrome.storage.local.get(analyticsEventKey);
 
       try {
-        const events = analyicsQueueSchema.parse(queuedEventsStore[analyticsEventKey] ?? []);
+        const events = analyticsQueueSchema.parse(queuedEventsStore[analyticsEventKey] ?? []);
         if (!events.length) return;
         await chrome.storage.local.remove(analyticsEventKey);
         await Promise.all(
