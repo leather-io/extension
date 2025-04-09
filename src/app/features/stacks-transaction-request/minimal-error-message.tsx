@@ -6,7 +6,7 @@ import { HStack, HstackProps, styled } from 'leather-styles/jsx';
 import { ErrorTriangleIcon } from '@leather.io/ui';
 
 import { useTransactionError } from '@app/features/stacks-transaction-request/hooks/use-transaction-error';
-import { TransactionErrorReason } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
+import { TransactionErrorReason } from '@app/features/stacks-transaction-request/legacy-transaction-error/transaction-error';
 
 function MinimalErrorMessageSuspense(props: HstackProps) {
   const error = useTransactionError();

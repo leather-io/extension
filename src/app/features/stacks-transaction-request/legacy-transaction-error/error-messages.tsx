@@ -15,7 +15,7 @@ import type { STXTransferPayload } from '@shared/utils/legacy-requests';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { stacksValue } from '@app/common/stacks-utils';
 import { SwitchAccountSheet } from '@app/features/dialogs/switch-account-sheet/switch-account-sheet';
-import { ErrorMessage } from '@app/features/stacks-transaction-request/transaction-error/error-message';
+import { ErrorMessage } from '@app/features/stacks-transaction-request/legacy-transaction-error/error-message';
 import { useStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';

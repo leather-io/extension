@@ -1,6 +1,6 @@
 // Segment/Mixpanel libraries are not compatible with extension background
 // scripts. This function adds analytics requests to chrome.storage.local so
-// that, when opened, an extension frame (that does support analyics) can read
+// that, when opened, an extension frame (that does support analytics) can read
 // and fire the requests.
 const queueStore = 'backgroundAnalyticsRequests';
 
