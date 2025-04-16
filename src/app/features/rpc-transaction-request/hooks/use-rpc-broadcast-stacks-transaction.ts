@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import type { StacksTransactionWire, TxBroadcastResultRejected } from '@stacks/transactions';
 
 import { type RpcMethodNames, createRpcSuccessResponse } from '@leather.io/rpc';
-import { isString } from '@leather.io/utils';
+import { delay, isString } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
+import { closeWindow } from '@shared/utils';
 
 import { getErrorMessage } from '@app/common/get-error-message';
 import { useRpcRequestParams } from '@app/common/hooks/use-rpc-request-params';
@@ -54,6 +55,8 @@ export function useRpcBroadcastStacksTransaction(method: RpcMethodNames) {
       onSetIsBroadcasting(true);
       await stacksBroadcastTransaction({ network, signedTx, onError, onSuccess });
       onSetIsBroadcasting(false);
+      await delay(500);
+      closeWindow();
     },
     [
       method,
