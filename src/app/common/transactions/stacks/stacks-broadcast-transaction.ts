@@ -10,6 +10,8 @@ import { delay, isError } from '@leather.io/utils';
 import { logger } from '@shared/logger';
 import { analytics } from '@shared/utils/analytics';
 
+import { hiroFetchWrapper } from '@app/query/stacks/stacks-client';
+
 interface StacksBroadcastTransactionArgs {
   network: StacksNetwork;
   signedTx: StacksTransactionWire;
@@ -22,27 +24,35 @@ export async function stacksBroadcastTransaction({
   onSuccess,
   onError,
 }: StacksBroadcastTransactionArgs) {
+  const attemptId = crypto.randomUUID();
   try {
+    void analytics.untypedTrack('stacks_transaction_broadcast_initiated', {
+      attemptId,
+    });
+
     const response = await broadcastTransaction({
       transaction: signedTx,
       network,
+      client: { fetch: hiroFetchWrapper },
     });
 
     await delay(500);
 
     if ('error' in response) {
       logger.error('Transaction failed to broadcast', response);
-      onError(response.error, response.reason);
-      return;
+      throw new Error(response.error);
     }
 
     if (!response.txid) {
       logger.error('Transaction failed to broadcast', response);
-      return;
+      throw new Error('Transaction failed to broadcast');
     }
 
     logger.info('Transaction broadcast', response);
     void analytics.track('broadcast_transaction', { symbol: 'stx' });
+    void analytics.untypedTrack('stacks_transaction_broadcast_succeeded', {
+      attemptId,
+    });
 
     await delay(500);
 
@@ -50,6 +60,10 @@ export async function stacksBroadcastTransaction({
     return;
   } catch (error) {
     logger.error('Transaction error', { error });
+    void analytics.untypedTrack('stacks_transaction_broadcast_failed', {
+      attemptId,
+      error: isError(error) ? error.message : String(error),
+    });
     onError(isError(error) ? error : { name: '', message: '' });
     return;
   }
