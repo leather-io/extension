@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { createRpcSuccessResponse } from '@leather.io/rpc';
+import { delay } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
@@ -79,6 +80,8 @@ export function useRpcSendTransferActions() {
             );
 
             setIsSubmitted(true);
+            await delay(500);
+            closeWindow();
           },
           onError,
         });
