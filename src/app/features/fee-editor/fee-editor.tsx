@@ -15,14 +15,14 @@ interface FeeEditorProps {
 }
 function FeeEditor({ children }: FeeEditorProps) {
   const {
-    customFeeRate,
+    customFee,
     loadedFee,
     isLoadingFees,
     fees,
     selectedFee,
     getCustomFee,
     onGoBack,
-    onSetCustomFeeRate,
+    onSetCustomFee,
     onSetLoadedFee,
     onSetSelectedFee,
   } = useFeeEditorContext();
@@ -33,17 +33,17 @@ function FeeEditor({ children }: FeeEditorProps) {
 
   function onCancel() {
     // Reset if user cancels
-    onSetCustomFeeRate(selectedFee?.feeRate?.toString() || '');
+    onSetCustomFee(selectedFee?.feeRate?.toString() || '');
     onSetSelectedFee(loadedFee);
     onGoBack();
   }
 
   function onSave() {
     // Need to handle custom fee input change on save
-    const isCustomFee = selectedFee?.type === 'custom';
-    if (isCustomFee) onSetSelectedFee(getCustomFee(Number(customFeeRate)));
+    const isCustomFee = selectedFee?.priority === 'custom';
+    if (isCustomFee) onSetSelectedFee(getCustomFee(Number(customFee)));
     if (!isCustomFee) {
-      onSetCustomFeeRate(selectedFee?.feeRate?.toString() || '');
+      onSetCustomFee(selectedFee?.feeRate?.toString() || '');
     }
     onGoBack();
   }
@@ -63,7 +63,7 @@ function FeeEditor({ children }: FeeEditorProps) {
       <Approver.Actions
         actions={[
           <Button key="cancel" onClick={onCancel} fullWidth variant="outline">
-            Back
+            Cancel
           </Button>,
           <Button key="save" onClick={onSave} fullWidth>
             Save

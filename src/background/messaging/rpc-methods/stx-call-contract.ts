@@ -1,33 +1,22 @@
-import { serializeCV } from '@stacks/transactions';
-import { createUnsecuredToken } from 'jsontokens';
-
-import { type RpcParams, stxCallContract } from '@leather.io/rpc';
-import { TransactionTypes, getStacksContractName } from '@leather.io/stacks';
-import { isString } from '@leather.io/utils';
+import {
+  RpcErrorCode,
+  createRpcErrorResponse,
+  encodeBase64Json,
+  stxCallContract,
+} from '@leather.io/rpc';
 
 import { RouteUrls } from '@shared/route-urls';
+import { RpcErrorMessage } from '@shared/rpc/methods/validation.utils';
 
-import { handleRpcMessage } from '../rpc-helpers';
+import { trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
-  type RequestParams,
-  getStxDefaultMessageParamsToTransactionRequest,
+  listenForPopupClose,
+  makeSearchParamsWithDefaults,
+  triggerRequestPopupWindowOpen,
   validateRequestParams,
 } from '../rpc-request-utils';
 
-function getMessageParamsToTransactionRequest(params: RpcParams<typeof stxCallContract>) {
-  const contractName = getStacksContractName(params.contract);
-  const defaultParams = getStxDefaultMessageParamsToTransactionRequest(params);
-
-  return {
-    txType: TransactionTypes.ContractCall,
-    contractAddress: params.contract.split('.')[0],
-    contractName,
-    functionArgs: (params.functionArgs ?? []).map(arg => (isString(arg) ? arg : serializeCV(arg))),
-    functionName: params.functionName,
-    ...defaultParams,
-  };
-}
 export const stxCallContractHandler = defineRpcRequestHandler(
   stxCallContract.method,
   async (request, port) => {
@@ -40,17 +29,27 @@ export const stxCallContractHandler = defineRpcRequestHandler(
       schema: stxCallContract.params,
     });
     if (status === 'failure') return;
-    const requestParams: RequestParams = [
-      ['requestId', requestId],
-      ['request', createUnsecuredToken(getMessageParamsToTransactionRequest(request.params))],
-    ];
-    if (params.network) requestParams.push(['network', params.network]);
+    const { tabId, urlParams } = makeSearchParamsWithDefaults(port, [
+      ['requestId', request.id],
+      ['rpcRequest', encodeBase64Json(request)],
+    ]);
 
-    return handleRpcMessage({
-      request,
-      path: RouteUrls.RpcStxCallContract,
-      port,
-      requestParams,
+    if (request.params && request.params.network) {
+      urlParams.append('network', request.params.network);
+    }
+    const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcStxCallContract, urlParams);
+    void trackRpcRequestSuccess({ endpoint: request.method });
+
+    listenForPopupClose({
+      tabId,
+      id,
+      response: createRpcErrorResponse(method, {
+        id: requestId,
+        error: {
+          code: RpcErrorCode.USER_REJECTION,
+          message: RpcErrorMessage.UserRejectedOperation,
+        },
+      }),
     });
   }
 );

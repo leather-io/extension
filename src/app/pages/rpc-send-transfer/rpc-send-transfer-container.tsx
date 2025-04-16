@@ -21,8 +21,7 @@ export function RpcSendTransferContainer() {
   const { recipients, amount } = sendTransferState;
 
   const rpcSendTransferContext: RpcSendTransferContext = {
-    isLoading: btcBalance.isLoadingAllData,
-    onUserActivatesFeeEditor: () => navigate(RouteUrls.EditFee),
+    isLoadingBalance: btcBalance.isLoadingAllData,
     onUserActivatesSwitchAccount: toggleSwitchAccount,
     utxos: [],
     ...sendTransferState,
@@ -43,8 +42,7 @@ export function RpcSendTransferContainer() {
           <RpcSendTransferProvider
             value={{
               ...rpcSendTransferContext,
-              isLoading: btcBalance.isLoadingAllData,
-              onUserActivatesFeeEditor: () => navigate(RouteUrls.EditFee),
+              isLoadingBalance: btcBalance.isLoadingAllData,
               onUserActivatesSwitchAccount: toggleSwitchAccount,
               utxos,
             }}

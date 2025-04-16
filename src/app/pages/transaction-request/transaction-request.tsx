@@ -25,17 +25,17 @@ import { NonceSetter } from '@app/components/nonce-setter';
 import { PopupHeader } from '@app/features/container/headers/popup.header';
 import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
 import { HighFeeSheet } from '@app/features/stacks-high-fee-warning/stacks-high-fee-dialog';
-import { ContractCallDetails } from '@app/features/stacks-transaction-request/contract-call-details/contract-call-details';
 import { ContractDeployDetails } from '@app/features/stacks-transaction-request/contract-deploy-details/contract-deploy-details';
 import { FeeForm } from '@app/features/stacks-transaction-request/fee-form';
-import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
+import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-legacy-stacks-broadcast-transaction';
+import { ContractCallDetails } from '@app/features/stacks-transaction-request/legacy-contract-call-details/contract-call-details';
+import { PostConditions } from '@app/features/stacks-transaction-request/legacy-post-conditions/post-conditions';
+import { TransactionError } from '@app/features/stacks-transaction-request/legacy-transaction-error/transaction-error';
 import { MinimalErrorMessage } from '@app/features/stacks-transaction-request/minimal-error-message';
 import { PageTop } from '@app/features/stacks-transaction-request/page-top';
 import { PostConditionModeWarning } from '@app/features/stacks-transaction-request/post-condition-mode-warning';
-import { PostConditions } from '@app/features/stacks-transaction-request/post-conditions/post-conditions';
 import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx-transfer-details/stx-transfer-details';
 import { StacksTxSubmitAction } from '@app/features/stacks-transaction-request/submit-action';
-import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
 import { useConfigSbtc } from '@app/query/common/remote-config/remote-config.query';
 import { useCheckSbtcSponsorshipEligible } from '@app/query/sbtc/sponsored-transactions.hooks';
 import { submitSponsoredSbtcTransaction } from '@app/query/sbtc/sponsored-transactions.query';
@@ -199,5 +199,7 @@ function TransactionRequestBase() {
     </>
   );
 }
-
+/**
+ * @deprecated Legacy transaction request
+ */
 export const TransactionRequest = memo(TransactionRequestBase);

@@ -3,19 +3,28 @@ import { createContext, useContext } from 'react';
 import type { MarketData, Money } from '@leather.io/models';
 
 export type FeePriority = 'slow' | 'standard' | 'fast' | 'custom';
+export const feePriorityTimeMap: Record<FeePriority, string> = {
+  slow: '~10 – 20min',
+  standard: '~30 min',
+  fast: '~1 hour+',
+  custom: '',
+};
 
 export interface Fee {
-  type: FeePriority;
-  feeRate: number | null;
-  feeValue: Money | null;
+  priority: FeePriority;
+  feeRate?: number;
+  feeValue?: number;
+  txFee: Money | null;
   time: string;
 }
 
 export type Fees = Record<FeePriority, Fee>;
+export type FeeType = 'fee-rate' | 'fee-value';
 
 interface FeeEditorContext {
   availableBalance: Money;
-  customFeeRate: string;
+  customFee: string;
+  feeType: FeeType;
   loadedFee: Fee;
   isLoadingFees: boolean;
   marketData: MarketData;
@@ -23,9 +32,10 @@ interface FeeEditorContext {
   selectedFee: Fee;
   getCustomFee(rate: number): Fee;
   onGoBack(): void;
-  onSetCustomFeeRate(value: string | null): void;
+  onSetCustomFee(value: string | null): void;
   onSetLoadedFee(value: Fee): void;
   onSetSelectedFee(value: Fee): void;
+  onUserActivatesFeeEditor(): void;
 }
 
 export const feeEditorContext = createContext<FeeEditorContext | null>(null);

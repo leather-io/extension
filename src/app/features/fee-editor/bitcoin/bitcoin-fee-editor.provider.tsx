@@ -1,6 +1,5 @@
 import type { MarketData, Money } from '@leather.io/models';
 import type { UtxoResponseItem } from '@leather.io/query';
-import { isUndefined } from '@leather.io/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 
@@ -35,12 +34,12 @@ export function BitcoinFeeEditorProvider({
       recipients={recipients}
       utxos={utxos}
     >
-      {(fees, isLoading, getCustomFee) => {
-        if (isUndefined(fees)) return null;
+      {({ fees, isLoading, getCustomFee }) => {
         return (
           <FeeEditorProvider
             availableBalance={availableBalance}
             fees={fees}
+            feeType="fee-rate"
             getCustomFee={getCustomFee}
             isLoadingFees={isLoading}
             marketData={marketData}

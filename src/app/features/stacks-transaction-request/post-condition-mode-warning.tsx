@@ -4,6 +4,9 @@ import { Callout } from '@leather.io/ui';
 
 import { usePostConditionModeState } from '@app/store/transactions/post-conditions.hooks';
 
+/**
+ * @deprecated Legacy transaction request
+ */
 export function PostConditionModeWarning(): React.JSX.Element | null {
   const mode = usePostConditionModeState();
 

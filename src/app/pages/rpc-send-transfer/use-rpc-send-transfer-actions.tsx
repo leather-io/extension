@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { createRpcSuccessResponse } from '@leather.io/rpc';
+import { delay } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
@@ -9,7 +10,7 @@ import { closeWindow } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
 
 import { useGenerateUnsignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
-import { getApproveTransactionActions } from '@app/components/approve-transaction/get-approve-transaction-actions';
+import { getTransactionActions } from '@app/components/rpc-transaction-request/get-transaction-actions';
 import { useInscribedSpendableUtxos } from '@app/features/discarded-inscriptions/use-inscribed-spendable-utxos';
 import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
@@ -19,7 +20,8 @@ import { useRpcSendTransferContext } from './rpc-send-transfer.context';
 
 export function useRpcSendTransferActions() {
   const { availableBalance, selectedFee } = useFeeEditorContext();
-  const { amount, isLoading, recipients, requestId, tabId, utxos } = useRpcSendTransferContext();
+  const { amount, isLoadingBalance, recipients, requestId, tabId, utxos } =
+    useRpcSendTransferContext();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isBroadcasting, setIsBroadcasting] = useState(false);
   const generateTx = useGenerateUnsignedNativeSegwitTx({ throwError: true });
@@ -78,6 +80,8 @@ export function useRpcSendTransferActions() {
             );
 
             setIsSubmitted(true);
+            await delay(500);
+            closeWindow();
           },
           onError,
         });
@@ -88,8 +92,8 @@ export function useRpcSendTransferActions() {
       }
     }
 
-    return getApproveTransactionActions({
-      isLoading,
+    return getTransactionActions({
+      isLoading: isLoadingBalance,
       isInsufficientBalance,
       isBroadcasting,
       isSubmitted,
@@ -97,7 +101,7 @@ export function useRpcSendTransferActions() {
       onApprove,
     });
   }, [
-    isLoading,
+    isLoadingBalance,
     isInsufficientBalance,
     isBroadcasting,
     isSubmitted,

@@ -7,7 +7,7 @@ import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-bala
 import { CryptoAssetItemError } from '../crypto-asset-item/crypto-asset-item-error';
 import { CryptoAssetItemPlaceholder } from '../crypto-asset-item/crypto-asset-item-placeholder';
 
-interface StxAssetItemBalanceLoaderProps {
+interface StxBalanceLoaderProps {
   address: string;
   children(
     balance: StxCryptoAssetBalance,
@@ -15,7 +15,14 @@ interface StxAssetItemBalanceLoaderProps {
     isLoadingAdditionalData: boolean
   ): React.ReactNode;
 }
-export function StxAssetItemBalanceLoader({ address, children }: StxAssetItemBalanceLoaderProps) {
+export function StxBalanceLoader({ address, children }: StxBalanceLoaderProps) {
+  const { filteredBalanceQuery, isLoadingAdditionalData } = useStxCryptoAssetBalance(address);
+  const { data: balance, isLoading } = filteredBalanceQuery;
+  if (!balance) return;
+  return children(balance, isLoading, isLoadingAdditionalData);
+}
+
+export function StxAssetItemBalanceLoader({ address, children }: StxBalanceLoaderProps) {
   const { initialBalanceQuery, filteredBalanceQuery, isLoadingAdditionalData } =
     useStxCryptoAssetBalance(address);
 
