@@ -3,13 +3,13 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Stack } from 'leather-styles/jsx';
 
-import { Button, ItemLayout } from '@leather.io/ui';
+import { Button } from '@leather.io/ui';
 
 import { FormError } from '@app/components/form-error';
 
 import { type Fee, useFeeEditorContext } from '../fee-editor.context';
-import { formatFeeItem } from '../fee-editor.utils';
-import { FeeItemIcon } from './fee-item-icon';
+import { FeeRateItemLayout } from './fee-rate-item.layout';
+import { FeeValueItemLayout } from './fee-value-item.layout';
 
 interface FeeItemProps {
   fee: Fee;
@@ -18,12 +18,6 @@ export function FeeItem({ fee }: FeeItemProps) {
   const [isTouched, setIsTouched] = useState(false);
   const { availableBalance, feeType, marketData, onSetSelectedFee, selectedFee } =
     useFeeEditorContext();
-
-  const { titleLeft, captionLeft, titleRight, captionRight } = formatFeeItem({
-    fee,
-    feeType,
-    marketData,
-  });
 
   const isSelected = selectedFee?.priority === fee.priority;
   const isInsufficientBalance = availableBalance.amount.isLessThan(selectedFee?.txFee?.amount ?? 0);
@@ -47,13 +41,8 @@ export function FeeItem({ fee }: FeeItemProps) {
       margin={isSelected ? '0px' : '1px'}
     >
       <Stack gap="0">
-        <ItemLayout
-          img={<FeeItemIcon priority={fee.priority} />}
-          titleLeft={titleLeft}
-          captionLeft={captionLeft}
-          titleRight={titleRight}
-          captionRight={captionRight}
-        />
+        {feeType === 'fee-rate' ? <FeeRateItemLayout fee={fee} marketData={marketData} /> : null}
+        {feeType === 'fee-value' ? <FeeValueItemLayout fee={fee} marketData={marketData} /> : null}
         <AnimatePresence>
           {showInsufficientBalanceError && (
             <motion.div
