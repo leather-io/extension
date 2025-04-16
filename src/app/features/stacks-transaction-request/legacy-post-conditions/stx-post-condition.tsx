@@ -1,7 +1,6 @@
 import { TransactionTypes } from '@leather.io/stacks';
 import { truncateMiddle } from '@leather.io/utils';
 
-import { stacksValue } from '@app/common/stacks-utils';
 import { EventCard } from '@app/components/event-card';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
@@ -18,7 +17,7 @@ export function StxPostCondition(): React.JSX.Element | null {
     <EventCard
       title="You'll send exactly"
       icon="STX"
-      amount={stacksValue({ value: pendingTransaction.amount, withTicker: false })}
+      amount={pendingTransaction.amount}
       ticker="STX"
       left="Stacks Token"
       right={
