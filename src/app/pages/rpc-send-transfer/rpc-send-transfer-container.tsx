@@ -8,7 +8,7 @@ import { BitcoinFeeEditorProvider } from '@app/features/fee-editor/bitcoin/bitco
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
-import { type RpcSendTransferContext, RpcSendTransferProvider } from './rpc-send-transfer.context';
+import { RpcSendTransferProvider } from './rpc-send-transfer.context';
 import { useRpcSendTransfer } from './use-rpc-send-transfer';
 
 export function RpcSendTransferContainer() {
@@ -16,16 +16,10 @@ export function RpcSendTransferContainer() {
   const { toggleSwitchAccount } = useSwitchAccountSheet();
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const btcBalance = useCurrentBtcCryptoAssetBalanceNativeSegwit();
+
   const navigate = useNavigate();
 
   const { recipients, amount } = sendTransferState;
-
-  const rpcSendTransferContext: RpcSendTransferContext = {
-    isLoadingBalance: btcBalance.isLoadingAllData,
-    onUserActivatesSwitchAccount: toggleSwitchAccount,
-    utxos: [],
-    ...sendTransferState,
-  };
 
   return (
     <BitcoinUtxosLoader>
@@ -41,7 +35,7 @@ export function RpcSendTransferContainer() {
         >
           <RpcSendTransferProvider
             value={{
-              ...rpcSendTransferContext,
+              ...sendTransferState,
               isLoadingBalance: btcBalance.isLoadingAllData,
               onUserActivatesSwitchAccount: toggleSwitchAccount,
               utxos,

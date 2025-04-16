@@ -3,11 +3,11 @@ import { useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Stack } from 'leather-styles/jsx';
 
-import { Button, Input, ItemLayout } from '@leather.io/ui';
+import { Button, Input } from '@leather.io/ui';
 
 import { type Fee, useFeeEditorContext } from '../fee-editor.context';
-import { formatFeeItem } from '../fee-editor.utils';
-import { FeeItemIcon } from './fee-item-icon';
+import { FeeRateItemLayout } from './fee-rate-item.layout';
+import { FeeValueItemLayout } from './fee-value-item.layout';
 
 interface CustomFeeItemProps {
   fee: Fee;
@@ -16,12 +16,6 @@ export function CustomFeeItem({ fee }: CustomFeeItemProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const { customFee, feeType, marketData, selectedFee, onSetCustomFee, onSetSelectedFee } =
     useFeeEditorContext();
-
-  const { captionLeft, titleRight, captionRight } = formatFeeItem({
-    fee,
-    feeType,
-    marketData,
-  });
 
   const isSelected = selectedFee?.priority === fee.priority;
 
@@ -34,13 +28,8 @@ export function CustomFeeItem({ fee }: CustomFeeItemProps) {
       // Add margin compensation to maintain consistent size
       margin={isSelected ? '0px' : '1px'}
     >
-      <ItemLayout
-        img={<FeeItemIcon priority="custom" />}
-        titleLeft="Custom"
-        captionLeft={captionLeft}
-        titleRight={titleRight}
-        captionRight={captionRight}
-      />
+      {feeType === 'fee-rate' ? <FeeRateItemLayout fee={fee} marketData={marketData} /> : null}
+      {feeType === 'fee-value' ? <FeeValueItemLayout fee={fee} marketData={marketData} /> : null}
       <AnimatePresence>
         {isSelected && (
           <motion.div

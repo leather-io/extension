@@ -4,15 +4,15 @@ import { Button, CheckmarkIcon, SkeletonLoader } from '@leather.io/ui';
 
 interface GetTransactionActionsArgs {
   isLoading: boolean;
-  isInsufficientBalance: boolean;
+  isError: boolean;
   isBroadcasting: boolean;
   isSubmitted: boolean;
   onCancel(): void;
   onApprove(): Promise<void> | void;
 }
 export function getTransactionActions({
+  isError,
   isLoading,
-  isInsufficientBalance,
   isBroadcasting,
   isSubmitted,
   onCancel,
@@ -25,9 +25,7 @@ export function getTransactionActions({
     ];
   }
 
-  if (isInsufficientBalance) {
-    return [];
-  }
+  if (isError) return [];
 
   if (isBroadcasting) {
     return [

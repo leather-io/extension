@@ -18,6 +18,7 @@ import { RpcStxSignTransaction } from '@app/pages/rpc-stx-sign-transaction/rpc-s
 import { RpcStxTransferSip9Nft } from '@app/pages/rpc-stx-transfer-sip9-nft/rpc-stx-transfer-sip9-nft';
 import { RpcStxTransferSip10Ft } from '@app/pages/rpc-stx-transfer-sip10-ft/rpc-stx-transfer-sip10-ft';
 import { RpcStxTransferStx } from '@app/pages/rpc-stx-transfer-stx/rpc-stx-transfer-stx';
+import { rpcStxTransferStxRoutes } from '@app/pages/rpc-stx-transfer-stx/rpc-stx-transfer-stx.routes';
 import { AccountGate } from '@app/routes/account-gate';
 
 import { SuspenseLoadingSpinner } from './app-routes';
@@ -37,6 +38,7 @@ export const rpcRequestRoutes = (
 
     {rpcSendTransferRoutes}
     {rpcStxCallContractRoutes}
+    {rpcStxTransferStxRoutes}
 
     <Route
       path={RouteUrls.RpcSignBip322Message}

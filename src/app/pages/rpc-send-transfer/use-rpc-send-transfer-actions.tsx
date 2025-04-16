@@ -94,7 +94,7 @@ export function useRpcSendTransferActions() {
 
     return getTransactionActions({
       isLoading: isLoadingBalance,
-      isInsufficientBalance,
+      isError: isInsufficientBalance,
       isBroadcasting,
       isSubmitted,
       onCancel,

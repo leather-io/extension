@@ -6,7 +6,6 @@ import { BitcoinNativeSegwitAccountLoader } from '../loaders/bitcoin-account-loa
 interface AccountBitcoinAddressProps {
   index: number;
 }
-
 export function AccountBitcoinAddress({ index }: AccountBitcoinAddressProps) {
   return (
     <BitcoinNativeSegwitAccountLoader index={index}>

@@ -14,7 +14,6 @@ import { createMoney } from '@leather.io/utils';
 
 import { initialSearchParams } from '@app/common/initial-search-params';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
-import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 
@@ -29,7 +28,6 @@ function useCallContractRequest() {
 export function useRpcStxCallContractTxOptions(): StacksUnsignedContractCallOptions {
   const { request } = useCallContractRequest();
   const account = useCurrentStacksAccount();
-  const { data: nextNonce } = useNextNonce(account?.address ?? '');
   const network = useCurrentStacksNetworkState();
 
   useBreakOnNonCompliantEntity(request.params.address ?? account?.address);
@@ -43,7 +41,7 @@ export function useRpcStxCallContractTxOptions(): StacksUnsignedContractCallOpti
       functionArgs: request.params.functionArgs ?? [],
       functionName: request.params.functionName,
       network,
-      nonce: request.params.nonce ?? nextNonce?.nonce ?? '',
+      nonce: request.params.nonce ?? 0,
       postConditions: getPostConditions(
         request.params.postConditions?.map(pc => ensurePostConditionWireFormat(pc))
       ),
@@ -54,6 +52,6 @@ export function useRpcStxCallContractTxOptions(): StacksUnsignedContractCallOpti
       publicKey: account?.stxPublicKey || '',
       sponsored: request.params.sponsored ?? false,
     }),
-    [account, network, nextNonce, request]
+    [account, network, request]
   );
 }

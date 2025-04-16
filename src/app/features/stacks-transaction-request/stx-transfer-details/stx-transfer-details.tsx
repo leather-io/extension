@@ -6,6 +6,9 @@ import { AttachmentRow } from '@app/features/stacks-transaction-request/attachme
 import { Row } from '@app/features/stacks-transaction-request/row';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
+/**
+ * @deprecated Legacy transaction request
+ */
 export function StxTransferDetails(): React.JSX.Element | null {
   const pendingTransaction = useTransactionRequestState();
 
