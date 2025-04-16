@@ -12,7 +12,7 @@ import { abbreviateNumber } from '@app/common/utils';
 
 import { convertUnicodeToAscii } from './string-utils';
 
-export const stacksValue = ({
+export function stacksValue({
   value,
   fixedDecimals = true,
   withTicker = true,
@@ -22,7 +22,7 @@ export const stacksValue = ({
   fixedDecimals?: boolean;
   withTicker?: boolean;
   abbreviate?: boolean;
-}) => {
+}) {
   const stacks = microStxToStx(value);
   const stxAmount = stacks.toNumber();
   return `${
@@ -32,29 +32,29 @@ export const stacksValue = ({
           maximumFractionDigits: fixedDecimals ? STX_DECIMALS : 3,
         })
   }${withTicker ? ' STX' : ''}`;
-};
+}
 
-export const ftDecimals = (value: number | string | BigNumber, decimals: number) => {
+export function ftDecimals(value: number | string | BigNumber, decimals: number) {
   const amount = initBigNumber(value);
   return amount
     .shiftedBy(-decimals)
     .toNumber()
     .toLocaleString('en-US', { maximumFractionDigits: decimals });
-};
+}
 
-export const ftUnshiftDecimals = (value: number | string | BigNumber, decimals: number) => {
+export function ftUnshiftDecimals(value: number | string | BigNumber, decimals: number) {
   const amount = initBigNumber(value);
   return amount.shiftedBy(decimals).toString(10);
-};
+}
 
-export const validateStacksAddress = (stacksAddress: string): boolean => {
+export function validateStacksAddress(stacksAddress: string): boolean {
   try {
     c32addressDecode(stacksAddress);
     return true;
   } catch (e) {
     return false;
   }
-};
+}
 
 export function validateAddressChain(address: string, currentNetwork: NetworkConfiguration) {
   const prefix = address.slice(0, 2);
