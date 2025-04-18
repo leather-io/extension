@@ -189,7 +189,6 @@ function TransactionRequestBase() {
               </Link>
               <MinimalErrorMessage />
               <StacksTxSubmitAction canSubmit={canSubmit} />
-
               <HighFeeSheet learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
               <Outlet />
             </>

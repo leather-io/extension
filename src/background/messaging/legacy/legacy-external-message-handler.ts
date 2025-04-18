@@ -66,7 +66,7 @@ export async function handleLegacyExternalMethodFormat(
     case ExternalMethods.authenticationRequest: {
       void trackLegacyRequestInitiated({ method: ExternalMethods.authenticationRequest });
 
-      const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [
+      const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, [
         ['authRequest', payload],
         ['flow', ExternalMethods.authenticationRequest],
       ]);
@@ -84,7 +84,7 @@ export async function handleLegacyExternalMethodFormat(
     case ExternalMethods.transactionRequest: {
       void trackLegacyRequestInitiated({ method: ExternalMethods.transactionRequest });
 
-      const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [
+      const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, [
         ['request', payload],
         ['flow', ExternalMethods.transactionRequest],
         ...getNetworkParamsFromPayload(payload),
@@ -103,7 +103,7 @@ export async function handleLegacyExternalMethodFormat(
     case ExternalMethods.signatureRequest: {
       void trackLegacyRequestInitiated({ method: ExternalMethods.signatureRequest });
 
-      const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [
+      const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, [
         ['request', payload],
         ['messageType', 'utf8'],
         ['flow', ExternalMethods.signatureRequest],
@@ -123,7 +123,7 @@ export async function handleLegacyExternalMethodFormat(
     case ExternalMethods.structuredDataSignatureRequest: {
       void trackLegacyRequestInitiated({ method: ExternalMethods.structuredDataSignatureRequest });
 
-      const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [
+      const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, [
         ['request', payload],
         ['messageType', 'structured'],
         ['flow', ExternalMethods.structuredDataSignatureRequest],
@@ -143,7 +143,7 @@ export async function handleLegacyExternalMethodFormat(
     case ExternalMethods.profileUpdateRequest: {
       void trackLegacyRequestInitiated({ method: ExternalMethods.profileUpdateRequest });
 
-      const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['request', payload]]);
+      const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, [['request', payload]]);
 
       const { id } = await triggerRequestPopupWindowOpen(RouteUrls.ProfileUpdateRequest, urlParams);
       listenForPopupClose({
@@ -158,7 +158,7 @@ export async function handleLegacyExternalMethodFormat(
     case ExternalMethods.psbtRequest: {
       void trackLegacyRequestInitiated({ method: ExternalMethods.psbtRequest });
 
-      const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['request', payload]]);
+      const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, [['request', payload]]);
 
       const { id } = await triggerRequestPopupWindowOpen(RouteUrls.PsbtRequest, urlParams);
       listenForPopupClose({
