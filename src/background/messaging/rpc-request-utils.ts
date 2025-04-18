@@ -16,6 +16,7 @@ import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { InternalMethods } from '@shared/message-types';
 import { sendMessage } from '@shared/messages';
+import { getPermissionsByOrigin } from '@shared/permissions/permission.helpers';
 import { RouteUrls } from '@shared/route-urls';
 import {
   RpcErrorMessage,
@@ -104,7 +105,7 @@ export function listenForOriginTabClose({ tabId }: ListenForOriginTabCloseArgs) 
 
 export type RequestParams = [string, string][];
 
-export function makeSearchParamsWithDefaults(
+export async function makeSearchParamsWithDefaults(
   port: chrome.runtime.Port,
   otherParams: RequestParams = []
 ) {
@@ -114,6 +115,12 @@ export function makeSearchParamsWithDefaults(
   const tabId = getTabIdFromPort(port);
   urlParams.set('origin', origin ?? '');
   urlParams.set('tabId', tabId.toString());
+  if (origin) {
+    const appPermissions = await getPermissionsByOrigin(getHostnameFromPort(port));
+    if (appPermissions) {
+      urlParams.set('accountIndex', appPermissions.accountIndex.toString());
+    }
+  }
   otherParams.forEach(([key, value]) => urlParams.append(key, value));
   return { urlParams, origin, tabId };
 }

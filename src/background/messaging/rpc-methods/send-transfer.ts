@@ -82,7 +82,7 @@ export const sendTransferHandler = defineRpcRequestHandler(
       requestParams.push(['accountIndex', params.account.toString()]);
     }
 
-    const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
+    const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, requestParams);
 
     const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcSendTransfer, urlParams);
 
