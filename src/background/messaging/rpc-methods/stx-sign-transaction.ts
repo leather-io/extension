@@ -182,7 +182,7 @@ export const stxSignTransactionHandler = defineRpcRequestHandler(
 
     if (isDefined(request.params.network)) requestParams.push(['network', request.params.network]);
 
-    const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
+    const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, requestParams);
 
     const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcStxSignTransaction, urlParams);
     sendErrorResponseOnUserPopupClose({ tabId, id, request });

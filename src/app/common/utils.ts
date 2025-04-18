@@ -197,6 +197,7 @@ export function hexToHumanReadable(hex: string) {
 }
 
 export function getUrlHostname(url: string) {
+  if (!url.startsWith('http')) return url;
   return new URL(url).hostname;
 }
 

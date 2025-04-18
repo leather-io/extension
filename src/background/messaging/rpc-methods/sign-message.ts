@@ -87,7 +87,7 @@ export const signMessageHandler = defineRpcRequestHandler(
       requestParams.push(['accountIndex', (request.params as any).account.toString()]);
     }
 
-    const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
+    const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, requestParams);
     const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcSignBip322Message, urlParams);
 
     sendErrorResponseOnUserPopupClose({ tabId, id, request });

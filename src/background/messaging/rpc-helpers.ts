@@ -25,7 +25,7 @@ export async function handleRpcMessage({
 }: HandleRpcMessageArgs) {
   void trackRpcRequestSuccess({ endpoint: request.method });
 
-  const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
+  const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, requestParams);
   const { id } = await triggerRequestPopupWindowOpen(path, urlParams);
 
   sendErrorResponseOnUserPopupClose({ tabId, id, request });

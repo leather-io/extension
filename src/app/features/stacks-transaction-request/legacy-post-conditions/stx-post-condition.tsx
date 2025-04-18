@@ -8,7 +8,7 @@ import { useTransactionRequestState } from '@app/store/transactions/requests.hoo
 /**
  * @deprecated Legacy transaction request
  */
-export function StxPostCondition(): React.JSX.Element | null {
+export function StxPostCondition() {
   const pendingTransaction = useTransactionRequestState();
 
   if (!pendingTransaction || pendingTransaction.txType !== TransactionTypes.StxTokenTransfer)

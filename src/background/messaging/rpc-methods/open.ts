@@ -7,8 +7,7 @@ import {
 
 import { hasRequestedAccountPermission } from '@shared/permissions/permission.helpers';
 import { RouteUrls } from '@shared/route-urls';
-
-import { getRootState, sendMissingStateErrorToTab } from '@background/get-root-state';
+import { getRootState, sendMissingStateErrorToTab } from '@shared/storage/get-root-state';
 
 import { openNewTabWithWallet, trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
@@ -19,7 +18,9 @@ import {
 } from '../rpc-request-utils';
 
 export const openHandler = defineRpcRequestHandler(open.method, async (request, port) => {
-  const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['requestId', request.id]]);
+  const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, [
+    ['requestId', request.id],
+  ]);
 
   const state = await getRootState();
   const hostname = getHostnameFromPort(port);

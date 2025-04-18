@@ -14,7 +14,7 @@ const sharedGetAddressesHandler = async (
   request: RpcRequest<typeof getAddresses> | RpcRequest<typeof stxGetAddresses>,
   port: chrome.runtime.Port
 ) => {
-  const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [
+  const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, [
     ['requestId', request.id],
     ['rpcRequest', encodeBase64Json(request)],
   ]);

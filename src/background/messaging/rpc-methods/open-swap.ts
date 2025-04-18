@@ -8,7 +8,9 @@ import { defineRpcRequestHandler } from '../rpc-message-handler';
 import { makeSearchParamsWithDefaults, triggerSwapWindowOpen } from '../rpc-request-utils';
 
 export const openSwapHandler = defineRpcRequestHandler(openSwap.method, async (request, port) => {
-  const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['requestId', request.id]]);
+  const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, [
+    ['requestId', request.id],
+  ]);
   const { base = 'STX', quote } = request?.params || {};
 
   if (base === 'BTC') {
