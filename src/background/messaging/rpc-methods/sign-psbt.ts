@@ -102,7 +102,7 @@ export const signPsbtHandler = defineRpcRequestHandler(signPsbt.method, async (r
 
   void trackRpcRequestSuccess({ endpoint: request.method });
 
-  const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
+  const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, requestParams);
 
   const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcSignPsbt, urlParams);
 

@@ -16,6 +16,7 @@ import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { InternalMethods } from '@shared/message-types';
 import { sendMessage } from '@shared/messages';
+import { getPermissionsByOrigin } from '@shared/permissions/permission.helpers';
 import { RouteUrls } from '@shared/route-urls';
 import {
   RpcErrorMessage,
@@ -104,18 +105,24 @@ export function listenForOriginTabClose({ tabId }: ListenForOriginTabCloseArgs) 
 
 export type RequestParams = [string, string][];
 
-export function makeSearchParamsWithDefaults(
+export async function makeSearchParamsWithDefaults(
   port: chrome.runtime.Port,
   otherParams: RequestParams = []
 ) {
   const urlParams = new URLSearchParams();
   // All actions must have a corresponding `origin` and `tabId`
-  const origin = getOriginFromPort(port);
+  const hostname = getHostnameFromPort(port);
   const tabId = getTabIdFromPort(port);
-  urlParams.set('origin', origin ?? '');
+  urlParams.set('origin', hostname ?? '');
   urlParams.set('tabId', tabId.toString());
+  if (hostname) {
+    const appPermissions = await getPermissionsByOrigin(hostname);
+    if (appPermissions) {
+      urlParams.set('accountIndex', appPermissions.accountIndex.toString());
+    }
+  }
   otherParams.forEach(([key, value]) => urlParams.append(key, value));
-  return { urlParams, origin, tabId };
+  return { urlParams, origin: hostname, tabId };
 }
 
 const IS_TEST_ENV = process.env.TEST_ENV === 'true';

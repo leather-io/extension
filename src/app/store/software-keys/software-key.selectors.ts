@@ -27,10 +27,10 @@ export function useCurrentKeyDetails() {
   return useSelector(selectDefaultSoftwareKey);
 }
 
-export const selectCurrentAccountIndex = createSelector(selectStacksChain, state => {
+export const selectCurrentAccountIndex = createSelector(selectStacksChain, stxChain => {
   const customAccountIndex = initialSearchParams.get('accountIndex');
   if (customAccountIndex && initBigNumber(customAccountIndex).isInteger()) {
     return initBigNumber(customAccountIndex).toNumber();
   }
-  return state[defaultWalletKeyId].currentAccountIndex;
+  return stxChain[defaultWalletKeyId].currentAccountIndex;
 });
