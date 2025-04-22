@@ -1,3 +1,17 @@
+## [6.67.0](https://github.com/leather-io/extension/compare/v6.66.0...v6.67.0) (2025-04-22)
+
+
+### Features
+
+* legacy request event tracking, closes LEA-2233 ([80da642](https://github.com/leather-io/extension/commit/80da642d83e5732b8c50aa58dbefd5328c513845))
+* stx call contract with approver, closes LEA-2450 ([46a16d5](https://github.com/leather-io/extension/commit/46a16d5f712ca82c5936610da29d4da4c5ec9929))
+
+
+### Bug Fixes
+
+* close window on sip30 broadcast success ([b9f46a1](https://github.com/leather-io/extension/commit/b9f46a1b1f3ff0f35605d880e34d9e7f34b21d43))
+* minor padding issue with pc ([18db2ba](https://github.com/leather-io/extension/commit/18db2ba3a8ea373a3c31f0821cad21a0e7de8ef3))
+
 ## [6.66.0](https://github.com/leather-io/extension/compare/v6.65.2...v6.66.0) (2025-04-07)
 
 
