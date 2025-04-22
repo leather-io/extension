@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -118,8 +118,7 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,17 +133,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -165,6 +153,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -175,36 +168,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { serializeCV } from '@stacks/transactions';
-import { createUnsecuredToken } from 'jsontokens';
-&nbsp;
-import { type RpcParams, stxCallContract } from '@leather.io/rpc';
-import { TransactionTypes, getStacksContractName } from '@leather.io/stacks';
-import { isString } from '@leather.io/utils';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
+  RpcErrorCode,
+  createRpcErrorResponse,
+  encodeBase64Json,
+  stxCallContract,
+} from '@leather.io/rpc';
 &nbsp;
 import { RouteUrls } from '@shared/route-urls';
+import { RpcErrorMessage } from '@shared/rpc/methods/validation.utils';
 &nbsp;
-import { handleRpcMessage } from '../rpc-helpers';
+import { trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
-  type RequestParams,
-  getStxDefaultMessageParamsToTransactionRequest,
+  listenForPopupClose,
+  makeSearchParamsWithDefaults,
+  triggerRequestPopupWindowOpen,
   validateRequestParams,
 } from '../rpc-request-utils';
 &nbsp;
-function <span class="fstat-no" title="function not covered" >getMessageParamsToTransactionRequest(p</span>arams: RpcParams&lt;typeof stxCallContract&gt;) {
-  const contractName = <span class="cstat-no" title="statement not covered" >getStacksContractName(params.contract);</span>
-  const defaultParams = <span class="cstat-no" title="statement not covered" >getStxDefaultMessageParamsToTransactionRequest(params);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return {</span>
-    txType: TransactionTypes.ContractCall,
-    contractAddress: params.contract.split('.')[0],
-    contractName,
-    functionArgs: (params.functionArgs ?? []).map(<span class="fstat-no" title="function not covered" >arg =&gt; (<span class="cstat-no" title="statement not covered" >i</span>sString(arg) ? arg : serializeCV(arg)))</span>,
-    functionName: params.functionName,
-    ...defaultParams,
-  };
-}
 export const stxCallContractHandler = <span class="cstat-no" title="statement not covered" >defineRpcRequestHandler(</span>
   stxCallContract.method,
 <span class="fstat-no" title="function not covered" >  async (r</span>equest, port) =&gt; {
@@ -217,17 +204,27 @@ export const stxCallContractHandler = <span class="cstat-no" title="statement no
       schema: stxCallContract.params,
     });
 <span class="cstat-no" title="statement not covered" >    if (status === 'failure') <span class="cstat-no" title="statement not covered" >return;</span></span>
-    const requestParams: RequestParams = <span class="cstat-no" title="statement not covered" >[</span>
-      ['requestId', requestId],
-      ['request', createUnsecuredToken(getMessageParamsToTransactionRequest(request.params))],
-    ];
-<span class="cstat-no" title="statement not covered" >    if (params.network) <span class="cstat-no" title="statement not covered" >requestParams.push(['network', params.network]);</span></span>
+    const { tabId, urlParams } = <span class="cstat-no" title="statement not covered" >makeSearchParamsWithDefaults(port, [</span>
+      ['requestId', request.id],
+      ['rpcRequest', encodeBase64Json(request)],
+    ]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return handleRpcMessage({</span>
-      request,
-      path: RouteUrls.RpcStxCallContract,
-      port,
-      requestParams,
+<span class="cstat-no" title="statement not covered" >    if (request.params &amp;&amp; request.params.network) {</span>
+<span class="cstat-no" title="statement not covered" >      urlParams.append('network', request.params.network);</span>
+    }
+    const { id } = <span class="cstat-no" title="statement not covered" >await triggerRequestPopupWindowOpen(RouteUrls.RpcStxCallContract, urlParams);</span>
+<span class="cstat-no" title="statement not covered" >    void trackRpcRequestSuccess({ endpoint: request.method });</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    listenForPopupClose({</span>
+      tabId,
+      id,
+      response: createRpcErrorResponse(method, {
+        id: requestId,
+        error: {
+          code: RpcErrorCode.USER_REJECTION,
+          message: RpcErrorMessage.UserRejectedOperation,
+        },
+      }),
     });
   }
 );
@@ -238,7 +235,7 @@ export const stxCallContractHandler = <span class="cstat-no" title="statement no
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-07T16:38:13.541Z
+                at 2025-04-22T15:33:33.420Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Functions</span>
                 <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/5</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -116,7 +116,30 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,6 +170,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -160,6 +184,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -170,16 +196,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 &nbsp;
 import type { MarketData, Money } from '@leather.io/models';
 &nbsp;
+import { RouteUrls } from '@shared/route-urls';
+&nbsp;
 import type { HasChildren } from '@app/common/has-children';
 &nbsp;
-import { type Fee, feeEditorContext as FeeEditorContext, type Fees } from './fee-editor.context';
+import {
+  type Fee,
+  feeEditorContext as FeeEditorContext,
+  type FeeType,
+  type Fees,
+} from './fee-editor.context';
 &nbsp;
 interface FeeEditorProviderProps extends HasChildren {
   availableBalance: Money;
   fees: Fees;
+  feeType: FeeType;
   getCustomFee(rate: number): Fee;
   isLoadingFees: boolean;
   marketData: MarketData;
@@ -189,17 +224,19 @@ export function <span class="fstat-no" title="function not covered" >FeeEditorPr
   availableBalance,
   children,
   fees,
+  feeType,
   getCustomFee,
   isLoadingFees,
   marketData,
   onGoBack,
 }: FeeEditorProviderProps) {
   const defaultFee = <span class="cstat-no" title="statement not covered" >fees.standard;</span>
-  const defaultCustomFeeRate = <span class="cstat-no" title="statement not covered" >fees.custom.feeRate?.toString() ?? '';</span>
+  const defaultCustomFee = <span class="cstat-no" title="statement not covered" >fees.custom.feeRate?.toString() || fees.custom.feeValue?.toString();</span>
 &nbsp;
   const [loadedFee, setLoadedFee] = <span class="cstat-no" title="statement not covered" >useState&lt;Fee&gt;(defaultFee);</span>
   const [selectedFee, setSelectedFee] = <span class="cstat-no" title="statement not covered" >useState&lt;Fee&gt;(defaultFee);</span>
-  const [customFeeRate, setCustomFeeRate] = <span class="cstat-no" title="statement not covered" >useState&lt;string&gt;(defaultCustomFeeRate);</span>
+  const [customFee, setCustomFee] = <span class="cstat-no" title="statement not covered" >useState&lt;string&gt;(defaultCustomFee ?? '');</span>
+  const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;FeeEditorContext.Provider
@@ -208,14 +245,16 @@ export function <span class="fstat-no" title="function not covered" >FeeEditorPr
         availableBalance,
         marketData,
         fees,
+        feeType,
         loadedFee,
-        customFeeRate,
+        customFee,
         selectedFee,
         getCustomFee,
         onGoBack,
         onSetLoadedFee: <span class="fstat-no" title="function not covered" >(v</span>alue: Fee) =&gt; <span class="cstat-no" title="statement not covered" >setLoadedFee(value),</span>
-        onSetCustomFeeRate: <span class="fstat-no" title="function not covered" >(v</span>alue: string) =&gt; <span class="cstat-no" title="statement not covered" >setCustomFeeRate(value),</span>
+        onSetCustomFee: <span class="fstat-no" title="function not covered" >(v</span>alue: string) =&gt; <span class="cstat-no" title="statement not covered" >setCustomFee(value),</span>
         onSetSelectedFee: <span class="fstat-no" title="function not covered" >(v</span>alue: Fee) =&gt; <span class="cstat-no" title="statement not covered" >setSelectedFee(value),</span>
+        onUserActivatesFeeEditor: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.FeeEditor),</span>
       }}
     &gt;
       {children}
@@ -229,7 +268,7 @@ export function <span class="fstat-no" title="function not covered" >FeeEditorPr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-07T16:38:13.541Z
+                at 2025-04-22T15:33:33.420Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

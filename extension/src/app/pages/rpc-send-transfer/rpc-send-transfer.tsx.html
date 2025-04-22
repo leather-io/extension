@@ -149,12 +149,7 @@
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -189,7 +184,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -213,15 +207,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -246,7 +236,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
-import { Outlet } from 'react-router-dom';
 &nbsp;
 import { Box } from 'leather-styles/jsx';
 &nbsp;
@@ -256,13 +245,13 @@ import { baseCurrencyAmountInQuote, i18nFormatCurrency, sumMoney } from '@leathe
 import { analytics } from '@shared/utils/analytics';
 &nbsp;
 import { focusTabAndWindow } from '@app/common/focus-tab';
-import { ApproveBitcoinTransactionSwitchAccount } from '@app/components/approve-transaction/approve-bitcoin-transaction-switch-account';
-import { ApproveTransactionError } from '@app/components/approve-transaction/approve-transaction-error';
-import { ApproveTransactionHeader } from '@app/components/approve-transaction/approve-transaction-header';
-import { ApproveTransactionRecipients } from '@app/components/approve-transaction/approve-transaction-recipients';
-import { ApproveTransactionActionsTitle } from '@app/components/approve-transaction/approve-transaction-title';
-import { ApproveTransactionWrapper } from '@app/components/approve-transaction/approve-transaction-wrapper';
 import { BackgroundOverlay } from '@app/components/loading-overlay';
+import { TransactionActionsTitle } from '@app/components/rpc-transaction-request/transaction-actions-title';
+import { TransactionError } from '@app/components/rpc-transaction-request/transaction-error';
+import { TransactionHeader } from '@app/components/rpc-transaction-request/transaction-header';
+import { TransactionRecipients } from '@app/components/rpc-transaction-request/transaction-recipients';
+import { TransactionSwitchAccount } from '@app/components/rpc-transaction-request/transaction-switch-account';
+import { TransactionWrapper } from '@app/components/rpc-transaction-request/transaction-wrapper';
 import { FeeEditor } from '@app/features/fee-editor/fee-editor';
 import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
@@ -271,15 +260,15 @@ import { useRpcSendTransferContext } from './rpc-send-transfer.context';
 import { useRpcSendTransferActions } from './use-rpc-send-transfer-actions';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >RpcSendTransfer() {</span>
-  const { availableBalance, isLoadingFees, marketData, selectedFee } = <span class="cstat-no" title="statement not covered" >useFeeEditorContext();</span>
+  const { availableBalance, isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
+<span class="cstat-no" title="statement not covered" >    useFeeEditorContext();</span>
   const {
     recipients,
     recipientAddresses,
     amount,
     origin,
-    isLoading,
+    isLoadingBalance,
     tabId,
-    onUserActivatesFeeEditor,
     onUserActivatesSwitchAccount,
   } = <span class="cstat-no" title="statement not covered" >useRpcSendTransferContext();</span>
 &nbsp;
@@ -290,50 +279,46 @@ export function <span class="fstat-no" title="function not covered" >RpcSendTran
   const showOverlay = <span class="cstat-no" title="statement not covered" >isBroadcasting || isSubmitted;</span>
 &nbsp;
   const totalFiatValue = <span class="cstat-no" title="statement not covered" >useMemo(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
-    const fee = <span class="cstat-no" title="statement not covered" >selectedFee?.feeValue;</span>
+    const fee = <span class="cstat-no" title="statement not covered" >selectedFee?.txFee;</span>
 <span class="cstat-no" title="statement not covered" >    if (!fee) <span class="cstat-no" title="statement not covered" >return '';</span></span>
 <span class="cstat-no" title="statement not covered" >    return i18nFormatCurrency(baseCurrencyAmountInQuote(sumMoney([amount, fee]), marketData));</span>
-  }, [amount, marketData, selectedFee?.feeValue]);
+  }, [amount, marketData, selectedFee?.txFee]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;&gt;
-      &lt;ApproveTransactionWrapper showOverlay={showOverlay}&gt;
-        &lt;Approver requester={origin} width="100%"&gt;
-          &lt;Box position="relative"&gt;
-            &lt;BackgroundOverlay show={showOverlay} /&gt;
-            &lt;ApproveTransactionHeader
-              title="Send Bitcoin"
-              href="https://leather.io/guides/connect-dapps"
-              onPressRequestedByLink={<span class="fstat-no" title="function not covered" >e =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                e.preventDefault();</span>
-<span class="cstat-no" title="statement not covered" >                void analytics.track('user_clicked_requested_by_link', {</span>
-                  endpoint: 'sendTransfer',
-                });
-<span class="cstat-no" title="statement not covered" >                focusTabAndWindow(tabId);</span>
-              }}
-            /&gt;
-            &lt;ApproveBitcoinTransactionSwitchAccount
-              toggleSwitchAccount={onUserActivatesSwitchAccount}
-            /&gt;
-            &lt;ApproveTransactionRecipients recipients={recipients} /&gt;
-            &lt;FeeEditor.Trigger
-              isLoading={isLoadingFees}
-              marketData={marketData}
-              onEditFee={onUserActivatesFeeEditor}
-              selectedFee={selectedFee}
-            /&gt;
-          &lt;/Box&gt;
-          &lt;Approver.Actions actions={approverActions}&gt;
-            &lt;ApproveTransactionActionsTitle amount={totalFiatValue} isLoading={isLoading} /&gt;
-            &lt;ApproveTransactionError
-              isLoading={isLoading}
-              isInsufficientBalance={isInsufficientBalance}
-            /&gt;
-          &lt;/Approver.Actions&gt;
-        &lt;/Approver&gt;
-      &lt;/ApproveTransactionWrapper&gt;
-      &lt;Outlet /&gt;
-    &lt;/&gt;
+    &lt;TransactionWrapper showOverlay={showOverlay}&gt;
+      &lt;Approver requester={origin} width="100%"&gt;
+        &lt;Box position="relative"&gt;
+          &lt;BackgroundOverlay show={showOverlay} /&gt;
+          &lt;TransactionHeader
+            title="Send Bitcoin"
+            href="https://leather.io/guides/connect-dapps"
+            onPressRequestedByLink={<span class="fstat-no" title="function not covered" >e =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >              e.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >              void analytics.track('user_clicked_requested_by_link', {</span>
+                endpoint: 'sendTransfer',
+              });
+<span class="cstat-no" title="statement not covered" >              focusTabAndWindow(tabId);</span>
+            }}
+          /&gt;
+          &lt;TransactionSwitchAccount toggleSwitchAccount={onUserActivatesSwitchAccount} /&gt;
+          &lt;TransactionRecipients recipients={recipients} /&gt;
+          &lt;FeeEditor.Trigger
+            feeType="fee-rate"
+            isLoading={isLoadingFees}
+            marketData={marketData}
+            onEditFee={onUserActivatesFeeEditor}
+            selectedFee={selectedFee}
+          /&gt;
+        &lt;/Box&gt;
+        &lt;Approver.Actions actions={approverActions}&gt;
+          &lt;TransactionActionsTitle amount={totalFiatValue} isLoading={isLoadingBalance} /&gt;
+          &lt;TransactionError
+            isLoading={isLoadingBalance}
+            isInsufficientBalance={isInsufficientBalance}
+          /&gt;
+        &lt;/Approver.Actions&gt;
+      &lt;/Approver&gt;
+    &lt;/TransactionWrapper&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -343,7 +328,7 @@ export function <span class="fstat-no" title="function not covered" >RpcSendTran
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-07T16:38:13.541Z
+                at 2025-04-22T15:33:33.420Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
