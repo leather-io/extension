@@ -64,7 +64,7 @@ export function AppRoutes() {
   return <RouterProvider router={routes} />;
 }
 
-const sentryCreateBrowserRouter = Sentry.wrapCreateBrowserRouter(createHashRouter);
+const sentryCreateBrowserRouter = Sentry.wrapCreateBrowserRouterV6(createHashRouter);
 
 export const homePageModalRoutes = (
   <>

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import {
   createRoutesFromChildren,
   matchRoutes,
@@ -10,8 +10,8 @@ import { ripemd160 } from '@noble/hashes/ripemd160';
 import { sha256 } from '@noble/hashes/sha256';
 import { base58 } from '@scure/base';
 import { AnalyticsBrowser } from '@segment/analytics-next';
-import { feedbackIntegration } from '@sentry/browser';
-import * as Sentry from '@sentry/react';
+import { browserTracingIntegration, feedbackIntegration, setTag } from '@sentry/browser';
+import { init as SentryInit, reactRouterV6BrowserTracingIntegration } from '@sentry/react';
 import { token } from 'leather-styles/tokens';
 
 import { configureAnalyticsClient } from '@leather.io/analytics';
@@ -113,14 +113,14 @@ const sentryFeedback = feedbackIntegration({
 export function initSentry() {
   if (IS_TEST_ENV || !SENTRY_DSN) return;
 
-  Sentry.init({
+  SentryInit({
     dsn: SENTRY_DSN,
     tracesSampleRate: 0.5,
     profilesSampleRate: 0.25,
     integrations: [
-      Sentry.browserTracingIntegration({}),
-      Sentry.reactRouterV6BrowserTracingIntegration({
-        useEffect: React.useEffect,
+      browserTracingIntegration({}),
+      reactRouterV6BrowserTracingIntegration({
+        useEffect,
         useLocation,
         useNavigationType,
         createRoutesFromChildren,
@@ -136,7 +136,6 @@ export function initSentry() {
       'Network request failed',
     ],
     environment: WALLET_ENVIRONMENT,
-    autoSessionTracking: false,
     async beforeSend(event) {
       delete event.user?.ip_address;
       delete event.extra?.ip_address;
@@ -150,7 +149,7 @@ export function initSentry() {
     },
   });
 
-  Sentry.setTag('app_version', VERSION);
+  setTag('app_version', VERSION);
 }
 
 export async function openFeedbackSheet() {
