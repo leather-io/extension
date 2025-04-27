@@ -23,7 +23,7 @@ export function AccountGate({ children }: AccountGateProps) {
   const hasDefaultInMemorySecretKey = useHasDefaultInMemoryWalletSecretKey();
 
   const isLedger = useHasLedgerKeys();
-  if (isLedger) return <>{children}</>;
+  if (isLedger) return children;
 
   if (shouldNavigateToOnboardingStartPage(currentKeyDetails))
     return <Navigate to={RouteUrls.Onboarding} />;
@@ -31,5 +31,5 @@ export function AccountGate({ children }: AccountGateProps) {
   if (shouldNavigateToUnlockWalletPage(hasDefaultInMemorySecretKey))
     return <Navigate to={RouteUrls.Unlock} />;
 
-  return <>{children}</>;
+  return children;
 }
