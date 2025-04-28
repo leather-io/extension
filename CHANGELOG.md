@@ -1,3 +1,25 @@
+## [6.69.0](https://github.com/leather-io/extension/compare/v6.68.0...v6.69.0) (2025-04-28)
+
+
+### Features
+
+* ledger route gates ([1734e31](https://github.com/leather-io/extension/commit/1734e31a3939fe6aa7d2cfdc913c8bb098b67543))
+
+
+### Bug Fixes
+
+* broadcast not including hiro header ([38a8644](https://github.com/leather-io/extension/commit/38a864476b081d0c0857513f8e81eca6d45a192c))
+* has ledger keys ([dfc5a9d](https://github.com/leather-io/extension/commit/dfc5a9d0edb61ae2e290c201a264955553599f29))
+* **ledger:** incorrect chain signer for stacks flow, closes [#6223](https://github.com/leather-io/extension/issues/6223), LEA-63 ([985c3b8](https://github.com/leather-io/extension/commit/985c3b83282393ed599adeeee00a0df763cd339d))
+* prefer account index app connected with ([0c84c96](https://github.com/leather-io/extension/commit/0c84c9675ea4be84a0cc289a56b3ed289327d536))
+* print amount, 0.1 appeared as 0 ([32c309f](https://github.com/leather-io/extension/commit/32c309f2fc7a0c6e3c8e782736ae656cf9686894))
+* return children if not ledger ([c11c903](https://github.com/leather-io/extension/commit/c11c9034233c10ebef1bdb663289627ef25d2f2b))
+
+
+### Internal
+
+* post-release merge back ([c51cac7](https://github.com/leather-io/extension/commit/c51cac7e982d92674016c6cd1bc8d5bc2b536c5d))
+
 ## [6.68.0](https://github.com/leather-io/extension/compare/v6.67.0...v6.68.0) (2025-04-24)
 
 
