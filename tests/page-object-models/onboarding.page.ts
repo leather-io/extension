@@ -338,10 +338,19 @@ export class OnboardingPage {
    * account
    */
   async signInWithLedgerAccount(id: string, state: object) {
+    // @kyranjamie: completely unclear to me why, but after the work in
+    // https://github.com/leather-io/extension/pull/6217 I had to add these
+    // delays to get Ledger tests to run, otherwise either 1) the popup wouldn't
+    // open or 2) the popup would open but it would load the unsigned in state.
+    // This behaviour took place before I upgraded the playwright version in
+    // that PR.
+    await delay(2000);
     await this.page.evaluate(
       async walletState => chrome.storage.local.set({ 'persist:root': walletState }),
       state
     );
+    await delay(2000);
     await this.page.goto(`chrome-extension://${id}/index.html`);
+    await delay(2000);
   }
 }

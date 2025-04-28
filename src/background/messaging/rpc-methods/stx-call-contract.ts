@@ -29,7 +29,7 @@ export const stxCallContractHandler = defineRpcRequestHandler(
       schema: stxCallContract.params,
     });
     if (status === 'failure') return;
-    const { tabId, urlParams } = makeSearchParamsWithDefaults(port, [
+    const { tabId, urlParams } = await makeSearchParamsWithDefaults(port, [
       ['requestId', request.id],
       ['rpcRequest', encodeBase64Json(request)],
     ]);

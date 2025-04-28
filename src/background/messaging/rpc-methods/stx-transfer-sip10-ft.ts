@@ -18,10 +18,10 @@ import { type RpcParams, stxTransferSip10Ft } from '@leather.io/rpc';
 import { TransactionTypes, getStacksAssetStringParts } from '@leather.io/stacks';
 
 import { RouteUrls } from '@shared/route-urls';
+import { getRootState, sendMissingStateErrorToTab } from '@shared/storage/get-root-state';
 import { makeFtPostCondition } from '@shared/utils/post-conditions';
 
 import type { RootState } from '@app/store';
-import { getRootState, sendMissingStateErrorToTab } from '@background/get-root-state';
 
 import { handleRpcMessage } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';

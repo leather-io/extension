@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 
-export const immediatelyAttemptLedgerConnection = 'immediatelyAttemptLedgerConnection' as const;
+export const immediatelyAttemptLedgerConnection = 'immediatelyAttemptLedgerConnection';
 
 export function useWhenReattemptingLedgerConnection(fn: () => void) {
   const location = useLocation();

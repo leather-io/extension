@@ -61,7 +61,7 @@ async function handleRpcSignStacksMessage(
 
   void trackRpcRequestSuccess({ endpoint: method });
 
-  const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
+  const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, requestParams);
 
   const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcStacksSignature, urlParams);
   sendErrorResponseOnUserPopupClose({ tabId, id, request });

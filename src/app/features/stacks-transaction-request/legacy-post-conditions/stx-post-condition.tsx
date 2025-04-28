@@ -8,7 +8,7 @@ import { useTransactionRequestState } from '@app/store/transactions/requests.hoo
 /**
  * @deprecated Legacy transaction request
  */
-export function StxPostCondition(): React.JSX.Element | null {
+export function StxPostCondition() {
   const pendingTransaction = useTransactionRequestState();
 
   if (!pendingTransaction || pendingTransaction.txType !== TransactionTypes.StxTokenTransfer)
@@ -18,7 +18,11 @@ export function StxPostCondition(): React.JSX.Element | null {
     <EventCard
       title="You'll send exactly"
       icon="STX"
-      amount={stacksValue({ value: pendingTransaction.amount, withTicker: false })}
+      amount={stacksValue({
+        value: pendingTransaction.amount,
+        withTicker: false,
+        fixedDecimals: true,
+      })}
       ticker="STX"
       left="Stacks Token"
       right={

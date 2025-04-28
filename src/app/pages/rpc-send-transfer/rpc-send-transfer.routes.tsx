@@ -4,6 +4,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { AccountGate } from '@app/routes/account-gate';
+import { LedgerBitcoinGate } from '@app/routes/ledger-bitcoin-gate';
 
 import { FeeEditor } from '../../features/fee-editor/fee-editor';
 import { RpcSendTransfer } from './rpc-send-transfer';
@@ -14,7 +15,9 @@ export const rpcSendTransferRoutes = (
     path={RouteUrls.RpcSendTransfer}
     element={
       <AccountGate>
-        <RpcSendTransferContainer />
+        <LedgerBitcoinGate>
+          <RpcSendTransferContainer />
+        </LedgerBitcoinGate>
       </AccountGate>
     }
   >

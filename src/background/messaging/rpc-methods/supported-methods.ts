@@ -5,8 +5,8 @@ import { makeSearchParamsWithDefaults } from '../rpc-request-utils';
 
 export const supportedMethodsHandler = defineRpcRequestHandler(
   supportedMethods.method,
-  (request, port) => {
-    const { tabId } = makeSearchParamsWithDefaults(port);
+  async (request, port) => {
+    const { tabId } = await makeSearchParamsWithDefaults(port);
     chrome.tabs.sendMessage(
       tabId,
       createRpcSuccessResponse(supportedMethods.method, {
