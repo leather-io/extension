@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -119,7 +119,21 @@
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,20 +152,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -164,6 +185,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -171,6 +195,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -187,6 +215,8 @@ import { delay, isError } from '@leather.io/utils';
 import { logger } from '@shared/logger';
 import { analytics } from '@shared/utils/analytics';
 &nbsp;
+import { hiroFetchWrapper } from '@app/query/stacks/stacks-client';
+&nbsp;
 interface StacksBroadcastTransactionArgs {
   network: StacksNetwork;
   signedTx: StacksTransactionWire;
@@ -199,27 +229,35 @@ export async function <span class="fstat-no" title="function not covered" >stack
   onSuccess,
   onError,
 }: StacksBroadcastTransactionArgs) {
+  const attemptId = <span class="cstat-no" title="statement not covered" >crypto.randomUUID();</span>
 <span class="cstat-no" title="statement not covered" >  try {</span>
+<span class="cstat-no" title="statement not covered" >    void analytics.untypedTrack('stacks_transaction_broadcast_initiated', {</span>
+      attemptId,
+    });
+&nbsp;
     const response = <span class="cstat-no" title="statement not covered" >await broadcastTransaction({</span>
       transaction: signedTx,
       network,
+      client: { fetch: hiroFetchWrapper },
     });
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    await delay(500);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if ('error' in response) {</span>
 <span class="cstat-no" title="statement not covered" >      logger.error('Transaction failed to broadcast', response);</span>
-<span class="cstat-no" title="statement not covered" >      onError(response.error, response.reason);</span>
-<span class="cstat-no" title="statement not covered" >      return;</span>
+<span class="cstat-no" title="statement not covered" >      throw new Error(response.error);</span>
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (!response.txid) {</span>
 <span class="cstat-no" title="statement not covered" >      logger.error('Transaction failed to broadcast', response);</span>
-<span class="cstat-no" title="statement not covered" >      return;</span>
+<span class="cstat-no" title="statement not covered" >      throw new Error('Transaction failed to broadcast');</span>
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    logger.info('Transaction broadcast', response);</span>
 <span class="cstat-no" title="statement not covered" >    void analytics.track('broadcast_transaction', { symbol: 'stx' });</span>
+<span class="cstat-no" title="statement not covered" >    void analytics.untypedTrack('stacks_transaction_broadcast_succeeded', {</span>
+      attemptId,
+    });
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    await delay(500);</span>
 &nbsp;
@@ -227,6 +265,10 @@ export async function <span class="fstat-no" title="function not covered" >stack
 <span class="cstat-no" title="statement not covered" >    return;</span>
   } catch (error) {
 <span class="cstat-no" title="statement not covered" >    logger.error('Transaction error', { error });</span>
+<span class="cstat-no" title="statement not covered" >    void analytics.untypedTrack('stacks_transaction_broadcast_failed', {</span>
+      attemptId,
+      error: isError(error) ? error.message : String(error),
+    });
 <span class="cstat-no" title="statement not covered" >    onError(isError(error) ? error : { name: '', message: '' });</span>
 <span class="cstat-no" title="statement not covered" >    return;</span>
   }
@@ -238,7 +280,7 @@ export async function <span class="fstat-no" title="function not covered" >stack
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-24T15:59:42.326Z
+                at 2025-04-28T20:37:02.872Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

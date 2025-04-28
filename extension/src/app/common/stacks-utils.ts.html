@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.36% </span>
+                <span class="strong">22.22% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/22</span>
+                <span class='fraction'>4/18</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.36% </span>
+                <span class="strong">22.22% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/22</span>
+                <span class='fraction'>4/18</span>
             </div>
         
             
@@ -156,7 +156,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,7 +178,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -186,12 +186,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -235,7 +235,7 @@ import { abbreviateNumber } from '@app/common/utils';
 &nbsp;
 import { convertUnicodeToAscii } from './string-utils';
 &nbsp;
-export const stacksValue = ({
+export function stacksValue({
   value,
   fixedDecimals = true,
   withTicker = true,
@@ -245,7 +245,7 @@ export const stacksValue = ({
   fixedDecimals?: boolean;
   withTicker?: boolean;
   abbreviate?: boolean;
-}) =&gt; {
+}) {
   const stacks = microStxToStx(value);
   const stxAmount = stacks.toNumber();
   return `${
@@ -255,29 +255,29 @@ export const stacksValue = ({
           maximumFractionDigits: fixedDecimals ? STX_DECIMALS : 3,
         })
   }${withTicker ? ' STX' : ''}`;
-};
+}
 &nbsp;
-export const ftDecimals = <span class="fstat-no" title="function not covered" >(v</span>alue: number | string | BigNumber, decimals: number) =&gt; {
+export function <span class="fstat-no" title="function not covered" >ftDecimals(v</span>alue: number | string | BigNumber, decimals: number) {
   const amount = <span class="cstat-no" title="statement not covered" >initBigNumber(value);</span>
 <span class="cstat-no" title="statement not covered" >  return amount</span>
     .shiftedBy(-decimals)
     .toNumber()
     .toLocaleString('en-US', { maximumFractionDigits: decimals });
-};
+}
 &nbsp;
-export const ftUnshiftDecimals = <span class="fstat-no" title="function not covered" >(v</span>alue: number | string | BigNumber, decimals: number) =&gt; {
+export function <span class="fstat-no" title="function not covered" >ftUnshiftDecimals(v</span>alue: number | string | BigNumber, decimals: number) {
   const amount = <span class="cstat-no" title="statement not covered" >initBigNumber(value);</span>
 <span class="cstat-no" title="statement not covered" >  return amount.shiftedBy(decimals).toString(10);</span>
-};
+}
 &nbsp;
-export const validateStacksAddress = <span class="fstat-no" title="function not covered" >(s</span>tacksAddress: string): boolean =&gt; {
+export function <span class="fstat-no" title="function not covered" >validateStacksAddress(s</span>tacksAddress: string): boolean {
 <span class="cstat-no" title="statement not covered" >  try {</span>
 <span class="cstat-no" title="statement not covered" >    c32addressDecode(stacksAddress);</span>
 <span class="cstat-no" title="statement not covered" >    return true;</span>
   } catch (e) {
 <span class="cstat-no" title="statement not covered" >    return false;</span>
   }
-};
+}
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >validateAddressChain(a</span>ddress: string, currentNetwork: NetworkConfiguration) {
   const prefix = <span class="cstat-no" title="statement not covered" >address.slice(0, 2);</span>
@@ -307,7 +307,7 @@ export function <span class="fstat-no" title="function not covered" >getSafeImag
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-24T15:59:42.326Z
+                at 2025-04-28T20:37:02.872Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
