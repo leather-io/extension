@@ -1,14 +1,16 @@
-import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
-import { useHasLedgerKeys } from '@app/store/ledger/ledger.selectors';
+import { ConnectLedgerStacks } from '@app/features/ledger/generic-steps/connect-device/connect-ledger-stacks';
+import { useHasLedgerKeys, useHasLedgerStacksKeys } from '@app/store/ledger/ledger.selectors';
 
 interface LedgerStacksGateProps {
   children: React.ReactNode;
   fallback?: React.ReactNode;
 }
-export function LedgerStacksGate({ children, fallback }: LedgerStacksGateProps) {
+export function LedgerStacksGate({
+  children,
+  fallback = <ConnectLedgerStacks />,
+}: LedgerStacksGateProps) {
   const isLedger = useHasLedgerKeys();
-  if (!isLedger) return children;
-  return (
-    <CurrentStacksAccountLoader fallback={fallback}>{() => children}</CurrentStacksAccountLoader>
-  );
+  const hasLedgerStacksKeys = useHasLedgerStacksKeys();
+  if (!isLedger || hasLedgerStacksKeys) return children;
+  return fallback;
 }

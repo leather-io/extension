@@ -3,7 +3,6 @@ import { Route } from 'react-router-dom';
 import { RouteUrls } from '@shared/route-urls';
 
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
-import { ConnectLedgerBitcoin } from '@app/features/ledger/generic-steps/connect-device/connect-ledger-bitcoin';
 import { AccountGate } from '@app/routes/account-gate';
 import { LedgerBitcoinGate } from '@app/routes/ledger-bitcoin-gate';
 
@@ -16,7 +15,7 @@ export const rpcSendTransferRoutes = (
     path={RouteUrls.RpcSendTransfer}
     element={
       <AccountGate>
-        <LedgerBitcoinGate fallback={<ConnectLedgerBitcoin />}>
+        <LedgerBitcoinGate>
           <RpcSendTransferContainer />
         </LedgerBitcoinGate>
       </AccountGate>
