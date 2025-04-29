@@ -86,7 +86,7 @@ const aliases = {
   '@stacks/wallet-sdk': '@stacks/wallet-sdk/dist/esm',
   'leather-styles': path.resolve('leather-styles'),
   'react': path.resolve('./node_modules/react'),
-  'react-dom': path.resolve('./node_modules/react-dom')
+  'react-dom': path.resolve('./node_modules/react-dom'),
 };
 
 export const config = {
@@ -234,6 +234,10 @@ export const config = {
       resourceRegExp: /^\.\/wordlists\/(?!english)/,
       contextRegExp: /bip39\/src$/,
     }),
+    new webpack.NormalModuleReplacementPlugin(
+      /@segment\/analytics-next\/dist\/pkg\/lib\/parse-cdn\.js$/,
+      path.resolve(__dirname, '../scripts/dummy-segment-parse-cdn.js')
+    ),
     new HtmlWebpackPlugin({
       template: path.join(SRC_ROOT_PATH, '../', 'public', 'html', 'index.html'),
       filename: 'index.html',
