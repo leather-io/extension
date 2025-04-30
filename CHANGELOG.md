@@ -1,3 +1,17 @@
+## [6.69.1](https://github.com/leather-io/extension/compare/v6.69.0...v6.69.1) (2025-04-30)
+
+
+### Bug Fixes
+
+* chrome rejection, segment issue ([b174fbe](https://github.com/leather-io/extension/commit/b174fbe908db0e8a7a9587d3a03fb441bd9e935b))
+* **web:** use a local resource for sbtc logo image, ref LEA-2551 ([d9c3cf4](https://github.com/leather-io/extension/commit/d9c3cf48c061cdd462ac8bba5924e9df2e337cab))
+* wrong asset ids in wallet config, closes ENG-31 ([2f276cd](https://github.com/leather-io/extension/commit/2f276cda30406d542649074044b2251dc7255ae0))
+
+
+### Internal
+
+* post-release merge back ([3a2d7de](https://github.com/leather-io/extension/commit/3a2d7def9539a262b990e6c5fc541b7007f31445))
+
 ## [6.69.0](https://github.com/leather-io/extension/compare/v6.68.0...v6.69.0) (2025-04-28)
 
 
