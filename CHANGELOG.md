@@ -1,3 +1,16 @@
+## [6.69.2](https://github.com/leather-io/extension/compare/v6.69.1...v6.69.2) (2025-05-01)
+
+
+### Bug Fixes
+
+* prevent signed commits warning ([5bd0279](https://github.com/leather-io/extension/commit/5bd0279b235fc2dda261b8fbb5c904d10dd12b72))
+* remove remote loaded code entirely ([96ebe4d](https://github.com/leather-io/extension/commit/96ebe4d052f31b1fb9051b5929f685e560c92e6b))
+
+
+### Internal
+
+* post-release merge back ([159d079](https://github.com/leather-io/extension/commit/159d0799cd88bcc68bb63b56a402fb230726ba1f))
+
 ## [6.69.1](https://github.com/leather-io/extension/compare/v6.69.0...v6.69.1) (2025-04-30)
 
 
