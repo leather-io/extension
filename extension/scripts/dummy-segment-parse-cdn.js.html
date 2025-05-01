@@ -129,30 +129,7 @@
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a>
-<a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,36 +191,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// This file is a copy of the `parse-cdn.js` file in the
 // `@segment/analytics-next` package Since this package tries to fetch remote
 // scripts, we have to override it to prevent chrome store rejections.
 // Issue opened in their repo https://github.com/segmentio/analytics-next/issues/1283
-import { embeddedWriteKey } from './embedded-write-key';
 import { getGlobalAnalytics } from './global-analytics-helper';
 &nbsp;
 var analyticsScriptRegex = <span class="cstat-no" title="statement not covered" >/(https:\/\/.*)\/analytics\.js\/v1\/(?:.*?)\/(?:platform|analytics.*)?/;</span>
@@ -302,29 +257,8 @@ export var getNextIntegrationsURL = <span class="cstat-no" title="statement not 
  * @returns the path to Analytics JS 1.0
  **/
 export function <span class="fstat-no" title="function not covered" >getLegacyAJSPath(</span>) {
+  // THIS IS THE DELETED CODE BLOCK THAT IMPORTS REMOTE CODE
 <span class="cstat-no" title="statement not covered" >  return '';</span>
-  // var _a, _b, _c;
-  // var writeKey =
-  //   (_a = embeddedWriteKey()) !== null &amp;&amp; _a !== void 0
-  //     ? _a
-  //     : (_b = getGlobalAnalytics()) === null || _b === void 0
-  //       ? void 0
-  //       : _b._writeKey;
-  // var scripts = Array.prototype.slice.call(document.querySelectorAll('script'));
-  // var path = undefined;
-  // for (var _i = 0, scripts_1 = scripts; _i &lt; scripts_1.length; _i++) {
-  //   var s = scripts_1[_i];
-  //   var src = (_c = s.getAttribute('src')) !== null &amp;&amp; _c !== void 0 ? _c : '';
-  //   var result = analyticsScriptRegex.exec(src);
-  //   if (result &amp;&amp; result[1]) {
-  //     path = src;
-  //     break;
-  //   }
-  // }
-  // if (path) {
-  //   return path.replace('analytics.min.js', 'analytics.classic.js');
-  // }
-  // return 'https://cdn.segment.com/analytics.js/v1/'.concat(writeKey, '/analytics.classic.js');
 }
 //# sourceMappingURL=parse-cdn.js.map
 &nbsp;</pre></td></tr></table></pre>
@@ -334,7 +268,7 @@ export function <span class="fstat-no" title="function not covered" >getLegacyAJ
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-30T13:32:15.660Z
+                at 2025-05-01T10:01:32.004Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
