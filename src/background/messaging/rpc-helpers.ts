@@ -6,7 +6,7 @@ import { queueAnalyticsRequest } from '@background/background-analytics';
 
 import {
   RequestParams,
-  makeSearchParamsWithDefaults,
+  createConnectingAppSearchParamsWithLastKnownAccount,
   sendErrorResponseOnUserPopupClose,
   triggerRequestPopupWindowOpen,
 } from './rpc-request-utils';
@@ -25,7 +25,10 @@ export async function handleRpcMessage({
 }: HandleRpcMessageArgs) {
   void trackRpcRequestSuccess({ endpoint: request.method });
 
-  const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, requestParams);
+  const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(
+    port,
+    requestParams
+  );
   const { id } = await triggerRequestPopupWindowOpen(path, urlParams);
 
   sendErrorResponseOnUserPopupClose({ tabId, id, request });

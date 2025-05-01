@@ -20,8 +20,8 @@ import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
+  createConnectingAppSearchParamsWithLastKnownAccount,
   getTabIdFromPort,
-  makeSearchParamsWithDefaults,
   sendErrorResponseOnUserPopupClose,
   triggerRequestPopupWindowOpen,
 } from '../rpc-request-utils';
@@ -61,7 +61,10 @@ async function handleRpcSignStacksMessage(
 
   void trackRpcRequestSuccess({ endpoint: method });
 
-  const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, requestParams);
+  const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(
+    port,
+    requestParams
+  );
 
   const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcStacksSignature, urlParams);
   sendErrorResponseOnUserPopupClose({ tabId, id, request });

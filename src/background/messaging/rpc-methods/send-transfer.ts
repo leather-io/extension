@@ -20,8 +20,8 @@ import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
+  createConnectingAppSearchParamsWithLastKnownAccount,
   getTabIdFromPort,
-  makeSearchParamsWithDefaults,
   sendErrorResponseOnUserPopupClose,
   triggerRequestPopupWindowOpen,
 } from '../rpc-request-utils';
@@ -82,7 +82,10 @@ export const sendTransferHandler = defineRpcRequestHandler(
       requestParams.push(['accountIndex', params.account.toString()]);
     }
 
-    const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, requestParams);
+    const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(
+      port,
+      requestParams
+    );
 
     const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcSendTransfer, urlParams);
 
