@@ -2,7 +2,6 @@
 // `@segment/analytics-next` package Since this package tries to fetch remote
 // scripts, we have to override it to prevent chrome store rejections.
 // Issue opened in their repo https://github.com/segmentio/analytics-next/issues/1283
-import { embeddedWriteKey } from './embedded-write-key';
 import { getGlobalAnalytics } from './global-analytics-helper';
 
 var analyticsScriptRegex = /(https:\/\/.*)\/analytics\.js\/v1\/(?:.*?)\/(?:platform|analytics.*)?/;
@@ -61,28 +60,7 @@ export var getNextIntegrationsURL = function () {
  * @returns the path to Analytics JS 1.0
  **/
 export function getLegacyAJSPath() {
+  // THIS IS THE DELETED CODE BLOCK THAT IMPORTS REMOTE CODE
   return '';
-  // var _a, _b, _c;
-  // var writeKey =
-  //   (_a = embeddedWriteKey()) !== null && _a !== void 0
-  //     ? _a
-  //     : (_b = getGlobalAnalytics()) === null || _b === void 0
-  //       ? void 0
-  //       : _b._writeKey;
-  // var scripts = Array.prototype.slice.call(document.querySelectorAll('script'));
-  // var path = undefined;
-  // for (var _i = 0, scripts_1 = scripts; _i < scripts_1.length; _i++) {
-  //   var s = scripts_1[_i];
-  //   var src = (_c = s.getAttribute('src')) !== null && _c !== void 0 ? _c : '';
-  //   var result = analyticsScriptRegex.exec(src);
-  //   if (result && result[1]) {
-  //     path = src;
-  //     break;
-  //   }
-  // }
-  // if (path) {
-  //   return path.replace('analytics.min.js', 'analytics.classic.js');
-  // }
-  // return 'https://cdn.segment.com/analytics.js/v1/'.concat(writeKey, '/analytics.classic.js');
 }
 //# sourceMappingURL=parse-cdn.js.map
