@@ -1,3 +1,15 @@
+## [6.69.3](https://github.com/leather-io/extension/compare/v6.69.2...v6.69.3) (2025-05-01)
+
+
+### Bug Fixes
+
+* **rpc:** remove default account for 'getAddresses' flow ([1b4384b](https://github.com/leather-io/extension/commit/1b4384b11fea2da669e6a347e59d7769cf83ef01))
+
+
+### Internal
+
+* post-release merge back ([2b3ca20](https://github.com/leather-io/extension/commit/2b3ca203c8ad9ea2bdde3cb578d9b174b0cab41c))
+
 ## [6.69.2](https://github.com/leather-io/extension/compare/v6.69.1...v6.69.2) (2025-05-01)
 
 
