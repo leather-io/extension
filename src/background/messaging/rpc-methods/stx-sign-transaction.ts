@@ -31,9 +31,9 @@ import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
+  createConnectingAppSearchParamsWithLastKnownAccount,
   encodePostConditions,
   getTabIdFromPort,
-  makeSearchParamsWithDefaults,
   sendErrorResponseOnUserPopupClose,
   triggerRequestPopupWindowOpen,
 } from '../rpc-request-utils';
@@ -182,7 +182,10 @@ export const stxSignTransactionHandler = defineRpcRequestHandler(
 
     if (isDefined(request.params.network)) requestParams.push(['network', request.params.network]);
 
-    const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, requestParams);
+    const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(
+      port,
+      requestParams
+    );
 
     const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcStxSignTransaction, urlParams);
     sendErrorResponseOnUserPopupClose({ tabId, id, request });

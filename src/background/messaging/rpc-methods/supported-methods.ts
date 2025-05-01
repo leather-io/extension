@@ -1,12 +1,12 @@
 import { createRpcSuccessResponse, supportedMethods } from '@leather.io/rpc';
 
 import { defineRpcRequestHandler } from '../rpc-message-handler';
-import { makeSearchParamsWithDefaults } from '../rpc-request-utils';
+import { createConnectingAppSearchParamsWithLastKnownAccount } from '../rpc-request-utils';
 
 export const supportedMethodsHandler = defineRpcRequestHandler(
   supportedMethods.method,
   async (request, port) => {
-    const { tabId } = await makeSearchParamsWithDefaults(port);
+    const { tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(port);
     chrome.tabs.sendMessage(
       tabId,
       createRpcSuccessResponse(supportedMethods.method, {

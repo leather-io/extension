@@ -5,7 +5,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
-  makeSearchParamsWithDefaults,
+  createConnectingAppMetadataSearchParams,
   sendErrorResponseOnUserPopupClose,
   triggerRequestPopupWindowOpen,
 } from '../rpc-request-utils';
@@ -14,7 +14,7 @@ const sharedGetAddressesHandler = async (
   request: RpcRequest<typeof getAddresses> | RpcRequest<typeof stxGetAddresses>,
   port: chrome.runtime.Port
 ) => {
-  const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, [
+  const { urlParams, tabId } = createConnectingAppMetadataSearchParams(port, [
     ['requestId', request.id],
     ['rpcRequest', encodeBase64Json(request)],
   ]);

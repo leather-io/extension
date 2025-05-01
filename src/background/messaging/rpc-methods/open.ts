@@ -12,13 +12,13 @@ import { getRootState, sendMissingStateErrorToTab } from '@shared/storage/get-ro
 import { openNewTabWithWallet, trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
+  createConnectingAppSearchParamsWithLastKnownAccount,
   getHostnameFromPort,
-  makeSearchParamsWithDefaults,
   triggerRequestPopupWindowOpen,
 } from '../rpc-request-utils';
 
 export const openHandler = defineRpcRequestHandler(open.method, async (request, port) => {
-  const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, [
+  const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(port, [
     ['requestId', request.id],
   ]);
 

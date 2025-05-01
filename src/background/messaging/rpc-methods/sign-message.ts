@@ -17,8 +17,8 @@ import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
+  createConnectingAppSearchParamsWithLastKnownAccount,
   getTabIdFromPort,
-  makeSearchParamsWithDefaults,
   sendErrorResponseOnUserPopupClose,
   triggerRequestPopupWindowOpen,
 } from '../rpc-request-utils';
@@ -87,7 +87,10 @@ export const signMessageHandler = defineRpcRequestHandler(
       requestParams.push(['accountIndex', (request.params as any).account.toString()]);
     }
 
-    const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, requestParams);
+    const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(
+      port,
+      requestParams
+    );
     const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcSignBip322Message, urlParams);
 
     sendErrorResponseOnUserPopupClose({ tabId, id, request });

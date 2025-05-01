@@ -5,10 +5,13 @@ import { replaceRouteParams } from '@shared/utils/replace-route-params';
 
 import { trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
-import { makeSearchParamsWithDefaults, triggerSwapWindowOpen } from '../rpc-request-utils';
+import {
+  createConnectingAppSearchParamsWithLastKnownAccount,
+  triggerSwapWindowOpen,
+} from '../rpc-request-utils';
 
 export const openSwapHandler = defineRpcRequestHandler(openSwap.method, async (request, port) => {
-  const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, [
+  const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(port, [
     ['requestId', request.id],
   ]);
   const { base = 'STX', quote } = request?.params || {};

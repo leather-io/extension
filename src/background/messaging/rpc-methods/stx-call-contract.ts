@@ -11,8 +11,8 @@ import { RpcErrorMessage } from '@shared/rpc/methods/validation.utils';
 import { trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
+  createConnectingAppSearchParamsWithLastKnownAccount,
   listenForPopupClose,
-  makeSearchParamsWithDefaults,
   triggerRequestPopupWindowOpen,
   validateRequestParams,
 } from '../rpc-request-utils';
@@ -29,7 +29,7 @@ export const stxCallContractHandler = defineRpcRequestHandler(
       schema: stxCallContract.params,
     });
     if (status === 'failure') return;
-    const { tabId, urlParams } = await makeSearchParamsWithDefaults(port, [
+    const { tabId, urlParams } = await createConnectingAppSearchParamsWithLastKnownAccount(port, [
       ['requestId', request.id],
       ['rpcRequest', encodeBase64Json(request)],
     ]);
