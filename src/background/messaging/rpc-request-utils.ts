@@ -105,23 +105,30 @@ export function listenForOriginTabClose({ tabId }: ListenForOriginTabCloseArgs) 
 
 export type RequestParams = [string, string][];
 
-export async function makeSearchParamsWithDefaults(
+export function createConnectingAppMetadataSearchParams(
   port: chrome.runtime.Port,
   otherParams: RequestParams = []
 ) {
   const urlParams = new URLSearchParams();
-  // All actions must have a corresponding `origin` and `tabId`
   const origin = getOriginFromPort(port);
   const tabId = getTabIdFromPort(port);
   urlParams.set('origin', origin ?? '');
   urlParams.set('tabId', tabId.toString());
+  otherParams.forEach(([key, value]) => urlParams.append(key, value));
+  return { urlParams, origin, tabId };
+}
+
+export async function createConnectingAppSearchParamsWithLastKnownAccount(
+  port: chrome.runtime.Port,
+  otherParams: RequestParams = []
+) {
+  const { urlParams, origin, tabId } = createConnectingAppMetadataSearchParams(port, otherParams);
   if (origin) {
     const appPermissions = await getPermissionsByOrigin(getHostnameFromPort(port));
     if (appPermissions) {
       urlParams.set('accountIndex', appPermissions.accountIndex.toString());
     }
   }
-  otherParams.forEach(([key, value]) => urlParams.append(key, value));
   return { urlParams, origin, tabId };
 }
 

@@ -15,8 +15,8 @@ import { trackRpcRequestError, trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
+  createConnectingAppSearchParamsWithLastKnownAccount,
   getTabIdFromPort,
-  makeSearchParamsWithDefaults,
   sendErrorResponseOnUserPopupClose,
   triggerRequestPopupWindowOpen,
 } from '../rpc-request-utils';
@@ -102,7 +102,10 @@ export const signPsbtHandler = defineRpcRequestHandler(signPsbt.method, async (r
 
   void trackRpcRequestSuccess({ endpoint: request.method });
 
-  const { urlParams, tabId } = await makeSearchParamsWithDefaults(port, requestParams);
+  const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(
+    port,
+    requestParams
+  );
 
   const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcSignPsbt, urlParams);
 
