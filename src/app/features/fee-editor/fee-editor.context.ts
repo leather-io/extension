@@ -14,7 +14,7 @@ export interface Fee {
   priority: FeePriority;
   feeRate?: number;
   feeValue?: number;
-  txFee: Money | null;
+  txFee: Money;
   time: string;
 }
 

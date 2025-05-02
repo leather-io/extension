@@ -20,7 +20,7 @@ import { useSignStacksTransaction } from '@app/store/transactions/transaction.ho
 import { useRpcTransactionRequest } from '../use-rpc-transaction-request';
 
 export function useSignAndBroadcastStacksTransaction(method: RpcMethodNames) {
-  const { onSetIsBroadcasting, onSetIsSubmitted } = useRpcTransactionRequest();
+  const { onSetTransactionStatus } = useRpcTransactionRequest();
   const { tabId, requestId } = useRpcRequestParams();
   const signStacksTransaction = useSignStacksTransaction();
   const network = useCurrentStacksNetworkState();
@@ -39,7 +39,7 @@ export function useSignAndBroadcastStacksTransaction(method: RpcMethodNames) {
       }
 
       function onSuccess(txid: string, transaction: StacksTransactionWire) {
-        onSetIsSubmitted(true);
+        onSetTransactionStatus('submitted');
 
         chrome.tabs.sendMessage(
           tabId,
@@ -52,9 +52,9 @@ export function useSignAndBroadcastStacksTransaction(method: RpcMethodNames) {
           })
         );
       }
-      onSetIsBroadcasting(true);
+      onSetTransactionStatus('broadcasting');
       await stacksBroadcastTransaction({ network, signedTx, onError, onSuccess });
-      onSetIsBroadcasting(false);
+      onSetTransactionStatus('idle');
       await delay(500);
       closeWindow();
     },
@@ -62,8 +62,7 @@ export function useSignAndBroadcastStacksTransaction(method: RpcMethodNames) {
       method,
       navigate,
       network,
-      onSetIsBroadcasting,
-      onSetIsSubmitted,
+      onSetTransactionStatus,
       requestId,
       signStacksTransaction,
       tabId,

@@ -6,16 +6,16 @@ import { FeeEditor } from '@app/features/fee-editor/fee-editor';
 import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
 import { NonceEditor } from '@app/features/nonce-editor/nonce-editor';
 import { useNonceEditorContext } from '@app/features/nonce-editor/nonce-editor.context';
-import { useSignAndBroadcastStacksTransaction } from '@app/features/rpc-transaction-request/hooks/use-sign-and-broadcast-stacks-transaction';
-import { PostConditionsDetailsLayout } from '@app/features/rpc-transaction-request/post-conditions/post-conditions-details.layout';
 import { RpcTransactionRequestLayout } from '@app/features/rpc-transaction-request/rpc-transaction-request.layout';
+import { ContractCallDetailsLayout } from '@app/features/rpc-transaction-request/stacks/contract-call-details.layout';
+import { PostConditionsDetailsLayout } from '@app/features/rpc-transaction-request/stacks/post-conditions/post-conditions-details.layout';
+import { useSignAndBroadcastStacksTransaction } from '@app/features/rpc-transaction-request/stacks/use-sign-and-broadcast-stacks-transaction';
 import { TransactionActionsWithSpend } from '@app/features/rpc-transaction-request/transaction-actions-with-spend';
 
-import { ContractCallDetailsLayout } from './components/contract-call-details.layout';
 import { useRpcStxCallContractContext } from './rpc-stx-call-contract.context';
 
 export function RpcStxCallContract() {
-  const { txOptions } = useRpcStxCallContractContext();
+  const { isLoadingBalance, txOptions } = useRpcStxCallContractContext();
   const { isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
     useFeeEditorContext();
   const { nonce, onUserActivatesNonceEditor } = useNonceEditorContext();
@@ -34,6 +34,8 @@ export function RpcStxCallContract() {
       method={stxCallContract.method}
       actions={
         <TransactionActionsWithSpend
+          isLoading={isLoadingBalance || isLoadingFees}
+          // TODO: Calculate total request
           txAmount={createMoney(0, 'STX')}
           onApprove={onApproveTransaction}
         />

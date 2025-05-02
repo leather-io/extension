@@ -18,6 +18,7 @@ import { TransactionTypes, getStacksAssetStringParts } from '@leather.io/stacks'
 
 import { RouteUrls } from '@shared/route-urls';
 import { getRootState, sendMissingStateErrorToTab } from '@shared/storage/get-root-state';
+import { getAddressFromAssetString } from '@shared/utils';
 import { makeNftPostCondition } from '@shared/utils/post-conditions';
 
 import type { RootState } from '@app/store';
@@ -26,7 +27,6 @@ import { handleRpcMessage } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   type RequestParams,
-  getAddressFromAssetString,
   getStxDefaultMessageParamsToTransactionRequest,
   getTabIdFromPort,
   validateRequestParams,

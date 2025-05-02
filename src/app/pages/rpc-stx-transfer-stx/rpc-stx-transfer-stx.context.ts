@@ -1,11 +1,15 @@
 import { createContext, useContext } from 'react';
 
-import type { StacksUnsignedTokenTransferOptions } from '@leather.io/stacks';
+import type { StacksNetwork } from '@stacks/network';
 
 import type { RpcTransactionRequest } from '@app/features/rpc-transaction-request/use-rpc-transaction-request';
 
+import type { RpcStxTransferStxRequest } from './rpc-stx-transfer-stx.utils';
+
 interface RpcStxTransferStxContext extends RpcTransactionRequest {
-  txOptions: StacksUnsignedTokenTransferOptions;
+  network: StacksNetwork;
+  publicKey: string;
+  rpcRequest: RpcStxTransferStxRequest;
   onUserActivatesSwitchAccount(): void;
 }
 

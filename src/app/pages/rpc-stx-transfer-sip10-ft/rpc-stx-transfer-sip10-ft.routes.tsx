@@ -10,23 +10,23 @@ import { AccountGate } from '@app/routes/account-gate';
 import { LedgerStacksGate } from '@app/routes/ledger-stacks-gate';
 
 import { FeeEditor } from '../../features/fee-editor/fee-editor';
-import { RpcStxTransferStx } from './rpc-stx-transfer-stx';
-import { RpcStxTransferStxContainer } from './rpc-stx-transfer-stx-container';
+import { RpcStxTransferSip10Ft } from './rpc-stx-transfer-sip10-ft';
+import { RpcStxTransferSip10FtContainer } from './rpc-stx-transfer-sip10-ft-container';
 
-export const rpcStxTransferStxRoutes = (
+export const rpcStxTransferSip10FtRoutes = (
   <Route
-    path={RouteUrls.RpcStxTransferStx}
+    path={RouteUrls.RpcStxTransferSip10Ft}
     element={
       <AccountGate>
         <LedgerStacksGate>
           <CurrentStacksAccountLoader>
-            {account => <RpcStxTransferStxContainer account={account} />}
+            {account => <RpcStxTransferSip10FtContainer account={account} />}
           </CurrentStacksAccountLoader>
         </LedgerStacksGate>
       </AccountGate>
     }
   >
-    <Route index element={<RpcStxTransferStx />} />
+    <Route index element={<RpcStxTransferSip10Ft />} />
     <Route path={RouteUrls.FeeEditor} element={<FeeEditor />} />
     <Route path={RouteUrls.NonceEditor} element={<NonceEditor />} />
     <Route path={RouteUrls.BroadcastError} element={<BroadcastErrorSheet />} />
