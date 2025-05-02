@@ -25,10 +25,9 @@ export function RpcTransactionRequestLayout({
   method,
   title,
 }: RpcTransactionRequestLayoutProps) {
-  const { isBroadcasting, isSubmitted, origin, onClickRequestedByLink } =
-    useRpcTransactionRequest();
+  const { origin, status, onClickRequestedByLink } = useRpcTransactionRequest();
 
-  const showOverlay = isBroadcasting || isSubmitted;
+  const showOverlay = status === 'broadcasting' || status === 'submitted';
 
   return (
     <>

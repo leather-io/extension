@@ -38,7 +38,7 @@ export function RpcStxCallContractContainer() {
                 <RpcStxCallContractProvider
                   value={{
                     ...request,
-                    isLoading: isLoadingAdditionalData,
+                    isLoadingBalance: isLoadingAdditionalData,
                     txOptions,
                   }}
                 >

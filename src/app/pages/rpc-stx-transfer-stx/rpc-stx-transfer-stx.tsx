@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { stxTransferStx } from '@leather.io/rpc';
 import { generateStacksUnsignedTransaction } from '@leather.io/stacks';
 import { StxAvatarIcon } from '@leather.io/ui';
@@ -10,25 +12,36 @@ import { FeeEditor } from '@app/features/fee-editor/fee-editor';
 import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
 import { NonceEditor } from '@app/features/nonce-editor/nonce-editor';
 import { useNonceEditorContext } from '@app/features/nonce-editor/nonce-editor.context';
-import { useSignAndBroadcastStacksTransaction } from '@app/features/rpc-transaction-request/hooks/use-sign-and-broadcast-stacks-transaction';
 import { RpcTransactionRequestLayout } from '@app/features/rpc-transaction-request/rpc-transaction-request.layout';
+import { useSignAndBroadcastStacksTransaction } from '@app/features/rpc-transaction-request/stacks/use-sign-and-broadcast-stacks-transaction';
 import { SwitchAccountTrigger } from '@app/features/rpc-transaction-request/switch-account-trigger/switch-account-trigger';
 import { TransactionActionsWithSpend } from '@app/features/rpc-transaction-request/transaction-actions-with-spend';
 
 import { useRpcStxTransferStxContext } from './rpc-stx-transfer-stx.context';
+import { getStacksUnsignedTokenTransferOptions } from './rpc-stx-transfer-stx.utils';
 
 export function RpcStxTransferStx() {
-  const { isLoading, onUserActivatesSwitchAccount, txOptions } = useRpcStxTransferStxContext();
+  const { isLoadingBalance, network, publicKey, onUserActivatesSwitchAccount } =
+    useRpcStxTransferStxContext();
   const { availableBalance, isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
     useFeeEditorContext();
   const { nonce, onUserActivatesNonceEditor } = useNonceEditorContext();
   const signAndBroadcastTransaction = useSignAndBroadcastStacksTransaction(stxTransferStx.method);
   const convertToFiatAmount = useConvertCryptoCurrencyToFiatAmount('STX');
 
+  const txOptionsForBroadcast = useMemo(
+    () =>
+      getStacksUnsignedTokenTransferOptions({
+        fee: selectedFee.txFee,
+        network,
+        nonce,
+        publicKey,
+      }),
+    [network, nonce, publicKey, selectedFee.txFee]
+  );
+
   async function onApproveTransaction() {
-    const unsignedTx = await generateStacksUnsignedTransaction(txOptions);
-    if (selectedFee.txFee) unsignedTx.setFee(selectedFee.txFee.amount.toNumber());
-    unsignedTx.setNonce(nonce);
+    const unsignedTx = await generateStacksUnsignedTransaction(txOptionsForBroadcast);
     await signAndBroadcastTransaction(unsignedTx);
   }
 
@@ -38,14 +51,18 @@ export function RpcStxTransferStx() {
       method={stxTransferStx.method}
       helpUrl="https://leather.io/guides/send-stacks-from-app"
       actions={
-        <TransactionActionsWithSpend txAmount={txOptions.amount} onApprove={onApproveTransaction} />
+        <TransactionActionsWithSpend
+          isLoading={isLoadingBalance || isLoadingFees}
+          txAmount={txOptionsForBroadcast.amount}
+          onApprove={onApproveTransaction}
+        />
       }
     >
       <SwitchAccountTrigger
         address={<AccountStacksAddress />}
         availableBalance={availableBalance}
         fiatBalance={convertToFiatAmount(availableBalance)}
-        isLoadingBalance={isLoading}
+        isLoadingBalance={isLoadingBalance}
         onSwitchAccount={onUserActivatesSwitchAccount}
       />
       <TransactionRecipientsLayout
@@ -55,10 +72,10 @@ export function RpcStxTransferStx() {
         convertToFiatAmount={convertToFiatAmount}
         recipients={[
           {
-            address: isString(txOptions.recipient)
-              ? txOptions.recipient
-              : txOptions.recipient.value,
-            amount: txOptions.amount,
+            address: isString(txOptionsForBroadcast.recipient)
+              ? txOptionsForBroadcast.recipient
+              : txOptionsForBroadcast.recipient.value,
+            amount: txOptionsForBroadcast.amount,
           },
         ]}
       />

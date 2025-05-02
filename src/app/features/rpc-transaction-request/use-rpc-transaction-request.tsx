@@ -9,23 +9,19 @@ import { analytics } from '@shared/utils/analytics';
 import { focusTabAndWindow } from '@app/common/focus-tab';
 import { useRpcRequestParams } from '@app/common/hooks/use-rpc-request-params';
 
+type TransactionStatus = 'idle' | 'broadcasting' | 'submitted' | 'pending' | 'error';
+
 export interface RpcTransactionRequest {
   origin: string;
   requestId: string;
   tabId: number;
-  isBroadcasting: boolean;
-  isLoading: boolean;
-  isSubmitted: boolean;
-  onSetIsBroadcasting(value: boolean): void;
-  onSetIsLoading(value: boolean): void;
-  onSetIsSubmitted(value: boolean): void;
+  isLoadingBalance: boolean;
+  status: TransactionStatus;
+  onSetTransactionStatus(status: TransactionStatus): void;
 }
 
 export function useRpcTransactionRequest() {
-  const [isBroadcasting, setIsBroadcasting] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
+  const [status, setStatus] = useState<TransactionStatus>('idle');
   const { origin, requestId, tabId } = useRpcRequestParams();
 
   if (origin === null) {
@@ -44,12 +40,8 @@ export function useRpcTransactionRequest() {
     origin,
     requestId,
     tabId,
-    isBroadcasting,
-    isLoading,
-    isSubmitted,
+    status,
     onClickRequestedByLink,
-    onSetIsBroadcasting: (value: boolean) => setIsBroadcasting(value),
-    onSetIsLoading: (value: boolean) => setIsLoading(value),
-    onSetIsSubmitted: (value: boolean) => setIsSubmitted(value),
+    onSetTransactionStatus: (status: TransactionStatus) => setStatus(status),
   };
 }

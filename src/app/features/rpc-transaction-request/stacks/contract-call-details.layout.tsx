@@ -12,9 +12,8 @@ import { AddressDisplayer, Approver } from '@leather.io/ui';
 
 import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
 import { LoadingSpinner } from '@app/components/loading-spinner';
+import { FunctionArgumentList } from '@app/features/rpc-transaction-request/stacks/function-arguments/function-argument-list';
 import { useGetContractInterface } from '@app/query/stacks/contract-interface.query';
-
-import { FunctionArgumentList } from './function-arguments/function-argument-list';
 
 interface ContractCallDetailsLayoutProps {
   txOptions: StacksUnsignedContractCallOptions;
