@@ -2,16 +2,15 @@ import type { StacksNetwork } from '@stacks/network';
 import {
   type ClarityValue,
   createAddress,
-  noneCV,
+  deserializeCV,
   postConditionToWire,
   serializeCV,
   serializePostConditionWire,
   standardPrincipalCVFromAddress,
-  uintCV,
 } from '@stacks/transactions';
 
 import type { Money } from '@leather.io/models';
-import { createRequestEncoder, stxTransferSip10Ft } from '@leather.io/rpc';
+import { createRequestEncoder, stxTransferSip9Nft } from '@leather.io/rpc';
 import {
   type StacksUnsignedContractCallOptions,
   TransactionTypes,
@@ -20,37 +19,36 @@ import {
 import { createMoney } from '@leather.io/utils';
 
 import { getAddressFromAssetString } from '@shared/utils';
-import { makeFtPostCondition } from '@shared/utils/post-conditions';
+import { makeNftPostCondition } from '@shared/utils/post-conditions';
 
 import { initialSearchParams } from '@app/common/initial-search-params';
 import type { Nonce } from '@app/features/nonce-editor/nonce-editor.context';
 
-export function getDecodedRpcStxTransferSip10FtRequest() {
-  const { decode } = createRequestEncoder(stxTransferSip10Ft.request);
+export function getDecodedRpcStxTransferSip9NftRequest() {
+  const { decode } = createRequestEncoder(stxTransferSip9Nft.request);
   const rpcRequest = initialSearchParams.get('rpcRequest');
   if (!rpcRequest) throw new Error('Missing rpcRequest');
   return decode(rpcRequest);
 }
 
-export type RpcStxTransferSip10FtRequest = ReturnType<
-  typeof getDecodedRpcStxTransferSip10FtRequest
+export type RpcStxTransferSip9NftRequest = ReturnType<
+  typeof getDecodedRpcStxTransferSip9NftRequest
 >;
 
 function getTransactionOptionsFromRpcRequest(address: string) {
-  const decodedRpcRequest = getDecodedRpcStxTransferSip10FtRequest();
+  const decodedRpcRequest = getDecodedRpcStxTransferSip9NftRequest();
 
   const { contractAddress, contractAssetName, contractName } = getStacksAssetStringParts(
     decodedRpcRequest.params.asset
   );
 
   const fnArgs: ClarityValue[] = [
-    uintCV(decodedRpcRequest.params.amount),
+    deserializeCV(decodedRpcRequest.params.assetId),
     standardPrincipalCVFromAddress(createAddress(decodedRpcRequest.params.address ?? address)),
     standardPrincipalCVFromAddress(createAddress(decodedRpcRequest.params.recipient)),
-    noneCV(),
   ];
   const postConditionOptions = {
-    amount: decodedRpcRequest.params.amount,
+    assetId: decodedRpcRequest.params.assetId,
     contractAddress,
     contractAssetName,
     contractName,
@@ -67,7 +65,7 @@ function getTransactionOptionsFromRpcRequest(address: string) {
     nonce: decodedRpcRequest.params.nonce,
     sponsored: decodedRpcRequest.params.sponsored,
     postConditions: [
-      serializePostConditionWire(postConditionToWire(makeFtPostCondition(postConditionOptions))),
+      serializePostConditionWire(postConditionToWire(makeNftPostCondition(postConditionOptions))),
     ],
   };
 }
