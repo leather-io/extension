@@ -1,5 +1,6 @@
 import { BrowserContext, Page } from '@playwright/test';
 import { TEST_ACCOUNT_2_STX_ADDRESS } from '@tests/mocks/constants';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
 import type { RpcParams, stxTransferSip9Nft } from '@leather.io/rpc';
 
@@ -18,10 +19,17 @@ test.describe('RPC: stx_transferSip9Nft', () => {
     return async (buttonToPress: 'Cancel' | 'Confirm') => {
       const popup = await context.waitForEvent('page');
       await popup.waitForSelector('text="LIV"');
-      await popup.waitForSelector('text="transfer"');
-      await popup.waitForSelector('text="SP2X…G3PJ.living-leather"');
-      await popup.waitForSelector('text="u647"');
-      await popup.waitForSelector('text="SPXH3HNBPM5YP15VH16ZXZ9AX6CK289K3MCXRKCB"');
+      await popup.waitForSelector('text="You will transfer"');
+      await popup.waitForSelector('text="living-leather"');
+      await popup.waitForSelector('text="SPS8…WSFE"');
+      await popup.waitForSelector('text="You will transfer LIV or the transaction will abort."');
+
+      const displayerAddress = await popup
+        .getByTestId(SharedComponentsSelectors.AddressDisplayer)
+        .innerText()
+        .then((value: string) => value.replaceAll('\n', ''));
+      test.expect(displayerAddress).toEqual('SP2XMGYYTA1KRBKBYJHTW8CFWB2QYZKZE4BMHG3PJ');
+
       await popup.waitForTimeout(500);
       const btn = popup.locator('text="Confirm"');
 

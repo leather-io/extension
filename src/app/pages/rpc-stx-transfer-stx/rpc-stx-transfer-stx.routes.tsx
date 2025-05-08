@@ -1,35 +1,17 @@
-import { Route } from 'react-router-dom';
-
 import { RouteUrls } from '@shared/route-urls';
 
-import { BroadcastErrorSheet } from '@app/components/broadcast-error-dialog/broadcast-error-dialog';
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
-import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
-import { NonceEditor } from '@app/features/nonce-editor/nonce-editor';
-import { AccountGate } from '@app/routes/account-gate';
-import { LedgerStacksGate } from '@app/routes/ledger-stacks-gate';
+import { generateStacksRpcTransactionRequestRoutes } from '@app/features/rpc-transaction-request/stacks/stacks-rpc-transaction-request.routes';
 
-import { FeeEditor } from '../../features/fee-editor/fee-editor';
 import { RpcStxTransferStx } from './rpc-stx-transfer-stx';
 import { RpcStxTransferStxContainer } from './rpc-stx-transfer-stx-container';
 
-export const rpcStxTransferStxRoutes = (
-  <Route
-    path={RouteUrls.RpcStxTransferStx}
-    element={
-      <AccountGate>
-        <LedgerStacksGate>
-          <CurrentStacksAccountLoader>
-            {account => <RpcStxTransferStxContainer account={account} />}
-          </CurrentStacksAccountLoader>
-        </LedgerStacksGate>
-      </AccountGate>
-    }
-  >
-    <Route index element={<RpcStxTransferStx />} />
-    <Route path={RouteUrls.FeeEditor} element={<FeeEditor />} />
-    <Route path={RouteUrls.NonceEditor} element={<NonceEditor />} />
-    <Route path={RouteUrls.BroadcastError} element={<BroadcastErrorSheet />} />
-    {ledgerStacksTxSigningRoutes}
-  </Route>
-);
+export const rpcStxTransferStxRoutes = generateStacksRpcTransactionRequestRoutes({
+  path: RouteUrls.RpcStxTransferStx,
+  container: (
+    <CurrentStacksAccountLoader>
+      {account => <RpcStxTransferStxContainer account={account} />}
+    </CurrentStacksAccountLoader>
+  ),
+  element: <RpcStxTransferStx />,
+});

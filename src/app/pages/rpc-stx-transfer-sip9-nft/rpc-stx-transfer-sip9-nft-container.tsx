@@ -14,22 +14,22 @@ import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market
 import type { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 
-import { RpcStxTransferSip10FtProvider } from './rpc-stx-transfer-sip10-ft.context';
+import { RpcStxTransferSip9NftProvider } from './rpc-stx-transfer-sip9-nft.context';
 import {
-  getDecodedRpcStxTransferSip10FtRequest,
+  getDecodedRpcStxTransferSip9NftRequest,
   getUnsignedStacksContractCallOptionsForFeeEstimation,
-} from './rpc-stx-transfer-sip10-ft.utils';
+} from './rpc-stx-transfer-sip9-nft.utils';
 
-interface RpcStxTransferSip10FtContainerProps {
+interface RpcStxTransferSip9NftContainerProps {
   account: StacksAccount;
 }
-export function RpcStxTransferSip10FtContainer({ account }: RpcStxTransferSip10FtContainerProps) {
+export function RpcStxTransferSip9NftContainer({ account }: RpcStxTransferSip9NftContainerProps) {
   const request = useRpcTransactionRequest();
   const network = useCurrentStacksNetworkState();
   const stxMarketData = useCryptoCurrencyMarketDataMeanAverage('STX');
   const navigate = useNavigate();
 
-  const rpcRequest = getDecodedRpcStxTransferSip10FtRequest();
+  const rpcRequest = getDecodedRpcStxTransferSip9NftRequest();
   const txOptionsForFeeEstimation = getUnsignedStacksContractCallOptionsForFeeEstimation({
     address: account.address,
     publicKey: account.stxPublicKey,
@@ -46,14 +46,14 @@ export function RpcStxTransferSip10FtContainer({ account }: RpcStxTransferSip10F
             <StacksFeeEditorProvider
               availableBalance={balance.availableBalance}
               marketData={stxMarketData}
-              onGoBack={() => navigate(RouteUrls.RpcStxTransferSip10Ft)}
+              onGoBack={() => navigate(RouteUrls.RpcStxTransferSip9Nft)}
               txOptions={{ ...txOptionsForFeeEstimation, nonce }}
             >
               <NonceEditorProvider
                 nonce={nonce}
-                onGoBack={() => navigate(RouteUrls.RpcStxTransferSip10Ft)}
+                onGoBack={() => navigate(RouteUrls.RpcStxTransferSip9Nft)}
               >
-                <RpcStxTransferSip10FtProvider
+                <RpcStxTransferSip9NftProvider
                   value={{
                     ...request,
                     isLoadingBalance: isLoadingAdditionalData,
@@ -64,7 +64,7 @@ export function RpcStxTransferSip10FtContainer({ account }: RpcStxTransferSip10F
                   }}
                 >
                   <Outlet />
-                </RpcStxTransferSip10FtProvider>
+                </RpcStxTransferSip9NftProvider>
               </NonceEditorProvider>
             </StacksFeeEditorProvider>
           )}

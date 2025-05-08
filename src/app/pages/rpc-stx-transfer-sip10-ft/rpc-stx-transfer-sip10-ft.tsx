@@ -15,7 +15,7 @@ import { useSignAndBroadcastStacksTransaction } from '@app/features/rpc-transact
 import { TransactionActionsWithSpend } from '@app/features/rpc-transaction-request/transaction-actions-with-spend';
 
 import { useRpcStxTransferSip10FtContext } from './rpc-stx-transfer-sip10-ft.context';
-import { getStacksUnsignedContractCallOptions } from './rpc-stx-transfer-sip10-ft.utils';
+import { getUnsignedStacksContractCallOptions } from './rpc-stx-transfer-sip10-ft.utils';
 
 export function RpcStxTransferSip10Ft() {
   const { address, isLoadingBalance, rpcRequest, network, publicKey } =
@@ -29,7 +29,7 @@ export function RpcStxTransferSip10Ft() {
 
   const txOptionsForBroadcast = useMemo(
     () =>
-      getStacksUnsignedContractCallOptions({
+      getUnsignedStacksContractCallOptions({
         address,
         fee: selectedFee.txFee,
         network,

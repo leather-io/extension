@@ -18,7 +18,7 @@ import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks
 import { RpcStxTransferStxProvider } from './rpc-stx-transfer-stx.context';
 import {
   getDecodedRpcStxTransferStxRequest,
-  getStacksUnsignedTokenTransferOptionsForFeeEstimation,
+  getUnsignedStacksTokenTransferOptionsForFeeEstimation,
 } from './rpc-stx-transfer-stx.utils';
 
 interface RpcStxTransferStxContainerProps {
@@ -31,7 +31,7 @@ export function RpcStxTransferStxContainer({ account }: RpcStxTransferStxContain
   const { toggleSwitchAccount } = useSwitchAccountSheet();
   const navigate = useNavigate();
   const rpcRequest = getDecodedRpcStxTransferStxRequest();
-  const txOptionsForFeeEstimation = getStacksUnsignedTokenTransferOptionsForFeeEstimation({
+  const txOptionsForFeeEstimation = getUnsignedStacksTokenTransferOptionsForFeeEstimation({
     publicKey: account.stxPublicKey,
     network,
   });
