@@ -18,7 +18,7 @@ import { SwitchAccountTrigger } from '@app/features/rpc-transaction-request/swit
 import { TransactionActionsWithSpend } from '@app/features/rpc-transaction-request/transaction-actions-with-spend';
 
 import { useRpcStxTransferStxContext } from './rpc-stx-transfer-stx.context';
-import { getStacksUnsignedTokenTransferOptions } from './rpc-stx-transfer-stx.utils';
+import { getUnsignedStacksTokenTransferOptions } from './rpc-stx-transfer-stx.utils';
 
 export function RpcStxTransferStx() {
   const { isLoadingBalance, network, publicKey, onUserActivatesSwitchAccount } =
@@ -31,7 +31,7 @@ export function RpcStxTransferStx() {
 
   const txOptionsForBroadcast = useMemo(
     () =>
-      getStacksUnsignedTokenTransferOptions({
+      getUnsignedStacksTokenTransferOptions({
         fee: selectedFee.txFee,
         network,
         nonce,

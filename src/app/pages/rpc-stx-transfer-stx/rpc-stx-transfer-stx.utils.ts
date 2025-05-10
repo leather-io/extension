@@ -31,14 +31,14 @@ function getTransactionOptionsFromRpcRequest() {
   };
 }
 
-interface GetStacksUnsignedTokenTransferOptionsForFeeEstimationArgs {
+interface GetUnsignedStacksTokenTransferOptionsForFeeEstimationArgs {
   publicKey: string;
   network: StacksNetwork;
 }
-export function getStacksUnsignedTokenTransferOptionsForFeeEstimation({
+export function getUnsignedStacksTokenTransferOptionsForFeeEstimation({
   publicKey,
   network,
-}: GetStacksUnsignedTokenTransferOptionsForFeeEstimationArgs): StacksUnsignedTokenTransferOptions {
+}: GetUnsignedStacksTokenTransferOptionsForFeeEstimationArgs): StacksUnsignedTokenTransferOptions {
   const requestOptions = getTransactionOptionsFromRpcRequest();
 
   return {
@@ -51,18 +51,18 @@ export function getStacksUnsignedTokenTransferOptionsForFeeEstimation({
   };
 }
 
-interface GetStacksUnsignedTokenTransferOptionsArgs {
+interface GetUnsignedStacksTokenTransferOptionsArgs {
   fee: Money;
   network: StacksNetwork;
   nonce: Nonce;
   publicKey: string;
 }
-export function getStacksUnsignedTokenTransferOptions({
+export function getUnsignedStacksTokenTransferOptions({
   fee,
   network,
   nonce,
   publicKey,
-}: GetStacksUnsignedTokenTransferOptionsArgs): StacksUnsignedTokenTransferOptions {
+}: GetUnsignedStacksTokenTransferOptionsArgs): StacksUnsignedTokenTransferOptions {
   const requestOptions = getTransactionOptionsFromRpcRequest();
 
   return {

@@ -1,85 +1,26 @@
 import {
-  type ClarityValue,
-  createAddress,
-  createStacksPublicKey,
-  deserializeCV,
-  postConditionToWire,
-  publicKeyToAddressSingleSig,
-  serializeCV,
-  serializePostConditionWire,
-  standardPrincipalCVFromAddress,
-} from '@stacks/transactions';
-import { createUnsecuredToken } from 'jsontokens';
-
-import { extractKeyFromDescriptor } from '@leather.io/crypto';
-import type { NetworkModes } from '@leather.io/models';
-import { type RpcParams, stxTransferSip9Nft } from '@leather.io/rpc';
-import { TransactionTypes, getStacksAssetStringParts } from '@leather.io/stacks';
+  RpcErrorCode,
+  createRpcErrorResponse,
+  encodeBase64Json,
+  stxTransferSip9Nft,
+} from '@leather.io/rpc';
 
 import { RouteUrls } from '@shared/route-urls';
-import { getRootState, sendMissingStateErrorToTab } from '@shared/storage/get-root-state';
-import { getAddressFromAssetString } from '@shared/utils';
-import { makeNftPostCondition } from '@shared/utils/post-conditions';
+import { RpcErrorMessage } from '@shared/rpc/methods/validation.utils';
 
-import type { RootState } from '@app/store';
-
-import { handleRpcMessage } from '../rpc-helpers';
+import { trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
-  type RequestParams,
-  getStxDefaultMessageParamsToTransactionRequest,
-  getTabIdFromPort,
+  createConnectingAppSearchParamsWithLastKnownAccount,
+  listenForPopupClose,
+  triggerRequestPopupWindowOpen,
   validateRequestParams,
 } from '../rpc-request-utils';
 
-async function getMessageParamsToTransactionRequest(
-  state: RootState,
-  params: RpcParams<typeof stxTransferSip9Nft>
-) {
-  const { contractAddress, contractAssetName, contractName } = getStacksAssetStringParts(
-    params.asset
-  );
-
-  const descriptor = state.chains.stx.default.currentAccountStacksDescriptor;
-  const publicKey = createStacksPublicKey(extractKeyFromDescriptor(descriptor)).data;
-  const currentStacksAddress = publicKeyToAddressSingleSig(
-    publicKey,
-    state.networks.currentNetworkId as NetworkModes
-  );
-
-  const fnArgs: ClarityValue[] = [
-    deserializeCV(params.assetId),
-    standardPrincipalCVFromAddress(createAddress(params.address ?? currentStacksAddress)),
-    standardPrincipalCVFromAddress(createAddress(params.recipient)),
-  ];
-
-  const postConditionOptions = {
-    assetId: params.assetId,
-    contractAddress,
-    contractAssetName,
-    contractName,
-    stxAddress: params.address ?? currentStacksAddress,
-  };
-
-  const defaultParams = getStxDefaultMessageParamsToTransactionRequest(params);
-
-  return {
-    ...defaultParams,
-    txType: TransactionTypes.ContractCall,
-    contractAddress: getAddressFromAssetString(params.asset),
-    contractName,
-    functionArgs: fnArgs.map(arg => serializeCV(arg)),
-    functionName: 'transfer',
-    postConditions: [
-      serializePostConditionWire(postConditionToWire(makeNftPostCondition(postConditionOptions))),
-    ],
-  };
-}
 export const stxTransferSip9NftHandler = defineRpcRequestHandler(
   stxTransferSip9Nft.method,
   async (request, port) => {
     const { id: requestId, method, params } = request;
-    const tabId = getTabIdFromPort(port);
     const { status } = validateRequestParams({
       id: requestId,
       method,
@@ -87,27 +28,28 @@ export const stxTransferSip9NftHandler = defineRpcRequestHandler(
       port,
       schema: stxTransferSip9Nft.params,
     });
-
     if (status === 'failure') return;
+    const { tabId, urlParams } = await createConnectingAppSearchParamsWithLastKnownAccount(port, [
+      ['requestId', request.id],
+      ['rpcRequest', encodeBase64Json(request)],
+    ]);
 
-    const state = await getRootState();
-
-    if (!state) {
-      sendMissingStateErrorToTab({ tabId, method: request.method, id: request.id });
-      return;
+    if (request.params && request.params.network) {
+      urlParams.append('network', request.params.network);
     }
+    const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcStxTransferSip9Nft, urlParams);
+    void trackRpcRequestSuccess({ endpoint: request.method });
 
-    const txRequest = await getMessageParamsToTransactionRequest(state, params);
-    const requestParams: RequestParams = [
-      ['requestId', requestId],
-      ['request', createUnsecuredToken(txRequest)],
-    ];
-    if (params.network) requestParams.push(['network', params.network]);
-    return handleRpcMessage({
-      request,
-      path: RouteUrls.RpcStxTransferSip9Nft,
-      port,
-      requestParams,
+    listenForPopupClose({
+      tabId,
+      id,
+      response: createRpcErrorResponse(method, {
+        id: requestId,
+        error: {
+          code: RpcErrorCode.USER_REJECTION,
+          message: RpcErrorMessage.UserRejectedOperation,
+        },
+      }),
     });
   }
 );

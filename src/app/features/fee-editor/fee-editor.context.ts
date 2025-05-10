@@ -4,9 +4,9 @@ import type { MarketData, Money } from '@leather.io/models';
 
 export type FeePriority = 'slow' | 'standard' | 'fast' | 'custom';
 export const feePriorityTimeMap: Record<FeePriority, string> = {
-  slow: '~10 – 20min',
+  slow: '~1 hour+',
   standard: '~30 min',
-  fast: '~1 hour+',
+  fast: '~10 – 20min',
   custom: '',
 };
 
