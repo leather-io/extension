@@ -41,8 +41,6 @@ export function RpcStxTransferSip10Ft() {
 
   async function onApproveTransaction() {
     const unsignedTx = await generateStacksUnsignedTransaction(txOptionsForBroadcast);
-    if (selectedFee.txFee) unsignedTx.setFee(selectedFee.txFee.amount.toNumber());
-    unsignedTx.setNonce(nonce);
     await signAndBroadcastTransaction(unsignedTx);
   }
 

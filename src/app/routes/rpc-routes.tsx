@@ -13,7 +13,7 @@ import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
 import { RpcSignPsbtSummary } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt-summary';
 import { RpcStacksMessageSigning } from '@app/pages/rpc-sign-stacks-message/rpc-sign-stacks-message';
 import { rpcStxCallContractRoutes } from '@app/pages/rpc-stx-call-contract/rpc-stx-call-contract.routes';
-import { RpcStxDeployContract } from '@app/pages/rpc-stx-deploy-contract/rpc-stx-deploy-contract';
+import { rpcStxDeployContractRoutes } from '@app/pages/rpc-stx-deploy-contract/rpc-stx-deploy-contract.routes';
 import { RpcStxSignTransaction } from '@app/pages/rpc-stx-sign-transaction/rpc-stx-sign-transaction';
 import { rpcStxTransferSip9NftRoutes } from '@app/pages/rpc-stx-transfer-sip9-nft/rpc-stx-transfer-sip9-nft.routes';
 import { rpcStxTransferSip10FtRoutes } from '@app/pages/rpc-stx-transfer-sip10-ft/rpc-stx-transfer-sip10-ft.routes';
@@ -37,6 +37,7 @@ export const rpcRequestRoutes = (
 
     {rpcSendTransferRoutes}
     {rpcStxCallContractRoutes}
+    {rpcStxDeployContractRoutes}
     {rpcStxTransferSip9NftRoutes}
     {rpcStxTransferSip10FtRoutes}
     {rpcStxTransferStxRoutes}
@@ -88,18 +89,6 @@ export const rpcRequestRoutes = (
       element={
         <AccountGate>
           <RpcStxSignTransaction />
-        </AccountGate>
-      }
-    >
-      {editNonceSheetRoute}
-      {ledgerStacksTxSigningRoutes}
-    </Route>
-
-    <Route
-      path={RouteUrls.RpcStxDeployContract}
-      element={
-        <AccountGate>
-          <RpcStxDeployContract />
         </AccountGate>
       }
     >
