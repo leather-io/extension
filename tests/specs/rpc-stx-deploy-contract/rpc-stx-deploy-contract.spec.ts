@@ -1,6 +1,7 @@
 import { BrowserContext, Page } from '@playwright/test';
 import { ClarityVersion } from '@stacks/transactions';
 import { mockStacksTokenContract } from '@tests/mocks/mock-stacks-contract';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
 import type { RpcParams, stxDeployContract } from '@leather.io/rpc';
 
@@ -19,7 +20,16 @@ test.describe('RPC: stx_deployContract', () => {
     return async (buttonToPress: 'Cancel' | 'Confirm') => {
       const popup = await context.waitForEvent('page');
       await popup.waitForSelector('text="mock-contract-name"');
-      await popup.waitForSelector('text="SPS8CKF63P16J28AYF7PXW9E5AACH0NZNTEFWSFE"');
+      await popup.waitForSelector(
+        'text="Only fees will be transferred from your account or the transaction will abort."'
+      );
+
+      const displayerAddress = await popup
+        .getByTestId(SharedComponentsSelectors.AddressDisplayer)
+        .innerText()
+        .then((value: string) => value.replaceAll('\n', ''));
+      test.expect(displayerAddress).toEqual('SPS8CKF63P16J28AYF7PXW9E5AACH0NZNTEFWSFE');
+
       await popup.waitForTimeout(500);
       const btn = popup.locator('text="Confirm"');
 

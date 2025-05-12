@@ -62,6 +62,9 @@ function TabButton(props: TabButtonProps) {
   );
 }
 
+/**
+ * @deprecated Legacy transaction request
+ */
 export function ContractDeployDetails() {
   const transactionRequest = useTransactionRequestState();
   const currentAccount = useCurrentStacksAccount();

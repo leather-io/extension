@@ -1,38 +1,6 @@
 import { type RpcRequests } from '@leather.io/rpc';
 
-import { RouteUrls } from '@shared/route-urls';
-
 import { queueAnalyticsRequest } from '@background/background-analytics';
-
-import {
-  RequestParams,
-  createConnectingAppSearchParamsWithLastKnownAccount,
-  sendErrorResponseOnUserPopupClose,
-  triggerRequestPopupWindowOpen,
-} from './rpc-request-utils';
-
-interface HandleRpcMessageArgs {
-  request: RpcRequests;
-  path: RouteUrls;
-  port: chrome.runtime.Port;
-  requestParams: RequestParams;
-}
-export async function handleRpcMessage({
-  request,
-  path,
-  port,
-  requestParams,
-}: HandleRpcMessageArgs) {
-  void trackRpcRequestSuccess({ endpoint: request.method });
-
-  const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(
-    port,
-    requestParams
-  );
-  const { id } = await triggerRequestPopupWindowOpen(path, urlParams);
-
-  sendErrorResponseOnUserPopupClose({ tabId, id, request });
-}
 
 interface TrackRpcRequestSuccess {
   endpoint: RpcRequests['method'];
