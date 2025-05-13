@@ -32,10 +32,6 @@ export function getDecodedRpcStxTransferSip10FtRequest() {
   return decode(rpcRequest);
 }
 
-export type RpcStxTransferSip10FtRequest = ReturnType<
-  typeof getDecodedRpcStxTransferSip10FtRequest
->;
-
 function getTransactionOptionsFromRpcRequest(address: string) {
   const decodedRpcRequest = getDecodedRpcStxTransferSip10FtRequest();
 

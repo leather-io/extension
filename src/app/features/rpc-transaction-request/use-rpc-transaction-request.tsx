@@ -15,9 +15,9 @@ export interface RpcTransactionRequest {
   origin: string;
   requestId: string;
   tabId: number;
-  isLoadingBalance: boolean;
   status: TransactionStatus;
   onSetTransactionStatus(status: TransactionStatus): void;
+  onUserActivatesSwitchAccount(): void;
 }
 
 export function useRpcTransactionRequest() {

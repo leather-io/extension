@@ -13,16 +13,16 @@ import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context
 import { NonceEditor } from '@app/features/nonce-editor/nonce-editor';
 import { useNonceEditorContext } from '@app/features/nonce-editor/nonce-editor.context';
 import { RpcTransactionRequestLayout } from '@app/features/rpc-transaction-request/rpc-transaction-request.layout';
+import { useStacksRpcTransactionRequestContext } from '@app/features/rpc-transaction-request/stacks/stacks-rpc-transaction-request.context';
 import { useSignAndBroadcastStacksTransaction } from '@app/features/rpc-transaction-request/stacks/use-sign-and-broadcast-stacks-transaction';
 import { SwitchAccountTrigger } from '@app/features/rpc-transaction-request/switch-account-trigger/switch-account-trigger';
-import { TransactionActionsWithSpend } from '@app/features/rpc-transaction-request/transaction-actions-with-spend';
+import { TransactionActionsWithSpend } from '@app/features/rpc-transaction-request/transaction-actions/transaction-actions-with-spend';
 
-import { useRpcStxTransferStxContext } from './rpc-stx-transfer-stx.context';
 import { getUnsignedStacksTokenTransferOptions } from './rpc-stx-transfer-stx.utils';
 
 export function RpcStxTransferStx() {
   const { isLoadingBalance, network, publicKey, onUserActivatesSwitchAccount } =
-    useRpcStxTransferStxContext();
+    useStacksRpcTransactionRequestContext();
   const { availableBalance, isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
     useFeeEditorContext();
   const { nonce, onUserActivatesNonceEditor } = useNonceEditorContext();

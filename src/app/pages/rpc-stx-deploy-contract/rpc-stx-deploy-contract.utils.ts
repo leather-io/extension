@@ -14,14 +14,12 @@ import { createMoney } from '@leather.io/utils';
 import { initialSearchParams } from '@app/common/initial-search-params';
 import type { Nonce } from '@app/features/nonce-editor/nonce-editor.context';
 
-export function getDecodedRpcStxDeployContractRequest() {
+function getDecodedRpcStxDeployContractRequest() {
   const { decode } = createRequestEncoder(stxDeployContract.request);
   const rpcRequest = initialSearchParams.get('rpcRequest');
   if (!rpcRequest) throw new Error('Missing rpcRequest');
   return decode(rpcRequest);
 }
-
-export type RpcStxDeployContractRequest = ReturnType<typeof getDecodedRpcStxDeployContractRequest>;
 
 function getTransactionOptionsFromRpcRequest() {
   const decodedRpcRequest = getDecodedRpcStxDeployContractRequest();

@@ -9,21 +9,25 @@ import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context
 import { NonceEditor } from '@app/features/nonce-editor/nonce-editor';
 import { useNonceEditorContext } from '@app/features/nonce-editor/nonce-editor.context';
 import { RpcTransactionRequestLayout } from '@app/features/rpc-transaction-request/rpc-transaction-request.layout';
-import { ContractCallDetailsLayout } from '@app/features/rpc-transaction-request/stacks/contract-call-details.layout';
+import { ContractCallDetailsLayout } from '@app/features/rpc-transaction-request/stacks/contract-call/contract-call-details.layout';
 import { PostConditionsDetailsLayout } from '@app/features/rpc-transaction-request/stacks/post-conditions/post-conditions-details.layout';
+import { useStacksRpcTransactionRequestContext } from '@app/features/rpc-transaction-request/stacks/stacks-rpc-transaction-request.context';
 import { useSignAndBroadcastStacksTransaction } from '@app/features/rpc-transaction-request/stacks/use-sign-and-broadcast-stacks-transaction';
-import { TransactionActionsWithSpend } from '@app/features/rpc-transaction-request/transaction-actions-with-spend';
+import { TransactionActionsWithSpend } from '@app/features/rpc-transaction-request/transaction-actions/transaction-actions-with-spend';
 
-import { useRpcStxCallContractContext } from './rpc-stx-call-contract.context';
-import { getUnsignedStacksContractCallOptions } from './rpc-stx-call-contract.utils';
+import {
+  getDecodedRpcStxCallContractRequest,
+  getUnsignedStacksContractCallOptions,
+} from './rpc-stx-call-contract.utils';
 
 export function RpcStxCallContract() {
-  const { isLoadingBalance, rpcRequest, network, publicKey } = useRpcStxCallContractContext();
+  const { isLoadingBalance, network, publicKey } = useStacksRpcTransactionRequestContext();
   const { isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
     useFeeEditorContext();
   const { nonce, onUserActivatesNonceEditor } = useNonceEditorContext();
   const signAndBroadcastTransaction = useSignAndBroadcastStacksTransaction(stxCallContract.method);
 
+  const rpcRequest = useMemo(() => getDecodedRpcStxCallContractRequest(), []);
   const txOptionsForBroadcast = useMemo(
     () =>
       getUnsignedStacksContractCallOptions({

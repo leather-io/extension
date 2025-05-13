@@ -2,23 +2,23 @@ import { useMemo } from 'react';
 
 import { stxTransferSip9Nft } from '@leather.io/rpc';
 import { generateStacksUnsignedTransaction } from '@leather.io/stacks';
-import { createMoneyFromDecimal } from '@leather.io/utils';
+import { createMoney } from '@leather.io/utils';
 
 import { FeeEditor } from '@app/features/fee-editor/fee-editor';
 import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
 import { NonceEditor } from '@app/features/nonce-editor/nonce-editor';
 import { useNonceEditorContext } from '@app/features/nonce-editor/nonce-editor.context';
 import { RpcTransactionRequestLayout } from '@app/features/rpc-transaction-request/rpc-transaction-request.layout';
-import { ContractCallDetailsLayout } from '@app/features/rpc-transaction-request/stacks/contract-call-details.layout';
+import { ContractCallDetailsLayout } from '@app/features/rpc-transaction-request/stacks/contract-call/contract-call-details.layout';
 import { PostConditionsDetailsLayout } from '@app/features/rpc-transaction-request/stacks/post-conditions/post-conditions-details.layout';
+import { useStacksRpcTransactionRequestContext } from '@app/features/rpc-transaction-request/stacks/stacks-rpc-transaction-request.context';
 import { useSignAndBroadcastStacksTransaction } from '@app/features/rpc-transaction-request/stacks/use-sign-and-broadcast-stacks-transaction';
-import { TransactionActionsWithSpend } from '@app/features/rpc-transaction-request/transaction-actions-with-spend';
+import { TransactionActionsWithSpend } from '@app/features/rpc-transaction-request/transaction-actions/transaction-actions-with-spend';
 
-import { useRpcStxTransferSip9NftContext } from './rpc-stx-transfer-sip9-nft.context';
 import { getUnsignedStacksContractCallOptions } from './rpc-stx-transfer-sip9-nft.utils';
 
 export function RpcStxTransferSip9Nft() {
-  const { address, isLoadingBalance, network, publicKey } = useRpcStxTransferSip9NftContext();
+  const { address, isLoadingBalance, network, publicKey } = useStacksRpcTransactionRequestContext();
   const { isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
     useFeeEditorContext();
   const { nonce, onUserActivatesNonceEditor } = useNonceEditorContext();
@@ -51,7 +51,7 @@ export function RpcStxTransferSip9Nft() {
       actions={
         <TransactionActionsWithSpend
           isLoading={isLoadingBalance || isLoadingFees}
-          txAmount={createMoneyFromDecimal(0, 'STX')}
+          txAmount={createMoney(0, 'STX')}
           onApprove={onApproveTransaction}
         />
       }
