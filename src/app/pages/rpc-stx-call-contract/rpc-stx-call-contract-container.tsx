@@ -1,5 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import { isDefined } from '@leather.io/utils';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { StacksNonceLoader } from '@app/components/loaders/stacks-nonce-loader';
@@ -7,21 +9,36 @@ import { StxBalanceLoader } from '@app/components/loaders/stx-balance-loader';
 import { StacksFeeEditorProvider } from '@app/features/fee-editor/stacks/stacks-fee-editor.provider';
 import { NonceEditorProvider } from '@app/features/nonce-editor/nonce-editor.provider';
 import { useRpcTransactionRequest } from '@app/features/rpc-transaction-request/use-rpc-transaction-request';
+import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
-import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import type { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
+import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 
 import { RpcStxCallContractProvider } from './rpc-stx-call-contract.context';
-import { useRpcStxCallContractTxOptions } from './use-rpc-stx-call-contract';
+import {
+  getDecodedRpcStxCallContractRequest,
+  getUnsignedStacksContractCallOptionsForFeeEstimation,
+} from './rpc-stx-call-contract.utils';
 
-export function RpcStxCallContractContainer() {
+interface RpcStxCallContractContainerProps {
+  account: StacksAccount;
+}
+export function RpcStxCallContractContainer({ account }: RpcStxCallContractContainerProps) {
   const request = useRpcTransactionRequest();
+  const network = useCurrentStacksNetworkState();
   const stxMarketData = useCryptoCurrencyMarketDataMeanAverage('STX');
-  const stxAddress = useCurrentStacksAccountAddress();
-  const txOptions = useRpcStxCallContractTxOptions();
   const navigate = useNavigate();
 
+  const rpcRequest = getDecodedRpcStxCallContractRequest();
+  const txOptionsForFeeEstimation = getUnsignedStacksContractCallOptionsForFeeEstimation({
+    publicKey: account.stxPublicKey,
+    network,
+  });
+
+  useBreakOnNonCompliantEntity([account.address].filter(isDefined));
+
   return (
-    <StxBalanceLoader address={stxAddress}>
+    <StxBalanceLoader address={account.address}>
       {(balance, isLoadingAdditionalData) => (
         <StacksNonceLoader>
           {nonce => (
@@ -29,7 +46,7 @@ export function RpcStxCallContractContainer() {
               availableBalance={balance.availableBalance}
               marketData={stxMarketData}
               onGoBack={() => navigate(RouteUrls.RpcStxCallContract)}
-              txOptions={{ ...txOptions, nonce }}
+              txOptions={{ ...txOptionsForFeeEstimation, nonce }}
             >
               <NonceEditorProvider
                 nonce={nonce}
@@ -39,7 +56,9 @@ export function RpcStxCallContractContainer() {
                   value={{
                     ...request,
                     isLoadingBalance: isLoadingAdditionalData,
-                    txOptions,
+                    publicKey: account.stxPublicKey,
+                    rpcRequest,
+                    network,
                   }}
                 >
                   <Outlet />

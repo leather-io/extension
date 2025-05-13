@@ -1,11 +1,15 @@
 import { createContext, useContext } from 'react';
 
-import type { StacksUnsignedContractCallOptions } from '@leather.io/stacks';
+import type { StacksNetwork } from '@stacks/network';
 
 import type { RpcTransactionRequest } from '@app/features/rpc-transaction-request/use-rpc-transaction-request';
 
+import type { RpcStxCallContractRequest } from './rpc-stx-call-contract.utils';
+
 interface RpcStxCallContractContext extends RpcTransactionRequest {
-  txOptions: StacksUnsignedContractCallOptions;
+  rpcRequest: RpcStxCallContractRequest;
+  network: StacksNetwork;
+  publicKey: string;
 }
 
 const rpcStxCallContractContext = createContext<RpcStxCallContractContext | null>(null);
