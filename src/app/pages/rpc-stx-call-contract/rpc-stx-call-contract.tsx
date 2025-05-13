@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { stxCallContract } from '@leather.io/rpc';
 import { generateStacksUnsignedTransaction } from '@leather.io/stacks';
 import { createMoney } from '@leather.io/utils';
@@ -13,24 +15,34 @@ import { useSignAndBroadcastStacksTransaction } from '@app/features/rpc-transact
 import { TransactionActionsWithSpend } from '@app/features/rpc-transaction-request/transaction-actions-with-spend';
 
 import { useRpcStxCallContractContext } from './rpc-stx-call-contract.context';
+import { getUnsignedStacksContractCallOptions } from './rpc-stx-call-contract.utils';
 
 export function RpcStxCallContract() {
-  const { isLoadingBalance, txOptions } = useRpcStxCallContractContext();
+  const { isLoadingBalance, rpcRequest, network, publicKey } = useRpcStxCallContractContext();
   const { isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
     useFeeEditorContext();
   const { nonce, onUserActivatesNonceEditor } = useNonceEditorContext();
   const signAndBroadcastTransaction = useSignAndBroadcastStacksTransaction(stxCallContract.method);
 
+  const txOptionsForBroadcast = useMemo(
+    () =>
+      getUnsignedStacksContractCallOptions({
+        fee: selectedFee.txFee,
+        network,
+        nonce,
+        publicKey,
+      }),
+    [network, nonce, publicKey, selectedFee.txFee]
+  );
+
   async function onApproveTransaction() {
-    const unsignedTx = await generateStacksUnsignedTransaction(txOptions);
-    if (selectedFee.txFee) unsignedTx.setFee(selectedFee.txFee.amount.toNumber());
-    unsignedTx.setNonce(nonce);
+    const unsignedTx = await generateStacksUnsignedTransaction(txOptionsForBroadcast);
     await signAndBroadcastTransaction(unsignedTx);
   }
 
   return (
     <RpcTransactionRequestLayout
-      title={txOptions.postConditions?.length ? 'Sign transaction' : 'Sign contract'}
+      title={rpcRequest.params.postConditions?.length ? 'Sign transaction' : 'Sign contract'}
       method={stxCallContract.method}
       actions={
         <TransactionActionsWithSpend
@@ -41,8 +53,8 @@ export function RpcStxCallContract() {
         />
       }
     >
-      <PostConditionsDetailsLayout txOptions={txOptions} />
-      <ContractCallDetailsLayout txOptions={txOptions} />
+      <PostConditionsDetailsLayout txOptions={txOptionsForBroadcast} />
+      <ContractCallDetailsLayout txOptions={txOptionsForBroadcast} />
       <FeeEditor.Trigger
         feeType="fee-value"
         isLoading={isLoadingFees}
