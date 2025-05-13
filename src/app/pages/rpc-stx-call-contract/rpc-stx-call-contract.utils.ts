@@ -22,8 +22,6 @@ export function getDecodedRpcStxCallContractRequest() {
   return decode(rpcRequest);
 }
 
-export type RpcStxCallContractRequest = ReturnType<typeof getDecodedRpcStxCallContractRequest>;
-
 function getTransactionOptionsFromRpcRequest() {
   const decodedRpcRequest = getDecodedRpcStxCallContractRequest();
 

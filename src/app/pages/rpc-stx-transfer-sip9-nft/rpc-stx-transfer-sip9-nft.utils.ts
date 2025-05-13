@@ -31,10 +31,6 @@ export function getDecodedRpcStxTransferSip9NftRequest() {
   return decode(rpcRequest);
 }
 
-export type RpcStxTransferSip9NftRequest = ReturnType<
-  typeof getDecodedRpcStxTransferSip9NftRequest
->;
-
 function getTransactionOptionsFromRpcRequest(address: string) {
   const decodedRpcRequest = getDecodedRpcStxTransferSip9NftRequest();
 

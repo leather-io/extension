@@ -6,11 +6,12 @@ import { baseCurrencyAmountInQuote, i18nFormatCurrency, sumMoney } from '@leathe
 
 import { closeWindow } from '@shared/utils';
 
-import { getTransactionActions } from '../../components/rpc-transaction-request/get-transaction-actions';
-import { TransactionActionsTitle } from '../../components/rpc-transaction-request/transaction-actions-title';
-import { TransactionError } from '../../components/rpc-transaction-request/transaction-error';
-import { useFeeEditorContext } from '../fee-editor/fee-editor.context';
-import { useRpcTransactionRequest } from './use-rpc-transaction-request';
+import { getTransactionActions } from '@app/components/rpc-transaction-request/get-transaction-actions';
+import { TransactionActionsTitle } from '@app/components/rpc-transaction-request/transaction-actions-title';
+import { TransactionError } from '@app/components/rpc-transaction-request/transaction-error';
+import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
+
+import { useRpcTransactionRequest } from '../use-rpc-transaction-request';
 
 interface TransactionActionsWithSpendProps {
   isLoading: boolean;

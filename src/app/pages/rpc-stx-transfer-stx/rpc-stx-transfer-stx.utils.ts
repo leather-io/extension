@@ -15,8 +15,6 @@ export function getDecodedRpcStxTransferStxRequest() {
   return decode(rpcRequest);
 }
 
-export type RpcStxTransferStxRequest = ReturnType<typeof getDecodedRpcStxTransferStxRequest>;
-
 function getTransactionOptionsFromRpcRequest() {
   const decodedRpcRequest = getDecodedRpcStxTransferStxRequest();
   return {
