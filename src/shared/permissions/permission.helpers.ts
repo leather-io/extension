@@ -20,3 +20,9 @@ export async function getPermissionsByOrigin(hostname: string) {
   if (!rootstate) return null;
   return rootstate.appPermissions.entities[hostname] ?? null;
 }
+
+const leatherHostnames = ['leather.io', 'app.leather.io', 'staging.app.leather.io'];
+
+export function isLeatherHostname(hostname: string) {
+  return leatherHostnames.includes(hostname);
+}

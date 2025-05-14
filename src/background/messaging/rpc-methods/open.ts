@@ -5,7 +5,10 @@ import {
   open,
 } from '@leather.io/rpc';
 
-import { hasRequestedAccountPermission } from '@shared/permissions/permission.helpers';
+import {
+  hasRequestedAccountPermission,
+  isLeatherHostname,
+} from '@shared/permissions/permission.helpers';
 import { RouteUrls } from '@shared/route-urls';
 import { getRootState, sendMissingStateErrorToTab } from '@shared/storage/get-root-state';
 
@@ -32,7 +35,10 @@ export const openHandler = defineRpcRequestHandler(open.method, async (request, 
 
   const originPermissions = state.appPermissions.entities[hostname];
 
-  if (!originPermissions || !hasRequestedAccountPermission(originPermissions)) {
+  if (
+    !isLeatherHostname(originPermissions?.origin) &&
+    (!originPermissions || !hasRequestedAccountPermission(originPermissions))
+  ) {
     chrome.tabs.sendMessage(
       tabId,
       createRpcErrorResponse('open', {
