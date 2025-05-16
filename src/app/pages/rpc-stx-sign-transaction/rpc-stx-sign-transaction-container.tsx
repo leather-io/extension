@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import { stxTransferStx } from '@leather.io/rpc';
 import { isDefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -13,51 +12,30 @@ import { StxBalanceLoader } from '@app/components/loaders/stx-balance-loader';
 import { StacksFeeEditorProvider } from '@app/features/fee-editor/stacks/stacks-fee-editor.provider';
 import { NonceEditorProvider } from '@app/features/nonce-editor/nonce-editor.provider';
 import { StacksRpcTransactionRequestProvider } from '@app/features/rpc-transaction-request/stacks/stacks-rpc-transaction-request.context';
-import { useUnsignedStacksTransactionForFeeEstimation } from '@app/features/rpc-transaction-request/stacks/use-unsigned-transaction-for-fee-estimation';
 import { useRpcTransactionRequest } from '@app/features/rpc-transaction-request/use-rpc-transaction-request';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import type { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 
-import {
-  getDecodedRpcStxTransferStxRequest,
-  getUnsignedStacksTokenTransferOptionsForFeeEstimation,
-} from './rpc-stx-transfer-stx.utils';
+import { getUnsignedStacksTransactionFromRpcRequest } from './rpc-stx-sign-transaction.utils';
 
-interface RpcStxTransferStxContainerProps {
+interface RpcStxSignTransactionContainerProps {
   account: StacksAccount;
 }
-export function RpcStxTransferStxContainer({ account }: RpcStxTransferStxContainerProps) {
+export function RpcStxSignTransactionContainer({ account }: RpcStxSignTransactionContainerProps) {
   const request = useRpcTransactionRequest();
   const network = useCurrentStacksNetworkState();
   const stxMarketData = useCryptoCurrencyMarketDataMeanAverage('STX');
   const { toggleSwitchAccount } = useSwitchAccountSheet();
   const navigate = useNavigate();
 
-  const rpcRequest = useMemo(() => getDecodedRpcStxTransferStxRequest(), []);
-  const txOptionsForFeeEstimation = useMemo(
-    () =>
-      getUnsignedStacksTokenTransferOptionsForFeeEstimation({
-        publicKey: account.stxPublicKey,
-        network,
-      }),
-    [account.stxPublicKey, network]
+  const unsignedTxForFeeEstimation = useMemo(
+    () => getUnsignedStacksTransactionFromRpcRequest(),
+    []
   );
 
-  const unsignedTxForFeeEstimation = useUnsignedStacksTransactionForFeeEstimation({
-    method: stxTransferStx.method,
-    request,
-    txOptions: txOptionsForFeeEstimation,
-  });
-
-  const txSenderAddress = unsignedTxForFeeEstimation
-    ? getTxSenderAddress(unsignedTxForFeeEstimation)
-    : account.address;
-
-  useBreakOnNonCompliantEntity([txSenderAddress, rpcRequest.params.recipient].filter(isDefined));
-
-  if (!unsignedTxForFeeEstimation) return null;
+  useBreakOnNonCompliantEntity([getTxSenderAddress(unsignedTxForFeeEstimation)].filter(isDefined));
 
   return (
     <StxBalanceLoader address={account.address}>
@@ -67,12 +45,12 @@ export function RpcStxTransferStxContainer({ account }: RpcStxTransferStxContain
             <StacksFeeEditorProvider
               availableBalance={balance.availableBalance}
               marketData={stxMarketData}
-              onGoBack={() => navigate(RouteUrls.RpcStxTransferStx)}
+              onGoBack={() => navigate(RouteUrls.RpcStxTransferSip10Ft)}
               unsignedTx={unsignedTxForFeeEstimation}
             >
               <NonceEditorProvider
                 nonce={nonce}
-                onGoBack={() => navigate(RouteUrls.RpcStxTransferStx)}
+                onGoBack={() => navigate(RouteUrls.RpcStxTransferSip10Ft)}
               >
                 <StacksRpcTransactionRequestProvider
                   value={{

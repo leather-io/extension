@@ -1,6 +1,5 @@
 import type { To } from 'react-router-dom';
 
-import { type PostConditionWire, serializePostConditionWire } from '@stacks/transactions';
 import * as z from 'zod';
 
 import {
@@ -139,10 +138,6 @@ export async function triggerRequestPopupWindowOpen(path: RouteUrls, urlParams: 
 export async function triggerSwapWindowOpen(path: To, urlParams: URLSearchParams) {
   if (IS_TEST_ENV) return openRequestInFullPage(path, urlParams);
   return popup({ url: `/popup.html#${path}?${urlParams.toString()}` });
-}
-
-export function encodePostConditions(postConditions: PostConditionWire[]) {
-  return postConditions.map(pc => serializePostConditionWire(pc));
 }
 
 type ValidationResult = 'success' | 'failure';
