@@ -3,11 +3,7 @@ import { useMemo } from 'react';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Stack, styled } from 'leather-styles/jsx';
 
-import {
-  type StacksUnsignedContractCallOptions,
-  TransactionTypes,
-  formatContractId,
-} from '@leather.io/stacks';
+import { formatContractId } from '@leather.io/stacks';
 import { AddressDisplayer, Approver } from '@leather.io/ui';
 
 import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
@@ -16,17 +12,18 @@ import { FunctionArgumentList } from '@app/features/rpc-transaction-request/stac
 import { useGetContractInterface } from '@app/query/stacks/contract-interface.query';
 
 interface ContractCallDetailsLayoutProps {
-  txOptions: StacksUnsignedContractCallOptions;
+  contractAddress: string;
+  contractName: string;
+  functionName: string;
+  functionArgs: string[];
 }
-export function ContractCallDetailsLayout({ txOptions }: ContractCallDetailsLayoutProps) {
+export function ContractCallDetailsLayout({
+  contractAddress,
+  contractName,
+  functionName,
+  functionArgs,
+}: ContractCallDetailsLayoutProps) {
   const { handleOpenStacksTxLink } = useStacksExplorerLink();
-
-  if (txOptions.txType !== TransactionTypes.ContractCall)
-    throw new Error('Transaction is not a contract call');
-
-  const contractAddress = txOptions.contractAddress;
-  const contractName = txOptions.contractName;
-  const functionName = txOptions.functionName;
 
   const { data: contractAbi, isLoading } = useGetContractInterface(contractAddress, contractName);
   const contractFunction = useMemo(
@@ -107,7 +104,7 @@ export function ContractCallDetailsLayout({ txOptions }: ContractCallDetailsLayo
         <Approver.Subheader>
           <styled.span textStyle="label.01">Contract arguments</styled.span>
         </Approver.Subheader>
-        <FunctionArgumentList fn={contractFunction} fnArgs={txOptions.functionArgs} />
+        <FunctionArgumentList fn={contractFunction} fnArgs={functionArgs} />
       </Approver.Section>
     </>
   );
