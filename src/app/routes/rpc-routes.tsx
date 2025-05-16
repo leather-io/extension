@@ -15,6 +15,7 @@ import { RpcStacksMessageSigning } from '@app/pages/rpc-sign-stacks-message/rpc-
 import { rpcStxCallContractRoutes } from '@app/pages/rpc-stx-call-contract/rpc-stx-call-contract.routes';
 import { rpcStxDeployContractRoutes } from '@app/pages/rpc-stx-deploy-contract/rpc-stx-deploy-contract.routes';
 import { RpcStxSignTransaction } from '@app/pages/rpc-stx-sign-transaction/rpc-stx-sign-transaction';
+import { rpcStxSignTransactionRoutes } from '@app/pages/rpc-stx-sign-transaction/rpc-stx-sign-transaction.routes';
 import { rpcStxTransferSip9NftRoutes } from '@app/pages/rpc-stx-transfer-sip9-nft/rpc-stx-transfer-sip9-nft.routes';
 import { rpcStxTransferSip10FtRoutes } from '@app/pages/rpc-stx-transfer-sip10-ft/rpc-stx-transfer-sip10-ft.routes';
 import { rpcStxTransferStxRoutes } from '@app/pages/rpc-stx-transfer-stx/rpc-stx-transfer-stx.routes';
@@ -38,6 +39,7 @@ export const rpcRequestRoutes = (
     {rpcSendTransferRoutes}
     {rpcStxCallContractRoutes}
     {rpcStxDeployContractRoutes}
+    {rpcStxSignTransactionRoutes}
     {rpcStxTransferSip9NftRoutes}
     {rpcStxTransferSip10FtRoutes}
     {rpcStxTransferStxRoutes}

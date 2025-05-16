@@ -6,6 +6,9 @@ export const RpcErrorMessage = {
   NullOrigin: 'Origin is null',
   UndefinedParams: 'Undefined parameters',
   UserRejectedOperation: 'User rejected request',
+  UndefinedTransaction: 'Error generating unsigned transaction',
+  UnsignedTransaction: 'Error signing transaction',
+  BroadcastError: 'Error broadcasting transaction',
 } as const;
 
 export const accountSchema = z.number().int();

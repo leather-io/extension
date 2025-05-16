@@ -1,16 +1,19 @@
 import { useMemo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import { stxDeployContract } from '@leather.io/rpc';
 import { isDefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
+import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 import { StacksNonceLoader } from '@app/components/loaders/stacks-nonce-loader';
 import { StxBalanceLoader } from '@app/components/loaders/stx-balance-loader';
 import { StacksFeeEditorProvider } from '@app/features/fee-editor/stacks/stacks-fee-editor.provider';
 import { NonceEditorProvider } from '@app/features/nonce-editor/nonce-editor.provider';
 import { StacksRpcTransactionRequestProvider } from '@app/features/rpc-transaction-request/stacks/stacks-rpc-transaction-request.context';
+import { useUnsignedStacksTransactionForFeeEstimation } from '@app/features/rpc-transaction-request/stacks/use-unsigned-transaction-for-fee-estimation';
 import { useRpcTransactionRequest } from '@app/features/rpc-transaction-request/use-rpc-transaction-request';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
@@ -38,7 +41,19 @@ export function RpcStxDeployContractContainer({ account }: RpcStxDeployContractC
     [account.stxPublicKey, network]
   );
 
-  useBreakOnNonCompliantEntity([account.address].filter(isDefined));
+  const unsignedTxForFeeEstimation = useUnsignedStacksTransactionForFeeEstimation({
+    method: stxDeployContract.method,
+    request,
+    txOptions: txOptionsForFeeEstimation,
+  });
+
+  const txSenderAddress = unsignedTxForFeeEstimation
+    ? getTxSenderAddress(unsignedTxForFeeEstimation)
+    : account.address;
+
+  useBreakOnNonCompliantEntity([txSenderAddress].filter(isDefined));
+
+  if (!unsignedTxForFeeEstimation) return null;
 
   return (
     <StxBalanceLoader address={account.address}>
@@ -49,7 +64,7 @@ export function RpcStxDeployContractContainer({ account }: RpcStxDeployContractC
               availableBalance={balance.availableBalance}
               marketData={stxMarketData}
               onGoBack={() => navigate(RouteUrls.RpcStxDeployContract)}
-              txOptions={{ ...txOptionsForFeeEstimation, nonce }}
+              unsignedTx={unsignedTxForFeeEstimation}
             >
               <NonceEditorProvider
                 nonce={nonce}

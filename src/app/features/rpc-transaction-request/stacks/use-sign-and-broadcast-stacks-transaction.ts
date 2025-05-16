@@ -3,11 +3,16 @@ import { useNavigate } from 'react-router-dom';
 
 import type { StacksTransactionWire, TxBroadcastResultRejected } from '@stacks/transactions';
 
-import { type RpcMethodNames, createRpcSuccessResponse } from '@leather.io/rpc';
+import {
+  RpcErrorCode,
+  type RpcMethodNames,
+  createRpcErrorResponse,
+  createRpcSuccessResponse,
+} from '@leather.io/rpc';
 import { delay, isString } from '@leather.io/utils';
 
-import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
+import { RpcErrorMessage } from '@shared/rpc/methods/validation.utils';
 import { closeWindow } from '@shared/utils';
 
 import { getErrorMessage } from '@app/common/get-error-message';
@@ -30,15 +35,40 @@ export function useSignAndBroadcastStacksTransaction(method: RpcMethodNames) {
   return useCallback(
     async (unsignedTx: StacksTransactionWire) => {
       const signedTx = await signStacksTransaction(unsignedTx);
-      if (!signedTx) return logger.error('No signed stacks transaction to broadcast');
+
+      if (!signedTx) {
+        chrome.tabs.sendMessage(
+          tabId,
+          createRpcErrorResponse(method, {
+            id: requestId,
+            error: {
+              code: RpcErrorCode.INVALID_REQUEST,
+              message: RpcErrorMessage.UnsignedTransaction,
+            },
+          })
+        );
+        throw new Error('Error signing stacks transaction');
+      }
 
       function onError(error: Error | string, reason?: TxBroadcastResultRejected['reason']) {
         const message = isString(error) ? error : error.message;
         if (reason) toast.error(getErrorMessage(reason));
+
+        chrome.tabs.sendMessage(
+          tabId,
+          createRpcErrorResponse(method, {
+            id: requestId,
+            error: {
+              code: RpcErrorCode.INVALID_REQUEST,
+              message: RpcErrorMessage.BroadcastError,
+            },
+          })
+        );
+
         navigate(RouteUrls.BroadcastError, { state: { message } });
       }
 
-      function onSuccess(txid: string, transaction: StacksTransactionWire) {
+      async function onSuccess(txid: string, transaction: StacksTransactionWire) {
         onSetTransactionStatus('submitted');
 
         chrome.tabs.sendMessage(
@@ -51,12 +81,12 @@ export function useSignAndBroadcastStacksTransaction(method: RpcMethodNames) {
             },
           })
         );
+        await delay(500);
+        closeWindow();
       }
       onSetTransactionStatus('broadcasting');
       await stacksBroadcastTransaction({ network, signedTx, onError, onSuccess });
       onSetTransactionStatus('idle');
-      await delay(500);
-      closeWindow();
     },
     [
       method,

@@ -1,5 +1,6 @@
+import type { StacksTransactionWire } from '@stacks/transactions';
+
 import type { MarketData, Money } from '@leather.io/models';
-import type { StacksUnsignedTransactionOptions } from '@leather.io/stacks';
 
 import type { HasChildren } from '@app/common/has-children';
 
@@ -10,17 +11,17 @@ interface StacksFeeEditorProviderProps extends HasChildren {
   availableBalance: Money;
   marketData: MarketData;
   onGoBack(): void;
-  txOptions: StacksUnsignedTransactionOptions;
+  unsignedTx: StacksTransactionWire;
 }
 export function StacksFeeEditorProvider({
   availableBalance,
   children,
   marketData,
   onGoBack,
-  txOptions,
+  unsignedTx,
 }: StacksFeeEditorProviderProps) {
   return (
-    <StacksFeesLoader txOptions={txOptions}>
+    <StacksFeesLoader unsignedTx={unsignedTx}>
       {({ fees, isLoading, getCustomFee }) => {
         return (
           <FeeEditorProvider

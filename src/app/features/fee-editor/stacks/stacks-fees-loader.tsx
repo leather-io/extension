@@ -1,9 +1,5 @@
-import { useAsync } from 'react-async-hook';
+import type { StacksTransactionWire } from '@stacks/transactions';
 
-import {
-  type StacksUnsignedTransactionOptions,
-  generateStacksUnsignedTransaction,
-} from '@leather.io/stacks';
 import { createMoneyFromDecimal } from '@leather.io/utils';
 
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
@@ -19,14 +15,9 @@ interface StacksFees {
 
 interface StacksFeesLoaderProps {
   children({ fees, isLoading, getCustomFee }: StacksFees): React.JSX.Element;
-  txOptions: StacksUnsignedTransactionOptions;
+  unsignedTx: StacksTransactionWire;
 }
-export function StacksFeesLoader({ children, txOptions }: StacksFeesLoaderProps) {
-  const unsignedTx = useAsync(
-    () => generateStacksUnsignedTransaction(txOptions),
-    [txOptions]
-  ).result;
-
+export function StacksFeesLoader({ children, unsignedTx }: StacksFeesLoaderProps) {
   const { data: stxFees, isLoading } = useCalculateStacksTxFees(unsignedTx);
   const fees = useStacksFees({ fees: stxFees });
 
