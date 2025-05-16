@@ -1,5 +1,5 @@
+import type { RouteQuote } from '@bitflowlabs/core-sdk';
 import BigNumber from 'bignumber.js';
-import type { RouteQuote } from 'bitflow-sdk';
 
 import { capitalize, isDefined } from '@leather.io/utils';
 

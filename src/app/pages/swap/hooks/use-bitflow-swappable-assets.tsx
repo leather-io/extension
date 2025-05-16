@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 
+import type { Token } from '@bitflowlabs/core-sdk';
 import { useQuery } from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
-import type { Token } from 'bitflow-sdk';
 
 import { type Currency, createMarketData, createMarketPair } from '@leather.io/models';
 import { getPrincipalFromAssetString } from '@leather.io/stacks';

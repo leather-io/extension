@@ -30,6 +30,9 @@ importers:
       '@bitcoinerlab/secp256k1':
         specifier: 1.0.2
         version: 1.0.2
+      '@bitflowlabs/core-sdk':
+        specifier: 2.2.0
+        version: 2.2.0(encoding@0.1.13)
       '@blockstack/stacks-transactions':
         specifier: 0.7.0
         version: 0.7.0(encoding@0.1.13)
@@ -219,9 +222,6 @@ importers:
       bitcoinjs-lib:
         specifier: 6.1.5
         version: 6.1.5
-      bitflow-sdk:
-        specifier: 1.6.1
-        version: 1.6.1(encoding@0.1.13)
       bn.js:
         specifier: 5.2.1
         version: 5.2.1
@@ -1597,6 +1597,10 @@ packages:
   '@bitcoinerlab/secp256k1@1.2.0':
     resolution: {integrity: sha512-jeujZSzb3JOZfmJYI0ph1PVpCRV5oaexCgy+RvCXV8XlY+XFB/2n3WOcvBsKLsOw78KYgnQrQWb2HrKE4be88Q==}
 
+  '@bitflowlabs/core-sdk@2.2.0':
+    resolution: {integrity: sha512-i/gcnVyM5A+c98SPgQcKoVsRCKW9q7KYKuls/LHYkEo0sGkPH83qQn6d1dMe6ALsHvkixlJmfosT+qG6gM4hhg==}
+    engines: {node: '>=20.0.0'}
+
   '@blockstack/stacks-transactions@0.7.0':
     resolution: {integrity: sha512-9IUR641PJpigYDCWdtKFgBIk0Oxyoc2M2XVdyaEOEcRhI+4lcacDhsuseAmGbkB9FhJgJcNicWPujUPNFl1XCw==}
 
@@ -2587,7 +2591,7 @@ packages:
 
   '@expo/bunyan@4.0.1':
     resolution: {integrity: sha512-+Lla7nYSiHZirgK+U/uYzsLv/X+HaJienbD5AKX1UQZHYfWaP+9uuQluRB4GrEVWF0GZ7vEVp/jzaOT9k/SQlg==}
-    engines: {node: '>=0.10.0'}
+    engines: {'0': node >=0.10.0}
 
   '@expo/cli@0.18.28':
     resolution: {integrity: sha512-fvbVPId6s6etindzP6Nzos/CS1NurMVy4JKozjebArHr63tBid5i/UY5Pp+4wTCAM20gB2SjRdwcwoL6HFC4Iw==}
@@ -2927,7 +2931,6 @@ packages:
 
   '@ls-lint/ls-lint@2.2.3':
     resolution: {integrity: sha512-ekM12jNm/7O2I/hsRv9HvYkRdfrHpiV1epVuI2NP+eTIcEgdIdKkKCs9KgQydu/8R5YXTov9aHdOgplmCHLupw==}
-    cpu: [x64, arm64, s390x]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -4993,6 +4996,12 @@ packages:
   '@stacks/connect-ui@6.1.1':
     resolution: {integrity: sha512-iSo57djIynmqt0jGlFkRFu2nHY/Nk0LmXKdRf/Whw1w/YbZD+CQJweHRh77XQOtAVbXZ1+e/klszxABevcPtPg==}
 
+  '@stacks/connect-ui@6.6.0':
+    resolution: {integrity: sha512-uc22RH99umYzB94h5LiKPtGu34IBGrwUb3TfijGb2ZMudaMCiv/Fr1jjZKfQW5MRmexnbAEmGZpFlQKinCcsUA==}
+
+  '@stacks/connect@7.10.2':
+    resolution: {integrity: sha512-fQcdayBgq9XZnX4rqQxa//Gx9c0ycrmrZT9dZ01uHDlIr/ZxwU18d5A3hyYv4F7LQYQQkFr9htpVTlH0RSqWUw==}
+
   '@stacks/connect@7.4.0':
     resolution: {integrity: sha512-2jhTHL6Wi7Y/B1AwUuumUUE5F+/X7AvtbJ3BzsNVP7yB+yswmtjC3ZO3jYEohBcuAay5ysfNWUYdjfiXvp0NDQ==}
 
@@ -6877,10 +6886,6 @@ packages:
     resolution: {integrity: sha512-yuf6xs9QX/E8LWE2aMJPNd0IxGofwfuVOiYdNUESkc+2bHHVKjhJd8qewqapeoolh9fihzHGoDCB5Vkr57RZCQ==}
     engines: {node: '>=8.0.0'}
 
-  bitflow-sdk@1.6.1:
-    resolution: {integrity: sha512-V6TUstTBNorR+WadWSaiKEjNXy25unIAICLtrUXTZMrJtOfUIfUZx7W7hWmoUjBE9k8z/dOfjH1HUbF0wRxWZQ==}
-    engines: {node: '>=14.0.0'}
-
   bl@0.8.2:
     resolution: {integrity: sha512-pfqikmByp+lifZCS0p6j6KreV6kNU6Apzpm2nKOk+94cZb/jvle55+JxWiByUQ0Wo/+XnDXEy5MxxKMb6r0VIw==}
 
@@ -8250,6 +8255,10 @@ packages:
 
   dotenv@16.4.5:
     resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
+    engines: {node: '>=12'}
+
+  dotenv@16.5.0:
+    resolution: {integrity: sha512-m/C+AwOAr9/W1UOIZUo232ejMNnJAJtYQjUbHoNTBNTJSvqzzDh7vnrei3o3r3m9blf6ZoDkvcw0VmozNRFJxg==}
     engines: {node: '>=12'}
 
   dotenv@8.6.0:
@@ -16156,6 +16165,15 @@ snapshots:
     dependencies:
       '@noble/curves': 1.9.0
 
+  '@bitflowlabs/core-sdk@2.2.0(encoding@0.1.13)':
+    dependencies:
+      '@stacks/connect': 7.10.2(encoding@0.1.13)
+      '@stacks/network': 7.0.2(encoding@0.1.13)
+      '@stacks/transactions': 7.0.5(encoding@0.1.13)
+      dotenv: 16.5.0
+    transitivePeerDependencies:
+      - encoding
+
   '@blockstack/stacks-transactions@0.7.0(encoding@0.1.13)':
     dependencies:
       '@types/bn.js': 4.11.6
@@ -20973,6 +20991,24 @@ snapshots:
     dependencies:
       '@stencil/core': 2.22.3
 
+  '@stacks/connect-ui@6.6.0':
+    dependencies:
+      '@stencil/core': 2.22.3
+
+  '@stacks/connect@7.10.2(encoding@0.1.13)':
+    dependencies:
+      '@stacks/auth': 7.0.2(encoding@0.1.13)
+      '@stacks/common': 7.0.2
+      '@stacks/connect-ui': 6.6.0
+      '@stacks/network': 7.0.2(encoding@0.1.13)
+      '@stacks/network-v6': '@stacks/network@6.17.0(encoding@0.1.13)'
+      '@stacks/profile': 7.0.2(encoding@0.1.13)
+      '@stacks/transactions': 7.0.5(encoding@0.1.13)
+      '@stacks/transactions-v6': '@stacks/transactions@6.17.0(encoding@0.1.13)'
+      jsontokens: 4.0.1
+    transitivePeerDependencies:
+      - encoding
+
   '@stacks/connect@7.4.0(encoding@0.1.13)':
     dependencies:
       '@stacks/auth': 6.17.0(encoding@0.1.13)
@@ -23470,14 +23506,6 @@ snapshots:
       typeforce: 1.18.0
       varuint-bitcoin: 1.1.2
 
-  bitflow-sdk@1.6.1(encoding@0.1.13):
-    dependencies:
-      '@stacks/network': 6.13.0(encoding@0.1.13)
-      '@stacks/transactions': 6.17.0(encoding@0.1.13)
-      dotenv: 16.4.5
-    transitivePeerDependencies:
-      - encoding
-
   bl@0.8.2:
     dependencies:
       readable-stream: 1.0.34
@@ -25022,6 +25050,8 @@ snapshots:
       webpack: 5.94.0(@swc/core@1.11.21)(esbuild@0.25.0)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.1)(webpack@5.94.0))
 
   dotenv@16.4.5: {}
+
+  dotenv@16.5.0: {}
 
   dotenv@8.6.0: {}
 
