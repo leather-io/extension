@@ -1,7 +1,10 @@
 import { useMemo } from 'react';
 
 import { stxTransferSip9Nft } from '@leather.io/rpc';
-import { generateStacksUnsignedTransaction } from '@leather.io/stacks';
+import {
+  ensurePostConditionWireFormat,
+  generateStacksUnsignedTransaction,
+} from '@leather.io/stacks';
 import { createMoney } from '@leather.io/utils';
 
 import { FeeEditor } from '@app/features/fee-editor/fee-editor';
@@ -56,8 +59,18 @@ export function RpcStxTransferSip9Nft() {
         />
       }
     >
-      <PostConditionsDetailsLayout txOptions={txOptionsForBroadcast} />
-      <ContractCallDetailsLayout txOptions={txOptionsForBroadcast} />
+      <PostConditionsDetailsLayout
+        postConditions={(txOptionsForBroadcast.postConditions ?? []).map(pc =>
+          ensurePostConditionWireFormat(pc)
+        )}
+        postConditionMode={txOptionsForBroadcast.postConditionMode}
+      />
+      <ContractCallDetailsLayout
+        contractAddress={txOptionsForBroadcast.contractAddress}
+        contractName={txOptionsForBroadcast.contractName}
+        functionName={txOptionsForBroadcast.functionName}
+        functionArgs={txOptionsForBroadcast.functionArgs}
+      />
       <FeeEditor.Trigger
         feeType="fee-value"
         isLoading={isLoadingFees}

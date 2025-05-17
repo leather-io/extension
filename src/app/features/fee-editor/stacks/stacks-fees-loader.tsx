@@ -1,5 +1,7 @@
 import { useAsync } from 'react-async-hook';
 
+import type { StacksTransactionWire } from '@stacks/transactions';
+
 import {
   type StacksUnsignedTransactionOptions,
   generateStacksUnsignedTransaction,
@@ -19,15 +21,19 @@ interface StacksFees {
 
 interface StacksFeesLoaderProps {
   children({ fees, isLoading, getCustomFee }: StacksFees): React.JSX.Element;
-  txOptions: StacksUnsignedTransactionOptions;
+  txOptions?: StacksUnsignedTransactionOptions;
+  unsignedTx?: StacksTransactionWire;
 }
-export function StacksFeesLoader({ children, txOptions }: StacksFeesLoaderProps) {
-  const unsignedTx = useAsync(
-    () => generateStacksUnsignedTransaction(txOptions),
-    [txOptions]
-  ).result;
+export function StacksFeesLoader({ children, txOptions, unsignedTx }: StacksFeesLoaderProps) {
+  // Generate an unsigned transaction from the tx options if one is not provided
+  const unsignedTxFromTxOptions = useAsync(async () => {
+    if (!txOptions) return undefined;
+    return generateStacksUnsignedTransaction(txOptions);
+  }, [txOptions]);
 
-  const { data: stxFees, isLoading } = useCalculateStacksTxFees(unsignedTx);
+  const { data: stxFees, isLoading } = useCalculateStacksTxFees(
+    unsignedTx ?? unsignedTxFromTxOptions.result
+  );
   const fees = useStacksFees({ fees: stxFees });
 
   function getCustomFee(feeValue: number): Fee {

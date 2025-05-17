@@ -1,22 +1,20 @@
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Stack, styled } from 'leather-styles/jsx';
 
-import { StacksUnsignedContractDeployOptions, TransactionTypes } from '@leather.io/stacks';
 import { AddressDisplayer, Approver, Highlighter } from '@leather.io/ui';
 
 import { Prism } from '@app/common/clarity-prism';
 
 interface ContractDeployDetailsLayoutProps {
   address: string;
-  txOptions: StacksUnsignedContractDeployOptions;
+  contractName: string;
+  codeBody: string;
 }
 export function ContractDeployDetailsLayout({
   address,
-  txOptions,
+  contractName,
+  codeBody,
 }: ContractDeployDetailsLayoutProps) {
-  if (txOptions.txType !== TransactionTypes.ContractDeploy)
-    throw new Error('Transaction is not a contract deploy');
-
   return (
     <>
       <Approver.Section>
@@ -37,7 +35,7 @@ export function ContractDeployDetailsLayout({
             <styled.span color="ink.text-subdued" textStyle="caption.01">
               Contract name
             </styled.span>
-            <styled.span textStyle="label.01">{txOptions.contractName}</styled.span>
+            <styled.span textStyle="label.01">{contractName}</styled.span>
           </Stack>
         </Stack>
       </Approver.Section>
@@ -45,7 +43,7 @@ export function ContractDeployDetailsLayout({
         <Approver.Subheader>
           <styled.span textStyle="label.01">Code</styled.span>
         </Approver.Subheader>
-        <Highlighter code={txOptions.codeBody} prism={Prism} language="clarity" />
+        <Highlighter code={codeBody} prism={Prism} language="clarity" />
       </Approver.Section>
     </>
   );
