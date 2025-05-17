@@ -13,11 +13,11 @@ import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
 import { RpcSignPsbtSummary } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt-summary';
 import { RpcStacksMessageSigning } from '@app/pages/rpc-sign-stacks-message/rpc-sign-stacks-message';
 import { rpcStxCallContractRoutes } from '@app/pages/rpc-stx-call-contract/rpc-stx-call-contract.routes';
-import { RpcStxDeployContract } from '@app/pages/rpc-stx-deploy-contract/rpc-stx-deploy-contract';
+import { rpcStxDeployContractRoutes } from '@app/pages/rpc-stx-deploy-contract/rpc-stx-deploy-contract.routes';
 import { RpcStxSignTransaction } from '@app/pages/rpc-stx-sign-transaction/rpc-stx-sign-transaction';
-import { RpcStxTransferSip9Nft } from '@app/pages/rpc-stx-transfer-sip9-nft/rpc-stx-transfer-sip9-nft';
-import { RpcStxTransferSip10Ft } from '@app/pages/rpc-stx-transfer-sip10-ft/rpc-stx-transfer-sip10-ft';
-import { RpcStxTransferStx } from '@app/pages/rpc-stx-transfer-stx/rpc-stx-transfer-stx';
+import { rpcStxTransferSip9NftRoutes } from '@app/pages/rpc-stx-transfer-sip9-nft/rpc-stx-transfer-sip9-nft.routes';
+import { rpcStxTransferSip10FtRoutes } from '@app/pages/rpc-stx-transfer-sip10-ft/rpc-stx-transfer-sip10-ft.routes';
+import { rpcStxTransferStxRoutes } from '@app/pages/rpc-stx-transfer-stx/rpc-stx-transfer-stx.routes';
 import { AccountGate } from '@app/routes/account-gate';
 
 import { SuspenseLoadingSpinner } from './app-routes';
@@ -37,6 +37,10 @@ export const rpcRequestRoutes = (
 
     {rpcSendTransferRoutes}
     {rpcStxCallContractRoutes}
+    {rpcStxDeployContractRoutes}
+    {rpcStxTransferSip9NftRoutes}
+    {rpcStxTransferSip10FtRoutes}
+    {rpcStxTransferStxRoutes}
 
     <Route
       path={RouteUrls.RpcSignBip322Message}
@@ -85,54 +89,6 @@ export const rpcRequestRoutes = (
       element={
         <AccountGate>
           <RpcStxSignTransaction />
-        </AccountGate>
-      }
-    >
-      {editNonceSheetRoute}
-      {ledgerStacksTxSigningRoutes}
-    </Route>
-
-    <Route
-      path={RouteUrls.RpcStxDeployContract}
-      element={
-        <AccountGate>
-          <RpcStxDeployContract />
-        </AccountGate>
-      }
-    >
-      {editNonceSheetRoute}
-      {ledgerStacksTxSigningRoutes}
-    </Route>
-
-    <Route
-      path={RouteUrls.RpcStxTransferStx}
-      element={
-        <AccountGate>
-          <RpcStxTransferStx />
-        </AccountGate>
-      }
-    >
-      {editNonceSheetRoute}
-      {ledgerStacksTxSigningRoutes}
-    </Route>
-
-    <Route
-      path={RouteUrls.RpcStxTransferSip9Nft}
-      element={
-        <AccountGate>
-          <RpcStxTransferSip9Nft />
-        </AccountGate>
-      }
-    >
-      {editNonceSheetRoute}
-      {ledgerStacksTxSigningRoutes}
-    </Route>
-
-    <Route
-      path={RouteUrls.RpcStxTransferSip10Ft}
-      element={
-        <AccountGate>
-          <RpcStxTransferSip10Ft />
         </AccountGate>
       }
     >

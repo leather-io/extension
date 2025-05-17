@@ -1,25 +1,33 @@
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { AddressDisplayer, Approver, BtcAvatarIcon, ItemLayout, UserIcon } from '@leather.io/ui';
-import { formatDustUsdAmounts, formatMoneyPadded, i18nFormatCurrency } from '@leather.io/utils';
+import type { Money } from '@leather.io/models';
+import { AddressDisplayer, Approver, ItemLayout, UserIcon } from '@leather.io/ui';
+import { formatDustUsdAmounts, formatMoney, i18nFormatCurrency } from '@leather.io/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 
-import { useConvertCryptoCurrencyToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
 import { IconWrapper } from '@app/components/icon-wrapper';
 import { Divider } from '@app/components/layout/divider';
 
-interface TransactionRecipientsProps {
+interface TransactionRecipientsLayoutProps {
+  avatar: React.ReactNode;
+  caption: string;
   recipients: TransferRecipient[];
+  title: string;
+  convertToFiatAmount(value: Money): Money;
 }
-// TODO: Refactor to decouple from Bitcoin
-export function TransactionRecipients({ recipients }: TransactionRecipientsProps) {
-  const convertToFiatAmount = useConvertCryptoCurrencyToFiatAmount('BTC');
-
+export function TransactionRecipientsLayout({
+  avatar,
+  caption,
+  recipients,
+  title,
+  convertToFiatAmount,
+}: TransactionRecipientsLayoutProps) {
   return recipients.map(({ address, amount }) => {
     const fiatAmount = convertToFiatAmount(amount);
 
-    const titleRight = formatMoneyPadded(amount);
+    const titleRight = formatMoney(amount);
     const captionRight = formatDustUsdAmounts(i18nFormatCurrency(fiatAmount));
 
     return (
@@ -29,9 +37,9 @@ export function TransactionRecipients({ recipients }: TransactionRecipientsProps
         </Approver.Subheader>
 
         <ItemLayout
-          img={<BtcAvatarIcon />}
-          titleLeft="Bitcoin"
-          captionLeft="Bitcoin blockchain"
+          img={avatar}
+          titleLeft={title}
+          captionLeft={caption}
           titleRight={titleRight}
           captionRight={captionRight}
         />
@@ -45,7 +53,10 @@ export function TransactionRecipients({ recipients }: TransactionRecipientsProps
           <IconWrapper>
             <UserIcon />
           </IconWrapper>
-          <AddressDisplayer address={address} />
+          <AddressDisplayer
+            data-testid={SharedComponentsSelectors.AddressDisplayer}
+            address={address}
+          />
         </HStack>
       </Approver.Section>
     );

@@ -1,20 +1,22 @@
-import { BitflowSDK } from 'bitflow-sdk';
+import { BitflowSDK } from '@bitflowlabs/core-sdk';
 
 import {
   BITFLOW_API_HOST,
   BITFLOW_API_KEY,
+  BITFLOW_KEEPER_API_HOST,
+  BITFLOW_KEEPER_API_KEY,
   BITFLOW_READONLY_CALL_API_HOST,
-  BITFLOW_STACKS_API_HOST,
 } from '@shared/environment';
 import { logger } from '@shared/logger';
 
 export const bitflow: BitflowSDK = (() => {
   try {
     return new BitflowSDK({
-      API_HOST: BITFLOW_API_HOST,
-      API_KEY: BITFLOW_API_KEY,
-      STACKS_API_HOST: BITFLOW_STACKS_API_HOST,
+      BITFLOW_API_HOST: BITFLOW_API_HOST,
+      BITFLOW_API_KEY: BITFLOW_API_KEY,
       READONLY_CALL_API_HOST: BITFLOW_READONLY_CALL_API_HOST,
+      KEEPER_API_KEY: BITFLOW_KEEPER_API_KEY,
+      KEEPER_API_HOST: BITFLOW_KEEPER_API_HOST,
     });
   } catch (e) {
     logger.error('Bitflow SDK initialization failed');

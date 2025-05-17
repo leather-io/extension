@@ -3,29 +3,30 @@ import { useMemo } from 'react';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Stack, styled } from 'leather-styles/jsx';
 
-import { TransactionTypes, formatContractId } from '@leather.io/stacks';
+import {
+  type StacksUnsignedContractCallOptions,
+  TransactionTypes,
+  formatContractId,
+} from '@leather.io/stacks';
 import { AddressDisplayer, Approver } from '@leather.io/ui';
 
 import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import {
-  type RpcCallContractRequestContext,
-  useRpcTransactionRequestContext,
-} from '@app/features/rpc-transaction-request/rpc-transaction-request.context';
+import { FunctionArgumentList } from '@app/features/rpc-transaction-request/stacks/contract-call/function-arguments/function-argument-list';
 import { useGetContractInterface } from '@app/query/stacks/contract-interface.query';
 
-import { FunctionArgumentList } from './function-arguments/function-argument-list';
-
-export function ContractCallDetailsLayout() {
-  const { rpcRequest } = useRpcTransactionRequestContext<RpcCallContractRequestContext>();
+interface ContractCallDetailsLayoutProps {
+  txOptions: StacksUnsignedContractCallOptions;
+}
+export function ContractCallDetailsLayout({ txOptions }: ContractCallDetailsLayoutProps) {
   const { handleOpenStacksTxLink } = useStacksExplorerLink();
 
-  if (rpcRequest.txOptions.txType !== TransactionTypes.ContractCall)
+  if (txOptions.txType !== TransactionTypes.ContractCall)
     throw new Error('Transaction is not a contract call');
 
-  const contractAddress = rpcRequest.txOptions.contractAddress;
-  const contractName = rpcRequest.txOptions.contractName;
-  const functionName = rpcRequest.txOptions.functionName;
+  const contractAddress = txOptions.contractAddress;
+  const contractName = txOptions.contractName;
+  const functionName = txOptions.functionName;
 
   const { data: contractAbi, isLoading } = useGetContractInterface(contractAddress, contractName);
   const contractFunction = useMemo(
@@ -106,7 +107,7 @@ export function ContractCallDetailsLayout() {
         <Approver.Subheader>
           <styled.span textStyle="label.01">Contract arguments</styled.span>
         </Approver.Subheader>
-        <FunctionArgumentList fn={contractFunction} fnArgs={rpcRequest.txOptions.functionArgs} />
+        <FunctionArgumentList fn={contractFunction} fnArgs={txOptions.functionArgs} />
       </Approver.Section>
     </>
   );

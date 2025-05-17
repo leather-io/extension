@@ -1,5 +1,6 @@
 import type { BrowserContext, Page } from '@playwright/test';
 import { TEST_ACCOUNT_2_STX_ADDRESS } from '@tests/mocks/constants';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
 import type { RpcParams, stxTransferStx } from '@leather.io/rpc';
 
@@ -17,10 +18,15 @@ test.describe('RPC: stx_transferStx', () => {
   function checkVisibleContent(context: BrowserContext) {
     return async (buttonToPress: 'Cancel' | 'Confirm') => {
       const popup = await context.waitForEvent('page');
-      await popup.waitForSelector('text="0.0001"');
-      await popup.waitForSelector('text="SPXH3HNBPM5YP15VH16ZXZ9AX6CK289K3MCXRKCB"');
-      await popup.waitForSelector('text="100"');
-      await popup.waitForSelector('text="mock-memo"');
+
+      await popup.waitForSelector('text="Account 1"');
+      await popup.waitForSelector('text="0.0001 STX"');
+      const displayerAddress = await popup
+        .getByTestId(SharedComponentsSelectors.AddressDisplayer)
+        .innerText()
+        .then((value: string) => value.replaceAll('\n', ''));
+      test.expect(displayerAddress).toEqual('SPXH3HNBPM5YP15VH16ZXZ9AX6CK289K3MCXRKCB');
+
       await popup.waitForTimeout(500);
       const btn = popup.locator('text="Confirm"');
 

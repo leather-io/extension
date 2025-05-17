@@ -1,29 +1,21 @@
-import { createUnsecuredToken } from 'jsontokens';
-
-import { type RpcParams, stxTransferStx } from '@leather.io/rpc';
-import { TransactionTypes } from '@leather.io/stacks';
+import {
+  RpcErrorCode,
+  createRpcErrorResponse,
+  encodeBase64Json,
+  stxTransferStx,
+} from '@leather.io/rpc';
 
 import { RouteUrls } from '@shared/route-urls';
+import { RpcErrorMessage } from '@shared/rpc/methods/validation.utils';
 
-import { handleRpcMessage } from '../rpc-helpers';
+import { trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
-  type RequestParams,
-  getStxDefaultMessageParamsToTransactionRequest,
+  createConnectingAppSearchParamsWithLastKnownAccount,
+  listenForPopupClose,
+  triggerRequestPopupWindowOpen,
   validateRequestParams,
 } from '../rpc-request-utils';
-
-function getMessageParamsToTransactionRequest(params: RpcParams<typeof stxTransferStx>) {
-  const defaultParams = getStxDefaultMessageParamsToTransactionRequest(params);
-
-  return {
-    txType: TransactionTypes.StxTokenTransfer,
-    amount: params.amount.toString(),
-    memo: params.memo ?? '', // Add default to type,
-    recipient: params.recipient,
-    ...defaultParams,
-  };
-}
 
 export const stxTransferStxHandler = defineRpcRequestHandler(
   stxTransferStx.method,
@@ -37,16 +29,27 @@ export const stxTransferStxHandler = defineRpcRequestHandler(
       schema: stxTransferStx.params,
     });
     if (status === 'failure') return;
-    const txRequest = getMessageParamsToTransactionRequest(params);
-    const requestParams: RequestParams = [
-      ['requestId', requestId],
-      ['request', createUnsecuredToken(txRequest)],
-    ];
-    return handleRpcMessage({
-      request,
-      path: RouteUrls.RpcStxTransferStx,
-      port,
-      requestParams,
+    const { tabId, urlParams } = await createConnectingAppSearchParamsWithLastKnownAccount(port, [
+      ['requestId', request.id],
+      ['rpcRequest', encodeBase64Json(request)],
+    ]);
+
+    if (request.params && request.params.network) {
+      urlParams.append('network', request.params.network);
+    }
+    const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcStxTransferStx, urlParams);
+    void trackRpcRequestSuccess({ endpoint: request.method });
+
+    listenForPopupClose({
+      tabId,
+      id,
+      response: createRpcErrorResponse(method, {
+        id: requestId,
+        error: {
+          code: RpcErrorCode.USER_REJECTION,
+          message: RpcErrorMessage.UserRejectedOperation,
+        },
+      }),
     });
   }
 );

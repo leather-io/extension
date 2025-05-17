@@ -11,13 +11,12 @@ interface RpcTransactionRequestContext {
   tabId: number;
 }
 
-export interface RpcSendTransferContext extends RpcTransactionRequestContext {
+interface RpcSendTransferContext extends RpcTransactionRequestContext {
   amount: Money;
   isLoadingBalance: boolean;
   recipients: TransferRecipient[];
   recipientAddresses: string[];
   utxos: UtxoResponseItem[];
-  // TODO: Create `SwitchAccountEditor` and relocate
   onUserActivatesSwitchAccount(): void;
 }
 

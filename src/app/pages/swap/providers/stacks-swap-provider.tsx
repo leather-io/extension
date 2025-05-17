@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
+import type { RouteQuote } from '@bitflowlabs/core-sdk';
 import type { StacksTransactionWire } from '@stacks/transactions';
-import type { RouteQuote } from 'bitflow-sdk';
 
 import { defaultSwapFee } from '@leather.io/query';
 

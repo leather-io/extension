@@ -1,5 +1,6 @@
 import { type Money } from '@leather.io/models';
 import { type UtxoResponseItem } from '@leather.io/query';
+import { createMoney } from '@leather.io/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 
@@ -50,7 +51,7 @@ export function BitcoinFeesLoader({
     return {
       priority: 'custom',
       feeRate,
-      txFee: fee,
+      txFee: fee ?? createMoney(0, 'BTC'),
       time: '',
     };
   }

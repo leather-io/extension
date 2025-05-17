@@ -1,28 +1,31 @@
 import { Box, styled } from 'leather-styles/jsx';
 
+import type { Money } from '@leather.io/models';
 import { Approver, Caption, ItemLayout, Pressable, SkeletonLoader } from '@leather.io/ui';
 import { formatDustUsdAmounts, formatMoneyPadded, i18nFormatCurrency } from '@leather.io/utils';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
-import { useConvertCryptoCurrencyToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
-import { AccountBitcoinAddress } from '@app/components/account/account-bitcoin-address';
 import { AccountNameLayout } from '@app/components/account/account-name';
-import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { AccountAvatarItem } from '@app/ui/components/account/account-avatar/account-avatar-item';
 
-interface TransactionSwitchAccountProps {
-  toggleSwitchAccount(): void;
+interface SwitchAccountTriggerProps {
+  address: React.ReactNode;
+  availableBalance: Money;
+  fiatBalance: Money;
+  isLoadingBalance: boolean;
+  onSwitchAccount(): void;
 }
-// TODO: Refactor to decouple from Bitcoin, create an 'editor' to switch accounts?
-export function TransactionSwitchAccount({ toggleSwitchAccount }: TransactionSwitchAccountProps) {
+export function SwitchAccountTrigger({
+  address,
+  availableBalance,
+  fiatBalance,
+  isLoadingBalance,
+  onSwitchAccount,
+}: SwitchAccountTriggerProps) {
   const index = useCurrentAccountIndex();
   const stacksAccounts = useStacksAccounts();
-  const { balance, isLoading: isLoadingBalance } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
-
-  const convertToFiatAmount = useConvertCryptoCurrencyToFiatAmount('BTC');
-  const fiatAmount = convertToFiatAmount(balance.availableBalance);
 
   const stxAddress = stacksAccounts[index]?.address || '';
   const { data: name = '', isLoading: isLoadingName } = useAccountDisplayName({
@@ -32,13 +35,13 @@ export function TransactionSwitchAccount({ toggleSwitchAccount }: TransactionSwi
 
   const titleRight = (
     <SkeletonLoader isLoading={isLoadingBalance} width="96px">
-      <styled.span textStyle="label.02">{formatMoneyPadded(balance.availableBalance)}</styled.span>
+      <styled.span textStyle="label.02">{formatMoneyPadded(availableBalance)}</styled.span>
     </SkeletonLoader>
   );
 
   const captionRight = (
     <SkeletonLoader isLoading={isLoadingBalance} width="48px">
-      <Caption>{formatDustUsdAmounts(i18nFormatCurrency(fiatAmount))}</Caption>
+      <Caption>{formatDustUsdAmounts(i18nFormatCurrency(fiatBalance))}</Caption>
     </SkeletonLoader>
   );
 
@@ -46,12 +49,12 @@ export function TransactionSwitchAccount({ toggleSwitchAccount }: TransactionSwi
     <Approver.Section>
       <Approver.Subheader>With account</Approver.Subheader>
       <Box mb="space.03">
-        <Pressable onClick={toggleSwitchAccount}>
+        <Pressable onClick={onSwitchAccount}>
           <ItemLayout
             showChevron
-            img={<AccountAvatarItem index={0} publicKey="" name="" />}
+            img={<AccountAvatarItem index={index} publicKey="" name="" />}
             titleLeft={<AccountNameLayout isLoading={isLoadingName}>{name}</AccountNameLayout>}
-            captionLeft={<AccountBitcoinAddress index={index} />}
+            captionLeft={address}
             titleRight={titleRight}
             captionRight={captionRight}
           />

@@ -7,7 +7,6 @@ interface TransactionHeaderProps {
   href?: string;
   onPressRequestedByLink(e: React.MouseEvent<HTMLAnchorElement>): void;
 }
-
 export function TransactionHeader({
   title,
   href = 'https://leather.io/guides/connect-dapps',

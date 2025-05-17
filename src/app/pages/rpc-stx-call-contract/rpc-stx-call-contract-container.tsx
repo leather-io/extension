@@ -1,53 +1,79 @@
+import { useMemo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import { stxCallContract } from '@leather.io/rpc';
+import { isDefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 import { StacksNonceLoader } from '@app/components/loaders/stacks-nonce-loader';
 import { StxBalanceLoader } from '@app/components/loaders/stx-balance-loader';
 import { StacksFeeEditorProvider } from '@app/features/fee-editor/stacks/stacks-fee-editor.provider';
 import { NonceEditorProvider } from '@app/features/nonce-editor/nonce-editor.provider';
-import { RpcTransactionRequestProvider } from '@app/features/rpc-transaction-request/rpc-transaction-request-provider';
-import type { RpcCallContractRequestContext } from '@app/features/rpc-transaction-request/rpc-transaction-request.context';
+import { StacksRpcTransactionRequestProvider } from '@app/features/rpc-transaction-request/stacks/stacks-rpc-transaction-request.context';
+import { useRpcTransactionRequest } from '@app/features/rpc-transaction-request/use-rpc-transaction-request';
+import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
-import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import type { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
+import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 
-import { useRpcStxCallContractTxOptions } from './use-rpc-stx-call-contract';
+import { getUnsignedStacksContractCallOptionsForFeeEstimation } from './rpc-stx-call-contract.utils';
 
-export function RpcStxCallContractContainer() {
-  const navigate = useNavigate();
+interface RpcStxCallContractContainerProps {
+  account: StacksAccount;
+}
+export function RpcStxCallContractContainer({ account }: RpcStxCallContractContainerProps) {
+  const request = useRpcTransactionRequest();
+  const network = useCurrentStacksNetworkState();
   const stxMarketData = useCryptoCurrencyMarketDataMeanAverage('STX');
-  const stxAddress = useCurrentStacksAccountAddress();
-  const txOptions = useRpcStxCallContractTxOptions();
+  const { toggleSwitchAccount } = useSwitchAccountSheet();
+  const navigate = useNavigate();
+
+  const txOptionsForFeeEstimation = useMemo(
+    () =>
+      getUnsignedStacksContractCallOptionsForFeeEstimation({
+        publicKey: account.stxPublicKey,
+        network,
+      }),
+    [account.stxPublicKey, network]
+  );
+
+  useBreakOnNonCompliantEntity([account.address].filter(isDefined));
 
   return (
-    <StxBalanceLoader address={stxAddress}>
-      {(balance, isLoadingAdditionalData) => (
-        <StacksNonceLoader>
-          {nonce => (
-            <StacksFeeEditorProvider
-              availableBalance={balance.availableBalance}
-              marketData={stxMarketData}
-              onGoBack={() => navigate(RouteUrls.RpcStxCallContract)}
-              txOptions={txOptions}
-            >
-              <NonceEditorProvider
-                nonce={nonce}
+    <>
+      <StxBalanceLoader address={account.address}>
+        {(balance, isLoadingAdditionalData) => (
+          <StacksNonceLoader>
+            {nonce => (
+              <StacksFeeEditorProvider
+                availableBalance={balance.availableBalance}
+                marketData={stxMarketData}
                 onGoBack={() => navigate(RouteUrls.RpcStxCallContract)}
+                txOptions={{ ...txOptionsForFeeEstimation, nonce }}
               >
-                <RpcTransactionRequestProvider<RpcCallContractRequestContext>
-                  isLoadingData={isLoadingAdditionalData}
-                  method={stxCallContract.method}
-                  requestData={{ txOptions }}
+                <NonceEditorProvider
+                  nonce={nonce}
+                  onGoBack={() => navigate(RouteUrls.RpcStxCallContract)}
                 >
-                  <Outlet />
-                </RpcTransactionRequestProvider>
-              </NonceEditorProvider>
-            </StacksFeeEditorProvider>
-          )}
-        </StacksNonceLoader>
-      )}
-    </StxBalanceLoader>
+                  <StacksRpcTransactionRequestProvider
+                    value={{
+                      ...request,
+                      onUserActivatesSwitchAccount: toggleSwitchAccount,
+                      isLoadingBalance: isLoadingAdditionalData,
+                      address: account.address,
+                      publicKey: account.stxPublicKey,
+                      network,
+                    }}
+                  >
+                    <Outlet />
+                  </StacksRpcTransactionRequestProvider>
+                </NonceEditorProvider>
+              </StacksFeeEditorProvider>
+            )}
+          </StacksNonceLoader>
+        )}
+      </StxBalanceLoader>
+    </>
   );
 }

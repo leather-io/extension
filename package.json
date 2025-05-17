@@ -140,6 +140,7 @@
   },
   "dependencies": {
     "@bitcoinerlab/secp256k1": "1.0.2",
+    "@bitflowlabs/core-sdk": "2.2.0",
     "@blockstack/stacks-transactions": "0.7.0",
     "@coinbase/cbpay-js": "2.1.0",
     "@fungible-systems/zone-file": "2.0.0",
@@ -203,7 +204,6 @@
     "bignumber.js": "9.1.2",
     "bitcoin-address-validation": "2.2.1",
     "bitcoinjs-lib": "6.1.5",
-    "bitflow-sdk": "1.6.1",
     "bn.js": "5.2.1",
     "browserify-fs": "1.0.0",
     "c32check": "2.0.0",

@@ -1,3 +1,4 @@
+import { getPrincipalFromAssetString } from '@leather.io/stacks';
 import { delay } from '@leather.io/utils';
 
 import { logger } from './logger';
@@ -16,4 +17,11 @@ export function closeWindow() {
 
 export function createDelay(ms: number) {
   return async () => delay(ms);
+}
+
+// TODO: Relocate to mono repo, we have this in services but not stacks pkg
+// See in services, getAddressFromAssetIdentifier
+export function getAddressFromAssetString(assetString: string) {
+  const principal = getPrincipalFromAssetString(assetString);
+  return principal.split('.')[0];
 }

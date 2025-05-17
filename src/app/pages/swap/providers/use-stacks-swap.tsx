@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import type { RouteQuote } from '@bitflowlabs/core-sdk';
 import { PostConditionMode, serializeCV } from '@stacks/transactions';
-import type { RouteQuote } from 'bitflow-sdk';
 
 import { TransactionTypes, getPostConditions } from '@leather.io/stacks';
 import { isError, isUndefined } from '@leather.io/utils';
@@ -10,11 +10,7 @@ import { isError, isUndefined } from '@leather.io/utils';
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 import { bitflow } from '@shared/utils/bitflow-sdk';
-import {
-  type ContractCallPayload,
-  legacyCVToCV,
-  serializeLegacyPostCondition,
-} from '@shared/utils/legacy-requests';
+import { type ContractCallPayload } from '@shared/utils/legacy-requests';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import {
@@ -113,9 +109,9 @@ export function useStacksSwap(nonce: number | string) {
         contractAddress: swapParams.contractAddress,
         contractName: swapParams.contractName,
         functionName: swapParams.functionName,
-        functionArgs: swapParams.functionArgs.map(arg => serializeCV(legacyCVToCV(arg))),
+        functionArgs: swapParams.functionArgs.map(arg => serializeCV(arg)),
         postConditionMode: PostConditionMode.Deny,
-        postConditions: getPostConditions(serializeLegacyPostCondition(swapParams.postConditions)),
+        postConditions: getPostConditions(swapParams.postConditions),
         publicKey: currentAccount?.stxPublicKey,
         sponsored: false,
         network,

@@ -1,30 +1,22 @@
-import { ClarityVersion } from '@stacks/transactions';
-import { createUnsecuredToken } from 'jsontokens';
-
-import { type RpcParams, stxDeployContract } from '@leather.io/rpc';
-import { TransactionTypes } from '@leather.io/stacks';
+import {
+  RpcErrorCode,
+  createRpcErrorResponse,
+  encodeBase64Json,
+  stxDeployContract,
+} from '@leather.io/rpc';
 
 import { RouteUrls } from '@shared/route-urls';
+import { RpcErrorMessage } from '@shared/rpc/methods/validation.utils';
 
-import { handleRpcMessage } from '../rpc-helpers';
+import { trackRpcRequestSuccess } from '../rpc-helpers';
 import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
-  RequestParams,
-  getStxDefaultMessageParamsToTransactionRequest,
+  createConnectingAppSearchParamsWithLastKnownAccount,
+  listenForPopupClose,
+  triggerRequestPopupWindowOpen,
   validateRequestParams,
 } from '../rpc-request-utils';
 
-function getMessageParamsToTransactionRequest(params: RpcParams<typeof stxDeployContract>) {
-  const defaultParams = getStxDefaultMessageParamsToTransactionRequest(params);
-
-  return {
-    txType: TransactionTypes.ContractDeploy,
-    contractName: params.name,
-    codeBody: params.clarityCode,
-    clarityVersion: params.clarityVersion ?? ClarityVersion.Clarity3,
-    ...defaultParams,
-  };
-}
 export const stxDeployContractHandler = defineRpcRequestHandler(
   stxDeployContract.method,
   async (request, port) => {
@@ -37,17 +29,27 @@ export const stxDeployContractHandler = defineRpcRequestHandler(
       schema: stxDeployContract.params,
     });
     if (status === 'failure') return;
-    const txRequest = getMessageParamsToTransactionRequest(params);
-    const requestParams: RequestParams = [
-      ['requestId', requestId],
-      ['request', createUnsecuredToken(txRequest)],
-    ];
-    if (params.network) requestParams.push(['network', params.network]);
-    return handleRpcMessage({
-      request,
-      path: RouteUrls.RpcStxDeployContract,
-      port,
-      requestParams,
+    const { tabId, urlParams } = await createConnectingAppSearchParamsWithLastKnownAccount(port, [
+      ['requestId', request.id],
+      ['rpcRequest', encodeBase64Json(request)],
+    ]);
+
+    if (request.params && request.params.network) {
+      urlParams.append('network', request.params.network);
+    }
+    const { id } = await triggerRequestPopupWindowOpen(RouteUrls.RpcStxDeployContract, urlParams);
+    void trackRpcRequestSuccess({ endpoint: request.method });
+
+    listenForPopupClose({
+      tabId,
+      id,
+      response: createRpcErrorResponse(method, {
+        id: requestId,
+        error: {
+          code: RpcErrorCode.USER_REJECTION,
+          message: RpcErrorMessage.UserRejectedOperation,
+        },
+      }),
     });
   }
 );

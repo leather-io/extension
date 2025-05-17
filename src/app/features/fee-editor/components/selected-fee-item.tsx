@@ -1,11 +1,11 @@
 import type { MarketData } from '@leather.io/models';
-import { Approver, ItemLayout, Pressable } from '@leather.io/ui';
+import { Approver, Pressable } from '@leather.io/ui';
 
+import { CryptoAssetItemPlaceholder } from '@app/components/crypto-asset-item/crypto-asset-item-placeholder';
 import type { Fee, FeeType } from '@app/features/fee-editor/fee-editor.context';
-import { formatFeeItem } from '@app/features/fee-editor/fee-editor.utils';
 
-import { CryptoAssetItemPlaceholder } from '../../../components/crypto-asset-item/crypto-asset-item-placeholder';
-import { FeeItemIcon } from './fee-item-icon';
+import { FeeRateItemLayout } from './fee-rate-item.layout';
+import { FeeValueItemLayout } from './fee-value-item.layout';
 
 interface SelectedFeeItemProps {
   feeType: FeeType;
@@ -28,22 +28,16 @@ export function SelectedFeeItem({
         <CryptoAssetItemPlaceholder my="0" />
       </Approver.Section>
     );
-  const { titleLeft, captionLeft, titleRight, captionRight } = formatFeeItem({
-    feeType,
-    fee: selectedFee,
-    marketData: marketData,
-  });
+
   return (
     <Approver.Section>
       <Pressable onClick={onEditFee} my="space.02">
-        <ItemLayout
-          img={<FeeItemIcon priority={selectedFee.priority} />}
-          titleLeft={titleLeft}
-          captionLeft={captionLeft}
-          titleRight={titleRight}
-          captionRight={captionRight}
-          showChevron
-        />
+        {feeType === 'fee-rate' ? (
+          <FeeRateItemLayout fee={selectedFee} marketData={marketData} showChevron />
+        ) : null}
+        {feeType === 'fee-value' ? (
+          <FeeValueItemLayout fee={selectedFee} marketData={marketData} showChevron />
+        ) : null}
       </Pressable>
     </Approver.Section>
   );

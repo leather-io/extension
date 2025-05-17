@@ -1,5 +1,6 @@
 import { BrowserContext, Page } from '@playwright/test';
 import { TEST_ACCOUNT_2_STX_ADDRESS } from '@tests/mocks/constants';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
 import type { RpcParams, stxTransferSip10Ft } from '@leather.io/rpc';
 
@@ -20,9 +21,16 @@ test.describe('RPC: stx_transferSip10Ft', () => {
       await popup.waitForSelector('text="LEO"');
       await popup.waitForSelector('text="0.001"');
       await popup.waitForSelector('text="transfer"');
-      await popup.waitForSelector('text="SP1A…2CT6.leo-token"');
-      await popup.waitForSelector('text="SPXH3HNBPM5YP15VH16ZXZ9AX6CK289K3MCXRKCB"');
-      await popup.waitForSelector('text="none"');
+      await popup.waitForSelector(
+        'text="You will transfer exactly 0.001 LEO or the transaction will abort."'
+      );
+
+      const displayerAddress = await popup
+        .getByTestId(SharedComponentsSelectors.AddressDisplayer)
+        .innerText()
+        .then((value: string) => value.replaceAll('\n', ''));
+      test.expect(displayerAddress).toEqual('SP1AY6K3PQV5MRT6R4S671NWW2FRVPKM0BR162CT6');
+
       await popup.waitForTimeout(500);
       const btn = popup.locator('text="Confirm"');
 
