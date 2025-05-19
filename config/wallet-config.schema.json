@@ -179,13 +179,6 @@
             }
           }
         },
-        "showPromoLinkOnNetworks": {
-          "type": "array",
-          "description": "Networks on which the promo link should be shown",
-          "items": {
-            "type": "string"
-          }
-        },
         "contracts": {
           "type": "object",
           "properties": {
@@ -210,6 +203,10 @@
           }
         }
       }
+    },
+    "promoCardEnabled": {
+      "type": "boolean",
+      "description": "Determines whether or not the promo card feature is enabled"
     }
   },
   "$defs": {

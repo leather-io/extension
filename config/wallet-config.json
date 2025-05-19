@@ -96,7 +96,6 @@
   "sbtc": {
     "enabled": true,
     "emilyApiUrl": "https://sbtc-emily.com",
-    "showPromoLinkOnNetworks": ["mainnet", "testnet", "sbtcTestnet"],
     "sponsorshipsEnabled": true,
     "sponsorshipApiUrl": {
       "mainnet": "https://sponsor.leather.io",
@@ -181,5 +180,6 @@
       "min": 1000001,
       "max": 2000000
     }
-  }
+  },
+  "promoCardEnabled": true
 }
