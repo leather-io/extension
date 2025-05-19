@@ -14,7 +14,7 @@ import { whenPageMode } from '@app/common/utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { ActivityList } from '@app/features/activity-list/activity-list';
 import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
-import { SbtcPromoCard } from '@app/features/sbtc-promo-card/sbtc-promo-card';
+import { PromoCard } from '@app/features/promo-card/promo-card';
 import { Assets } from '@app/pages/home/components/assets';
 import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
@@ -28,7 +28,7 @@ import { AccountCard } from '@app/ui/components/account/account.card';
 import { AccountActions } from './components/account-actions';
 import { HomeTabs } from './components/home-tabs';
 
-const leatherEarnUrl = 'https://earn.leather.io';
+const leatherWebAppUrl = 'https://leather.io';
 
 export function Home() {
   const { decodedAuthRequest } = useOnboardingState();
@@ -80,7 +80,7 @@ export function Home() {
         >
           <AccountActions />
         </AccountCard>
-        <SbtcPromoCard mt="space.05" onClick={() => openInNewTab(leatherEarnUrl)} />
+        <PromoCard onClick={() => openInNewTab(leatherWebAppUrl)} />
       </Box>
       {whenPageMode({ full: <FeedbackButton />, popup: null })}
       <HomeTabs>
