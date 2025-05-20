@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -127,18 +127,7 @@
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,20 +148,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -218,11 +196,11 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Stack } from 'leather-styles/jsx';
 &nbsp;
-import { Button, Input, ItemLayout } from '@leather.io/ui';
+import { Button, Input } from '@leather.io/ui';
 &nbsp;
 import { type Fee, useFeeEditorContext } from '../fee-editor.context';
-import { formatFeeItem } from '../fee-editor.utils';
-import { FeeItemIcon } from './fee-item-icon';
+import { FeeRateItemLayout } from './fee-rate-item.layout';
+import { FeeValueItemLayout } from './fee-value-item.layout';
 &nbsp;
 interface CustomFeeItemProps {
   fee: Fee;
@@ -231,12 +209,6 @@ export function <span class="fstat-no" title="function not covered" >CustomFeeIt
   const inputRef = <span class="cstat-no" title="statement not covered" >useRef&lt;HTMLInputElement&gt;(null);</span>
   const { customFee, feeType, marketData, selectedFee, onSetCustomFee, onSetSelectedFee } =
 <span class="cstat-no" title="statement not covered" >    useFeeEditorContext();</span>
-&nbsp;
-  const { captionLeft, titleRight, captionRight } = <span class="cstat-no" title="statement not covered" >formatFeeItem({</span>
-    fee,
-    feeType,
-    marketData,
-  });
 &nbsp;
   const isSelected = <span class="cstat-no" title="statement not covered" >selectedFee?.priority === fee.priority;</span>
 &nbsp;
@@ -249,13 +221,8 @@ export function <span class="fstat-no" title="function not covered" >CustomFeeIt
       // Add margin compensation to maintain consistent size
       margin={isSelected ? '0px' : '1px'}
     &gt;
-      &lt;ItemLayout
-        img={&lt;FeeItemIcon priority="custom" /&gt;}
-        titleLeft="Custom"
-        captionLeft={captionLeft}
-        titleRight={titleRight}
-        captionRight={captionRight}
-      /&gt;
+      {feeType === 'fee-rate' ? &lt;FeeRateItemLayout fee={fee} marketData={marketData} /&gt; : null}
+      {feeType === 'fee-value' ? &lt;FeeValueItemLayout fee={fee} marketData={marketData} /&gt; : null}
       &lt;AnimatePresence&gt;
         {isSelected &amp;&amp; (
           &lt;motion.div
@@ -295,7 +262,7 @@ export function <span class="fstat-no" title="function not covered" >CustomFeeIt
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-01T13:18:54.500Z
+                at 2025-05-20T18:25:54.216Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

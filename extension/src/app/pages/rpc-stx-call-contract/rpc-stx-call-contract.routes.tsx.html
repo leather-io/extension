@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -80,29 +80,7 @@
 <a name='L15'></a><a href='#L15'>15</a>
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L18'></a><a href='#L18'>18</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -114,51 +92,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Route } from 'react-router-dom';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { RouteUrls } from '@shared/route-urls';
 &nbsp;
-import { RouteUrls } from '@shared/route-urls';
+import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
+import { generateStacksRpcTransactionRequestRoutes } from '@app/features/rpc-transaction-request/stacks/stacks-rpc-transaction-request.routes';
 &nbsp;
-import { BroadcastErrorSheet } from '@app/components/broadcast-error-dialog/broadcast-error-dialog';
-import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
-import { NonceEditor } from '@app/features/nonce-editor/nonce-editor';
-import { AccountGate } from '@app/routes/account-gate';
-import { LedgerStacksGate } from '@app/routes/ledger-stacks-gate';
-&nbsp;
-import { FeeEditor } from '../../features/fee-editor/fee-editor';
 import { RpcStxCallContract } from './rpc-stx-call-contract';
 import { RpcStxCallContractContainer } from './rpc-stx-call-contract-container';
 &nbsp;
-export const rpcStxCallContractRoutes = (
-<span class="cstat-no" title="statement not covered" >  &lt;Route</span>
-    path={RouteUrls.RpcStxCallContract}
-    element={
-      &lt;AccountGate&gt;
-        &lt;LedgerStacksGate&gt;
-          &lt;RpcStxCallContractContainer /&gt;
-        &lt;/LedgerStacksGate&gt;
-      &lt;/AccountGate&gt;
-    }
-  &gt;
-    &lt;Route index element={&lt;RpcStxCallContract /&gt;} /&gt;
-    &lt;Route path={RouteUrls.FeeEditor} element={&lt;FeeEditor /&gt;} /&gt;
-    &lt;Route path={RouteUrls.NonceEditor} element={&lt;NonceEditor /&gt;} /&gt;
-    &lt;Route path={RouteUrls.BroadcastError} element={&lt;BroadcastErrorSheet /&gt;} /&gt;
-    {ledgerStacksTxSigningRoutes}
-  &lt;/Route&gt;
-);
+export const rpcStxCallContractRoutes = <span class="cstat-no" title="statement not covered" >generateStacksRpcTransactionRequestRoutes({</span>
+  path: RouteUrls.RpcStxCallContract,
+  container: (
+    &lt;CurrentStacksAccountLoader&gt;
+      {<span class="fstat-no" title="function not covered" >account =&gt; <span class="cstat-no" title="statement not covered" >&lt;</span>RpcStxCallContractContainer account={account} /&gt;}</span>
+    &lt;/CurrentStacksAccountLoader&gt;
+  ),
+  element: &lt;RpcStxCallContract /&gt;,
+});
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -166,7 +121,7 @@ export const rpcStxCallContractRoutes = (
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-01T13:18:54.500Z
+                at 2025-05-20T18:25:54.216Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

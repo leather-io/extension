@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/88</span>
+                <span class='fraction'>0/89</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/77</span>
+                <span class='fraction'>0/75</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/29</span>
+                <span class='fraction'>0/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/77</span>
+                <span class='fraction'>0/78</span>
             </div>
         
             
@@ -296,7 +296,10 @@
 <a name='L231'></a><a href='#L231'>231</a>
 <a name='L232'></a><a href='#L232'>232</a>
 <a name='L233'></a><a href='#L233'>233</a>
-<a name='L234'></a><a href='#L234'>234</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L234'></a><a href='#L234'>234</a>
+<a name='L235'></a><a href='#L235'>235</a>
+<a name='L236'></a><a href='#L236'>236</a>
+<a name='L237'></a><a href='#L237'>237</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -384,7 +387,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -404,7 +406,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -521,8 +522,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -613,7 +619,6 @@ export function <span class="fstat-no" title="function not covered" >useConfigSb
   const sbtc = <span class="cstat-no" title="statement not covered" >config?.sbtc as SbtcConfig;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
-    const displayPromoCardOnNetworks = (<span class="cstat-no" title="statement not covered" >sbtc as any)?.showPromoLinkOnNetworks ?? [];</span>
     const contractIdMainnet = <span class="cstat-no" title="statement not covered" >sbtc?.contracts.mainnet.address ?? '';</span>
     const contractIdTestnet = <span class="cstat-no" title="statement not covered" >sbtc?.contracts.testnet.address ?? '';</span>
     const apiUrlMainnet = <span class="cstat-no" title="statement not covered" >sbtc?.sponsorshipApiUrl.mainnet ?? '';</span>
@@ -632,9 +637,8 @@ export function <span class="fstat-no" title="function not covered" >useConfigSb
           contract === getPrincipalFromAssetString(contractIdTestnet)
         );
       },
-      shouldDisplayPromoCard: displayPromoCardOnNetworks.includes(network.id),
     };
-  }, [network.chain.bitcoin.mode, network.id, sbtc]);
+  }, [network.chain.bitcoin.mode, sbtc]);
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >useRemoteConfig() {</span>
@@ -762,6 +766,11 @@ export function <span class="fstat-no" title="function not covered" >useConfigSt
   const config = <span class="cstat-no" title="statement not covered" >useRemoteConfig();</span>
 <span class="cstat-no" title="statement not covered" >  return get(config, 'stacksContractDeploymentFeeEstimations', undefined);</span>
 }
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >useConfigPromoCardEnabled() {</span>
+  const config = <span class="cstat-no" title="statement not covered" >useRemoteConfig();</span>
+<span class="cstat-no" title="statement not covered" >  return get(config, 'promoCardEnabled', false);</span>
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -769,7 +778,7 @@ export function <span class="fstat-no" title="function not covered" >useConfigSt
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-01T13:18:54.500Z
+                at 2025-05-20T18:25:54.216Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>
