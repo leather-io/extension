@@ -63,8 +63,7 @@ export function useStxCryptoAssetBalance(address: string) {
 
 export function useStxAvailableUnlockedBalance(address: string) {
   const stxBalance = useStxCryptoAssetBalance(address);
-
-  return stxBalance.filteredBalanceQuery.data?.unlockedBalance ?? createMoney(0, 'STX');
+  return stxBalance.filteredBalanceQuery.data?.availableUnlockedBalance ?? createMoney(0, 'STX');
 }
 
 export function useStacksAccountBalanceFungibleTokens(address: string) {

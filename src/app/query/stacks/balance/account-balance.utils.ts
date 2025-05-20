@@ -23,7 +23,10 @@ export function createStxCryptoAssetBalance(
 
   return {
     availableBalance: subtractMoney(totalBalance, outboundBalance),
-    availableUnlockedBalance: subtractMoney(unlockedBalance, outboundBalance),
+    // Temporary fix for negative balances returning from the API
+    availableUnlockedBalance: unlockedBalance.amount.isPositive()
+      ? subtractMoney(unlockedBalance, outboundBalance)
+      : createMoney(0, 'STX'),
     inboundBalance,
     lockedBalance: createMoney(stxMoney.locked.amount, 'STX'),
     outboundBalance,
