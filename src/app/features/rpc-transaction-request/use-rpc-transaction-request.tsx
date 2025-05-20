@@ -18,7 +18,6 @@ export interface RpcTransactionRequest {
   status: TransactionStatus;
   onClickRequestedByLink(method: RpcMethodNames): void;
   onSetTransactionStatus(status: TransactionStatus): void;
-  onUserActivatesSwitchAccount(): void;
 }
 
 export function useRpcTransactionRequest(): RpcTransactionRequest {
@@ -44,6 +43,5 @@ export function useRpcTransactionRequest(): RpcTransactionRequest {
     status,
     onClickRequestedByLink,
     onSetTransactionStatus: (status: TransactionStatus) => setStatus(status),
-    onUserActivatesSwitchAccount: () => {},
   };
 }

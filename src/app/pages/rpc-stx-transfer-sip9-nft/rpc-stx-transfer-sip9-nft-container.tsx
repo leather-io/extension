@@ -78,7 +78,6 @@ export function RpcStxTransferSip9NftContainer({ account }: RpcStxTransferSip9Nf
                 <StacksRpcTransactionRequestProvider
                   value={{
                     ...request,
-                    onUserActivatesSwitchAccount: toggleSwitchAccount,
                     isLoadingBalance: isLoadingAdditionalData,
                     address: account.address,
                     publicKey: account.stxPublicKey,

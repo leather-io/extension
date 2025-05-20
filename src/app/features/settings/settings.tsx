@@ -147,7 +147,7 @@ export function Settings({
               )}
               {hasKeys && toggleSwitchAccount && (
                 <DropdownMenu.Item
-                  data-testid={SettingsSelectors.SwitchAccountTrigger}
+                  data-testid={SettingsSelectors.TransactionAccountSigner}
                   onSelect={toggleSwitchAccount}
                 >
                   <Flag img={<ArrowsRepeatLeftRightIcon />} textStyle="label.02">

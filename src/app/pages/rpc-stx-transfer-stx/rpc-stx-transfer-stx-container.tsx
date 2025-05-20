@@ -77,7 +77,6 @@ export function RpcStxTransferStxContainer({ account }: RpcStxTransferStxContain
                 <StacksRpcTransactionRequestProvider
                   value={{
                     ...request,
-                    onUserActivatesSwitchAccount: toggleSwitchAccount,
                     isLoadingBalance: isLoadingAdditionalData,
                     address: account.address,
                     publicKey: account.stxPublicKey,

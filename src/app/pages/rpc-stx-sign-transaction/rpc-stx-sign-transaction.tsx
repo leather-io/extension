@@ -32,7 +32,7 @@ import { ContractCallDetailsLayout } from '@app/features/rpc-transaction-request
 import { ContractDeployDetailsLayout } from '@app/features/rpc-transaction-request/stacks/contract-deploy/contract-deploy-details.layout';
 import { PostConditionsDetailsLayout } from '@app/features/rpc-transaction-request/stacks/post-conditions/post-conditions-details.layout';
 import { useStacksRpcTransactionRequestContext } from '@app/features/rpc-transaction-request/stacks/stacks-rpc-transaction-request.context';
-import { SwitchAccountTrigger } from '@app/features/rpc-transaction-request/switch-account-trigger/switch-account-trigger';
+import { TransactionAccountSigner } from '@app/features/rpc-transaction-request/transaction-account-signer/transaction-account-signer';
 import { TransactionActionsWithSpend } from '@app/features/rpc-transaction-request/transaction-actions/transaction-actions-with-spend';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
 
@@ -44,8 +44,7 @@ import {
 } from './rpc-stx-sign-transaction.utils';
 
 export function RpcStxSignTransaction() {
-  const { address, isLoadingBalance, onUserActivatesSwitchAccount, requestId, tabId } =
-    useStacksRpcTransactionRequestContext();
+  const { address, isLoadingBalance, requestId, tabId } = useStacksRpcTransactionRequestContext();
   const { availableBalance, isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
     useFeeEditorContext();
   const { nonce, onUserActivatesNonceEditor } = useNonceEditorContext();
@@ -115,12 +114,11 @@ export function RpcStxSignTransaction() {
     >
       {isTokenTransferPayload(unsignedTxForBroadcast.payload) ? (
         <>
-          <SwitchAccountTrigger
+          <TransactionAccountSigner
             address={<AccountStacksAddress />}
             availableBalance={availableBalance}
             fiatBalance={convertToFiatAmount(availableBalance)}
             isLoadingBalance={isLoadingBalance}
-            onSwitchAccount={onUserActivatesSwitchAccount}
           />
           <TransactionRecipientsLayout
             title="Stacks"

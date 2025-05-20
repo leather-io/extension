@@ -21,7 +21,7 @@ export enum SettingsSelectors {
   ShowSecretKeyBtn = 'show-secret-key-btn',
   GetSupportMenuItem = 'get-support-menu-item',
   SettingsMenuBtn = 'settings-menu-trigger',
-  SwitchAccountTrigger = 'switch-account-trigger',
+  TransactionAccountSigner = 'switch-account-trigger',
   SwitchAccountMenuItem = 'switch-account-menu-item',
   SwitchAccountItemIndex = 'switch-account-item-[index]',
   OpenWalletInNewTab = 'open-wallet-in-new-tab',
