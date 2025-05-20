@@ -1,3 +1,28 @@
+## [6.70.0](https://github.com/leather-io/extension/compare/v6.69.3...v6.70.0) (2025-05-20)
+
+
+### Features
+
+* web app promo card banner ([6277db0](https://github.com/leather-io/extension/commit/6277db0e8be9031fd347e084e86d13cc3318ed63))
+
+
+### Bug Fixes
+
+* remove dead coincap api ([846c1d7](https://github.com/leather-io/extension/commit/846c1d721480fc5d6b513c05992175222d83d7e1))
+* turn off promo card for release ([fbe3696](https://github.com/leather-io/extension/commit/fbe36960e051e34c553b87c877bdd40a415d83b2))
+* update bitflow sdk, closes LEA-2633 ([e395a80](https://github.com/leather-io/extension/commit/e395a80857f7764108741e709e1d0876ce74c193))
+
+
+### Internal
+
+* cleanup rpc request implementation, closes LEA-2614 ([001deb6](https://github.com/leather-io/extension/commit/001deb6fd718c678f26e1991dbe8633f5979c91f))
+* post-release merge back ([41181ab](https://github.com/leather-io/extension/commit/41181ab9b1ae28f0682e4ef0a0cf03776331b004))
+* sip30 transfer stx request to approver, closes LEA-2453 ([4c139a2](https://github.com/leather-io/extension/commit/4c139a24b8b2ae7ef12caf1fd6104f246ff9fa27))
+* stx deploy contract to approver, closes LEA-2604 and ENG-68 ([5ebaa8d](https://github.com/leather-io/extension/commit/5ebaa8dd02c1b018cf53ef78f02012c3b05cf143))
+* stx transfer sip10 ft to approver, closes LEA-2454 ([c08454c](https://github.com/leather-io/extension/commit/c08454cf2feeff5d9e12c101ff19bef199831240))
+* stx transfer sip9 nft to approver, closes LEA-2455 ([0421973](https://github.com/leather-io/extension/commit/042197310f457b90ff4294d5d6b5718d49bd8eb3))
+* update call contract ([8c21644](https://github.com/leather-io/extension/commit/8c2164434e1c92987a7c1f9b57d6f12cccb862e9))
+
 ## [6.69.3](https://github.com/leather-io/extension/compare/v6.69.2...v6.69.3) (2025-05-01)
 
 
