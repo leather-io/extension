@@ -17,7 +17,6 @@ interface RpcSendTransferContext extends RpcTransactionRequestContext {
   recipients: TransferRecipient[];
   recipientAddresses: string[];
   utxos: UtxoResponseItem[];
-  onUserActivatesSwitchAccount(): void;
 }
 
 const rpcSendTransferContext = createContext<RpcSendTransferContext | null>(null);

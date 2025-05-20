@@ -55,7 +55,6 @@ export function RpcStxSignTransactionContainer({ account }: RpcStxSignTransactio
                 <StacksRpcTransactionRequestProvider
                   value={{
                     ...request,
-                    onUserActivatesSwitchAccount: toggleSwitchAccount,
                     isLoadingBalance: isLoadingAdditionalData,
                     address: account.address,
                     publicKey: account.stxPublicKey,
