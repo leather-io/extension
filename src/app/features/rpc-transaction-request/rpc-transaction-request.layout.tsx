@@ -2,41 +2,32 @@ import { Outlet } from 'react-router-dom';
 
 import { Box } from 'leather-styles/jsx';
 
-import type { Money } from '@leather.io/models';
+import { type RpcMethodNames } from '@leather.io/rpc';
 import { Approver } from '@leather.io/ui';
-import { baseCurrencyAmountInQuote, i18nFormatCurrency } from '@leather.io/utils';
-
-import { closeWindow } from '@shared/utils';
 
 import type { HasChildren } from '@app/common/has-children';
 import { BackgroundOverlay } from '@app/components/loading-overlay';
-import { getTransactionActions } from '@app/components/rpc-transaction-request/get-transaction-actions';
-import { TransactionActionsTitle } from '@app/components/rpc-transaction-request/transaction-actions-title';
-import { TransactionError } from '@app/components/rpc-transaction-request/transaction-error';
 import { TransactionHeader } from '@app/components/rpc-transaction-request/transaction-header';
 import { TransactionWrapper } from '@app/components/rpc-transaction-request/transaction-wrapper';
-import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
-import { useRpcTransactionRequestContext } from '@app/features/rpc-transaction-request/rpc-transaction-request.context';
+
+import { useRpcTransactionRequest } from './use-rpc-transaction-request';
 
 interface RpcTransactionRequestLayoutProps extends HasChildren {
+  actions: React.ReactNode;
+  helpUrl?: string;
+  method: RpcMethodNames;
   title: string;
-  totalSpend: Money | null;
-  onApprove(): Promise<void>;
 }
 export function RpcTransactionRequestLayout({
+  actions,
   children,
-  onApprove,
+  helpUrl = 'https://leather.io/guides',
+  method,
   title,
-  totalSpend,
 }: RpcTransactionRequestLayoutProps) {
-  const { availableBalance, marketData } = useFeeEditorContext();
-  const { isBroadcasting, isLoading, isSubmitted, origin, onClickRequestedByLink } =
-    useRpcTransactionRequestContext();
+  const { origin, status, onClickRequestedByLink } = useRpcTransactionRequest();
 
-  const showOverlay = isBroadcasting || isSubmitted;
-  const isInsufficientBalance = !!(
-    totalSpend && availableBalance.amount.isLessThan(totalSpend.amount)
-  );
+  const showOverlay = status === 'broadcasting' || status === 'submitted';
 
   return (
     <>
@@ -46,34 +37,15 @@ export function RpcTransactionRequestLayout({
             <BackgroundOverlay show={showOverlay} />
             <TransactionHeader
               title={title}
-              href="https://leather.io/guides/connect-dapps"
+              href={helpUrl}
               onPressRequestedByLink={e => {
                 e.preventDefault();
-                onClickRequestedByLink();
+                onClickRequestedByLink(method);
               }}
             />
             {children}
           </Box>
-          <Approver.Actions
-            actions={getTransactionActions({
-              isBroadcasting,
-              isSubmitted,
-              isInsufficientBalance,
-              isLoading,
-              onCancel: () => closeWindow(),
-              onApprove,
-            })}
-          >
-            <TransactionActionsTitle
-              amount={
-                totalSpend
-                  ? i18nFormatCurrency(baseCurrencyAmountInQuote(totalSpend, marketData))
-                  : ''
-              }
-              isLoading={isLoading}
-            />
-            <TransactionError isInsufficientBalance={isInsufficientBalance} isLoading={isLoading} />
-          </Approver.Actions>
+          {actions}
         </Approver>
       </TransactionWrapper>
       <Outlet />

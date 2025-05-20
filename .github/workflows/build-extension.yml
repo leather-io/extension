@@ -57,8 +57,9 @@ jobs:
           BESTINSLOT_API_KEY: ${{ secrets.BESTINSLOT_API_KEY }}
           BITFLOW_API_HOST: ${{ secrets.BITFLOW_API_HOST }}
           BITFLOW_API_KEY: ${{ secrets.BITFLOW_API_KEY }}
-          BITFLOW_STACKS_API_HOST: ${{ secrets.BITFLOW_STACKS_API_HOST }}
           BITFLOW_READONLY_CALL_API_HOST: ${{ secrets.BITFLOW_READONLY_CALL_API_HOST }}
+          BITFLOW_KEEPER_API_KEY: ${{ secrets.BITFLOW_KEEPER_API_KEY }}
+          BITFLOW_KEEPER_API_HOST: ${{ secrets.BITFLOW_KEEPER_API_HOST }}
           PR_NUMBER: ${{ github.event.number }}
           COMMIT_SHA: ${{ needs.sha-hash.outputs.SHORT_SHA }}
 

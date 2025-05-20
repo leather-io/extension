@@ -82,7 +82,6 @@ export function useConfigSbtc() {
   const sbtc = config?.sbtc as SbtcConfig;
 
   return useMemo(() => {
-    const displayPromoCardOnNetworks = (sbtc as any)?.showPromoLinkOnNetworks ?? [];
     const contractIdMainnet = sbtc?.contracts.mainnet.address ?? '';
     const contractIdTestnet = sbtc?.contracts.testnet.address ?? '';
     const apiUrlMainnet = sbtc?.sponsorshipApiUrl.mainnet ?? '';
@@ -101,9 +100,8 @@ export function useConfigSbtc() {
           contract === getPrincipalFromAssetString(contractIdTestnet)
         );
       },
-      shouldDisplayPromoCard: displayPromoCardOnNetworks.includes(network.id),
     };
-  }, [network.chain.bitcoin.mode, network.id, sbtc]);
+  }, [network.chain.bitcoin.mode, sbtc]);
 }
 
 function useRemoteConfig() {
@@ -230,4 +228,9 @@ export function useConfigStacksContractDeploymentFeeEstimations():
   | undefined {
   const config = useRemoteConfig();
   return get(config, 'stacksContractDeploymentFeeEstimations', undefined);
+}
+
+export function useConfigPromoCardEnabled() {
+  const config = useRemoteConfig();
+  return get(config, 'promoCardEnabled', false);
 }

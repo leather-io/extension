@@ -17,10 +17,10 @@ import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
 
-import { useRpcTransactionRequestContext } from '../rpc-transaction-request.context';
+import { useRpcTransactionRequest } from '../use-rpc-transaction-request';
 
-export function useRpcBroadcastStacksTransaction(method: RpcMethodNames) {
-  const { onSetIsBroadcasting, onSetIsSubmitted } = useRpcTransactionRequestContext();
+export function useSignAndBroadcastStacksTransaction(method: RpcMethodNames) {
+  const { onSetTransactionStatus } = useRpcTransactionRequest();
   const { tabId, requestId } = useRpcRequestParams();
   const signStacksTransaction = useSignStacksTransaction();
   const network = useCurrentStacksNetworkState();
@@ -39,7 +39,7 @@ export function useRpcBroadcastStacksTransaction(method: RpcMethodNames) {
       }
 
       function onSuccess(txid: string, transaction: StacksTransactionWire) {
-        onSetIsSubmitted(true);
+        onSetTransactionStatus('submitted');
 
         chrome.tabs.sendMessage(
           tabId,
@@ -52,9 +52,9 @@ export function useRpcBroadcastStacksTransaction(method: RpcMethodNames) {
           })
         );
       }
-      onSetIsBroadcasting(true);
+      onSetTransactionStatus('broadcasting');
       await stacksBroadcastTransaction({ network, signedTx, onError, onSuccess });
-      onSetIsBroadcasting(false);
+      onSetTransactionStatus('idle');
       await delay(500);
       closeWindow();
     },
@@ -62,8 +62,7 @@ export function useRpcBroadcastStacksTransaction(method: RpcMethodNames) {
       method,
       navigate,
       network,
-      onSetIsBroadcasting,
-      onSetIsSubmitted,
+      onSetTransactionStatus,
       requestId,
       signStacksTransaction,
       tabId,

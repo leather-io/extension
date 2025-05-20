@@ -80,7 +80,7 @@ registerRpcRequestHandler(...stxGetAddressesHandler);
 registerRpcRequestHandler(...stxSignMessageHandler);
 registerRpcRequestHandler(...stxSignStructuredMessageHandler);
 registerRpcRequestHandler(...stxSignTransactionHandler);
-registerRpcRequestHandler(...stxTransferSip10FtHandler);
 registerRpcRequestHandler(...stxTransferSip9NftHandler);
+registerRpcRequestHandler(...stxTransferSip10FtHandler);
 registerRpcRequestHandler(...stxTransferStxHandler);
 registerRpcRequestHandler(...supportedMethodsHandler);

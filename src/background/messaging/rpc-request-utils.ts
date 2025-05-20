@@ -1,18 +1,15 @@
 import type { To } from 'react-router-dom';
 
 import { type PostConditionWire, serializePostConditionWire } from '@stacks/transactions';
-import type { Json } from 'jsontokens';
 import * as z from 'zod';
 
 import {
   RpcErrorCode,
   type RpcMethodNames,
   type RpcRequests,
-  type baseStacksTransactionConfigSchema,
   createRpcErrorResponse,
 } from '@leather.io/rpc';
-import { getPrincipalFromAssetString } from '@leather.io/stacks';
-import { isDefined, isUndefined } from '@leather.io/utils';
+import { isUndefined } from '@leather.io/utils';
 
 import { InternalMethods } from '@shared/message-types';
 import { sendMessage } from '@shared/messages';
@@ -192,40 +189,4 @@ export function validateRequestParams({
     return { status: 'failure' };
   }
   return { status: 'success' };
-}
-
-type BaseStacksTransactionRpcParams = z.infer<typeof baseStacksTransactionConfigSchema>;
-
-export function getStxDefaultMessageParamsToTransactionRequest(
-  params: BaseStacksTransactionRpcParams
-) {
-  const txRequest: Json = {};
-
-  if ('address' in params && isDefined(params.address)) {
-    txRequest.stxAddress = params.address;
-  }
-  if ('fee' in params && isDefined(params.fee)) {
-    txRequest.fee = params.fee;
-  }
-  if ('nonce' in params && isDefined(params.nonce)) {
-    txRequest.nonce = params.nonce;
-  }
-  if ('postConditions' in params && isDefined(params.postConditions)) {
-    txRequest.postConditions = params.postConditions;
-  }
-  if ('postConditionMode' in params && isDefined(params.postConditionMode)) {
-    txRequest.postConditionMode = params.postConditionMode;
-  }
-  if ('sponsored' in params && isDefined(params.sponsored)) {
-    txRequest.sponsored = params.sponsored;
-  }
-
-  return txRequest;
-}
-
-// TODO: Relocate to mono repo, we have this in services but not stacks pkg
-// See in services, getAddressFromAssetIdentifier
-export function getAddressFromAssetString(assetString: string) {
-  const principal = getPrincipalFromAssetString(assetString);
-  return principal.split('.')[0];
 }
