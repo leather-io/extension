@@ -19,4 +19,3 @@ export async function getPermissionsByOrigin(hostname: string) {
   const rootstate = await getRootState();
   if (!rootstate) return null;
   return rootstate.appPermissions.entities[hostname] ?? null;
-}

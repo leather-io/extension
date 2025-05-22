@@ -9,7 +9,6 @@ import { SignOutSheet } from './sign-out';
 interface SignOutProps {
   onClose(): void;
 }
-
 export function SignOut({ onClose }: SignOutProps) {
   const { signOut } = useKeyActions();
   const navigate = useNavigate();
