@@ -38,7 +38,7 @@ export function useSignAndBroadcastStacksTransaction(method: RpcMethodNames) {
         navigate(RouteUrls.BroadcastError, { state: { message } });
       }
 
-      function onSuccess(txid: string, transaction: StacksTransactionWire) {
+      async function onSuccess(txid: string, transaction: StacksTransactionWire) {
         onSetTransactionStatus('submitted');
 
         chrome.tabs.sendMessage(
@@ -51,12 +51,12 @@ export function useSignAndBroadcastStacksTransaction(method: RpcMethodNames) {
             },
           })
         );
+        await delay(500);
+        closeWindow();
       }
       onSetTransactionStatus('broadcasting');
       await stacksBroadcastTransaction({ network, signedTx, onError, onSuccess });
       onSetTransactionStatus('idle');
-      await delay(500);
-      closeWindow();
     },
     [
       method,

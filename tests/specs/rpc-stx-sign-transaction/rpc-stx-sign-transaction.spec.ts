@@ -9,6 +9,7 @@ import {
   TEST_ACCOUNT_2_STX_ADDRESS,
   TEST_ACCOUNT_3_PUBKEY,
 } from '@tests/mocks/constants';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { generateMultisigUnsignedStxTransfer, generateUnsignedStxTransfer } from '@tests/utils';
 
 import { test } from '../../fixtures/fixtures';
@@ -21,14 +22,21 @@ test.describe('RPC: stx_signTransaction', () => {
   });
 
   function checkVisibleContent(context: BrowserContext) {
-    return async (buttonToPress: 'Cancel' | 'Confirm') => {
+    return async (buttonToPress: 'Cancel' | 'Approve') => {
       const popup = await context.waitForEvent('page');
-      await popup.waitForSelector('text="' + TEST_ACCOUNT_2_STX_ADDRESS + '"');
-      await popup.waitForSelector(`text="${500 * 0.000001}"`);
-      await popup.waitForTimeout(500);
-      const btn = popup.locator('text="Confirm"');
+      await popup.waitForSelector('text="Account 1"');
+      await popup.waitForSelector('text="0.0005 STX"');
 
-      if (buttonToPress === 'Confirm') {
+      const displayerAddress = await popup
+        .getByTestId(SharedComponentsSelectors.AddressDisplayer)
+        .innerText()
+        .then((value: string) => value.replaceAll('\n', ''));
+      test.expect(displayerAddress).toEqual('SPXH3HNBPM5YP15VH16ZXZ9AX6CK289K3MCXRKCB');
+
+      await popup.waitForTimeout(500);
+      const btn = popup.locator('text="Approve"');
+
+      if (buttonToPress === 'Approve') {
         await btn.click();
       } else {
         await popup.close();
@@ -63,10 +71,9 @@ test.describe('RPC: stx_signTransaction', () => {
     page,
     context,
   }) => {
-    const amount = 500;
     const multiSignatureTxHex = await generateMultisigUnsignedStxTransfer(
       TEST_ACCOUNT_2_STX_ADDRESS,
-      amount,
+      500,
       100,
       'mainnet',
       [TEST_ACCOUNT_3_PUBKEY, TEST_ACCOUNT_1_PUBKEY],
@@ -75,13 +82,10 @@ test.describe('RPC: stx_signTransaction', () => {
     );
     const [result] = await Promise.all([
       initiateTxSigningLeatherFormat(page)(multiSignatureTxHex),
-      checkVisibleContent(context)('Confirm'),
+      checkVisibleContent(context)('Approve'),
     ]);
-
-    // deserialize both transactions
     const deserializedUnsignedTxHex = deserializeTransaction(multiSignatureTxHex);
     const deserializedSignedTx = deserializeTransaction(result.result.txHex);
-    // compare transactions
     test
       .expect((deserializedUnsignedTxHex.payload as TokenTransferPayloadWire).recipient)
       .toEqual((deserializedSignedTx.payload as TokenTransferPayloadWire).recipient);
@@ -110,7 +114,6 @@ test.describe('RPC: stx_signTransaction', () => {
     test
       .expect(deserializedUnsignedTxHex.auth.spendingCondition.hashMode)
       .toEqual(deserializedSignedTx.auth.spendingCondition.hashMode);
-    // check that the transaction is signed
     test
       .expect(
         (deserializedSignedTx.auth.spendingCondition as MultiSigSpendingCondition).fields.length
@@ -119,10 +122,9 @@ test.describe('RPC: stx_signTransaction', () => {
   });
 
   test('Single signature STX transfer being rejected', async ({ page, context }) => {
-    const amount = 500;
     const singleSignatureTxHex = await generateUnsignedStxTransfer(
       TEST_ACCOUNT_2_STX_ADDRESS,
-      amount,
+      500,
       'mainnet',
       TEST_ACCOUNT_3_PUBKEY
     );
@@ -131,7 +133,6 @@ test.describe('RPC: stx_signTransaction', () => {
       checkVisibleContent(context)('Cancel'),
     ]);
 
-    // ID is random, removed so we can test known values
     delete result.id;
 
     test.expect(result).toEqual({
