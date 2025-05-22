@@ -1,3 +1,18 @@
+## [6.70.1](https://github.com/leather-io/extension/compare/v6.70.0...v6.70.1) (2025-05-22)
+
+
+### Bug Fixes
+
+* ability to discard inscription ([a8ceb68](https://github.com/leather-io/extension/commit/a8ceb68a03e7eaa1054db5b16084e7ed928297fb))
+* release discard ([f646c64](https://github.com/leather-io/extension/commit/f646c64d78cb725a9b475e9acdc8c9d282f6e8b4))
+
+
+### Internal
+
+* enable web app banner ([4d3a677](https://github.com/leather-io/extension/commit/4d3a677794ca3f622e19675c262dd38e5abb7868))
+* post-release merge back ([c225bd9](https://github.com/leather-io/extension/commit/c225bd9487fe293799cd31e77299000f20455f39))
+* post-release merge back ([5c0380f](https://github.com/leather-io/extension/commit/5c0380f3b5b5f2d19f817b014035b9cdeecc43cc))
+
 ## [6.70.0](https://github.com/leather-io/extension/compare/v6.69.3...v6.70.0) (2025-05-20)
 
 
