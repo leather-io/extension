@@ -60,6 +60,9 @@ const debug = {
   bypassInscriptionChecks() {
     store.dispatch(settingsSlice.actions.dangerouslyChosenToBypassAllInscriptionChecks());
   },
+  discardInscription(id: string) {
+    store.dispatch(settingsSlice.actions.discardInscription(id));
+  },
   resetInscriptionState() {
     store.dispatch(settingsSlice.actions.resetInscriptionState());
   },
