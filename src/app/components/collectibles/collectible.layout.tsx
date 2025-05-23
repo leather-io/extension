@@ -4,6 +4,7 @@ import { token } from 'leather-styles/tokens';
 import {
   ArrowOutOfBoxIcon,
   ArrowRotateRightLeftIcon,
+  ChevronDownIcon,
   DropdownMenu,
   Flag,
   Spinner,
@@ -35,9 +36,21 @@ export function CollectiblesLayout({
         <HStack columnGap="space.02">
           <styled.span textStyle="label.01" paddingY="space.05">
             <DropdownMenu.Root>
-              <DropdownMenu.Trigger>{title}</DropdownMenu.Trigger>
+              <DropdownMenu.Trigger>
+                <Flag spacing="space.02" reverse img={<ChevronDownIcon variant="small" />}>
+                  {title}
+                </Flag>
+              </DropdownMenu.Trigger>
               <DropdownMenu.Content>
                 <Box p="space.02" textStyle="label.03">
+                  <DropdownMenu.Item onClick={() => onRefresh()}>
+                    <Flag
+                      spacing="space.02"
+                      img={<ArrowRotateRightLeftIcon cursor="pointer" variant="small" />}
+                    >
+                      Refresh
+                    </Flag>
+                  </DropdownMenu.Item>
                   <DropdownMenu.Item onClick={() => onRecoverAllInscriptions()}>
                     <Flag spacing="space.02" img={<ArrowOutOfBoxIcon variant="small" />}>
                       Recover all inscriptions
@@ -56,15 +69,7 @@ export function CollectiblesLayout({
               </DropdownMenu.Content>
             </DropdownMenu.Root>
           </styled.span>
-          {isLoading ? (
-            <Spinner color={token('colors.ink.text-primary')} opacity={0.5} />
-          ) : (
-            <ArrowRotateRightLeftIcon
-              cursor="pointer"
-              onClick={() => onRefresh()}
-              variant="small"
-            />
-          )}
+          {isLoading ? <Spinner color={token('colors.ink.text-primary')} opacity={0.5} /> : null}
         </HStack>
         {subHeader}
       </Flex>

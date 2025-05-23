@@ -19,6 +19,5 @@ const dom = new JSDOM('', { url: 'http://localhost/' });
 
 globalThis.window = dom.window;
 globalThis.document = dom.window.document;
-globalThis.navigator = dom.window.navigator;
 
 globalThis.localStorage = dom.window.localStorage;
