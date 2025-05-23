@@ -1,6 +1,6 @@
 import core from '@actions/core';
 
-import appPackage from '../../../package.json' assert { type: 'json' };
+import appPackage from '../../../package.json' with { type: 'json' };
 
 const illegalVersionSymbol = ['~', '^', '>', '<'];
 
