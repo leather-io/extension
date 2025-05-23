@@ -33,6 +33,11 @@ export function useInscriptions({ xpubs }: UseInscriptionArgs) {
   return useQueries({ queries, combine: combineInscriptionResults });
 }
 
+export function useCurrentAccountInscriptions() {
+  const xpubs = useCurrentBitcoinAccountXpubs();
+  return useInscriptions({ xpubs });
+}
+
 export function useNumberOfInscriptionsOnUtxo() {
   const xpubs = useCurrentBitcoinAccountXpubs();
 

@@ -8,6 +8,7 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { CurrentBitcoinSignerLoader } from '@app/components/loaders/current-bitcoin-signer-loader';
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
 import { useConfigNftMetadataEnabled } from '@app/query/common/remote-config/remote-config.query';
+import { useDiscardedInscriptions } from '@app/store/settings/settings.selectors';
 
 import { CollectiblesLayout } from '../../components/collectibles/collectible.layout';
 import { AddCollectible } from './components/add-collectible';
@@ -23,6 +24,7 @@ export function Collectibles() {
   const isNftMetadataEnabled = useConfigNftMetadataEnabled();
   const queryClient = useQueryClient();
   const isFetching = useIsFetchingCollectiblesRelatedQuery();
+  const discardedInscriptions = useDiscardedInscriptions();
 
   return (
     <CollectiblesLayout
@@ -43,15 +45,15 @@ export function Collectibles() {
       })}
       isLoading={isFetching}
       onRefresh={() => void queryClient.refetchQueries({ type: 'active' })}
+      onDiscardAllInscriptions={() => discardedInscriptions.discardAllInscriptions()}
+      onRecoverAllInscriptions={() => discardedInscriptions.recoverAllInscriptions()}
     >
       <CurrentBitcoinSignerLoader>{() => <AddCollectible />}</CurrentBitcoinSignerLoader>
-
       {isNftMetadataEnabled && (
         <CurrentStacksAccountLoader>
           {account => <StacksCryptoAssets address={account?.address ?? ''} />}
         </CurrentStacksAccountLoader>
       )}
-
       <CurrentBitcoinSignerLoader>
         {() => (
           <>
