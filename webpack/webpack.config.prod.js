@@ -2,7 +2,7 @@ import { sentryWebpackPlugin } from '@sentry/webpack-plugin';
 import webpack from 'webpack';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
-import packageJson from '../package.json' assert { type: 'json' };
+import packageJson from '../package.json' with { type: 'json' };
 import { config } from './webpack.config.base.js';
 
 const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN;
