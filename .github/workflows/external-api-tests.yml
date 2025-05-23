@@ -16,7 +16,7 @@ jobs:
       - uses: ./.github/actions/provision
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
 
       - uses: actions/cache@v4
         id: cache
