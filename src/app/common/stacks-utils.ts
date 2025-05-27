@@ -1,4 +1,5 @@
 import { ChainId } from '@stacks/network';
+import { type ContractIdString, parseContractId } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 import { c32addressDecode } from 'c32check';
 
@@ -48,8 +49,15 @@ export function ftUnshiftDecimals(value: number | string | BigNumber, decimals: 
 }
 
 export function validateStacksAddress(stacksAddress: string): boolean {
+  let addressToValidate = stacksAddress;
   try {
-    c32addressDecode(stacksAddress);
+    if (stacksAddress.includes('.')) {
+      const [address, name] = parseContractId(stacksAddress as ContractIdString);
+      const isValidContractName = name.length <= 40;
+      if (!isValidContractName) return false;
+      addressToValidate = address;
+    }
+    c32addressDecode(addressToValidate);
     return true;
   } catch (e) {
     return false;
