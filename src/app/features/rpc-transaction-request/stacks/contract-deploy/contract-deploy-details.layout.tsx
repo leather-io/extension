@@ -18,9 +18,7 @@ export function ContractDeployDetailsLayout({
   return (
     <>
       <Approver.Section>
-        <Approver.Subheader>
-          <styled.span textStyle="label.01">Contract</styled.span>
-        </Approver.Subheader>
+        <Approver.Subheader>Contract</Approver.Subheader>
         <Stack gap="space.04">
           <Stack gap="space.02">
             <styled.span color="ink.text-subdued" textStyle="caption.01">
@@ -40,9 +38,7 @@ export function ContractDeployDetailsLayout({
         </Stack>
       </Approver.Section>
       <Approver.Section>
-        <Approver.Subheader>
-          <styled.span textStyle="label.01">Code</styled.span>
-        </Approver.Subheader>
+        <Approver.Subheader>Code</Approver.Subheader>
         <Highlighter code={codeBody} prism={Prism} language="clarity" />
       </Approver.Section>
     </>

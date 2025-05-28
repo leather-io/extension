@@ -10,18 +10,18 @@ import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { AccountAvatarItem } from '@app/ui/components/account/account-avatar/account-avatar-item';
 
-interface TransactionAccountSignerProps {
+interface SigningAccountCardProps {
   address: React.ReactNode;
   availableBalance: Money;
   fiatBalance: Money;
   isLoadingBalance: boolean;
 }
-export function TransactionAccountSigner({
+export function SigningAccountCard({
   address,
   availableBalance,
   fiatBalance,
   isLoadingBalance,
-}: TransactionAccountSignerProps) {
+}: SigningAccountCardProps) {
   const index = useCurrentAccountIndex();
   const stacksAccounts = useStacksAccounts();
 
@@ -48,7 +48,6 @@ export function TransactionAccountSigner({
       <Approver.Subheader>With account</Approver.Subheader>
       <Box mb="space.03">
         <ItemLayout
-          showChevron
           img={<AccountAvatarItem index={index} publicKey="" name="" />}
           titleLeft={<AccountNameLayout isLoading={isLoadingName}>{name}</AccountNameLayout>}
           captionLeft={address}

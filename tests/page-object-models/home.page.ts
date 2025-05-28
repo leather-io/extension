@@ -146,7 +146,7 @@ export class HomePage {
   }
 
   async switchAccount(accountIndex: number) {
-    await this.page.getByTestId(SettingsSelectors.TransactionAccountSigner).click();
+    await this.page.getByTestId(SettingsSelectors.SigningAccountCard).click();
     await this.page.getByTestId(`switch-account-item-${accountIndex}`).click();
   }
 }
