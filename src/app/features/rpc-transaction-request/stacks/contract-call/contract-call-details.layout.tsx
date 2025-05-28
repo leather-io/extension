@@ -47,9 +47,7 @@ export function ContractCallDetailsLayout({
   if (!contractAbi) {
     return (
       <Approver.Section>
-        <Approver.Subheader>
-          <styled.span textStyle="label.01">Contract</styled.span>
-        </Approver.Subheader>
+        <Approver.Subheader>Contract</Approver.Subheader>
         <styled.span textStyle="caption.01" color="red.action-primary-default">
           Not a valid contract
         </styled.span>
@@ -60,9 +58,7 @@ export function ContractCallDetailsLayout({
   if (!contractFunction) {
     return (
       <Approver.Section>
-        <Approver.Subheader>
-          <styled.span textStyle="label.01">Contract</styled.span>
-        </Approver.Subheader>
+        <Approver.Subheader>Contract</Approver.Subheader>
         <styled.span textStyle="caption.01" color="red.action-primary-default">
           Function not found
         </styled.span>
@@ -73,9 +69,7 @@ export function ContractCallDetailsLayout({
   return (
     <>
       <Approver.Section>
-        <Approver.Subheader>
-          <styled.span textStyle="label.01">Contract</styled.span>
-        </Approver.Subheader>
+        <Approver.Subheader>Contract</Approver.Subheader>
         <Stack gap="space.04">
           <Stack _hover={{ cursor: 'pointer' }} gap="space.02" onClick={onClickContractAddress}>
             <styled.span color="ink.text-subdued" textStyle="caption.01">
@@ -101,9 +95,7 @@ export function ContractCallDetailsLayout({
         </Stack>
       </Approver.Section>
       <Approver.Section>
-        <Approver.Subheader>
-          <styled.span textStyle="label.01">Contract arguments</styled.span>
-        </Approver.Subheader>
+        <Approver.Subheader>Contract arguments</Approver.Subheader>
         <FunctionArgumentList fn={contractFunction} fnArgs={functionArgs} />
       </Approver.Section>
     </>

@@ -3,7 +3,6 @@ import {
   type PostConditionModeName,
   type PostConditionWire,
 } from '@stacks/transactions';
-import { styled } from 'leather-styles/jsx';
 
 import { ensurePostConditionWireFormat } from '@leather.io/stacks';
 import { Approver } from '@leather.io/ui';
@@ -25,9 +24,7 @@ export function PostConditionsDetailsLayout({
 
   return (
     <Approver.Section>
-      <Approver.Subheader>
-        <styled.span textStyle="label.01">Post conditions</styled.span>
-      </Approver.Subheader>
+      <Approver.Subheader>Post conditions</Approver.Subheader>
       {postConditions.length ? (
         <PostConditionList
           postConditions={postConditions.map(pc => ensurePostConditionWireFormat(pc))}

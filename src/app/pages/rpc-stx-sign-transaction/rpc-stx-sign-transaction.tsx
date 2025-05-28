@@ -28,11 +28,11 @@ import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context
 import { NonceEditor } from '@app/features/nonce-editor/nonce-editor';
 import { useNonceEditorContext } from '@app/features/nonce-editor/nonce-editor.context';
 import { RpcTransactionRequestLayout } from '@app/features/rpc-transaction-request/rpc-transaction-request.layout';
+import { SigningAccountCard } from '@app/features/rpc-transaction-request/signing-account-card/signing-account-card';
 import { ContractCallDetailsLayout } from '@app/features/rpc-transaction-request/stacks/contract-call/contract-call-details.layout';
 import { ContractDeployDetailsLayout } from '@app/features/rpc-transaction-request/stacks/contract-deploy/contract-deploy-details.layout';
 import { PostConditionsDetailsLayout } from '@app/features/rpc-transaction-request/stacks/post-conditions/post-conditions-details.layout';
 import { useStacksRpcTransactionRequestContext } from '@app/features/rpc-transaction-request/stacks/stacks-rpc-transaction-request.context';
-import { TransactionAccountSigner } from '@app/features/rpc-transaction-request/transaction-account-signer/transaction-account-signer';
 import { TransactionActionsWithSpend } from '@app/features/rpc-transaction-request/transaction-actions/transaction-actions-with-spend';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
 
@@ -98,6 +98,15 @@ export function RpcStxSignTransaction() {
     closeWindow();
   }
 
+  const signer = (
+    <SigningAccountCard
+      address={<AccountStacksAddress />}
+      availableBalance={availableBalance}
+      fiatBalance={convertToFiatAmount(availableBalance)}
+      isLoadingBalance={isLoadingBalance}
+    />
+  );
+
   return (
     <RpcTransactionRequestLayout
       title="Sign transaction"
@@ -114,12 +123,7 @@ export function RpcStxSignTransaction() {
     >
       {isTokenTransferPayload(unsignedTxForBroadcast.payload) ? (
         <>
-          <TransactionAccountSigner
-            address={<AccountStacksAddress />}
-            availableBalance={availableBalance}
-            fiatBalance={convertToFiatAmount(availableBalance)}
-            isLoadingBalance={isLoadingBalance}
-          />
+          {signer}
           <TransactionRecipientsLayout
             title="Stacks"
             caption="Stacks blockchain"
@@ -136,10 +140,13 @@ export function RpcStxSignTransaction() {
           />
         </>
       ) : (
-        <PostConditionsDetailsLayout
-          postConditions={unsignedTxForBroadcast.postConditions.values}
-          postConditionMode={unsignedTxForBroadcast.postConditionMode}
-        />
+        <>
+          <PostConditionsDetailsLayout
+            postConditions={unsignedTxForBroadcast.postConditions.values}
+            postConditionMode={unsignedTxForBroadcast.postConditionMode}
+          />
+          {signer}
+        </>
       )}
       {isContractCallPayload(unsignedTxForBroadcast.payload) && (
         <ContractCallDetailsLayout

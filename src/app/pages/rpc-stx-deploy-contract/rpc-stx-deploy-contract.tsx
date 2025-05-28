@@ -7,11 +7,14 @@ import {
 } from '@leather.io/stacks';
 import { createMoneyFromDecimal } from '@leather.io/utils';
 
+import { useConvertCryptoCurrencyToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
+import { AccountStacksAddress } from '@app/components/account/account-stacks-address';
 import { FeeEditor } from '@app/features/fee-editor/fee-editor';
 import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
 import { NonceEditor } from '@app/features/nonce-editor/nonce-editor';
 import { useNonceEditorContext } from '@app/features/nonce-editor/nonce-editor.context';
 import { RpcTransactionRequestLayout } from '@app/features/rpc-transaction-request/rpc-transaction-request.layout';
+import { SigningAccountCard } from '@app/features/rpc-transaction-request/signing-account-card/signing-account-card';
 import { ContractDeployDetailsLayout } from '@app/features/rpc-transaction-request/stacks/contract-deploy/contract-deploy-details.layout';
 import { PostConditionsDetailsLayout } from '@app/features/rpc-transaction-request/stacks/post-conditions/post-conditions-details.layout';
 import { useStacksRpcTransactionRequestContext } from '@app/features/rpc-transaction-request/stacks/stacks-rpc-transaction-request.context';
@@ -22,9 +25,10 @@ import { getUnsignedStacksDeployContractOptions } from './rpc-stx-deploy-contrac
 
 export function RpcStxDeployContract() {
   const { address, isLoadingBalance, network, publicKey } = useStacksRpcTransactionRequestContext();
-  const { isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
+  const { availableBalance, isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
     useFeeEditorContext();
   const { nonce, onUserActivatesNonceEditor } = useNonceEditorContext();
+  const convertToFiatAmount = useConvertCryptoCurrencyToFiatAmount('STX');
   const signAndBroadcastTransaction = useSignAndBroadcastStacksTransaction(
     stxDeployContract.method
   );
@@ -63,6 +67,12 @@ export function RpcStxDeployContract() {
           ensurePostConditionWireFormat(pc)
         )}
         postConditionMode={txOptionsForBroadcast.postConditionMode}
+      />
+      <SigningAccountCard
+        address={<AccountStacksAddress />}
+        availableBalance={availableBalance}
+        fiatBalance={convertToFiatAmount(availableBalance)}
+        isLoadingBalance={isLoadingBalance}
       />
       <ContractDeployDetailsLayout
         address={address}

@@ -5,7 +5,6 @@ import { isDefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 import { StacksNonceLoader } from '@app/components/loaders/stacks-nonce-loader';
 import { StxBalanceLoader } from '@app/components/loaders/stx-balance-loader';
@@ -27,7 +26,6 @@ export function RpcStxSignTransactionContainer({ account }: RpcStxSignTransactio
   const request = useRpcTransactionRequest();
   const network = useCurrentStacksNetworkState();
   const stxMarketData = useCryptoCurrencyMarketDataMeanAverage('STX');
-  const { toggleSwitchAccount } = useSwitchAccountSheet();
   const navigate = useNavigate();
 
   const unsignedTxForFeeEstimation = useMemo(

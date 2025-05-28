@@ -64,7 +64,7 @@ export function AccountCard({
         <Link
           _before={{ bg: 'transparent' }}
           _hover={{ color: 'ink.action-primary-hover' }}
-          data-testid={SettingsSelectors.TransactionAccountSigner}
+          data-testid={SettingsSelectors.SigningAccountCard}
           onClick={toggleSwitchAccount}
           variant="text"
           maxWidth="fit-content"

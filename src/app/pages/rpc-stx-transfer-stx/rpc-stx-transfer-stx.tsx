@@ -13,9 +13,9 @@ import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context
 import { NonceEditor } from '@app/features/nonce-editor/nonce-editor';
 import { useNonceEditorContext } from '@app/features/nonce-editor/nonce-editor.context';
 import { RpcTransactionRequestLayout } from '@app/features/rpc-transaction-request/rpc-transaction-request.layout';
+import { SigningAccountCard } from '@app/features/rpc-transaction-request/signing-account-card/signing-account-card';
 import { useStacksRpcTransactionRequestContext } from '@app/features/rpc-transaction-request/stacks/stacks-rpc-transaction-request.context';
 import { useSignAndBroadcastStacksTransaction } from '@app/features/rpc-transaction-request/stacks/use-sign-and-broadcast-stacks-transaction';
-import { TransactionAccountSigner } from '@app/features/rpc-transaction-request/transaction-account-signer/transaction-account-signer';
 import { TransactionActionsWithSpend } from '@app/features/rpc-transaction-request/transaction-actions/transaction-actions-with-spend';
 
 import { getUnsignedStacksTokenTransferOptions } from './rpc-stx-transfer-stx.utils';
@@ -57,7 +57,7 @@ export function RpcStxTransferStx() {
         />
       }
     >
-      <TransactionAccountSigner
+      <SigningAccountCard
         address={<AccountStacksAddress />}
         availableBalance={availableBalance}
         fiatBalance={convertToFiatAmount(availableBalance)}
