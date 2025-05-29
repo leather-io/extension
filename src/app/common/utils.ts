@@ -267,3 +267,22 @@ export function removeTrailingNullCharacters(s: string) {
 export function removeMinusSign(value: string) {
   return value.replace('-', '');
 }
+
+export function serializeError(err: unknown) {
+  if (err instanceof Error) {
+    const errorObj: Record<string, any> = {
+      name: err.name,
+      message: err.message,
+      stack: err.stack,
+    };
+
+    // Include any custom enumerable properties
+    for (const key of Object.keys(err)) {
+      errorObj[key] = (err as any)[key];
+    }
+
+    return errorObj;
+  }
+
+  return { message: String(err) };
+}
