@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router';
 
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
@@ -48,7 +48,7 @@ export function WelcomePage() {
         navigate(url);
       },
       popup() {
-        void openIndexPageInNewTab(url);
+        openIndexPageInNewTab(url);
         closeWindow();
       },
     });

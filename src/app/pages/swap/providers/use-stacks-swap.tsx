@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import type { RouteQuote } from '@bitflowlabs/core-sdk';
 import { PostConditionMode, serializeCV } from '@stacks/transactions';

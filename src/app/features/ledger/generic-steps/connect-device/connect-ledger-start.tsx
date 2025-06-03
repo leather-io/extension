@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
 import { Sheet, SheetHeader } from '@leather.io/ui';
 
@@ -24,7 +24,7 @@ export function ConnectLedgerStart() {
         });
       },
       popup() {
-        void openIndexPageInNewTab(url);
+        openIndexPageInNewTab(url);
         closeWindow();
       },
     });

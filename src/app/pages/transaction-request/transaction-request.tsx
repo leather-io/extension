@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router';
 
 import { Formik, FormikHelpers } from 'formik';
 import { Flex } from 'leather-styles/jsx';

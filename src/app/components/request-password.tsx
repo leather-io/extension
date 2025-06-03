@@ -1,5 +1,5 @@
 import { FormEvent, useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, Stack, styled } from 'leather-styles/jsx';
@@ -45,7 +45,7 @@ export function RequestPassword({ onSuccess, showForgotPassword = false }: Reque
     setError('');
     try {
       await unlockWallet(password);
-      onSuccess?.();
+      onSuccess();
     } catch (error) {
       setError('The password you entered is invalid');
     }

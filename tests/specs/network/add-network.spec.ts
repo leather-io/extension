@@ -97,7 +97,7 @@ test.describe('Networks tests', () => {
   test('proper initial values on edit network', async ({ homePage, page, networkPage }) => {
     await networkPage.inputNetworkNameField('Test network');
     await networkPage.inputNetworkKeyField('test-network');
-    await networkPage.inputNetworkStacksAddressField('https://leather.granite.world');
+    await networkPage.inputNetworkStacksAddressField('https://api.testnet.hiro.so');
 
     await networkPage.clickAddNetwork();
     await homePage.waitForHomePageReady();
@@ -113,7 +113,7 @@ test.describe('Networks tests', () => {
       .getByTestId(NetworkSelectors.NetworkStacksAddress)
       .inputValue();
 
-    test.expect(stacksInputText).toEqual('https://leather.granite.world');
+    test.expect(stacksInputText).toEqual('https://api.testnet.hiro.so');
   });
 
   test('delete network', async ({ homePage, page, networkPage }) => {
@@ -121,7 +121,7 @@ test.describe('Networks tests', () => {
 
     await networkPage.inputNetworkNameField('Test network');
     await networkPage.inputNetworkKeyField(id);
-    await networkPage.inputNetworkStacksAddressField('https://leather.granite.world');
+    await networkPage.inputNetworkStacksAddressField('https://api.testnet.hiro.so');
 
     await networkPage.clickAddNetwork();
     await homePage.waitForHomePageReady();

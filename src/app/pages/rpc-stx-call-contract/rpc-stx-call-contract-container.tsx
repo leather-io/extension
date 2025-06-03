@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router';
 
 import { stxCallContract } from '@leather.io/rpc';
 import { isDefined } from '@leather.io/utils';

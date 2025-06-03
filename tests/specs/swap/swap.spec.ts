@@ -1,5 +1,8 @@
 import { expect } from '@playwright/test';
 import { mockStacksBroadcastTransaction } from '@tests/mocks/mock-stacks-txs';
+import { SwapSelectors } from '@tests/selectors/swap.selectors';
+
+import { delay } from '@leather.io/utils';
 
 import { test } from '../../fixtures/fixtures';
 
@@ -54,8 +57,10 @@ test.describe('Swaps', () => {
     swapPage,
   }) => {
     await swapPage.selectBtcAsBaseAsset();
+    await delay(1000);
 
-    const quoteAsset = await swapPage.page.locator('text="sBTC"').innerText();
+    const selectedAssets = await swapPage.page.getByTestId(SwapSelectors.SelectedAssetSymbol).all();
+    const quoteAsset = await selectedAssets[1].innerText();
     test.expect(quoteAsset).toEqual('sBTC');
 
     await swapPage.selectQuoteAsset();

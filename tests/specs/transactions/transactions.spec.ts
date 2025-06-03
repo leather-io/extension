@@ -30,6 +30,7 @@ test.describe('Transaction signing', () => {
       const newPagePromise = context.waitForEvent('page');
       await testAppPage.page.getByTestId(OnboardingSelectors.SignUpBtn).click();
       const accountsPage = await newPagePromise;
+      await delayAnimationDuration();
       await accountsPage.getByTestId('switch-account-item-0').click({ force: true });
       await accountsPage.getByTestId('switch-account-item-1').click({ force: true });
       await delayAnimationDuration();
