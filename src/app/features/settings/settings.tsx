@@ -100,7 +100,7 @@ export function Settings({
             onSelect={() => {
               void analytics.track('lock_session');
               void lockWallet();
-              navigate(RouteUrls.Unlock);
+              void navigate(RouteUrls.Unlock, { state: { from: location.pathname } });
             }}
             data-testid={SettingsSelectors.LockListItem}
           >
@@ -126,7 +126,16 @@ export function Settings({
           </DropdownMenu.Item>
         ),
       ].filter(Boolean),
-    [canLockWallet, hasKeys, lockWallet, navigate, showAdvancedMenuOptions, showSignOut, walletType]
+    [
+      canLockWallet,
+      hasKeys,
+      lockWallet,
+      navigate,
+      showAdvancedMenuOptions,
+      showSignOut,
+      walletType,
+      location.pathname,
+    ]
   );
 
   return (

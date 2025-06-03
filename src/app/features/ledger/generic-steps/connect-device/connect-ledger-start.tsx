@@ -24,7 +24,7 @@ export function ConnectLedgerStart() {
         });
       },
       popup() {
-        void openIndexPageInNewTab(url);
+        openIndexPageInNewTab(url);
         closeWindow();
       },
     });

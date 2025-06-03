@@ -45,7 +45,7 @@ export function RequestPassword({ onSuccess, showForgotPassword = false }: Reque
     setError('');
     try {
       await unlockWallet(password);
-      onSuccess?.();
+      return onSuccess();
     } catch (error) {
       setError('The password you entered is invalid');
     }
