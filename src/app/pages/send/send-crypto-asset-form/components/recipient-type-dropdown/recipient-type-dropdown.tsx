@@ -25,6 +25,7 @@ export function RecipientIdentifierTypeDropdown(props: RecipientIdentifierTypeDr
           spacing="space.01"
           color="ink.text-primary"
           _hover={{ color: 'ink.action-primary-hover' }}
+          width="100%"
         >
           {activeRecipientIdentifierType}
         </Flag>

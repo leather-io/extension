@@ -19,7 +19,7 @@ export function NonceItem({ nonce, onEditNonce }: SelectedFeeItemProps) {
   return (
     <Approver.Section>
       <Pressable onClick={onEditNonce} my="space.02">
-        <Flag img={<Avatar icon={<NumberedListIcon />} />}>
+        <Flag img={<Avatar icon={<NumberedListIcon />} />} width="100%">
           <HStack alignItems="center" justifyContent="space-between">
             <styled.span textStyle="label.02">Nonce</styled.span>
             <Flex alignItems="center" gap="space.03">
