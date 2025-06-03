@@ -1,5 +1,5 @@
 import { Suspense, memo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 

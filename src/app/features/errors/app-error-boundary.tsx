@@ -1,4 +1,4 @@
-import { useRouteError } from 'react-router-dom';
+import { useRouteError } from 'react-router';
 
 import BroadcastError from '@assets/images/unhappy-face-ui.png';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';

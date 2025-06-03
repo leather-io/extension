@@ -11,7 +11,7 @@ export function openInNewTab(url: string) {
 
 export function openIndexPageInNewTab(path: RouteUrls | string, searchParams?: string) {
   const paramsString = searchParams ? searchParams : '';
-  return chrome.tabs.create({
+  chrome.tabs.create({
     url: chrome.runtime.getURL(`index.html#${path}` + paramsString),
   });
 }

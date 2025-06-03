@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Virtuoso } from 'react-virtuoso';
 
 import { Box } from 'leather-styles/jsx';

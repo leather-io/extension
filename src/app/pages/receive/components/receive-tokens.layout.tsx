@@ -1,5 +1,5 @@
 import QRCode from 'react-qr-code';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';

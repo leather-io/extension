@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 import type { RouteQuote } from '@bitflowlabs/core-sdk';
 import type { StacksTransactionWire } from '@stacks/transactions';

@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 import uniqby from 'lodash.uniqby';
 

@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 
 import BigNumber from 'bignumber.js';
 import { useFormikContext } from 'formik';

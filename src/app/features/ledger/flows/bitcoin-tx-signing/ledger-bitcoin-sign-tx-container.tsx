@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Route, useLocation } from 'react-router-dom';
+import { Route, useLocation } from 'react-router';
 
 import { bytesToHex } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';

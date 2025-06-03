@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2017",
-    "module": "commonjs",
-    "lib": ["es2017", "dom"],
+    "target": "esnext",
+    "module": "preserve",
+    "lib": ["esnext", "dom"],
     "jsx": "react",
     "sourceMap": true,
     "removeComments": true,

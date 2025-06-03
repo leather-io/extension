@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
 import GenericError from '@assets/images/generic-error.png';
 import { Flex, styled } from 'leather-styles/jsx';

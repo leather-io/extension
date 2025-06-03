@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { useFormikContext } from 'formik';

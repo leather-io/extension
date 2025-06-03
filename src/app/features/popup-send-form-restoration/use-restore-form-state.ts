@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import { getActiveTab } from '@shared/utils/get-active-tab';
 

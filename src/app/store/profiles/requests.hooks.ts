@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { verifyProfileUpdateRequest } from '@app/common/profiles/requests';

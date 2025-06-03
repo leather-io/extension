@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router';
 
 import { stxTransferSip10Ft } from '@leather.io/rpc';
 import { isDefined } from '@leather.io/utils';

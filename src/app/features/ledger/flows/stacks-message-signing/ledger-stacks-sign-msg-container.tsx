@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 import { signatureVrsToRsv } from '@stacks/common';
 import { serializeCV } from '@stacks/transactions';

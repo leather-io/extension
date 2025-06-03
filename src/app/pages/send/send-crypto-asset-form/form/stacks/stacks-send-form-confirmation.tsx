@@ -1,4 +1,4 @@
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router';
 
 import { deserializeTransaction } from '@stacks/transactions';
 import { Box, Stack } from 'leather-styles/jsx';
