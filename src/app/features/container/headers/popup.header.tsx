@@ -29,6 +29,7 @@ export function PopupHeader({ showSwitchAccount, balance }: PopupHeaderProps) {
                 img={<CurrentAccountAvatar />}
                 onClick={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
                 cursor="pointer"
+                width="100%"
               >
                 <CurrentAccountName />
               </Flag>

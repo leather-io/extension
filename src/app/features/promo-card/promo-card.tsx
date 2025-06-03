@@ -30,6 +30,7 @@ function PromoCardLayout(props: PromoCardContentProps) {
       mt="space.05"
       pt="space.02"
       px="space.02"
+      width="100%"
       {...props}
     >
       <Box pl="space.03" pt="space.02" pb="space.04">

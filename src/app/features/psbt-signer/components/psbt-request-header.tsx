@@ -24,7 +24,7 @@ export function PsbtRequestHeader({ name, origin }: PsbtRequestHeaderProps) {
         transactions you fully understand.
       </styled.p>
       {caption && (
-        <Flag img={<Favicon origin={origin} />} pl="space.02">
+        <Flag img={<Favicon origin={origin} />} pl="space.02" width="100%">
           <styled.span textStyle="label.02" wordBreak="break-word">
             {caption}
           </styled.span>
