@@ -26,7 +26,7 @@ export function StacksTransactionActionMenu({
           },
         })}
       >
-        <Flag spacing="space.02" reverse img={<ChevronDownIcon variant="small" />}>
+        <Flag spacing="space.02" reverse img={<ChevronDownIcon variant="small" />} width="100%">
           <styled.span textStyle="label.03">Options</styled.span>
         </Flag>
       </DropdownMenu.Trigger>
