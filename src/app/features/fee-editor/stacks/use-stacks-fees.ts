@@ -3,7 +3,14 @@ import { useMemo } from 'react';
 import type { Fees } from '@leather.io/models';
 import { convertAmountToBaseUnit } from '@leather.io/utils';
 
-import { type Fees as StacksFees, feePriorityTimeMap } from '../fee-editor.context';
+import { type Fees as StacksFees } from '../fee-editor.context';
+
+const stacksFeePriorityTimeMap = {
+  slow: '1–2 minutes',
+  standard: '20–30 seconds',
+  fast: '10 seconds',
+  custom: '',
+} as const;
 
 interface UseStacksFeesArgs {
   fees?: Fees;
@@ -17,26 +24,26 @@ export function useStacksFees({ fees }: UseStacksFeesArgs) {
         priority: 'slow',
         feeValue: convertAmountToBaseUnit(fees.estimates[0].fee).toNumber(),
         txFee: fees.estimates[0].fee,
-        time: feePriorityTimeMap.slow,
+        time: stacksFeePriorityTimeMap.slow,
       },
       standard: {
         priority: 'standard',
         feeValue: convertAmountToBaseUnit(fees.estimates[1].fee).toNumber(),
         txFee: fees.estimates[1].fee,
-        time: feePriorityTimeMap.standard,
+        time: stacksFeePriorityTimeMap.standard,
       },
       fast: {
         priority: 'fast',
         feeValue: convertAmountToBaseUnit(fees.estimates[2].fee).toNumber(),
         txFee: fees.estimates[2].fee,
-        time: feePriorityTimeMap.fast,
+        time: stacksFeePriorityTimeMap.fast,
       },
       // Load custom as standard fee
       custom: {
         priority: 'custom',
         feeValue: convertAmountToBaseUnit(fees.estimates[1].fee).toNumber(),
         txFee: fees.estimates[1].fee,
-        time: feePriorityTimeMap.custom,
+        time: stacksFeePriorityTimeMap.custom,
       },
     };
   }, [fees]);

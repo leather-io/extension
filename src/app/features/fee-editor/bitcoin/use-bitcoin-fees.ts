@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 
-import type { AverageBitcoinFeeRates, Money } from '@leather.io/models';
+import { type AverageBitcoinFeeRates, type Money, btcTxTimeMap } from '@leather.io/models';
 import type { UtxoResponseItem } from '@leather.io/query';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 
-import { type Fees, feePriorityTimeMap } from '../fee-editor.context';
+import { type Fees } from '../fee-editor.context';
 import { getApproximateFee, getBitcoinFee, getBitcoinSendMaxFee } from './bitcoin-fees.utils';
 
 interface UseBitcoinFeesArgs {
@@ -78,26 +78,26 @@ export function useBitcoinFees({
         priority: 'slow',
         feeRate: feeRates.hourFee.toNumber(),
         txFee: lowFee,
-        time: feePriorityTimeMap.slow,
+        time: btcTxTimeMap.hourFee,
       },
       standard: {
         priority: 'standard',
         feeRate: feeRates.halfHourFee.toNumber(),
         txFee: standardFee,
-        time: feePriorityTimeMap.standard,
+        time: btcTxTimeMap.halfHourFee,
       },
       fast: {
         priority: 'fast',
         feeRate: feeRates.fastestFee.toNumber(),
         txFee: highFee,
-        time: feePriorityTimeMap.fast,
+        time: btcTxTimeMap.fastestFee,
       },
       // Load custom as standard fee
       custom: {
         priority: 'custom',
         feeRate: feeRates.halfHourFee.toNumber(),
         txFee: standardFee,
-        time: feePriorityTimeMap.custom,
+        time: '',
       },
     };
   }, [determineUtxosDefaultArgs, feeRates, isSendingMax, recipients, utxos]);
