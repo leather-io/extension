@@ -78,6 +78,7 @@ export function RpcSendTransfer() {
           <FeeEditor.Trigger
             feeType="fee-rate"
             isLoading={isLoadingFees}
+            isSponsored={false}
             marketData={marketData}
             onEditFee={onUserActivatesFeeEditor}
             selectedFee={selectedFee}

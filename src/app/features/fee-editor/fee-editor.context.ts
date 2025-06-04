@@ -21,6 +21,7 @@ interface FeeEditorContext {
   feeType: FeeType;
   loadedFee: Fee;
   isLoadingFees: boolean;
+  isSponsored: boolean;
   marketData: MarketData;
   fees: Fees;
   selectedFee: Fee;
