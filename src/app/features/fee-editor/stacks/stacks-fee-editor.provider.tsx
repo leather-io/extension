@@ -1,4 +1,4 @@
-import type { StacksTransactionWire } from '@stacks/transactions';
+import { type StacksTransactionWire } from '@stacks/transactions';
 
 import type { MarketData, Money } from '@leather.io/models';
 
@@ -22,7 +22,7 @@ export function StacksFeeEditorProvider({
 }: StacksFeeEditorProviderProps) {
   return (
     <StacksFeesLoader unsignedTx={unsignedTx}>
-      {({ fees, isLoading, getCustomFee }) => {
+      {({ fees, isLoading, isSponsored, getCustomFee }) => {
         return (
           <FeeEditorProvider
             availableBalance={availableBalance}
@@ -30,6 +30,7 @@ export function StacksFeeEditorProvider({
             feeType="fee-value"
             getCustomFee={getCustomFee}
             isLoadingFees={isLoading}
+            isSponsored={isSponsored}
             marketData={marketData}
             onGoBack={onGoBack}
           >

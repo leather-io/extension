@@ -46,8 +46,14 @@ import {
 
 export function RpcStxSignTransaction() {
   const { address, isLoadingBalance, requestId, tabId } = useStacksRpcTransactionRequestContext();
-  const { availableBalance, isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
-    useFeeEditorContext();
+  const {
+    availableBalance,
+    isLoadingFees,
+    isSponsored,
+    marketData,
+    onUserActivatesFeeEditor,
+    selectedFee,
+  } = useFeeEditorContext();
   const { nonce, onUserActivatesNonceEditor } = useNonceEditorContext();
   const convertToFiatAmount = useConvertCryptoCurrencyToFiatAmount('STX');
   const signStacksTx = useSignStacksTransaction();
@@ -56,19 +62,13 @@ export function RpcStxSignTransaction() {
   const txRequestHasAlreadySetFee = checkUnsignedStacksTransactionFee(unsignedTxForBroadcast);
   const txRequestHasAlreadySetNonce = checkUnsignedStacksTransactionNonce(unsignedTxForBroadcast);
 
-  const isSponsored = unsignedTxForBroadcast.auth.authType === AuthType.Sponsored;
-
   // Handle multisig transactions
   const isMultisig = checkUnsignedStacksTransactionHashMode(unsignedTxForBroadcast);
   const txRequestWasAlreadySignedByOthers =
     isMultisig &&
     'fields' in unsignedTxForBroadcast.auth.spendingCondition &&
     unsignedTxForBroadcast.auth.spendingCondition.fields.length > 0;
-  const enableFeeEditor = !(
-    txRequestWasAlreadySignedByOthers ||
-    txRequestHasAlreadySetFee ||
-    isSponsored
-  );
+  const enableFeeEditor = !(txRequestWasAlreadySignedByOthers || txRequestHasAlreadySetFee);
   const enableNonceEditor = !(txRequestWasAlreadySignedByOthers || txRequestHasAlreadySetNonce);
 
   async function onApproveTransaction() {
@@ -177,6 +177,7 @@ export function RpcStxSignTransaction() {
         <FeeEditor.Trigger
           feeType="fee-value"
           isLoading={isLoadingFees}
+          isSponsored={isSponsored}
           marketData={marketData}
           onEditFee={onUserActivatesFeeEditor}
           selectedFee={selectedFee}

@@ -11,11 +11,11 @@ import {
 
 import type { Nonce } from './nonce-editor.context';
 
-interface SelectedFeeItemProps {
+interface NonceItemProps {
   nonce: Nonce;
   onEditNonce(): void;
 }
-export function NonceItem({ nonce, onEditNonce }: SelectedFeeItemProps) {
+export function NonceItem({ nonce, onEditNonce }: NonceItemProps) {
   return (
     <Approver.Section>
       <Pressable onClick={onEditNonce} my="space.02">
