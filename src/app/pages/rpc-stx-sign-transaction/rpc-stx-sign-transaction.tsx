@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import {
+  AuthType,
   addressToString,
   isContractCallPayload,
   isSmartContractPayload,
@@ -55,19 +56,27 @@ export function RpcStxSignTransaction() {
   const txRequestHasAlreadySetFee = checkUnsignedStacksTransactionFee(unsignedTxForBroadcast);
   const txRequestHasAlreadySetNonce = checkUnsignedStacksTransactionNonce(unsignedTxForBroadcast);
 
+  const isSponsored = unsignedTxForBroadcast.auth.authType === AuthType.Sponsored;
+
   // Handle multisig transactions
   const isMultisig = checkUnsignedStacksTransactionHashMode(unsignedTxForBroadcast);
   const txRequestWasAlreadySignedByOthers =
     isMultisig &&
     'fields' in unsignedTxForBroadcast.auth.spendingCondition &&
     unsignedTxForBroadcast.auth.spendingCondition.fields.length > 0;
-  const enableFeeEditor = !(txRequestWasAlreadySignedByOthers || txRequestHasAlreadySetFee);
+  const enableFeeEditor = !(
+    txRequestWasAlreadySignedByOthers ||
+    txRequestHasAlreadySetFee ||
+    isSponsored
+  );
   const enableNonceEditor = !(txRequestWasAlreadySignedByOthers || txRequestHasAlreadySetNonce);
 
   async function onApproveTransaction() {
     if (!txRequestHasAlreadySetFee)
       unsignedTxForBroadcast.setFee(selectedFee.txFee.amount.toString());
     if (!txRequestHasAlreadySetNonce) unsignedTxForBroadcast.setNonce(nonce);
+
+    if (isSponsored) unsignedTxForBroadcast.setFee(0);
 
     const signedTransaction = await signStacksTx(unsignedTxForBroadcast);
 
@@ -115,6 +124,7 @@ export function RpcStxSignTransaction() {
       actions={
         <TransactionActionsWithSpend
           isLoading={isLoadingBalance || isLoadingFees}
+          isSponsored={unsignedTxForBroadcast.auth.authType === AuthType.Sponsored}
           // TODO: Calculate amount if more than fees
           txAmount={createMoney(0, 'STX')}
           onApprove={onApproveTransaction}
