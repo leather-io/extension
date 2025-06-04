@@ -70,7 +70,7 @@ function TransactionRequestBase() {
   const { data: nextNonce, status: nonceQueryStatus } = useNextNonce(stxAddress);
 
   const { isVerifying: isVerifyingSbtcSponsorship, result: sbtcSponsorshipEligibility } =
-    useCheckSbtcSponsorshipEligible(unsignedTx, nextNonce, stxFees);
+    useCheckSbtcSponsorshipEligible({ baseTx: unsignedTx, stxFees });
 
   const canSubmit =
     filteredBalanceQuery.status === 'success' &&

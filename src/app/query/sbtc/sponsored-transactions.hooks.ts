@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 
 import { FeeTypes, type Fees } from '@leather.io/models';
-import type { NextNonce } from '@leather.io/query';
 
 import { logger } from '@shared/logger';
 
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useConfigSbtc } from '../common/remote-config/remote-config.query';
+import { useNextNonce } from '../stacks/nonce/account-nonces.hooks';
 import {
   type SbtcSponsorshipEligibility,
   type SbtcSponsorshipVerificationResult,
@@ -15,13 +15,17 @@ import {
   verifySponsoredSbtcTransaction,
 } from './sponsored-transactions.query';
 
-export function useCheckSbtcSponsorshipEligible(
-  baseTx?: TransactionBase,
-  nextNonce?: NextNonce,
-  stxFees?: Fees
-): SbtcSponsorshipVerificationResult {
+interface UseCheckSbtcSponsorshipEligibleProps {
+  baseTx?: TransactionBase;
+  stxFees?: Fees;
+}
+export function useCheckSbtcSponsorshipEligible({
+  baseTx,
+  stxFees,
+}: UseCheckSbtcSponsorshipEligibleProps): SbtcSponsorshipVerificationResult {
   const sbtcConfig = useConfigSbtc();
   const stxAddress = useCurrentStacksAccountAddress();
+  const { data: nextNonce } = useNextNonce(stxAddress);
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult] = useState<SbtcSponsorshipEligibility | undefined>();
   const [lastAddressChecked, setLastAddressChecked] = useState<string | undefined>();

@@ -28,8 +28,14 @@ import {
 
 export function RpcStxCallContract() {
   const { isLoadingBalance, network, publicKey } = useStacksRpcTransactionRequestContext();
-  const { availableBalance, isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
-    useFeeEditorContext();
+  const {
+    availableBalance,
+    isLoadingFees,
+    isSponsored,
+    marketData,
+    onUserActivatesFeeEditor,
+    selectedFee,
+  } = useFeeEditorContext();
   const { nonce, onUserActivatesNonceEditor } = useNonceEditorContext();
   const signAndBroadcastTransaction = useSignAndBroadcastStacksTransaction(stxCallContract.method);
   const convertToFiatAmount = useConvertCryptoCurrencyToFiatAmount('STX');
@@ -38,19 +44,16 @@ export function RpcStxCallContract() {
   const txOptionsForBroadcast = useMemo(
     () =>
       getUnsignedStacksContractCallOptions({
-        fee: selectedFee.txFee,
+        fee: isSponsored ? createMoney(0, 'STX') : selectedFee.txFee,
         network,
         nonce,
         publicKey,
       }),
-    [network, nonce, publicKey, selectedFee.txFee]
+    [isSponsored, network, nonce, publicKey, selectedFee.txFee]
   );
-
-  const isSponsored = txOptionsForBroadcast.sponsored ?? false;
 
   async function onApproveTransaction() {
     const unsignedTx = await generateStacksUnsignedTransaction(txOptionsForBroadcast);
-    if (isSponsored) unsignedTx.setFee(0);
     await signAndBroadcastTransaction(unsignedTx);
   }
 
@@ -86,15 +89,14 @@ export function RpcStxCallContract() {
         functionName={txOptionsForBroadcast.functionName}
         functionArgs={txOptionsForBroadcast.functionArgs}
       />
-      {!isSponsored && (
-        <FeeEditor.Trigger
-          feeType="fee-value"
-          isLoading={isLoadingFees}
-          marketData={marketData}
-          onEditFee={onUserActivatesFeeEditor}
-          selectedFee={selectedFee}
-        />
-      )}
+      <FeeEditor.Trigger
+        feeType="fee-value"
+        isLoading={isLoadingFees}
+        isSponsored={isSponsored}
+        marketData={marketData}
+        onEditFee={onUserActivatesFeeEditor}
+        selectedFee={selectedFee}
+      />
       <NonceEditor.Trigger nonce={nonce} onEditNonce={onUserActivatesNonceEditor} />
     </RpcTransactionRequestLayout>
   );
