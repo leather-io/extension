@@ -39,8 +39,11 @@ export function RpcStxTransferStx() {
     [network, nonce, publicKey, selectedFee.txFee]
   );
 
+  const isSponsored = txOptionsForBroadcast.sponsored ?? false;
+
   async function onApproveTransaction() {
     const unsignedTx = await generateStacksUnsignedTransaction(txOptionsForBroadcast);
+    if (isSponsored) unsignedTx.setFee(0);
     await signAndBroadcastTransaction(unsignedTx);
   }
 
@@ -52,6 +55,7 @@ export function RpcStxTransferStx() {
       actions={
         <TransactionActionsWithSpend
           isLoading={isLoadingBalance || isLoadingFees}
+          isSponsored={isSponsored}
           txAmount={txOptionsForBroadcast.amount}
           onApprove={onApproveTransaction}
         />
@@ -77,13 +81,15 @@ export function RpcStxTransferStx() {
           },
         ]}
       />
-      <FeeEditor.Trigger
-        feeType="fee-value"
-        isLoading={isLoadingFees}
-        marketData={marketData}
-        onEditFee={onUserActivatesFeeEditor}
-        selectedFee={selectedFee}
-      />
+      {!isSponsored && (
+        <FeeEditor.Trigger
+          feeType="fee-value"
+          isLoading={isLoadingFees}
+          marketData={marketData}
+          onEditFee={onUserActivatesFeeEditor}
+          selectedFee={selectedFee}
+        />
+      )}
       <NonceEditor.Trigger nonce={nonce} onEditNonce={onUserActivatesNonceEditor} />
     </RpcTransactionRequestLayout>
   );
