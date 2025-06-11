@@ -56,7 +56,7 @@ export async function decryptMnemonic({
       secretKey,
       encryptedSecretKey: newEncryptedKey.encryptedSecretKey,
       salt: newEncryptedKey.salt,
-      encryptionKey: newEncryptedKey.encryptedSecretKey,
+      encryptionKey: newEncryptedKey.encryptionKey,
     };
   }
 }
