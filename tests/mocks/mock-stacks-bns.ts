@@ -60,3 +60,29 @@ export function mockBnsV2ZoneFileLookup(page: Page) {
       route.fulfill({ json: createSuccessfulBnsV2ZoneFileLookupMockResponse(owner, btcAddress) })
     );
 }
+
+export function mockBnsV2NameLookup(page: Page) {
+  return function ({ name, fullName, owner }: { name: string; fullName: string; owner: string }) {
+    return page.route(`**/api.bnsv2.com/names/${fullName}`, route =>
+      route.fulfill({
+        json: {
+          current_burn_block: 900937,
+          status: 'active',
+          data: {
+            name_string: name,
+            namespace_string: 'btc',
+            full_name: fullName,
+            owner,
+            registered_at: '17467',
+            renewal_height: '1125982',
+            stx_burn: '0',
+            revoked: false,
+            imported_at: 'none',
+            preordered_by: 'none',
+            is_valid: true,
+          },
+        },
+      })
+    );
+  };
+}
