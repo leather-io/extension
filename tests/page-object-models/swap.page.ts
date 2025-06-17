@@ -33,7 +33,7 @@ export class SwapPage {
     const swapAssetSelectors = await this.page.locator(this.selectAssetBtn).all();
     await swapAssetSelectors[1].click();
     await this.page.locator(this.chooseAssetList).waitFor();
-    await this.page.locator('text="ALEX"').click();
+    await this.page.locator('text="USDA"').click();
   }
 
   async inputSwapAmountBase() {
