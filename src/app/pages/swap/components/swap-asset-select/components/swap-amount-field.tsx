@@ -54,8 +54,12 @@ export function SwapAmountField<T extends BaseSwapContext<T>>({
     onSetIsFetchingExchangeRate(true);
     const toAmount = await fetchQuoteAmount(swapAssetBase, swapAssetQuote, value);
     onSetIsFetchingExchangeRate(false);
+    if (isUndefined(toAmount)) {
+      await setFieldValue('swapAmountQuote', undefined);
+      return;
+    }
     const valueLengthAsDecimals = value.length - 1;
-    if (isUndefined(toAmount) || valueLengthAsDecimals > swapAssetBase.balance.decimals) {
+    if (valueLengthAsDecimals > swapAssetBase.balance.decimals) {
       await setFieldValue('swapAmountQuote', '');
       return;
     }
