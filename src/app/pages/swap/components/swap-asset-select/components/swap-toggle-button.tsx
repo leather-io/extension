@@ -37,7 +37,7 @@ export function SwapToggleButton<T extends BaseSwapContext<T>>() {
       const quoteAmount = await fetchQuoteAmount(prevAssetQuote, prevAssetBase, prevAmountQuote);
       onSetIsFetchingExchangeRate(false);
       if (isUndefined(quoteAmount)) {
-        void setFieldValue('swapAmountQuote', '');
+        void setFieldValue('swapAmountQuote', undefined);
         return;
       }
       void setFieldValue('swapAmountQuote', Number(quoteAmount));
@@ -59,7 +59,11 @@ export function SwapToggleButton<T extends BaseSwapContext<T>>() {
   return (
     <styled.button
       alignSelf="flex-start"
-      disabled={isUndefined(values.swapAssetQuote) || isFetchingExchangeRate}
+      disabled={
+        isUndefined(values.swapAssetQuote) ||
+        isUndefined(values.swapAmountQuote) ||
+        isFetchingExchangeRate
+      }
       onClick={onToggleSwapAssets}
       type="button"
     >

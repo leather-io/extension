@@ -19,7 +19,7 @@ import { SwapAssetSelectLayout } from './components/swap-asset-select.layout';
 
 export function SwapAssetSelectQuote<T extends BaseSwapContext<T>>() {
   const { isCrossChainSwap, isFetchingExchangeRate } = useSwapContext<T>();
-  const [amountField] = useField('swapAmountQuote');
+  const [amountField, amountFieldMeta] = useField('swapAmountQuote');
   const [assetField] = useField('swapAssetQuote');
   const swapNavigate = useSwapNavigate();
 
@@ -34,9 +34,11 @@ export function SwapAssetSelectQuote<T extends BaseSwapContext<T>>() {
   return (
     <SwapAssetSelectLayout
       caption="You have"
+      error={amountFieldMeta.error}
       icon={assetField.value?.icon}
       name="swapAmountQuote"
       onSelectAsset={() => swapNavigate(RouteUrls.SwapAssetSelectQuote)}
+      showError={!!amountFieldMeta.error}
       showToggle={!isCrossChainSwap}
       swapAmountInput={
         isFetchingExchangeRate ? (

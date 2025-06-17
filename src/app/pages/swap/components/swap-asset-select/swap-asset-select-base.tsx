@@ -56,7 +56,7 @@ export function SwapAssetSelectBase<T extends BaseSwapContext<T>>() {
     if (isUndefined(swapAssetQuote)) return;
     const toAmount = await fetchQuoteAmount(swapAssetBase, swapAssetQuote, formattedBalance);
     if (isUndefined(toAmount)) {
-      await setFieldValue('swapAmountQuote', '');
+      await setFieldValue('swapAmountQuote', undefined);
       return;
     }
     const toAmountAsMoney = createMoney(
