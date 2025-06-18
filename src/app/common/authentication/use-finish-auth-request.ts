@@ -1,14 +1,8 @@
 import { useCallback } from 'react';
 
-import {
-  createWalletGaiaConfig,
-  getOrCreateWalletConfig,
-  makeAuthResponse,
-  updateWalletConfigWithApp,
-} from '@stacks/wallet-sdk';
+import { makeAuthResponse } from '@stacks/wallet-sdk';
 
 import { gaiaUrl } from '@leather.io/constants';
-import { hiroApiRequestsPriorityLevels } from '@leather.io/query';
 
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { logger } from '@shared/logger';
@@ -17,7 +11,6 @@ import { useAuthRequestParams } from '@app/common/hooks/auth/use-auth-request-pa
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { useHiroApiRateLimiter } from '@app/query/rate-limiter/hiro-rate-limiter';
 import {
   useLegacyStacksWallet,
   useStacksAccounts,
@@ -26,15 +19,14 @@ import {
 import { useGetLegacyAuthBitcoinAddresses } from './use-legacy-auth-bitcoin-addresses';
 
 export function useFinishAuthRequest() {
-  const { decodedAuthRequest, authRequest, appIcon, appName } = useOnboardingState();
+  const { decodedAuthRequest, authRequest } = useOnboardingState();
   const keyActions = useKeyActions();
   const stacksAccounts = useStacksAccounts();
   const { walletType } = useWalletType();
-  const accounts = useStacksAccounts();
+
   const { origin, tabId } = useAuthRequestParams();
 
   const wallet = useLegacyStacksWallet();
-  const hiroLimiter = useHiroApiRateLimiter();
 
   // TODO: It would be good to separate out finishing auth by the wallet vs an app
   // so that the additional data we provide apps can be removed from our onboarding.
@@ -43,7 +35,7 @@ export function useFinishAuthRequest() {
 
   return useCallback(
     async (accountIndex: number) => {
-      const account = accounts?.[accountIndex];
+      const account = stacksAccounts?.[accountIndex];
 
       if (!decodedAuthRequest || !authRequest || !account || !stacksAccounts || !origin || !tabId) {
         logger.error('Uh oh! Finished onboarding without auth info.');
@@ -58,50 +50,17 @@ export function useFinishAuthRequest() {
         if (!wallet) return;
 
         try {
-          const gaiaHubConfig = await hiroLimiter.add(
-            () => createWalletGaiaConfig({ gaiaHubUrl: gaiaUrl, wallet }),
-            {
-              priority: hiroApiRequestsPriorityLevels.createWalletGaiaConfig,
-              throwOnTimeout: true,
-            }
-          );
-
-          const walletConfig = await getOrCreateWalletConfig({
-            wallet,
-            gaiaHubConfig,
-            skipUpload: true,
-          });
-
-          await updateWalletConfigWithApp({
-            wallet,
-            walletConfig,
-            gaiaHubConfig,
-            account,
-            app: {
-              origin: appURL.origin,
-              lastLoginAt: new Date().getTime(),
-              scopes: decodedAuthRequest.scopes,
-              appIcon: appIcon as string,
-              name: appName as string,
+          const authResponse = await makeAuthResponse({
+            gaiaHubUrl: gaiaUrl,
+            appDomain: appURL.origin,
+            transitPublicKey: decodedAuthRequest.public_keys[0],
+            scopes: decodedAuthRequest.scopes,
+            account: account,
+            additionalData: {
+              ...getLegacyAuthBitcoinData(accountIndex),
+              walletProvider: 'leather',
             },
           });
-
-          const authResponse = await hiroLimiter.add(
-            () => {
-              return makeAuthResponse({
-                gaiaHubUrl: gaiaUrl,
-                appDomain: appURL.origin,
-                transitPublicKey: decodedAuthRequest.public_keys[0],
-                scopes: decodedAuthRequest.scopes,
-                account: account,
-                additionalData: {
-                  ...getLegacyAuthBitcoinData(accountIndex),
-                  walletProvider: 'leather',
-                },
-              });
-            },
-            { priority: hiroApiRequestsPriorityLevels.makeAuthResponse, throwOnTimeout: true }
-          );
 
           keyActions.switchAccount(accountIndex);
           finalizeAuthResponse({
@@ -117,7 +76,6 @@ export function useFinishAuthRequest() {
       }
     },
     [
-      accounts,
       decodedAuthRequest,
       authRequest,
       stacksAccounts,
@@ -125,11 +83,8 @@ export function useFinishAuthRequest() {
       tabId,
       walletType,
       wallet,
-      appIcon,
-      appName,
       getLegacyAuthBitcoinData,
       keyActions,
-      hiroLimiter,
     ]
   );
 }

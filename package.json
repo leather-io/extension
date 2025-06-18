@@ -184,7 +184,7 @@
     "@stacks/rpc-client": "1.0.3",
     "@stacks/transactions": "7.0.5",
     "@stacks/transactions-v6": "npm:@stacks/transactions@6.17.0",
-    "@stacks/wallet-sdk": "7.0.2",
+    "@stacks/wallet-sdk": "7.1.2",
     "@stitches/react": "1.2.8",
     "@storybook/addon-styling-webpack": "1.0.1",
     "@styled-system/theme-get": "5.1.2",
