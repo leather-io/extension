@@ -1,3 +1,31 @@
+## [6.71.0](https://github.com/leather-io/extension/compare/v6.70.1...v6.71.0) (2025-06-18)
+
+
+### Features
+
+* additional inscription controls ([bd84151](https://github.com/leather-io/extension/commit/bd8415170a116ff8078ee271e84b03843d51065a))
+
+
+### Bug Fixes
+
+* legacy auth with missing gaia, closes [#6302](https://github.com/leather-io/extension/issues/6302) ([e08f665](https://github.com/leather-io/extension/commit/e08f6656cea0b929499458274fe3a7b324c3d638))
+* refresh on install, closes LEA-2745 ([447b6cb](https://github.com/leather-io/extension/commit/447b6cb169dfa9099cf4ee4dad89890f97bb013c))
+* runtime event handler err with collectible cards ([f46e5d2](https://github.com/leather-io/extension/commit/f46e5d2c1f4bde454291447b85fa4f6b3270530f))
+* stacks tx times, closes LEA-2703 ([3b349e6](https://github.com/leather-io/extension/commit/3b349e6230ba11d38a0ccf6fcca1225ebd414c42))
+* swaps with undefined route ([d50e73f](https://github.com/leather-io/extension/commit/d50e73f450cda447d6c48d1dc9dec54eed56e9e9))
+* test adding switch account to call contract ([9f88dfd](https://github.com/leather-io/extension/commit/9f88dfdae6862d8c3ce300c7d3b4c4635981ef66))
+* upgrade to node 22 ([82a6990](https://github.com/leather-io/extension/commit/82a6990519ed43a585bdf3596a18c16a19cf2c9c))
+* wrong prop passed to migration fn ([da980ad](https://github.com/leather-io/extension/commit/da980ad387c450de0e3c223f0bf709f74eb30d8d))
+
+
+### Internal
+
+* account signer, closes LEA-2638 ([ee16b6f](https://github.com/leather-io/extension/commit/ee16b6f0e023ae3db979129c282942a3d4f6095f))
+* add deeper tx analytics ([9dc2804](https://github.com/leather-io/extension/commit/9dc28043e0e4c483308670a590246050eee5edc5))
+* post-release merge back ([43185f3](https://github.com/leather-io/extension/commit/43185f33ac145b4209f2570066d051f7207d3763))
+* stx sign transaction to approver, closes LEA-2613 and LEA-2617 ([2296d6e](https://github.com/leather-io/extension/commit/2296d6efca4592f73e7dd49136ec639b5488060e))
+* validate send to contract address, closes LEA-2125 ([8750b59](https://github.com/leather-io/extension/commit/8750b5902e21e7e23ec8194490bb43be2b2397bd))
+
 ## [6.70.1](https://github.com/leather-io/extension/compare/v6.70.0...v6.70.1) (2025-05-22)
 
 
