@@ -9,6 +9,7 @@ import {
   convertAmountToBaseUnit,
   convertAmountToFractionalUnit,
   createMoney,
+  isDefined,
   isUndefined,
 } from '@leather.io/utils';
 
@@ -161,7 +162,14 @@ export function useSwapForm<T extends BaseSwapContext<T>>() {
       .positive(FormErrorMessages.MustBePositive),
     swapAmountQuote: yup
       .number()
-      .required(FormErrorMessages.AmountRequired)
+      .test({
+        message: 'No route found',
+        test(value) {
+          const { swapAmountBase } = this.parent;
+          if (isDefined(swapAmountBase) && isUndefined(value)) return false;
+          return true;
+        },
+      })
       .typeError(FormErrorMessages.MustBeNumber)
       .positive(FormErrorMessages.MustBePositive),
   });

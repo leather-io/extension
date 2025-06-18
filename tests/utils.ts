@@ -1,5 +1,5 @@
 import { Locator } from '@playwright/test';
-import { AnchorMode, makeUnsignedSTXTokenTransfer } from '@stacks/transactions';
+import { makeUnsignedSTXTokenTransfer } from '@stacks/transactions';
 
 import { SharedComponentsSelectors } from './selectors/shared-component.selectors';
 
@@ -27,14 +27,12 @@ export async function generateUnsignedStxTransfer(
   amount: number,
   network: any,
   publicKey: string,
-  anchorMode?: AnchorMode,
   memo?: string
 ) {
   const options = {
     recipient,
     memo,
     publicKey,
-    anchorMode: anchorMode ?? AnchorMode.Any,
     amount,
     network,
   };
@@ -49,7 +47,6 @@ export async function generateMultisigUnsignedStxTransfer(
   publicKeys: string[],
   threshold: number,
   nonce: number,
-  anchorMode?: AnchorMode,
   memo?: string
 ) {
   const options = {
@@ -59,7 +56,6 @@ export async function generateMultisigUnsignedStxTransfer(
     publicKeys,
     nonce,
     numSignatures: threshold,
-    anchorMode: anchorMode ?? AnchorMode.Any,
     amount,
     network,
   };

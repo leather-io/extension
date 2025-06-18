@@ -68,7 +68,7 @@ function SetPasswordPage() {
           await finishSignIn(0);
         }
       } else {
-        navigate(RouteUrls.Home);
+        navigate(RouteUrls.Home, { replace: true, state: { fromOnboarding: true } });
       }
     },
     [setPassword, decodedAuthRequest, stacksAccounts, navigate, finishSignIn]

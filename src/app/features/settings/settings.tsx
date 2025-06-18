@@ -147,7 +147,7 @@ export function Settings({
               )}
               {hasKeys && toggleSwitchAccount && (
                 <DropdownMenu.Item
-                  data-testid={SettingsSelectors.SwitchAccountTrigger}
+                  data-testid={SettingsSelectors.SigningAccountCard}
                   onSelect={toggleSwitchAccount}
                 >
                   <Flag img={<ArrowsRepeatLeftRightIcon />} textStyle="label.02">
@@ -245,7 +245,7 @@ export function Settings({
               <DropdownMenu.Item
                 data-testid={SettingsSelectors.GetSupportMenuItem}
                 onSelect={() => {
-                  openInNewTab('https://leather.io/support');
+                  openInNewTab('https://leather.io/help');
                 }}
               >
                 <Flag img={<SupportIcon />} textStyle="label.02">

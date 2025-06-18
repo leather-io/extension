@@ -16,11 +16,11 @@ export interface RpcTransactionRequest {
   requestId: string;
   tabId: number;
   status: TransactionStatus;
+  onClickRequestedByLink(method: RpcMethodNames): void;
   onSetTransactionStatus(status: TransactionStatus): void;
-  onUserActivatesSwitchAccount(): void;
 }
 
-export function useRpcTransactionRequest() {
+export function useRpcTransactionRequest(): RpcTransactionRequest {
   const [status, setStatus] = useState<TransactionStatus>('idle');
   const { origin, requestId, tabId } = useRpcRequestParams();
 

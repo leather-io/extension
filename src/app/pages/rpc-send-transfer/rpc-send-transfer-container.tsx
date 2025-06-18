@@ -2,7 +2,6 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 import { BitcoinUtxosLoader } from '@app/components/loaders/bitcoin-utxos-loader';
 import { BitcoinFeeEditorProvider } from '@app/features/fee-editor/bitcoin/bitcoin-fee-editor.provider';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
@@ -13,7 +12,6 @@ import { useRpcSendTransfer } from './use-rpc-send-transfer';
 
 export function RpcSendTransferContainer() {
   const sendTransferState = useRpcSendTransfer();
-  const { toggleSwitchAccount } = useSwitchAccountSheet();
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const btcBalance = useCurrentBtcCryptoAssetBalanceNativeSegwit();
 
@@ -37,7 +35,6 @@ export function RpcSendTransferContainer() {
             value={{
               ...sendTransferState,
               isLoadingBalance: btcBalance.isLoadingAllData,
-              onUserActivatesSwitchAccount: toggleSwitchAccount,
               utxos,
             }}
           >

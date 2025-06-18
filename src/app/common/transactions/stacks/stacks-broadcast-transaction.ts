@@ -10,6 +10,7 @@ import { delay, isError } from '@leather.io/utils';
 import { logger } from '@shared/logger';
 import { analytics } from '@shared/utils/analytics';
 
+import { serializeError } from '@app/common/utils';
 import { hiroFetchWrapper } from '@app/query/stacks/stacks-client';
 
 interface StacksBroadcastTransactionArgs {
@@ -40,12 +41,19 @@ export async function stacksBroadcastTransaction({
 
     if ('error' in response) {
       logger.error('Transaction failed to broadcast', response);
-      throw new Error(response.error);
+      const error = new Error(response.error);
+      error.name = response.reason;
+      error.message = response.error;
+      error.cause = response.reason;
+      throw error;
     }
 
     if (!response.txid) {
       logger.error('Transaction failed to broadcast', response);
-      throw new Error('Transaction failed to broadcast');
+      const error = new Error('Transaction broadcast but returned no txid');
+      error.name = 'TransactionBroadcastError';
+      error.message = 'Transaction broadcast but returned no txid';
+      throw error;
     }
 
     logger.info('Transaction broadcast', response);
@@ -62,7 +70,7 @@ export async function stacksBroadcastTransaction({
     logger.error('Transaction error', { error });
     void analytics.untypedTrack('stacks_transaction_broadcast_failed', {
       attemptId,
-      error: isError(error) ? error.message : String(error),
+      ...serializeError(error),
     });
     onError(isError(error) ? error : { name: '', message: '' });
     return;

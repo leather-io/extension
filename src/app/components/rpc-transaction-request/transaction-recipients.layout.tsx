@@ -1,5 +1,5 @@
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { HStack, styled } from 'leather-styles/jsx';
+import { HStack } from 'leather-styles/jsx';
 
 import type { Money } from '@leather.io/models';
 import { AddressDisplayer, Approver, ItemLayout, UserIcon } from '@leather.io/ui';
@@ -32,9 +32,7 @@ export function TransactionRecipientsLayout({
 
     return (
       <Approver.Section key={address}>
-        <Approver.Subheader>
-          <styled.span textStyle="label.01">You'll send</styled.span>
-        </Approver.Subheader>
+        <Approver.Subheader>You'll send</Approver.Subheader>
 
         <ItemLayout
           img={avatar}
@@ -46,9 +44,7 @@ export function TransactionRecipientsLayout({
 
         <Divider mt="space.05" mb="space.04" />
 
-        <Approver.Subheader>
-          <styled.span textStyle="label.01">To address</styled.span>
-        </Approver.Subheader>
+        <Approver.Subheader>To address</Approver.Subheader>
         <HStack key={address} alignItems="center" gap="space.04" pb="space.03">
           <IconWrapper>
             <UserIcon />

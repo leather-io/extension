@@ -29,8 +29,9 @@ test.describe('Swaps', () => {
     const swapAssets = await swapPage.swapDetailsSymbol.all();
     const swapAssetBase = await swapAssets[0].innerText();
     const swapAssetQuote = await swapAssets[1].innerText();
+
     test.expect(swapAssetBase).toEqual('STX');
-    test.expect(swapAssetQuote).toEqual('ALEX');
+    test.expect(swapAssetQuote).toEqual('USDA');
 
     const swapAmounts = await swapPage.swapDetailsAmount.all();
     const swapAmountBase = await swapAmounts[0].innerText();

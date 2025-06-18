@@ -10,6 +10,7 @@ import { BackgroundOverlay } from '@app/components/loading-overlay';
 import { TransactionHeader } from '@app/components/rpc-transaction-request/transaction-header';
 import { TransactionWrapper } from '@app/components/rpc-transaction-request/transaction-wrapper';
 
+import { RequestingTabClosedWarningMessage } from '../errors/requesting-tab-closed-error-msg';
 import { useRpcTransactionRequest } from './use-rpc-transaction-request';
 
 interface RpcTransactionRequestLayoutProps extends HasChildren {
@@ -43,6 +44,7 @@ export function RpcTransactionRequestLayout({
                 onClickRequestedByLink(method);
               }}
             />
+            <RequestingTabClosedWarningMessage />
             {children}
           </Box>
           {actions}

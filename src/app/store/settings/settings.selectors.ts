@@ -5,6 +5,7 @@ import { createSelector } from '@reduxjs/toolkit';
 
 import type { Inscription } from '@leather.io/models';
 
+import { useCurrentAccountInscriptions } from '@app/query/bitcoin/ordinals/inscriptions/inscriptions.query';
 import { RootState } from '@app/store';
 
 import { settingsSlice } from './settings.slice';
@@ -51,10 +52,21 @@ type InscriptionIdentifier = Pick<Inscription, 'txid' | 'output' | 'offset'>;
 export function useDiscardedInscriptions() {
   const discardedInscriptions = useSelector(selectDiscardedInscriptions);
   const dispatch = useDispatch();
+  const currentAccountInscriptions = useCurrentAccountInscriptions();
 
   return useMemo(
     () => ({
       discardedInscriptions,
+      discardAllInscriptions() {
+        currentAccountInscriptions.inscriptions?.forEach(inscription =>
+          this.discardInscription(inscription)
+        );
+      },
+      recoverAllInscriptions() {
+        currentAccountInscriptions.inscriptions?.forEach(inscription =>
+          this.recoverInscription(inscription)
+        );
+      },
       hasInscriptionBeenDiscarded({ txid, output: vout, offset }: InscriptionIdentifier) {
         return discardedInscriptions.includes([txid, vout, offset].join(':'));
       },
@@ -65,6 +77,6 @@ export function useDiscardedInscriptions() {
         dispatch(settingsSlice.actions.recoverInscription([txid, vout, offset].join(':')));
       },
     }),
-    [discardedInscriptions, dispatch]
+    [currentAccountInscriptions.inscriptions, discardedInscriptions, dispatch]
   );
 }

@@ -1,22 +1,18 @@
-import { PostConditionType, type PostConditionWire } from '@stacks/transactions';
+import {
+  PostConditionPrincipalId,
+  PostConditionType,
+  type PostConditionWire,
+} from '@stacks/transactions';
 import { Stack } from 'leather-styles/jsx';
-
-import type { StacksUnsignedTransactionOptions } from '@leather.io/stacks';
 
 import { FungiblePostConditionItem } from './fungible-post-condition-item';
 import { PostConditionItem } from './post-condition-item';
-import { checkIsContractPrincipal } from './post-conditions.utils';
 
 interface PostConditionListProps {
   postConditions: PostConditionWire[];
-  txOptions: StacksUnsignedTransactionOptions;
 }
-// TODO: Refactor post conditions
-//
-// This code has, for the most part, simply been relocated and isolated from existing code
-// that handles post conditions for legacy tx requests. The intention here is to first isolate
-// the code, then refactor it for Approver UX with new tests.
-export function PostConditionList({ postConditions, txOptions }: PostConditionListProps) {
+// TODO LEA-2439: Refactor post conditions
+export function PostConditionList({ postConditions }: PostConditionListProps) {
   return (
     <Stack gap="space.04">
       {postConditions.map((pc, index) => {
@@ -24,7 +20,7 @@ export function PostConditionList({ postConditions, txOptions }: PostConditionLi
           return (
             <FungiblePostConditionItem
               key={`${pc.type}-${pc.conditionCode}`}
-              isContractPrincipal={checkIsContractPrincipal(pc, txOptions)}
+              isContractPrincipal={pc.principal.prefix === PostConditionPrincipalId.Contract}
               isLast={index === postConditions.length - 1}
               postCondition={pc}
             />
@@ -37,7 +33,7 @@ export function PostConditionList({ postConditions, txOptions }: PostConditionLi
           return (
             <PostConditionItem
               key={`${pc.type}-${pc.conditionCode}`}
-              isContractPrincipal={checkIsContractPrincipal(pc, txOptions)}
+              isContractPrincipal={pc.principal.prefix === PostConditionPrincipalId.Contract}
               isLast={index === postConditions.length - 1}
               postCondition={pc}
             />

@@ -10,7 +10,7 @@
   "type": "module",
   "engineStrict": true,
   "engines": {
-    "node": ">=18.0.0 <22.0.0"
+    "node": ">=20.0.0"
   },
   "scripts": {
     "dev": "concurrently --raw \"node webpack/dev-server.js\" \"redux-devtools --hostname=localhost --port=8000\"",
@@ -184,7 +184,7 @@
     "@stacks/rpc-client": "1.0.3",
     "@stacks/transactions": "7.0.5",
     "@stacks/transactions-v6": "npm:@stacks/transactions@6.17.0",
-    "@stacks/wallet-sdk": "7.0.2",
+    "@stacks/wallet-sdk": "7.1.2",
     "@stitches/react": "1.2.8",
     "@storybook/addon-styling-webpack": "1.0.1",
     "@styled-system/theme-get": "5.1.2",
@@ -347,7 +347,7 @@
     "file-loader": "6.2.0",
     "generate-json-webpack-plugin": "2.0.0",
     "html-webpack-plugin": "5.6.0",
-    "jsdom": "22.1.0",
+    "jsdom": "26.1.0",
     "postcss": "8.4.47",
     "postcss-loader": "8.1.1",
     "prettier": "3.3.3",
@@ -363,7 +363,7 @@
     "tsconfig-paths-webpack-plugin": "4.1.0",
     "type-fest": "4.30.2",
     "typescript": "5.4.5",
-    "vitest": "2.0.5",
+    "vitest": "3.1.4",
     "vm-browserify": "1.1.2",
     "web-ext": "7.8.0",
     "web-ext-submit": "7.8.0",

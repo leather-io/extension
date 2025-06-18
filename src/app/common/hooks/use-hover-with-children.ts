@@ -13,12 +13,12 @@ export function useHoverWithChildren(): [boolean, HoverBind] {
   }, []);
 
   const handleMouseLeave = useCallback((event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    const relatedTarget = event.relatedTarget as HTMLElement;
+    const relatedTarget = event.relatedTarget;
+
+    if (relatedTarget === window) return;
 
     // If the related target is a child of the current element, don't trigger mouseleave
-    if (event.currentTarget.contains(relatedTarget)) {
-      return;
-    }
+    if (event.currentTarget.contains(relatedTarget as Node)) return;
 
     setIsHovered(false);
   }, []);

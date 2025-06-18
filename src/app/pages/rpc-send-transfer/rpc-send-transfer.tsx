@@ -18,7 +18,7 @@ import { TransactionRecipientsLayout } from '@app/components/rpc-transaction-req
 import { TransactionWrapper } from '@app/components/rpc-transaction-request/transaction-wrapper';
 import { FeeEditor } from '@app/features/fee-editor/fee-editor';
 import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
-import { SwitchAccountTrigger } from '@app/features/rpc-transaction-request/switch-account-trigger/switch-account-trigger';
+import { SigningAccountCard } from '@app/features/rpc-transaction-request/signing-account-card/signing-account-card';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 
@@ -29,15 +29,8 @@ export function RpcSendTransfer() {
   const index = useCurrentAccountIndex();
   const { availableBalance, isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
     useFeeEditorContext();
-  const {
-    recipients,
-    recipientAddresses,
-    amount,
-    origin,
-    isLoadingBalance,
-    tabId,
-    onUserActivatesSwitchAccount,
-  } = useRpcSendTransferContext();
+  const { recipients, recipientAddresses, amount, origin, isLoadingBalance, tabId } =
+    useRpcSendTransferContext();
 
   const convertToFiatAmount = useConvertCryptoCurrencyToFiatAmount('BTC');
 
@@ -69,12 +62,11 @@ export function RpcSendTransfer() {
               focusTabAndWindow(tabId);
             }}
           />
-          <SwitchAccountTrigger
+          <SigningAccountCard
             address={<AccountBitcoinAddress index={index} />}
             availableBalance={availableBalance}
             fiatBalance={convertToFiatAmount(availableBalance)}
             isLoadingBalance={isLoadingBalance}
-            onSwitchAccount={onUserActivatesSwitchAccount}
           />
           <TransactionRecipientsLayout
             title="Bitcoin"
