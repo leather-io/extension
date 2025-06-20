@@ -42,6 +42,7 @@ export function BitcoinFeeEditorProvider({
             feeType="fee-rate"
             getCustomFee={getCustomFee}
             isLoadingFees={isLoading}
+            isSponsored={false}
             marketData={marketData}
             onGoBack={onGoBack}
           >

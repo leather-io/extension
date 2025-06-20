@@ -22,8 +22,14 @@ import { getUnsignedStacksTokenTransferOptions } from './rpc-stx-transfer-stx.ut
 
 export function RpcStxTransferStx() {
   const { isLoadingBalance, network, publicKey } = useStacksRpcTransactionRequestContext();
-  const { availableBalance, isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
-    useFeeEditorContext();
+  const {
+    availableBalance,
+    isLoadingFees,
+    isSponsored,
+    marketData,
+    onUserActivatesFeeEditor,
+    selectedFee,
+  } = useFeeEditorContext();
   const { nonce, onUserActivatesNonceEditor } = useNonceEditorContext();
   const signAndBroadcastTransaction = useSignAndBroadcastStacksTransaction(stxTransferStx.method);
   const convertToFiatAmount = useConvertCryptoCurrencyToFiatAmount('STX');
@@ -41,6 +47,7 @@ export function RpcStxTransferStx() {
 
   async function onApproveTransaction() {
     const unsignedTx = await generateStacksUnsignedTransaction(txOptionsForBroadcast);
+    if (isSponsored) unsignedTx.setFee(0);
     await signAndBroadcastTransaction(unsignedTx);
   }
 
@@ -52,6 +59,7 @@ export function RpcStxTransferStx() {
       actions={
         <TransactionActionsWithSpend
           isLoading={isLoadingBalance || isLoadingFees}
+          isSponsored={isSponsored}
           txAmount={txOptionsForBroadcast.amount}
           onApprove={onApproveTransaction}
         />
@@ -80,6 +88,7 @@ export function RpcStxTransferStx() {
       <FeeEditor.Trigger
         feeType="fee-value"
         isLoading={isLoadingFees}
+        isSponsored={isSponsored}
         marketData={marketData}
         onEditFee={onUserActivatesFeeEditor}
         selectedFee={selectedFee}

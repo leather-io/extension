@@ -16,11 +16,7 @@ import { useCheckSbtcSponsorshipEligible } from '@app/query/sbtc/sponsored-trans
 import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useGetContractInterfaceQuery } from '@app/query/stacks/legacy-request-contract.query';
-import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
-import {
-  useCurrentStacksAccount,
-  useCurrentStacksAccountAddress,
-} from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { useUnsignedStacksTransactionBaseState } from '@app/store/transactions/transaction.hooks';
 
@@ -39,11 +35,9 @@ export function useTransactionError() {
   const availableUnlockedBalance = filteredBalanceQuery.data?.unlockedBalance;
 
   const unsignedTx = useUnsignedStacksTransactionBaseState();
-  const stxAddress = useCurrentStacksAccountAddress();
   const { data: stxFees } = useCalculateStacksTxFees(unsignedTx.transaction);
-  const { data: nextNonce } = useNextNonce(stxAddress);
   const { isVerifying: isVerifyingSbtcEligibilty, result: sbtcSponsorshipEligibility } =
-    useCheckSbtcSponsorshipEligible(unsignedTx, nextNonce, stxFees);
+    useCheckSbtcSponsorshipEligible({ baseTx: unsignedTx, stxFees });
 
   return useMemo<TransactionErrorReason | void>(() => {
     if (!origin) return TransactionErrorReason.ExpiredRequest;

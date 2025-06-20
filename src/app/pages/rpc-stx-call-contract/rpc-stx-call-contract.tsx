@@ -28,8 +28,14 @@ import {
 
 export function RpcStxCallContract() {
   const { isLoadingBalance, network, publicKey } = useStacksRpcTransactionRequestContext();
-  const { availableBalance, isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
-    useFeeEditorContext();
+  const {
+    availableBalance,
+    isLoadingFees,
+    isSponsored,
+    marketData,
+    onUserActivatesFeeEditor,
+    selectedFee,
+  } = useFeeEditorContext();
   const { nonce, onUserActivatesNonceEditor } = useNonceEditorContext();
   const signAndBroadcastTransaction = useSignAndBroadcastStacksTransaction(stxCallContract.method);
   const convertToFiatAmount = useConvertCryptoCurrencyToFiatAmount('STX');
@@ -38,12 +44,12 @@ export function RpcStxCallContract() {
   const txOptionsForBroadcast = useMemo(
     () =>
       getUnsignedStacksContractCallOptions({
-        fee: selectedFee.txFee,
+        fee: isSponsored ? createMoney(0, 'STX') : selectedFee.txFee,
         network,
         nonce,
         publicKey,
       }),
-    [network, nonce, publicKey, selectedFee.txFee]
+    [isSponsored, network, nonce, publicKey, selectedFee.txFee]
   );
 
   async function onApproveTransaction() {
@@ -58,6 +64,7 @@ export function RpcStxCallContract() {
       actions={
         <TransactionActionsWithSpend
           isLoading={isLoadingBalance || isLoadingFees}
+          isSponsored={isSponsored}
           // TODO: Calculate total request
           txAmount={createMoney(0, 'STX')}
           onApprove={onApproveTransaction}
@@ -85,6 +92,7 @@ export function RpcStxCallContract() {
       <FeeEditor.Trigger
         feeType="fee-value"
         isLoading={isLoadingFees}
+        isSponsored={isSponsored}
         marketData={marketData}
         onEditFee={onUserActivatesFeeEditor}
         selectedFee={selectedFee}

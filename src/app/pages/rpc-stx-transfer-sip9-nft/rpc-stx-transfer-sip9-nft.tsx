@@ -25,8 +25,14 @@ import { getUnsignedStacksContractCallOptions } from './rpc-stx-transfer-sip9-nf
 
 export function RpcStxTransferSip9Nft() {
   const { address, isLoadingBalance, network, publicKey } = useStacksRpcTransactionRequestContext();
-  const { availableBalance, isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
-    useFeeEditorContext();
+  const {
+    availableBalance,
+    isLoadingFees,
+    isSponsored,
+    marketData,
+    onUserActivatesFeeEditor,
+    selectedFee,
+  } = useFeeEditorContext();
   const { nonce, onUserActivatesNonceEditor } = useNonceEditorContext();
   const convertToFiatAmount = useConvertCryptoCurrencyToFiatAmount('STX');
   const signAndBroadcastTransaction = useSignAndBroadcastStacksTransaction(
@@ -47,6 +53,7 @@ export function RpcStxTransferSip9Nft() {
 
   async function onApproveTransaction() {
     const unsignedTx = await generateStacksUnsignedTransaction(txOptionsForBroadcast);
+    if (isSponsored) unsignedTx.setFee(0);
     await signAndBroadcastTransaction(unsignedTx);
   }
 
@@ -58,6 +65,7 @@ export function RpcStxTransferSip9Nft() {
       actions={
         <TransactionActionsWithSpend
           isLoading={isLoadingBalance || isLoadingFees}
+          isSponsored={isSponsored}
           txAmount={createMoney(0, 'STX')}
           onApprove={onApproveTransaction}
         />
@@ -84,6 +92,7 @@ export function RpcStxTransferSip9Nft() {
       <FeeEditor.Trigger
         feeType="fee-value"
         isLoading={isLoadingFees}
+        isSponsored={isSponsored}
         marketData={marketData}
         onEditFee={onUserActivatesFeeEditor}
         selectedFee={selectedFee}
