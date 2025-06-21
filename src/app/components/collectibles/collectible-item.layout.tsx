@@ -69,9 +69,9 @@ export function CollectibleItemLayout({
           position="absolute"
           style={{
             backgroundColor: showBorder
-              ? token('colors.ink.background-primary')
-              : token('colors.ink.component-background-default'),
-            border: showBorder ? token('borders.dashed') : 'unset',
+              ? 'colors.ink.background-primary'
+              : 'colors.ink.component-background-default',
+            border: showBorder ? token('borders.default') : 'unset', // TODO: Change back to dashed
           }}
           top="0px"
           width="100%"

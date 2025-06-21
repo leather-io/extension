@@ -27,6 +27,7 @@ export function InscriptionPreviewCard({
       img={image}
       p={hideBorder ? 'unset' : 'space.04'}
       spacing="space.04"
+      width="100%"
     >
       <InscriptionMetadata
         action={action}

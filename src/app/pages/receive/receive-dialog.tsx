@@ -122,7 +122,7 @@ export function ReceiveSheet({ type = 'full' }: ReceiveSheetProps) {
                 }
                 onClickQrStx={() =>
                   navigate(`${RouteUrls.Home}${RouteUrls.ReceiveStx}`, {
-                    state: { backgroundLocation, btcAddressTaproot },
+                    state: { backgroundLocation },
                   })
                 }
               />

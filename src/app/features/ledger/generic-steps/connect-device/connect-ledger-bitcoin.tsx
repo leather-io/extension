@@ -28,7 +28,7 @@ export function ConnectLedgerBitcoin() {
         });
       },
       popup() {
-        void openIndexPageInNewTab(RouteUrls.Home);
+        openIndexPageInNewTab(RouteUrls.Home);
         closeWindow();
       },
     });

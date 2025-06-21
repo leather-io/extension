@@ -151,19 +151,19 @@ export function Inscription({ inscription }: InscriptionProps) {
               style={{ padding: '8px' }}
             >
               <DropdownMenu.Item onClick={() => openInscriptionUrl(inscription.number)}>
-                <Flag img={<ExternalLinkIcon />}>
+                <Flag img={<ExternalLinkIcon />} width="100%">
                   <styled.span textStyle="label.02">Open original</styled.span>
                 </Flag>
               </DropdownMenu.Item>
               {hasInscriptionBeenDiscarded(inscription) ? (
                 <DropdownMenu.Item onClick={() => recoverInscription(inscription)}>
-                  <Flag img={<LockIcon />}>
+                  <Flag img={<LockIcon />} width="100%">
                     <styled.span textStyle="label.02">Protect</styled.span>
                   </Flag>
                 </DropdownMenu.Item>
               ) : (
                 <DropdownMenu.Item onClick={() => discardInscription(inscription)}>
-                  <Flag img={<UnlockIcon />}>
+                  <Flag img={<UnlockIcon />} width="100%">
                     <styled.span textStyle="label.02">Unprotect</styled.span>
                   </Flag>
                 </DropdownMenu.Item>
@@ -186,7 +186,7 @@ export function Inscription({ inscription }: InscriptionProps) {
           bottom="134px"
           left="18px"
         >
-          <Flag opacity={0.5} spacing="space.01" img={<TrashIcon variant="small" />}>
+          <Flag opacity={0.5} spacing="space.01" img={<TrashIcon variant="small" />} width="100%">
             Unprotected
           </Flag>
         </Box>

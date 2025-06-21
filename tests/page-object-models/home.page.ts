@@ -6,6 +6,7 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 import { createTestSelector } from '@tests/utils';
 
 import { WalletDefaultNetworkConfigurationIds } from '@leather.io/models';
+import { delay } from '@leather.io/utils';
 
 export class HomePage {
   readonly page: Page;
@@ -95,7 +96,8 @@ export class HomePage {
     await this.goToReceiveDialog();
     // In Ledger mode, this element isn't visible, so clicking is conditional
     const qrCodeBtn = this.page.getByTestId(HomePageSelectors.ReceiveStxQrCodeBtn);
-    if (await qrCodeBtn.isVisible()) await qrCodeBtn.click();
+    await delay(1000);
+    if (await qrCodeBtn.isVisible()) await qrCodeBtn.click({ force: true });
     const displayerAddress = await this.page
       .getByTestId(SharedComponentsSelectors.AddressDisplayer)
       .innerText();

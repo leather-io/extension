@@ -23,7 +23,7 @@ export function FeeEstimateSelectLayout({
   disableFeeSelection,
   isVisible,
 }: FeeEstimateSelectLayoutProps) {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement>({} as HTMLDivElement);
 
   useOnClickOutside(ref, () => onSetIsSelectVisible(false));
 

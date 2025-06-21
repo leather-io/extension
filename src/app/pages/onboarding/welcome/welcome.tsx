@@ -48,7 +48,7 @@ export function WelcomePage() {
         navigate(url);
       },
       popup() {
-        void openIndexPageInNewTab(url);
+        openIndexPageInNewTab(url);
         closeWindow();
       },
     });
