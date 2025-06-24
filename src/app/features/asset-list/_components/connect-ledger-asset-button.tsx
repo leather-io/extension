@@ -18,7 +18,7 @@ export function ConnectLedgerButton({ chain }: ConnectLedgerButtonProps) {
   const location = useLocation();
 
   const onClick = () => {
-    navigate(`${chain}/connect-your-ledger`, {
+    void navigate(`${chain}/connect-your-ledger`, {
       replace: true,
       state: {
         [immediatelyAttemptLedgerConnection]: true,

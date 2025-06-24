@@ -78,11 +78,11 @@ export function StacksTransactionItem({
         ? RouteUrls.IncreaseStacksFee.replace(':txid', transaction.tx_id)
         : RouteUrls.CancelStacksTransaction.replace(':txid', transaction.tx_id);
 
-    whenWallet({
+    return whenWallet({
       ledger: () =>
         whenPageMode({
-          full: () => navigate(routeUrl),
-          popup: () => openIndexPageInNewTab(routeUrl),
+          full: () => void navigate(routeUrl),
+          popup: () => void openIndexPageInNewTab(routeUrl),
         })(),
       software: () => navigate(routeUrl),
     })();

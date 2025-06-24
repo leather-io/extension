@@ -34,8 +34,8 @@ function SendButtonSuspense() {
         whenWallet({
           ledger: () =>
             whenPageMode({
-              full: () => navigate(RouteUrls.SendCryptoAsset),
-              popup: () => openIndexPageInNewTab(RouteUrls.SendCryptoAsset),
+              full: () => void navigate(RouteUrls.SendCryptoAsset),
+              popup: () => void openIndexPageInNewTab(RouteUrls.SendCryptoAsset),
             })(),
           software: () => navigate(RouteUrls.SendCryptoAsset),
         })()
