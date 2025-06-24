@@ -16,7 +16,7 @@ export function AddCollectible() {
     <CollectibleItemLayout
       onClickLayout={() => {
         void analytics.track('select_add_new_collectible');
-        navigate(`${RouteUrls.Home}${RouteUrls.ReceiveCollectible}`, {
+        void navigate(`${RouteUrls.Home}${RouteUrls.ReceiveCollectible}`, {
           state: {
             backgroundLocation: location,
           },

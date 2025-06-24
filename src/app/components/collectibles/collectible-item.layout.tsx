@@ -71,7 +71,7 @@ export function CollectibleItemLayout({
             backgroundColor: showBorder
               ? 'colors.ink.background-primary'
               : 'colors.ink.component-background-default',
-            border: showBorder ? token('borders.default') : 'unset', // TODO: Change back to dashed
+            border: showBorder ? token('borders.default') : 'unset',
           }}
           top="0px"
           width="100%"

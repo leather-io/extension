@@ -18,7 +18,7 @@ export function ConnectLedgerStart() {
   const pageModeRoutingAction = (url: string) =>
     whenPageMode({
       full() {
-        navigate(url, {
+        void navigate(url, {
           replace: true,
           state: { [immediatelyAttemptLedgerConnection]: true, fromLocation: location },
         });

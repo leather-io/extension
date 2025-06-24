@@ -45,7 +45,7 @@ export function LegacyAccountAuth() {
         await finishSignIn(index);
       },
       async ledger() {
-        navigate(RouteUrls.ConnectLedger, { state: { index, fromLocation: location } });
+        void navigate(RouteUrls.ConnectLedger, { state: { index, fromLocation: location } });
         await listenForJwtSigningComplete();
       },
     })();

@@ -18,7 +18,7 @@ export function ConnectLedgerBitcoin() {
   function onConnectBitcoin() {
     return whenPageMode({
       full() {
-        navigate('bitcoin/connect-your-ledger', {
+        void navigate('bitcoin/connect-your-ledger', {
           replace: true,
           state: {
             [immediatelyAttemptLedgerConnection]: true,

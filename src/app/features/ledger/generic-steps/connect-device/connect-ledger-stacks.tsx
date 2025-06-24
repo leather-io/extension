@@ -18,7 +18,7 @@ export function ConnectLedgerStacks() {
   function onConnectStacks() {
     return whenPageMode({
       full() {
-        navigate('stacks/connect-your-ledger', {
+        void navigate('stacks/connect-your-ledger', {
           replace: true,
           state: {
             [immediatelyAttemptLedgerConnection]: true,
