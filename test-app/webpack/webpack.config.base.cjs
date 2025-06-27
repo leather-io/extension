@@ -136,7 +136,9 @@ const config = {
     // aren't critical, so we rely instead on a page refresh
     hot: false,
     historyApiFallback: true,
-    https: false,
+    server: {
+      type: 'http',
+    },
     port: process.env.PORT || 3000,
     headers: {
       'Access-Control-Allow-Origin': '*',
