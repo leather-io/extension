@@ -24,15 +24,15 @@ export const openSwapHandler = defineRpcRequestHandler(openSwap.method, async (r
       }).replace('{chain}', 'bitcoin'),
       urlParams
     );
+  } else {
+    await triggerSwapWindowOpen(
+      replaceRouteParams(RouteUrls.Swap, {
+        base: base,
+        quote: quote ?? '',
+      }).replace('{chain}', 'stacks'),
+      urlParams
+    );
   }
-
-  await triggerSwapWindowOpen(
-    replaceRouteParams(RouteUrls.Swap, {
-      base: base,
-      quote: quote ?? '',
-    }).replace('{chain}', 'stacks'),
-    urlParams
-  );
 
   void trackRpcRequestSuccess({ endpoint: request.method });
 
