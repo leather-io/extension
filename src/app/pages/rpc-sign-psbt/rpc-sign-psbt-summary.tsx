@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 import { Flex, HStack, Stack } from 'leather-styles/jsx';
 

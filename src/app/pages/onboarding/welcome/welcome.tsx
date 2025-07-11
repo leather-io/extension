@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router';
 
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
@@ -32,9 +32,9 @@ export function WelcomePage() {
     keyActions.generateWalletKey();
     void analytics.track('generate_new_secret_key');
     if (decodedAuthRequest) {
-      navigate(RouteUrls.SetPassword);
+      return navigate(RouteUrls.SetPassword);
     }
-    navigate(RouteUrls.BackUpSecretKey);
+    return navigate(RouteUrls.BackUpSecretKey);
   }, [keyActions, decodedAuthRequest, navigate]);
 
   useEffect(() => {
@@ -45,10 +45,10 @@ export function WelcomePage() {
   const pageModeRoutingAction = (url: string) =>
     whenPageMode({
       full() {
-        navigate(url);
+        return navigate(url);
       },
       popup() {
-        void openIndexPageInNewTab(url);
+        openIndexPageInNewTab(url);
         closeWindow();
       },
     });
@@ -65,9 +65,9 @@ export function WelcomePage() {
   const onSelectConnectLedger = useCallback(async () => {
     await keyActions.signOut();
     if (doesBrowserSupportWebUsbApi()) {
-      supportsWebUsbAction();
+      return supportsWebUsbAction();
     } else {
-      doesNotSupportWebUsbAction();
+      return doesNotSupportWebUsbAction();
     }
   }, [doesNotSupportWebUsbAction, keyActions, supportsWebUsbAction]);
 

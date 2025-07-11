@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom';
+import { Route } from 'react-router';
 
 import type { Blockchain } from '@leather.io/models';
 

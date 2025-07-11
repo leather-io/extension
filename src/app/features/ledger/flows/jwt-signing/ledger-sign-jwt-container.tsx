@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router';
 
 import { getAddressFromPublicKey } from '@stacks/transactions';
 import { LedgerError } from '@zondax/ledger-stacks';

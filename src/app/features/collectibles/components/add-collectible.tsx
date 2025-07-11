@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
 import { PlusIcon } from '@leather.io/ui';
 
@@ -16,7 +16,7 @@ export function AddCollectible() {
     <CollectibleItemLayout
       onClickLayout={() => {
         void analytics.track('select_add_new_collectible');
-        navigate(`${RouteUrls.Home}${RouteUrls.ReceiveCollectible}`, {
+        void navigate(`${RouteUrls.Home}${RouteUrls.ReceiveCollectible}`, {
           state: {
             backgroundLocation: location,
           },

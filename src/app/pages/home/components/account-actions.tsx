@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box, Flex } from 'leather-styles/jsx';

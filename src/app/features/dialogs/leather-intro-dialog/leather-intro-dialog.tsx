@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { Outlet, Route, useNavigate } from 'react-router-dom';
+import { Outlet, Route, useNavigate } from 'react-router';
 
 import { delay } from '@leather.io/utils';
 

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import { hexToBytes } from '@noble/hashes/utils';
 import { bytesToHex } from '@stacks/common';

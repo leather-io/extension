@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 import { bytesToHex } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';

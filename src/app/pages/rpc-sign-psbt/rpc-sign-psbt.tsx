@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 import { PsbtSigner } from '@app/features/psbt-signer/psbt-signer';
 

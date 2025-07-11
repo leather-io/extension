@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Stack } from 'leather-styles/jsx';

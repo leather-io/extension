@@ -28,7 +28,7 @@ const getOptions = (event: HandledEventsType) => {
 };
 
 export function useOnClickOutside(
-  ref: RefObject<HTMLElement>,
+  ref: RefObject<HTMLElement | null>,
   handler: Handler | null,
   exceptionIds: string[] = []
 ) {

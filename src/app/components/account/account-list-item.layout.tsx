@@ -55,7 +55,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
       onClick={onSelectAccount}
     >
       {withChevron ? (
-        <Flag reverse img={<ChevronRightIcon variant="small" />}>
+        <Flag reverse img={<ChevronRightIcon variant="small" />} width="100%">
           {content}
         </Flag>
       ) : (

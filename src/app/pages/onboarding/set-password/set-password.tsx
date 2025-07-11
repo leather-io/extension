@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Form, Formik } from 'formik';

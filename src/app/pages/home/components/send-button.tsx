@@ -1,5 +1,5 @@
 import { Suspense, memo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 
@@ -34,8 +34,8 @@ function SendButtonSuspense() {
         whenWallet({
           ledger: () =>
             whenPageMode({
-              full: () => navigate(RouteUrls.SendCryptoAsset),
-              popup: () => openIndexPageInNewTab(RouteUrls.SendCryptoAsset),
+              full: () => void navigate(RouteUrls.SendCryptoAsset),
+              popup: () => void openIndexPageInNewTab(RouteUrls.SendCryptoAsset),
             })(),
           software: () => navigate(RouteUrls.SendCryptoAsset),
         })()

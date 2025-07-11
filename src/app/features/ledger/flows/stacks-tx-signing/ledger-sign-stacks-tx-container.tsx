@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Route, useLocation, useNavigate } from 'react-router-dom';
+import { Route, useLocation, useNavigate } from 'react-router';
 
 import { deserializeTransaction } from '@stacks/transactions';
 import StacksApp, { LedgerError } from '@zondax/ledger-stacks';

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import * as btc from '@scure/btc-signer';
 import BigNumber from 'bignumber.js';

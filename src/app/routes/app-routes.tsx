@@ -1,10 +1,5 @@
-import {
-  Navigate,
-  Route,
-  RouterProvider,
-  createHashRouter,
-  createRoutesFromElements,
-} from 'react-router-dom';
+import { Navigate, Route, createHashRouter, createRoutesFromElements } from 'react-router';
+import { RouterProvider } from 'react-router/dom';
 
 import * as Sentry from '@sentry/react';
 
@@ -64,7 +59,7 @@ export function AppRoutes() {
   return <RouterProvider router={routes} />;
 }
 
-const sentryCreateBrowserRouter = Sentry.wrapCreateBrowserRouterV6(createHashRouter);
+const sentryCreateBrowserRouter = Sentry.wrapCreateBrowserRouterV7(createHashRouter);
 
 export const homePageModalRoutes = (
   <>
@@ -279,6 +274,15 @@ function useAppRoutes() {
         {/* Catch-all route redirects to onboarding */}
         <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
       </Route>
-    )
+    ),
+    {
+      future: {
+        v7_relativeSplatPath: true,
+        v7_startTransition: true,
+        v7_fetcherPersist: true,
+        v7_normalizeFormMethod: true,
+        v7_partialHydration: true,
+      },
+    }
   );
 }

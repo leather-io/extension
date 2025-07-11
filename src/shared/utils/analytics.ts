@@ -4,14 +4,14 @@ import {
   matchRoutes,
   useLocation,
   useNavigationType,
-} from 'react-router-dom';
+} from 'react-router';
 
 import { ripemd160 } from '@noble/hashes/ripemd160';
 import { sha256 } from '@noble/hashes/sha256';
 import { base58 } from '@scure/base';
 import { AnalyticsBrowser } from '@segment/analytics-next';
 import { browserTracingIntegration, feedbackIntegration, setTag } from '@sentry/browser';
-import { init as SentryInit, reactRouterV6BrowserTracingIntegration } from '@sentry/react';
+import { init as SentryInit, reactRouterV7BrowserTracingIntegration } from '@sentry/react';
 import { token } from 'leather-styles/tokens';
 
 import { configureAnalyticsClient } from '@leather.io/analytics';
@@ -119,7 +119,7 @@ export function initSentry() {
     profilesSampleRate: 0.25,
     integrations: [
       browserTracingIntegration({}),
-      reactRouterV6BrowserTracingIntegration({
+      reactRouterV7BrowserTracingIntegration({
         useEffect,
         useLocation,
         useNavigationType,

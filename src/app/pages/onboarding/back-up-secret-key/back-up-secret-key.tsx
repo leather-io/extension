@@ -1,5 +1,5 @@
 import { memo, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 

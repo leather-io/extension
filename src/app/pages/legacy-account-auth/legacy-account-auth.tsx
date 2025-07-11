@@ -1,4 +1,4 @@
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router';
 
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
@@ -45,7 +45,7 @@ export function LegacyAccountAuth() {
         await finishSignIn(index);
       },
       async ledger() {
-        navigate(RouteUrls.ConnectLedger, { state: { index, fromLocation: location } });
+        void navigate(RouteUrls.ConnectLedger, { state: { index, fromLocation: location } });
         await listenForJwtSigningComplete();
       },
     })();

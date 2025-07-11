@@ -1,9 +1,9 @@
-import { Outlet, Route, Routes, useLocation } from 'react-router-dom';
+import { Outlet, Route, Routes, useLocation } from 'react-router';
 
 import { useLocationState } from '@app/common/hooks/use-location-state';
 
-/* 
-   To overlay modal on nested routes backgroundLocation is used 
+/*
+   To overlay modal on nested routes backgroundLocation is used
    to trick the router into thinking its on the same page
  */
 interface ModalBackgroundWrapperProps {

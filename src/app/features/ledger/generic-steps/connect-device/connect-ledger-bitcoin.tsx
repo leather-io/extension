@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
 import { Sheet, SheetHeader } from '@leather.io/ui';
 
@@ -18,7 +18,7 @@ export function ConnectLedgerBitcoin() {
   function onConnectBitcoin() {
     return whenPageMode({
       full() {
-        navigate('bitcoin/connect-your-ledger', {
+        void navigate('bitcoin/connect-your-ledger', {
           replace: true,
           state: {
             [immediatelyAttemptLedgerConnection]: true,
@@ -28,7 +28,7 @@ export function ConnectLedgerBitcoin() {
         });
       },
       popup() {
-        void openIndexPageInNewTab(RouteUrls.Home);
+        openIndexPageInNewTab(RouteUrls.Home);
         closeWindow();
       },
     });

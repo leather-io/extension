@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 import type { BtcFeeType } from '@leather.io/models';
 import type { UtxoResponseItem } from '@leather.io/query';

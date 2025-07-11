@@ -1,4 +1,4 @@
-import { Route, useNavigate } from 'react-router-dom';
+import { Route, useNavigate } from 'react-router';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box, Stack } from 'leather-styles/jsx';

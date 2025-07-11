@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import type { MarketData, Money } from '@leather.io/models';
 
@@ -20,6 +20,7 @@ interface FeeEditorProviderProps extends HasChildren {
   feeType: FeeType;
   getCustomFee(rate: number): Fee;
   isLoadingFees: boolean;
+  isSponsored: boolean;
   marketData: MarketData;
   onGoBack(): void;
 }
@@ -30,6 +31,7 @@ export function FeeEditorProvider({
   feeType,
   getCustomFee,
   isLoadingFees,
+  isSponsored,
   marketData,
   onGoBack,
 }: FeeEditorProviderProps) {
@@ -45,6 +47,7 @@ export function FeeEditorProvider({
     <FeeEditorContext.Provider
       value={{
         isLoadingFees,
+        isSponsored,
         availableBalance,
         marketData,
         fees,

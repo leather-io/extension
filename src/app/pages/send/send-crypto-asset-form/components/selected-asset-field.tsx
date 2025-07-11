@@ -27,7 +27,7 @@ export function SelectedAssetField({ icon, name, symbol }: SelectedAssetFieldPro
       width="100%"
     >
       <Field as="div" name="symbol">
-        <Flag img={icon} spacing="space.03">
+        <Flag img={icon} spacing="space.03" width="100%">
           <styled.span textStyle="label.01">{name}</styled.span>
         </Flag>
       </Field>

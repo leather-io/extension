@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { css } from 'leather-styles/css';
@@ -100,11 +100,11 @@ export function Settings({
             onSelect={() => {
               void analytics.track('lock_session');
               void lockWallet();
-              navigate(RouteUrls.Unlock);
+              void navigate(RouteUrls.Unlock, { state: { from: location.pathname } });
             }}
             data-testid={SettingsSelectors.LockListItem}
           >
-            <Flag img={<LockIcon />} textStyle="label.02">
+            <Flag img={<LockIcon />} textStyle="label.02" width="100%">
               Lock
             </Flag>
           </DropdownMenu.Item>
@@ -115,13 +115,27 @@ export function Settings({
             onSelect={() => setShowSignOut(!showSignOut)}
             data-testid={SettingsSelectors.SignOutListItem}
           >
-            <Flag color="red.action-primary-default" img={<ExitIcon />} textStyle="label.02">
+            <Flag
+              color="red.action-primary-default"
+              img={<ExitIcon />}
+              textStyle="label.02"
+              width="100%"
+            >
               Sign out
             </Flag>
           </DropdownMenu.Item>
         ),
       ].filter(Boolean),
-    [canLockWallet, hasKeys, lockWallet, navigate, showAdvancedMenuOptions, showSignOut, walletType]
+    [
+      canLockWallet,
+      hasKeys,
+      lockWallet,
+      navigate,
+      showAdvancedMenuOptions,
+      showSignOut,
+      walletType,
+      location.pathname,
+    ]
   );
 
   return (
@@ -150,7 +164,7 @@ export function Settings({
                   data-testid={SettingsSelectors.SigningAccountCard}
                   onSelect={toggleSwitchAccount}
                 >
-                  <Flag img={<ArrowsRepeatLeftRightIcon />} textStyle="label.02">
+                  <Flag img={<ArrowsRepeatLeftRightIcon />} textStyle="label.02" width="100%">
                     Switch account
                   </Flag>
                 </DropdownMenu.Item>
@@ -160,7 +174,7 @@ export function Settings({
                   data-testid={SettingsSelectors.ViewSecretKeyListItem}
                   onSelect={() => navigate(RouteUrls.ViewSecretKey)}
                 >
-                  <Flag img={<KeyIcon />} textStyle="label.02">
+                  <Flag img={<KeyIcon />} textStyle="label.02" width="100%">
                     View Secret Key
                   </Flag>
                 </DropdownMenu.Item>
@@ -173,7 +187,7 @@ export function Settings({
                     openIndexPageInNewTab(location.pathname);
                   }}
                 >
-                  <Flag img={<ExpandIcon />} textStyle="label.02">
+                  <Flag img={<ExpandIcon />} textStyle="label.02" width="100%">
                     Maximize
                   </Flag>
                 </DropdownMenu.Item>
@@ -186,7 +200,7 @@ export function Settings({
                   setShowChangeNetwork(!showChangeNetwork);
                 }}
               >
-                <Flag img={<GlobeTiltedIcon />}>
+                <Flag img={<GlobeTiltedIcon />} width="100%">
                   <Stack gap="space.00">
                     <styled.span textStyle="label.02">Change network</styled.span>
                     <Caption data-testid={SettingsSelectors.CurrentNetwork}>
@@ -203,7 +217,7 @@ export function Settings({
                   setShowChangeTheme(!showChangeTheme);
                 }}
               >
-                <Flag img={<SunInCloudIcon />}>
+                <Flag img={<SunInCloudIcon />} width="100%">
                   <Flex justifyContent="space-between" textStyle="label.02">
                     Change theme
                   </Flex>
@@ -217,7 +231,7 @@ export function Settings({
                   togglePrivateMode();
                 }}
               >
-                <Flag img={isPrivateMode ? <Eye1ClosedIcon /> : <Eye1Icon />}>
+                <Flag img={isPrivateMode ? <Eye1ClosedIcon /> : <Eye1Icon />} width="100%">
                   <Flex justifyContent="space-between" textStyle="label.02">
                     Toggle privacy
                   </Flex>
@@ -233,7 +247,7 @@ export function Settings({
                   );
                 }}
               >
-                <Flag img={isNotificationsEnabled ? <BellAlarmIcon /> : <BellIcon />}>
+                <Flag img={isNotificationsEnabled ? <BellAlarmIcon /> : <BellIcon />} width="100%">
                   <Flex justifyContent="space-between" textStyle="label.02">
                     Toggle notifications
                   </Flex>
@@ -248,7 +262,7 @@ export function Settings({
                   openInNewTab('https://leather.io/help');
                 }}
               >
-                <Flag img={<SupportIcon />} textStyle="label.02">
+                <Flag img={<SupportIcon />} textStyle="label.02" width="100%">
                   <Flex justifyContent="space-between">
                     Get support
                     <ExternalLinkIcon variant="small" />
@@ -256,7 +270,7 @@ export function Settings({
                 </Flag>
               </DropdownMenu.Item>
               <DropdownMenu.Item onSelect={() => openFeedbackSheet()}>
-                <Flag img={<MegaphoneIcon />} textStyle="label.02">
+                <Flag img={<MegaphoneIcon />} textStyle="label.02" width="100%">
                   Give feedback
                 </Flag>
               </DropdownMenu.Item>

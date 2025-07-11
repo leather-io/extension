@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { resolvePath, useLocation, useNavigate } from 'react-router-dom';
+import { resolvePath, useLocation, useNavigate } from 'react-router';
 
 import { bytesToHex } from '@stacks/common';
 

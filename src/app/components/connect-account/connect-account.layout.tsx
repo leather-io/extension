@@ -122,7 +122,7 @@ export function ConnectAccountLayout({
             <VStack gap="space.03" pb="space.03">
               {['View your balances and activity', 'Request approval for transactions'].map(
                 text => (
-                  <Flag key={text} img={<CheckmarkIcon variant="small" />}>
+                  <Flag key={text} img={<CheckmarkIcon variant="small" />} width="100%">
                     <styled.p textStyle="caption.01">{text}</styled.p>
                   </Flag>
                 )

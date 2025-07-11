@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router';
 
 import type { BtcFeeType } from '@leather.io/models';
 import { Sheet, SheetHeader } from '@leather.io/ui';

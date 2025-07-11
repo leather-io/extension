@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
 import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';

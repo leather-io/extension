@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
 import { createFetchFn } from '@stacks/common';
 import { ChainId } from '@stacks/network';
@@ -173,7 +173,7 @@ export function useAddNetwork() {
           mode: bitcoinNetworkToNetworkMode(bitcoinNetwork),
           bitcoinUrl: bitcoinPath,
         });
-        navigate(RouteUrls.Home);
+        return navigate(RouteUrls.Home);
       } else if (isDefined(chainId)) {
         removeEditedNetwork();
         networksActions.addNetwork({
@@ -185,7 +185,7 @@ export function useAddNetwork() {
           mode: bitcoinNetworkToNetworkMode(bitcoinNetwork),
           bitcoinUrl: bitcoinPath,
         });
-        navigate(RouteUrls.Home);
+        return navigate(RouteUrls.Home);
       } else {
         setError('Unable to determine chainID from node.');
       }

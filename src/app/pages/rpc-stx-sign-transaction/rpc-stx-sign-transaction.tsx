@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import {
+  AuthType,
   addressToString,
   isContractCallPayload,
   isSmartContractPayload,
@@ -45,8 +46,14 @@ import {
 
 export function RpcStxSignTransaction() {
   const { address, isLoadingBalance, requestId, tabId } = useStacksRpcTransactionRequestContext();
-  const { availableBalance, isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
-    useFeeEditorContext();
+  const {
+    availableBalance,
+    isLoadingFees,
+    isSponsored,
+    marketData,
+    onUserActivatesFeeEditor,
+    selectedFee,
+  } = useFeeEditorContext();
   const { nonce, onUserActivatesNonceEditor } = useNonceEditorContext();
   const convertToFiatAmount = useConvertCryptoCurrencyToFiatAmount('STX');
   const signStacksTx = useSignStacksTransaction();
@@ -68,6 +75,8 @@ export function RpcStxSignTransaction() {
     if (!txRequestHasAlreadySetFee)
       unsignedTxForBroadcast.setFee(selectedFee.txFee.amount.toString());
     if (!txRequestHasAlreadySetNonce) unsignedTxForBroadcast.setNonce(nonce);
+
+    if (isSponsored) unsignedTxForBroadcast.setFee(0);
 
     const signedTransaction = await signStacksTx(unsignedTxForBroadcast);
 
@@ -115,6 +124,7 @@ export function RpcStxSignTransaction() {
       actions={
         <TransactionActionsWithSpend
           isLoading={isLoadingBalance || isLoadingFees}
+          isSponsored={unsignedTxForBroadcast.auth.authType === AuthType.Sponsored}
           // TODO: Calculate amount if more than fees
           txAmount={createMoney(0, 'STX')}
           onApprove={onApproveTransaction}
@@ -167,6 +177,7 @@ export function RpcStxSignTransaction() {
         <FeeEditor.Trigger
           feeType="fee-value"
           isLoading={isLoadingFees}
+          isSponsored={isSponsored}
           marketData={marketData}
           onEditFee={onUserActivatesFeeEditor}
           selectedFee={selectedFee}

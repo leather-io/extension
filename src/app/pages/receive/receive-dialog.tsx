@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box } from 'leather-styles/jsx';
@@ -122,7 +122,7 @@ export function ReceiveSheet({ type = 'full' }: ReceiveSheetProps) {
                 }
                 onClickQrStx={() =>
                   navigate(`${RouteUrls.Home}${RouteUrls.ReceiveStx}`, {
-                    state: { backgroundLocation, btcAddressTaproot },
+                    state: { backgroundLocation },
                   })
                 }
               />

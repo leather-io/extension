@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router';
 
 import { Formik } from 'formik';
 import { Flex, Stack } from 'leather-styles/jsx';
