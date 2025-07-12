@@ -33,7 +33,9 @@ const compiler = webpack(config);
 
 const server = new WebpackDevServer(
   {
-    https: false,
+    server: {
+      type: 'http',
+    },
     webSocketServer: 'ws',
     // Disabled as web configure manually above
     hot: false,
