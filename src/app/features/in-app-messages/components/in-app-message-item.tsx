@@ -4,10 +4,10 @@ import { CloseIcon } from '@leather.io/ui';
 
 import { HiroMessage } from '@app/query/common/remote-config/remote-config.query';
 
-interface HiroMessageItemProps extends HiroMessage {
+interface InAppMessageItemProps extends HiroMessage {
   onDismiss(id: string): void;
 }
-export function HiroMessageItem(props: HiroMessageItemProps) {
+export function InAppMessageItem(props: InAppMessageItemProps) {
   const { id, title, text, learnMoreUrl, learnMoreText, img, imgWidth, dismissible, onDismiss } =
     props;
 

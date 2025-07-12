@@ -47,6 +47,9 @@ const debug = {
   resetMessages() {
     store.dispatch(settingsSlice.actions.resetMessages());
   },
+  resetPromoBanner() {
+    store.dispatch(settingsSlice.actions.resetPromoBanner());
+  },
   clearSubmittedTransactions() {
     store.dispatch(submittedTransactionsActions.clearSubmittedTransactions());
   },
