@@ -2,18 +2,18 @@ import { HStack, styled } from 'leather-styles/jsx';
 
 import { CloseIcon, Flag, IconButton } from '@leather.io/ui';
 
-import { useThemeSwitcher } from '@app/common/theme-provider';
-import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-
 interface PromoCardLayoutProps {
+  img: React.ReactNode;
   message: string;
-  imgSrc: string;
-  linkUrl: string;
-  onDismiss(): void;
+  onClickCard(): void;
+  onDismissCard(): void;
 }
-export function PromoCardLayout({ imgSrc, message, linkUrl, onDismiss }: PromoCardLayoutProps) {
-  const { theme } = useThemeSwitcher();
-  const invertStyle = theme === 'light' ? {} : { filter: 'invert()' };
+export function PromoCardLayout({
+  img,
+  message,
+  onClickCard,
+  onDismissCard,
+}: PromoCardLayoutProps) {
   return (
     <HStack
       cursor="pointer"
@@ -23,16 +23,15 @@ export function PromoCardLayout({ imgSrc, message, linkUrl, onDismiss }: PromoCa
       borderColor="ink.border-default"
       gap="space.01"
       mt="space.01"
-      width="100%"
     >
       <Flag
         cursor="pointer"
-        img={<styled.img alt={message} src={imgSrc} height={70} width={100} style={invertStyle} />}
+        img={img}
         pl="space.01"
         pr="space.00"
         spacing="space.00"
         width="100%"
-        onClick={() => openInNewTab(linkUrl)}
+        onClick={onClickCard}
       >
         <styled.p textStyle="label.02">{message}</styled.p>
       </Flag>
@@ -40,7 +39,7 @@ export function PromoCardLayout({ imgSrc, message, linkUrl, onDismiss }: PromoCa
         _hover={{ bg: 'transparent' }}
         alignSelf="flex-start"
         icon={<CloseIcon variant="small" />}
-        onClick={onDismiss}
+        onClick={onDismissCard}
       />
     </HStack>
   );
