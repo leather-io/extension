@@ -1,25 +1,30 @@
 import { useMemo, useState } from 'react';
 
+import { Box } from 'leather-styles/jsx';
+
 import { useOnMount } from '@leather.io/ui';
 
 import { useConfigPromoCardEnabled } from '@app/query/common/remote-config/remote-config.query';
 
 import { PromoBannerNavbar } from './promo-banner-navbar';
-import { PromoCardLayout } from './promo-card.layout';
+import { PromoCard } from './promo-card';
 import { usePromos } from './use-promos';
 
 const promoCards = [
   {
+    eventName: 'mobile',
     message: 'Mobile app is here for iOS and Android',
     imgSrc: 'assets/images/promo-banner/promo-banner-1.png',
     linkUrl: 'https://leather.io/wallet/mobile',
   },
   {
+    eventName: 'stacking',
     message: 'Lock STX, earn BTC. 6–10% historical yields',
     imgSrc: 'assets/images/promo-banner/promo-banner-2.png',
     linkUrl: 'https://app.leather.io/stacking',
   },
   {
+    eventName: 'sbtc',
     message: 'Grow your BTC up to 8% with direct wallet payouts',
     imgSrc: 'assets/images/promo-banner/promo-banner-3.png',
     linkUrl: 'https://app.leather.io/sbtc',
@@ -28,13 +33,14 @@ const promoCards = [
 
 export function PromoBanner() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { initializePromos, dismissPromo, promoIndexes, dismissedPromoIndexes } = usePromos();
+  const [promoIndexes, setPromoIndexes] = useState<number[]>([]);
+  const [direction, setDirection] = useState<'idle' | 'forward' | 'backward'>('forward');
+  const { dismissPromo, dismissedPromoIndexes } = usePromos();
   const shouldDisplayPromoCard = useConfigPromoCardEnabled();
 
-  // Initialize promo indexes
   useOnMount(() => {
     if (promoCards.length > 0 && promoIndexes.length === 0) {
-      initializePromos(promoCards.length);
+      setPromoIndexes(Array.from({ length: promoCards.length }, (_, i) => i));
     }
   });
 
@@ -57,14 +63,17 @@ export function PromoBanner() {
         : currentIndex;
 
     setCurrentIndex(newIndex);
-  }
-
-  function onGoBackward() {
-    setCurrentIndex(prev => Math.max(prev - 1, 0));
+    setDirection('idle');
   }
 
   function onGoForward() {
+    setDirection('forward');
     setCurrentIndex(prev => Math.min(prev + 1, visibleIndexes.length - 1));
+  }
+
+  function onGoBackward() {
+    setDirection('backward');
+    setCurrentIndex(prev => Math.max(prev - 1, 0));
   }
 
   if (!shouldDisplayPromoCard || visibleIndexes.length === 0) return null;
@@ -73,8 +82,15 @@ export function PromoBanner() {
   const currentPromo = promoCards[currentPromoIndex];
 
   return (
-    <>
-      <PromoCardLayout {...currentPromo} onDismiss={handleDismissCurrentPromo} />
+    <Box position="relative" overflow="hidden">
+      <Box position="relative" minHeight="78px">
+        <PromoCard
+          {...currentPromo}
+          currentIndex={currentPromoIndex}
+          direction={direction}
+          onDismissCard={handleDismissCurrentPromo}
+        />
+      </Box>
       <PromoBannerNavbar
         currentIndex={currentPromoIndex}
         promoIndexes={promoIndexes}
@@ -83,6 +99,6 @@ export function PromoBanner() {
         onGoBackward={onGoBackward}
         onGoForward={onGoForward}
       />
-    </>
+    </Box>
   );
 }
