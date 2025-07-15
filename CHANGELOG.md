@@ -1,3 +1,32 @@
+## [6.71.1](https://github.com/leather-io/extension/compare/v6.71.0...v6.71.1) (2025-07-15)
+
+
+### Bug Fixes
+
+* downgrade react to 19 ([994db69](https://github.com/leather-io/extension/commit/994db694f6cdfd984fa4d65fd64dda1a80c1c932))
+* icon export bug ([abf7a7f](https://github.com/leather-io/extension/commit/abf7a7ff4a65f2fdee67947f1241fcd87ebd525d))
+* open swap request double popup ([5a8f35b](https://github.com/leather-io/extension/commit/5a8f35b5dda2fb6bbf07309449889b3be5760628))
+* rpc flow sbtc sponsorship, closes ENG-97 ([545da3f](https://github.com/leather-io/extension/commit/545da3fb1c5b4ec6d174c3a0031444f20397b940))
+* rpc sponsored txs, closes ENG-98 ([dbd0f98](https://github.com/leather-io/extension/commit/dbd0f989167d2588805c8d87e88d4ee098107678))
+* ststxbtc contract address ([45f0e7d](https://github.com/leather-io/extension/commit/45f0e7d0639cca5d1700ee6f7f09c525769fe23b))
+* update icons ([4ea91a2](https://github.com/leather-io/extension/commit/4ea91a2c110c6baa9e494a3258ce7b80caa63b67))
+* webpack dev server ([c35ca94](https://github.com/leather-io/extension/commit/c35ca9476ea3ce7881a767a2c7aa3275c3537ade))
+
+
+### Internal
+
+* add back Flag prop removed from lib ([85f60e4](https://github.com/leather-io/extension/commit/85f60e49723f512cb34bdb5d7e1e2e60017c6d4e))
+* add resolution for pbkdf2 to fix critical vulnerability ([f213435](https://github.com/leather-io/extension/commit/f2134355c7b8a3823609c1c0e646cadb8f006abf))
+* add resolution for tar-fs to fix high vulnerability ([6059e29](https://github.com/leather-io/extension/commit/6059e298dfb03c154c9f3fae9676c39dbb91d0ae))
+* post-release merge back ([79c6648](https://github.com/leather-io/extension/commit/79c6648e8fbbc197240c13bb0213d85d664d821f))
+* update prismjs, ref PR 6175 ([4050c87](https://github.com/leather-io/extension/commit/4050c874bce9d577aa8f923b2a69a3f1d3ad571b))
+* update React again ([f3e8fd4](https://github.com/leather-io/extension/commit/f3e8fd4715b1be53c699fc0e6aba8c3b172d5fdb))
+* update React to v19, closes LEA-2709 ([7e7226f](https://github.com/leather-io/extension/commit/7e7226fd5c7e8f266dcd720b363eb278c649366d))
+* update webpack https false syntax to specify http ([47d8b55](https://github.com/leather-io/extension/commit/47d8b55422795e93ce3020ab784c5a84ee1dcd78))
+* update webpack-dev-server, ref PR 6288 ([54ea236](https://github.com/leather-io/extension/commit/54ea236fbcc7a555edfef3cf5e105a83231b6033))
+* upgrade leather packages ([3b62c68](https://github.com/leather-io/extension/commit/3b62c68bacf544b56d37799c9a0e29e9d4d476d9))
+* **web:** update panda-preset and tokens to restore missing borders ([4d8d810](https://github.com/leather-io/extension/commit/4d8d81024f4bd539c626b756f66714a808b803a5))
+
 ## [6.71.0](https://github.com/leather-io/extension/compare/v6.70.1...v6.71.0) (2025-06-18)
 
 
