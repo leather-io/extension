@@ -32,7 +32,9 @@ export function SelectAssetTriggerButton({
     >
       <HStack>
         {icon && isString(icon) ? <Avatar fallback={fallback} image={icon} /> : icon}
-        <styled.span textStyle="label.01">{symbol}</styled.span>
+        <styled.span data-testid={SwapSelectors.SelectedAssetSymbol} textStyle="label.01">
+          {symbol}
+        </styled.span>
         <ChevronDownIcon variant="small" />
       </HStack>
     </Button>

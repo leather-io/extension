@@ -11,15 +11,15 @@ import {
 
 import type { Nonce } from './nonce-editor.context';
 
-interface SelectedFeeItemProps {
+interface NonceItemProps {
   nonce: Nonce;
   onEditNonce(): void;
 }
-export function NonceItem({ nonce, onEditNonce }: SelectedFeeItemProps) {
+export function NonceItem({ nonce, onEditNonce }: NonceItemProps) {
   return (
     <Approver.Section>
       <Pressable onClick={onEditNonce} my="space.02">
-        <Flag img={<Avatar icon={<NumberedListIcon />} />}>
+        <Flag img={<Avatar icon={<NumberedListIcon />} />} width="100%">
           <HStack alignItems="center" justifyContent="space-between">
             <styled.span textStyle="label.02">Nonce</styled.span>
             <Flex alignItems="center" gap="space.03">

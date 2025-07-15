@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router';
 
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik, FormikHelpers } from 'formik';

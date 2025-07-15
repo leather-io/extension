@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router';
 
 import { Formik, FormikHelpers } from 'formik';
 import { Flex } from 'leather-styles/jsx';
@@ -70,7 +70,7 @@ function TransactionRequestBase() {
   const { data: nextNonce, status: nonceQueryStatus } = useNextNonce(stxAddress);
 
   const { isVerifying: isVerifyingSbtcSponsorship, result: sbtcSponsorshipEligibility } =
-    useCheckSbtcSponsorshipEligible(unsignedTx, nextNonce, stxFees);
+    useCheckSbtcSponsorshipEligible({ baseTx: unsignedTx, stxFees });
 
   const canSubmit =
     filteredBalanceQuery.status === 'success' &&

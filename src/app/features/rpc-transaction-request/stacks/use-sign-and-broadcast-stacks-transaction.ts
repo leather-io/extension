@@ -1,7 +1,11 @@
 import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
-import type { StacksTransactionWire, TxBroadcastResultRejected } from '@stacks/transactions';
+import {
+  AuthType,
+  type StacksTransactionWire,
+  type TxBroadcastResultRejected,
+} from '@stacks/transactions';
 
 import {
   RpcErrorCode,
@@ -48,6 +52,23 @@ export function useSignAndBroadcastStacksTransaction(method: RpcMethodNames) {
           })
         );
         throw new Error('Error signing stacks transaction');
+      }
+
+      // If the transaction is sponsored, we do not broadcast it
+      const isSponsored = signedTx.auth?.authType === AuthType.Sponsored;
+      if (isSponsored) {
+        chrome.tabs.sendMessage(
+          tabId,
+          createRpcSuccessResponse(method, {
+            id: requestId,
+            result: {
+              txid: '',
+              transaction: signedTx.serialize(),
+            },
+          })
+        );
+        await delay(500);
+        closeWindow();
       }
 
       function onError(error: Error | string, reason?: TxBroadcastResultRejected['reason']) {

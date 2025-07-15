@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
 import { useFormikContext } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';

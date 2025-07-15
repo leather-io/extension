@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
 import { hexToBytes } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';

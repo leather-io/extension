@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Outlet, useLocation, useOutletContext } from 'react-router-dom';
+import { Outlet, useLocation, useOutletContext } from 'react-router';
 
 import get from 'lodash.get';
 

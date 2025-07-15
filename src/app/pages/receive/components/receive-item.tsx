@@ -19,7 +19,7 @@ export function ReceiveItem({
 }: ReceiveItemProps) {
   if (!address) return null;
   return (
-    <Pressable my="space.02">
+    <Pressable my="space.02" width="100%">
       <ItemLayoutWithButtons
         img={icon}
         title={title}

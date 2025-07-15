@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 import type { P2Ret } from '@scure/btc-signer/payment';
 import BigNumber from 'bignumber.js';

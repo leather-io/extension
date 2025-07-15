@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 
 import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather.io/models';
 

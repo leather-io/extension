@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import { createRpcSuccessResponse } from '@leather.io/rpc';
 import { delay } from '@leather.io/utils';

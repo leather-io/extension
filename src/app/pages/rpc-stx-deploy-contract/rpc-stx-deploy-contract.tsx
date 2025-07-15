@@ -25,8 +25,14 @@ import { getUnsignedStacksDeployContractOptions } from './rpc-stx-deploy-contrac
 
 export function RpcStxDeployContract() {
   const { address, isLoadingBalance, network, publicKey } = useStacksRpcTransactionRequestContext();
-  const { availableBalance, isLoadingFees, marketData, onUserActivatesFeeEditor, selectedFee } =
-    useFeeEditorContext();
+  const {
+    availableBalance,
+    isLoadingFees,
+    isSponsored,
+    marketData,
+    onUserActivatesFeeEditor,
+    selectedFee,
+  } = useFeeEditorContext();
   const { nonce, onUserActivatesNonceEditor } = useNonceEditorContext();
   const convertToFiatAmount = useConvertCryptoCurrencyToFiatAmount('STX');
   const signAndBroadcastTransaction = useSignAndBroadcastStacksTransaction(
@@ -46,6 +52,7 @@ export function RpcStxDeployContract() {
 
   async function onApproveTransaction() {
     const unsignedTx = await generateStacksUnsignedTransaction(txOptionsForBroadcast);
+    if (isSponsored) unsignedTx.setFee(0);
     await signAndBroadcastTransaction(unsignedTx);
   }
 
@@ -57,6 +64,7 @@ export function RpcStxDeployContract() {
       actions={
         <TransactionActionsWithSpend
           isLoading={isLoadingBalance || isLoadingFees}
+          isSponsored={isSponsored}
           txAmount={createMoneyFromDecimal(0, 'STX')}
           onApprove={onApproveTransaction}
         />
@@ -82,6 +90,7 @@ export function RpcStxDeployContract() {
       <FeeEditor.Trigger
         feeType="fee-value"
         isLoading={isLoadingFees}
+        isSponsored={isSponsored}
         marketData={marketData}
         onEditFee={onUserActivatesFeeEditor}
         selectedFee={selectedFee}
