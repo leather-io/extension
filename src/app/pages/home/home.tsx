@@ -11,10 +11,9 @@ import { useBalances } from '@app/common/hooks/balance/use-balances';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 import { whenPageMode } from '@app/common/utils';
-import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { ActivityList } from '@app/features/activity-list/activity-list';
 import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
-import { PromoCard } from '@app/features/promo-card/promo-card';
+import { PromoBanner } from '@app/features/promo-banner/promo-banner';
 import { Assets } from '@app/pages/home/components/assets';
 import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
@@ -31,8 +30,6 @@ import { AccountCard } from '@app/ui/components/account/account.card';
 
 import { AccountActions } from './components/account-actions';
 import { HomeTabs } from './components/home-tabs';
-
-const leatherWebAppUrl = 'https://leather.io';
 
 export function Home() {
   const { decodedAuthRequest } = useOnboardingState();
@@ -57,7 +54,7 @@ export function Home() {
   });
 
   useOnMount(() => {
-    if (decodedAuthRequest) navigate(RouteUrls.ChooseAccount);
+    if (decodedAuthRequest) return navigate(RouteUrls.ChooseAccount);
   });
 
   return (
@@ -86,7 +83,7 @@ export function Home() {
         >
           <AccountActions />
         </AccountCard>
-        <PromoCard onClick={() => openInNewTab(leatherWebAppUrl)} />
+        <PromoBanner />
       </Box>
       {whenPageMode({ full: <FeedbackButton />, popup: null })}
       <HomeTabs>

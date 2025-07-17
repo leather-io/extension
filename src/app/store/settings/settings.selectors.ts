@@ -27,6 +27,15 @@ export function useDismissedMessageIds() {
   return useSelector(selectDismissedMessageIds);
 }
 
+const selectDismissedPromoIndexes = createSelector(
+  selectSettings,
+  state => state.dismissedPromoIndexes ?? []
+);
+
+export function useDismissedPromoIndexes() {
+  return useSelector(selectDismissedPromoIndexes);
+}
+
 const selectIsPrivateMode = createSelector(selectSettings, state => state.isPrivateMode ?? false);
 
 export function useIsPrivateMode() {
