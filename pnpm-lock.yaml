@@ -33,8 +33,8 @@ importers:
         specifier: 1.0.2
         version: 1.0.2
       '@bitflowlabs/core-sdk':
-        specifier: 2.2.0
-        version: 2.2.0(encoding@0.1.13)
+        specifier: 2.4.0
+        version: 2.4.0(encoding@0.1.13)
       '@blockstack/stacks-transactions':
         specifier: 0.7.0
         version: 0.7.0(encoding@0.1.13)
@@ -1857,8 +1857,8 @@ packages:
   '@bitcoinerlab/secp256k1@1.2.0':
     resolution: {integrity: sha512-jeujZSzb3JOZfmJYI0ph1PVpCRV5oaexCgy+RvCXV8XlY+XFB/2n3WOcvBsKLsOw78KYgnQrQWb2HrKE4be88Q==}
 
-  '@bitflowlabs/core-sdk@2.2.0':
-    resolution: {integrity: sha512-i/gcnVyM5A+c98SPgQcKoVsRCKW9q7KYKuls/LHYkEo0sGkPH83qQn6d1dMe6ALsHvkixlJmfosT+qG6gM4hhg==}
+  '@bitflowlabs/core-sdk@2.4.0':
+    resolution: {integrity: sha512-ii9W0/dfRb0tkw0Y44KJ+40VkHnH2a+Wgj+aWvcyCkFU9iE2LlQ3AQMZA+W1MHxTgBzah34ouzEs1+F6xhkSdg==}
     engines: {node: '>=20.0.0'}
 
   '@blockstack/stacks-transactions@0.7.0':
@@ -16583,7 +16583,7 @@ snapshots:
     dependencies:
       '@noble/curves': 1.9.0
 
-  '@bitflowlabs/core-sdk@2.2.0(encoding@0.1.13)':
+  '@bitflowlabs/core-sdk@2.4.0(encoding@0.1.13)':
     dependencies:
       '@stacks/connect': 7.10.2(encoding@0.1.13)
       '@stacks/network': 7.0.2(encoding@0.1.13)
