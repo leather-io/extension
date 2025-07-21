@@ -140,7 +140,7 @@
   },
   "dependencies": {
     "@bitcoinerlab/secp256k1": "1.0.2",
-    "@bitflowlabs/core-sdk": "2.2.0",
+    "@bitflowlabs/core-sdk": "2.4.0",
     "@blockstack/stacks-transactions": "0.7.0",
     "@coinbase/cbpay-js": "2.1.0",
     "@fungible-systems/zone-file": "2.0.0",
