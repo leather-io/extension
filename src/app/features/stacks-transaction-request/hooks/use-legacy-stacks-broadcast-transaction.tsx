@@ -71,7 +71,7 @@ export function useStacksBroadcastTransaction({
         });
       }
       if (txId) {
-        navigate(
+        void navigate(
           RouteUrls.SentStxTxSummary.replace(':symbol', token.toLowerCase()).replace(
             ':txId',
             `${txId}`
@@ -97,11 +97,11 @@ export function useStacksBroadcastTransaction({
           return await broadcastTransactionFn({
             onError(e: Error | string) {
               const message = isString(e) ? e : e.message;
-              navigate(RouteUrls.TransactionBroadcastError, { state: { message } });
+              return navigate(RouteUrls.TransactionBroadcastError, { state: { message } });
             },
             onSuccess(txId) {
               if (showSummaryPage) return handlePreviewSuccess(signedTx, txId);
-              navigate(RouteUrls.Activity);
+              void navigate(RouteUrls.Activity);
               if (isCancelTransaction) return toast.success('Transaction cancelled successfully');
               if (isIncreaseFeeTransaction) return toast.success('Fee increased successfully');
               return;
@@ -110,7 +110,7 @@ export function useStacksBroadcastTransaction({
           })(signedTx);
         }
       } catch (e) {
-        navigate(RouteUrls.TransactionBroadcastError, {
+        return navigate(RouteUrls.TransactionBroadcastError, {
           state: { message: isError(e) ? e.message : 'Unknown error' },
         });
       } finally {

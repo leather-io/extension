@@ -62,6 +62,23 @@ export function ApproveSignLedgerStacksTx() {
         .map(cv => cvToString(cv))
         .map((value, index) => [`Argument ${index + 0}`, value]);
 
+    if (
+      transaction.payload.payloadType === PayloadType.SmartContract ||
+      transaction.payload.payloadType === PayloadType.VersionedSmartContract
+    ) {
+      return [
+        ['Contract address', currentAccount?.address ?? ''],
+        ['Contract name', transaction.payload.contractName.content],
+        ['Contract code', transaction.payload.codeBody.content],
+        ['Nonce', String(transaction.auth.spendingCondition.nonce)],
+        [
+          'Fee (µSTX)',
+          String(transaction.auth.spendingCondition.fee),
+          formatTooltipLabel(transaction.auth.spendingCondition.fee),
+        ],
+      ];
+    }
+
     return [];
   }, [chain, currentAccount?.address, transaction]);
 

@@ -74,24 +74,24 @@ function LedgerSignBitcoinTxContainer() {
       connectApp: connectLedgerBitcoinApp(network.chain.bitcoin.mode),
       async signTransactionWithDevice(bitcoinApp) {
         if (!inputsToSign) {
-          ledgerNavigate.cancelLedgerAction();
+          void ledgerNavigate.cancelLedgerAction();
           toast.error('No input signing config defined');
           return;
         }
 
-        ledgerNavigate.toDeviceBusyStep('Verifying public key on Ledger…');
+        void ledgerNavigate.toDeviceBusyStep('Verifying public key on Ledger…');
 
-        ledgerNavigate.toConnectionSuccessStep('bitcoin');
+        void ledgerNavigate.toConnectionSuccessStep('bitcoin');
         await delay(1200);
         if (!unsignedTransaction) throw new Error('No unsigned tx');
 
-        ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
+        void ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
 
         try {
           const btcTx = await signLedger(bitcoinApp, unsignedTransaction.toPSBT(), inputsToSign);
 
           if (!btcTx || !unsignedTransactionRaw) throw new Error('No tx returned');
-          ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });
+          void ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });
           await delay(1200);
           appEvents.publish('ledgerBitcoinTxSigned', {
             signedPsbt: btcTx,
@@ -100,7 +100,7 @@ function LedgerSignBitcoinTxContainer() {
         } catch (e) {
           logger.error('Unable to sign tx with ledger', e);
           ledgerAnalytics.transactionSignedOnLedgerRejected();
-          ledgerNavigate.toOperationRejectedStep();
+          void ledgerNavigate.toOperationRejectedStep();
         } finally {
           void bitcoinApp.transport.close();
         }
@@ -111,7 +111,7 @@ function LedgerSignBitcoinTxContainer() {
     appEvents.publish('ledgerBitcoinTxSigningCancelled', {
       unsignedPsbt: unsignedTransaction ? bytesToHex(unsignedTransaction.toPSBT()) : '',
     });
-    ledgerNavigate.cancelLedgerAction();
+    void ledgerNavigate.cancelLedgerAction();
   }
 
   const ledgerContextValue: LedgerTxSigningContext = {

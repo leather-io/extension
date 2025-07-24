@@ -86,7 +86,7 @@ export function useSignAndBroadcastStacksTransaction(method: RpcMethodNames) {
           })
         );
 
-        navigate(RouteUrls.BroadcastError, { state: { message } });
+        return navigate(RouteUrls.BroadcastError, { state: { message } });
       }
 
       async function onSuccess(txid: string, transaction: StacksTransactionWire) {
