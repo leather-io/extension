@@ -16,7 +16,7 @@ export function useVerifyMatchingLedgerStacksPublicKey() {
       if (!account) return;
       const { publicKey } = await requestPublicKeyForStxAccount(stacksApp)(account.index);
       if (publicKey.toString('hex') !== account.stxPublicKey) {
-        ledgerNavigate.toPublicKeyMismatchStep();
+        void ledgerNavigate.toPublicKeyMismatchStep();
         throw new Error('Mismatching public keys');
       }
     },

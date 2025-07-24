@@ -61,7 +61,7 @@ export function useLedgerSignTx<App extends StacksApp | BitcoinApp>({
       app = await connectApp();
       await checkCorrectAppIsOpenWithFailState(app);
       setAwaitingDeviceConnection(false);
-      ledgerNavigate.toConnectionSuccessStep(chain);
+      void ledgerNavigate.toConnectionSuccessStep(chain);
       await delay(1250);
       await signTransactionWithDevice(app);
       onSuccess?.();
@@ -72,7 +72,7 @@ export function useLedgerSignTx<App extends StacksApp | BitcoinApp>({
         return;
       }
 
-      ledgerNavigate.toErrorStep(chain);
+      return ledgerNavigate.toErrorStep(chain);
     } finally {
       await app?.transport.close();
     }

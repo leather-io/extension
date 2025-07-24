@@ -49,7 +49,7 @@ function LedgerSignStacksTxContainer() {
   const [unsignedTx, setUnsignedTx] = useState<null | string>(null);
   const navigate = useNavigate();
 
-  const chain = 'stacks' as const;
+  const chain = 'stacks';
 
   useEffect(() => {
     const tx = get(location.state, 'tx');
@@ -74,11 +74,11 @@ function LedgerSignStacksTxContainer() {
       }
 
       if (isVersionOfLedgerStacksAppWithContractPrincipalBug(appVersion)) {
-        navigate(RouteUrls.LedgerOutdatedAppWarning);
+        void navigate(RouteUrls.LedgerOutdatedAppWarning);
         const response = await hasUserSkippedBuggyAppWarning.wait();
 
         if (response === 'cancelled-operation') {
-          ledgerNavigate.cancelLedgerAction();
+          void ledgerNavigate.cancelLedgerAction();
         }
         return false;
       }
@@ -88,28 +88,27 @@ function LedgerSignStacksTxContainer() {
       // TODO: need better handling
       if (!account) return;
 
-      ledgerNavigate.toDeviceBusyStep('Verifying public key on Ledger…');
+      void ledgerNavigate.toDeviceBusyStep('Verifying public key on Ledger…');
       await verifyLedgerPublicKey(stacksApp);
-      ledgerNavigate.toConnectionSuccessStep('stacks');
+      void ledgerNavigate.toConnectionSuccessStep('stacks');
       await delay(1000);
+
       if (!unsignedTx) throw new Error('No unsigned tx');
 
-      ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
+      void ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
 
       const resp = await signLedgerStacksTransaction(stacksApp)(
         Buffer.from(unsignedTx, 'hex'),
         account.index
       );
 
-      // Assuming here that public keys are wrong. Alternatively, we may want
-      // to proactively check the key before signing
       if (resp.returnCode === LedgerError.DataIsInvalid) {
-        ledgerNavigate.toDevicePayloadInvalid();
+        void ledgerNavigate.toDevicePayloadInvalid();
         return;
       }
 
       if (resp.returnCode === LedgerError.TransactionRejected) {
-        ledgerNavigate.toOperationRejectedStep();
+        void ledgerNavigate.toOperationRejectedStep();
         ledgerAnalytics.transactionSignedOnLedgerRejected();
         return;
       }
@@ -118,7 +117,7 @@ function LedgerSignStacksTxContainer() {
         throw new Error('Some other error');
       }
 
-      ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });
+      void ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });
 
       await delay(1000);
 
@@ -139,7 +138,7 @@ function LedgerSignStacksTxContainer() {
           },
         });
 
-        ledgerNavigate.toBroadcastErrorStep(error);
+        void ledgerNavigate.toBroadcastErrorStep(error);
         return;
       }
     },
@@ -147,7 +146,7 @@ function LedgerSignStacksTxContainer() {
 
   function closeAction() {
     appEvents.publish('ledgerStacksTxSigningCancelled', { unsignedTx: unsignedTx ?? '' });
-    ledgerNavigate.cancelLedgerAction();
+    void ledgerNavigate.cancelLedgerAction();
   }
 
   const ledgerContextValue: LedgerTxSigningContext = {
