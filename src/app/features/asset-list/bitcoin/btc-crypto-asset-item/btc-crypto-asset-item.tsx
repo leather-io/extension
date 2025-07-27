@@ -1,7 +1,8 @@
 import type { BtcBalance } from '@leather.io/models';
 import { BtcAvatarIcon } from '@leather.io/ui';
-import { baseCurrencyAmountInQuote, i18nFormatCurrency } from '@leather.io/utils';
+import { baseCurrencyAmountInQuote } from '@leather.io/utils';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
@@ -20,7 +21,7 @@ export function BtcCryptoAssetItem({
 }: BtcCryptoAssetItemProps) {
   const isPrivate = useIsPrivateMode();
   const marketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
-  const fiatAvailableBalance = i18nFormatCurrency(
+  const fiatAvailableBalance = formatCurrency(
     baseCurrencyAmountInQuote(balance.availableBalance, marketData)
   );
 

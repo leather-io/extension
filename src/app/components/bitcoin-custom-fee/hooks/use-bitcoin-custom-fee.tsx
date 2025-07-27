@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
 
-import { baseCurrencyAmountInQuote, createMoney, i18nFormatCurrency } from '@leather.io/utils';
+import { baseCurrencyAmountInQuote, createMoney } from '@leather.io/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import {
   type DetermineUtxosForSpendArgs,
   determineUtxosForSpend,
@@ -38,7 +39,7 @@ export function useBitcoinCustomFee({ isSendingMax, recipients }: UseBitcoinCust
 
       return {
         fee,
-        fiatFeeValue: `~ ${i18nFormatCurrency(
+        fiatFeeValue: `~ ${formatCurrency(
           baseCurrencyAmountInQuote(createMoney(Math.ceil(fee), 'BTC'), btcMarketData)
         )}`,
       };

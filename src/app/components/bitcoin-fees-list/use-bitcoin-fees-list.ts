@@ -2,13 +2,9 @@ import { useMemo } from 'react';
 
 import { BtcFeeType, Money, btcTxTimeMap } from '@leather.io/models';
 import { type UtxoResponseItem } from '@leather.io/query';
-import {
-  baseCurrencyAmountInQuote,
-  createMoney,
-  formatMoneyPadded,
-  i18nFormatCurrency,
-} from '@leather.io/utils';
+import { baseCurrencyAmountInQuote, createMoney } from '@leather.io/utils';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import {
   DetermineUtxosForSpendArgs,
   determineUtxosForSpend,
@@ -53,7 +49,7 @@ export function useBitcoinFeesList({
 
   const feesList: FeesListItem[] = useMemo(() => {
     function getFiatFeeValue(fee: number) {
-      return `~ ${i18nFormatCurrency(
+      return `~ ${formatCurrency(
         baseCurrencyAmountInQuote(createMoney(Math.ceil(fee), 'BTC'), btcMarketData)
       )}`;
     }
@@ -92,7 +88,7 @@ export function useBitcoinFeesList({
       feesArr.push({
         label: BtcFeeType.High,
         value: highFeeValue,
-        btcValue: formatMoneyPadded(createMoney(highFeeValue, 'BTC')),
+        btcValue: formatCurrency(createMoney(highFeeValue, 'BTC'), { preset: 'pad-decimals' }),
         time: btcTxTimeMap.fastestFee,
         fiatValue: getFiatFeeValue(highFeeValue),
         feeRate: feeRates.fastestFee.toNumber(),
@@ -103,7 +99,7 @@ export function useBitcoinFeesList({
       feesArr.push({
         label: BtcFeeType.Standard,
         value: standardFeeValue,
-        btcValue: formatMoneyPadded(createMoney(standardFeeValue, 'BTC')),
+        btcValue: formatCurrency(createMoney(standardFeeValue, 'BTC'), { preset: 'pad-decimals' }),
         time: btcTxTimeMap.halfHourFee,
         fiatValue: getFiatFeeValue(standardFeeValue),
         feeRate: feeRates.halfHourFee.toNumber(),
@@ -114,7 +110,7 @@ export function useBitcoinFeesList({
       feesArr.push({
         label: BtcFeeType.Low,
         value: lowFeeValue,
-        btcValue: formatMoneyPadded(createMoney(lowFeeValue, 'BTC')),
+        btcValue: formatCurrency(createMoney(lowFeeValue, 'BTC'), { preset: 'pad-decimals' }),
         time: btcTxTimeMap.hourFee,
         fiatValue: getFiatFeeValue(lowFeeValue),
         feeRate: feeRates.hourFee.toNumber(),

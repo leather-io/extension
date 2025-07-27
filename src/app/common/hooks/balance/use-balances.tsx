@@ -1,14 +1,13 @@
 import { useMemo } from 'react';
 
-import { baseCurrencyAmountInQuote, createMoney, i18nFormatCurrency } from '@leather.io/utils';
+import { baseCurrencyAmountInQuote, createMoney } from '@leather.io/utils';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
 
 import { useSip10ManagedTokensBalance } from './use-sip10-balance';
-
-const highBalance = createMoney(100_000, 'USD');
 
 interface UseBalanceArgs {
   btcAddress: string;
@@ -82,14 +81,8 @@ export function useBalances({ btcAddress, stxAddress }: UseBalanceArgs) {
         (isPendingBtcBalance && Boolean(btcAddress)),
       totalBalance,
       availableBalance,
-      availableUsdBalance: i18nFormatCurrency(
-        availableBalance,
-        availableBalance.amount.isGreaterThanOrEqualTo(highBalance.amount) ? 0 : 2
-      ),
-      totalUsdBalance: i18nFormatCurrency(
-        totalBalance,
-        totalBalance.amount.isGreaterThanOrEqualTo(highBalance.amount) ? 0 : 2
-      ),
+      availableUsdBalance: formatCurrency(availableBalance),
+      totalUsdBalance: formatCurrency(totalBalance),
       isLoadingAdditionalData:
         isLoadingAdditionalDataStxBalance || isLoadingAdditionalDataBtcBalance,
     };

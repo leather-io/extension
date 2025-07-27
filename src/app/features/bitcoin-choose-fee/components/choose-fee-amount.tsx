@@ -1,7 +1,8 @@
 import { styled } from 'leather-styles/jsx';
 
 import type { Money } from '@leather.io/models';
-import { formatMoney } from '@leather.io/utils';
+
+import { formatCurrency } from '@app/common/currency-formatter';
 
 interface ChooseFeeAmountProps {
   amount: Money;
@@ -11,7 +12,7 @@ interface ChooseFeeAmountProps {
 export function ChooseFeeAmount({ amount, showError }: ChooseFeeAmountProps) {
   return (
     <styled.h3 textStyle="heading.03" color={showError ? 'red.action-primary-default' : 'unset'}>
-      {formatMoney(amount)}
+      {formatCurrency(amount)}
     </styled.h3>
   );
 }

@@ -15,14 +15,13 @@ import {
   baseCurrencyAmountInQuote,
   createMoney,
   createMoneyFromDecimal,
-  formatMoneyPadded,
-  i18nFormatCurrency,
   satToBtc,
 } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { queryClient } from '@app/common/persistence';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
@@ -69,17 +68,20 @@ export function BtcSendFormConfirmation() {
   const nav = useSendFormNavigate();
 
   const transferAmount = satToBtc(decodedTx.outputs[0].amount.toString()).toString();
-  const txFiatValue = i18nFormatCurrency(
+  const txFiatValue = formatCurrency(
     baseCurrencyAmountInQuote(createMoneyFromDecimal(Number(transferAmount), symbol), btcMarketData)
   );
   const txFiatValueSymbol = btcMarketData.price.symbol;
 
   const feeInBtc = satToBtc(fee);
-  const totalSpend = formatMoneyPadded(
-    createMoneyFromDecimal(Number(transferAmount) + Number(feeInBtc), symbol)
+  const totalSpend = formatCurrency(
+    createMoneyFromDecimal(Number(0.1) + Number(feeInBtc), symbol),
+    { preset: 'pad-decimals' }
   );
-  const sendingValue = formatMoneyPadded(createMoneyFromDecimal(Number(transferAmount), symbol));
-  const summaryFee = formatMoneyPadded(createMoney(Number(fee), symbol));
+  const sendingValue = formatCurrency(createMoneyFromDecimal(Number(transferAmount), symbol), {
+    preset: 'pad-decimals',
+  });
+  const summaryFee = formatCurrency(createMoney(Number(fee), symbol), { preset: 'pad-decimals' });
 
   const utxosOfSpendableInscriptions = useInscribedSpendableUtxos();
 

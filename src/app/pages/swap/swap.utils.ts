@@ -2,11 +2,11 @@ import type { MarketData, Money } from '@leather.io/models';
 import {
   baseCurrencyAmountInQuote,
   createMoney,
-  i18nFormatCurrency,
   isMoneyGreaterThanZero,
   unitToFractionalUnit,
 } from '@leather.io/utils';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 
 export function convertSwapAssetBalanceToFiat(asset: SwapAsset) {
@@ -18,7 +18,7 @@ export function convertSwapAssetBalanceToFiat(asset: SwapAsset) {
   )
     // adjustment for assets with balance but no price data
     return '-';
-  return i18nFormatCurrency(baseCurrencyAmountInQuote(asset.balance, asset.marketData));
+  return formatCurrency(baseCurrencyAmountInQuote(asset.balance, asset.marketData));
 }
 
 export function convertInputAmountValueToFiat(balance: Money, price: MarketData, value: string) {

@@ -1,12 +1,8 @@
 import type { CryptoCurrency, MarketData } from '@leather.io/models';
 import { ItemLayout } from '@leather.io/ui';
-import {
-  baseCurrencyAmountInQuote,
-  capitalize,
-  createMoney,
-  formatMoneyPadded,
-  i18nFormatCurrency,
-} from '@leather.io/utils';
+import { baseCurrencyAmountInQuote, capitalize, createMoney } from '@leather.io/utils';
+
+import { formatCurrency } from '@app/common/currency-formatter';
 
 import type { Fee } from '../fee-editor.context';
 import { FeeItemIcon } from './fee-item-icon';
@@ -30,10 +26,10 @@ export function FeeRateItemLayout({ fee, marketData, showChevron }: FeeRateItemL
       showChevron={showChevron}
       titleLeft={capitalize(priority)}
       captionLeft={time}
-      titleRight={txFee ? formatMoneyPadded(txFee) : 'N/A'}
+      titleRight={txFee ? formatCurrency(txFee, { preset: 'pad-decimals' }) : 'N/A'}
       captionRight={
         txFee
-          ? `${feeRate} ${feeSymbolToFractionalUnitMap[txFee.symbol]}/vB · ${i18nFormatCurrency(
+          ? `${feeRate} ${feeSymbolToFractionalUnitMap[txFee.symbol]}/vB · ${formatCurrency(
               baseCurrencyAmountInQuote(
                 createMoney(Math.ceil(txFee.amount.toNumber()), txFee.symbol),
                 marketData
