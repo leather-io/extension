@@ -4,10 +4,11 @@ import { useFormikContext } from 'formik';
 import { HStack, styled } from 'leather-styles/jsx';
 
 import { ChevronRightIcon } from '@leather.io/ui';
-import { createMoneyFromDecimal, formatMoney, isDefined, isUndefined } from '@leather.io/utils';
+import { createMoneyFromDecimal, isDefined, isUndefined } from '@leather.io/utils';
 
 import type { SwapFormValues } from '@shared/models/form.model';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { useSwapContext } from '@app/pages/swap/swap.context';
 import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 
@@ -76,7 +77,7 @@ export function StacksSwapDetails() {
           </HStack>
         }
       />
-      <SwapDetailLayout title="Min to receive" value={formatMoney(minToReceive)} />
+      <SwapDetailLayout title="Min to receive" value={formatCurrency(minToReceive)} />
       <SwapDetailLayout title="Slippage tolerance" value={`${swapData.slippage * 100}%`} />
       <SwapDetailLayout
         title="Liquidity provider fee"
@@ -85,7 +86,7 @@ export function StacksSwapDetails() {
       <SwapDetailLayout
         title="Transaction fees"
         tooltipLabel={swapData.sponsorship?.isEligible ? sponsoredFeeLabel : undefined}
-        value={swapData.sponsorship?.isEligible ? 'Sponsored' : formatMoney(swapData.fee)}
+        value={swapData.sponsorship?.isEligible ? 'Sponsored' : formatCurrency(swapData.fee)}
       />
       <SwapDetailLayout title="Nonce" value={swapData.nonce.toString()} />
     </SwapDetailsLayout>

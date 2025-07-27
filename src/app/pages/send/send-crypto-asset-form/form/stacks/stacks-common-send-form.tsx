@@ -8,11 +8,11 @@ import { ObjectSchema } from 'yup';
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@leather.io/constants';
 import type { Fees, Money } from '@leather.io/models';
 import { Button, Link } from '@leather.io/ui';
-import { formatMoney } from '@leather.io/utils';
 
 import { StacksSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { FeesRow } from '@app/components/fees-row/fees-row';
 import { AvailableBalance, ButtonRow, Card, Page } from '@app/components/layout';
 import { NonceSetter } from '@app/components/nonce-setter';
@@ -76,7 +76,7 @@ export function StacksCommonSendForm({
                         Continue
                       </Button>
                       <AvailableBalance
-                        balance={formatMoney(availableTokenBalance)}
+                        balance={formatCurrency(availableTokenBalance)}
                         isPrivate={isPrivate}
                       />
                     </ButtonRow>

@@ -2,8 +2,8 @@ import { Box, styled } from 'leather-styles/jsx';
 
 import type { Money } from '@leather.io/models';
 import { Approver, Caption, ItemLayout, SkeletonLoader } from '@leather.io/ui';
-import { formatDustUsdAmounts, formatMoneyPadded, i18nFormatCurrency } from '@leather.io/utils';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { AccountNameLayout } from '@app/components/account/account-name';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
@@ -33,13 +33,15 @@ export function SigningAccountCard({
 
   const titleRight = (
     <SkeletonLoader isLoading={isLoadingBalance} width="96px">
-      <styled.span textStyle="label.02">{formatMoneyPadded(availableBalance)}</styled.span>
+      <styled.span textStyle="label.02">
+        {formatCurrency(availableBalance, { preset: 'pad-decimals' })}
+      </styled.span>
     </SkeletonLoader>
   );
 
   const captionRight = (
     <SkeletonLoader isLoading={isLoadingBalance} width="48px">
-      <Caption>{formatDustUsdAmounts(i18nFormatCurrency(fiatBalance))}</Caption>
+      <Caption>{formatCurrency(fiatBalance)}</Caption>
     </SkeletonLoader>
   );
 

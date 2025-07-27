@@ -3,10 +3,10 @@ import { HStack } from 'leather-styles/jsx';
 
 import type { Money } from '@leather.io/models';
 import { AddressDisplayer, Approver, ItemLayout, UserIcon } from '@leather.io/ui';
-import { formatDustUsdAmounts, formatMoney, i18nFormatCurrency } from '@leather.io/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { IconWrapper } from '@app/components/icon-wrapper';
 import { Divider } from '@app/components/layout/divider';
 
@@ -27,8 +27,8 @@ export function TransactionRecipientsLayout({
   return recipients.map(({ address, amount }) => {
     const fiatAmount = convertToFiatAmount(amount);
 
-    const titleRight = formatMoney(amount);
-    const captionRight = formatDustUsdAmounts(i18nFormatCurrency(fiatAmount));
+    const titleRight = formatCurrency(amount);
+    const captionRight = formatCurrency(fiatAmount);
 
     return (
       <Approver.Section key={address}>

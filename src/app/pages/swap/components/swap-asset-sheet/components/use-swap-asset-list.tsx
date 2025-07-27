@@ -4,16 +4,12 @@ import { useNavigate, useParams } from 'react-router';
 import BigNumber from 'bignumber.js';
 import { useFormikContext } from 'formik';
 
-import {
-  convertAmountToFractionalUnit,
-  createMoney,
-  formatMoneyWithoutSymbol,
-  isUndefined,
-} from '@leather.io/utils';
+import { convertAmountToFractionalUnit, createMoney, isUndefined } from '@leather.io/utils';
 
 import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { type BaseSwapContext, useSwapContext } from '@app/pages/swap/swap.context';
 import { constructSwapRoute } from '@app/pages/swap/swap.routes';
 import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
@@ -126,7 +122,14 @@ export function useSwapAssetList<T extends BaseSwapContext<T>>({
         quoteAsset?.balance.symbol ?? '',
         quoteAsset?.balance.decimals
       );
-      void setFieldValue('swapAmountQuote', formatMoneyWithoutSymbol(quoteAmountAsMoney));
+      void setFieldValue(
+        'swapAmountQuote',
+        formatCurrency(quoteAmountAsMoney, {
+          showCurrency: false,
+          compactThreshold: Infinity,
+          numberFormatOptions: { useGrouping: false },
+        })
+      );
       setFieldError('swapAmountQuote', undefined);
     },
     [

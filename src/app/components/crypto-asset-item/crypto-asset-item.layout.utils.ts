@@ -1,11 +1,18 @@
 import type { Money } from '@leather.io/models';
-import { formatMoneyWithoutSymbol } from '@leather.io/utils';
 
-import { formatBalance } from '@app/common/format-balance';
+import { formatCurrency } from '@app/common/currency-formatter';
 
 export function parseCryptoAssetBalance(availableBalance: Money) {
-  const availableBalanceString = formatMoneyWithoutSymbol(availableBalance);
-  const formattedBalance = formatBalance(availableBalanceString);
+  const availableBalanceString = formatCurrency(availableBalance, {
+    showCurrency: false,
+    compactThreshold: Infinity,
+  });
+  const formattedBalance = {
+    isCompact: availableBalance.amount
+      .shiftedBy(-availableBalance.decimals)
+      .isGreaterThan(1_000_000),
+    value: formatCurrency(availableBalance, { preset: 'shorthand-balance' }),
+  };
 
   return {
     availableBalanceString,

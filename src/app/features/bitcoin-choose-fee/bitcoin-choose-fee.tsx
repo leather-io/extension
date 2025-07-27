@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { Box, Flex, FlexProps, Stack } from 'leather-styles/jsx';
 
 import type { BtcFeeType, Money } from '@leather.io/models';
-import { formatMoney } from '@leather.io/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { BitcoinCustomFee } from '@app/components/bitcoin-custom-fee/bitcoin-custom-fee';
 import { MAX_FEE_RATE_MULTIPLIER } from '@app/components/bitcoin-custom-fee/hooks/use-bitcoin-custom-fee';
 import { OnChooseFeeArgs } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
@@ -67,7 +67,10 @@ export function BitcoinChooseFee({
       border="unset"
       footer={
         <Box mt="space.05" width="100%">
-          <AvailableBalance balance={formatMoney(balance.availableBalance)} isPrivate={isPrivate} />
+          <AvailableBalance
+            balance={formatCurrency(balance.availableBalance)}
+            isPrivate={isPrivate}
+          />
         </Box>
       }
       {...rest}

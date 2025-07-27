@@ -1,6 +1,6 @@
 import { Link } from '@leather.io/ui';
-import { formatMoney } from '@leather.io/utils';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { useCurrentTaprootAccountBalance } from '@app/query/bitcoin/ordinals/inscriptions/inscriptions.query';
 import { useRecoverUninscribedTaprootUtxosFeatureEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
@@ -21,7 +21,7 @@ export function TaprootBalanceDisplayer({ onSelectRetrieveBalance }: TaprootBala
   return (
     <BasicTooltip label={taprootSpendNotSupportedYetMsg} asChild>
       <Link onClick={() => onSelectRetrieveBalance()} textStyle="caption.01" variant="text">
-        {formatMoney(balance)}
+        {formatCurrency(balance)}
       </Link>
     </BasicTooltip>
   );

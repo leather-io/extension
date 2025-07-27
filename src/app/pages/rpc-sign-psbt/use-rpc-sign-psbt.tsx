@@ -5,18 +5,13 @@ import { bytesToHex } from '@stacks/common';
 
 import type { Money } from '@leather.io/models';
 import { RpcErrorCode, createRpcErrorResponse, createRpcSuccessResponse } from '@leather.io/rpc';
-import {
-  formatMoney,
-  formatMoneyPadded,
-  i18nFormatCurrency,
-  isError,
-  sumMoney,
-} from '@leather.io/utils';
+import { isError, sumMoney } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { SignPsbtArgs } from '@app/common/psbt/requests';
 import { useRpcSignPsbtParams } from '@app/common/psbt/use-psbt-request-params';
 import { usePsbtSigner } from '@app/features/psbt-signer/hooks/use-psbt-signer';
@@ -78,17 +73,17 @@ export function useRpcSignPsbt() {
         await filteredUtxosQuery.refetch();
 
         const psbtTxSummaryState = {
-          fee: formatMoneyPadded(fee),
-          sendingValue: formatMoney(transferTotalAsMoney),
-          totalSpend: formatMoney(sumMoney([transferTotalAsMoney, fee])),
-          txFiatValue: i18nFormatCurrency(calculateBitcoinFiatValue(transferTotalAsMoney)),
+          fee: formatCurrency(fee, { preset: 'pad-decimals' }),
+          sendingValue: formatCurrency(transferTotalAsMoney),
+          totalSpend: formatCurrency(sumMoney([transferTotalAsMoney, fee])),
+          txFiatValue: formatCurrency(calculateBitcoinFiatValue(transferTotalAsMoney)),
           txFiatValueSymbol: btcMarketData.price.symbol,
           txId: txid,
           txLink: {
             blockchain: 'bitcoin',
             txId: txid || '',
           },
-          txValue: formatMoney(transferTotalAsMoney),
+          txValue: formatCurrency(transferTotalAsMoney),
         };
 
         navigate(RouteUrls.RpcSignPsbtSummary, { state: psbtTxSummaryState });

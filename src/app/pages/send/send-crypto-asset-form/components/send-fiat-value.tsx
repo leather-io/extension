@@ -4,12 +4,9 @@ import { useField } from 'formik';
 import { styled } from 'leather-styles/jsx';
 
 import type { MarketData, Money } from '@leather.io/models';
-import {
-  baseCurrencyAmountInQuote,
-  createMoneyFromDecimal,
-  i18nFormatCurrency,
-  isNumber,
-} from '@leather.io/utils';
+import { baseCurrencyAmountInQuote, createMoneyFromDecimal, isNumber } from '@leather.io/utils';
+
+import { formatCurrency } from '@app/common/currency-formatter';
 
 interface SendFiatInputProps {
   marketData: MarketData;
@@ -37,7 +34,7 @@ export function SendFiatValue({ marketData, assetSymbol = '', assetDecimals }: S
   return (
     <styled.span textStyle="body.02" color="ink.text-subdued">
       {Number(field.value) > 0 && '~'}{' '}
-      {i18nFormatCurrency(baseCurrencyAmountInQuote(assetValue, marketData))} USD
+      {formatCurrency(baseCurrencyAmountInQuote(assetValue, marketData))}
     </styled.span>
   );
 }

@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router';
 import { Stack } from 'leather-styles/jsx';
 
 import { Link } from '@leather.io/ui';
-import { delay, formatMoneyPadded, truncateMiddle } from '@leather.io/utils';
+import { delay, truncateMiddle } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { useToast } from '@app/features/toasts/use-toast';
@@ -58,8 +59,8 @@ export function RetrieveTaprootToNativeSegwit() {
       <Stack width="100%">
         <InfoCardRow title="Your address" value={<FormAddressDisplayer address={recipient} />} />
         <InfoCardSeparator />
-        <InfoCardRow title="Amount" value={formatMoneyPadded(balance)} />
-        <InfoCardRow title="Fee" value={formatMoneyPadded(fee)} />
+        <InfoCardRow title="Amount" value={formatCurrency(balance, { preset: 'pad-decimals' })} />
+        <InfoCardRow title="Fee" value={formatCurrency(fee, { preset: 'pad-decimals' })} />
         <InfoCardSeparator />
         {uninscribedUtxos.map((utxo, i) => (
           <InfoCardRow

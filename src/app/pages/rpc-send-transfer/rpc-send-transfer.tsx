@@ -3,10 +3,11 @@ import { useMemo } from 'react';
 import { Box } from 'leather-styles/jsx';
 
 import { Approver, BtcAvatarIcon } from '@leather.io/ui';
-import { baseCurrencyAmountInQuote, i18nFormatCurrency, sumMoney } from '@leather.io/utils';
+import { baseCurrencyAmountInQuote, sumMoney } from '@leather.io/utils';
 
 import { analytics } from '@shared/utils/analytics';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { focusTabAndWindow } from '@app/common/focus-tab';
 import { useConvertCryptoCurrencyToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
 import { AccountBitcoinAddress } from '@app/components/account/account-bitcoin-address';
@@ -43,7 +44,7 @@ export function RpcSendTransfer() {
   const totalFiatValue = useMemo(() => {
     const fee = selectedFee?.txFee;
     if (!fee) return '';
-    return i18nFormatCurrency(baseCurrencyAmountInQuote(sumMoney([amount, fee]), marketData));
+    return formatCurrency(baseCurrencyAmountInQuote(sumMoney([amount, fee]), marketData));
   }, [amount, marketData, selectedFee?.txFee]);
 
   return (

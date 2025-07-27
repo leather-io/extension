@@ -2,12 +2,9 @@ import { styled } from 'leather-styles/jsx';
 
 import type { StxBalance } from '@leather.io/models';
 import { Caption, StxAvatarIcon } from '@leather.io/ui';
-import {
-  baseCurrencyAmountInQuote,
-  formatMoneyWithoutSymbol,
-  i18nFormatCurrency,
-} from '@leather.io/utils';
+import { baseCurrencyAmountInQuote } from '@leather.io/utils';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
@@ -29,12 +26,14 @@ export function StxCryptoAssetItem({
   const { lockedBalance, totalBalance } = balance;
   const showLockedBalance = lockedBalance.amount.isGreaterThan(0) && !isPrivate;
 
-  const fiatLockedBalance = i18nFormatCurrency(
-    baseCurrencyAmountInQuote(lockedBalance, marketData)
-  );
-  const fiatTotalBalance = i18nFormatCurrency(baseCurrencyAmountInQuote(totalBalance, marketData));
+  const fiatLockedBalance = formatCurrency(baseCurrencyAmountInQuote(lockedBalance, marketData), {
+    preset: 'shorthand-balance',
+  });
+  const fiatTotalBalance = formatCurrency(baseCurrencyAmountInQuote(totalBalance, marketData), {
+    preset: 'shorthand-balance',
+  });
   const titleRightBulletInfo = (
-    <styled.span>{formatMoneyWithoutSymbol(lockedBalance)} locked</styled.span>
+    <styled.span>{formatCurrency(lockedBalance, { showCurrency: false })} locked</styled.span>
   );
   const captionRightBulletInfo = <Caption>{fiatLockedBalance} locked</Caption>;
 

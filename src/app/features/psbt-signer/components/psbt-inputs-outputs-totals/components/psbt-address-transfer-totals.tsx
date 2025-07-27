@@ -1,5 +1,6 @@
-import { formatMoney, i18nFormatCurrency, truncateMiddle } from '@leather.io/utils';
+import { truncateMiddle } from '@leather.io/utils';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 
@@ -22,8 +23,8 @@ export function PsbtAddressTransferTotals({ showNativeSegwitTotal }: PsbtAddress
         <PsbtAddressTotalItem
           hoverLabel={addressNativeSegwit}
           subtitle={truncateMiddle(addressNativeSegwit)}
-          subValue={i18nFormatCurrency(calculateBitcoinFiatValue(addressNativeSegwitTotal))}
-          value={formatMoney(addressNativeSegwitTotal)}
+          subValue={formatCurrency(calculateBitcoinFiatValue(addressNativeSegwitTotal))}
+          value={formatCurrency(addressNativeSegwitTotal)}
         />
       ) : null}
       {isTransferringInscriptions

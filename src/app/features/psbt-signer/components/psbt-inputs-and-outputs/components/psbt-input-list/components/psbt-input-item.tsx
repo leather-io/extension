@@ -1,5 +1,6 @@
-import { createMoney, formatMoney, truncateMiddle } from '@leather.io/utils';
+import { createMoney, truncateMiddle } from '@leather.io/utils';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { PsbtInput } from '@app/features/psbt-signer/hooks/use-parsed-inputs';
 import { BadgeWithTooltip } from '@app/ui/components/badge/badge-with-tooltip';
 
@@ -14,7 +15,7 @@ export function PsbtInputItem({ utxo }: { utxo: PsbtInput }) {
     <PsbtInputOutputItemLayout
       address={truncateMiddle(utxo.address)}
       addressHoverLabel={utxo.address}
-      amount={formatMoney(createMoney(utxo.value, 'BTC'))}
+      amount={formatCurrency(createMoney(utxo.value, 'BTC'))}
       label={
         utxo.toSign ? (
           <BadgeWithTooltip hoverLabel={hoverLabel} label="Approve" outlined />
