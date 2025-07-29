@@ -1,4 +1,4 @@
-import type { BtcCryptoAssetBalance } from '@leather.io/models';
+import type { BtcBalance } from '@leather.io/models';
 import { BtcAvatarIcon } from '@leather.io/ui';
 import { baseCurrencyAmountInQuote, i18nFormatCurrency } from '@leather.io/utils';
 
@@ -7,7 +7,7 @@ import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 interface BtcCryptoAssetItemProps {
-  balance: BtcCryptoAssetBalance;
+  balance: BtcBalance;
   isLoading: boolean;
   isLoadingAdditionalData?: boolean;
   onSelectAsset?(symbol: string): void;

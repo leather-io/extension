@@ -1,4 +1,4 @@
-import type { StxCryptoAssetBalance } from '@leather.io/models';
+import type { StxBalance } from '@leather.io/models';
 import { isErrorTooManyRequests, isFetchedWithSuccess } from '@leather.io/query';
 import { StxAvatarIcon } from '@leather.io/ui';
 
@@ -10,7 +10,7 @@ import { CryptoAssetItemPlaceholder } from '../crypto-asset-item/crypto-asset-it
 interface StxBalanceLoaderProps {
   address: string;
   children(
-    balance: StxCryptoAssetBalance,
+    balance: StxBalance,
     isLoading: boolean,
     isLoadingAdditionalData: boolean
   ): React.ReactNode;

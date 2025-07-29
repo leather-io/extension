@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { type Brc20CryptoAssetInfo, createMarketData, createMarketPair } from '@leather.io/models';
+import { type Brc20Asset, createMarketData, createMarketPair } from '@leather.io/models';
 import { isFetchedWithSuccess } from '@leather.io/query';
 import { createBaseCryptoAssetBalance, createMoney, unitToFractionalUnit } from '@leather.io/utils';
 
@@ -33,7 +33,7 @@ export function useBrc20FeatureFlag() {
   return { enabled: true } as const;
 }
 
-function createBrc20CryptoAssetInfo(decimals: number, ticker: string): Brc20CryptoAssetInfo {
+function createBrc20Asset(decimals: number, ticker: string): Brc20Asset {
   return {
     chain: 'bitcoin',
     category: 'fungible',
@@ -73,7 +73,7 @@ export function useBrc20Tokens() {
           token.info.decimals
         )
       ),
-      info: createBrc20CryptoAssetInfo(token.info.decimals, token.balance.ticker),
+      info: createBrc20Asset(token.info.decimals, token.balance.ticker),
       holderAddress: token.holderAddress,
       marketData: createMarketData(
         createMarketPair(token.balance.ticker, 'USD'),

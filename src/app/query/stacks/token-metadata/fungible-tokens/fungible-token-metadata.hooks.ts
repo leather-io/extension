@@ -5,7 +5,7 @@ import {
   type FtAssetResponse,
   type HiroSip10AddressBalanceResult,
   createGetFungibleTokenMetadataQueryOptions,
-  createSip10CryptoAssetInfo,
+  createSip10Asset,
   isFtAsset,
 } from '@leather.io/query';
 import { getPrincipalFromAssetString, getStacksAssetStringParts } from '@leather.io/stacks';
@@ -61,7 +61,7 @@ export function useStacksFungibleTokensMetadata(tokens: string[]) {
         }),
         select: (resp: FtAssetResponse | null) => {
           if (!(resp && isFtAsset(resp))) return;
-          return createSip10CryptoAssetInfo(token, resp);
+          return createSip10Asset(token, resp);
         },
       };
     }),

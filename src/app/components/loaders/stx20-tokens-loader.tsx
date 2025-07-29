@@ -1,4 +1,4 @@
-import type { CryptoAssetBalance, Stx20CryptoAssetInfo } from '@leather.io/models';
+import type { CryptoAssetBalance, Stx20Asset } from '@leather.io/models';
 
 import { type AssetFilter, useManageTokens } from '@app/common/hooks/use-manage-tokens';
 import { useStx20Tokens } from '@app/query/stacks/stx20/stx20-tokens.hooks';
@@ -17,14 +17,14 @@ interface Stx20TokensLoaderProps {
 
 interface Stx20TokenItem {
   balance: CryptoAssetBalance;
-  info: Stx20CryptoAssetInfo;
+  info: Stx20Asset;
 }
 
 function getTokenId(token: Stx20TokenItem) {
   return token.info.symbol;
 }
 
-function castFullTokenInfo(rawToken: Partial<Stx20CryptoAssetInfo>) {
+function castFullTokenInfo(rawToken: Partial<Stx20Asset>) {
   return {
     chain: rawToken.chain!,
     category: rawToken.category!,

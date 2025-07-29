@@ -1,6 +1,6 @@
 import { styled } from 'leather-styles/jsx';
 
-import type { StxCryptoAssetBalance } from '@leather.io/models';
+import type { StxBalance } from '@leather.io/models';
 import { Caption, StxAvatarIcon } from '@leather.io/ui';
 import {
   baseCurrencyAmountInQuote,
@@ -12,7 +12,7 @@ import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
 interface StxCryptoAssetItemProps {
-  balance: StxCryptoAssetBalance;
+  balance: StxBalance;
   isLoading: boolean;
   isPrivate?: boolean;
   onSelectAsset?(symbol: string): void;
