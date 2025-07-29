@@ -11,11 +11,13 @@ import { restoreWalletSession } from '@app/store/session-restore';
 
 import { App } from './app';
 import { setDebugOnGlobal } from './debug';
+import { initAppServices } from './services/init-app-services';
 
 // `bitcoinjs-lib` requires an elliptic curve library to be initialized, here we
 // do it globally for the entire app.
 bitcoin.initEccLib(ecc);
 
+initAppServices();
 initSentry();
 warnUsersAboutDevToolsDangers();
 setDebugOnGlobal();
