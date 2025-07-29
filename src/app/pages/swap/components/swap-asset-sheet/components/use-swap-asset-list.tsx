@@ -14,6 +14,7 @@ import {
 import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
+import { useBitflowValidPairs } from '@app/pages/swap/hooks/use-bitflow-valid-pairs';
 import { type BaseSwapContext, useSwapContext } from '@app/pages/swap/swap.context';
 import { constructSwapRoute } from '@app/pages/swap/swap.routes';
 import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
@@ -33,12 +34,38 @@ export function useSwapAssetList<T extends BaseSwapContext<T>>({
   const isBaseList = type === 'base';
   const isQuoteList = type === 'quote';
 
-  // Filter out selected asset from selectable assets
-  const selectableAssets = assets.filter(
-    asset =>
-      (isBaseList && asset.name !== values.swapAssetQuote?.name) ||
-      (isQuoteList && asset.name !== values.swapAssetBase?.name)
-  );
+  // Initialize valid pairs hook with enabled flag based on asset availability
+  const {
+    filterValidAssets,
+    isLoading: isValidPairsLoading,
+    isError: isValidPairsError,
+  } = useBitflowValidPairs(assets, {
+    enabled: assets.length > 0,
+  });
+
+  // Filter out selected asset and apply valid pairs filtering
+  const selectableAssets = (() => {
+    // First, filter out the currently selected asset
+    const assetsWithoutSelected = assets.filter(
+      asset =>
+        (isBaseList && asset.name !== values.swapAssetQuote?.name) ||
+        (isQuoteList && asset.name !== values.swapAssetBase?.name)
+    );
+
+    // Then apply valid pairs filtering
+    if (isBaseList && values.swapAssetQuote?.tokenId) {
+      // When selecting base asset, filter by assets that can be paired with the selected quote
+      return filterValidAssets(assetsWithoutSelected, values.swapAssetQuote.tokenId, 'base');
+    }
+
+    if (isQuoteList && values.swapAssetBase?.tokenId) {
+      // When selecting quote asset, filter by assets that can be paired with the selected base
+      return filterValidAssets(assetsWithoutSelected, values.swapAssetBase.tokenId, 'quote');
+    }
+
+    // If no base or quote is selected, return all assets (minus the selected one)
+    return assetsWithoutSelected;
+  })();
 
   const onSelectBaseAsset = useCallback(
     (baseAsset: SwapAsset) => {
@@ -59,7 +86,7 @@ export function useSwapAssetList<T extends BaseSwapContext<T>>({
       }
       // Handle swap assets
       onSetIsCrossChainSwap(false);
-      navigate(
+      void navigate(
         constructSwapRoute({
           chain: 'stacks',
           route: RouteUrls.Swap,
@@ -93,7 +120,7 @@ export function useSwapAssetList<T extends BaseSwapContext<T>>({
       }
       // Handle swap assets
       onSetIsCrossChainSwap(false);
-      navigate(
+      void navigate(
         constructSwapRoute({
           chain: 'stacks',
           route: RouteUrls.Swap,
@@ -140,18 +167,20 @@ export function useSwapAssetList<T extends BaseSwapContext<T>>({
 
   return {
     selectableAssets,
+    isValidPairsLoading,
+    isValidPairsError,
     async onSelectAsset(asset: SwapAsset) {
       let baseAsset: SwapAsset | undefined;
       let quoteAsset: SwapAsset | undefined;
       if (isBaseList) {
         baseAsset = asset;
         quoteAsset = values.swapAssetQuote;
-        onSelectBaseAsset(baseAsset);
+        void onSelectBaseAsset(baseAsset);
       }
       if (isQuoteList) {
         baseAsset = values.swapAssetBase;
         quoteAsset = asset;
-        onSelectQuoteAsset(quoteAsset, baseAsset);
+        void onSelectQuoteAsset(quoteAsset, baseAsset);
       }
       if (baseAsset && quoteAsset && values.swapAmountBase) {
         await onFetchQuoteAmount(baseAsset, quoteAsset);
