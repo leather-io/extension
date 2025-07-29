@@ -5,7 +5,7 @@ import {
   type RuneBalance,
   type RuneTickerInfo,
   createGetRunesTickerInfoQueryOptions,
-  createRuneCryptoAssetDetails,
+  createRuneAssetDetails,
 } from '@leather.io/query';
 import { baseCurrencyAmountInQuote, createMoney } from '@leather.io/utils';
 
@@ -35,7 +35,7 @@ export function useGetRunesTickerInfoQuery(runesBalances: RuneBalance[]) {
             ),
             btcMarketData
           );
-          return createRuneCryptoAssetDetails(runeBalance, resp, fiatPrice);
+          return createRuneAssetDetails(runeBalance, resp, fiatPrice);
         },
         ...queryOptions,
       };

@@ -1,11 +1,11 @@
-import type { Brc20CryptoAssetInfo, CryptoAssetBalance, MarketData } from '@leather.io/models';
+import type { Brc20Asset, CryptoAssetBalance, MarketData } from '@leather.io/models';
 
 import { type AssetFilter, useManageTokens } from '@app/common/hooks/use-manage-tokens';
 import { useBrc20Tokens } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.hooks';
 
 interface Brc20TokenItem {
   balance: CryptoAssetBalance;
-  info: Brc20CryptoAssetInfo;
+  info: Brc20Asset;
   holderAddress: string;
   marketData: MarketData;
 }

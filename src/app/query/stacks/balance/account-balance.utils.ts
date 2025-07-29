@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import type { Money, StxCryptoAssetBalance } from '@leather.io/models';
+import type { Money, StxBalance } from '@leather.io/models';
 import type { HiroStxAddressBalanceResponse } from '@leather.io/query';
 import { createMoney, subtractMoney, sumMoney } from '@leather.io/utils';
 
@@ -17,7 +17,7 @@ export function createStxCryptoAssetBalance(
   stxMoney: Record<AccountBalanceStxKeys, Money>,
   inboundBalance: Money,
   outboundBalance: Money
-): StxCryptoAssetBalance {
+): StxBalance {
   const totalBalance = createMoney(stxMoney.balance.amount, 'STX');
   const unlockedBalance = subtractMoney(stxMoney.balance, stxMoney.locked);
 

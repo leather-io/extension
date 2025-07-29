@@ -1,11 +1,7 @@
 import { useMemo } from 'react';
 
-import type {
-  BaseCryptoAssetBalance,
-  CryptoAssetBalance,
-  Sip10CryptoAssetInfo,
-} from '@leather.io/models';
-import { type Sip10CryptoAssetFilter } from '@leather.io/query';
+import type { BaseCryptoAssetBalance, CryptoAssetBalance, Sip10Asset } from '@leather.io/models';
+import { type Sip10AssetFilter } from '@leather.io/query';
 import { getPrincipalFromAssetString } from '@leather.io/stacks';
 import { isDefined, isUndefined } from '@leather.io/utils';
 
@@ -21,9 +17,9 @@ export function filterSip10Tokens(
   swapAssets: SwapAsset[],
   tokens: {
     balance: CryptoAssetBalance;
-    info: Sip10CryptoAssetInfo;
+    info: Sip10Asset;
   }[],
-  filter: Sip10CryptoAssetFilter
+  filter: Sip10AssetFilter
 ) {
   return tokens.filter(token => {
     const principal = getPrincipalFromAssetString(token.info.contractId);
@@ -42,7 +38,7 @@ function useSip10TokensCryptoAssetBalance(address: string) {
   return useStacksFungibleTokensBalance(query.data?.results ?? []);
 }
 
-function useSip10TokensCryptoAssetInfo(address: string) {
+function useSip10TokensAsset(address: string) {
   const query = useStacksAccountBalanceFungibleTokens(address);
   const tokens = query.data?.results.map(ft => ft.token);
   return useStacksFungibleTokensMetadata(tokens ?? []);
@@ -50,7 +46,7 @@ function useSip10TokensCryptoAssetInfo(address: string) {
 
 export interface Sip10TokenAssetDetails {
   balance: BaseCryptoAssetBalance;
-  info: Sip10CryptoAssetInfo;
+  info: Sip10Asset;
 }
 
 function useSip10Tokens(address: string): {
@@ -58,7 +54,7 @@ function useSip10Tokens(address: string): {
   tokens: Sip10TokenAssetDetails[];
 } {
   const balancesResults = useSip10TokensCryptoAssetBalance(address);
-  const infoResults = useSip10TokensCryptoAssetInfo(address);
+  const infoResults = useSip10TokensAsset(address);
 
   return useMemo(() => {
     const isLoading =
@@ -96,7 +92,7 @@ export function useSip10Token(address: string, contractId: string) {
 
 interface UseSip10TokensArgs {
   address: string;
-  filter?: Sip10CryptoAssetFilter;
+  filter?: Sip10AssetFilter;
 }
 export function useFilteredSip10Tokens({ address, filter = 'all' }: UseSip10TokensArgs) {
   const { isLoading, tokens = [] } = useSip10Tokens(address);

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
 
-import { createGetStx20BalancesQueryOptions, createStx20CryptoAssetInfo } from '@leather.io/query';
+import { createGetStx20BalancesQueryOptions, createStx20Asset } from '@leather.io/query';
 import { createBaseCryptoAssetBalance, createMoney } from '@leather.io/utils';
 
 import { useCurrentNetworkState } from '@app/query/leather-query-provider';
@@ -23,7 +23,7 @@ export function useStx20Tokens(address: string) {
         balance: createBaseCryptoAssetBalance(
           createMoney(new BigNumber(stx20Balance.balance), stx20Balance.ticker, 0)
         ),
-        info: createStx20CryptoAssetInfo(stx20Balance),
+        info: createStx20Asset(stx20Balance),
       })),
   });
 }

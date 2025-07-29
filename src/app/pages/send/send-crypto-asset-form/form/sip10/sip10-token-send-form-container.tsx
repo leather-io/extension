@@ -1,4 +1,4 @@
-import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather.io/models';
+import type { CryptoAssetBalance, MarketData, Sip10Asset } from '@leather.io/models';
 import { StxAvatarIcon } from '@leather.io/ui';
 
 import { StacksAssetAvatar } from '@app/components/stacks-asset-avatar';
@@ -11,7 +11,7 @@ import { StacksCommonSendForm } from '../stacks/stacks-common-send-form';
 import { useSip10SendForm } from './use-sip10-send-form';
 
 interface Sip10TokenSendFormContainerProps {
-  info: Sip10CryptoAssetInfo;
+  info: Sip10Asset;
   balance: CryptoAssetBalance;
   marketData: MarketData;
 }

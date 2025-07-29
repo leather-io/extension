@@ -1,11 +1,6 @@
 import { Outlet, useParams } from 'react-router';
 
-import type {
-  Blockchain,
-  BtcCryptoAssetBalance,
-  CryptoCurrency,
-  StxCryptoAssetBalance,
-} from '@leather.io/models';
+import type { Blockchain, BtcBalance, CryptoCurrency, StxBalance } from '@leather.io/models';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -20,7 +15,7 @@ import { FiatProvidersList } from './fiat-providers-list';
 
 interface FundCryptoCurrencyInfo {
   address?: string;
-  balance?: BtcCryptoAssetBalance | StxCryptoAssetBalance;
+  balance?: BtcBalance | StxBalance;
   blockchain: Blockchain;
   route: string;
   symbol: CryptoCurrency;
