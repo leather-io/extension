@@ -21,6 +21,7 @@ import { btcToSat, createMoney } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import {
@@ -151,13 +152,16 @@ export function useSbtcDepositTransaction(signer: BitcoinSigner<P2Ret>, utxos: U
         const txid = await client.broadcastTx(deposit.transaction);
         logger.info('Broadcasted tx', txid);
 
+        void analytics.untypedTrack('bitcoin_swap_succeeded', { txid });
+
         await client.notifySbtc(deposit);
         toast.success('Transaction submitted!');
         setIsIdle();
-        navigate(RouteUrls.Activity);
+        return navigate(RouteUrls.Activity);
       } catch (error) {
         setIsIdle();
         logger.error(`Deposit error: ${error}`);
+        void analytics.untypedTrack('bitcoin_swap_failed', { error });
       } finally {
         setIsIdle();
       }
