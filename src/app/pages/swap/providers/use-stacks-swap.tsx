@@ -167,7 +167,7 @@ export function useStacksSwap(nonce: number | string) {
 
         return await broadcastStacksSwap(signedTx);
       } catch (e) {
-        navigate(RouteUrls.SwapError, {
+        return navigate(RouteUrls.SwapError, {
           state: {
             message: isError(e) ? e.message : '',
             title: 'Swap Error',
