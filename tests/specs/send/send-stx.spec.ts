@@ -7,7 +7,7 @@ import {
 import { mockBnsV2NameLookup, mockBnsV2ZoneFileLookup } from '@tests/mocks/mock-stacks-bns';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { getDisplayerAddress } from '@tests/utils';
+import { getDisplayerAddress, withNbsp } from '@tests/utils';
 
 import { HIGH_FEE_AMOUNT_STX, STX_DECIMALS } from '@leather.io/constants';
 
@@ -97,12 +97,12 @@ test.describe('send stx: tests on testnet', () => {
     const confirmationAssetValue = await sendPage.confirmationDetails
       .getByTestId(SharedComponentsSelectors.InfoCardAssetValue)
       .innerText();
-    test.expect(confirmationAssetValue).toEqual(`${amount} ${amountSymbol}`);
+    test.expect(confirmationAssetValue).toEqual(withNbsp(`${amount} ${amountSymbol}`));
 
     const confirmationFees = await sendPage.feesRow
       .getByTestId(SharedComponentsSelectors.InfoCardRowValue)
       .innerText();
-    test.expect(confirmationFees).toEqual(fees);
+    test.expect(confirmationFees).toEqual(withNbsp(fees));
 
     const confirmationMemo2 = await sendPage.memoRow
       .getByTestId(SharedComponentsSelectors.InfoCardRowValue)

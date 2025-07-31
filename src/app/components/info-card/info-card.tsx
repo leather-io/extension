@@ -6,7 +6,6 @@ import { Box, BoxProps, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 import { Button, DashedHr } from '@leather.io/ui';
 import { isString } from '@leather.io/utils';
 
-// InfoCardRow
 interface InfoCardRowProps {
   title?: string;
   value: ReactNode;
@@ -37,7 +36,6 @@ export function InfoCardRow({ title, value, titleAdditionalElement, ...props }: 
   );
 }
 
-// InfoCardSeparator
 export function InfoCardSeparator() {
   return <DashedHr my="space.04" />;
 }
@@ -58,6 +56,9 @@ export function InfoCardAssetValue({
   icon,
   ...props
 }: InfoCardAssetValueProps) {
+  const displayValue = `${value}\u00A0${symbol}`;
+  const fiatDisplayValue = `~ ${fiatValue}\u00A0${fiatSymbol}`;
+
   return (
     <Box width="100%" {...props}>
       <Stack alignItems="center" width="100%" py="space.05">
@@ -69,20 +70,15 @@ export function InfoCardAssetValue({
             mb="space.01"
             textStyle="heading.03"
           >
-            {value} {symbol}
+            {displayValue}
           </styled.h1>
-          {fiatValue && (
-            <styled.span textStyle="label.01">
-              ~ {fiatValue} {fiatSymbol}
-            </styled.span>
-          )}
+          {fiatValue && <styled.span textStyle="label.01">{fiatDisplayValue}</styled.span>}
         </Flex>
       </Stack>
     </Box>
   );
 }
 
-// InfoCardBtn
 interface InfoCardBtnProps {
   icon: ReactNode;
   label: string;
@@ -101,7 +97,6 @@ export function InfoCardBtn({ icon, label, onClick }: InfoCardBtnProps) {
   );
 }
 
-// InfoCardFooter
 interface InfoCardFooterProps {
   children: ReactNode;
 }
