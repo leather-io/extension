@@ -38,7 +38,7 @@ test.describe('Swaps', () => {
 
     const swapAmounts = await swapPage.swapDetailsAmount.all();
     const swapAmountBase = await swapAmounts[0].innerText();
-    test.expect(swapAmountBase).toEqual('1');
+    test.expect(swapAmountBase).toEqual('1.00');
   });
 
   test('that the swap is broadcast', async ({ swapPage }) => {
