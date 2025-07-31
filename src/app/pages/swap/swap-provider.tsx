@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { HasChildren } from '@app/common/has-children';
 
@@ -16,6 +16,14 @@ export function SwapProvider<T extends BaseSwapContext<T>>({
   const [isPreparingSwapReview, setIsPreparingSwapReview] = useState(false);
   const [isSendingMax, setIsSendingMax] = useState(false);
   const [swapData, setSwapData] = useState<T>(initialData);
+
+  useEffect(() => {
+    setSwapData(prev => ({
+      ...prev,
+      swappableAssetsBase: initialData.swappableAssetsBase,
+      swappableAssetsQuote: initialData.swappableAssetsQuote,
+    }));
+  }, [initialData.swappableAssetsBase, initialData.swappableAssetsQuote]);
 
   function onSetSwapData(data: Partial<T>) {
     setSwapData(prev => ({ ...prev, ...data }));

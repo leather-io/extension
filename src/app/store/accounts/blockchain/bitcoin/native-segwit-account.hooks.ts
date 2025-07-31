@@ -59,6 +59,14 @@ export function useCurrentNativeSegwitAccount() {
   return useSelector(selectCurrentNativeSegwitAccount);
 }
 
+export function useNativeSegwitAccount(accountIndex: number) {
+  const generateNativeSegwitAccount = useSelector(selectCurrentNetworkNativeSegwitAccountBuilder);
+  return useMemo(
+    () => generateNativeSegwitAccount(accountIndex),
+    [generateNativeSegwitAccount, accountIndex]
+  );
+}
+
 export function useNativeSegwitNetworkSigners() {
   const { mainnet: mainnetKeychain, testnet: testnetKeychain } = useSelector(
     selectNativeSegwitAccountBuilder

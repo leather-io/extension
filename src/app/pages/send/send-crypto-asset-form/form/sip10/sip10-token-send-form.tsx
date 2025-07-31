@@ -4,41 +4,42 @@ import type { CryptoAssetBalance, MarketData, Sip10Asset } from '@leather.io/mod
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { useSip10FiatMarketData } from '@app/common/hooks/use-calculate-sip10-fiat-value';
 import { Content } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 import { useToast } from '@app/features/toasts/use-toast';
-import { useSip10Token } from '@app/query/stacks/sip10/sip10-tokens.hooks';
-import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useMarketData } from '@app/query/common/market-data/market-data.query';
+import { useSip10TokenBalance } from '@app/query/stacks/sip10/sip10-balance.hooks';
+import { useCurrentAccountIndex } from '@app/store/accounts/account';
 
 import { Sip10TokenSendFormContainer } from './sip10-token-send-form-container';
 
 interface Sip10TokenSendFormLoaderProps {
-  children(token: {
+  children(balance: {
+    asset: Sip10Asset;
     balance: CryptoAssetBalance;
-    info: Sip10Asset;
-    marketData: MarketData;
+    marketData?: MarketData;
   }): React.ReactNode;
 }
 function Sip10TokenSendFormLoader({ children }: Sip10TokenSendFormLoaderProps) {
   const { contractId } = useParams();
-  const stxAddress = useCurrentStacksAccountAddress();
-  const token = useSip10Token(stxAddress, contractId ?? '');
-  const { getTokenMarketData } = useSip10FiatMarketData();
+  const accountIndex = useCurrentAccountIndex();
+  const tokenBalance = useSip10TokenBalance(accountIndex, contractId ?? '');
+  const marketData = useMarketData(tokenBalance!.asset);
   const toast = useToast();
   const navigate = useNavigate();
 
-  if (!contractId) return;
+  if (!contractId) return null;
 
-  if (!token) {
+  if (!tokenBalance) {
     toast.error('Token not found');
     navigate(RouteUrls.SendCryptoAsset);
-    return;
+    return null;
   }
 
   return children({
-    ...token,
-    marketData: getTokenMarketData(token.info.contractId, token.balance.availableBalance.symbol),
+    asset: tokenBalance.asset,
+    balance: tokenBalance.crypto,
+    marketData: marketData.value?.price.amount.isGreaterThan(0) ? marketData.value : undefined,
   });
 }
 
@@ -48,12 +49,8 @@ export function Sip10TokenSendForm() {
       <PageHeader title="Send" />
       <Content>
         <Sip10TokenSendFormLoader>
-          {token => (
-            <Sip10TokenSendFormContainer
-              balance={token.balance}
-              info={token.info}
-              marketData={token.marketData}
-            />
+          {({ asset, balance, marketData }) => (
+            <Sip10TokenSendFormContainer asset={asset} balance={balance} marketData={marketData} />
           )}
         </Sip10TokenSendFormLoader>
       </Content>
