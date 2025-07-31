@@ -1,16 +1,3 @@
-export type FetchState<T> =
-  | {
-      state: 'loading';
-    }
-  | {
-      state: 'success';
-      value: T;
-    }
-  | {
-      state: 'error';
-      errorMessage: string;
-    };
-
 export function toFetchState<T>({
   data,
   isLoading,

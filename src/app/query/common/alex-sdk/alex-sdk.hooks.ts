@@ -20,8 +20,8 @@ import {
   sortAssetsByName,
 } from '@leather.io/utils';
 
-import { useStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
-import { useTransferableSip10Tokens } from '@app/query/stacks/sip10/sip10-tokens.hooks';
+import { useStxAddressAvailableUnlockedBalance } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useSip10AddressTransferableTokenBalances } from '@app/query/stacks/sip10/sip10-balance.hooks';
 
 import { useAlexSdkLatestPricesQuery } from './alex-sdk-latest-prices.query';
 import { useGetAlexSwappableCurrenciesQuery } from './alex-sdk-swappable-currency.query';
@@ -60,8 +60,8 @@ export function useAlexCurrencyPriceAsMarketData() {
 function useCreateSwapAsset(address: string) {
   const { data: prices } = useAlexSdkLatestPricesQuery();
   const priceAsMarketData = useAlexCurrencyPriceAsMarketData();
-  const availableUnlockedBalance = useStxAvailableUnlockedBalance(address);
-  const sip10Tokens = useTransferableSip10Tokens(address);
+  const availableUnlockedBalance = useStxAddressAvailableUnlockedBalance(address);
+  const { sip10s } = useSip10AddressTransferableTokenBalances(address);
 
   return useCallback(
     (tokenInfo?: TokenInfo): SwapAsset | undefined => {
@@ -70,9 +70,8 @@ function useCreateSwapAsset(address: string) {
 
       const principal = getPrincipalFromAssetString(tokenInfo.underlyingToken);
 
-      const availableBalance = sip10Tokens.find(
-        token => token.info.contractId === tokenInfo.underlyingToken
-      )?.balance.availableBalance;
+      const availableBalance = sip10s.find(s => s.asset.contractId === tokenInfo.underlyingToken)
+        ?.crypto.availableBalance;
 
       const swapAsset = {
         tokenId: tokenInfo.id,
@@ -100,7 +99,7 @@ function useCreateSwapAsset(address: string) {
           : priceAsMarketData(principal, tokenInfo.name),
       };
     },
-    [availableUnlockedBalance, priceAsMarketData, prices, sip10Tokens]
+    [availableUnlockedBalance, priceAsMarketData, prices, sip10s]
   );
 }
 

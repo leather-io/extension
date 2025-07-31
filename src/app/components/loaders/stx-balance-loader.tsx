@@ -1,8 +1,11 @@
 import type { StxBalance } from '@leather.io/models';
-import { isErrorTooManyRequests, isFetchedWithSuccess } from '@leather.io/query';
+import type { AddressQuotedStxBalance } from '@leather.io/services';
 import { StxAvatarIcon } from '@leather.io/ui';
 
-import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
+import {
+  useStxAccountBalance,
+  useStxAddressBalance,
+} from '@app/query/stacks/balance/stx-balance.hooks';
 
 import { CryptoAssetItemError } from '../crypto-asset-item/crypto-asset-item-error';
 import { CryptoAssetItemPlaceholder } from '../crypto-asset-item/crypto-asset-item-placeholder';
@@ -16,39 +19,29 @@ interface StxBalanceLoaderProps {
   ): React.ReactNode;
 }
 export function StxBalanceLoader({ address, children }: StxBalanceLoaderProps) {
-  const { filteredBalanceQuery, isLoadingAdditionalData } = useStxCryptoAssetBalance(address);
-  const { data: balance, isLoading } = filteredBalanceQuery;
-  if (!balance) return;
-  return children(balance, isLoading, isLoadingAdditionalData);
+  const balance = useStxAddressBalance(address);
+  if (!balance.value) return;
+  return children(balance.value.stx, balance.state !== 'success', balance.state !== 'success');
 }
 
-export function StxAssetItemBalanceLoader({ address, children }: StxBalanceLoaderProps) {
-  const { initialBalanceQuery, filteredBalanceQuery, isLoadingAdditionalData } =
-    useStxCryptoAssetBalance(address);
-
-  async function refetchAll() {
-    await initialBalanceQuery.refetch();
-    return filteredBalanceQuery.refetch();
-  }
-
-  if (initialBalanceQuery.isLoading) return <CryptoAssetItemPlaceholder />;
-
-  if (isErrorTooManyRequests(filteredBalanceQuery)) {
-    return (
-      <CryptoAssetItemError
-        caption="STX"
-        icon={<StxAvatarIcon />}
-        onRefetch={() => refetchAll()}
-        title="Stacks"
-      />
-    );
-  }
-
-  if (!isFetchedWithSuccess(filteredBalanceQuery)) {
+interface StxAssetItemBalanceLoaderProps {
+  accountIndex: number;
+  children(
+    balance: AddressQuotedStxBalance,
+    isLoading: boolean,
+    isLoadingAdditionalData: boolean
+  ): React.ReactNode;
+}
+export function StxAssetItemBalanceLoader({
+  accountIndex,
+  children,
+}: StxAssetItemBalanceLoaderProps) {
+  const stxBalance = useStxAccountBalance(accountIndex);
+  const isLoading = stxBalance.state === 'loading';
+  if (isLoading) return <CryptoAssetItemPlaceholder />;
+  if (stxBalance.state === 'error') {
     return <CryptoAssetItemError caption="STX" icon={<StxAvatarIcon />} title="Stacks" />;
   }
 
-  const { data: balance, isLoading } = filteredBalanceQuery;
-
-  return children(balance, isLoading, isLoadingAdditionalData);
+  return children(stxBalance.value, isLoading, false);
 }

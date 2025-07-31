@@ -5,9 +5,9 @@ import { Box, Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
-import { useBalances } from '@app/common/hooks/balance/use-balances';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useSwitchAccountSheet } from '@app/common/switch-account/use-switch-account-sheet-context';
 import { whenPageMode } from '@app/common/utils';
@@ -15,10 +15,10 @@ import { ActivityList } from '@app/features/activity-list/activity-list';
 import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
 import { PromoBanner } from '@app/features/promo-banner/promo-banner';
 import { Assets } from '@app/pages/home/components/assets';
+import { useCurrentAccountBalance } from '@app/query/common/account-balance/account-balance.hooks';
 import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import {
   refreshLeatherTabs,
@@ -47,11 +47,8 @@ export function Home() {
     index: currentAccountIndex || 0,
   });
 
-  const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const { totalUsdBalance, availableUsdBalance, isPending, isLoadingAdditionalData } = useBalances({
-    btcAddress,
-    stxAddress: account?.address || '',
-  });
+  const { availableBalance, totalBalance, isLoading, isLoadingAdditionalData } =
+    useCurrentAccountBalance();
 
   useOnMount(() => {
     if (decodedAuthRequest) return navigate(RouteUrls.ChooseAccount);
@@ -72,11 +69,11 @@ export function Home() {
       <Box px={{ base: 'space.05', md: 0 }} pb={{ base: 'space.05', md: 0 }}>
         <AccountCard
           name={name}
-          availableBalance={availableUsdBalance}
-          totalBalance={totalUsdBalance}
+          availableBalance={formatCurrency(availableBalance)}
+          totalBalance={formatCurrency(totalBalance)}
           toggleSwitchAccount={() => toggleSwitchAccount()}
           isFetchingBnsName={isFetchingBnsName}
-          isLoadingBalance={isPending}
+          isLoadingBalance={isLoading}
           isLoadingAdditionalData={isLoadingAdditionalData}
           isBalancePrivate={isPrivateMode}
           onShowBalance={togglePrivateMode}
