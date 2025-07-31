@@ -18,7 +18,7 @@ import { StacksTransactionActionType } from '@app/common/transactions/stacks/tra
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { useToast } from '@app/features/toasts/use-toast';
-import { useStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
+import { useStxAddressAvailableUnlockedBalance } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useStacksRawTransaction } from '@app/query/stacks/transactions/raw-transaction-by-id.hooks';
 import { useGetTransactionByIdQuery } from '@app/query/stacks/transactions/transactions-by-id.query';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -81,7 +81,7 @@ export function StacksTransactionActionSheet({
   const location = useLocation();
 
   const StacksAddress = useCurrentStacksAccountAddress();
-  const availableUnlockedBalance = useStxAvailableUnlockedBalance(StacksAddress);
+  const availableUnlockedBalance = useStxAddressAvailableUnlockedBalance(StacksAddress);
 
   const { onSubmit, validationSchema, isBroadcasting } = useStacksTransactionAction({
     actionType,

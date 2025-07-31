@@ -1,11 +1,9 @@
-import PQueue from 'p-queue';
-
 import { bestInSlotMainnetApiLimiter, bestInSlotTestnetApiLimiter } from '@leather.io/query';
 import { assertUnreachable } from '@leather.io/utils';
 
 import { useCurrentNetworkState } from '../leather-query-provider';
 
-export function useBestInSlotApiRateLimiter(): PQueue {
+export function useBestInSlotApiRateLimiter() {
   const currentNetwork = useCurrentNetworkState();
 
   switch (currentNetwork.mode) {

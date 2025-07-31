@@ -37,7 +37,11 @@ export function ChooseCryptoAsset() {
             }
           >
             <Box pb="space.04" px="space.05">
-              <AssetList onSelectAsset={navigateToSendForm} variant="interactive" />
+              <AssetList
+                onSelectAsset={navigateToSendForm}
+                variant="interactive"
+                filter="enabled"
+              />
             </Box>
           </Card>
         </Page>

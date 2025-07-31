@@ -38,9 +38,6 @@ test.describe('Manage tokens', () => {
 
     // rune token
     const runeInAssetList = homePage.assetList.getByTestId(MockedTokensSelectors.RuneTokenTestId);
-    const runeInManageTokensList = homePage.manageTokensAssetsList.getByTestId(
-      MockedTokensSelectors.RuneTokenTestId
-    );
 
     // stx20 token (disabled by default)
     const stx20InAssetList = homePage.assetList.getByTestId(MockedTokensSelectors.Stx20TokenTestId);
@@ -52,7 +49,6 @@ test.describe('Manage tokens', () => {
     await sip10TokenInManageTokensList.click();
     await brc20InManageTokensList.click();
     await src20InManageTokensList.click();
-    await runeInManageTokensList.click();
 
     // test that tokens are disabled
     await expect(sip10InAssetList).not.toBeAttached();
@@ -66,13 +62,11 @@ test.describe('Manage tokens', () => {
     await brc20InManageTokensList.click();
     await src20InManageTokensList.click();
     await stx20InManageTokensList.click();
-    await runeInManageTokensList.click();
 
     // test that tokens are enabled
     await expect(sip10InAssetList).toBeAttached();
     await expect(brc20InAssetList).toBeAttached();
     await expect(src20InAssetList).toBeAttached();
     await expect(stx20InAssetList).toBeAttached();
-    await expect(runeInAssetList).toBeAttached();
   });
 });

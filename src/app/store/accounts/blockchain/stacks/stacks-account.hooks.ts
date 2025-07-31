@@ -16,6 +16,14 @@ export function useStacksAccounts() {
   return useAtomValue(stacksAccountState);
 }
 
+export function useStacksAccount(accountIndex: number) {
+  const accounts = useStacksAccounts();
+  return useMemo(() => {
+    if (!accounts) return undefined;
+    return accounts?.[accountIndex];
+  }, [accounts, accountIndex]);
+}
+
 // TODO: Refactor, we need to use conditional empty strings everywhere
 // Can we remove these atoms?
 
