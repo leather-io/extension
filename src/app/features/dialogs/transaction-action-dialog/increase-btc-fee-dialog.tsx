@@ -15,7 +15,7 @@ import { useLocationStateWithCache } from '@app/common/hooks/use-location-state'
 import { getBitcoinTxValue } from '@app/common/transactions/bitcoin/utils';
 import { BitcoinCustomFeeInput } from '@app/components/bitcoin-custom-fee/bitcoin-custom-fee-input';
 import { BitcoinTransactionItem } from '@app/components/bitcoin-transaction-item/bitcoin-transaction-item';
-import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useCurrentNativeSegwitBtcBalanceWithFallback } from '@app/query/bitcoin/balance/btc-balance.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { TransactionActions } from './components/transaction-actions';
@@ -29,7 +29,7 @@ export function IncreaseBtcFeeSheet() {
   const btcTx = tx;
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const currentBitcoinAddress = nativeSegwitSigner.address;
-  const { balance } = useBtcCryptoAssetBalanceNativeSegwit(currentBitcoinAddress);
+  const { btc: balance } = useCurrentNativeSegwitBtcBalanceWithFallback();
   const { isBroadcasting, sizeInfo, onSubmit, validationSchema, recipient } =
     useBtcIncreaseFee(btcTx);
 

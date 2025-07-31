@@ -10,7 +10,7 @@ import { AccountAddresses } from '@app/components/account/account-addresses';
 import { AccountListItemLayout } from '@app/components/account/account-list-item.layout';
 import { AccountNameLayout } from '@app/components/account/account-name';
 import { useNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { AccountAvatarItem } from '@app/ui/components/account/account-avatar/account-avatar-item';
 
 interface SwitchAccountListItemProps {
@@ -20,10 +20,10 @@ interface SwitchAccountListItemProps {
 }
 export const SwitchAccountListItem = memo(
   ({ handleClose, currentAccountIndex, index }: SwitchAccountListItemProps) => {
-    const stacksAccounts = useStacksAccounts();
-    const stxAddress = stacksAccounts[index]?.address || '';
+    const stacksAccount = useStacksAccount(index);
+    const stxAddress = stacksAccount?.address ?? '';
     const bitcoinSigner = useNativeSegwitSigner(index);
-    const btcAddress = bitcoinSigner?.(0).address || '';
+    const btcAddress = bitcoinSigner?.(0).address ?? '';
 
     const { isLoading, setIsLoading, setIsIdle } = useLoading(
       'SWITCH_ACCOUNTS' + stxAddress || btcAddress
@@ -56,11 +56,11 @@ export const SwitchAccountListItem = memo(
         avatar={
           <AccountAvatarItem
             index={index}
-            publicKey={stacksAccounts[index]?.stxPublicKey || ''}
+            publicKey={stacksAccount?.stxPublicKey || ''}
             name={name}
           />
         }
-        balanceLabel={<AccountTotalBalance stxAddress={stxAddress} btcAddress={btcAddress} />}
+        balanceLabel={<AccountTotalBalance accountIndex={index} />}
         index={index}
         isLoading={isLoading}
         isSelected={currentAccountIndex === index}

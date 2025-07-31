@@ -12,7 +12,7 @@ import { MAX_FEE_RATE_MULTIPLIER } from '@app/components/bitcoin-custom-fee/hook
 import { OnChooseFeeArgs } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { AvailableBalance, Card } from '@app/components/layout';
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useCurrentNativeSegwitBtcBalanceWithFallback } from '@app/query/bitcoin/balance/btc-balance.hooks';
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 import { ChooseFeeAmount } from './components/choose-fee-amount';
@@ -49,7 +49,7 @@ export function BitcoinChooseFee({
   maxRecommendedFeeRate = 0,
   ...rest
 }: BitcoinChooseFeeProps) {
-  const { balance } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
+  const { btc: balance } = useCurrentNativeSegwitBtcBalanceWithFallback();
   const hasAmount = amount.amount.isGreaterThan(0);
   const [customFeeInitialValue, setCustomFeeInitialValue] = useState(recommendedFeeRate);
   const isPrivate = useIsPrivateMode();

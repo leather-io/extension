@@ -25,7 +25,7 @@ import {
 } from '@app/common/validation/forms/currency-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useCurrentNativeSegwitBtcBalanceWithFallback } from '@app/query/bitcoin/balance/btc-balance.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCalculateMaxBitcoinSpend } from '../../../../../common/hooks/balance/use-calculate-max-spend';
@@ -36,7 +36,7 @@ export function useBtcSendForm() {
   const formRef = useRef<FormikProps<BitcoinSendFormValues>>(null);
   const currentNetwork = useCurrentNetwork();
   const { data: utxos = [], filteredUtxosQuery } = useCurrentNativeSegwitUtxos();
-  const { balance } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
+  const { btc: balance } = useCurrentNativeSegwitBtcBalanceWithFallback();
   const sendFormNavigate = useSendFormNavigate();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();

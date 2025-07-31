@@ -13,7 +13,7 @@ import {
 import { StacksTransactionActionType } from '@app/common/transactions/stacks/transaction.utils';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-legacy-stacks-broadcast-transaction';
-import { useStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
+import { useStxAddressAvailableUnlockedBalance } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useStacksRawTransaction } from '@app/query/stacks/transactions/raw-transaction-by-id.hooks';
 import { useGetTransactionByIdQuery } from '@app/query/stacks/transactions/transactions-by-id.query';
 import {
@@ -36,7 +36,7 @@ export function useStacksTransactionAction({ actionType, txid }: UseStacksTransa
   });
 
   const stacksAddress = useCurrentStacksAccountAddress();
-  const availableUnlockedBalance = useStxAvailableUnlockedBalance(stacksAddress);
+  const availableUnlockedBalance = useStxAddressAvailableUnlockedBalance(stacksAddress);
   const validationSchema = yup.object({ fee: stxFeeValidator(availableUnlockedBalance) });
 
   const { data: tx, isLoading: isLoadingTx } = useGetTransactionByIdQuery(txid);

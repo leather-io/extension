@@ -10,7 +10,7 @@ import {
   determineUtxosForSpend,
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
-import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useCurrentNativeSegwitBtcBalanceWithFallback } from '@app/query/bitcoin/balance/btc-balance.hooks';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
@@ -43,7 +43,7 @@ export function useBitcoinFeesList({
   recipient,
   utxos,
 }: UseBitcoinFeesListArgs) {
-  const { balance } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
+  const { btc: balance } = useCurrentNativeSegwitBtcBalanceWithFallback();
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const { data: feeRates, isLoading } = useAverageBitcoinFeeRates();
 
