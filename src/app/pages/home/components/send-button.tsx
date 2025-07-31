@@ -10,8 +10,8 @@ import { RouteUrls } from '@shared/route-urls';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
-import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
-import { useTransferableSip10Tokens } from '@app/query/stacks/sip10/sip10-tokens.hooks';
+import { useStxAddressBalance } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useSip10AddressTransferableTokenBalances } from '@app/query/stacks/sip10/sip10-balance.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
@@ -20,10 +20,10 @@ function SendButtonSuspense() {
   const { whenWallet } = useWalletType();
   const btcAddress = useCurrentAccountNativeSegwitIndexZeroSignerNullable()?.address;
   const stxAddress = useCurrentStacksAccountAddress();
-  const { filteredBalanceQuery } = useStxCryptoAssetBalance(stxAddress);
-  const stacksFtAssets = useTransferableSip10Tokens(stxAddress);
+  const stxBalance = useStxAddressBalance(stxAddress);
+  const { sip10s: stacksFtAssets } = useSip10AddressTransferableTokenBalances(stxAddress);
 
-  const isDisabled = !btcAddress && !filteredBalanceQuery.data && stacksFtAssets?.length === 0;
+  const isDisabled = !btcAddress && !stxBalance.value && stacksFtAssets.length === 0;
 
   return (
     <IconButton

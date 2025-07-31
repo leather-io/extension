@@ -13,7 +13,7 @@ import { initialSearchParams } from '@app/common/initial-search-params';
 import { validateStacksAddress } from '@app/common/stacks-utils';
 import { TransactionErrorReason } from '@app/features/stacks-transaction-request/legacy-transaction-error/transaction-error';
 import { useCheckSbtcSponsorshipEligible } from '@app/query/sbtc/sponsored-transactions.hooks';
-import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
+import { useStxAddressBalance } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useGetContractInterfaceQuery } from '@app/query/stacks/legacy-request-contract.query';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -31,8 +31,8 @@ export function useTransactionError() {
   const { values } = useFormikContext<StacksTransactionFormValues>();
 
   const currentAccount = useCurrentStacksAccount();
-  const { filteredBalanceQuery } = useStxCryptoAssetBalance(currentAccount?.address ?? '');
-  const availableUnlockedBalance = filteredBalanceQuery.data?.unlockedBalance;
+  const balance = useStxAddressBalance(currentAccount?.address ?? '');
+  const availableUnlockedBalance = balance.value?.stx.unlockedBalance;
 
   const unsignedTx = useUnsignedStacksTransactionBaseState();
   const { data: stxFees } = useCalculateStacksTxFees(unsignedTx.transaction);
@@ -42,7 +42,7 @@ export function useTransactionError() {
   return useMemo<TransactionErrorReason | void>(() => {
     if (!origin) return TransactionErrorReason.ExpiredRequest;
 
-    if (filteredBalanceQuery.isLoading || isVerifyingSbtcEligibilty) return;
+    if (balance.state !== 'success' || isVerifyingSbtcEligibilty) return;
 
     if (!transactionRequest || !availableUnlockedBalance || !currentAccount) {
       return TransactionErrorReason.Generic;
@@ -75,7 +75,7 @@ export function useTransactionError() {
     }
     return;
   }, [
-    filteredBalanceQuery.isLoading,
+    balance.state,
     origin,
     transactionRequest,
     contractInterface,

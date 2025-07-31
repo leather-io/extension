@@ -6,8 +6,7 @@ import { AccountAddresses } from '@app/components/account/account-addresses';
 import { AccountListItemLayout } from '@app/components/account/account-list-item.layout';
 import { AccountNameLayout } from '@app/components/account/account-name';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { AccountAvatarItem } from '@app/ui/components/account/account-avatar/account-avatar-item';
 
 interface CurrentAccountDisplayerProps {
@@ -15,11 +14,11 @@ interface CurrentAccountDisplayerProps {
 }
 export function CurrentAccountDisplayer({ onSelectAccount }: CurrentAccountDisplayerProps) {
   const index = useCurrentAccountIndex();
-  const stacksAccounts = useStacksAccounts();
-  const stxAddress = stacksAccounts[index]?.address || '';
-  const { data: name = '' } = useAccountDisplayName({ address: stxAddress, index });
-  const bitcoinSigner = useNativeSegwitSigner(index);
-  const bitcoinAddress = bitcoinSigner?.(0).address || '';
+  const stacksAccount = useStacksAccount(index);
+  const { data: name = '' } = useAccountDisplayName({
+    address: stacksAccount?.address || '',
+    index,
+  });
   return (
     <AccountListItemLayout
       withChevron
@@ -28,14 +27,14 @@ export function CurrentAccountDisplayer({ onSelectAccount }: CurrentAccountDispl
       avatar={
         <AccountAvatarItem
           index={index}
-          publicKey={stacksAccounts[index]?.stxPublicKey || ''}
+          publicKey={stacksAccount?.stxPublicKey || ''}
           name={name}
         />
       }
       balanceLabel={
         // Hack to center element without adjusting AccountListItemLayout
         <Box pos="relative" top={12}>
-          <AccountTotalBalance stxAddress={stxAddress} btcAddress={bitcoinAddress} />
+          <AccountTotalBalance accountIndex={index} />
         </Box>
       }
       index={index}

@@ -1,14 +1,12 @@
-import type { BtcBalance } from '@leather.io/models';
+import type { AccountQuotedBtcBalance } from '@leather.io/services';
 import { BtcAvatarIcon } from '@leather.io/ui';
-import { baseCurrencyAmountInQuote } from '@leather.io/utils';
 
 import { formatCurrency } from '@app/common/currency-formatter';
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 interface BtcCryptoAssetItemProps {
-  balance: BtcBalance;
+  balance: AccountQuotedBtcBalance;
   isLoading: boolean;
   isLoadingAdditionalData?: boolean;
   onSelectAsset?(symbol: string): void;
@@ -20,16 +18,12 @@ export function BtcCryptoAssetItem({
   isLoadingAdditionalData,
 }: BtcCryptoAssetItemProps) {
   const isPrivate = useIsPrivateMode();
-  const marketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
-  const fiatAvailableBalance = formatCurrency(
-    baseCurrencyAmountInQuote(balance.availableBalance, marketData)
-  );
 
   return (
     <CryptoAssetItemLayout
-      availableBalance={balance.availableBalance}
+      availableBalance={balance.btc.totalBalance}
       captionLeft="BTC"
-      fiatBalance={fiatAvailableBalance}
+      fiatBalance={formatCurrency(balance.quote.totalBalance)}
       icon={<BtcAvatarIcon />}
       isLoading={isLoading}
       isLoadingAdditionalData={isLoadingAdditionalData}

@@ -411,7 +411,7 @@ export const Bitcoin = () => {
               ?.request('sendTransfer', {
                 address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
                 amount: '10000',
-                network: 'testnet',
+                network: 'testnet4',
               })
               .then(resp => {
                 console.log({ sucesss: resp });
@@ -438,7 +438,7 @@ export const Bitcoin = () => {
                   amount: '900',
                 },
               ],
-              network: 'testnet',
+              network: 'testnet4',
             })
               .then((resp: any) => {
                 console.log({ sucesss: resp });

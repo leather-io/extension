@@ -1,59 +1,48 @@
 import { type Dispatch, type SetStateAction, useEffect } from 'react';
 
-import type { CryptoAssetBalance, MarketData, RuneAsset } from '@leather.io/models';
 import { RunesAvatarIcon } from '@leather.io/ui';
-import { convertAmountToBaseUnit, createMoneyFromDecimal } from '@leather.io/utils';
 
-import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
-import { useManageTokens } from '@app/common/hooks/use-manage-tokens';
+import { formatCurrency } from '@app/common/currency-formatter';
+import { type AssetFilter } from '@app/common/hooks/use-manage-tokens';
 import { CryptoAssetItem } from '@app/components/crypto-asset-item/crypto-asset-item';
+import { useManagedRunesAccountBalance } from '@app/query/bitcoin/runes/runes-balance.query';
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 import type { AssetRightElementVariant } from '../../asset-list';
 
-interface RuneTokenAssetDetails {
-  balance: CryptoAssetBalance;
-  info: RuneAsset;
-  marketData: MarketData;
-}
-
 interface RunesAssetListProps {
-  runes: RuneTokenAssetDetails[];
+  accountIndex: number;
+  filter?: AssetFilter;
   assetRightElementVariant?: AssetRightElementVariant;
-  preEnabledTokensIds: string[];
   setHasManageableTokens?: Dispatch<SetStateAction<boolean>>;
 }
 
 export function RunesAssetList({
-  runes,
+  accountIndex,
+  filter = 'all',
   assetRightElementVariant,
-  preEnabledTokensIds,
   setHasManageableTokens,
 }: RunesAssetListProps) {
   const isPrivate = useIsPrivateMode();
-  const { isTokenEnabled } = useManageTokens();
+  const {
+    runes,
+    isLoading,
+    isEnabled: isRuneEnabled,
+  } = useManagedRunesAccountBalance(accountIndex, filter);
 
   useEffect(() => {
-    if (runes.length > 0 && setHasManageableTokens) {
+    if (!isLoading && runes!.length > 0 && setHasManageableTokens) {
       setHasManageableTokens(true);
     }
-  }, [runes, setHasManageableTokens]);
+  }, [isLoading, runes, setHasManageableTokens]);
+
+  if (isLoading || !runes || !runes.length) return null;
 
   return runes.map((rune, i) => {
-    const key = `${rune.info.symbol}${i}`;
+    const key = `${rune.asset.symbol}${i}`;
     const captionLeft = 'Runes';
     const icon = <RunesAvatarIcon />;
-    const titleLeft = rune.info.spacedRuneName ?? rune.info.runeName;
-
-    const availableBalance = createMoneyFromDecimal(
-      convertAmountToBaseUnit(rune.balance.availableBalance),
-      rune.info.symbol,
-      rune.info.decimals
-    );
-    const fiatBalance = convertAssetBalanceToFiat({
-      balance: rune.balance.availableBalance,
-      marketData: rune.marketData,
-    });
+    const titleLeft = rune.asset.spacedRuneName ?? rune.asset.runeName;
 
     return (
       <CryptoAssetItem
@@ -63,17 +52,17 @@ export function RunesAssetList({
           captionLeft,
           icon,
           titleLeft,
-          assetId: rune.info.runeName,
-          isCheckedByDefault: isTokenEnabled({ tokenId: rune.info.runeName, preEnabledTokensIds }),
+          assetId: rune.asset.runeName,
+          isCheckedByDefault: isRuneEnabled(rune),
         }}
         itemProps={{
-          availableBalance,
+          availableBalance: rune.crypto.totalBalance,
           captionLeft,
           icon,
           isPrivate,
           titleLeft,
-          fiatBalance,
-          dataTestId: rune.info.runeName,
+          fiatBalance: formatCurrency(rune.quote.totalBalance),
+          dataTestId: rune.asset.runeName,
         }}
       />
     );

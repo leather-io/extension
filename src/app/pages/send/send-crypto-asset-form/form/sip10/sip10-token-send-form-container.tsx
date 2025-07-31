@@ -11,12 +11,12 @@ import { StacksCommonSendForm } from '../stacks/stacks-common-send-form';
 import { useSip10SendForm } from './use-sip10-send-form';
 
 interface Sip10TokenSendFormContainerProps {
-  info: Sip10Asset;
+  asset: Sip10Asset;
   balance: CryptoAssetBalance;
-  marketData: MarketData;
+  marketData?: MarketData;
 }
 export function Sip10TokenSendFormContainer({
-  info,
+  asset,
   balance,
   marketData,
 }: Sip10TokenSendFormContainerProps) {
@@ -30,7 +30,7 @@ export function Sip10TokenSendFormContainer({
     avatar,
     decimals,
     symbol,
-  } = useSip10SendForm({ info, balance });
+  } = useSip10SendForm({ info: asset, balance });
 
   const amountField = (
     <AmountField

@@ -32,8 +32,8 @@ export function useManageTokens() {
 
   function sortTokens(tokens: any[]) {
     return tokens.sort((a, b) => {
-      if (a.info.contractId === sbtcContractId) return -1;
-      if (b.info.contractId === sbtcContractId) return 1;
+      if (a.asset?.contractId === sbtcContractId) return -1;
+      if (b.asset?.contractId === sbtcContractId) return 1;
       return 0;
     });
   }

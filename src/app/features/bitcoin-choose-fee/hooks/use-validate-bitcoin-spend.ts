@@ -3,11 +3,11 @@ import { useState } from 'react';
 import type { Money } from '@leather.io/models';
 import { createMoney, subtractMoney, sumMoney } from '@leather.io/utils';
 
-import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useCurrentNativeSegwitBtcBalanceWithFallback } from '@app/query/bitcoin/balance/btc-balance.hooks';
 
 export function useValidateBitcoinSpend(amount?: Money, isSendingMax?: boolean) {
   const [showInsufficientBalanceError, setShowInsufficientBalanceError] = useState(false);
-  const { balance } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
+  const { btc: balance } = useCurrentNativeSegwitBtcBalanceWithFallback();
 
   return {
     showInsufficientBalanceError,

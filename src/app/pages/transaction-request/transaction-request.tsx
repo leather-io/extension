@@ -39,7 +39,7 @@ import { StacksTxSubmitAction } from '@app/features/stacks-transaction-request/s
 import { useConfigSbtc } from '@app/query/common/remote-config/remote-config.query';
 import { useCheckSbtcSponsorshipEligible } from '@app/query/sbtc/sponsored-transactions.hooks';
 import { submitSponsoredSbtcTransaction } from '@app/query/sbtc/sponsored-transactions.query';
-import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
+import { useStxAddressBalance } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -64,8 +64,8 @@ function TransactionRequestBase() {
   const generateUnsignedTx = useGenerateUnsignedStacksTransaction();
   const stxAddress = useCurrentStacksAccountAddress();
 
-  const { filteredBalanceQuery } = useStxCryptoAssetBalance(stxAddress);
-  const availableUnlockedBalance = filteredBalanceQuery.data?.availableUnlockedBalance;
+  const stxBalance = useStxAddressBalance(stxAddress);
+  const availableUnlockedBalance = stxBalance.value?.stx.availableUnlockedBalance;
 
   const { data: nextNonce, status: nonceQueryStatus } = useNextNonce(stxAddress);
 
@@ -73,9 +73,7 @@ function TransactionRequestBase() {
     useCheckSbtcSponsorshipEligible({ baseTx: unsignedTx, stxFees });
 
   const canSubmit =
-    filteredBalanceQuery.status === 'success' &&
-    nonceQueryStatus === 'success' &&
-    !isVerifyingSbtcSponsorship;
+    stxBalance.state === 'success' && nonceQueryStatus === 'success' && !isVerifyingSbtcSponsorship;
 
   const navigate = useNavigate();
   const { stacksBroadcastTransaction } = useStacksBroadcastTransaction({ token: 'STX' });
