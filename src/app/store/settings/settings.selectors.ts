@@ -59,6 +59,10 @@ const selectDiscardedInscriptions = createSelector(
 type InscriptionIdentifier = Pick<Inscription, 'txid' | 'output' | 'offset'>;
 
 export function useDiscardedInscriptions() {
+  return useSelector(selectDiscardedInscriptions);
+}
+
+export function useCurrentAccountDiscardedInscriptions() {
   const discardedInscriptions = useSelector(selectDiscardedInscriptions);
   const dispatch = useDispatch();
   const currentAccountInscriptions = useCurrentAccountInscriptions();

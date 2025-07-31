@@ -8,7 +8,7 @@ import { createMoney } from '@leather.io/utils';
 
 import { useCalculateMaxBitcoinSpend } from '@app/common/hooks/balance/use-calculate-max-spend';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useCurrentNativeSegwitBtcBalanceWithFallback } from '@app/query/bitcoin/balance/btc-balance.hooks';
 import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -20,9 +20,9 @@ function fallbackHardcodedBalanceMinusFee(balance: Money) {
 export function useBtcSwapAsset() {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSignerNullable();
   const currentBitcoinAddress = nativeSegwitSigner?.address ?? '';
-  const { balance } = useBtcCryptoAssetBalanceNativeSegwit(currentBitcoinAddress);
   const { data: utxos = [] } = useCurrentNativeSegwitUtxos();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
+  const { btc: balance } = useCurrentNativeSegwitBtcBalanceWithFallback();
   const bitcoinMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
 
   const maxSpendableBalance = useMemo(() => {

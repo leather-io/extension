@@ -14,7 +14,7 @@ import type {
   AssetListVariant,
   AssetRightElementVariant,
 } from '@app/features/asset-list/asset-list';
-import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useCurrentNativeSegwitBtcBalanceWithFallback } from '@app/query/bitcoin/balance/btc-balance.hooks';
 import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 
 interface Brc20TokenAssetDetails {
@@ -45,7 +45,7 @@ export function Brc20TokenAssetList({
   preEnabledTokensIds,
   setHasManageableTokens,
 }: Brc20TokenAssetListProps) {
-  const { isLoading } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
+  const { isLoading } = useCurrentNativeSegwitBtcBalanceWithFallback();
   const isPrivate = useIsPrivateMode();
   const { isTokenEnabled } = useManageTokens();
 
