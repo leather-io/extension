@@ -7,7 +7,6 @@ import type { RootState } from '..';
 interface TokenUserSetting {
   id: string;
   enabled: boolean;
-  accountIndex: number;
 }
 
 const manageTokensAdapter = createEntityAdapter<TokenUserSetting>();
@@ -16,14 +15,10 @@ export const manageTokensSlice = createSlice({
   name: 'manageTokens',
   initialState: manageTokensAdapter.getInitialState(),
   reducers: {
-    userTogglesTokenVisibility(
-      state,
-      action: PayloadAction<{ id: string; enabled: boolean; accountIndex: number }>
-    ) {
+    userTogglesTokenVisibility(state, action: PayloadAction<{ id: string; enabled: boolean }>) {
       manageTokensAdapter.setOne(state, {
         id: action.payload.id,
         enabled: action.payload.enabled,
-        accountIndex: action.payload.accountIndex,
       });
     },
     removeAllTokens(state) {

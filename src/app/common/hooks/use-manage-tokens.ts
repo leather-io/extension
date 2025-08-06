@@ -2,7 +2,6 @@ import {
   useConfigSbtc,
   useConfigTokensEnabledByDefault,
 } from '@app/query/common/remote-config/remote-config.query';
-import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useUserAllTokens } from '@app/store/manage-tokens/manage-tokens.slice';
 
 interface IsTokenEnabledArgs {
@@ -21,11 +20,10 @@ export function useManageTokens() {
   const configEnabledTokens = useConfigTokensEnabledByDefault();
   const { contractId: sbtcContractId, isSbtcEnabled } = useConfigSbtc();
 
-  const accountIndex = useCurrentAccountIndex();
   const userTokensList = useUserAllTokens();
 
   function isTokenEnabled({ tokenId, preEnabledTokensIds }: IsTokenEnabledArgs) {
-    const token = userTokensList.find(t => t.accountIndex === accountIndex && t.id === tokenId);
+    const token = userTokensList.find(t => t.id === tokenId);
     const isEnabledByDefault =
       configEnabledTokens.includes(tokenId) || preEnabledTokensIds?.includes(tokenId);
 
