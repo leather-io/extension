@@ -165,7 +165,7 @@ export function useStacksSwap(nonce: number | string) {
         if (!signedTx)
           return logger.error('Attempted to generate raw tx, but signed tx is undefined');
 
-        return await broadcastStacksSwap(signedTx);
+        return await broadcastStacksSwap(signedTx, values);
       } catch (e) {
         return navigate(RouteUrls.SwapError, {
           state: {

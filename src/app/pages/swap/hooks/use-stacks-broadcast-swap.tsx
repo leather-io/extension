@@ -6,12 +6,15 @@ import type { StacksTransactionWire } from '@stacks/transactions';
 import { isError, isString } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
+import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
 import { useToast } from '@app/features/toasts/use-toast';
+
+import { getSwapValueForAnalytics } from '../swap.utils';
 
 export function useStacksBroadcastSwap() {
   const { setIsIdle } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);
@@ -23,12 +26,13 @@ export function useStacksBroadcastSwap() {
   });
 
   return useCallback(
-    async (signedTx: StacksTransactionWire) => {
+    async (signedTx: StacksTransactionWire, values: SwapFormValues) => {
       if (!signedTx) {
         logger.error('Cannot broadcast transaction, no tx in state');
         toast.error('Unable to broadcast transaction');
         return;
       }
+
       try {
         await broadcastTransactionFn({
           onError(e: Error | string) {
@@ -39,7 +43,12 @@ export function useStacksBroadcastSwap() {
           onSuccess(txId) {
             toast.success('Transaction submitted!');
             setIsIdle();
-            void analytics.untypedTrack('stacks_swap_succeeded', { txid: txId });
+            void analytics.untypedTrack('stacks_swap_succeeded', {
+              txid: txId,
+              value: getSwapValueForAnalytics(values),
+              swapAssetBase: values.swapAssetBase,
+              swapAssetQuote: values.swapAssetQuote,
+            });
             return navigate(RouteUrls.Activity);
           },
           replaceByFee: false,

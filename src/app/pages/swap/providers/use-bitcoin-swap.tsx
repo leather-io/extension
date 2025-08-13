@@ -43,9 +43,14 @@ export function useBitcoinSwap(signer: BitcoinSigner<P2Ret>, utxos: UtxoResponse
         return;
       }
 
+      if (!swapData.deposit) {
+        logger.error('No bitcoin deposit to submit');
+        return;
+      }
+
       setIsLoading();
 
-      return await onDepositSbtc(swapData.deposit);
+      return await onDepositSbtc(values, swapData.deposit);
     },
     [isLoading, onDepositSbtc, setIsLoading]
   );

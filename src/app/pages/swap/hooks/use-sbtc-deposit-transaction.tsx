@@ -20,6 +20,7 @@ import { type UtxoResponseItem } from '@leather.io/query';
 import { btcToSat, createMoney } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
+import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
 
@@ -37,6 +38,7 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import type { BitcoinSwapContext } from '../providers/bitcoin-swap-provider';
 import type { SubmitSwapArgs } from '../swap.context';
+import { getSwapValueForAnalytics } from '../swap.utils';
 
 export interface SbtcDeposit {
   address: string;
@@ -142,8 +144,7 @@ export function useSbtcDepositTransaction(signer: BitcoinSigner<P2Ret>, utxos: U
         return null;
       }
     },
-    async onDepositSbtc(deposit?: SbtcDeposit) {
-      if (!deposit) return;
+    async onDepositSbtc(values: SwapFormValues, deposit: SbtcDeposit) {
       try {
         signer.sign(deposit.transaction);
         deposit.transaction.finalize();
@@ -152,7 +153,12 @@ export function useSbtcDepositTransaction(signer: BitcoinSigner<P2Ret>, utxos: U
         const txid = await client.broadcastTx(deposit.transaction);
         logger.info('Broadcasted tx', txid);
 
-        void analytics.untypedTrack('bitcoin_swap_succeeded', { txid });
+        void analytics.untypedTrack('bitcoin_swap_succeeded', {
+          txid,
+          value: getSwapValueForAnalytics(values),
+          swapAssetBase: values.swapAssetBase,
+          swapAssetQuote: values.swapAssetQuote,
+        });
 
         await client.notifySbtc(deposit);
         toast.success('Transaction submitted!');

@@ -1,10 +1,15 @@
+import BigNumber from 'bignumber.js';
+
 import type { MarketData, Money } from '@leather.io/models';
 import {
   baseCurrencyAmountInQuote,
   createMoney,
+  createMoneyFromDecimal,
   isMoneyGreaterThanZero,
   unitToFractionalUnit,
 } from '@leather.io/utils';
+
+import type { SwapFormValues } from '@shared/models/form.model';
 
 import { formatCurrency } from '@app/common/currency-formatter';
 import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
@@ -59,4 +64,17 @@ export function sortSwapAssets(assets: SwapAsset[]) {
       if (b.name !== 'BTC') return 1;
       return 0;
     });
+}
+
+export function getSwapValueForAnalytics(values: SwapFormValues) {
+  if (!values.swapAssetQuote) return;
+
+  const valueAsMoney = createMoneyFromDecimal(
+    new BigNumber(values.swapAmountQuote),
+    values.swapAssetQuote.balance.symbol,
+    values.swapAssetQuote.balance.decimals
+  );
+
+  if (!values.swapAssetQuote.marketData) return;
+  return baseCurrencyAmountInQuote(valueAsMoney, values.swapAssetQuote.marketData);
 }
