@@ -37,7 +37,7 @@ export function getTransactionActions({
 
   if (isSubmitted) {
     return [
-      <Button key="submitting" fullWidth variant="success" disabled>
+      <Button key="submitting" bg="green.action-primary-default" fullWidth disabled>
         <HStack justifyContent="center" alignItems="center" gap="space.02">
           <CheckmarkIcon color="ink.text-primary" variant="small" />
           <styled.span textStyle="label.02">Submitted</styled.span>

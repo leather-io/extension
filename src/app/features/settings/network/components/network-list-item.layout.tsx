@@ -3,7 +3,7 @@ import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import type { NetworkConfiguration } from '@leather.io/models';
-import { Button, CheckmarkIcon, CloudOffIcon } from '@leather.io/ui';
+import { CheckmarkIcon, CloudOffIcon } from '@leather.io/ui';
 
 import { getUrlHostname, truncateString } from '@app/common/utils';
 
@@ -33,9 +33,8 @@ export function NetworkListItemLayout({
   const unselectable = !isOnline || isActive;
   return (
     <Flex data-testid={SettingsSelectors.NetworkListItem}>
-      <Button
+      <styled.button
         width="100%"
-        variant="ghost"
         key={networkId}
         _hover={
           unselectable
@@ -76,7 +75,7 @@ export function NetworkListItemLayout({
             />
           )}
         </Flex>
-      </Button>
+      </styled.button>
     </Flex>
   );
 }
