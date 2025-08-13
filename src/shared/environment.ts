@@ -20,4 +20,5 @@ export const BITFLOW_READONLY_CALL_API_HOST = process.env.BITFLOW_READONLY_CALL_
 export const BITFLOW_READONLY_CALL_API_KEY = process.env.BITFLOW_READONLY_CALL_API_KEY ?? '';
 export const BITFLOW_KEEPER_API_KEY = process.env.BITFLOW_KEEPER_API_KEY ?? '';
 export const BITFLOW_KEEPER_API_HOST = process.env.BITFLOW_KEEPER_API_HOST ?? '';
+export const BITFLOW_PROVIDER_ADDRESS = process.env.BITFLOW_PROVIDER_ADDRESS ?? '';
 export const DEBUG_TX_MONITOR = process.env.DEBUG_TX_MONITOR === 'true';

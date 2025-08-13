@@ -5,6 +5,7 @@ import {
   BITFLOW_API_KEY,
   BITFLOW_KEEPER_API_HOST,
   BITFLOW_KEEPER_API_KEY,
+  BITFLOW_PROVIDER_ADDRESS,
   BITFLOW_READONLY_CALL_API_HOST,
   BITFLOW_READONLY_CALL_API_KEY,
 } from '@shared/environment';
@@ -19,6 +20,7 @@ export const bitflow: BitflowSDK = (() => {
       READONLY_CALL_API_KEY: BITFLOW_READONLY_CALL_API_KEY,
       KEEPER_API_KEY: BITFLOW_KEEPER_API_KEY,
       KEEPER_API_HOST: BITFLOW_KEEPER_API_HOST,
+      BITFLOW_PROVIDER_ADDRESS: BITFLOW_PROVIDER_ADDRESS,
     });
   } catch (e) {
     logger.error('Bitflow SDK initialization failed');

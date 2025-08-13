@@ -398,7 +398,8 @@
   "pnpm": {
     "overrides": {
       "eslint": "8.56.0",
-      "levelup>semver": "5.7.2"
+      "levelup>semver": "5.7.2",
+      "sha.js": "2.4.12"
     }
   },
   "keywords": [
