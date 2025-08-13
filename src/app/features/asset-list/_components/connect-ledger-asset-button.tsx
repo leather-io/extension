@@ -29,7 +29,7 @@ export function ConnectLedgerButton({ chain }: ConnectLedgerButtonProps) {
   };
 
   return (
-    <Button variant="outline" size="sm" onClick={onClick}>
+    <Button variant="outline" size="md" onClick={onClick}>
       <HStack>
         <LedgerIcon />
         <styled.span textStyle="label.02">Connect&nbsp;{capitalize(chain)}</styled.span>

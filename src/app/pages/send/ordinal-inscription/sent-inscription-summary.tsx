@@ -58,16 +58,8 @@ export function SendInscriptionSummary() {
         border="unset"
         footer={
           <HStack gap="space.04" width="100%">
-            <InfoCardBtn
-              onClick={onClickLink}
-              icon={<ExternalLinkIcon color="ink.background-primary" />}
-              label="View details"
-            />
-            <InfoCardBtn
-              onClick={onClickCopy}
-              icon={<CopyIcon color="ink.background-primary" />}
-              label="Copy ID"
-            />
+            <InfoCardBtn onClick={onClickLink} icon={ExternalLinkIcon} label="View details" />
+            <InfoCardBtn onClick={onClickCopy} icon={CopyIcon} label="Copy ID" />
           </HStack>
         }
         contentStyle={{

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ComponentType, ReactNode } from 'react';
 
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, BoxProps, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
@@ -80,19 +80,14 @@ export function InfoCardAssetValue({
 }
 
 interface InfoCardBtnProps {
-  icon: ReactNode;
+  icon: ComponentType;
   label: string;
   onClick(): void;
 }
 export function InfoCardBtn({ icon, label, onClick }: InfoCardBtnProps) {
   return (
-    <Button onClick={onClick} flex="1">
-      <Flex alignItems="center" justifyContent="center">
-        <styled.span mx="space.02" textStyle="label.02">
-          {label}
-        </styled.span>
-        {icon}
-      </Flex>
+    <Button onClick={onClick} flex="1" iconEnd={icon}>
+      {label}
     </Button>
   );
 }

@@ -93,7 +93,7 @@ export function MnemonicForm({ mnemonic, setMnemonic, twentyFourWordMode }: Mnem
                 aria-disabled={isLoading || showMnemonicErrors}
                 disabled={isEmpty(touched) || !isValid || !hasFormValues}
                 aria-busy={isLoading}
-                width="100%"
+                fullWidth
                 type="submit"
                 variant="solid"
                 onClick={e => {

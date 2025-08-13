@@ -99,20 +99,20 @@ export function WelcomeLayout({
           <Flex gap="space.04">
             <Button
               variant="outline"
+              fullWidth
               flex={1}
               onClick={onRestoreWallet}
               css={secondaryActionButton}
               data-testid={OnboardingSelectors.SignInLink}
-              fullWidth
             >
               Use existing key
             </Button>
             <Button
               variant="outline"
+              fullWidth
               flex={1}
               onClick={onSelectConnectLedger}
               css={secondaryActionButton}
-              fullWidth
             >
               Use Ledger
             </Button>
