@@ -15,11 +15,7 @@ export function useCurrentAccountNativeSegwitBtcBalance() {
   return toFetchState(
     useGetBtcAccountBalanceQuery({
       account,
-      unprotectedUtxos: discardedInscriptions.map(satPoint => ({
-        txid: satPoint.split(':')[0],
-        vout: Number(satPoint.split(':')[1]),
-      })),
-      exclude: { taprootAddresses: true },
+      protections: { discardedInscriptions },
     })
   );
 }
@@ -30,10 +26,7 @@ export function useCurrentAccountBtcBalance() {
   return toFetchState(
     useGetBtcAccountBalanceQuery({
       account,
-      unprotectedUtxos: discardedInscriptions.map(satPoint => ({
-        txid: satPoint.split(':')[0],
-        vout: Number(satPoint.split(':')[1]),
-      })),
+      protections: { discardedInscriptions },
     })
   );
 }
@@ -44,7 +37,7 @@ function useGetBtcAccountBalanceQuery(request: BtcAccountRequest) {
       'btc-balance-service-get-btc-account-balance',
       request.account.id.fingerprint,
       request.account.id.accountIndex,
-      JSON.stringify(request.unprotectedUtxos),
+      JSON.stringify(request.protections),
     ],
     queryFn: ({ signal }: QueryFunctionContext) =>
       getBtcBalancesService().getBtcAccountBalance(request, signal),
