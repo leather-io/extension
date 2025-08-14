@@ -66,7 +66,7 @@ decorateAnalyticsEventsWithContext(() => ({
 
 const analyticsQueueItemSchema = z.object({
   eventName: z.string(),
-  properties: z.record(z.unknown()).optional(),
+  properties: z.record(z.string(), z.unknown()).optional(),
 });
 
 const analyticsQueueSchema = z.array(analyticsQueueItemSchema);

@@ -1,6 +1,6 @@
 import type { To } from 'react-router';
 
-import * as z from 'zod';
+import { z } from 'zod';
 
 import {
   RpcErrorCode,
