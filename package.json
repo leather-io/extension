@@ -153,7 +153,7 @@
     "@leather.io/models": "0.39.0",
     "@leather.io/provider": "1.5.6",
     "@leather.io/query": "2.41.5",
-    "@leather.io/rpc": "2.20.5",
+    "@leather.io/rpc": "2.20.6",
     "@leather.io/services": "1.27.0",
     "@leather.io/stacks": "1.15.0",
     "@leather.io/tokens": "0.23.0",
@@ -217,7 +217,7 @@
     "dompurify": "3.1.4",
     "dotenv": "16.4.5",
     "ecdsa-sig-formatter": "1.0.11",
-    "formik": "2.4.5",
+    "formik": "2.4.6",
     "framer-motion": "12.11.0",
     "jotai": "2.2.1",
     "jotai-redux": "0.2.1",
@@ -263,8 +263,8 @@
     "varuint-bitcoin": "1.1.2",
     "webextension-polyfill": "0.12.0",
     "yup": "1.4.0",
-    "zod": "3.24.2",
-    "zod-validation-error": "3.4.0",
+    "zod": "4.0.17",
+    "zod-validation-error": "4.0.1",
     "zxcvbn": "4.4.2"
   },
   "devDependencies": {

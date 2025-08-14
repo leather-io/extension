@@ -22,7 +22,7 @@ const sbtcLimitsResponseSchema = z.object({
   perDepositCap: z.number().nullable(),
   perDepositMinimum: z.number().nullable(),
   perWithdrawalCap: z.number().nullable(),
-  accountCaps: z.record(z.any()),
+  accountCaps: z.record(z.string(), z.any()),
 });
 
 type GetSbtcLimitsResponse = z.infer<typeof sbtcLimitsResponseSchema>;

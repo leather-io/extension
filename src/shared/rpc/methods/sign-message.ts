@@ -1,7 +1,5 @@
 import { z } from 'zod';
 
-import type { PaymentTypes } from '@leather.io/rpc';
-
 import { defaultNetworkIdSchema } from '../rpc-schemas';
 import {
   accountSchema,
@@ -15,7 +13,7 @@ const rpcSignMessageParamsSchema = z.object({
   account: accountSchema.optional(),
   message: z.string(),
   network: defaultNetworkIdSchema.optional(),
-  paymentType: z.enum(['p2tr', 'p2wpkh'] as [PaymentTypes, PaymentTypes]).optional(),
+  paymentType: z.enum(['p2tr', 'p2wpkh']).optional(),
 });
 
 export function validateRpcSignMessageParams(obj: unknown) {
