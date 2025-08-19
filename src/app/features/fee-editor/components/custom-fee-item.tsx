@@ -3,7 +3,9 @@ import { useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Stack } from 'leather-styles/jsx';
 
-import { Button, Input } from '@leather.io/ui';
+import { Input } from '@leather.io/ui';
+
+import { FeeItemButton } from '@app/features/fee-editor/components/fee-item-button';
 
 import { type Fee, useFeeEditorContext } from '../fee-editor.context';
 import { FeeRateItemLayout } from './fee-rate-item.layout';
@@ -20,14 +22,7 @@ export function CustomFeeItem({ fee }: CustomFeeItemProps) {
   const isSelected = selectedFee?.priority === fee.priority;
 
   return (
-    <Button
-      onClick={() => onSetSelectedFee(fee)}
-      variant="outline"
-      borderWidth={isSelected ? '2px' : '1px'}
-      borderColor={isSelected ? 'ink.border-selected' : 'ink.border-default'}
-      // Add margin compensation to maintain consistent size
-      margin={isSelected ? '0px' : '1px'}
-    >
+    <FeeItemButton onClick={() => onSetSelectedFee(fee)} isSelected={isSelected}>
       {feeType === 'fee-rate' ? <FeeRateItemLayout fee={fee} marketData={marketData} /> : null}
       {feeType === 'fee-value' ? <FeeValueItemLayout fee={fee} marketData={marketData} /> : null}
       <AnimatePresence>
@@ -59,6 +54,6 @@ export function CustomFeeItem({ fee }: CustomFeeItemProps) {
           </motion.div>
         )}
       </AnimatePresence>
-    </Button>
+    </FeeItemButton>
   );
 }
