@@ -2,7 +2,7 @@ import { ChainId } from '@stacks/network';
 
 import {
   BITCOIN_API_BASE_URL_MAINNET,
-  BITCOIN_API_BASE_URL_TESTNET3,
+  BITCOIN_API_BASE_URL_TESTNET4,
   type BitcoinNetwork,
   type NetworkConfiguration,
   bitcoinNetworkToNetworkMode,
@@ -47,7 +47,7 @@ function checkBitcoinNetworkProperties(
   network: PersistedNetworkConfiguration
 ): PersistedNetworkConfiguration {
   if (!network.bitcoinNetwork || !network.bitcoinUrl) {
-    const bitcoinNetwork = network.chainId === ChainId.Mainnet ? 'mainnet' : 'testnet3';
+    const bitcoinNetwork = network.chainId === ChainId.Mainnet ? 'mainnet' : 'testnet4';
     return {
       id: network.id,
       name: network.name,
@@ -59,7 +59,7 @@ function checkBitcoinNetworkProperties(
       bitcoinUrl:
         network.chainId === ChainId.Mainnet
           ? BITCOIN_API_BASE_URL_MAINNET
-          : BITCOIN_API_BASE_URL_TESTNET3,
+          : BITCOIN_API_BASE_URL_TESTNET4,
     };
   } else {
     return network;
@@ -98,7 +98,7 @@ export function transformNetworkStateToMultichainStucture(
                 mode: isValidBitcoinNetwork(bitcoinNetwork)
                   ? bitcoinNetworkToNetworkMode(bitcoinNetwork)
                   : 'testnet',
-                bitcoinUrl: bitcoinUrl ?? BITCOIN_API_BASE_URL_TESTNET3,
+                bitcoinUrl: bitcoinUrl ?? BITCOIN_API_BASE_URL_TESTNET4,
               },
             },
           },

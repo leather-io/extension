@@ -17,7 +17,7 @@ const baseParams = {
       amount: '900',
     },
   ],
-  network: 'testnet',
+  network: 'testnet4',
 };
 
 test.describe('RPC: sendTransfer', () => {

@@ -108,7 +108,7 @@ export class HomePage {
     await this.page.getByTestId(SettingsSelectors.SettingsMenuBtn).click();
     await this.page.getByTestId(SettingsSelectors.ChangeNetworkAction).click();
     await this.page.getByTestId(NetworkSelectors.NetworkListActiveNetwork).isVisible();
-    await this.page.getByTestId(WalletDefaultNetworkConfigurationIds.testnet).click();
+    await this.page.getByTestId(WalletDefaultNetworkConfigurationIds.testnet4).click();
   }
 
   async clickActivityTab() {
