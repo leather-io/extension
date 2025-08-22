@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 
-import { BITCOIN_API_BASE_URL_TESTNET3 } from '@leather.io/models';
+import { BITCOIN_API_BASE_URL_TESTNET4 } from '@leather.io/models';
 
 import { TEST_ACCOUNT_1_NATIVE_SEGWIT_ADDRESS } from './constants';
 
@@ -134,7 +134,7 @@ export async function mockMainnetTestAccountBitcoinRequests(page: Page) {
 }
 
 export async function mockTestnetTestAccountEmptyUtxosRequests(page: Page) {
-  await page.route(`${BITCOIN_API_BASE_URL_TESTNET3}/address/**/utxo`, route =>
+  await page.route(`${BITCOIN_API_BASE_URL_TESTNET4}/address/**/utxo`, route =>
     route.fulfill({
       json: [],
     })

@@ -1,7 +1,7 @@
 import { NetworkSelectors } from '@tests/selectors/network.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
-import { BITCOIN_API_BASE_URL_TESTNET3 } from '@leather.io/models';
+import { BITCOIN_API_BASE_URL_TESTNET4 } from '@leather.io/models';
 
 import { test } from '../../fixtures/fixtures';
 
@@ -23,7 +23,7 @@ test.describe('Networks tests', () => {
 
     const bitcoinUrl = page.getByTestId(NetworkSelectors.NetworkBitcoinAddress);
 
-    test.expect(await bitcoinUrl.inputValue()).toEqual(BITCOIN_API_BASE_URL_TESTNET3);
+    test.expect(await bitcoinUrl.inputValue()).toEqual(BITCOIN_API_BASE_URL_TESTNET4);
   });
 
   test('validation error when stacks api url is empty', async ({ networkPage }) => {
