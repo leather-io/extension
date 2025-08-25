@@ -1,5 +1,5 @@
 import type { Money } from '@leather.io/models';
-import { isFunction } from '@leather.io/utils';
+import { createMoney, isFunction } from '@leather.io/utils';
 
 import { FormErrorMessages } from '@shared/error-messages';
 
@@ -14,11 +14,11 @@ export function formatInsufficientBalanceError(
   formatterFn?: (amount: Money) => string
 ) {
   if (!sum) return FormErrorMessages.CannotDetermineBalance;
-  const isAmountLessThanZero = sum.amount.lt(0);
 
-  const formattedAmount = isFunction(formatterFn) ? formatterFn(sum) : sum.amount.toString(10);
+  const normalizedSum = sum.amount.isLessThan(0) ? createMoney(0, sum.symbol, sum.decimals) : sum;
+  const formattedAmount = isFunction(formatterFn)
+    ? formatterFn(normalizedSum)
+    : normalizedSum.amount.toString(10);
 
-  return `${FormErrorMessages.InsufficientBalance} ${
-    isAmountLessThanZero ? '0' : formattedAmount
-  } ${sum.symbol}`;
+  return `${FormErrorMessages.InsufficientBalance} ${formattedAmount}`;
 }

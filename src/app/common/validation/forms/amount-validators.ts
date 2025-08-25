@@ -8,14 +8,15 @@ import {
   convertAmountToBaseUnit,
   countDecimals,
   isNumber,
-  microStxToStx,
   satToBtc,
   stxToMicroStx,
 } from '@leather.io/utils';
 
+import { FormErrorMessages } from '@shared/error-messages';
 import { analytics } from '@shared/utils/analytics';
 
-import { FormErrorMessages } from '../../../../shared/error-messages';
+import { formatCurrency } from '@app/common/currency-formatter';
+
 import { formatInsufficientBalanceError, formatPrecisionError } from '../../error-formatters';
 import { currencyAmountValidator, stxAmountPrecisionValidator } from './currency-validators';
 
@@ -88,9 +89,7 @@ export function stxAvailableBalanceValidator(availableBalance: Money) {
     .number()
     .typeError(FormErrorMessages.MustBeNumber)
     .test({
-      message: formatInsufficientBalanceError(availableBalance, sum =>
-        microStxToStx(sum.amount).toString()
-      ),
+      message: formatInsufficientBalanceError(availableBalance, formatCurrency),
       test(value: unknown) {
         const fee = new BigNumber(stxToMicroStx(this.parent.fee));
         if (!fee.isFinite()) {
@@ -124,7 +123,7 @@ export function stacksFungibleTokenAmountValidator(balance: Money) {
       return true;
     })
     .test({
-      message: formatInsufficientBalanceError(balance, sum => microStxToStx(sum.amount).toString()),
+      message: formatInsufficientBalanceError(balance, formatCurrency),
       test(value) {
         if (!isNumber(value) || !amount) return false;
         return new BigNumber(value).isLessThanOrEqualTo(convertAmountToBaseUnit(amount, decimals));
