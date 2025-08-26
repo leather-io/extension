@@ -62,7 +62,7 @@ export function RpcStxTransferSip10FtContainer({ account }: RpcStxTransferSip10F
     <StxBalanceLoader address={account.address}>
       {(balance, isLoadingAdditionalData) => (
         <StacksNonceLoader>
-          {nonce => (
+          {nonceCalc => (
             <StacksFeeEditorProvider
               availableBalance={balance.availableBalance}
               marketData={stxMarketData}
@@ -70,7 +70,7 @@ export function RpcStxTransferSip10FtContainer({ account }: RpcStxTransferSip10F
               unsignedTx={unsignedTxForFeeEstimation}
             >
               <NonceEditorProvider
-                nonce={nonce}
+                nonce={nonceCalc.nonce}
                 onGoBack={() => navigate(RouteUrls.RpcStxTransferSip10Ft)}
               >
                 <StacksRpcTransactionRequestProvider

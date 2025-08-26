@@ -286,3 +286,13 @@ export function serializeError(err: unknown) {
 
   return { message: String(err) };
 }
+
+export function runOnce(fn: () => void) {
+  let hasRun = false;
+  return () => {
+    if (!hasRun) {
+      hasRun = true;
+      fn();
+    }
+  };
+}

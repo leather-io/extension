@@ -5,6 +5,8 @@ import {
   createRpcErrorResponse,
 } from '@leather.io/rpc';
 
+import { logger } from '@shared/logger';
+
 import { getAddressesHandler, stxGetAddressesHandler } from './rpc-methods/get-addresses';
 import { openHandler } from './rpc-methods/open';
 import { openSwapHandler } from './rpc-methods/open-swap';
@@ -48,6 +50,8 @@ export function defineRpcRequestHandler<M extends RpcRequests['method']>(
 
 export async function rpcMessageHandler(request: RpcRequests, port: chrome.runtime.Port) {
   listenForOriginTabClose({ tabId: port.sender?.tab?.id });
+
+  logger.info(`Received RPC request ${request.method}`, request);
 
   // This typecast safely bypasses the compiler since it cannot infer or narrow
   // the type to know the `request` being passed to `handler` is the correct

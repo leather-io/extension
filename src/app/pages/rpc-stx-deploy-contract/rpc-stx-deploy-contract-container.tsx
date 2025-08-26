@@ -57,7 +57,7 @@ export function RpcStxDeployContractContainer({ account }: RpcStxDeployContractC
     <StxBalanceLoader address={account.address}>
       {(balance, isLoadingAdditionalData) => (
         <StacksNonceLoader>
-          {nonce => (
+          {nonceCalc => (
             <StacksFeeEditorProvider
               availableBalance={balance.availableBalance}
               marketData={stxMarketData}
@@ -65,7 +65,7 @@ export function RpcStxDeployContractContainer({ account }: RpcStxDeployContractC
               unsignedTx={unsignedTxForFeeEstimation}
             >
               <NonceEditorProvider
-                nonce={nonce}
+                nonce={nonceCalc.nonce}
                 onGoBack={() => navigate(RouteUrls.RpcStxDeployContract)}
               >
                 <StacksRpcTransactionRequestProvider
