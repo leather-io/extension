@@ -1,11 +1,7 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
 
-import {
-  AuthType,
-  type StacksTransactionWire,
-  type TxBroadcastResultRejected,
-} from '@stacks/transactions';
+import { AuthType, type StacksTransactionWire } from '@stacks/transactions';
 
 import {
   RpcErrorCode,
@@ -19,10 +15,9 @@ import { RouteUrls } from '@shared/route-urls';
 import { RpcErrorMessage } from '@shared/rpc/methods/validation.utils';
 import { closeWindow } from '@shared/utils';
 
-import { getErrorMessage } from '@app/common/get-error-message';
 import { useRpcRequestParams } from '@app/common/hooks/use-rpc-request-params';
 import { stacksBroadcastTransaction } from '@app/common/transactions/stacks/stacks-broadcast-transaction';
-import { useToast } from '@app/features/toasts/use-toast';
+import { useAnalyticsOnlyStacksNonceTracker } from '@app/components/loaders/stacks-nonce-loader';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
 
@@ -34,7 +29,7 @@ export function useSignAndBroadcastStacksTransaction(method: RpcMethodNames) {
   const signStacksTransaction = useSignStacksTransaction();
   const network = useCurrentStacksNetworkState();
   const navigate = useNavigate();
-  const toast = useToast();
+  const { trackIfNonceError } = useAnalyticsOnlyStacksNonceTracker();
 
   return useCallback(
     async (unsignedTx: StacksTransactionWire) => {
@@ -71,9 +66,10 @@ export function useSignAndBroadcastStacksTransaction(method: RpcMethodNames) {
         closeWindow();
       }
 
-      function onError(error: Error | string, reason?: TxBroadcastResultRejected['reason']) {
+      function onError(error: Error | string) {
         const message = isString(error) ? error : error.message;
-        if (reason) toast.error(getErrorMessage(reason));
+
+        trackIfNonceError(error);
 
         chrome.tabs.sendMessage(
           tabId,
@@ -102,9 +98,10 @@ export function useSignAndBroadcastStacksTransaction(method: RpcMethodNames) {
             },
           })
         );
-        await delay(500);
+        await delay(250);
         closeWindow();
       }
+
       onSetTransactionStatus('broadcasting');
       await stacksBroadcastTransaction({ network, signedTx, onError, onSuccess });
       onSetTransactionStatus('idle');
@@ -117,7 +114,7 @@ export function useSignAndBroadcastStacksTransaction(method: RpcMethodNames) {
       requestId,
       signStacksTransaction,
       tabId,
-      toast,
+      trackIfNonceError,
     ]
   );
 }

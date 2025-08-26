@@ -7,10 +7,9 @@ import { delay, isError } from '@leather.io/utils';
 import { logger } from '@shared/logger';
 import { analytics } from '@shared/utils/analytics';
 
-import { getErrorMessage } from '@app/common/get-error-message';
 import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-all-account-data';
 import { useLoading } from '@app/common/hooks/use-loading';
-import { useToast } from '@app/features/toasts/use-toast';
+import { hiroFetchWrapper } from '@app/query/stacks/stacks-client';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 
 const timeForApiToUpdate = 250;
@@ -24,7 +23,6 @@ interface UseSubmitTransactionCallbackArgs {
   onError(error: Error | string): void;
 }
 export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactionArgs) {
-  const toast = useToast();
   const refreshAccountData = useRefreshAllAccountData();
   const { setIsLoading, setIsIdle } = useLoading(loadingKey);
   const stacksNetwork = useCurrentStacksNetworkState();
@@ -34,11 +32,14 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
       async (transaction: StacksTransactionWire) => {
         setIsLoading();
         try {
-          const response = await broadcastTransaction({ transaction, network: stacksNetwork });
+          const response = await broadcastTransaction({
+            transaction,
+            network: stacksNetwork,
+            client: { fetch: hiroFetchWrapper },
+          });
 
           if ('error' in response) {
             logger.error('Transaction failed to broadcast', response);
-            if (response.reason) toast.error(getErrorMessage(response.reason));
             onError(response.error);
             return setIsIdle();
           }
@@ -65,6 +66,6 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
           return setIsIdle();
         }
       },
-    [setIsLoading, stacksNetwork, toast, setIsIdle, refreshAccountData]
+    [setIsLoading, stacksNetwork, setIsIdle, refreshAccountData]
   );
 }

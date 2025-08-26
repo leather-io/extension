@@ -5,9 +5,7 @@ import { StacksSwapProvider } from '../providers/stacks-swap-provider';
 export function StacksSwapContainer() {
   return (
     <StacksNonceLoader>
-      {nonce => {
-        return <StacksSwapProvider nonce={nonce} />;
-      }}
+      {nonceCalc => <StacksSwapProvider nonce={nonceCalc.nonce} />}
     </StacksNonceLoader>
   );
 }
