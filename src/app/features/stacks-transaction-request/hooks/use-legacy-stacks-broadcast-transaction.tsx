@@ -97,7 +97,7 @@ export function useStacksBroadcastTransaction({
           return await broadcastTransactionFn({
             onError(e: Error | string) {
               const message = isString(e) ? e : e.message;
-              return navigate(RouteUrls.TransactionBroadcastError, { state: { message } });
+              return navigate(RouteUrls.BroadcastError, { state: { message } });
             },
             onSuccess(txId) {
               if (showSummaryPage) return handlePreviewSuccess(signedTx, txId);
@@ -110,7 +110,7 @@ export function useStacksBroadcastTransaction({
           })(signedTx);
         }
       } catch (e) {
-        return navigate(RouteUrls.TransactionBroadcastError, {
+        return navigate(RouteUrls.BroadcastError, {
           state: { message: isError(e) ? e.message : 'Unknown error' },
         });
       } finally {

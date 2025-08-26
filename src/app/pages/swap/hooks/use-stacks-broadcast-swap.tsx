@@ -34,7 +34,7 @@ export function useStacksBroadcastSwap() {
           onError(e: Error | string) {
             setIsIdle();
             const message = isString(e) ? e : e.message;
-            return navigate(RouteUrls.TransactionBroadcastError, { state: { message } });
+            return navigate(RouteUrls.BroadcastError, { state: { message } });
           },
           onSuccess(txId) {
             toast.success('Transaction submitted!');
@@ -47,7 +47,7 @@ export function useStacksBroadcastSwap() {
       } catch (e) {
         setIsIdle();
         void analytics.untypedTrack('stacks_swap_failed', { error: e });
-        return navigate(RouteUrls.TransactionBroadcastError, {
+        return navigate(RouteUrls.BroadcastError, {
           state: { message: isError(e) ? e.message : 'Unknown error' },
         });
       } finally {
