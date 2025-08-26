@@ -31,7 +31,7 @@ export const legacyRequestRoutes = (
     >
       {ledgerStacksTxSigningRoutes}
       <Route path={RouteUrls.EditNonce} element={<EditNonceSheet />} />
-      <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorSheet />} />
+      <Route path={RouteUrls.BroadcastError} element={<BroadcastErrorSheet />} />
     </Route>
     <Route
       path={RouteUrls.SignatureRequest}

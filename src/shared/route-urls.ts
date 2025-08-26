@@ -84,7 +84,6 @@ export enum RouteUrls {
   PsbtRequest = '/psbt',
   SignatureRequest = '/signature',
   TransactionRequest = '/transaction',
-  TransactionBroadcastError = 'tx-broadcast-error',
 
   // Request routes bitcoin
   RpcGetAddresses = '/get-addresses',
