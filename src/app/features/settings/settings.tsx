@@ -184,6 +184,10 @@ export function Settings({
                   data-testid={SettingsSelectors.OpenWalletInNewTab}
                   onSelect={() => {
                     void analytics.track('click_open_in_new_tab_menu_item');
+                    void analytics.untypedTrack('click_open_in_new_tab', {
+                      location: 'settings-menu',
+                    });
+                    void analytics.identify(undefined, { hasVisitedFullPageMode: true });
                     openIndexPageInNewTab(location.pathname);
                   }}
                 >
