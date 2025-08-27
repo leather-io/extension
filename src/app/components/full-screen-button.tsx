@@ -12,6 +12,8 @@ import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 export function FullScreenButton() {
   const location = useLocation();
 
+  if (window.location.pathname.includes('/popup.html')) return null;
+
   return whenPageMode({
     full: null,
     popup: (
