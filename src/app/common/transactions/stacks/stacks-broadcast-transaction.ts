@@ -52,7 +52,7 @@ export async function stacksBroadcastTransaction({
     if (!response.txid) {
       logger.error('Transaction failed to broadcast', response);
       throw createError({
-        name: 'Transaction broadcast but returned no txid',
+        name: 'TransactionBroadcastError',
         message: 'Transaction broadcast but returned no txid',
       });
     }

@@ -6,6 +6,7 @@ import { BarsTwoIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { FullScreenButton } from '@app/components/full-screen-button';
 import { Header } from '@app/components/layout/headers/header';
 import { HeaderGrid, HeaderGridRightCol } from '@app/components/layout/headers/header-grid';
 import { LogoBox } from '@app/components/layout/headers/logo-box';
@@ -22,6 +23,7 @@ export function UnlockHeader() {
         }
         rightCol={
           <HeaderGridRightCol>
+            <FullScreenButton />
             <Settings
               canLockWallet={false}
               triggerButton={<BarsTwoIcon data-testid={SettingsSelectors.SettingsMenuBtn} />}
