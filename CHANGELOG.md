@@ -1,3 +1,45 @@
+## [6.72.0](https://github.com/leather-io/extension/compare/v6.71.1...v6.72.0) (2025-08-27)
+
+
+### Features
+
+* add bitflow env provider address ([401bcde](https://github.com/leather-io/extension/commit/401bcdeabb635e389c9a74cc18e228d7710b4eae))
+* install leather services package ([50ba7a0](https://github.com/leather-io/extension/commit/50ba7a03a24b4d6ad254513516540dc2d3096384))
+* more obvious full page button ([85062d5](https://github.com/leather-io/extension/commit/85062d5d1e69d249507de158bd1bb8305ded9765))
+* promo bannar tracking, closes LEA-2980 ([c957db9](https://github.com/leather-io/extension/commit/c957db9dbc2965fc0bcd9e03cf57f88c537e9950))
+* promo banner, closes LEA-2978 ([253a097](https://github.com/leather-io/extension/commit/253a0974c423d1df7fe0434fcf0ff40c961f3bbd))
+* update bitflow sdk to 2.4 ([c73a89e](https://github.com/leather-io/extension/commit/c73a89e4614044d11d2e061aab4e41358633e1f8))
+
+
+### Bug Fixes
+
+* add analytics to investigate BadNonce errors ([feda8a3](https://github.com/leather-io/extension/commit/feda8a37e688394323aaf5cc480f45d595912d2d))
+* bitflow gh actions env var ([2155d6c](https://github.com/leather-io/extension/commit/2155d6c3449aca4bfaef39e1815179931bf3c8a4))
+* issues introduced with zod upgrade ([2908896](https://github.com/leather-io/extension/commit/2908896117c1151891fe33e1e0b7534e4cc3dfa9))
+* ledger contract deploy details, closes LEA-3045 ([f1182fd](https://github.com/leather-io/extension/commit/f1182fd5f54c470e3d1708c17d4e201747bcb5e1))
+* missing swap event tracking, closes LEA-3088 ([3f359fc](https://github.com/leather-io/extension/commit/3f359fc55c66a86174110ef29320ceea6f5f7abd))
+* remove outdated color definitions from sign out flow buttons ([c5a3d85](https://github.com/leather-io/extension/commit/c5a3d8549ba0d0f86382c9efda561906cd21e726))
+* share manage token state across accounts ([a7aca06](https://github.com/leather-io/extension/commit/a7aca06fefd42406cff895a4fc04d7e9e90e3197))
+* use a custom component for fee items ([92f574d](https://github.com/leather-io/extension/commit/92f574d562384c2b59aaf176c71edb80159b496f))
+* use constant route, divergence introduced loads of bugs ([3f35549](https://github.com/leather-io/extension/commit/3f355490c7956c122126fc25c8c281807ef3e554))
+* use correct balance in the "insufficient balance" message for sip-10 send ([bc28861](https://github.com/leather-io/extension/commit/bc2886109ba6f2c01d02315cc855b1b182f59dbd))
+* use new protections api ([e2c90e3](https://github.com/leather-io/extension/commit/e2c90e33d955117204d7191142382a2cf13f5554))
+
+
+### Internal
+
+* add NBSP helper to test utils, fix a relevant test ([25c6eb4](https://github.com/leather-io/extension/commit/25c6eb47feac0bec5d69c3317f640156cac50c22))
+* bump leather packages ([8ab2422](https://github.com/leather-io/extension/commit/8ab24225da131c6904abf43efa68719a24767a33))
+* disable promo banner ([063bcaa](https://github.com/leather-io/extension/commit/063bcaaf65c112c7b7ac9806b2859ebebe8e80fe))
+* migrate Button to new version ([1b8d779](https://github.com/leather-io/extension/commit/1b8d7796844d1174ceb4939488c99c860cf7625f))
+* migrate integration tests to testnet4 ([4442058](https://github.com/leather-io/extension/commit/44420580100fdf6e32cfcf473d97d1edff0a7b7a))
+* post-release merge back ([c400fb2](https://github.com/leather-io/extension/commit/c400fb2c3a8cd56dcdca999a0965a9ad39a48577))
+* set up currency formatter ([3aab9b5](https://github.com/leather-io/extension/commit/3aab9b543260db0dcce8c7ffe910b0edf9671f28))
+* update all formatting-related code to use the new formatter ([9d5ae0a](https://github.com/leather-io/extension/commit/9d5ae0ab534fe7a4dd0ab76339f3fce4431a80b1))
+* update leather packages ([03663c2](https://github.com/leather-io/extension/commit/03663c2b911f99c0fbc5f0233612c9f1f837ab93))
+* update leather packages ([0febb6f](https://github.com/leather-io/extension/commit/0febb6f6af02d89552917830f28ac8b8171fd772))
+* use UI library input in the password field ([9ed2eb7](https://github.com/leather-io/extension/commit/9ed2eb7c6b0108ca5691ecce0a4d1befe74146a4))
+
 ## [6.71.1](https://github.com/leather-io/extension/compare/v6.71.0...v6.71.1) (2025-07-15)
 
 
