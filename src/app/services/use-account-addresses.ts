@@ -2,20 +2,18 @@ import { useMemo } from 'react';
 
 import { createAccountAddresses } from '@leather.io/utils';
 
-import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useCurrentBitcoinAccountXpubs } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
-import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useBitcoinAccountXpubs } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
+import { useStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-export function useAccountAddresses() {
-  const accountXpubs = useCurrentBitcoinAccountXpubs();
-  const stxAddress = useCurrentStacksAccountAddress();
-  const accountIndex = useCurrentAccountIndex();
+export function useAccountAddresses(accountIndex: number) {
+  const accountXpubs = useBitcoinAccountXpubs(accountIndex);
+  const stxAccount = useStacksAccount(accountIndex);
 
   return useMemo(() => {
     return createAccountAddresses(
       { fingerprint: 'master', accountIndex },
       accountXpubs,
-      stxAddress
+      stxAccount?.address
     );
-  }, [accountXpubs, stxAddress, accountIndex]);
+  }, [accountXpubs, stxAccount, accountIndex]);
 }

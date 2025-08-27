@@ -2,11 +2,9 @@ import { useMemo } from 'react';
 
 import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 
-import { calculatePendingTxsMoneyBalance } from '@leather.io/query';
 import { increaseValueByOneMicroStx, isUndefined, microStxToStx } from '@leather.io/utils';
 
 import { useGetTransactionByIdListQuery } from '../transactions/transactions-by-id.query';
-import { useStacksConfirmedTransactions } from '../transactions/transactions-with-transfers.hooks';
 import { useGetAddressMempoolTransactionsQuery } from './mempool.query';
 
 const droppedCache = new Map();
@@ -36,36 +34,6 @@ export function useStacksPendingTransactions(address: string) {
         }) as MempoolTransaction[],
     };
   }, [txs, query]);
-}
-
-export function useMempoolTxsInboundBalance(address: string) {
-  const { transactions: pendingTransactions, query } = useStacksPendingTransactions(address);
-  const confirmedTxs = useStacksConfirmedTransactions(address);
-
-  return {
-    query,
-    balance: calculatePendingTxsMoneyBalance({
-      address,
-      confirmedTxs,
-      pendingTxs: pendingTransactions,
-      type: 'inbound',
-    }),
-  };
-}
-
-export function useMempoolTxsOutboundBalance(address: string) {
-  const { transactions: pendingTransactions, query } = useStacksPendingTransactions(address);
-  const confirmedTxs = useStacksConfirmedTransactions(address);
-
-  return {
-    query,
-    balance: calculatePendingTxsMoneyBalance({
-      address,
-      confirmedTxs,
-      pendingTxs: pendingTransactions,
-      type: 'outbound',
-    }),
-  };
 }
 
 export function useStacksValidateFeeByNonce(address: string) {

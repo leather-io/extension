@@ -1,9 +1,8 @@
 import SbtcAvatarIconSrc from '@assets/avatars/sbtc-avatar-icon.png';
 
-import type { CryptoAssetBalance, MarketData, Sip10Asset } from '@leather.io/models';
+import type { Sip10Balance } from '@leather.io/services';
 
-import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
-import { useManageTokens } from '@app/common/hooks/use-manage-tokens';
+import { formatCurrency } from '@app/common/currency-formatter';
 import { getSafeImageCanonicalUri } from '@app/common/stacks-utils';
 import { CryptoAssetItem } from '@app/components/crypto-asset-item/crypto-asset-item';
 import { StacksAssetAvatar } from '@app/components/stacks-asset-avatar';
@@ -12,31 +11,20 @@ import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 import type { AssetRightElementVariant } from '../../asset-list';
 
 interface Sip10TokenAssetItemProps {
-  balance: CryptoAssetBalance;
-  info: Sip10Asset;
-  isLoading: boolean;
-  marketData: MarketData;
+  balance: Sip10Balance;
+  isEnabled: boolean;
   assetRightElementVariant?: AssetRightElementVariant;
   onSelectAsset?(symbol: string, contractId?: string): void;
-  preEnabledTokensIds: string[];
 }
 export function Sip10TokenAssetItem({
   balance,
-  info,
-  isLoading,
-  marketData,
+  isEnabled,
   onSelectAsset,
   assetRightElementVariant,
-  preEnabledTokensIds,
 }: Sip10TokenAssetItemProps) {
   const isPrivate = useIsPrivateMode();
-  const fiatBalance = convertAssetBalanceToFiat({
-    balance: balance.availableBalance,
-    marketData,
-  });
-  const { isTokenEnabled } = useManageTokens();
 
-  const { contractId, imageCanonicalUri, name, symbol } = info;
+  const { contractId, assetId, imageCanonicalUri, name, symbol } = balance.asset;
 
   const icon = (
     <>
@@ -62,19 +50,18 @@ export function Sip10TokenAssetItem({
         captionLeft,
         icon,
         titleLeft,
-        assetId: contractId,
-        isCheckedByDefault: isTokenEnabled({ tokenId: contractId, preEnabledTokensIds }),
+        assetId,
+        isCheckedByDefault: isEnabled,
       }}
       itemProps={{
         contractId,
-        availableBalance: balance.availableBalance,
+        availableBalance: balance.crypto.availableBalance,
         captionLeft,
         icon,
-        isLoading,
         isPrivate,
         titleLeft,
-        fiatBalance,
-        dataTestId: contractId,
+        fiatBalance: formatCurrency(balance.quote.availableBalance),
+        dataTestId: assetId,
         onSelectAsset,
       }}
     />

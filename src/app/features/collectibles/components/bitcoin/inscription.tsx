@@ -21,7 +21,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useHoverWithChildren } from '@app/common/hooks/use-hover-with-children';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { useDiscardedInscriptions } from '@app/store/settings/settings.selectors';
+import { useCurrentAccountDiscardedInscriptions } from '@app/store/settings/settings.selectors';
 
 import { CollectibleAudio } from '../../../../components/collectibles/collectible-audio';
 import { CollectibleIframe } from '../../../../components/collectibles/collectible-iframe';
@@ -43,7 +43,7 @@ export function Inscription({ inscription }: InscriptionProps) {
   const location = useLocation();
   const [isHovered, bind] = useHoverWithChildren();
   const { hasInscriptionBeenDiscarded, discardInscription, recoverInscription } =
-    useDiscardedInscriptions();
+    useCurrentAccountDiscardedInscriptions();
 
   const openSendInscriptionModal = useCallback(() => {
     navigate(RouteUrls.SendOrdinalInscription, {

@@ -44,7 +44,7 @@ export const AccountListItem = memo(({ index, stacksAccount, onClose }: AccountL
           name={name}
         />
       }
-      balanceLabel={<AccountTotalBalance stxAddress={stacksAddress} btcAddress={bitcoinAddress} />}
+      balanceLabel={<AccountTotalBalance accountIndex={index} />}
       index={index}
       isSelected={false}
       isLoading={false}

@@ -3,10 +3,10 @@ import { useMemo } from 'react';
 import { useNativeSegwitUtxosByAddress } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useCurrentNativeSegwitInscriptions } from '@app/query/bitcoin/ordinals/inscriptions/inscriptions.query';
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useDiscardedInscriptions } from '@app/store/settings/settings.selectors';
+import { useCurrentAccountDiscardedInscriptions } from '@app/store/settings/settings.selectors';
 
 export function useInscribedSpendableUtxos() {
-  const { hasInscriptionBeenDiscarded } = useDiscardedInscriptions();
+  const { hasInscriptionBeenDiscarded } = useCurrentAccountDiscardedInscriptions();
 
   const { data: nativeSegwitInscriptions } = useCurrentNativeSegwitInscriptions();
 

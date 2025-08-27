@@ -1,12 +1,14 @@
 import { UseQueryOptions } from '@tanstack/react-query';
 
-import { oneWeekInMs } from '@leather.io/utils';
-
 export const balanceQueryOptions = {
   refetchOnMount: true,
   refetchOnReconnect: false,
   refetchOnWindowFocus: false,
-  staleTime: 2000,
-  gcTime: oneWeekInMs,
+  staleTime: 15 * 1000,
   retry: 0,
+} satisfies Partial<UseQueryOptions>;
+
+export const balanceQueryOptionsWithRefetch = {
+  ...balanceQueryOptions,
+  refetchInterval: 30 * 1000,
 } satisfies Partial<UseQueryOptions>;

@@ -21,7 +21,7 @@ import { MAX_FEE_RATE_MULTIPLIER } from '@app/components/bitcoin-custom-fee/hook
 import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useCurrentNativeSegwitBtcBalanceWithFallback } from '@app/query/bitcoin/balance/btc-balance.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
@@ -49,7 +49,7 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
     [btcTx.vin.length, btcTx.vout.length, recipient]
   );
 
-  const { balance } = useBtcCryptoAssetBalanceNativeSegwit(currentBitcoinAddress);
+  const { btc: balance } = useCurrentNativeSegwitBtcBalanceWithFallback();
   const sendingAmount = getBitcoinTxValue(currentBitcoinAddress, btcTx);
   const { feesList } = useBitcoinFeesList({
     amount: createMoney(btcToSat(sendingAmount), 'BTC'),

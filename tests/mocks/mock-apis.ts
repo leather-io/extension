@@ -6,9 +6,11 @@ import {
   mockMainnetAlexTokenPricesRequest,
 } from './mock-alex-assets';
 import { mockMainnetTestAccountBrc20TokensRequest } from './mock-brc20';
+import { mockLeatherApiRequests } from './mock-leather-api';
 import { mockMainnetTestAccountRunesOutputsRequest } from './mock-runes';
 import { mockMainnetTestAccountStampchainRequest } from './mock-src20';
 import { mockMainnetTestAccountStacksBalancesRequest } from './mock-stacks-balances';
+import { mockMainnetTestAccountStacksBalancesV2Request } from './mock-stacks-balances-v2';
 import { mockMainnetTestAccountStacksBnsNameRequest } from './mock-stacks-bns';
 import { mockStacksFeeRequests } from './mock-stacks-fees';
 import { mockMainnetTestAccountStacksFTsRequest } from './mock-stacks-fts';
@@ -30,9 +32,10 @@ export async function setupMockApis(page: Page) {
     mockMainnetTestAccountStacksNFTsRequest(page),
     mockMainnetTestAccountStacksFTsRequest(page),
     mockMainnetTestAccountStacksBalancesRequest(page),
+    mockMainnetTestAccountStacksBalancesV2Request(page),
     mockMainnetAlexAssetsRequest(page),
     mockMainnetAlexTokenPricesRequest(page),
-
+    mockLeatherApiRequests(page),
     mockMainnetTestAccountStampchainRequest(page),
     mockMainnetTestAccountBrc20TokensRequest(page),
     mockMainnetTestAccountStx20TokensRequest(page),

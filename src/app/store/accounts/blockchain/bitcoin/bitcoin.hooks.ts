@@ -43,6 +43,7 @@ import { allSighashTypes } from './bitcoin-signer';
 import {
   useCurrentAccountNativeSegwitSigner,
   useCurrentNativeSegwitAccount,
+  useNativeSegwitAccount,
   useUpdateLedgerSpecificNativeSegwitBip32DerivationForAdddressIndexZero,
   useUpdateLedgerSpecificNativeSegwitUtxoHexForAdddressIndexZero,
 } from './native-segwit-account.hooks';
@@ -294,21 +295,30 @@ export function useSignBitcoinTx() {
   };
 }
 
-export function useCurrentBitcoinAccountNativeSegwitXpub() {
-  const nativeSegwitAccount = useCurrentNativeSegwitAccount();
+function useBitcoinAccountNativeSegwitXpub(accountIndex: number) {
+  const nativeSegwitAccount = useNativeSegwitAccount(accountIndex);
   if (!nativeSegwitAccount) return null;
   return `wpkh(${nativeSegwitAccount?.keychain.publicExtendedKey})`;
 }
 
-function useCurrentBitcoinAccountTaprootXpub() {
-  const taprootAccount = useCurrentTaprootAccount();
+function useBitcoinAccountTaprootXpub(accountIndex: number) {
+  const taprootAccount = useTaprootAccount(accountIndex);
   if (!taprootAccount) return null;
   return `tr(${taprootAccount?.keychain.publicExtendedKey})`;
 }
 
+export function useBitcoinAccountXpubs(accountIndex: number) {
+  const nativeSegwitXpub = useBitcoinAccountNativeSegwitXpub(accountIndex);
+  const taprootXpub = useBitcoinAccountTaprootXpub(accountIndex);
+  return [nativeSegwitXpub, taprootXpub].filter(xpub => isString(xpub)) as string[];
+}
+
+export function useCurrentBitcoinAccountNativeSegwitXpub() {
+  const accountIndex = useCurrentAccountIndex();
+  return useBitcoinAccountNativeSegwitXpub(accountIndex);
+}
+
 export function useCurrentBitcoinAccountXpubs() {
-  const taprootXpub = useCurrentBitcoinAccountTaprootXpub();
-  const nativeSegwitXpub = useCurrentBitcoinAccountNativeSegwitXpub();
-  // Not sure why this type cast is necessary, but thinks its string | null without
-  return [taprootXpub, nativeSegwitXpub].filter(xpub => isString(xpub)) as string[];
+  const accountIndex = useCurrentAccountIndex();
+  return useBitcoinAccountXpubs(accountIndex);
 }

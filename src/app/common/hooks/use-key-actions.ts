@@ -12,6 +12,7 @@ import { queryClient } from '@app/common/persistence';
 import { partiallyClearLocalStorage } from '@app/common/store-utils';
 import { useBitcoinClient } from '@app/query/bitcoin/clients/bitcoin-client';
 import { useBnsV2Client } from '@app/query/stacks/bns/bns-v2-client';
+import { servicesCache } from '@app/services/extension-http-cache.service';
 import { useAppDispatch } from '@app/store';
 import { createNewAccount, switchAccount } from '@app/store/chains/stx-chain.actions';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
@@ -72,6 +73,7 @@ export function useKeyActions() {
         partiallyClearLocalStorage();
         void analytics.track('sign_out');
         queryClient.clear();
+        await servicesCache.clear();
       },
 
       async lockWallet() {

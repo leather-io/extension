@@ -12,8 +12,8 @@ import { useSip10FiatMarketData } from '@app/common/hooks/use-calculate-sip10-fi
 import { createGetBitflowAvailableTokensQueryOptions } from '@app/query/bitflow-sdk/bitflow-available-tokens.query';
 import { useAlexSdkLatestPricesQuery } from '@app/query/common/alex-sdk/alex-sdk-latest-prices.query';
 import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
-import { useStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
-import { useTransferableSip10Tokens } from '@app/query/stacks/sip10/sip10-tokens.hooks';
+import { useStxAddressAvailableUnlockedBalance } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useSip10AddressTransferableTokenBalances } from '@app/query/stacks/sip10/sip10-balance.hooks';
 
 import { sortSwapAssets } from '../swap.utils';
 
@@ -24,8 +24,8 @@ const usdDecimalPrecision = 2;
 function useCreateSwapAsset(address: string) {
   const { data: prices } = useAlexSdkLatestPricesQuery();
   const { getTokenMarketData } = useSip10FiatMarketData();
-  const availableUnlockedBalance = useStxAvailableUnlockedBalance(address);
-  const sip10Tokens = useTransferableSip10Tokens(address);
+  const availableUnlockedBalance = useStxAddressAvailableUnlockedBalance(address);
+  const { sip10s: sip10Tokens } = useSip10AddressTransferableTokenBalances(address);
 
   return useCallback(
     (token?: Token): SwapAsset | undefined => {
@@ -57,8 +57,8 @@ function useCreateSwapAsset(address: string) {
 
       const availableBalance = sip10Tokens.find(
         sip10Token =>
-          getPrincipalFromAssetString(sip10Token.info.contractId) === token.tokenContract
-      )?.balance.availableBalance;
+          getPrincipalFromAssetString(sip10Token.asset.contractId) === token.tokenContract
+      )?.crypto.availableBalance;
 
       return {
         ...swapAsset,
