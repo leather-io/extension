@@ -68,19 +68,7 @@ export function useSignAndBroadcastStacksTransaction(method: RpcMethodNames) {
 
       function onError(error: Error | string) {
         const message = isString(error) ? error : error.message;
-
         trackIfNonceError(error);
-
-        chrome.tabs.sendMessage(
-          tabId,
-          createRpcErrorResponse(method, {
-            id: requestId,
-            error: {
-              code: RpcErrorCode.INVALID_REQUEST,
-              message: RpcErrorMessage.BroadcastError,
-            },
-          })
-        );
 
         return navigate(RouteUrls.BroadcastError, { state: { message } });
       }

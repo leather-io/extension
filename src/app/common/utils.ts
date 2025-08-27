@@ -287,6 +287,19 @@ export function serializeError(err: unknown) {
   return { message: String(err) };
 }
 
+interface CreateErrorArgs {
+  name: string;
+  message: string;
+  [key: string]: unknown;
+}
+export function createError({ name, message, ...metadata }: CreateErrorArgs) {
+  const err = new Error(message);
+  err.name = name;
+  Object.assign(err, metadata);
+  if (Error.captureStackTrace) Error.captureStackTrace(err, createError);
+  return err;
+}
+
 export function runOnce(fn: () => void) {
   let hasRun = false;
   return () => {
