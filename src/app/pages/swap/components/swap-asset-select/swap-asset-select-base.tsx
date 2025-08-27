@@ -4,8 +4,6 @@ import { useField, useFormikContext } from 'formik';
 import {
   convertAmountToFractionalUnit,
   createMoney,
-  formatMoneyWithoutSymbol,
-  i18nFormatCurrency,
   isDefined,
   isMoneyGreaterThanZero,
   isUndefined,
@@ -14,6 +12,7 @@ import {
 import type { SwapFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { useShowFieldError } from '@app/common/form-utils';
 
 import { useSwapNavigate } from '../../hooks/use-swap-navigate';
@@ -35,6 +34,13 @@ export function SwapAssetSelectBase<T extends BaseSwapContext<T>>() {
   const showError = useShowFieldError('swapAmountBase');
   const [assetField] = useField('swapAssetBase');
   const swapNavigate = useSwapNavigate();
+  const formatterOptions = {
+    showCurrency: false,
+    compactThreshold: Infinity,
+    numberFormatOptions: {
+      useGrouping: false,
+    },
+  };
 
   const amountAsFiat =
     isDefined(assetField.value && amountField.value) &&
@@ -43,7 +49,7 @@ export function SwapAssetSelectBase<T extends BaseSwapContext<T>>() {
       assetField.value.marketData,
       amountField.value
     );
-  const formattedBalance = formatMoneyWithoutSymbol(assetField.value.balance);
+  const formattedBalance = formatCurrency(assetField.value.balance, formatterOptions);
   const isSwapAssetBaseBalanceGreaterThanZero =
     values.swapAssetBase?.balance.amount.isGreaterThan(0);
 
@@ -67,7 +73,7 @@ export function SwapAssetSelectBase<T extends BaseSwapContext<T>>() {
       values.swapAssetQuote?.balance.symbol ?? '',
       values.swapAssetQuote?.balance.decimals
     );
-    await setFieldValue('swapAmountQuote', formatMoneyWithoutSymbol(toAmountAsMoney));
+    await setFieldValue('swapAmountQuote', formatCurrency(toAmountAsMoney, formatterOptions));
     setFieldError('swapAmountQuote', undefined);
   }
 
@@ -83,9 +89,7 @@ export function SwapAssetSelectBase<T extends BaseSwapContext<T>>() {
       swapAmountInput={
         <SwapAmountField
           amountAsFiat={
-            amountAsFiat && isMoneyGreaterThanZero(amountAsFiat)
-              ? i18nFormatCurrency(amountAsFiat)
-              : ''
+            amountAsFiat && isMoneyGreaterThanZero(amountAsFiat) ? formatCurrency(amountAsFiat) : ''
           }
           isDisabled={!isSwapAssetBaseBalanceGreaterThanZero}
           name="swapAmountBase"

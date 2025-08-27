@@ -5,6 +5,7 @@ import { UserSelectedTheme } from '@app/common/theme-provider';
 interface InitialState {
   userSelectedTheme: UserSelectedTheme;
   dismissedMessages: string[];
+  dismissedPromoIndexes: number[];
   isPrivateMode?: boolean;
   isNotificationsEnabled?: boolean;
   bypassInscriptionChecks?: boolean;
@@ -14,6 +15,7 @@ interface InitialState {
 const initialState: InitialState = {
   userSelectedTheme: 'system',
   dismissedMessages: [],
+  dismissedPromoIndexes: [],
   discardedInscriptions: [],
   isNotificationsEnabled: true,
 };
@@ -31,6 +33,13 @@ export const settingsSlice = createSlice({
     },
     resetMessages(state) {
       state.dismissedMessages = [];
+    },
+    promoDismissed(state, action: PayloadAction<number>) {
+      if (!Array.isArray(state.dismissedPromoIndexes)) state.dismissedPromoIndexes = [];
+      state.dismissedPromoIndexes = [...state.dismissedPromoIndexes, action.payload];
+    },
+    resetPromoBanner(state) {
+      state.dismissedPromoIndexes = [];
     },
     togglePrivateMode(state) {
       state.isPrivateMode = !state.isPrivateMode;

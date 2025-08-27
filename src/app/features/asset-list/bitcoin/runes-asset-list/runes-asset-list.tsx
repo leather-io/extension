@@ -1,6 +1,6 @@
 import { type Dispatch, type SetStateAction, useEffect } from 'react';
 
-import type { CryptoAssetBalance, MarketData, RuneCryptoAssetInfo } from '@leather.io/models';
+import type { CryptoAssetBalance, MarketData, RuneAsset } from '@leather.io/models';
 import { RunesAvatarIcon } from '@leather.io/ui';
 import { convertAmountToBaseUnit, createMoneyFromDecimal } from '@leather.io/utils';
 
@@ -13,7 +13,7 @@ import type { AssetRightElementVariant } from '../../asset-list';
 
 interface RuneTokenAssetDetails {
   balance: CryptoAssetBalance;
-  info: RuneCryptoAssetInfo;
+  info: RuneAsset;
   marketData: MarketData;
 }
 

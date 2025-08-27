@@ -41,7 +41,6 @@ export function SignOutSheet({ isShowing, onUserDeleteWallet, onClose }: SignOut
       footer={
         <ButtonRow flexDirection="row">
           <Button
-            color="gray"
             data-testid={SettingsSelectors.BtnSignOutReturnToHomeScreen}
             flexGrow={1}
             variant="outline"
@@ -50,7 +49,6 @@ export function SignOutSheet({ isShowing, onUserDeleteWallet, onClose }: SignOut
             Cancel
           </Button>
           <Button
-            color="lightModeInk.1"
             opacity={!canSignOut ? 0.8 : undefined}
             data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
             flexGrow={1}

@@ -1,12 +1,8 @@
 import type { MarketData } from '@leather.io/models';
 import { ItemLayout } from '@leather.io/ui';
-import {
-  baseCurrencyAmountInQuote,
-  capitalize,
-  createMoney,
-  formatMoney,
-  i18nFormatCurrency,
-} from '@leather.io/utils';
+import { baseCurrencyAmountInQuote, capitalize, createMoney } from '@leather.io/utils';
+
+import { formatCurrency } from '@app/common/currency-formatter';
 
 import type { Fee } from '../fee-editor.context';
 import { FeeItemIcon } from './fee-item-icon';
@@ -25,10 +21,10 @@ export function FeeValueItemLayout({ fee, marketData, showChevron }: FeeValueIte
       showChevron={showChevron}
       titleLeft={capitalize(priority)}
       captionLeft={time}
-      titleRight={txFee ? formatMoney(txFee) : 'N/A'}
+      titleRight={txFee ? formatCurrency(txFee) : 'N/A'}
       captionRight={
         txFee
-          ? `${i18nFormatCurrency(
+          ? `${formatCurrency(
               baseCurrencyAmountInQuote(
                 createMoney(Math.ceil(txFee.amount.toNumber()), txFee.symbol),
                 marketData

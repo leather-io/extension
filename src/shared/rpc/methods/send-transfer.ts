@@ -55,11 +55,11 @@ export const rpcSendTransferParamsSchema = z
         z.object({
           address: z.string(),
           amount: z.string().refine(value => checkIfDigitsOnly(value), {
-            message: 'Sat denominated amounts only',
+            error: 'Sat denominated amounts only',
           }),
         })
       )
-      .nonempty()
+      .min(1)
       .refine(
         recipients => {
           const inferredNetworksByAddress = recipients.map(({ address }) =>
@@ -67,7 +67,7 @@ export const rpcSendTransferParamsSchema = z
           );
           return uniqueArray(inferredNetworksByAddress).length === 1;
         },
-        { message: 'Cannot transfer to addresses of different networks', path: ['recipients'] }
+        { error: 'Cannot transfer to addresses of different networks', path: ['recipients'] }
       ),
   })
   .refine(
@@ -82,7 +82,7 @@ export const rpcSendTransferParamsSchema = z
 
       return !addressNetworks.some(val => val === false);
     },
-    { message: FormErrorMessages.IncorrectNetworkAddress, path: ['recipients'] }
+    { error: FormErrorMessages.IncorrectNetworkAddress, path: ['recipients'] }
   );
 
 export function convertRpcSendTransferLegacyParamsToNew(

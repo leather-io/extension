@@ -2,8 +2,9 @@ import BigNumber from 'bignumber.js';
 import { AnyObject, NumberSchema } from 'yup';
 
 import type { Money } from '@leather.io/models';
-import { btcToSat, isNumber, moneyToBaseUnit, stxToMicroStx } from '@leather.io/utils';
+import { btcToSat, isNumber, stxToMicroStx } from '@leather.io/utils';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { formatInsufficientBalanceError, formatPrecisionError } from '@app/common/error-formatters';
 import {
   btcAmountPrecisionValidator,
@@ -21,9 +22,7 @@ function feeValidatorFactory({
   validator,
 }: FeeValidatorFactoryArgs) {
   return validator(formatPrecisionError(availableBalance)).test({
-    message: formatInsufficientBalanceError(availableBalance, sum =>
-      moneyToBaseUnit(sum).toString()
-    ),
+    message: formatInsufficientBalanceError(availableBalance, formatCurrency),
     test(fee: unknown) {
       if (!availableBalance || !isNumber(fee)) return false;
       return availableBalance.amount.isGreaterThanOrEqualTo(unitConverter(fee));

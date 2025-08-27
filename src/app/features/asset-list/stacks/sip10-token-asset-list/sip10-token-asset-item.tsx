@@ -1,6 +1,6 @@
 import SbtcAvatarIconSrc from '@assets/avatars/sbtc-avatar-icon.png';
 
-import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather.io/models';
+import type { CryptoAssetBalance, MarketData, Sip10Asset } from '@leather.io/models';
 
 import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
 import { useManageTokens } from '@app/common/hooks/use-manage-tokens';
@@ -13,7 +13,7 @@ import type { AssetRightElementVariant } from '../../asset-list';
 
 interface Sip10TokenAssetItemProps {
   balance: CryptoAssetBalance;
-  info: Sip10CryptoAssetInfo;
+  info: Sip10Asset;
   isLoading: boolean;
   marketData: MarketData;
   assetRightElementVariant?: AssetRightElementVariant;

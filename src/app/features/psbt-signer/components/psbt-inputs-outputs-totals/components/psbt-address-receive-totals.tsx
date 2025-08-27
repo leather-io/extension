@@ -1,5 +1,6 @@
-import { formatMoney, i18nFormatCurrency, truncateMiddle } from '@leather.io/utils';
+import { truncateMiddle } from '@leather.io/utils';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { removeMinusSign } from '@app/common/utils';
 import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
@@ -33,19 +34,17 @@ export function PsbtAddressReceiveTotals({
           hoverLabel={addressNativeSegwit}
           subtitle={truncateMiddle(addressNativeSegwit)}
           subValue={removeMinusSign(
-            i18nFormatCurrency(calculateBitcoinFiatValue(addressNativeSegwitTotal))
+            formatCurrency(calculateBitcoinFiatValue(addressNativeSegwitTotal))
           )}
-          value={removeMinusSign(formatMoney(addressNativeSegwitTotal))}
+          value={removeMinusSign(formatCurrency(addressNativeSegwitTotal))}
         />
       ) : null}
       {!isReceivingInscriptions && showTaprootTotal ? (
         <PsbtAddressTotalItem
           hoverLabel={addressTaproot}
           subtitle={truncateMiddle(addressTaproot)}
-          subValue={removeMinusSign(
-            i18nFormatCurrency(calculateBitcoinFiatValue(addressTaprootTotal))
-          )}
-          value={removeMinusSign(formatMoney(addressTaprootTotal))}
+          subValue={removeMinusSign(formatCurrency(calculateBitcoinFiatValue(addressTaprootTotal)))}
+          value={removeMinusSign(formatCurrency(addressTaprootTotal))}
         />
       ) : null}
       {isReceivingInscriptions

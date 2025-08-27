@@ -16,13 +16,12 @@ import {
   baseCurrencyAmountInQuote,
   convertToMoneyTypeWithDefaultOfZero,
   createMoney,
-  formatMoney,
-  i18nFormatCurrency,
   isDefined,
   isEmptyString,
   microStxToStx,
 } from '@leather.io/utils';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { removeTrailingNullCharacters } from '@app/common/utils';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
@@ -73,14 +72,14 @@ export function useStacksTransactionSummary(token: CryptoCurrency) {
 
     return {
       recipient: safeAddressToString(payload?.recipient?.value),
-      fee: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(fee))),
-      totalSpend: formatMoney(
+      fee: formatCurrency(convertToMoneyTypeWithDefaultOfZero('STX', Number(fee))),
+      totalSpend: formatCurrency(
         convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue) + Number(fee))
       ),
       symbol: 'STX',
       txValue: microStxToStx(Number(txValue)).toString(),
-      sendingValue: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue))),
-      txFiatValue: i18nFormatCurrency(
+      sendingValue: formatCurrency(convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue))),
+      txFiatValue: formatCurrency(
         baseCurrencyAmountInQuote(createMoney(Number(payload.amount), 'STX'), tokenMarketData)
       ),
       txFiatValueSymbol: tokenMarketData.price.symbol,
@@ -104,10 +103,10 @@ export function useStacksTransactionSummary(token: CryptoCurrency) {
     const txValue = Number((payload.functionArgs[0] as IntCV).value);
     const memoDisplayText = getSip10MemoDisplayText(payload);
 
-    const sendingValue = formatMoney(
+    const sendingValue = formatCurrency(
       convertToMoneyTypeWithDefaultOfZero(symbol, txValue, decimals)
     );
-    const feeValue = formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(fee)));
+    const feeValue = formatCurrency(convertToMoneyTypeWithDefaultOfZero('STX', Number(fee)));
     const totalSpend = `${sendingValue} + ${feeValue}`;
 
     const currencyTxAmount = baseCurrencyAmountInQuote(
@@ -116,7 +115,7 @@ export function useStacksTransactionSummary(token: CryptoCurrency) {
     );
 
     const txFiatValue = currencyTxAmount.amount.toNumber()
-      ? i18nFormatCurrency(currencyTxAmount)
+      ? formatCurrency(currencyTxAmount)
       : undefined;
 
     return {

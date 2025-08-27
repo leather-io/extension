@@ -131,7 +131,7 @@ export function useSignStacksTransaction() {
     whenWallet({
       async ledger(tx: StacksTransactionWire) {
         const serializedTx = tx.serialize();
-        ledgerNavigate.toConnectAndSignStacksTransactionStep(serializedTx);
+        void ledgerNavigate.toConnectAndSignStacksTransactionStep(serializedTx);
         return listenForStacksTxLedgerSigning(serializedTx);
       },
       async software(tx: StacksTransactionWire) {

@@ -1,5 +1,6 @@
-import { createMoney, formatMoney, truncateMiddle } from '@leather.io/utils';
+import { createMoney, truncateMiddle } from '@leather.io/utils';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { PsbtOutput } from '@app/features/psbt-signer/hooks/use-parsed-outputs';
 import { BadgeWithTooltip } from '@app/ui/components/badge/badge-with-tooltip';
 
@@ -14,7 +15,7 @@ export function PsbtOutputItem({ output }: { output: PsbtOutput }) {
     <PsbtInputOutputItemLayout
       address={truncateMiddle(output.address)}
       addressHoverLabel={output.address}
-      amount={formatMoney(createMoney(Number(output.value), 'BTC'))}
+      amount={formatCurrency(createMoney(Number(output.value), 'BTC'))}
       label={
         output.toSign ? (
           <BadgeWithTooltip outlined hoverLabel={hoverLabel} label="You" />

@@ -6,8 +6,8 @@ import { Box } from 'leather-styles/jsx';
 
 import type { CryptoCurrency } from '@leather.io/models';
 import { BtcAvatarIcon, Button, Callout, Link } from '@leather.io/ui';
-import { formatMoney } from '@leather.io/utils';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { AvailableBalance, ButtonRow, Card, Content, Page } from '@app/components/layout';
 import { PageHeader } from '@app/features/container/headers/page.header';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
@@ -75,7 +75,7 @@ export function BtcSendForm() {
                           Continue
                         </Button>
                         <AvailableBalance
-                          balance={formatMoney(balance.availableBalance)}
+                          balance={formatCurrency(balance.availableBalance)}
                           isPrivate={isPrivate}
                         />
                       </ButtonRow>

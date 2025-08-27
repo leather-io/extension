@@ -9,7 +9,7 @@ import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useDismissMessage } from '@app/store/settings/settings.actions';
 import { useDismissedMessageIds } from '@app/store/settings/settings.selectors';
 
-import { HiroMessageItem } from './components/in-app-message-item';
+import { InAppMessageItem } from './components/in-app-message-item';
 
 export function InAppMessages(props: FlexProps) {
   const location = useLocation();
@@ -31,7 +31,7 @@ export function InAppMessages(props: FlexProps) {
 
   return (
     <Flex bg="ink.text-non-interactive" {...props}>
-      <HiroMessageItem onDismiss={messageId => dismissMessage(messageId)} {...firstMessage} />
+      <InAppMessageItem onDismiss={messageId => dismissMessage(messageId)} {...firstMessage} />
     </Flex>
   );
 }

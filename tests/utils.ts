@@ -61,3 +61,8 @@ export async function generateMultisigUnsignedStxTransfer(
   };
   return (await makeUnsignedSTXTokenTransfer(options)).serialize();
 }
+
+// Intl formatters like NumberFormat output non-breaking spaces. This helper can wrap expected strings to avoid manually writing \u00A0 in tests.
+export function withNbsp(value: string) {
+  return value.replace(/ /g, '\u00A0');
+}

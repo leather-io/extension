@@ -1,10 +1,10 @@
-import { FormEvent, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, Stack, styled } from 'leather-styles/jsx';
 
-import { Button, Link, Logo } from '@leather.io/ui';
+import { Button, Input, Link, Logo } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
@@ -85,28 +85,22 @@ export function RequestPassword({ onSuccess, showForgotPassword = false }: Reque
         <Stack gap="space.05" px="space.05" minHeight="330px">
           <styled.h3 textStyle="heading.03">Enter your password</styled.h3>
           <styled.p textStyle="label.02">{(isRunning && waitingMessage) || caption}</styled.p>
-          <styled.input
-            _focus={{ border: 'focus' }}
-            autoCapitalize="off"
-            autoComplete="off"
-            autoFocus
-            border="active"
-            borderRadius="sm"
-            data-testid={SettingsSelectors.EnterPasswordInput}
-            height="inputHeight"
-            onChange={(e: FormEvent<HTMLInputElement>) => {
-              setError('');
-              setPassword(e.currentTarget.value);
-            }}
-            onKeyUp={buildEnterKeyEvent(submit)}
-            p="space.04"
-            placeholder="Enter your password"
-            ring="none"
-            type="password"
-            textStyle="body.02"
-            value={password}
-            width="100%"
-          />
+          <Input.Root>
+            <Input.Label>Enter your password</Input.Label>
+            <Input.Field
+              autoFocus
+              autoCapitalize="off"
+              autoComplete="off"
+              type="password"
+              data-testid={SettingsSelectors.EnterPasswordInput}
+              value={password}
+              onChange={event => {
+                setError('');
+                setPassword(event.currentTarget.value);
+              }}
+              onKeyUp={buildEnterKeyEvent(submit)}
+            />
+          </Input.Root>
           {showForgotPassword && (
             <Link width="fit-content" onClick={() => navigate(RouteUrls.ForgotPassword)}>
               Forgot password?

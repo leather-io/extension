@@ -4,10 +4,11 @@ import { useFormikContext } from 'formik';
 import { HStack, styled } from 'leather-styles/jsx';
 
 import { ChevronRightIcon } from '@leather.io/ui';
-import { createMoneyFromDecimal, formatMoney, isUndefined, satToBtc } from '@leather.io/utils';
+import { createMoneyFromDecimal, isUndefined, satToBtc } from '@leather.io/utils';
 
 import type { SwapFormValues } from '@shared/models/form.model';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { useSwapContext } from '@app/pages/swap/swap.context';
 
 import type { BitcoinSwapContext } from '../../providers/bitcoin-swap-provider';
@@ -52,10 +53,10 @@ export function BitcoinSwapDetails() {
           </HStack>
         }
       />
-      <SwapDetailLayout title="Min to receive" value={formatMoney(minToReceive)} />
+      <SwapDetailLayout title="Min to receive" value={formatCurrency(minToReceive)} />
       <SwapDetailLayout title="Slippage tolerance" value="0%" />
       <SwapDetailLayout title="Max signer fee" value={maxSignerFee.toString()} />
-      <SwapDetailLayout title="Transaction fees" value={formatMoney(swapData.fee)} />
+      <SwapDetailLayout title="Transaction fees" value={formatCurrency(swapData.fee)} />
     </SwapDetailsLayout>
   );
 }

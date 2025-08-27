@@ -7,7 +7,6 @@ import { Box, VStack } from 'leather-styles/jsx';
 import { ItemLayout, Pressable, Switch } from '@leather.io/ui';
 
 import { useSpamFilterWithWhitelist } from '@app/common/spam-filter/use-spam-filter';
-import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { manageTokensSlice } from '@app/store/manage-tokens/manage-tokens.slice';
 
 export interface CryptoAssetItemToggleProps {
@@ -25,7 +24,6 @@ export function CryptoAssetItemToggle({
   assetId,
   isCheckedByDefault = false,
 }: CryptoAssetItemToggleProps) {
-  const accountIndex = useCurrentAccountIndex();
   const dispatch = useDispatch();
 
   const switchRef = useRef<HTMLButtonElement>(null);
@@ -39,7 +37,6 @@ export function CryptoAssetItemToggle({
         manageTokensSlice.actions.userTogglesTokenVisibility({
           id: assetId,
           enabled,
-          accountIndex,
         })
       );
     });

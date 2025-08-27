@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
-import type { CryptoAssetBalance, Sip10CryptoAssetInfo } from '@leather.io/models';
+import type { CryptoAssetBalance, Sip10Asset } from '@leather.io/models';
 import { convertAmountToBaseUnit } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
@@ -22,7 +22,7 @@ import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 
 interface UseSip10SendFormArgs {
   balance: CryptoAssetBalance;
-  info: Sip10CryptoAssetInfo;
+  info: Sip10Asset;
 }
 export function useSip10SendForm({ balance, info }: UseSip10SendFormArgs) {
   const generateTx = useGenerateFtTokenTransferUnsignedTx(info);

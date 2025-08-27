@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ComponentType, ReactNode } from 'react';
 
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, BoxProps, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
@@ -6,7 +6,6 @@ import { Box, BoxProps, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 import { Button, DashedHr } from '@leather.io/ui';
 import { isString } from '@leather.io/utils';
 
-// InfoCardRow
 interface InfoCardRowProps {
   title?: string;
   value: ReactNode;
@@ -37,7 +36,6 @@ export function InfoCardRow({ title, value, titleAdditionalElement, ...props }: 
   );
 }
 
-// InfoCardSeparator
 export function InfoCardSeparator() {
   return <DashedHr my="space.04" />;
 }
@@ -58,6 +56,9 @@ export function InfoCardAssetValue({
   icon,
   ...props
 }: InfoCardAssetValueProps) {
+  const displayValue = `${value}\u00A0${symbol}`;
+  const fiatDisplayValue = `~ ${fiatValue}\u00A0${fiatSymbol}`;
+
   return (
     <Box width="100%" {...props}>
       <Stack alignItems="center" width="100%" py="space.05">
@@ -69,39 +70,28 @@ export function InfoCardAssetValue({
             mb="space.01"
             textStyle="heading.03"
           >
-            {value} {symbol}
+            {displayValue}
           </styled.h1>
-          {fiatValue && (
-            <styled.span textStyle="label.01">
-              ~ {fiatValue} {fiatSymbol}
-            </styled.span>
-          )}
+          {fiatValue && <styled.span textStyle="label.01">{fiatDisplayValue}</styled.span>}
         </Flex>
       </Stack>
     </Box>
   );
 }
 
-// InfoCardBtn
 interface InfoCardBtnProps {
-  icon: ReactNode;
+  icon: ComponentType;
   label: string;
   onClick(): void;
 }
 export function InfoCardBtn({ icon, label, onClick }: InfoCardBtnProps) {
   return (
-    <Button onClick={onClick} flex="1">
-      <Flex alignItems="center" justifyContent="center">
-        <styled.span mx="space.02" textStyle="label.02">
-          {label}
-        </styled.span>
-        {icon}
-      </Flex>
+    <Button onClick={onClick} flex="1" iconEnd={icon}>
+      {label}
     </Button>
   );
 }
 
-// InfoCardFooter
 interface InfoCardFooterProps {
   children: ReactNode;
 }

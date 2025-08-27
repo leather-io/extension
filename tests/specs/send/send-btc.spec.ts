@@ -2,7 +2,7 @@ import { TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS } from '@tests/mocks/constants';
 import { mockOrdinalsComApiHtmlResponse } from '@tests/mocks/mock-ordinalscom-api';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { getDisplayerAddress } from '@tests/utils';
+import { getDisplayerAddress, withNbsp } from '@tests/utils';
 
 import { BESTINSLOT_API_BASE_URL_TESTNET, BtcFeeType } from '@leather.io/models';
 
@@ -60,7 +60,7 @@ test.describe('send btc', () => {
       const confirmationAssetValue = await sendPage.confirmationDetails
         .getByTestId(SharedComponentsSelectors.InfoCardAssetValue)
         .innerText();
-      test.expect(confirmationAssetValue).toEqual(`${amount} ${amountSymbol}`);
+      test.expect(confirmationAssetValue).toEqual(withNbsp(`${amount} ${amountSymbol}`));
     });
 
     test('that fee value on preview match chosen one', async ({ sendPage }) => {

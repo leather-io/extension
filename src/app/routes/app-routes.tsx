@@ -115,7 +115,7 @@ function useAppRoutes() {
               {ledgerStacksTxSigningRoutes}
             </Route>
             <Route
-              path={`${RouteUrls.IncreaseStacksFee}/${RouteUrls.TransactionBroadcastError}`}
+              path={`${RouteUrls.IncreaseStacksFee}/${RouteUrls.BroadcastError}`}
               element={<BroadcastError />}
             />
             <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeSheet />}>
@@ -132,7 +132,7 @@ function useAppRoutes() {
           />
 
           <Route
-            path={`${RouteUrls.IncreaseStacksFee}/${RouteUrls.TransactionBroadcastError}`}
+            path={`${RouteUrls.IncreaseStacksFee}/${RouteUrls.BroadcastError}`}
             element={<BroadcastError />}
           />
           <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeSheet />}>

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { type Sip10CryptoAssetFilter } from '@leather.io/query';
+import { type Sip10AssetFilter } from '@leather.io/query';
 
 import { useBitflowSwappableAssets } from '@app/pages/swap/hooks/use-bitflow-swappable-assets';
 import { useAlexSwappableAssets } from '@app/query/common/alex-sdk/alex-sdk.hooks';
@@ -11,7 +11,7 @@ import {
 
 interface UseSip10TokensArgs {
   address: string;
-  filter?: Sip10CryptoAssetFilter;
+  filter?: Sip10AssetFilter;
 }
 // TODO: Migrate to mono
 export function useCombinedFilteredSip10Tokens({ address }: UseSip10TokensArgs) {

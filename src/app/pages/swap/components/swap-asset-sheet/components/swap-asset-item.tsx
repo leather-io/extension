@@ -3,8 +3,9 @@ import { sanitize } from 'dompurify';
 
 import { isFtAsset } from '@leather.io/query';
 import { Avatar, ItemLayout, Pressable } from '@leather.io/ui';
-import { formatMoneyWithoutSymbol, isString } from '@leather.io/utils';
+import { isString } from '@leather.io/utils';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { convertSwapAssetBalanceToFiat } from '@app/pages/swap/swap.utils';
 import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/token-metadata/fungible-tokens/fungible-token-metadata.query';
@@ -33,7 +34,7 @@ export function SwapAssetItem({ asset, onClick }: SwapAssetItemProps) {
         }
         titleLeft={displayName}
         captionLeft={asset.name}
-        titleRight={formatMoneyWithoutSymbol(asset.balance)}
+        titleRight={formatCurrency(asset.balance, { showCurrency: false })}
         captionRight={fiatBalance}
       />
     </Pressable>

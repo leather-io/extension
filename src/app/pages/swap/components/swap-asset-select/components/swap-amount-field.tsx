@@ -5,15 +5,11 @@ import BigNumber from 'bignumber.js';
 import { useField, useFormikContext } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
 
-import {
-  createMoneyFromDecimal,
-  formatMoneyWithoutSymbol,
-  isDefined,
-  isUndefined,
-} from '@leather.io/utils';
+import { createMoneyFromDecimal, isDefined, isUndefined } from '@leather.io/utils';
 
 import type { SwapFormValues } from '@shared/models/form.model';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { useShowFieldError } from '@app/common/form-utils';
 
 import { type BaseSwapContext, useSwapContext } from '../../../swap.context';
@@ -71,7 +67,13 @@ export function SwapAmountField<T extends BaseSwapContext<T>>({
 
     await setFieldValue(
       'swapAmountQuote',
-      isCrossChainSwap ? toAmount : formatMoneyWithoutSymbol(toAmountAsMoney)
+      isCrossChainSwap
+        ? toAmount
+        : formatCurrency(toAmountAsMoney, {
+            showCurrency: false,
+            compactThreshold: Infinity,
+            numberFormatOptions: { useGrouping: false },
+          })
     );
     setFieldError('swapAmountQuote', undefined);
   }

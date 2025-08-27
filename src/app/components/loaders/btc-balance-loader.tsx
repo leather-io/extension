@@ -1,4 +1,4 @@
-import type { BtcCryptoAssetBalance } from '@leather.io/models';
+import type { BtcBalance } from '@leather.io/models';
 import { BtcAvatarIcon } from '@leather.io/ui';
 
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
@@ -8,7 +8,7 @@ import { CryptoAssetItemPlaceholder } from '../crypto-asset-item/crypto-asset-it
 
 interface BtcBalanceLoaderProps {
   address: string;
-  children(balance: BtcCryptoAssetBalance): React.ReactNode;
+  children(balance: BtcBalance): React.ReactNode;
 }
 export function BtcBalanceLoader({ address, children }: BtcBalanceLoaderProps) {
   const { balance } = useBtcCryptoAssetBalanceNativeSegwit(address);
@@ -18,7 +18,7 @@ export function BtcBalanceLoader({ address, children }: BtcBalanceLoaderProps) {
 interface BtcAssetItemBalanceLoaderProps {
   address: string;
   children(
-    balance: BtcCryptoAssetBalance,
+    balance: BtcBalance,
     isLoading: boolean,
     isLoadingAdditionalData: boolean
   ): React.ReactNode;

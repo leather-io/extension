@@ -57,7 +57,7 @@ export function CryptoAssetItemLayout({
     <SkeletonLoader width="126px" isLoading={isLoading}>
       <BasicTooltip
         asChild
-        label={formattedBalance.isAbbreviated && !isPrivate ? availableBalanceString : undefined}
+        label={formattedBalance.isCompact && !isPrivate ? availableBalanceString : undefined}
         side="left"
       >
         <Flex alignItems="center" gap="space.02" textStyle="label.02">

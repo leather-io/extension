@@ -63,12 +63,12 @@ function SetPasswordPage() {
         if (!stacksAccounts) return;
 
         if (stacksAccounts && stacksAccounts.length > 1) {
-          navigate(RouteUrls.ChooseAccount);
+          void navigate(RouteUrls.ChooseAccount);
         } else {
           await finishSignIn(0);
         }
       } else {
-        navigate(RouteUrls.Home, { replace: true, state: { fromOnboarding: true } });
+        void navigate(RouteUrls.Home, { replace: true, state: { fromOnboarding: true } });
       }
     },
     [setPassword, decodedAuthRequest, stacksAccounts, navigate, finishSignIn]

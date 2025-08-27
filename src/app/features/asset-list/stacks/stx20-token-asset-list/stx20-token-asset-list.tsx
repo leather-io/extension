@@ -1,6 +1,6 @@
 import { type Dispatch, type SetStateAction, useEffect } from 'react';
 
-import type { CryptoAssetBalance, Stx20CryptoAssetInfo } from '@leather.io/models';
+import type { CryptoAssetBalance, Stx20Asset } from '@leather.io/models';
 import { getAssetDisplayName } from '@leather.io/utils';
 
 import { useManageTokens } from '@app/common/hooks/use-manage-tokens';
@@ -12,7 +12,7 @@ import type { AssetRightElementVariant } from '../../asset-list';
 
 interface Stx20TokenAssetDetails {
   balance: CryptoAssetBalance;
-  info: Stx20CryptoAssetInfo;
+  info: Stx20Asset;
 }
 
 interface Stx20TokenAssetListProps {

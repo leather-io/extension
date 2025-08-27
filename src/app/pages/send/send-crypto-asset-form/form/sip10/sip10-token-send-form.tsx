@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router';
 
-import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather.io/models';
+import type { CryptoAssetBalance, MarketData, Sip10Asset } from '@leather.io/models';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -16,7 +16,7 @@ import { Sip10TokenSendFormContainer } from './sip10-token-send-form-container';
 interface Sip10TokenSendFormLoaderProps {
   children(token: {
     balance: CryptoAssetBalance;
-    info: Sip10CryptoAssetInfo;
+    info: Sip10Asset;
     marketData: MarketData;
   }): React.ReactNode;
 }

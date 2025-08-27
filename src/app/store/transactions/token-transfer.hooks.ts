@@ -14,7 +14,7 @@ import {
   uintCV,
 } from '@stacks/transactions';
 
-import type { Sip10CryptoAssetInfo } from '@leather.io/models';
+import type { Sip10Asset } from '@leather.io/models';
 import { TransactionTypes, getStacksAssetStringParts } from '@leather.io/stacks';
 import { stxToMicroStx } from '@leather.io/utils';
 
@@ -79,7 +79,7 @@ export function useStxTokenTransferUnsignedTxState(values?: StacksSendFormValues
   return tx.result;
 }
 
-export function useGenerateFtTokenTransferUnsignedTx(info: Sip10CryptoAssetInfo) {
+export function useGenerateFtTokenTransferUnsignedTx(info: Sip10Asset) {
   const account = useCurrentStacksAccount();
   const { data: nextNonce } = useNextNonce(account?.address ?? '');
   const network = useCurrentStacksNetworkState();
@@ -157,7 +157,7 @@ export function useGenerateFtTokenTransferUnsignedTx(info: Sip10CryptoAssetInfo)
   );
 }
 
-export function useFtTokenTransferUnsignedTx(info: Sip10CryptoAssetInfo) {
+export function useFtTokenTransferUnsignedTx(info: Sip10Asset) {
   const account = useCurrentStacksAccount();
   const generateTx = useGenerateFtTokenTransferUnsignedTx(info);
 

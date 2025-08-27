@@ -3,11 +3,10 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Stack } from 'leather-styles/jsx';
 
-import { Button } from '@leather.io/ui';
-
 import { FormError } from '@app/components/form-error';
 
 import { type Fee, useFeeEditorContext } from '../fee-editor.context';
+import { FeeItemButton } from './fee-item-button';
 import { FeeRateItemLayout } from './fee-rate-item.layout';
 import { FeeValueItemLayout } from './fee-value-item.layout';
 
@@ -24,21 +23,13 @@ export function FeeItem({ fee }: FeeItemProps) {
   const showInsufficientBalanceError = isTouched && isInsufficientBalance;
 
   return (
-    <Button
+    <FeeItemButton
       onClick={() => {
         setIsTouched(true);
-        if (isInsufficientBalance) return;
         onSetSelectedFee(fee);
       }}
-      key={fee.priority}
-      variant="outline"
-      opacity={isInsufficientBalance ? 0.5 : 1}
-      borderWidth={isSelected ? '2px' : '1px'}
-      borderColor={
-        isSelected && !isInsufficientBalance ? 'ink.border-selected' : 'ink.border-default'
-      }
-      // Add margin compensation to maintain consistent size
-      margin={isSelected ? '0px' : '1px'}
+      disabled={isInsufficientBalance}
+      isSelected={isSelected}
     >
       <Stack gap="0">
         {feeType === 'fee-rate' ? <FeeRateItemLayout fee={fee} marketData={marketData} /> : null}
@@ -61,6 +52,6 @@ export function FeeItem({ fee }: FeeItemProps) {
           )}
         </AnimatePresence>
       </Stack>
-    </Button>
+    </FeeItemButton>
   );
 }

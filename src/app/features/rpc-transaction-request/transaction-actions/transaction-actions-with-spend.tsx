@@ -2,10 +2,11 @@ import { useMemo } from 'react';
 
 import type { Money } from '@leather.io/models';
 import { Approver } from '@leather.io/ui';
-import { baseCurrencyAmountInQuote, i18nFormatCurrency, sumMoney } from '@leather.io/utils';
+import { baseCurrencyAmountInQuote, sumMoney } from '@leather.io/utils';
 
 import { closeWindow } from '@shared/utils';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { getTransactionActions } from '@app/components/rpc-transaction-request/get-transaction-actions';
 import { TransactionActionsTitle } from '@app/components/rpc-transaction-request/transaction-actions-title';
 import { TransactionError } from '@app/components/rpc-transaction-request/transaction-error';
@@ -49,7 +50,7 @@ export function TransactionActionsWithSpend({
         onApprove,
       })}
     >
-      <TransactionActionsTitle isLoading={isLoading} amount={i18nFormatCurrency(totalSpend)} />
+      <TransactionActionsTitle isLoading={isLoading} amount={formatCurrency(totalSpend)} />
       <TransactionError isInsufficientBalance={isInsufficientBalance} isLoading={isLoading} />
     </Approver.Actions>
   );

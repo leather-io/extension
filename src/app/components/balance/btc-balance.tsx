@@ -1,6 +1,6 @@
 import { Caption } from '@leather.io/ui';
-import { formatMoney } from '@leather.io/utils';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { BitcoinNativeSegwitAccountLoader } from '@app/components/loaders/bitcoin-account-loader';
 import { BtcBalanceLoader } from '@app/components/loaders/btc-balance-loader';
 import { PrivateText } from '@app/components/privacy/private-text';
@@ -12,7 +12,7 @@ export function BtcBalance() {
         <BtcBalanceLoader address={signer.address}>
           {balance => (
             <Caption>
-              <PrivateText canClickToShow>{formatMoney(balance.availableBalance)}</PrivateText>
+              <PrivateText canClickToShow>{formatCurrency(balance.availableBalance)}</PrivateText>
             </Caption>
           )}
         </BtcBalanceLoader>

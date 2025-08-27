@@ -6,7 +6,9 @@ import { HStack, styled } from 'leather-styles/jsx';
 
 import type { Money } from '@leather.io/models';
 import { Flag } from '@leather.io/ui';
-import { formatMoneyWithoutSymbol, isString } from '@leather.io/utils';
+import { isString } from '@leather.io/utils';
+
+import { formatCurrency } from '@app/common/currency-formatter';
 
 interface SwapAssetItemLayoutProps {
   caption: string;
@@ -41,7 +43,7 @@ export function SwapAssetItemLayout({ caption, icon, symbol, value }: SwapAssetI
           {symbol}
         </styled.span>
         <styled.span data-testid={SwapSelectors.SwapDetailsAmount} textStyle="heading.05">
-          {formatMoneyWithoutSymbol(value)}
+          {formatCurrency(value, { showCurrency: false })}
         </styled.span>
       </HStack>
     </Flag>

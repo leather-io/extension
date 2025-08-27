@@ -2,8 +2,8 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 import { styled } from 'leather-styles/jsx';
 
 import type { CryptoCurrency, Money } from '@leather.io/models';
-import { formatDustUsdAmounts, i18nFormatCurrency } from '@leather.io/utils';
 
+import { formatCurrency } from '@app/common/currency-formatter';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface TransactionFeeProps {
@@ -22,9 +22,5 @@ export function TransactionFee({ fee, feeCurrencySymbol, usdAmount }: Transactio
     </styled.span>
   );
   if (!usdAmount || usdAmount.amount.isNaN()) return feeLabel;
-  return (
-    <BasicTooltip label={formatDustUsdAmounts(i18nFormatCurrency(usdAmount))}>
-      {feeLabel}
-    </BasicTooltip>
-  );
+  return <BasicTooltip label={formatCurrency(usdAmount)}>{feeLabel}</BasicTooltip>;
 }

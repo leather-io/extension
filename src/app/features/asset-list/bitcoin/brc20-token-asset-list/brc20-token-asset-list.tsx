@@ -3,7 +3,7 @@ import { type Dispatch, type SetStateAction, useEffect } from 'react';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 import { Stack } from 'leather-styles/jsx';
 
-import type { Brc20CryptoAssetInfo, CryptoAssetBalance, MarketData } from '@leather.io/models';
+import type { Brc20Asset, CryptoAssetBalance, MarketData } from '@leather.io/models';
 import { Brc20AvatarIcon } from '@leather.io/ui';
 import { getAssetDisplayName } from '@leather.io/utils';
 
@@ -20,7 +20,7 @@ import { useIsPrivateMode } from '@app/store/settings/settings.selectors';
 interface Brc20TokenAssetDetails {
   balance: CryptoAssetBalance;
   holderAddress: string;
-  info: Brc20CryptoAssetInfo;
+  info: Brc20Asset;
   marketData: MarketData;
 }
 

@@ -5,12 +5,12 @@ import {
   CryptoAssetCategories,
   CryptoAssetChains,
   CryptoAssetProtocols,
-  Src20CryptoAssetInfo,
+  Src20Asset,
 } from '@leather.io/models';
 import { Src20Token, createGetStampsByAddressQueryOptions } from '@leather.io/query';
 import { createBaseCryptoAssetBalance, createMoney } from '@leather.io/utils';
 
-function createSrc20CryptoAssetInfo(src20: Src20Token): Src20CryptoAssetInfo {
+function createSrc20Asset(src20: Src20Token): Src20Asset {
   return {
     chain: CryptoAssetChains.bitcoin,
     category: CryptoAssetCategories.fungible,
@@ -38,7 +38,7 @@ export function useSrc20TokensByAddress(address: string) {
         balance: createBaseCryptoAssetBalance(
           createMoney(new BigNumber(token.amt ?? 0), token.tick, 0)
         ),
-        info: createSrc20CryptoAssetInfo(token),
+        info: createSrc20Asset(token),
       })),
   });
 }

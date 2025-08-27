@@ -99,8 +99,9 @@ function TransactionRequestBase() {
           signedSponsoredTx
         );
         if (!result.txid) {
-          navigate(RouteUrls.TransactionBroadcastError, { state: { message: result.error } });
-          return;
+          return navigate(RouteUrls.BroadcastError, {
+            state: { message: result.error },
+          });
         }
         if (requestToken && tabId) {
           finalizeTxSignature({
@@ -114,7 +115,7 @@ function TransactionRequestBase() {
         }
       } catch (e: any) {
         const message = isString(e) ? e : e.message;
-        navigate(RouteUrls.TransactionBroadcastError, { state: { message } });
+        return navigate(RouteUrls.BroadcastError, { state: { message } });
       }
     } else {
       const unsignedTx = await generateUnsignedTx(values);
