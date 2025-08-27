@@ -71,8 +71,8 @@ importers:
         specifier: 1.5.6
         version: 1.5.6(encoding@0.1.13)
       '@leather.io/query':
-        specifier: 2.41.5
-        version: 2.41.5(encoding@0.1.13)
+        specifier: 2.41.10
+        version: 2.41.10(encoding@0.1.13)
       '@leather.io/rpc':
         specifier: 2.20.6
         version: 2.20.6(encoding@0.1.13)
@@ -448,7 +448,7 @@ importers:
         version: 4.0.2(@babel/core@7.28.0)(@types/styled-components@5.1.34)(encoding@0.1.13)(react-redux@9.2.0(@types/react@19.0.12)(react@19.0.0)(redux@5.0.1))
       '@redux-devtools/remote':
         specifier: 0.9.5
-        version: 0.9.5(@redux-devtools/core@4.1.1(react-redux@9.2.0(@types/react@19.0.12)(react@19.0.0)(redux@5.0.1))(react@18.3.1)(redux@5.0.1))(immutable@5.1.3)(redux@5.0.1)
+        version: 0.9.5(@redux-devtools/core@4.1.1(react-redux@9.2.0(@types/react@19.0.12)(react@19.0.0)(redux@5.0.1))(react@19.0.0)(redux@5.0.1))(immutable@5.1.3)(redux@5.0.1)
       '@schemastore/web-manifest':
         specifier: 0.0.6
         version: 0.0.6
@@ -3408,6 +3408,9 @@ packages:
   '@leather.io/bitcoin@0.31.5':
     resolution: {integrity: sha512-AoNkm0YQa732W+H8LECLWAJcVRa4ZsnTDgX6F6+uq14zqxsQTFLgJb19eV2Xe9NQaKTSdiYRmUH+3trxhlWW2w==}
 
+  '@leather.io/bitcoin@0.32.2':
+    resolution: {integrity: sha512-AlNXNfHir8yA0UzYu7HI9Ci5qbp5Srzhw3pbCqkotnwzGaZ9FQsNvrUbDy8xChAkrCadqVbM3rHemxRVoTZaVA==}
+
   '@leather.io/constants@0.25.0':
     resolution: {integrity: sha512-v2i2hZFFkRcK2gQ5I0dIZpJGC6rQFOUwZOrRflkVDvshg69RS8J7Z6aP1JOVv3f6Cq1T9Q/OzPEzusyNk/YDQA==}
 
@@ -3419,6 +3422,9 @@ packages:
 
   '@leather.io/crypto@1.11.5':
     resolution: {integrity: sha512-XnY4eTQyTopGQFJPQq2DB+iD0qzWfhn9o//Gmpo4DEm5XIN0M6qNSyLrvUg+FMNA3ZFUnUPVtQ7443XC4VHD+A==}
+
+  '@leather.io/crypto@1.11.8':
+    resolution: {integrity: sha512-My1NMwqom49Qr51Ukbxwy2OuLyvZXuRhCazPc2DfgYPsfSPfxqoHC3y4NHYjIf24k4K3jeqilJP8FUq/TFrjSQ==}
 
   '@leather.io/eslint-config@0.10.0':
     resolution: {integrity: sha512-inIiby0sKrorGpQOK4H0oihiZG9Vb4NXlRjF7KYXrvZpoEmIxaerexCsTDULGt+p6/4L8qT3dTS4jOqwA/zpOQ==}
@@ -3451,8 +3457,8 @@ packages:
   '@leather.io/provider@1.5.6':
     resolution: {integrity: sha512-hIrIIKN/s9sSUVvUj+Jxi4ge1qMmgf/mvKtdVSyO5jvqkHzsDcHwio+72xFHfijkCEj33M8k6B2BONCPwEy8+g==}
 
-  '@leather.io/query@2.41.5':
-    resolution: {integrity: sha512-iwPIzuH/CKIiZXPppW8BNzI/hkpi58vGcwxQgJnDA2VsWmsAFvRPfqH4LkvLSTE5dOzCgj5Gdc9EidCOM3DGxw==}
+  '@leather.io/query@2.41.10':
+    resolution: {integrity: sha512-+9hLYYJRDPzqeIZ9hd+863DVqMq17S2JZeAnv35WcN4npgLRpIt5oDywKEfS8Y2tGPsv6y0tAIC7RLofM4bSUA==}
 
   '@leather.io/rpc@2.20.5':
     resolution: {integrity: sha512-ldGRLCAMK3gsnr8EieHQgFaYFgxQCLA+2uwrt1+Wdz1MMIj8JG4/Qei8vs7WavZQnPTT7OZUn5oFWIaMP8TDSg==}
@@ -3460,11 +3466,17 @@ packages:
   '@leather.io/rpc@2.20.6':
     resolution: {integrity: sha512-1fR5voDkXVCmUOzvIcX+P3OQn5ng1pC65j4EQ5LXVdchgQKtYuT4Ez/HWqxs+pxNtmmpVEptD7bE9UL6aRRnRw==}
 
+  '@leather.io/rpc@2.20.8':
+    resolution: {integrity: sha512-vIHYGFOoY6NNDI0EVCEqYcoHVjUdO6zAD/gxAZKO0SS9z4pAljt6Hod/mGT/9Pr4FJHCf4MuuSJKHF1+0pSE3Q==}
+
   '@leather.io/services@1.27.0':
     resolution: {integrity: sha512-Xpo3rsRuoF0rtq4z4WK05PKZOkzzFdbH/5FOtcLH+fReb8TTeEagFVrXUo1AlbT70p5vFeKKRP4gkKDl1SN1QA==}
 
   '@leather.io/stacks@1.15.0':
     resolution: {integrity: sha512-ao4HQj4N4XkutommX5q0uEdTqaY+xQfn4mJV273EowrcttdZgRKuTi4XM+eimHm42eyoIw2pMak5ww2dCgMNlw==}
+
+  '@leather.io/stacks@1.16.2':
+    resolution: {integrity: sha512-m5+TtNdcDwafWgdbaXP2knmlo8ferJqYk16YHV1ewP1WsVoknxC1/PcfIX1QO6bIT2lJ4u7eelO1iLifoR924A==}
 
   '@leather.io/tokens@0.23.0':
     resolution: {integrity: sha512-4RooKpCEV1xZKFw+Q/4mDj+jYMUx5f9S0AK89koRjEeIMNT+vtjxoQsfsJ9wZVZwXvHu+IUKWNqlFnaRN34WOw==}
@@ -18463,6 +18475,29 @@ snapshots:
       just-memoize: 2.2.0
       varuint-bitcoin: 1.1.2
 
+  '@leather.io/bitcoin@0.32.2':
+    dependencies:
+      '@bitcoinerlab/secp256k1': 1.0.2
+      '@leather.io/constants': 0.25.2
+      '@leather.io/crypto': 1.11.8
+      '@leather.io/models': 0.40.0
+      '@leather.io/utils': 0.44.0
+      '@noble/hashes': 1.5.0
+      '@noble/secp256k1': 2.1.0
+      '@scure/base': 1.2.4
+      '@scure/bip32': 1.6.2
+      '@scure/bip39': 1.5.4
+      '@scure/btc-signer': 1.6.0
+      bignumber.js: 9.1.2
+      bip21: 3.0.0
+      bip32: 4.0.0
+      bitcoin-address-validation: 2.2.3
+      bitcoinjs-lib: 6.1.5
+      ecpair: 2.1.0
+      just-memoize: 2.2.0
+      varuint-bitcoin: 1.1.2
+      zod: 4.0.17
+
   '@leather.io/constants@0.25.0':
     dependencies:
       '@leather.io/models': 0.39.0
@@ -18478,6 +18513,13 @@ snapshots:
   '@leather.io/crypto@1.11.5':
     dependencies:
       '@leather.io/utils': 0.42.3
+      '@scure/bip32': 1.6.2
+      '@scure/bip39': 1.5.4
+      just-memoize: 2.2.0
+
+  '@leather.io/crypto@1.11.8':
+    dependencies:
+      '@leather.io/utils': 0.44.0
       '@scure/bip32': 1.6.2
       '@scure/bip39': 1.5.4
       just-memoize: 2.2.0
@@ -18547,16 +18589,16 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@leather.io/query@2.41.5(encoding@0.1.13)':
+  '@leather.io/query@2.41.10(encoding@0.1.13)':
     dependencies:
       '@fungible-systems/zone-file': 2.0.0
       '@hirosystems/token-metadata-api-client': 1.2.0(encoding@0.1.13)
-      '@leather.io/bitcoin': 0.31.5
-      '@leather.io/constants': 0.25.0
-      '@leather.io/models': 0.39.0
-      '@leather.io/rpc': 2.20.5(encoding@0.1.13)
-      '@leather.io/stacks': 1.15.0(encoding@0.1.13)
-      '@leather.io/utils': 0.42.3
+      '@leather.io/bitcoin': 0.32.2
+      '@leather.io/constants': 0.25.2
+      '@leather.io/models': 0.40.0
+      '@leather.io/rpc': 2.20.8(encoding@0.1.13)
+      '@leather.io/stacks': 1.16.2(encoding@0.1.13)
+      '@leather.io/utils': 0.44.0
       '@noble/hashes': 1.5.0
       '@scure/base': 1.2.4
       '@scure/bip32': 1.6.2
@@ -18574,7 +18616,7 @@ snapshots:
       url-join: 5.0.0
       uuid: 11.1.0
       yup: 1.3.3
-      zod: 4.0.14
+      zod: 4.0.17
     transitivePeerDependencies:
       - debug
       - encoding
@@ -18594,6 +18636,17 @@ snapshots:
     dependencies:
       '@leather.io/models': 0.39.1
       '@leather.io/utils': 0.42.4
+      '@scure/btc-signer': 1.6.0
+      '@stacks/network': 7.0.2(encoding@0.1.13)
+      '@stacks/transactions': 7.0.5(encoding@0.1.13)
+      zod: 4.0.17
+    transitivePeerDependencies:
+      - encoding
+
+  '@leather.io/rpc@2.20.8(encoding@0.1.13)':
+    dependencies:
+      '@leather.io/models': 0.40.0
+      '@leather.io/utils': 0.44.0
       '@scure/btc-signer': 1.6.0
       '@stacks/network': 7.0.2(encoding@0.1.13)
       '@stacks/transactions': 7.0.5(encoding@0.1.13)
@@ -18641,6 +18694,25 @@ snapshots:
       bignumber.js: 9.1.2
       c32check: 2.0.0
       zod: 4.0.14
+    transitivePeerDependencies:
+      - encoding
+
+  '@leather.io/stacks@1.16.2(encoding@0.1.13)':
+    dependencies:
+      '@leather.io/constants': 0.25.2
+      '@leather.io/crypto': 1.11.8
+      '@leather.io/models': 0.40.0
+      '@leather.io/utils': 0.44.0
+      '@noble/hashes': 1.5.0
+      '@scure/bip32': 1.6.2
+      '@stacks/common': 7.0.2
+      '@stacks/encryption': 7.0.2
+      '@stacks/network': 7.0.2(encoding@0.1.13)
+      '@stacks/stacks-blockchain-api-types': 7.14.1
+      '@stacks/transactions': 7.0.5(encoding@0.1.13)
+      bignumber.js: 9.1.2
+      c32check: 2.0.0
+      zod: 4.0.17
     transitivePeerDependencies:
       - encoding
 
@@ -20863,11 +20935,11 @@ snapshots:
       react-json-tree: 0.20.0(@types/react@18.3.20)(react@18.3.1)
       redux: 5.0.1
 
-  '@redux-devtools/remote@0.9.5(@redux-devtools/core@4.1.1(react-redux@9.2.0(@types/react@19.0.12)(react@19.0.0)(redux@5.0.1))(react@18.3.1)(redux@5.0.1))(immutable@5.1.3)(redux@5.0.1)':
+  '@redux-devtools/remote@0.9.5(@redux-devtools/core@4.1.1(react-redux@9.2.0(@types/react@19.0.12)(react@19.0.0)(redux@5.0.1))(react@19.0.0)(redux@5.0.1))(immutable@5.1.3)(redux@5.0.1)':
     dependencies:
       '@babel/runtime': 7.27.0
       '@redux-devtools/instrument': 2.2.0(redux@5.0.1)
-      '@redux-devtools/utils': 3.1.1(@redux-devtools/core@4.1.1(react-redux@9.2.0(@types/react@19.0.12)(react@19.0.0)(redux@5.0.1))(react@18.3.1)(redux@5.0.1))(immutable@5.1.3)(redux@5.0.1)
+      '@redux-devtools/utils': 3.1.1(@redux-devtools/core@4.1.1(react-redux@9.2.0(@types/react@19.0.12)(react@19.0.0)(redux@5.0.1))(react@19.0.0)(redux@5.0.1))(immutable@5.1.3)(redux@5.0.1)
       jsan: 3.1.14
       redux: 5.0.1
       rn-host-detect: 1.2.0
@@ -20944,7 +21016,7 @@ snapshots:
       - react-dom
       - supports-color
 
-  '@redux-devtools/utils@3.1.1(@redux-devtools/core@4.1.1(react-redux@9.2.0(@types/react@19.0.12)(react@19.0.0)(redux@5.0.1))(react@18.3.1)(redux@5.0.1))(immutable@5.1.3)(redux@5.0.1)':
+  '@redux-devtools/utils@3.1.1(@redux-devtools/core@4.1.1(react-redux@9.2.0(@types/react@19.0.12)(react@19.0.0)(redux@5.0.1))(react@19.0.0)(redux@5.0.1))(immutable@5.1.3)(redux@5.0.1)':
     dependencies:
       '@babel/runtime': 7.27.0
       '@redux-devtools/core': 4.1.1(react-redux@9.2.0(@types/react@19.0.12)(react@19.0.0)(redux@5.0.1))(react@18.3.1)(redux@5.0.1)
