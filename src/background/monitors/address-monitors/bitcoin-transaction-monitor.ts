@@ -21,7 +21,7 @@ function logTxMonitorEvent(message: string, ...args: unknown[]) {
 export function createBitcoinTransactionMonitor(addresses: MonitoredAddress[]): AddressMonitor {
   let _ws: WebSocket | null = null;
   let _addresses: MonitoredAddress[];
-  let _keepAliveInterval: number | null = null;
+  let _keepAliveInterval: NodeJS.Timeout | null = null;
   let _btcPriceUsd: number = 0;
 
   _addresses = filterAddresses(addresses);
