@@ -4,6 +4,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { PersistGate } from 'redux-persist/integration/react';
 
+import { Tooltip } from '@leather.io/ui';
 import '@leather.io/ui/styles';
 
 import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
@@ -59,7 +60,9 @@ export function App() {
         <HeadProvider />
         <ToastsProvider>
           <ThemeSwitcherProvider>
-            <ConnectedApp />
+            <Tooltip.Provider>
+              <ConnectedApp />
+            </Tooltip.Provider>
           </ThemeSwitcherProvider>
         </ToastsProvider>
       </PersistGate>

@@ -5,12 +5,12 @@ import {
   broadcastTransaction,
 } from '@stacks/transactions';
 
-import { delay, isError } from '@leather.io/utils';
+import { delay, flattenObject, isError } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { analytics } from '@shared/utils/analytics';
 
-import { serializeError } from '@app/common/utils';
+import { createError, serializeError } from '@app/common/utils';
 import { hiroFetchWrapper } from '@app/query/stacks/stacks-client';
 
 interface StacksBroadcastTransactionArgs {
@@ -41,19 +41,20 @@ export async function stacksBroadcastTransaction({
 
     if ('error' in response) {
       logger.error('Transaction failed to broadcast', response);
-      const error = new Error(response.error);
-      error.name = response.reason;
-      error.message = response.error;
-      error.cause = response.reason;
+      const error = createError({
+        ...flattenObject(response),
+        name: response.reason,
+        message: response.error,
+      });
       throw error;
     }
 
     if (!response.txid) {
       logger.error('Transaction failed to broadcast', response);
-      const error = new Error('Transaction broadcast but returned no txid');
-      error.name = 'TransactionBroadcastError';
-      error.message = 'Transaction broadcast but returned no txid';
-      throw error;
+      throw createError({
+        name: 'TransactionBroadcastError',
+        message: 'Transaction broadcast but returned no txid',
+      });
     }
 
     logger.info('Transaction broadcast', response);
