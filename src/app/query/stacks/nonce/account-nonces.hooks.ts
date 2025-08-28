@@ -16,6 +16,7 @@ export function useNextNonce(address: string) {
 
   return useQuery({
     ...createGetAccountNoncesQueryOptions({ address, client, network: network.chain.stacks.url }),
+    staleTime: 0,
     select: resp =>
       parseAccountNoncesResponse({
         addressNonces: resp,

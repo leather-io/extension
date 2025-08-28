@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -16,8 +16,16 @@ export function NonceEditorProvider({
   nonce: currentNonce,
   onGoBack,
 }: NonceEditorProviderProps) {
+  const [hasUserSetManualNonce, setHasUserSetManualNonce] = useState(false);
+
   const [loadedNonce, setLoadedNonce] = useState<Nonce>(currentNonce);
   const [nonce, setNonce] = useState<Nonce>(currentNonce);
+
+  useEffect(() => {
+    if (hasUserSetManualNonce) return;
+    setLoadedNonce(currentNonce);
+    setNonce(currentNonce);
+  }, [currentNonce, hasUserSetManualNonce]);
 
   const navigate = useNavigate();
 
@@ -28,7 +36,10 @@ export function NonceEditorProvider({
         nonce,
         onGoBack,
         onSetLoadedNonce: (value: Nonce) => setLoadedNonce(value),
-        onSetNonce: (value: Nonce) => setNonce(value),
+        onSetNonce: (value: Nonce) => {
+          setNonce(value);
+          setHasUserSetManualNonce(true);
+        },
         onUserActivatesNonceEditor: () => navigate(RouteUrls.NonceEditor),
       }}
     >

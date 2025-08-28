@@ -12,11 +12,11 @@ import { FeeEditor } from '@app/features/fee-editor/fee-editor';
 import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
 import { NonceEditor } from '@app/features/nonce-editor/nonce-editor';
 import { useNonceEditorContext } from '@app/features/nonce-editor/nonce-editor.context';
-import { RpcTransactionRequestLayout } from '@app/features/rpc-transaction-request/rpc-transaction-request.layout';
-import { SigningAccountCard } from '@app/features/rpc-transaction-request/signing-account-card/signing-account-card';
-import { useStacksRpcTransactionRequestContext } from '@app/features/rpc-transaction-request/stacks/stacks-rpc-transaction-request.context';
-import { useSignAndBroadcastStacksTransaction } from '@app/features/rpc-transaction-request/stacks/use-sign-and-broadcast-stacks-transaction';
-import { TransactionActionsWithSpend } from '@app/features/rpc-transaction-request/transaction-actions/transaction-actions-with-spend';
+import { RpcTransactionRequestLayout } from '@app/features/rpc-stacks-transaction-request/rpc-transaction-request.layout';
+import { SigningAccountCard } from '@app/features/rpc-stacks-transaction-request/signing-account-card/signing-account-card';
+import { useStacksRpcTransactionRequestContext } from '@app/features/rpc-stacks-transaction-request/stacks/stacks-rpc-transaction-request.context';
+import { useSignAndBroadcastStacksTransaction } from '@app/features/rpc-stacks-transaction-request/stacks/use-sign-and-broadcast-stacks-transaction';
+import { TransactionActionsWithSpend } from '@app/features/rpc-stacks-transaction-request/transaction-actions/transaction-actions-with-spend';
 
 import { getUnsignedStacksTokenTransferOptions } from './rpc-stx-transfer-stx.utils';
 

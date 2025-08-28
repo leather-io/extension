@@ -19,7 +19,6 @@ export interface RpcTransactionRequest {
   onClickRequestedByLink(method: RpcMethodNames): void;
   onSetTransactionStatus(status: TransactionStatus): void;
 }
-
 export function useRpcTransactionRequest(): RpcTransactionRequest {
   const [status, setStatus] = useState<TransactionStatus>('idle');
   const { origin, requestId, tabId } = useRpcRequestParams();
