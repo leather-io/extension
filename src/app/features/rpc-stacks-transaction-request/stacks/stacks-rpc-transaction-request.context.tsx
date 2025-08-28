@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react';
 
 import type { StacksNetwork } from '@stacks/network';
 
-import type { RpcTransactionRequest } from '@app/features/rpc-transaction-request/use-rpc-transaction-request';
+import type { RpcTransactionRequest } from '@app/features/rpc-stacks-transaction-request/use-rpc-transaction-request';
 
 interface StacksRpcTransactionRequestContext extends RpcTransactionRequest {
   address: string;

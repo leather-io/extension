@@ -52,6 +52,7 @@ interface StacksNonceLoaderProps {
 export function StacksNonceLoader({ children }: StacksNonceLoaderProps) {
   const stxAddress = useCurrentStacksAccountAddress();
   const { data: nextNonce } = useNextNonce(stxAddress);
+
   if (!nextNonce) return null;
 
   const schemaResult = nextNonceSchema.safeParse(nextNonce);

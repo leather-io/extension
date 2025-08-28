@@ -1,7 +1,7 @@
 import { RouteUrls } from '@shared/route-urls';
 
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
-import { generateStacksRpcTransactionRequestRoutes } from '@app/features/rpc-transaction-request/stacks/stacks-rpc-transaction-request.routes';
+import { generateStacksRpcTransactionRequestRoutes } from '@app/features/rpc-stacks-transaction-request/stacks/stacks-rpc-transaction-request.routes';
 
 import { RpcStxTransferSip9Nft } from './rpc-stx-transfer-sip9-nft';
 import { RpcStxTransferSip9NftContainer } from './rpc-stx-transfer-sip9-nft-container';

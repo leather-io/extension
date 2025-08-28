@@ -19,7 +19,7 @@ import { TransactionRecipientsLayout } from '@app/components/rpc-transaction-req
 import { TransactionWrapper } from '@app/components/rpc-transaction-request/transaction-wrapper';
 import { FeeEditor } from '@app/features/fee-editor/fee-editor';
 import { useFeeEditorContext } from '@app/features/fee-editor/fee-editor.context';
-import { SigningAccountCard } from '@app/features/rpc-transaction-request/signing-account-card/signing-account-card';
+import { SigningAccountCard } from '@app/features/rpc-stacks-transaction-request/signing-account-card/signing-account-card';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 
