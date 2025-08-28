@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 
+import { Box, styled } from 'leather-styles/jsx';
+
 import { Caption, DropdownMenu } from '@leather.io/ui';
 import { isNumber } from '@leather.io/utils';
 
@@ -34,30 +36,32 @@ export function AdvancedMenuItems() {
   }, [logSizeInBytes]);
 
   return (
-    <>
+    <Box width="100%">
       <DropdownMenu.Item
+        style={{ display: 'block' }}
         onClick={async () => {
           await copyLogsToClipboard();
           toast.success('Copied to clipboard');
         }}
       >
-        Copy diagnostics to clipboard
+        <styled.p>Copy diagnostics to clipboard</styled.p>
         <Caption mt="space.04" fontSize="12px !important">
           Contains private wallet usage activity
         </Caption>
       </DropdownMenu.Item>
       <DropdownMenu.Item
+        style={{ display: 'block' }}
         onClick={async () => {
           await clearBrowserStorageLogs();
           toast.success('Diagnostic logs cleared');
         }}
       >
-        Clear diagnostic information
+        <styled.p>Clear diagnostic information</styled.p>
         <Caption mt="space.04" fontSize="12px !important">
           {diagnosticLogText}
         </Caption>
       </DropdownMenu.Item>
       <Divider />
-    </>
+    </Box>
   );
 }
