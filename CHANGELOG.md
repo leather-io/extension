@@ -1,3 +1,20 @@
+## [6.72.1](https://github.com/leather-io/extension/compare/v6.72.0...v6.72.1) (2025-08-28)
+
+
+### Bug Fixes
+
+* accessible button markup ([5ddc323](https://github.com/leather-io/extension/commit/5ddc323d3c5d4e01be9080d2d4a1ded2a9749723))
+* add api nonce values to report ([ff1fbf4](https://github.com/leather-io/extension/commit/ff1fbf4a93393a9d0c313df35e7872580833a61d))
+* add fullscreen btn to lock screen ([191b64c](https://github.com/leather-io/extension/commit/191b64c1230153f7a17ee65cff8a880ce9864fa3))
+* advanced menu in settings dropdown ([adcfd36](https://github.com/leather-io/extension/commit/adcfd367275c0d6a5b1d61044233d7d7bfadcacd))
+* rpc events etc should not allow fullscreen ([a7325e7](https://github.com/leather-io/extension/commit/a7325e7413198420cad3144355cf1c2b8db8b00b))
+* stamp schema fails ([76a564a](https://github.com/leather-io/extension/commit/76a564a44ed856bef2e661bd267a6c5df8e2a9be))
+
+
+### Internal
+
+* post-release merge back ([2703ec8](https://github.com/leather-io/extension/commit/2703ec87b2f2c6f2f008f5bda8baa5d64f79509b))
+
 ## [6.72.0](https://github.com/leather-io/extension/compare/v6.71.1...v6.72.0) (2025-08-27)
 
 
