@@ -17,6 +17,7 @@ import { closeWindow } from '@shared/utils';
 
 import { useRpcRequestParams } from '@app/common/hooks/use-rpc-request-params';
 import { stacksBroadcastTransaction } from '@app/common/transactions/stacks/stacks-broadcast-transaction';
+import { createError } from '@app/common/utils';
 import { useAnalyticsOnlyStacksNonceTracker } from '@app/components/loaders/stacks-nonce-loader';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
@@ -46,7 +47,10 @@ export function useSignAndBroadcastStacksTransaction(method: RpcMethodNames) {
             },
           })
         );
-        throw new Error('Error signing stacks transaction');
+        throw createError({
+          name: 'TransactionReturnedFromSignerNull',
+          message: 'Unable to sign transaction',
+        });
       }
 
       // If the transaction is sponsored, we do not broadcast it
@@ -68,7 +72,7 @@ export function useSignAndBroadcastStacksTransaction(method: RpcMethodNames) {
 
       function onError(error: Error | string) {
         const message = isString(error) ? error : error.message;
-        trackIfNonceError(error);
+        trackIfNonceError(unsignedTx, error);
 
         return navigate(RouteUrls.BroadcastError, { state: { message } });
       }

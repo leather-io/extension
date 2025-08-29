@@ -1,5 +1,6 @@
 import { createContext, useContext } from 'react';
 
+import type { StacksTransactionWire } from '@stacks/transactions';
 import z from 'zod';
 
 import { isString } from '@leather.io/utils';
@@ -25,13 +26,15 @@ export function useAnalyticsOnlyStacksNonceTracker() {
 
   return {
     nonceCalculation: context ?? {},
-    trackIfNonceError(error: Error | string) {
+    trackIfNonceError(unsignedTx: StacksTransactionWire, error: Error | string) {
+      const txNonce = Number(unsignedTx.auth.spendingCondition.nonce);
+
       if (!('nonceType' in context)) return;
       if (isString(error)) return;
 
       const serializedError = serializeError(error);
       if ('name' in serializedError && serializedError.name === 'BadNonce') {
-        const report = { ...serializedError, ...context };
+        const report = { ...serializedError, ...context, txNonce };
         if ('stack' in report) delete report.stack;
         void analytics.untypedTrack('investigation_bad_nonce_increase', report);
       }
@@ -49,6 +52,7 @@ interface StacksNonceLoaderProps {
 export function StacksNonceLoader({ children }: StacksNonceLoaderProps) {
   const stxAddress = useCurrentStacksAccountAddress();
   const { data: nextNonce } = useNextNonce(stxAddress);
+
   if (!nextNonce) return null;
 
   const schemaResult = nextNonceSchema.safeParse(nextNonce);
