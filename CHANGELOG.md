@@ -1,3 +1,17 @@
+## [6.72.2](https://github.com/leather-io/extension/compare/v6.72.1...v6.72.2) (2025-08-29)
+
+
+### Bug Fixes
+
+* report the actual unnsigned tx nonce ([5689935](https://github.com/leather-io/extension/commit/5689935202844707d2d061d713dcf95be9c200f5))
+* stale nonce problem ([8c520d0](https://github.com/leather-io/extension/commit/8c520d0738b7efd67f8ccfd4587702a369ca3ed3))
+* upgrade tanstack query ([6756361](https://github.com/leather-io/extension/commit/6756361ea5460ce203db5f5418c26ed1d9c03ff2))
+
+
+### Internal
+
+* post-release merge back ([7eae826](https://github.com/leather-io/extension/commit/7eae826e1bc6c6674b137a61a1846e81080cf3ab))
+
 ## [6.72.1](https://github.com/leather-io/extension/compare/v6.72.0...v6.72.1) (2025-08-28)
 
 
