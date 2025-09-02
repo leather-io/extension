@@ -3,10 +3,12 @@
 // https://developer.chrome.com/docs/extensions/mv3/architecture-overview/#background_script
 import type { RpcRequests } from '@leather.io/rpc';
 
+import { listenForSessionDurationPort } from '@shared/analytics/session-duration-tracking';
 import { logger } from '@shared/logger';
 import { CONTENT_SCRIPT_PORT, type LegacyMessageFromContentScript } from '@shared/message-types';
 import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-log';
 
+import { queueAnalyticsRequest } from './background-analytics';
 import { initContextMenuActions } from './init-context-menus';
 import { internalBackgroundMessageHandler } from './messaging/internal-methods/message-handler';
 import {
@@ -64,4 +66,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 initAddressMonitor().catch(e => {
   logger.error('Unable to Initialise Address Monitor: ', e);
+});
+
+listenForSessionDurationPort({
+  onSessionEnd(sessionMetadata) {
+    void queueAnalyticsRequest('user_session_complete', sessionMetadata);
+  },
 });
