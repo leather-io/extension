@@ -59,7 +59,7 @@ function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFac
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
 
-  const { tabId, origin, requestId, message } = useRpcSignBitcoinMessage();
+  const { origin, requestId, message } = useRpcSignBitcoinMessage();
 
   return {
     origin,
@@ -68,9 +68,7 @@ function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFac
     formattedOrigin: new URL(origin ?? '').host,
     address,
     onUserRejectBip322MessageSigningRequest() {
-      if (!tabId) return;
-      chrome.tabs.sendMessage(
-        tabId,
+      chrome.runtime.sendMessage(
         createRpcErrorResponse('signMessage', {
           id: requestId,
           error: {
@@ -84,8 +82,8 @@ function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFac
     async onUserApproveBip322MessageSigningRequest() {
       setIsLoading(true);
 
-      if (!tabId || !origin) {
-        logger.error('Cannot give app accounts: missing tabId, origin');
+      if (!origin) {
+        logger.error('Cannot give app accounts: missing, origin');
         return;
       }
 
@@ -99,8 +97,7 @@ function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFac
       await shortPauseBeforeToast();
       toast.success('Message signed successfully');
 
-      chrome.tabs.sendMessage(
-        tabId,
+      chrome.runtime.sendMessage(
         createRpcSuccessResponse('signMessage', {
           id: requestId,
           result: { signature, address, message },

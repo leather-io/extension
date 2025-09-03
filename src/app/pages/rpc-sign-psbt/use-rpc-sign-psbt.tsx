@@ -32,7 +32,7 @@ interface BroadcastSignedPsbtTxArgs {
 }
 export function useRpcSignPsbt() {
   const navigate = useNavigate();
-  const { broadcast, origin, psbtHex, requestId, signAtIndex, tabId } = useRpcSignPsbtParams();
+  const { broadcast, origin, psbtHex, requestId, signAtIndex } = useRpcSignPsbtParams();
   const { signPsbt, getPsbtAsTransaction } = usePsbtSigner();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
   const { filteredUtxosQuery } = useCurrentNativeSegwitUtxos();
@@ -62,8 +62,7 @@ export function useRpcSignPsbt() {
       async onSuccess(txid) {
         if (!requestId) throw new Error('Invalid request id');
 
-        chrome.tabs.sendMessage(
-          tabId,
+        chrome.runtime.sendMessage(
           createRpcSuccessResponse('signPsbt', {
             id: requestId,
             result: { hex: psbt, txid },
@@ -86,19 +85,18 @@ export function useRpcSignPsbt() {
           txValue: formatCurrency(transferTotalAsMoney),
         };
 
-        navigate(RouteUrls.RpcSignPsbtSummary, { state: psbtTxSummaryState });
+        void navigate(RouteUrls.RpcSignPsbtSummary, { state: psbtTxSummaryState });
       },
       onError(e) {
         if (!requestId) throw new Error('Invalid request id');
 
-        chrome.tabs.sendMessage(
-          tabId,
+        chrome.runtime.sendMessage(
           createRpcErrorResponse('signPsbt', {
             id: requestId,
             error: { code: 4002, message: 'Failed to broadcast transaction' },
           })
         );
-        navigate(RouteUrls.RequestError, {
+        void navigate(RouteUrls.RequestError, {
           state: { message: isError(e) ? e.message : '', title: 'Failed to broadcast' },
         });
       },
@@ -122,8 +120,7 @@ export function useRpcSignPsbt() {
         const psbt = signedTx.toPSBT();
 
         if (!broadcast) {
-          chrome.tabs.sendMessage(
-            tabId,
+          chrome.runtime.sendMessage(
             createRpcSuccessResponse('signPsbt', {
               id: requestId,
               result: { hex: bytesToHex(psbt) },
@@ -164,8 +161,7 @@ export function useRpcSignPsbt() {
       }
     },
     onCancel() {
-      chrome.tabs.sendMessage(
-        tabId,
+      chrome.runtime.sendMessage(
         createRpcErrorResponse('signPsbt', {
           id: requestId,
           error: {
