@@ -81,6 +81,25 @@ export function useStxSendForm() {
         fee: Number(values.fee),
       });
 
+      // const port = chrome.runtime.connect(chrome.runtime.id);
+      // port.postMessage({
+      //   jsonrpc: '2.0',
+      //   method: 'stx_transferStx',
+      //   params: {
+      //     recipient: values.recipient,
+      //     amount: values.amount,
+      //   },
+      // });
+
+      // chrome.runtime.sendMessage({
+      //   jsonrpc: '2.0',
+      //   method: 'stx_transferStx',
+      //   params: {
+      //     recipient: values.recipient,
+      //     amount: values.amount,
+      //   },
+      // });
+
       // if fee has changed, show info message
       const showFeeChangeWarning = initialFee !== values.fee;
 

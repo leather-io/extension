@@ -24,7 +24,11 @@ import { stxTransferSip9NftHandler } from './rpc-methods/stx-transfer-sip9-nft';
 import { stxTransferSip10FtHandler } from './rpc-methods/stx-transfer-sip10-ft';
 import { stxTransferStxHandler } from './rpc-methods/stx-transfer-stx';
 import { supportedMethodsHandler } from './rpc-methods/supported-methods';
-import { listenForOriginTabClose, sendRpcResponse } from './rpc-request-utils';
+import {
+  createRpcResponder,
+  listenAndForwardRpcRequest,
+  listenForOriginTabClose,
+} from './rpc-request-utils';
 
 type RpcResponseSender = (response: any) => void;
 
@@ -56,25 +60,25 @@ export function defineRpcRequestHandler<M extends RpcRequests['method']>(
 
 export async function rpcMessageHandler(
   request: RpcRequests,
-  sender: chrome.runtime.MessageSender,
-  sendResponse?: (response: any) => void
+  sender: chrome.runtime.MessageSender
 ) {
   listenForOriginTabClose({ tabId: sender?.tab?.id });
 
   logger.info(`Received RPC request ${request.method}`, request);
-
-  const responseSender: RpcResponseSender = (response: any) => {
-    sendRpcResponse(sender, response, sendResponse);
-  };
 
   // This typecast safely bypasses the compiler since it cannot infer or narrow
   // the type to know the `request` being passed to `handler` is the correct
   // one. Type safety is guaranteed by `registerRpcRequestHandler`
   const handler = rpcHandlers[request.method] as RpcHandler<any>;
 
-  if (handler) return await handler(request, sender, responseSender);
+  const sendMessage = createRpcResponder(sender);
 
-  responseSender(
+  if (handler) {
+    listenAndForwardRpcRequest(request.id, sendMessage);
+    return await handler(request, sender, sendMessage);
+  }
+
+  sendMessage(
     createRpcErrorResponse(request.method, {
       id: request.id,
       error: {

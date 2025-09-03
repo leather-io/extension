@@ -7,6 +7,7 @@ import {
   type RpcMethodNames,
   type RpcRequests,
   createRpcErrorResponse,
+  rpcBasePropsSchema,
 } from '@leather.io/rpc';
 import { isUndefined } from '@leather.io/utils';
 
@@ -25,6 +26,11 @@ import { popup } from '@background/popup';
 
 import { trackRpcRequestError } from './rpc-helpers';
 
+function isOriginLeatherExtension(urlOrigin: string) {
+  const extensionOrigin = new URL(chrome.runtime.getURL('')).origin;
+  return urlOrigin === extensionOrigin;
+}
+
 function getTabIdFromSender(sender: chrome.runtime.MessageSender) {
   return sender?.tab?.id ?? 0;
 }
@@ -40,19 +46,12 @@ export function getHostnameFromSender(sender: chrome.runtime.MessageSender) {
   return getHostnameFromUrl(origin);
 }
 
-export function sendRpcResponse(
-  sender: chrome.runtime.MessageSender,
-  response: any,
-  sendResponse?: (response: any) => void
-) {
-  if (sendResponse) {
-    // Internal extension call - use sendResponse callback
-    sendResponse(response);
-  } else {
-    // External call - use chrome.tabs.sendMessage
-    const tabId = getTabIdFromSender(sender);
-    chrome.tabs.sendMessage(tabId, response);
-  }
+export function createRpcResponder(sender: chrome.runtime.MessageSender) {
+  const origin = getOriginFromSender(sender) ?? '';
+  return (response: any) =>
+    isOriginLeatherExtension(origin)
+      ? chrome.runtime.sendMessage(response)
+      : chrome.tabs.sendMessage(sender.tab?.id ?? 0, response);
 }
 
 //
@@ -74,8 +73,7 @@ interface ListenForPopupCloseArgs {
 export function listenForPopupClose({ id, tabId, response }: ListenForPopupCloseArgs) {
   chrome.windows.onRemoved.addListener(winId => {
     if (winId !== id || !tabId) return;
-    const responseMessage = response;
-    chrome.tabs.sendMessage(tabId, responseMessage);
+    chrome.tabs.sendMessage(tabId, response);
   });
 }
 
@@ -199,4 +197,24 @@ export function validateRequestParams({
     return { status: 'failure' };
   }
   return { status: 'success' };
+}
+
+export const rpcRequestSchema = z.intersection(
+  rpcBasePropsSchema,
+  z.object({
+    method: z.string(),
+    params: z.any().optional(),
+  })
+);
+
+const rpcResponseSchema = z.intersection(
+  rpcBasePropsSchema,
+  z.union([z.object({ result: z.any() }), z.object({ error: z.any() })])
+);
+
+export function listenAndForwardRpcRequest(requestId: string, sendMessage: (resp: any) => void) {
+  return chrome.runtime.onMessage.addListener(message => {
+    const result = rpcResponseSchema.safeParse(message);
+    if (result.success && message.id === requestId) sendMessage(message);
+  });
 }

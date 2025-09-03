@@ -16,6 +16,7 @@ import {
   isLegacyMessage,
 } from './messaging/legacy/legacy-external-message-handler';
 import { rpcMessageHandler } from './messaging/rpc-message-handler';
+import { rpcRequestSchema } from './messaging/rpc-request-utils';
 import { initAddressMonitor } from './monitors/address-monitor';
 
 initContextMenuActions();
@@ -69,6 +70,11 @@ chrome.runtime.onConnect.addListener(port => {
 //
 // Events from the extension frames script
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (rpcRequestSchema.safeParse(message).success) {
+    void rpcMessageHandler(message, sender);
+    return true;
+  }
+
   void internalBackgroundMessageHandler(message, sender, sendResponse);
 
   // Listener fn must return `true` to indicate the response will be async
