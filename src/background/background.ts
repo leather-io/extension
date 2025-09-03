@@ -31,11 +31,9 @@ chrome.runtime.onInstalled.addListener(async details => {
 
 // Listen for connection to the content-script - port for two-way communication
 chrome.runtime.onConnect.addListener(port => {
-  console.log('Connected to content script:', port);
   if (port.name !== CONTENT_SCRIPT_PORT) return;
 
   port.onMessage.addListener((message: LegacyMessageFromContentScript | RpcRequests, port) => {
-    console.log(message);
     if (!port.sender?.tab?.id)
       return logger.error('Message reached background script without a corresponding tab');
 
@@ -54,17 +52,18 @@ chrome.runtime.onConnect.addListener(port => {
     // TODO:
     // Here we'll handle all messages using the rpc style comm method
     // For now all messages are handled as legacy format
-    void rpcMessageHandler(message, port);
+    void rpcMessageHandler(message, port.sender);
   });
 });
 
 //
 // Events from the extension frames script
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  // Needs improvement when dealing with internal flows
-  if (message.jsonrpc === '2.0') {
-    void rpcMessageHandler(message, sender);
-  }
+  // // Handle internal RPC messages from extension pages
+  // if (message.jsonrpc === '2.0') {
+  //   void rpcMessageHandler(message, sender, sendResponse);
+  //   return true;
+  // }
 
   void internalBackgroundMessageHandler(message, sender, sendResponse);
   // Listener fn must return `true` to indicate the response will be async

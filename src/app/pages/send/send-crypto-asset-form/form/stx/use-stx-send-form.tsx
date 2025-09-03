@@ -4,9 +4,9 @@ import { FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
 import { STX_DECIMALS } from '@leather.io/constants';
-import { stxTransferStx } from '@leather.io/rpc';
 import { convertAmountToBaseUnit, createMoney } from '@leather.io/utils';
 
+import { logger } from '@shared/logger';
 import { StacksSendFormValues } from '@shared/models/form.model';
 
 import {
@@ -81,31 +81,31 @@ export function useStxSendForm() {
         fee: Number(values.fee),
       });
 
-      const port = chrome.runtime.connect(chrome.runtime.id);
-      port.postMessage({
-        jsonrpc: '2.0',
-        method: 'stx_transferStx',
-        params: {
-          recipient: values.recipient,
-          amount: values.amount,
-        },
-      });
+      // const port = chrome.runtime.connect(chrome.runtime.id);
+      // port.postMessage({
+      //   jsonrpc: '2.0',
+      //   method: 'stx_transferStx',
+      //   params: {
+      //     recipient: values.recipient,
+      //     amount: values.amount,
+      //   },
+      // });
 
-      chrome.runtime.sendMessage({
-        jsonrpc: '2.0',
-        method: 'stx_transferStx',
-        params: {
-          recipient: values.recipient,
-          amount: values.amount,
-        },
-      });
+      // chrome.runtime.sendMessage({
+      //   jsonrpc: '2.0',
+      //   method: 'stx_transferStx',
+      //   params: {
+      //     recipient: values.recipient,
+      //     amount: values.amount,
+      //   },
+      // });
 
-      // // if fee has changed, show info message
-      // const showFeeChangeWarning = initialFee !== values.fee;
+      // if fee has changed, show info message
+      const showFeeChangeWarning = initialFee !== values.fee;
 
-      // const tx = await generateTx(values);
-      // if (!tx) return logger.error('Attempted to generate unsigned tx, but tx is undefined');
-      // sendFormNavigate.toConfirmAndSignStxTransaction(tx, showFeeChangeWarning);
+      const tx = await generateTx(values);
+      if (!tx) return logger.error('Attempted to generate unsigned tx, but tx is undefined');
+      void sendFormNavigate.toConfirmAndSignStxTransaction(tx, showFeeChangeWarning);
     },
   };
 }

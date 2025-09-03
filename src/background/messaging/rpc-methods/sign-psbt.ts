@@ -16,7 +16,6 @@ import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
   createConnectingAppSearchParamsWithLastKnownAccount,
-  getTabIdFromPort,
   sendErrorResponseOnUserPopupClose,
   triggerRequestPopupWindowOpen,
 } from '../rpc-request-utils';
@@ -37,11 +36,10 @@ function validateRpcSignPsbtParams(obj: unknown) {
 function getRpcSignPsbtParamErrors(obj: unknown) {
   return formatValidationErrors(getRpcParamErrors(obj, signPsbt.params));
 }
-export const signPsbtHandler = defineRpcRequestHandler(signPsbt.method, async (request, port) => {
+export const signPsbtHandler = defineRpcRequestHandler(signPsbt.method, async (request, sender, sendResponse) => {
   if (isUndefined(request.params)) {
     void trackRpcRequestError({ endpoint: request.method, error: 'Undefined parameters' });
-    chrome.tabs.sendMessage(
-      getTabIdFromPort(port),
+    sendResponse(
       createRpcErrorResponse(request.method, {
         id: request.id,
         error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
@@ -52,8 +50,7 @@ export const signPsbtHandler = defineRpcRequestHandler(signPsbt.method, async (r
 
   if (!validateRpcSignPsbtParams(request.params)) {
     void trackRpcRequestError({ endpoint: request.method, error: 'Invalid parameters' });
-    chrome.tabs.sendMessage(
-      getTabIdFromPort(port),
+    sendResponse(
       createRpcErrorResponse(request.method, {
         id: request.id,
         error: {
@@ -68,8 +65,7 @@ export const signPsbtHandler = defineRpcRequestHandler(signPsbt.method, async (r
   if (!validatePsbt(request.params.hex)) {
     void trackRpcRequestError({ endpoint: request.method, error: 'Invalid PSBT' });
 
-    chrome.tabs.sendMessage(
-      getTabIdFromPort(port),
+    sendResponse(
       createRpcErrorResponse('signPsbt', {
         id: request.id,
         error: { code: RpcErrorCode.INVALID_PARAMS, message: 'Invalid PSBT hex' },
@@ -103,7 +99,7 @@ export const signPsbtHandler = defineRpcRequestHandler(signPsbt.method, async (r
   void trackRpcRequestSuccess({ endpoint: request.method });
 
   const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(
-    port,
+    sender,
     requestParams
   );
 

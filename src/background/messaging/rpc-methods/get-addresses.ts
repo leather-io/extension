@@ -12,9 +12,9 @@ import {
 
 const sharedGetAddressesHandler = async (
   request: RpcRequest<typeof getAddresses> | RpcRequest<typeof stxGetAddresses>,
-  port: chrome.runtime.Port
+  sender: chrome.runtime.MessageSender
 ) => {
-  const { urlParams, tabId } = createConnectingAppMetadataSearchParams(port, [
+  const { urlParams, tabId } = createConnectingAppMetadataSearchParams(sender, [
     ['requestId', request.id],
     ['rpcRequest', encodeBase64Json(request)],
   ]);
