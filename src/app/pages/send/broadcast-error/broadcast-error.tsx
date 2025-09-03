@@ -5,9 +5,6 @@ import get from 'lodash.get';
 import { Sheet, SheetHeader } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
-import { analytics } from '@shared/utils/analytics';
-
-import { useOnMount } from '@app/common/hooks/use-on-mount';
 
 import { BroadcastErrorLayout } from './components/broadcast-error.layout';
 
@@ -22,8 +19,6 @@ export function BroadcastError({ showInSheet = false }: Props) {
   const msg = get(state, 'error.message', 'Unknown error response');
   const title = get(state, 'title', 'There was an error broadcasting your transaction');
   const body = get(state, 'body', 'Unable to broadcast transaction');
-
-  useOnMount(() => void analytics.track('bitcoin_contract_error', { msg }));
 
   const layout = (
     <BroadcastErrorLayout
