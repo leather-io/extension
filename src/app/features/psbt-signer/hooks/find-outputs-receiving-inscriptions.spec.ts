@@ -1,10 +1,11 @@
-import { mockInscription1, mockInscription2 } from '@tests/mocks/mock-inscriptions';
 import {
   mockPsbtInputs1,
   mockPsbtInputs2,
   mockPsbtOutputs1,
   mockPsbtOutputs2,
 } from '@tests/mocks/mock-psbts';
+
+import { mockInscription1, mockInscription2 } from '@leather.io/query';
 
 import { findOutputsReceivingInscriptions } from './find-outputs-receiving-inscriptions';
 

@@ -19,6 +19,7 @@ export function InscriptionPreview({ inscription, ...props }: InscriptionPreview
         </InscriptionPreviewContainer>
       );
     }
+    // check this is correct
     case 'text': {
       return (
         <InscriptionPreviewContainer {...props}>
