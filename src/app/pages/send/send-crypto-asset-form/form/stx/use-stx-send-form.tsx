@@ -86,7 +86,7 @@ export function useStxSendForm() {
 
       const tx = await generateTx(values);
       if (!tx) return logger.error('Attempted to generate unsigned tx, but tx is undefined');
-      sendFormNavigate.toConfirmAndSignStxTransaction(tx, showFeeChangeWarning);
+      void sendFormNavigate.toConfirmAndSignStxTransaction(tx, showFeeChangeWarning);
     },
   };
 }

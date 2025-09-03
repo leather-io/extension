@@ -24,9 +24,15 @@ import { stxTransferSip9NftHandler } from './rpc-methods/stx-transfer-sip9-nft';
 import { stxTransferSip10FtHandler } from './rpc-methods/stx-transfer-sip10-ft';
 import { stxTransferStxHandler } from './rpc-methods/stx-transfer-stx';
 import { supportedMethodsHandler } from './rpc-methods/supported-methods';
-import { getTabIdFromPort, listenForOriginTabClose } from './rpc-request-utils';
+import { listenForOriginTabClose, sendRpcResponse } from './rpc-request-utils';
 
-type RpcHandler<T> = (request: T, port: chrome.runtime.Port) => Promise<void> | void;
+type RpcResponseSender = (response: any) => void;
+
+type RpcHandler<T> = (
+  request: T,
+  sender: chrome.runtime.MessageSender,
+  sendResponse: RpcResponseSender
+) => Promise<void> | void;
 
 type RpcHandlers = {
   [Method in keyof RpcEndpointMap]: RpcHandler<RpcEndpointMap[Method]['request']>;
@@ -48,20 +54,27 @@ export function defineRpcRequestHandler<M extends RpcRequests['method']>(
   return [method, handler] as const;
 }
 
-export async function rpcMessageHandler(request: RpcRequests, port: chrome.runtime.Port) {
-  listenForOriginTabClose({ tabId: port.sender?.tab?.id });
+export async function rpcMessageHandler(
+  request: RpcRequests,
+  sender: chrome.runtime.MessageSender,
+  sendResponse?: (response: any) => void
+) {
+  listenForOriginTabClose({ tabId: sender?.tab?.id });
 
   logger.info(`Received RPC request ${request.method}`, request);
+
+  const responseSender: RpcResponseSender = (response: any) => {
+    sendRpcResponse(sender, response, sendResponse);
+  };
 
   // This typecast safely bypasses the compiler since it cannot infer or narrow
   // the type to know the `request` being passed to `handler` is the correct
   // one. Type safety is guaranteed by `registerRpcRequestHandler`
   const handler = rpcHandlers[request.method] as RpcHandler<any>;
 
-  if (handler) return await handler(request, port);
+  if (handler) return await handler(request, sender, responseSender);
 
-  chrome.tabs.sendMessage(
-    getTabIdFromPort(port),
+  responseSender(
     createRpcErrorResponse(request.method, {
       id: request.id,
       error: {
