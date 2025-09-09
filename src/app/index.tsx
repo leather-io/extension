@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import ecc from '@bitcoinerlab/secp256k1';
 import * as bitcoin from 'bitcoinjs-lib';
 
+import { initiateLeatherSessionTrackingPort } from '@shared/analytics/session-duration-tracking';
 import { initSentry } from '@shared/utils/analytics';
 import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-log';
 
@@ -21,6 +22,7 @@ initAppServices();
 initSentry();
 warnUsersAboutDevToolsDangers();
 setDebugOnGlobal();
+initiateLeatherSessionTrackingPort();
 
 declare global {
   interface Window {

@@ -3,8 +3,9 @@ import { Suspense, lazy, useMemo } from 'react';
 import { Box, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import type { SupportedBlockchains } from '@leather.io/models';
-import { BitcoinIcon, Button, Link, StacksIcon } from '@leather.io/ui';
+import { BitcoinIcon, Button, Callout, Link, StacksIcon } from '@leather.io/ui';
 
+import { usePlatformInfo } from '@app/common/hooks/use-platform-info';
 import { Divider } from '@app/components/layout/divider';
 
 import { LedgerWrapper } from '../../components/ledger-wrapper';
@@ -34,6 +35,8 @@ export function ConnectLedger(props: ConnectLedgerProps) {
     chain,
   } = props;
 
+  const { isWindows } = usePlatformInfo();
+
   const showBitcoinConnectButton = useMemo(() => {
     return chain === 'bitcoin' || !!connectBitcoin;
   }, [chain, connectBitcoin]);
@@ -62,8 +65,6 @@ export function ConnectLedger(props: ConnectLedgerProps) {
       </Box>
 
       <Stack gap="space.04" justifyItems="flex-start" textAlign="start" pb="space.06">
-        <styled.span textStyle="heading.05">Please follow the instructions:</styled.span>
-
         <Stack gap="space.01" mb="space.02">
           {instructions.map((instruction, index) => (
             <styled.span textStyle="body.01" key={index}>
@@ -103,6 +104,22 @@ export function ConnectLedger(props: ConnectLedgerProps) {
           {warning}
         </Box>
       )}
+
+      {isWindows && (
+        <Callout variant="warning" mb="space.06" mx="space.06" textAlign="left">
+          Ledger devices running newer firmware versions may not work correctly.{' '}
+          <styled.a
+            fontSize="inherit"
+            border={0}
+            textDecoration="underline"
+            href="https://support.ledger.com/article/Windows-Cannot-connect-via-WebUSB"
+            target="_blank"
+          >
+            Learn more about the issue on Ledger's support page
+          </styled.a>
+        </Callout>
+      )}
+
       {showInstructions ? (
         <Stack gap="space.05" width="100%">
           <Divider />
