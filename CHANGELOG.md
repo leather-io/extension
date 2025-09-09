@@ -1,3 +1,16 @@
+## [6.73.0](https://github.com/leather-io/extension/compare/v6.72.2...v6.73.0) (2025-09-09)
+
+
+### Features
+
+* **ledger:** add windows firmware warning ([5fc5cf3](https://github.com/leather-io/extension/commit/5fc5cf32b09858a29f87a39f841307a39ed85884))
+* track session duration ([e5fdd8d](https://github.com/leather-io/extension/commit/e5fdd8d46a9d17df9fab1a05032a60eaf154b227))
+
+
+### Internal
+
+* post-release merge back ([b76acae](https://github.com/leather-io/extension/commit/b76acaedbcad5df6396dc0593946a7ab8ee661df))
+
 ## [6.72.2](https://github.com/leather-io/extension/compare/v6.72.1...v6.72.2) (2025-08-29)
 
 
