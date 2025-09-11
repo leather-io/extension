@@ -10,6 +10,10 @@ import type { SwapFormValues } from '@shared/models/form.model';
 
 import { Card } from '@app/components/layout';
 import { LoadingSpinner } from '@app/components/loading-spinner';
+import {
+  SbtcLedgerRecoveryWarning,
+  isBtcToSbtcSwap,
+} from '@app/pages/swap/components/sbtc-ledger-recovery-warning';
 
 import { SwapAssetSelectBase } from './components/swap-asset-select/swap-asset-select-base';
 import { SwapAssetSelectQuote } from './components/swap-asset-select/swap-asset-select-quote';
@@ -41,6 +45,11 @@ export function Swap<T extends BaseSwapContext<T>>() {
     >
       <SwapAssetSelectBase />
       <SwapAssetSelectQuote />
+
+      {isBtcToSbtcSwap(values.swapAssetBase, values.swapAssetQuote ?? { tokenId: 'unknown' }) && (
+        <SbtcLedgerRecoveryWarning mt="space.05" />
+      )}
+
       <Outlet />
     </Card>
   );
