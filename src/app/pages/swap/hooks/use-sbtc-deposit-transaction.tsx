@@ -32,6 +32,7 @@ import { useToast } from '@app/features/toasts/use-toast';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
+import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -68,8 +69,7 @@ export function useSbtcDepositTransaction(signer: BitcoinSigner<P2Ret>, utxos: U
   const networkMode = useBitcoinScureLibNetworkConfig();
   const navigate = useNavigate();
   const network = useCurrentNetwork();
-  // TODO: Use with Ledger integration
-  // const sign = useSignBitcoinTx();
+  const sign = useSignBitcoinTx();
 
   const client = useMemo(
     () => (network.chain.bitcoin.mode === 'mainnet' ? clientMainnet : clientTestnet),
@@ -145,11 +145,12 @@ export function useSbtcDepositTransaction(signer: BitcoinSigner<P2Ret>, utxos: U
     async onDepositSbtc(deposit?: SbtcDeposit) {
       if (!deposit) return;
       try {
-        signer.sign(deposit.transaction);
-        deposit.transaction.finalize();
+        const signedDepositTx = await sign(deposit.transaction.toPSBT());
+        signedDepositTx.finalize();
+
         logger.info('Deposit', { deposit });
 
-        const txid = await client.broadcastTx(deposit.transaction);
+        const txid = await client.broadcastTx(signedDepositTx);
         logger.info('Broadcasted tx', txid);
 
         const amount = deposit.transaction.getOutput(0).amount;
