@@ -152,7 +152,11 @@ export function useSbtcDepositTransaction(signer: BitcoinSigner<P2Ret>, utxos: U
         const txid = await client.broadcastTx(deposit.transaction);
         logger.info('Broadcasted tx', txid);
 
-        void analytics.untypedTrack('bitcoin_swap_succeeded', { txid });
+        const amount = deposit.transaction.getOutput(0).amount;
+
+        if (amount) {
+          void analytics.untypedTrack('bitcoin_swap_succeeded', { amount: Number(amount) });
+        }
 
         await client.notifySbtc(deposit);
         toast.success('Transaction submitted!');
