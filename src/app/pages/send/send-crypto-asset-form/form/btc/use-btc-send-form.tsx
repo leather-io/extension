@@ -28,7 +28,7 @@ import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
-import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
+import { useCalculateMaxBitcoinSpend } from '../../../../../common/hooks/balance/use-calculate-max-spend';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 
 export function useBtcSendForm() {
