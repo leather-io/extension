@@ -1,3 +1,16 @@
+## [6.73.2](https://github.com/leather-io/extension/compare/v6.73.1...v6.73.2) (2025-09-16)
+
+
+### Bug Fixes
+
+* remove old sbtc withdrawal warning ([1c2d8a2](https://github.com/leather-io/extension/commit/1c2d8a2fa8998f544bf04a252a04c0250147f98f))
+
+
+### Internal
+
+* post-release merge back ([bee7771](https://github.com/leather-io/extension/commit/bee77714b91ab00c3f622d4b71166cd7b060f47e))
+* react 19.1 ([94d07ad](https://github.com/leather-io/extension/commit/94d07ad3114822ac2192e328cd1bcec0163179cb))
+
 ## [6.73.1](https://github.com/leather-io/extension/compare/v6.73.0...v6.73.1) (2025-09-15)
 
 
