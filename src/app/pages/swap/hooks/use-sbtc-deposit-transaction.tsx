@@ -180,17 +180,21 @@ export function useSbtcDepositTransaction(signer: BitcoinSigner<P2Ret>, utxos: U
         const signedDepositTx = await sign(deposit.transaction.toPSBT());
         signedDepositTx.finalize();
 
-        logger.info('Deposit', deposit);
+        logger.info('Deposit', { deposit });
 
         const txid = await client.broadcastTx(signedDepositTx);
         logger.info('Broadcasted tx', txid);
 
         const amount = deposit.transaction.getOutput(0).amount;
 
-        if (amount)
+        if (amount) {
           void analytics.untypedTrack('bitcoin_swap_succeeded', { amount: Number(amount) });
+        }
 
-        await client.notifySbtc(deposit);
+        // Software wallets mutate the original transaction when signing and
+        // finalizing the tx. Ledger devices return a new instance. Override tx
+        // in `deposit` with the signed instance
+        await client.notifySbtc({ ...deposit, transaction: signedDepositTx });
         toast.success('Transaction submitted!');
         setIsIdle();
         return navigate(RouteUrls.Activity);
