@@ -4,10 +4,13 @@ import { useNavigate } from 'react-router';
 import { bytesToHex } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 import type { P2Ret, P2TROut } from '@scure/btc-signer/payment';
+import { STACKS_DEVNET } from '@stacks/network';
+import { type BufferCV, fetchCallReadOnlyFunction } from '@stacks/transactions';
 import {
   DEFAULT_RECLAIM_LOCK_TIME,
   MAINNET,
   REGTEST,
+  type SbtcApiClient,
   SbtcApiClientMainnet,
   SbtcApiClientTestnet,
   TESTNET,
@@ -28,9 +31,11 @@ import {
   determineUtxosForSpend,
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
+import { serializeError } from '@app/common/utils';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
+import { hiroFetchWrapper } from '@app/query/stacks/stacks-client';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -58,8 +63,31 @@ function getSbtcNetworkConfig(network: BitcoinNetworkModes) {
   return networkMap[network];
 }
 
-const clientMainnet = new SbtcApiClientMainnet();
-const clientTestnet = new SbtcApiClientTestnet();
+const clientMainnet = new SbtcApiClientMainnet({});
+const clientTestnet = new SbtcApiClientTestnet({});
+
+// Cloned from sbtc package because it doesn't support providing custom fetch
+// function, which we need to avoid 429s by adding our header
+// https://github.com/hirosystems/stacks.js/blob/36a2065368f9852b382c15a4e5e852d0c949845a/packages/sbtc/src/api.ts#L153-L164
+// TODO: remove when sbtc supports custom fetch fn
+async function fetchSignersPublicKey({
+  contractAddress,
+  client,
+}: {
+  contractAddress: string;
+  client: SbtcApiClient['config'];
+}): Promise<string> {
+  const res = (await fetchCallReadOnlyFunction({
+    contractAddress,
+    contractName: 'sbtc-registry',
+    functionName: 'get-current-aggregate-pubkey',
+    functionArgs: [],
+    senderAddress: STACKS_DEVNET.bootAddress, // zero address
+    client: { baseUrl: client.stxApiUrl, fetch: hiroFetchWrapper },
+  })) as BufferCV;
+
+  return res.value.slice(2);
+}
 
 export function useSbtcDepositTransaction(signer: BitcoinSigner<P2Ret>, utxos: UtxoResponseItem[]) {
   const toast = useToast();
@@ -92,7 +120,11 @@ export function useSbtcDepositTransaction(signer: BitcoinSigner<P2Ret>, utxos: U
           amountSats: btcToSat(values.swapAmountQuote).toNumber(),
           network: getSbtcNetworkConfig(network.chain.bitcoin.mode),
           stacksAddress: stacksAccount.address,
-          signersPublicKey: await client.fetchSignersPublicKey(),
+          // Adding retry logic until we can
+          signersPublicKey: await fetchSignersPublicKey({
+            contractAddress: client.config.sbtcContract,
+            client: client.config,
+          }),
           maxSignerFee: swapData.maxSignerFee,
           reclaimLockTime: DEFAULT_RECLAIM_LOCK_TIME,
           reclaimPublicKey: bytesToHex(signer.publicKey).slice(2),
@@ -159,7 +191,10 @@ export function useSbtcDepositTransaction(signer: BitcoinSigner<P2Ret>, utxos: U
           void analytics.untypedTrack('bitcoin_swap_succeeded', { amount: Number(amount) });
         }
 
-        await client.notifySbtc(deposit);
+        // Software wallets mutate the original transaction when signing and
+        // finalizing the tx. Ledger devices return a new instance. Override tx
+        // in `deposit` with the signed instance
+        await client.notifySbtc({ ...deposit, transaction: signedDepositTx });
         toast.success('Transaction submitted!');
         setIsIdle();
         return navigate(RouteUrls.Activity);
@@ -167,6 +202,9 @@ export function useSbtcDepositTransaction(signer: BitcoinSigner<P2Ret>, utxos: U
         setIsIdle();
         logger.error(`Deposit error: ${error}`);
         void analytics.untypedTrack('bitcoin_swap_failed', { error });
+        return navigate(RouteUrls.SwapError, {
+          state: { title: 'sBTC swap error', message: serializeError(error).message },
+        });
       } finally {
         setIsIdle();
       }
