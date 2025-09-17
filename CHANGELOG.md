@@ -1,3 +1,18 @@
+## [6.73.3](https://github.com/leather-io/extension/compare/v6.73.2...v6.73.3) (2025-09-17)
+
+
+### Bug Fixes
+
+* nested button error ([4f568f8](https://github.com/leather-io/extension/commit/4f568f8253f99a92342b632d221570d4d2f9d1ee))
+* **sbtc:** navigate to error page ([9a6a5ad](https://github.com/leather-io/extension/commit/9a6a5ad27ed91ba45483e84cc9b90e6ace252633))
+* **sbtc:** passing non-finalized tx ([bd7c3dd](https://github.com/leather-io/extension/commit/bd7c3dd7c3c5f9917901f35d43025fab64d482b2))
+* **sbtc:** use leather client for signer key fetch ([354bb4e](https://github.com/leather-io/extension/commit/354bb4e0700046daefd7468ad205d3bd61d6d668))
+
+
+### Internal
+
+* post-release merge back ([04d3cde](https://github.com/leather-io/extension/commit/04d3cdeaf48d13623458fe3092a77004fadce068))
+
 ## [6.73.2](https://github.com/leather-io/extension/compare/v6.73.1...v6.73.2) (2025-09-16)
 
 
