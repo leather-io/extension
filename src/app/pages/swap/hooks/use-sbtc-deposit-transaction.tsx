@@ -31,6 +31,7 @@ import {
   determineUtxosForSpend,
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
+import { serializeError } from '@app/common/utils';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
@@ -198,6 +199,9 @@ export function useSbtcDepositTransaction(signer: BitcoinSigner<P2Ret>, utxos: U
         setIsIdle();
         logger.error(`Deposit error: ${error}`);
         void analytics.untypedTrack('bitcoin_swap_failed', { error });
+        return navigate(RouteUrls.SwapError, {
+          state: { title: 'sBTC Bridge error', message: serializeError(error).message },
+        });
       } finally {
         setIsIdle();
       }
