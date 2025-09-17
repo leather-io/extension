@@ -23,7 +23,7 @@ export function TransactionTitle(props: TransactionTitleProps) {
   useOnResizeListener(onResize);
 
   return (
-    <BasicTooltip disabled={!isEllipsisActive} label={title} side="top">
+    <BasicTooltip asChild disabled={!isEllipsisActive} label={title} side="top">
       <Title
         overflow="hidden"
         ref={ref}

@@ -180,16 +180,15 @@ export function useSbtcDepositTransaction(signer: BitcoinSigner<P2Ret>, utxos: U
         const signedDepositTx = await sign(deposit.transaction.toPSBT());
         signedDepositTx.finalize();
 
-        logger.info('Deposit', { deposit });
+        logger.info('Deposit', deposit);
 
         const txid = await client.broadcastTx(signedDepositTx);
         logger.info('Broadcasted tx', txid);
 
         const amount = deposit.transaction.getOutput(0).amount;
 
-        if (amount) {
+        if (amount)
           void analytics.untypedTrack('bitcoin_swap_succeeded', { amount: Number(amount) });
-        }
 
         await client.notifySbtc(deposit);
         toast.success('Transaction submitted!');
@@ -200,7 +199,7 @@ export function useSbtcDepositTransaction(signer: BitcoinSigner<P2Ret>, utxos: U
         logger.error(`Deposit error: ${error}`);
         void analytics.untypedTrack('bitcoin_swap_failed', { error });
         return navigate(RouteUrls.SwapError, {
-          state: { title: 'sBTC Bridge error', message: serializeError(error).message },
+          state: { title: 'sBTC swap error', message: serializeError(error).message },
         });
       } finally {
         setIsIdle();
