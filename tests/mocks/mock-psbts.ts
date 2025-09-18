@@ -1,4 +1,4 @@
-import { mockInscription1, mockInscription2 } from './mock-inscriptions';
+import { mockInscription1, mockInscription2 } from '@leather.io/query';
 
 export const mockPsbtInputs1 = [
   {

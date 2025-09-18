@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { analytics } from '@shared/utils/analytics';
 
 import { parseIfValidPunycode } from '@app/common/utils';
+// FIXME  - Alexs query to be used here
 import { useGetBnsNamesOwnedByAddressQuery } from '@app/query/stacks/bns/bns.query';
 import { useStacksNonFungibleTokensMetadata } from '@app/query/stacks/token-metadata/non-fungible-tokens/non-fungible-token-metadata.hooks';
 
@@ -25,7 +26,8 @@ export function StacksCryptoAssets({ address }: StacksCryptoAssetsProps) {
       void analytics.client.identify({ stacks_nfts_count: stacksNftsMetadataResp.length });
     }
   }, [stacksNftsMetadataResp.length]);
-
+  // need to figure out what this is all about
+  // maybe this is the code to stop repeating BNS collectibles?
   function hideBnsCollectible(name: string) {
     return bnsNames?.includes(name) || name === 'BNS - Archive';
   }
