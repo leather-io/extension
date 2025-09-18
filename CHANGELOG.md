@@ -1,3 +1,47 @@
+## [6.73.3](https://github.com/leather-io/extension/compare/v6.73.2...v6.73.3) (2025-09-17)
+
+
+### Bug Fixes
+
+* nested button error ([4f568f8](https://github.com/leather-io/extension/commit/4f568f8253f99a92342b632d221570d4d2f9d1ee))
+* **sbtc:** navigate to error page ([9a6a5ad](https://github.com/leather-io/extension/commit/9a6a5ad27ed91ba45483e84cc9b90e6ace252633))
+* **sbtc:** passing non-finalized tx ([bd7c3dd](https://github.com/leather-io/extension/commit/bd7c3dd7c3c5f9917901f35d43025fab64d482b2))
+* **sbtc:** use leather client for signer key fetch ([354bb4e](https://github.com/leather-io/extension/commit/354bb4e0700046daefd7468ad205d3bd61d6d668))
+
+
+### Internal
+
+* post-release merge back ([04d3cde](https://github.com/leather-io/extension/commit/04d3cdeaf48d13623458fe3092a77004fadce068))
+
+## [6.73.2](https://github.com/leather-io/extension/compare/v6.73.1...v6.73.2) (2025-09-16)
+
+
+### Bug Fixes
+
+* remove old sbtc withdrawal warning ([1c2d8a2](https://github.com/leather-io/extension/commit/1c2d8a2fa8998f544bf04a252a04c0250147f98f))
+
+
+### Internal
+
+* post-release merge back ([bee7771](https://github.com/leather-io/extension/commit/bee77714b91ab00c3f622d4b71166cd7b060f47e))
+* react 19.1 ([94d07ad](https://github.com/leather-io/extension/commit/94d07ad3114822ac2192e328cd1bcec0163179cb))
+
+## [6.73.1](https://github.com/leather-io/extension/compare/v6.73.0...v6.73.1) (2025-09-15)
+
+
+### Bug Fixes
+
+* **ledger:** sbtc deposit ([300f825](https://github.com/leather-io/extension/commit/300f825d5db8702b6f9346063fb1522584759d76))
+* **ledger:** sbtc incompatibility ([2ea461a](https://github.com/leather-io/extension/commit/2ea461ad6824175661052147f7c6a1712a374b3d))
+* **ledger:** sbtc routing ([713a28e](https://github.com/leather-io/extension/commit/713a28e5ed194844f78db6f90b6752c49f99a015))
+* sbtc analytics ([80c306b](https://github.com/leather-io/extension/commit/80c306bde1dd492f123c95ebd3937a02284c213e))
+* **swap:** max swap amount ([2a74501](https://github.com/leather-io/extension/commit/2a74501c94b826f3bd382587c32d9292bc1bed73))
+
+
+### Internal
+
+* post-release merge back ([3f23672](https://github.com/leather-io/extension/commit/3f236721eb6a6f0bea700969e212db94df531337))
+
 ## [6.73.0](https://github.com/leather-io/extension/compare/v6.72.2...v6.73.0) (2025-09-09)
 
 

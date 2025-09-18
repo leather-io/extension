@@ -51,6 +51,8 @@ function generateSwapRoutes({ chain, container, review }: GenerateSwapRoutesArgs
       <Route path={constructSwapRoute({ chain, route: RouteUrls.Swap })} element={<Swap />}>
         <Route path={RouteUrls.SwapAssetSelectBase} element={<SwapAssetSheetBase />} />
         <Route path={RouteUrls.SwapAssetSelectQuote} element={<SwapAssetSheetQuote />} />
+        {ledgerBitcoinTxSigningRoutes}
+        {ledgerStacksTxSigningRoutes}
       </Route>
       <Route path={RouteUrls.SwapError} element={<SwapError />} />
       <Route path={constructSwapRoute({ chain, route: RouteUrls.SwapReview })} element={review}>

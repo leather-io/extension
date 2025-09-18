@@ -40,16 +40,21 @@ export function useLedgerNavigate() {
         inputsToSign?: BitcoinInputSigningConfig[],
         fromLocation?: typeof location
       ) {
-        return navigate(RouteUrls.ConnectLedger, {
-          replace: true,
-          relative: 'route',
-          state: {
-            tx: bytesToHex(psbt),
-            inputsToSign,
-            backgroundLocation: { pathname: RouteUrls.Home },
-            fromLocation,
-          },
-        });
+        return navigate(
+          location.pathname.includes('/swap/bitcoin')
+            ? `${location.pathname}/${RouteUrls.ConnectLedger}`
+            : RouteUrls.ConnectLedger,
+          {
+            replace: true,
+            relative: 'route',
+            state: {
+              tx: bytesToHex(psbt),
+              inputsToSign,
+              backgroundLocation: { pathname: RouteUrls.Home },
+              fromLocation,
+            },
+          }
+        );
       },
 
       toConnectAndSignMessageStep(message: UnsignedMessage) {
