@@ -19,13 +19,13 @@ const promoCards = [
   },
   {
     eventName: 'stacking',
-    message: 'Lock STX, earn BTC. 6–10% historical yields',
+    message: 'Lock STX, earn BTC',
     imgSrc: 'assets/illustrations/promo-banner-stacking.svg',
     linkUrl: 'https://app.leather.io/stacking',
   },
   {
     eventName: 'sbtc',
-    message: 'Grow your BTC up to 8% with direct wallet payouts',
+    message: 'Grow your sBTC',
     imgSrc: 'assets/illustrations/promo-banner-sbtc.svg',
     linkUrl: 'https://app.leather.io/sbtc',
   },
@@ -36,6 +36,8 @@ export function PromoBanner() {
   const [promoIndexes, setPromoIndexes] = useState<number[]>([]);
   const { dismissPromo, dismissedPromoIndexes } = usePromos();
   const shouldDisplayPromoCard = useConfigPromoCardEnabled();
+
+  // console.log('shouldDisplayPromoCard', shouldDisplayPromoCard);
 
   useOnMount(() => {
     if (promoCards.length > 0 && promoIndexes.length === 0) {
