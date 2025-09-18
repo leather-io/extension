@@ -21,7 +21,6 @@ import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
   createConnectingAppSearchParamsWithLastKnownAccount,
-  getTabIdFromPort,
   sendErrorResponseOnUserPopupClose,
   triggerRequestPopupWindowOpen,
 } from '../rpc-request-utils';
@@ -29,13 +28,13 @@ import {
 async function handleRpcSignStacksMessage(
   method: 'stx_signMessage' | 'stx_signStructuredMessage',
   request: RpcRequest<typeof stxSignMessage> | RpcRequest<typeof stxSignStructuredMessage>,
-  port: chrome.runtime.Port,
+  sender: chrome.runtime.MessageSender,
+  sendResponse: (response: any) => void,
   requestParams: RequestParams
 ) {
   if (isUndefined(request.params)) {
     void trackRpcRequestError({ endpoint: method, error: 'Undefined parameters' });
-    chrome.tabs.sendMessage(
-      getTabIdFromPort(port),
+    sendResponse(
       createRpcErrorResponse(method, {
         id: request.id,
         error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
@@ -46,8 +45,7 @@ async function handleRpcSignStacksMessage(
 
   if (!validateRpcSignStacksMessageParams(request.params)) {
     void trackRpcRequestError({ endpoint: method, error: 'Invalid parameters' });
-    chrome.tabs.sendMessage(
-      getTabIdFromPort(port),
+    sendResponse(
       createRpcErrorResponse(method, {
         id: request.id,
         error: {
@@ -62,7 +60,7 @@ async function handleRpcSignStacksMessage(
   void trackRpcRequestSuccess({ endpoint: method });
 
   const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(
-    port,
+    sender,
     requestParams
   );
 
@@ -71,7 +69,7 @@ async function handleRpcSignStacksMessage(
 }
 export const stxSignMessageHandler = defineRpcRequestHandler(
   stxSignMessage.method,
-  async (request, port) => {
+  async (request, sender, sendResponse) => {
     const requestParams: RequestParams = [
       ['message', request.params.message],
       ['messageType', request.params.messageType ?? 'utf8'],
@@ -89,13 +87,13 @@ export const stxSignMessageHandler = defineRpcRequestHandler(
       ]);
     }
 
-    return handleRpcSignStacksMessage(request.method, request, port, requestParams);
+    return handleRpcSignStacksMessage(request.method, request, sender, sendResponse, requestParams);
   }
 );
 
 export const stxSignStructuredMessageHandler = defineRpcRequestHandler(
   stxSignStructuredMessage.method,
-  async (request, port) => {
+  async (request, sender, sendResponse) => {
     const requestParams: RequestParams = [
       ['requestId', request.id],
       ['messageType', 'structured'],
@@ -113,6 +111,6 @@ export const stxSignStructuredMessageHandler = defineRpcRequestHandler(
       ],
     ];
 
-    return handleRpcSignStacksMessage(request.method, request, port, requestParams);
+    return handleRpcSignStacksMessage(request.method, request, sender, sendResponse, requestParams);
   }
 );

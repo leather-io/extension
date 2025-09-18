@@ -45,7 +45,7 @@ import {
 } from './rpc-stx-sign-transaction.utils';
 
 export function RpcStxSignTransaction() {
-  const { address, isLoadingBalance, requestId, tabId } = useStacksRpcTransactionRequestContext();
+  const { address, isLoadingBalance, requestId } = useStacksRpcTransactionRequestContext();
   const {
     availableBalance,
     isLoadingFees,
@@ -81,8 +81,7 @@ export function RpcStxSignTransaction() {
     const signedTransaction = await signStacksTx(unsignedTxForBroadcast);
 
     if (!signedTransaction) {
-      chrome.tabs.sendMessage(
-        tabId,
+      chrome.runtime.sendMessage(
         createRpcErrorResponse('stx_signTransaction', {
           id: requestId,
           error: {
@@ -94,8 +93,7 @@ export function RpcStxSignTransaction() {
       throw new Error('Error signing stacks transaction');
     }
 
-    chrome.tabs.sendMessage(
-      tabId,
+    chrome.runtime.sendMessage(
       createRpcSuccessResponse('stx_signTransaction', {
         id: requestId,
         result: {

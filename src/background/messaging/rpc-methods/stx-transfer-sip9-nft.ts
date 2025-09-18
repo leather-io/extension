@@ -19,17 +19,18 @@ import {
 
 export const stxTransferSip9NftHandler = defineRpcRequestHandler(
   stxTransferSip9Nft.method,
-  async (request, port) => {
+  async (request, sender, sendResponse) => {
     const { id: requestId, method, params } = request;
     const { status } = validateRequestParams({
       id: requestId,
       method,
       params,
-      port,
+      sender,
+      sendResponse,
       schema: stxTransferSip9Nft.params,
     });
     if (status === 'failure') return;
-    const { tabId, urlParams } = await createConnectingAppSearchParamsWithLastKnownAccount(port, [
+    const { tabId, urlParams } = await createConnectingAppSearchParamsWithLastKnownAccount(sender, [
       ['requestId', request.id],
       ['rpcRequest', encodeBase64Json(request)],
     ]);

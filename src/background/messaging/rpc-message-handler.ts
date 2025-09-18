@@ -24,9 +24,19 @@ import { stxTransferSip9NftHandler } from './rpc-methods/stx-transfer-sip9-nft';
 import { stxTransferSip10FtHandler } from './rpc-methods/stx-transfer-sip10-ft';
 import { stxTransferStxHandler } from './rpc-methods/stx-transfer-stx';
 import { supportedMethodsHandler } from './rpc-methods/supported-methods';
-import { getTabIdFromPort, listenForOriginTabClose } from './rpc-request-utils';
+import {
+  createRpcResponder,
+  listenAndForwardRpcRequest,
+  listenForOriginTabClose,
+} from './rpc-request-utils';
 
-type RpcHandler<T> = (request: T, port: chrome.runtime.Port) => Promise<void> | void;
+type RpcResponseSender = (response: any) => void;
+
+type RpcHandler<T> = (
+  request: T,
+  sender: chrome.runtime.MessageSender,
+  sendResponse: RpcResponseSender
+) => Promise<void> | void;
 
 type RpcHandlers = {
   [Method in keyof RpcEndpointMap]: RpcHandler<RpcEndpointMap[Method]['request']>;
@@ -48,8 +58,11 @@ export function defineRpcRequestHandler<M extends RpcRequests['method']>(
   return [method, handler] as const;
 }
 
-export async function rpcMessageHandler(request: RpcRequests, port: chrome.runtime.Port) {
-  listenForOriginTabClose({ tabId: port.sender?.tab?.id });
+export async function rpcMessageHandler(
+  request: RpcRequests,
+  sender: chrome.runtime.MessageSender
+) {
+  listenForOriginTabClose({ tabId: sender?.tab?.id });
 
   logger.info(`Received RPC request ${request.method}`, request);
 
@@ -58,10 +71,14 @@ export async function rpcMessageHandler(request: RpcRequests, port: chrome.runti
   // one. Type safety is guaranteed by `registerRpcRequestHandler`
   const handler = rpcHandlers[request.method] as RpcHandler<any>;
 
-  if (handler) return await handler(request, port);
+  const sendMessage = createRpcResponder(sender);
 
-  chrome.tabs.sendMessage(
-    getTabIdFromPort(port),
+  if (handler) {
+    listenAndForwardRpcRequest(request.id, sendMessage);
+    return await handler(request, sender, sendMessage);
+  }
+
+  sendMessage(
     createRpcErrorResponse(request.method, {
       id: request.id,
       error: {

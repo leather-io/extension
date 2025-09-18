@@ -20,8 +20,7 @@ import { useRpcSendTransferContext } from './rpc-send-transfer.context';
 
 export function useRpcSendTransferActions() {
   const { availableBalance, selectedFee } = useFeeEditorContext();
-  const { amount, isLoadingBalance, recipients, requestId, tabId, utxos } =
-    useRpcSendTransferContext();
+  const { amount, isLoadingBalance, recipients, requestId, utxos } = useRpcSendTransferContext();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isBroadcasting, setIsBroadcasting] = useState(false);
   const generateTx = useGenerateUnsignedNativeSegwitTx({ throwError: true });
@@ -71,8 +70,7 @@ export function useRpcSendTransferActions() {
               amount: amount.amount.toNumber(),
             });
 
-            chrome.tabs.sendMessage(
-              tabId ?? 0,
+            chrome.runtime.sendMessage(
               createRpcSuccessResponse('sendTransfer', {
                 id: requestId,
                 result: { txid },
@@ -114,7 +112,6 @@ export function useRpcSendTransferActions() {
     signTransaction,
     broadcastTx,
     utxosOfSpendableInscriptions,
-    tabId,
     requestId,
   ]);
 

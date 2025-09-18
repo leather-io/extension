@@ -1,6 +1,6 @@
 import { logger } from '@shared/logger';
 import { InternalMethods } from '@shared/message-types';
-import { BackgroundMessages } from '@shared/messages';
+import type { BackgroundMessages } from '@shared/messages';
 
 import { syncAddressMonitor } from '@background/monitors/address-monitor';
 
@@ -44,7 +44,7 @@ export async function internalBackgroundMessageHandler(
       break;
   }
 
-  if (message.method.includes('bitcoinKeys/signOut')) {
+  if ('method' in message && (message as any).method === 'bitcoinKeys/signOut') {
     await syncAddressMonitor([]);
   }
 
