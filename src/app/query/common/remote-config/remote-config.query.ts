@@ -13,34 +13,30 @@ import {
 import { getPrincipalFromAssetString } from '@leather.io/stacks';
 import { createMoney, isUndefined } from '@leather.io/utils';
 
+import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
+import { IS_DEV_ENV, IS_TEST_ENV } from '@shared/environment';
+
 import { useWalletType } from '@app/common/use-wallet-type';
-import {
-  type LeatherEnvironment,
-  useLeatherEnv,
-  useLeatherGithub,
-} from '@app/query/leather-query-provider';
 import { useHasCurrentBitcoinAccount } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
+import walletConfig from '../../../../../config/wallet-config.json';
+
 export { ActiveFiatProvider, AvailableRegions, HiroMessage } from '@leather.io/query';
 
-function fetchLeatherMessages(env: string, leatherGh: LeatherEnvironment['github']) {
-  const IS_DEV_ENV = env === 'development';
-  const IS_TESTING_ENV = env === 'testing';
+async function fetchLeatherConfig(): Promise<RemoteConfig> {
   // TODO: BRANCH_NAME is not working here for config changes on PR branches
   // Playwright tests fail with config changes not on main
-  const defaultBranch = IS_DEV_ENV || IS_TESTING_ENV ? 'dev' : 'main';
-  const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${leatherGh.org}/${leatherGh.repo}/${
-    leatherGh.branchName || defaultBranch
+  const defaultBranch = IS_DEV_ENV || IS_TEST_ENV ? 'dev' : 'main';
+  const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG}/${GITHUB_REPO}/${
+    defaultBranch
   }/config/wallet-config.json`;
 
-  return async function fetchLeatherMessagesImpl(): Promise<RemoteConfig> {
-    if (leatherGh.localConfig && (IS_DEV_ENV || IS_TESTING_ENV)) {
-      return leatherGh.localConfig;
-    }
-    const resp = await axios.get(githubWalletConfigRawUrl);
-    return resp.data;
-  };
+  if (walletConfig && (IS_DEV_ENV || IS_TEST_ENV)) {
+    return walletConfig as RemoteConfig;
+  }
+  const resp = await axios.get(githubWalletConfigRawUrl);
+  return resp.data;
 }
 
 export function useConfigBitcoinEnabled() {
@@ -105,12 +101,10 @@ export function useConfigSbtc() {
 }
 
 function useRemoteConfig() {
-  const env = useLeatherEnv();
-  const leatherGh = useLeatherGithub();
   const { data } = useQuery({
     queryKey: ['walletConfig'],
-    queryFn: fetchLeatherMessages(env, leatherGh),
-    initialData: leatherGh.localConfig,
+    queryFn: () => fetchLeatherConfig(),
+    // initialData: walletConfig as RemoteConfig,
     // As we're fetching from Github, a third-party, we want
     // to avoid any unnecessary stress on their services, so
     // we use quite slow stale/retry times
