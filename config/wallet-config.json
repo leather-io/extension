@@ -181,5 +181,5 @@
       "max": 2000000
     }
   },
-  "promoCardEnabled": false
+  "promoCardEnabled": true
 }
