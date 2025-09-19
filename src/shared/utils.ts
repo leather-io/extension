@@ -25,3 +25,12 @@ export function getAddressFromAssetString(assetString: string) {
   const principal = getPrincipalFromAssetString(assetString);
   return principal.split('.')[0];
 }
+
+export function safeCall<T>(fn: () => T): [T, null] | [null, unknown] {
+  try {
+    const result = fn();
+    return [result, null];
+  } catch (error) {
+    return [null, error];
+  }
+}

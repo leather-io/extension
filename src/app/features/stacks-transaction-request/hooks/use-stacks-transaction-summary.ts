@@ -97,7 +97,7 @@ export function useStacksTransactionSummary(token: CryptoCurrency) {
     return isSome ? serializeCV(payload.functionArgs[3]) : noMemoText;
   }
 
-  function formSip10TxSummary(tx: StacksTransactionWire, symbol: string, decimals = 6) {
+  function formSip10TxSummary(tx: StacksTransactionWire, symbol: string, decimals: number) {
     const payload = tx.payload as ContractCallPayload;
     const fee = tx.auth.spendingCondition.fee;
     const txValue = Number((payload.functionArgs[0] as IntCV).value);

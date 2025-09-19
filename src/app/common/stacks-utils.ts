@@ -1,4 +1,5 @@
 import { ChainId } from '@stacks/network';
+import type { MempoolTransaction, Transaction } from '@stacks/stacks-blockchain-api-types';
 import { type ContractIdString, parseContractId } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 import { c32addressDecode } from 'c32check';

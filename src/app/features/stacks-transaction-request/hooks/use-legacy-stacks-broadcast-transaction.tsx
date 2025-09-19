@@ -73,7 +73,7 @@ export function useStacksBroadcastTransaction({
       if (txId) {
         void navigate(
           RouteUrls.SentStxTxSummary.replace(':symbol', token.toLowerCase()).replace(
-            ':txId',
+            ':txid',
             `${txId}`
           ),
           formSentSummaryTxState ? formSentSummaryTxState(txId, signedTx, decimals) : {}
