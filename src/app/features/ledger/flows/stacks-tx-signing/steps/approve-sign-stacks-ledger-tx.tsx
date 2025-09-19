@@ -5,7 +5,7 @@ import { BigNumber } from 'bignumber.js';
 
 import { microStxToStx } from '@leather.io/utils';
 
-import { isSip10Transfer } from '@app/common/transactions/stacks/is-sip-10-transfer';
+import { isSip10Transfer } from '@app/common/transactions/stacks/transaction.utils';
 import { useLedgerTxSigningContext } from '@app/features/ledger/generic-flows/tx-signing/ledger-sign-tx.context';
 import { ApproveLedgerOperationLayout } from '@app/features/ledger/generic-steps/approve-ledger-operation/approve-ledger-operation.layout';
 import { useHasApprovedOperation } from '@app/features/ledger/hooks/use-has-approved-transaction';

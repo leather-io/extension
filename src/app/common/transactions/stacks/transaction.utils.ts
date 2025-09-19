@@ -1,21 +1,28 @@
 import type { StacksNetwork } from '@stacks/network';
 import {
   CoinbaseTransaction,
+  type MempoolTransaction,
+  type Transaction,
   TransactionEventFungibleAsset,
 } from '@stacks/stacks-blockchain-api-types';
 import {
   AddressHashMode,
   AuthType,
+  type ContractCallPayload,
   StacksTransactionWire,
   addressFromVersionHash,
   addressHashModeToVersion,
   addressToString,
+  cvToString,
+  deserializeCV,
 } from '@stacks/transactions';
 import { BigNumber } from 'bignumber.js';
 
 import { StacksTx, StacksTxStatus } from '@leather.io/models';
 import { getStacksContractName } from '@leather.io/stacks';
 import { truncateMiddle } from '@leather.io/utils';
+
+import { safeCall } from '@shared/utils';
 
 import { stacksValue } from '@app/common/stacks-utils';
 import { getStacksNetworkFromChainId } from '@app/store/networks/networks.hooks';
@@ -126,4 +133,37 @@ export enum StacksTransactionActionType {
   Cancel = 'cancel',
   IncreaseFee = 'increase-fee',
   RpcRequest = 'rpc-request',
+}
+
+export function getRecipientFromStacksTransaction(transaction: MempoolTransaction | Transaction) {
+  switch (transaction.tx_type) {
+    case 'token_transfer':
+      return transaction.token_transfer.recipient_address;
+    case 'contract_call': {
+      const sip10RecipientArg = transaction.contract_call?.function_args?.[2];
+      if (!sip10RecipientArg) return null;
+      const [result] = safeCall(() => cvToString(deserializeCV(sip10RecipientArg.hex)));
+      return result;
+    }
+    default:
+      return null;
+  }
+}
+
+// function getTokenSymbolFromTransaction(transaction: MempoolTransaction | Transaction) {
+//   if (transaction.tx_type === 'token_transfer') return 'STX';
+//   if (transaction.tx_type === 'contract_call') {
+//     // transaction.contract_call
+//   }
+// }
+
+export function isSip10Transfer(
+  tx: StacksTransactionWire
+): tx is StacksTransactionWire & { payload: ContractCallPayload } {
+  if (!tx.payload || !('functionName' in tx.payload)) return false;
+  const payload = tx.payload;
+  return (
+    payload.functionName.content === 'transfer' &&
+    (payload.functionArgs.length === 3 || payload.functionArgs.length === 4)
+  );
 }
