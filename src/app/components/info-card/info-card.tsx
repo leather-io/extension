@@ -3,8 +3,11 @@ import { ComponentType, ReactNode } from 'react';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, BoxProps, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
+import type { Money } from '@leather.io/models';
 import { Button, DashedHr } from '@leather.io/ui';
 import { isString } from '@leather.io/utils';
+
+import { formatCurrency } from '@app/common/currency-formatter';
 
 interface InfoCardRowProps {
   title?: string;
@@ -42,7 +45,7 @@ export function InfoCardSeparator() {
 
 // InfoCardAssetValue
 interface InfoCardAssetValueProps extends BoxProps {
-  value: number;
+  value: Money | string;
   fiatValue?: string;
   fiatSymbol?: string;
   symbol?: string;
@@ -56,7 +59,7 @@ export function InfoCardAssetValue({
   icon,
   ...props
 }: InfoCardAssetValueProps) {
-  const displayValue = `${value}\u00A0${symbol}`;
+  const displayValue = isString(value) ? `${value}\u00A0${symbol}` : formatCurrency(value);
   const fiatDisplayValue = `~ ${fiatValue}\u00A0${fiatSymbol}`;
 
   return (
