@@ -13,10 +13,8 @@ export function useGetTransactionByIdListQuery(txids: string[]) {
   const client = useStacksClient();
 
   return useQueries({
-    queries: txids.map(txid => {
-      return {
-        ...createGetTransactionByIdQueryOptions({ client, txid }),
-      };
-    }),
+    queries: txids.map(txid => ({
+      ...createGetTransactionByIdQueryOptions({ client, txid }),
+    })),
   });
 }

@@ -21,15 +21,12 @@ import { useToast } from '@app/features/toasts/use-toast';
 import { useTransactionRequest } from '@app/store/transactions/requests.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
 
-import { useStacksTransactionSummary } from './use-stacks-transaction-summary';
-
 async function simulateShortDelayToAvoidUndefinedTabId() {
   await delay(1000);
 }
 
 interface UseStacksBroadcastTransactionArgs {
   actionType?: StacksTransactionActionType;
-  decimals?: number;
   token: CryptoCurrency;
 }
 /**
@@ -37,14 +34,13 @@ interface UseStacksBroadcastTransactionArgs {
  */
 export function useStacksBroadcastTransaction({
   actionType,
-  decimals,
   token,
 }: UseStacksBroadcastTransactionArgs) {
   const signStacksTransaction = useSignStacksTransaction();
   const [isBroadcasting, setIsBroadcasting] = useState(false);
   const { tabId } = useDefaultRequestParams();
   const requestToken = useTransactionRequest();
-  const { formSentSummaryTxState } = useStacksTransactionSummary(token);
+
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -73,10 +69,10 @@ export function useStacksBroadcastTransaction({
       if (txId) {
         void navigate(
           RouteUrls.SentStxTxSummary.replace(':symbol', token.toLowerCase()).replace(
-            ':txId',
+            ':txid',
             `${txId}`
           ),
-          formSentSummaryTxState ? formSentSummaryTxState(txId, signedTx, decimals) : {}
+          { state: { tx: stacksTransactionToHex(signedTx) } }
         );
       }
     }
@@ -141,8 +137,6 @@ export function useStacksBroadcastTransaction({
     showSummaryPage,
     navigate,
     token,
-    formSentSummaryTxState,
-    decimals,
     toast,
     broadcastTransactionFn,
     signStacksTransaction,
