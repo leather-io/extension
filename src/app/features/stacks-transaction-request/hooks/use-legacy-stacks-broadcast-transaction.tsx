@@ -28,6 +28,7 @@ async function simulateShortDelayToAvoidUndefinedTabId() {
 interface UseStacksBroadcastTransactionArgs {
   actionType?: StacksTransactionActionType;
   token: CryptoCurrency;
+  redirectToSuccessPage?: boolean;
 }
 /**
  * @deprecated Use new version from `@app/common/transactions/stacks`
@@ -35,6 +36,7 @@ interface UseStacksBroadcastTransactionArgs {
 export function useStacksBroadcastTransaction({
   actionType,
   token,
+  redirectToSuccessPage,
 }: UseStacksBroadcastTransactionArgs) {
   const signStacksTransaction = useSignStacksTransaction();
   const [isBroadcasting, setIsBroadcasting] = useState(false);
@@ -55,22 +57,22 @@ export function useStacksBroadcastTransaction({
   });
 
   return useMemo(() => {
-    function handlePreviewSuccess(signedTx: StacksTransactionWire, txId?: string) {
+    function handlePreviewSuccess(signedTx: StacksTransactionWire, txid?: string) {
       if (requestToken && tabId) {
         finalizeTxSignature({
           requestPayload: requestToken,
           tabId,
           data: {
             txRaw: stacksTransactionToHex(signedTx),
-            txId,
+            txId: txid,
           },
         });
       }
-      if (txId) {
+      if (txid && redirectToSuccessPage) {
         void navigate(
           RouteUrls.SentStxTxSummary.replace(':symbol', token.toLowerCase()).replace(
             ':txid',
-            `${txId}`
+            `${txid}`
           ),
           { state: { tx: stacksTransactionToHex(signedTx) } }
         );
@@ -132,13 +134,14 @@ export function useStacksBroadcastTransaction({
     isBroadcasting,
     requestToken,
     tabId,
-    isCancelTransaction,
-    isIncreaseFeeTransaction,
-    showSummaryPage,
+    redirectToSuccessPage,
     navigate,
     token,
     toast,
     broadcastTransactionFn,
+    showSummaryPage,
+    isCancelTransaction,
+    isIncreaseFeeTransaction,
     signStacksTransaction,
   ]);
 }

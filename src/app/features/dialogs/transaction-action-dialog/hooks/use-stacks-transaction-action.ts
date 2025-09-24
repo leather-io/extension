@@ -32,6 +32,7 @@ export function useStacksTransactionAction({ actionType, txid }: UseStacksTransa
   const { stacksBroadcastTransaction, isBroadcasting } = useStacksBroadcastTransaction({
     token: 'STX',
     actionType,
+    redirectToSuccessPage: true,
   });
 
   const stacksAddress = useCurrentStacksAccountAddress();

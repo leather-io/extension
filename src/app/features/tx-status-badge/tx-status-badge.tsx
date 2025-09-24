@@ -17,7 +17,7 @@ export function TxStatusBadge({ txid }: { txid: string }) {
     },
   });
 
-  if (data?.tx_status === 'pending')
+  if (!data || data?.tx_status === 'pending')
     return (
       <Badge
         label="In mempool"
