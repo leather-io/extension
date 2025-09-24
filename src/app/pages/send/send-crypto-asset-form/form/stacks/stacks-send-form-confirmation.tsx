@@ -3,7 +3,6 @@ import { Outlet, useParams } from 'react-router';
 import { deserializeTransaction, isTokenTransferPayload } from '@stacks/transactions';
 import { Box, Stack } from 'leather-styles/jsx';
 
-import type { CryptoCurrency } from '@leather.io/models';
 import { InfoCircleIcon } from '@leather.io/ui';
 import { baseCurrencyAmountInQuote, sumMoney } from '@leather.io/utils';
 
@@ -42,7 +41,8 @@ export function StacksSendFormConfirmation() {
   const { symbol = 'STX' } = useParams();
 
   const { stacksBroadcastTransaction, isBroadcasting } = useStacksBroadcastTransaction({
-    token: symbol.toUpperCase() as CryptoCurrency,
+    token: symbol.toUpperCase(),
+    redirectToSuccessPage: true,
   });
 
   const tx = deserializeTransaction(txHex);
