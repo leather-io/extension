@@ -2,6 +2,8 @@ import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persi
 import { QueryCache, QueryClient } from '@tanstack/react-query';
 import { persistQueryClient } from '@tanstack/react-query-persist-client';
 import { isAxiosError } from 'axios';
+import { BigNumber } from 'bignumber.js';
+import superjson from 'superjson';
 import { ZodError } from 'zod';
 
 import { PERSISTENCE_CACHE_TIME } from '@leather.io/constants';
@@ -9,6 +11,15 @@ import { PERSISTENCE_CACHE_TIME } from '@leather.io/constants';
 import { IS_TEST_ENV } from '@shared/environment';
 import { logger } from '@shared/logger';
 import { analytics } from '@shared/utils/analytics';
+
+superjson.registerCustom<BigNumber, string>(
+  {
+    isApplicable: (v): v is BigNumber => v instanceof BigNumber,
+    serialize: v => v.toString(),
+    deserialize: v => new BigNumber(v),
+  },
+  'BigNumber'
+);
 
 const storage = {
   getItem: async (key: string) => {
@@ -19,7 +30,11 @@ const storage = {
   removeItem: (key: string) => chrome.storage.local.remove([key]),
 };
 
-const chromeStorageLocalPersister = createAsyncStoragePersister({ storage });
+const chromeStorageLocalPersister = createAsyncStoragePersister({
+  storage,
+  serialize: superjson.stringify,
+  deserialize: superjson.parse,
+});
 
 function isZodError(error: Error): error is ZodError {
   // `instanceof` check doesn't work when ZodError thrown from within a package
