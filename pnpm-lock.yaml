@@ -376,6 +376,9 @@ importers:
       style-loader:
         specifier: 3.3.4
         version: 3.3.4(webpack@5.94.0(@swc/core@1.13.5)(esbuild@0.25.0)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@5.2.1)(webpack@5.94.0)))
+      superjson:
+        specifier: 2.2.2
+        version: 2.2.2
       ts-debounce:
         specifier: 4.0.0
         version: 4.0.0
@@ -7726,6 +7729,10 @@ packages:
     resolution: {integrity: sha512-9Kr/j4O16ISv8zBBhJoi4bXOYNTkFLOqSL3UDB0njXxCXNezjeyVrJyGOWtgfs/q2km1gwBcfH8q1yEGoMYunA==}
     engines: {node: '>=18'}
 
+  copy-anything@3.0.5:
+    resolution: {integrity: sha512-yCEafptTtb4bk7GLEQoM8KVJpxAfdBJYaXyzQEgQQQgYrZiDp8SJmGKlYza6CYjEDNstAdNdKA3UuoULlEbS6w==}
+    engines: {node: '>=12.13'}
+
   copy-webpack-plugin@12.0.2:
     resolution: {integrity: sha512-SNwdBeHyII+rWvee/bTnAYyO8vfVdcSTud4EIb6jcZ8inLeWucJE0DnxXQBjlQ5zlteuuvooGQy3LIyGxhvlOA==}
     engines: {node: '>= 18.12.0'}
@@ -13656,6 +13663,10 @@ packages:
     resolution: {integrity: sha512-MvjXzkz/BOfyVDkG0oFOtBxHX2u3gKbMHIF/dXblZsgD3BWOFLmHovIpZY7BykJdAjcqRCBi1WYBNdEC9yI7vg==}
     engines: {node: '>= 8.0'}
 
+  superjson@2.2.2:
+    resolution: {integrity: sha512-5JRxVqC8I8NuOUjzBbvVJAKNM8qoVuH0O77h4WInc/qC2q5IreqKxYwgkga3PfA22OayK2ikceb/B26dztPl+Q==}
+    engines: {node: '>=16'}
+
   supports-color@5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
     engines: {node: '>=4'}
@@ -17095,9 +17106,9 @@ snapshots:
 
   '@expo/sudo-prompt@9.3.2': {}
 
-  '@expo/vector-icons@14.1.0(expo-font@13.3.1(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0)':
+  '@expo/vector-icons@14.1.0(expo-font@13.3.1(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0)':
     dependencies:
-      expo-font: 13.3.1(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react@19.0.0)
+      expo-font: 13.3.1(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react@19.1.1)
       react: 19.0.0
       react-native: 0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.0.0)
 
@@ -17523,7 +17534,7 @@ snapshots:
 
   '@leather.io/ui@1.82.0(@babel/core@7.28.4)(@emotion/is-prop-valid@1.4.0)(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(@vue/compiler-sfc@3.4.19)(graphql@16.11.0)':
     dependencies:
-      '@expo/vector-icons': 14.1.0(expo-font@13.3.1(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0)
+      '@expo/vector-icons': 14.1.0(expo-font@13.3.1(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0)
       '@gorhom/bottom-sheet': 5.1.4(@types/react@19.1.13)(react-native-gesture-handler@2.24.0(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react-native-reanimated@3.17.5(@babel/core@7.28.4)(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.0.0))(react@19.0.0)
       '@leather.io/prettier-config': 0.8.1(@vue/compiler-sfc@3.4.19)
       '@leather.io/tokens': 0.23.0
@@ -17536,7 +17547,7 @@ snapshots:
       expo-asset: 11.1.5(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0)
       expo-blur: 14.1.4(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.0.0))(react@19.0.0)
       expo-constants: 17.1.6(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))
-      expo-font: 13.3.1(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react@19.0.0)
+      expo-font: 13.3.1(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react@19.1.1)
       expo-haptics: 14.1.4(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))
       expo-image: 2.1.7(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.0.0))(react@19.0.0)
       expo-linear-gradient: 14.1.4(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.0.0))(react@19.0.0)
@@ -23906,6 +23917,10 @@ snapshots:
 
   cookie@1.0.2: {}
 
+  copy-anything@3.0.5:
+    dependencies:
+      is-what: 4.1.16
+
   copy-webpack-plugin@12.0.2(webpack@5.94.0(@swc/core@1.13.5)(esbuild@0.25.0)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@5.2.1)(webpack@5.94.0))):
     dependencies:
       fast-glob: 3.3.3
@@ -25363,6 +25378,12 @@ snapshots:
       fontfaceobserver: 2.3.0
       react: 19.0.0
 
+  expo-font@13.3.1(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react@19.1.1):
+    dependencies:
+      expo: 53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1)
+      fontfaceobserver: 2.3.0
+      react: 19.1.1
+
   expo-haptics@14.1.4(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0)):
     dependencies:
       expo: 53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1)
@@ -25419,7 +25440,7 @@ snapshots:
       '@expo/config-plugins': 10.0.3
       '@expo/fingerprint': 0.12.4
       '@expo/metro-config': 0.20.14
-      '@expo/vector-icons': 14.1.0(expo-font@13.3.1(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0)
+      '@expo/vector-icons': 14.1.0(expo-font@13.3.1(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0)
       babel-preset-expo: 13.1.11(@babel/core@7.28.4)
       expo-asset: 11.1.5(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0)
       expo-constants: 17.1.6(expo@53.0.9(@babel/core@7.28.4)(graphql@16.11.0)(react-native-webview@13.14.1(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.1.1))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))(react@19.0.0))(react-native@0.79.2(@babel/core@7.28.4)(@types/react@19.1.13)(react@19.1.1))
@@ -31274,6 +31295,10 @@ snapshots:
       debug: 4.4.3(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
+
+  superjson@2.2.2:
+    dependencies:
+      copy-anything: 3.0.5
 
   supports-color@5.5.0:
     dependencies:
