@@ -77,8 +77,8 @@ importers:
         specifier: 2.20.11
         version: 2.20.11(encoding@0.1.13)
       '@leather.io/services':
-        specifier: 1.32.0
-        version: 1.32.0(encoding@0.1.13)
+        specifier: 1.33.0
+        version: 1.33.0(encoding@0.1.13)
       '@leather.io/stacks':
         specifier: 1.16.5
         version: 1.16.5(encoding@0.1.13)
@@ -89,8 +89,8 @@ importers:
         specifier: 1.82.0
         version: 1.82.0(@babel/core@7.28.4)(@emotion/is-prop-valid@1.4.0)(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(@vue/compiler-sfc@3.4.19)(graphql@16.11.0)
       '@leather.io/utils':
-        specifier: 0.45.0
-        version: 0.45.0
+        specifier: 0.46.0
+        version: 0.46.0
       '@ledgerhq/hw-transport-webusb':
         specifier: 6.27.19
         version: 6.27.19
@@ -3010,11 +3010,20 @@ packages:
   '@leather.io/bitcoin@0.32.5':
     resolution: {integrity: sha512-WD3jegXkkvWtnXGp1UanmoED9LL+d62TVfuIQ/IrgWP7/ZfsFiHGTuOUzOTgueLSxtAhjXDqlHtOBrrPuiF3Nw==}
 
+  '@leather.io/bitcoin@0.32.6':
+    resolution: {integrity: sha512-3u+yp3s1zKesQhHQNanLvNlUdAU0HYFgbuIdCU1XuO7wRVj5noewA1/jDvPSTIdXERM1oeSlk0zXOSitYD7f2A==}
+
   '@leather.io/constants@0.25.3':
     resolution: {integrity: sha512-cnBX11iq3iZOv/Ti4X++aUyjbBY/Am3xcaOnzw5C9JCA/6WXcWdpSUkxFilHcl5kpnS3f/RbqIRsjhIlSTTY9Q==}
 
+  '@leather.io/constants@0.25.4':
+    resolution: {integrity: sha512-iVcvOgvuVPi9q3H/bKqKc0PkZXFOAmY5apZ/69ybhiijxfgX4d7Y0qgXiAxnaqs5dXbJA+vJndsmqhBPi3pX9A==}
+
   '@leather.io/crypto@1.11.10':
     resolution: {integrity: sha512-p4xCKpyOmEtlS0dc0hrcp4aV0OYmThESVEr5AztFhZ09FWrPUolfxjt8+B1sysNWWclSY/1h41nLEioIB8F1cA==}
+
+  '@leather.io/crypto@1.11.11':
+    resolution: {integrity: sha512-lKeB69hy0VRHMUo+3dTO87Wl2ZIF3kweoVPPrw4bEfxbt00r1ATnHm320ESLZQFvXuA2kWtpLEQziUQi0H0WvA==}
 
   '@leather.io/eslint-config@0.10.0':
     resolution: {integrity: sha512-inIiby0sKrorGpQOK4H0oihiZG9Vb4NXlRjF7KYXrvZpoEmIxaerexCsTDULGt+p6/4L8qT3dTS4jOqwA/zpOQ==}
@@ -3028,6 +3037,9 @@ packages:
 
   '@leather.io/models@0.41.0':
     resolution: {integrity: sha512-nXDZZ5DpPpCPo4dVoda9dP8VnOOKe+KZ3sixsk4AHGaxf6qGDIIn+wBl7X/BiluhBiwy5J15fduSYiDXL4U5ow==}
+
+  '@leather.io/models@0.42.0':
+    resolution: {integrity: sha512-pDp9eYlgH30gjyjSrjg+ei++EFv1p4fy5WsRRY7Jwb2ZtX2CPTXNADSe6Wn+zsI1omhJ3DLwi3umaH2vc1jwZQ==}
 
   '@leather.io/panda-preset@0.12.9':
     resolution: {integrity: sha512-tGBf8ELVJ7LF/q7OmJEPKQMJ/HISoI2470yPhlw7xC7ZBt5pfEy6nZFlrl377f2copsWI3LuTKfCMBeb/k8NIg==}
@@ -3047,11 +3059,14 @@ packages:
   '@leather.io/rpc@2.20.11':
     resolution: {integrity: sha512-3gP539t1vl3DV4FcA4KHU9C1lJW3V+zecGeuEmjhfwW9RIHASlp/KLo3KT191JyvCwac1H7TyGit7rLwRB0CoQ==}
 
-  '@leather.io/services@1.32.0':
-    resolution: {integrity: sha512-EPXX7T4PP11RmxYYuR5pLarQwf79BbLXJKSHuuThzLf9bj2r6+Hme/Ld7mYUGgL1YnAkkz00yoN5rpqGegDR0A==}
+  '@leather.io/services@1.33.0':
+    resolution: {integrity: sha512-4YOPx7YhVi8QHScISL09OfXm796NWcPsAQ+2zPPBZCmWdJbuxtv/Q+GS5wzRedfWR8KUENaaytEJkAMiw/Y1kA==}
 
   '@leather.io/stacks@1.16.5':
     resolution: {integrity: sha512-3Pv4amCcZlrNLQkwwxTT1YPPYTnPAXUzLC0psADJGxKaF1B0BTOqWbEYQ4sxmXaYM2lNVL7+znxiYjnTsiAHHw==}
+
+  '@leather.io/stacks@1.16.6':
+    resolution: {integrity: sha512-+Ui64rCr4ArnCqyjYAGrNHvBXeD2oIJaMRxPDNGqZ0vEqSbirfD/dOqOYDXsgd/y/d6jcT2qe4EXIZGMyDqcMQ==}
 
   '@leather.io/tokens@0.23.0':
     resolution: {integrity: sha512-4RooKpCEV1xZKFw+Q/4mDj+jYMUx5f9S0AK89koRjEeIMNT+vtjxoQsfsJ9wZVZwXvHu+IUKWNqlFnaRN34WOw==}
@@ -3061,6 +3076,9 @@ packages:
 
   '@leather.io/utils@0.45.0':
     resolution: {integrity: sha512-HtVbtIkAUt1+R6+FgcdNfEqbDrc+qJIApukIXYb/sJWi0AJVd1YzUV+DU3CjdX/83rC3cX+ThgDtdh/iBaMlCw==}
+
+  '@leather.io/utils@0.46.0':
+    resolution: {integrity: sha512-LZPRUsiHB825FTCSFrW5FGLDcwET8p8L7ZvrbbJucO8wF7KRx0LWISyAxMY09y7qlMxLkExqeUu7ChHTeZ9G+Q==}
 
   '@ledgerhq/devices@8.5.1':
     resolution: {integrity: sha512-oW75YQQiP2muHveXTuwSAze6CBxJ7jOYILhFiJbsVzmgLPVqtdw4s0bJJlOBft4Aup67yNAjboFCIU7kTYQBFg==}
@@ -6383,6 +6401,13 @@ packages:
     resolution: {integrity: sha512-TQMCz2pFJMfpNxmSfX1VSfTjwUIFx/mL+p1bnfM1xjjdla7Z+KnGMW/EhFbpckp3LyWAH4PgOsMwOMnIN+MBFg==}
     peerDependencies:
       '@urql/core': ^5.0.0
+
+  '@velarprotocol/velar-sdk@0.7.5-beta':
+    resolution: {integrity: sha512-V/ImooXWoBvn6Ihb2c8qj0tQaQMEyhtPXRDPOLRcxz8JHdQeG9HDG0VcAVUZ26F7d8UJ8GoKzIrseC0f/ai9BA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@stacks/network': '*'
+      '@stacks/transactions': '*'
 
   '@vitest/coverage-istanbul@2.0.5':
     resolution: {integrity: sha512-BvjWKtp7fiMAeYUD0mO5cuADzn1gmjTm54jm5qUEnh/O08riczun8rI4EtQlg3bWoRo2lT3FO8DmjPDX9ZthPw==}
@@ -12938,6 +12963,9 @@ packages:
   remark-stringify@11.0.0:
     resolution: {integrity: sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw==}
 
+  remeda@2.21.2:
+    resolution: {integrity: sha512-wdhkMDou8HRpD7RnxKJ/FHJWEGXRH7jV/pb0NsdLLSoBo+G9RjtxcY41hVhogLfEMkThk6aySKjs+Yd6PnpzBA==}
+
   renderkid@3.0.0:
     resolution: {integrity: sha512-q/7VIQA8lmM1hF+jn+sFSPWGlMkSAeNYcPLmDQx2zzuiDfaLrOmumR8iaUKlenFgh0XRPIUeSPlH3A+AW3Z5pg==}
 
@@ -14070,6 +14098,10 @@ packages:
 
   type-fest@4.30.2:
     resolution: {integrity: sha512-UJShLPYi1aWqCdq9HycOL/gwsuqda1OISdBO3t8RlXQC4QvtuIz4b5FCfe2dQIWEpmlRExKmcTBfP1r9bhY7ig==}
+    engines: {node: '>=16'}
+
+  type-fest@4.41.0:
+    resolution: {integrity: sha512-TeTSQ6H5YHvpqVwBRcnLDCBnDOHWYu7IvGbHT6N8AOymcr9PJGjc1GTtiWZTYg0NCgYwvnYWEkVChQAr9bjfwA==}
     engines: {node: '>=16'}
 
   type-is@1.6.18:
@@ -17379,13 +17411,47 @@ snapshots:
       varuint-bitcoin: 1.1.2
       zod: 4.0.17
 
+  '@leather.io/bitcoin@0.32.6':
+    dependencies:
+      '@bitcoinerlab/secp256k1': 1.0.2
+      '@leather.io/constants': 0.25.4
+      '@leather.io/crypto': 1.11.11
+      '@leather.io/models': 0.42.0
+      '@leather.io/utils': 0.46.0
+      '@noble/hashes': 1.5.0
+      '@noble/secp256k1': 2.1.0
+      '@scure/base': 1.2.4
+      '@scure/bip32': 1.6.2
+      '@scure/bip39': 1.5.4
+      '@scure/btc-signer': 1.6.0
+      bignumber.js: 9.1.2
+      bip21: 3.0.0
+      bip32: 4.0.0
+      bitcoin-address-validation: 2.2.3
+      bitcoinjs-lib: 6.1.5
+      ecpair: 2.1.0
+      just-memoize: 2.2.0
+      varuint-bitcoin: 1.1.2
+      zod: 4.0.17
+
   '@leather.io/constants@0.25.3':
     dependencies:
       '@leather.io/models': 0.41.0
 
+  '@leather.io/constants@0.25.4':
+    dependencies:
+      '@leather.io/models': 0.42.0
+
   '@leather.io/crypto@1.11.10':
     dependencies:
       '@leather.io/utils': 0.45.0
+      '@scure/bip32': 1.6.2
+      '@scure/bip39': 1.5.4
+      just-memoize: 2.2.0
+
+  '@leather.io/crypto@1.11.11':
+    dependencies:
+      '@leather.io/utils': 0.46.0
       '@scure/bip32': 1.6.2
       '@scure/bip39': 1.5.4
       just-memoize: 2.2.0
@@ -17400,6 +17466,12 @@ snapshots:
       typescript-eslint: 8.44.0(eslint@8.56.0)(typescript@5.4.5)
 
   '@leather.io/models@0.41.0':
+    dependencies:
+      '@stacks/stacks-blockchain-api-types': 7.14.1
+      bignumber.js: 9.1.2
+      zod: 4.0.17
+
+  '@leather.io/models@0.42.0':
     dependencies:
       '@stacks/stacks-blockchain-api-types': 7.14.1
       bignumber.js: 9.1.2
@@ -17487,17 +17559,20 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@leather.io/services@1.32.0(encoding@0.1.13)':
+  '@leather.io/services@1.33.0(encoding@0.1.13)':
     dependencies:
+      '@bitflowlabs/core-sdk': 2.4.0(encoding@0.1.13)
       '@hirosystems/token-metadata-api-client': 1.2.0(encoding@0.1.13)
-      '@leather.io/bitcoin': 0.32.5
-      '@leather.io/constants': 0.25.3
-      '@leather.io/models': 0.41.0
-      '@leather.io/utils': 0.45.0
+      '@leather.io/bitcoin': 0.32.6
+      '@leather.io/constants': 0.25.4
+      '@leather.io/models': 0.42.0
+      '@leather.io/stacks': 1.16.6(encoding@0.1.13)
+      '@leather.io/utils': 0.46.0
       '@stacks/common': 7.0.2
       '@stacks/network': 7.0.2(encoding@0.1.13)
       '@stacks/stacks-blockchain-api-types': 7.14.1
       '@stacks/transactions': 7.0.5(encoding@0.1.13)
+      '@velarprotocol/velar-sdk': 0.7.5-beta(@stacks/network@7.0.2(encoding@0.1.13))(@stacks/transactions@7.0.5(encoding@0.1.13))
       alex-sdk: 3.1.0(@stacks/common@7.0.2)(@stacks/network@7.0.2(encoding@0.1.13))(@stacks/transactions@7.0.5(encoding@0.1.13))
       axios: 1.12.0
       bignumber.js: 9.1.2
@@ -17505,6 +17580,7 @@ snapshots:
       openapi-fetch: 0.13.5
       p-queue: 8.1.1
       reflect-metadata: 0.2.2
+      remeda: 2.21.2
       uuid: 11.1.0
       zod: 4.0.17
     transitivePeerDependencies:
@@ -17517,6 +17593,25 @@ snapshots:
       '@leather.io/crypto': 1.11.10
       '@leather.io/models': 0.41.0
       '@leather.io/utils': 0.45.0
+      '@noble/hashes': 1.5.0
+      '@scure/bip32': 1.6.2
+      '@stacks/common': 7.0.2
+      '@stacks/encryption': 7.0.2
+      '@stacks/network': 7.0.2(encoding@0.1.13)
+      '@stacks/stacks-blockchain-api-types': 7.14.1
+      '@stacks/transactions': 7.0.5(encoding@0.1.13)
+      bignumber.js: 9.1.2
+      c32check: 2.0.0
+      zod: 4.0.17
+    transitivePeerDependencies:
+      - encoding
+
+  '@leather.io/stacks@1.16.6(encoding@0.1.13)':
+    dependencies:
+      '@leather.io/constants': 0.25.4
+      '@leather.io/crypto': 1.11.11
+      '@leather.io/models': 0.42.0
+      '@leather.io/utils': 0.46.0
       '@noble/hashes': 1.5.0
       '@scure/bip32': 1.6.2
       '@stacks/common': 7.0.2
@@ -17588,6 +17683,13 @@ snapshots:
     dependencies:
       '@leather.io/constants': 0.25.3
       '@leather.io/models': 0.41.0
+      bignumber.js: 9.1.2
+      dompurify: 3.2.4
+
+  '@leather.io/utils@0.46.0':
+    dependencies:
+      '@leather.io/constants': 0.25.4
+      '@leather.io/models': 0.42.0
       bignumber.js: 9.1.2
       dompurify: 3.2.4
 
@@ -22276,6 +22378,11 @@ snapshots:
     dependencies:
       '@urql/core': 5.2.0(graphql@16.11.0)
       wonka: 6.3.5
+
+  '@velarprotocol/velar-sdk@0.7.5-beta(@stacks/network@7.0.2(encoding@0.1.13))(@stacks/transactions@7.0.5(encoding@0.1.13))':
+    dependencies:
+      '@stacks/network': 7.0.2(encoding@0.1.13)
+      '@stacks/transactions': 7.0.5(encoding@0.1.13)
 
   '@vitest/coverage-istanbul@2.0.5(vitest@3.1.4(@types/debug@4.1.12)(@types/node@20.12.12)(jiti@1.21.7)(jsdom@26.1.0)(lightningcss@1.27.0)(terser@5.44.0)(yaml@2.8.1))':
     dependencies:
@@ -30379,6 +30486,10 @@ snapshots:
       mdast-util-to-markdown: 2.1.2
       unified: 11.0.5
 
+  remeda@2.21.2:
+    dependencies:
+      type-fest: 4.41.0
+
   renderkid@3.0.0:
     dependencies:
       css-select: 4.3.0
@@ -31669,6 +31780,8 @@ snapshots:
   type-fest@3.13.1: {}
 
   type-fest@4.30.2: {}
+
+  type-fest@4.41.0: {}
 
   type-is@1.6.18:
     dependencies:

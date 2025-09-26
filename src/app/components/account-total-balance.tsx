@@ -6,25 +6,27 @@ import { SkeletonLoader, shimmerStyles } from '@leather.io/ui';
 
 import { formatCurrency } from '@app/common/currency-formatter';
 import { PrivateText } from '@app/components/privacy/private-text';
-import { useAccountBalance } from '@app/query/common/account-balance/account-balance.hooks';
+import { useAccountTotalBalance } from '@app/query/common/account-balance/account-balance.query';
 
 interface AccountTotalBalanceProps {
   accountIndex: number;
 }
 
 export const AccountTotalBalance = memo(({ accountIndex }: AccountTotalBalanceProps) => {
-  const { totalBalance, isLoading, isLoadingAdditionalData } = useAccountBalance(accountIndex);
+  const accountTotalBalance = useAccountTotalBalance(accountIndex);
 
-  if (!totalBalance) return null;
+  if (accountTotalBalance.state !== 'loading' && !accountTotalBalance.value) return null;
 
   return (
-    <SkeletonLoader height="20px" isLoading={isLoading}>
+    <SkeletonLoader height="20px" isLoading={accountTotalBalance.state === 'loading'}>
       <styled.span
         className={shimmerStyles}
         textStyle="label.02"
-        data-state={isLoadingAdditionalData ? 'loading' : undefined}
+        data-state={accountTotalBalance.state === 'loading' ? 'loading' : undefined}
       >
-        <PrivateText>{formatCurrency(totalBalance)}</PrivateText>
+        {accountTotalBalance.value && (
+          <PrivateText>{formatCurrency(accountTotalBalance.value)}</PrivateText>
+        )}
       </styled.span>
     </SkeletonLoader>
   );

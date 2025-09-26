@@ -15,7 +15,7 @@ import { ActivityList } from '@app/features/activity-list/activity-list';
 import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
 import { PromoBanner } from '@app/features/promo-banner/promo-banner';
 import { Assets } from '@app/pages/home/components/assets';
-import { useCurrentAccountBalance } from '@app/query/common/account-balance/account-balance.hooks';
+import { useCurrentAccountTotalBalance } from '@app/query/common/account-balance/account-balance.query';
 import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
@@ -30,6 +30,8 @@ import { AccountCard } from '@app/ui/components/account/account.card';
 
 import { AccountActions } from './components/account-actions';
 import { HomeTabs } from './components/home-tabs';
+
+const emptyBalanceDisplay = '-.--';
 
 export function Home() {
   const { decodedAuthRequest } = useOnboardingState();
@@ -47,8 +49,7 @@ export function Home() {
     index: currentAccountIndex || 0,
   });
 
-  const { availableBalance, totalBalance, isLoading, isLoadingAdditionalData } =
-    useCurrentAccountBalance();
+  const balance = useCurrentAccountTotalBalance();
 
   useOnMount(() => {
     if (decodedAuthRequest) return navigate(RouteUrls.ChooseAccount);
@@ -69,12 +70,16 @@ export function Home() {
       <Box px={{ base: 'space.05', md: 0 }} pb={{ base: 'space.05', md: 0 }}>
         <AccountCard
           name={name}
-          availableBalance={formatCurrency(availableBalance)}
-          totalBalance={formatCurrency(totalBalance)}
+          availableBalance={
+            balance.state !== 'success' ? emptyBalanceDisplay : formatCurrency(balance.value)
+          }
+          totalBalance={
+            balance.state !== 'success' ? emptyBalanceDisplay : formatCurrency(balance.value)
+          }
           toggleSwitchAccount={() => toggleSwitchAccount()}
           isFetchingBnsName={isFetchingBnsName}
-          isLoadingBalance={isLoading}
-          isLoadingAdditionalData={isLoadingAdditionalData}
+          isLoadingBalance={balance.state === 'loading'}
+          isLoadingAdditionalData={balance.state === 'loading'}
           isBalancePrivate={isPrivateMode}
           onShowBalance={togglePrivateMode}
         >
