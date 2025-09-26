@@ -1,11 +1,6 @@
 import type { Sip10Balance } from '@leather.io/services';
-import {
-  aggregateBaseCryptoAssetBalances,
-  createBaseCryptoAssetBalance,
-  createMoney,
-} from '@leather.io/utils';
+import { isSameAsset } from '@leather.io/utils';
 
-import { type AssetFilter, useManageTokens } from '@app/common/hooks/use-manage-tokens';
 import { toFetchState } from '@app/services/fetch-state';
 import { useAccountAddresses } from '@app/services/use-account-addresses';
 
@@ -30,36 +25,12 @@ export function useSip10AddressTransferableTokenBalances(address: string) {
   };
 }
 
-export function useManagedSip10AccountBalance(accountIndex: number, assetFilter: AssetFilter) {
-  const balance = useSip10AccountBalance(accountIndex);
-  const { filterTokens, isTokenEnabled } = useManageTokens();
-
-  if (balance.state !== 'success') {
-    return {
-      isLoading: true,
-    };
-  }
-
-  const preEnabledTokensIds = balance.value.sip10s
-    .filter(t => t.quote.availableBalance.amount.isGreaterThan(0))
-    .map(t => t.asset.assetId);
-
-  const managedTokens = filterTokens({
-    tokens: balance.value.sip10s,
-    filter: assetFilter,
-    getTokenId: t => t.asset.assetId,
-    preEnabledTokensIds,
-  });
+export function useManagedSip10Tools(accountIndex: number) {
+  const enabledSip10s = useSip10AccountBalance(accountIndex);
 
   return {
-    isLoading: false,
-    sip10s: managedTokens,
-    balance:
-      managedTokens.length > 0
-        ? aggregateBaseCryptoAssetBalances(managedTokens.map(t => t.quote))
-        : createBaseCryptoAssetBalance(createMoney(0, 'USD')),
     isEnabled: (token: Sip10Balance) =>
-      isTokenEnabled({ tokenId: token.asset.assetId, preEnabledTokensIds }),
+      !!enabledSip10s.value?.sip10s.find(sip10 => isSameAsset(sip10.asset, token.asset)),
   };
 }
 
@@ -72,7 +43,15 @@ function useSip10AddressBalance(address: string) {
   return toFetchState(useGetSip10AddressBalanceQuery(address));
 }
 
-function useSip10AccountBalance(accountIndex: number) {
+export function useSip10AccountBalance(
+  accountIndex: number,
+  options?: { includeHiddenAssets?: boolean }
+) {
   const account = useAccountAddresses(accountIndex);
-  return toFetchState(useGetSip10AccountBalanceQuery({ account }));
+  return toFetchState(
+    useGetSip10AccountBalanceQuery({
+      account,
+      assets: { includeHiddenAssets: options?.includeHiddenAssets },
+    })
+  );
 }

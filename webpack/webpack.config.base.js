@@ -82,6 +82,7 @@ const aliases = {
   '@stacks/encryption': '@stacks/encryption/dist/esm',
   '@stacks/network': '@stacks/network/dist/esm',
   '@stacks/profile': '@stacks/profile/dist/esm',
+  '@stacks/transactions/dist/cl': '@stacks/transactions/dist/esm/cl',
   '@stacks/transactions': '@stacks/transactions/dist/esm',
   '@stacks/wallet-sdk': '@stacks/wallet-sdk/dist/esm',
   'leather-styles': path.resolve('leather-styles'),
