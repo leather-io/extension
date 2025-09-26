@@ -29,7 +29,7 @@ export const manageTokensSlice = createSlice({
 
 const selectors = manageTokensAdapter.getSelectors();
 
-function selectTokenState(state: RootState) {
+export function selectTokenState(state: RootState) {
   return state.manageTokens;
 }
 
