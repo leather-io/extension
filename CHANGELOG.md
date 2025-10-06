@@ -1,3 +1,20 @@
+## [6.73.4](https://github.com/leather-io/extension/compare/v6.73.3...v6.73.4) (2025-10-06)
+
+
+### Bug Fixes
+
+* **analytics:** cap session duration tracking ([dbd9c7d](https://github.com/leather-io/extension/commit/dbd9c7d5ee6e7d48b2ab7c5a404e0beac709e76e))
+* missing resp data check ([d1542a3](https://github.com/leather-io/extension/commit/d1542a35f2a9666d8ae5b5e34ff54bdfb0bcb116))
+* remove console.log ([cf735ff](https://github.com/leather-io/extension/commit/cf735fff5f3612d3ca120ac47ce44383d7a217ce))
+* rephase promo cards ([53fac51](https://github.com/leather-io/extension/commit/53fac51465a6c47c82ad83c97cb14103e3cb0307))
+
+
+### Internal
+
+* enable promo banner ([c5a6eac](https://github.com/leather-io/extension/commit/c5a6eac059894221815ba8db940946741eacb4a4))
+* post-release merge back ([ff1667b](https://github.com/leather-io/extension/commit/ff1667beaaac6bc87e41b36ab567d7a775cfdf0f))
+* stacks transaction summary LEA-3200 ([e529df6](https://github.com/leather-io/extension/commit/e529df60d87c2a1ead5e4f24b03e8fc500df5d45))
+
 ## [6.73.3](https://github.com/leather-io/extension/compare/v6.73.2...v6.73.3) (2025-09-17)
 
 
