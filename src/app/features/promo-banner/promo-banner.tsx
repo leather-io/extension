@@ -37,8 +37,6 @@ export function PromoBanner() {
   const { dismissPromo, dismissedPromoIndexes } = usePromos();
   const shouldDisplayPromoCard = useConfigPromoCardEnabled();
 
-  // console.log('shouldDisplayPromoCard', shouldDisplayPromoCard);
-
   useOnMount(() => {
     if (promoCards.length > 0 && promoIndexes.length === 0) {
       setPromoIndexes(Array.from({ length: promoCards.length }, (_, i) => i));
