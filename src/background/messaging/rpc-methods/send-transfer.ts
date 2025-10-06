@@ -21,19 +21,17 @@ import { defineRpcRequestHandler } from '../rpc-message-handler';
 import {
   RequestParams,
   createConnectingAppSearchParamsWithLastKnownAccount,
-  getTabIdFromPort,
   sendErrorResponseOnUserPopupClose,
   triggerRequestPopupWindowOpen,
 } from '../rpc-request-utils';
 
 export const sendTransferHandler = defineRpcRequestHandler(
   sendTransfer.method,
-  async (request, port) => {
+  async (request, sender, sendResponse) => {
     if (isUndefined(request.params)) {
       void trackRpcRequestError({ endpoint: 'sendTransfer', error: 'Undefined parameters' });
 
-      chrome.tabs.sendMessage(
-        getTabIdFromPort(port),
+      sendResponse(
         createRpcErrorResponse('sendTransfer', {
           id: request.id,
           error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
@@ -50,8 +48,7 @@ export const sendTransferHandler = defineRpcRequestHandler(
     if (!validateRpcSendTransferParams(params)) {
       void trackRpcRequestError({ endpoint: 'sendTransfer', error: 'Invalid parameters' });
 
-      chrome.tabs.sendMessage(
-        getTabIdFromPort(port),
+      sendResponse(
         createRpcErrorResponse('sendTransfer', {
           id: request.id,
           error: {
@@ -83,7 +80,7 @@ export const sendTransferHandler = defineRpcRequestHandler(
     }
 
     const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(
-      port,
+      sender,
       requestParams
     );
 

@@ -7,6 +7,7 @@ import {
   type RpcMethodNames,
   type RpcRequests,
   createRpcErrorResponse,
+  rpcBasePropsSchema,
 } from '@leather.io/rpc';
 import { isUndefined } from '@leather.io/utils';
 
@@ -25,19 +26,32 @@ import { popup } from '@background/popup';
 
 import { trackRpcRequestError } from './rpc-helpers';
 
-export function getTabIdFromPort(port: chrome.runtime.Port) {
-  return port.sender?.tab?.id ?? 0;
+function isOriginLeatherExtension(urlOrigin: string) {
+  const extensionOrigin = new URL(chrome.runtime.getURL('')).origin;
+  return urlOrigin === extensionOrigin;
 }
 
-function getOriginFromPort(port: chrome.runtime.Port) {
-  if (port.sender?.url) return new URL(port.sender.url).origin;
-  return port.sender?.origin;
+function getTabIdFromSender(sender: chrome.runtime.MessageSender) {
+  return sender?.tab?.id ?? 0;
 }
 
-export function getHostnameFromPort(port: chrome.runtime.Port) {
-  const origin = getOriginFromPort(port);
-  if (!origin) throw new Error('No URL found in port sender');
+function getOriginFromSender(sender: chrome.runtime.MessageSender) {
+  if (sender?.url) return new URL(sender.url).origin;
+  return sender?.origin;
+}
+
+export function getHostnameFromSender(sender: chrome.runtime.MessageSender) {
+  const origin = getOriginFromSender(sender);
+  if (!origin) throw new Error('No URL found in sender');
   return getHostnameFromUrl(origin);
+}
+
+export function createRpcResponder(sender: chrome.runtime.MessageSender) {
+  const origin = getOriginFromSender(sender) ?? '';
+  return (response: any) =>
+    isOriginLeatherExtension(origin)
+      ? chrome.runtime.sendMessage(response)
+      : chrome.tabs.sendMessage(sender.tab?.id ?? 0, response);
 }
 
 //
@@ -59,8 +73,7 @@ interface ListenForPopupCloseArgs {
 export function listenForPopupClose({ id, tabId, response }: ListenForPopupCloseArgs) {
   chrome.windows.onRemoved.addListener(winId => {
     if (winId !== id || !tabId) return;
-    const responseMessage = response;
-    chrome.tabs.sendMessage(tabId, responseMessage);
+    chrome.tabs.sendMessage(tabId, response);
   });
 }
 
@@ -102,12 +115,12 @@ export function listenForOriginTabClose({ tabId }: ListenForOriginTabCloseArgs) 
 export type RequestParams = [string, string][];
 
 export function createConnectingAppMetadataSearchParams(
-  port: chrome.runtime.Port,
+  sender: chrome.runtime.MessageSender,
   otherParams: RequestParams = []
 ) {
   const urlParams = new URLSearchParams();
-  const origin = getOriginFromPort(port);
-  const tabId = getTabIdFromPort(port);
+  const origin = getOriginFromSender(sender);
+  const tabId = getTabIdFromSender(sender);
   urlParams.set('origin', origin ?? '');
   urlParams.set('tabId', tabId.toString());
   otherParams.forEach(([key, value]) => urlParams.append(key, value));
@@ -115,12 +128,12 @@ export function createConnectingAppMetadataSearchParams(
 }
 
 export async function createConnectingAppSearchParamsWithLastKnownAccount(
-  port: chrome.runtime.Port,
+  sender: chrome.runtime.MessageSender,
   otherParams: RequestParams = []
 ) {
-  const { urlParams, origin, tabId } = createConnectingAppMetadataSearchParams(port, otherParams);
+  const { urlParams, origin, tabId } = createConnectingAppMetadataSearchParams(sender, otherParams);
   if (origin) {
-    const appPermissions = await getPermissionsByOrigin(getHostnameFromPort(port));
+    const appPermissions = await getPermissionsByOrigin(getHostnameFromSender(sender));
     if (appPermissions) {
       urlParams.set('accountIndex', appPermissions.accountIndex.toString());
     }
@@ -146,20 +159,21 @@ interface ValidateRequestParamsArgs {
   id: string;
   method: RpcMethodNames;
   params: unknown;
-  port: chrome.runtime.Port;
+  sender: chrome.runtime.MessageSender;
+  sendResponse(response: any): void;
   schema: z.Schema;
 }
 export function validateRequestParams({
   id,
   method,
   params,
-  port,
+  // sender,
+  sendResponse,
   schema,
 }: ValidateRequestParamsArgs): { status: ValidationResult } {
   if (isUndefined(params)) {
     void trackRpcRequestError({ endpoint: method, error: RpcErrorMessage.UndefinedParams });
-    chrome.tabs.sendMessage(
-      getTabIdFromPort(port),
+    sendResponse(
       createRpcErrorResponse(method, {
         id,
         error: { code: RpcErrorCode.INVALID_REQUEST, message: RpcErrorMessage.UndefinedParams },
@@ -171,8 +185,7 @@ export function validateRequestParams({
   if (!validateRpcParams(params, schema)) {
     void trackRpcRequestError({ endpoint: method, error: RpcErrorMessage.InvalidParams });
 
-    chrome.tabs.sendMessage(
-      getTabIdFromPort(port),
+    sendResponse(
       createRpcErrorResponse(method, {
         id,
         error: {
@@ -184,4 +197,24 @@ export function validateRequestParams({
     return { status: 'failure' };
   }
   return { status: 'success' };
+}
+
+export const rpcRequestSchema = z.intersection(
+  rpcBasePropsSchema,
+  z.object({
+    method: z.string(),
+    params: z.any().optional(),
+  })
+);
+
+const rpcResponseSchema = z.intersection(
+  rpcBasePropsSchema,
+  z.union([z.object({ result: z.any() }), z.object({ error: z.any() })])
+);
+
+export function listenAndForwardRpcRequest(requestId: string, sendMessage: (resp: any) => void) {
+  return chrome.runtime.onMessage.addListener(message => {
+    const result = rpcResponseSchema.safeParse(message);
+    if (result.success && message.id === requestId) sendMessage(message);
+  });
 }

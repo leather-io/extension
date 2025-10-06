@@ -3,6 +3,15 @@ import { Route, useNavigate } from 'react-router';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box, Stack } from 'leather-styles/jsx';
 
+import type {
+  LeatherRpcMethodMap,
+  RpcMethodNames,
+  RpcParameter,
+  RpcRequests,
+} from '@leather.io/rpc';
+import { Button } from '@leather.io/ui';
+
+import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
@@ -30,6 +39,32 @@ import { AccountCard } from '@app/ui/components/account/account.card';
 
 import { AccountActions } from './components/account-actions';
 import { HomeTabs } from './components/home-tabs';
+
+function request(
+  method: RpcMethodNames,
+  params?: RpcParameter
+): Promise<LeatherRpcMethodMap[RpcMethodNames]['response']> {
+  const id: string = crypto.randomUUID();
+  const rpcRequest: RpcRequests = {
+    jsonrpc: '2.0',
+    id,
+    method,
+    params: params ?? ({} as any),
+  };
+
+  chrome.runtime.sendMessage(rpcRequest);
+
+  return new Promise((resolve, reject) => {
+    function handleMessage(response: any) {
+      if (response.id !== id) return;
+      chrome.runtime.onMessage.removeListener(handleMessage);
+      // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
+      if ('error' in response) return reject(response);
+      return resolve(response);
+    }
+    chrome.runtime.onMessage.addListener(handleMessage);
+  });
+}
 
 export function Home() {
   const { decodedAuthRequest } = useOnboardingState();
@@ -85,6 +120,24 @@ export function Home() {
         </AccountCard>
         <PromoBanner />
       </Box>
+      <Button
+        onClick={async () => {
+          const resp = await request('getAddresses').catch(logger.error);
+          // eslint-disable-next-line no-console
+          console.log(resp);
+        }}
+      >
+        getAddresses
+      </Button>
+      <Button
+        onClick={async () => {
+          const resp = await request('supportedMethods').catch(logger.error);
+          // eslint-disable-next-line no-console
+          console.log(resp);
+        }}
+      >
+        supportedMethods
+      </Button>
       {whenPageMode({ full: <FeedbackButton />, popup: null })}
       <HomeTabs>
         <ModalBackgroundWrapper>

@@ -4,6 +4,7 @@ import { networkFromName } from '@stacks/network';
 import { deserializeCV } from '@stacks/transactions';
 
 import { RpcErrorCode, createRpcErrorResponse, createRpcSuccessResponse } from '@leather.io/rpc';
+import { delay } from '@leather.io/utils';
 
 import {
   isSignableMessageType,
@@ -87,13 +88,11 @@ export function useRpcSignStacksMessageParams() {
 }
 
 export function useRpcSignStacksMessage() {
-  const { tabId, requestId } = useRpcSignStacksMessageParams();
-  if (!tabId) throw new Error('Requests can only be made with corresponding tab');
+  const { requestId } = useRpcSignStacksMessageParams();
 
   const { isLoading, signMessage } = useSignStacksMessage({
-    onSignMessageCompleted(messageSignature) {
-      chrome.tabs.sendMessage(
-        tabId,
+    async onSignMessageCompleted(messageSignature) {
+      chrome.runtime.sendMessage(
         createRpcSuccessResponse('stx_signMessage', {
           id: requestId,
           result: {
@@ -102,16 +101,16 @@ export function useRpcSignStacksMessage() {
           },
         })
       );
+      await delay(100);
       closeWindow();
     },
     onSignMessageCancelled: onCancelMessageSigning,
   });
 
-  function onCancelMessageSigning() {
-    if (!requestId || !tabId) return;
+  async function onCancelMessageSigning() {
+    if (!requestId) return;
     void analytics.track('request_signature_cancel');
-    chrome.tabs.sendMessage(
-      tabId,
+    chrome.runtime.sendMessage(
       createRpcErrorResponse('stx_signMessage', {
         id: requestId,
         error: {
@@ -120,6 +119,8 @@ export function useRpcSignStacksMessage() {
         },
       })
     );
+    await delay(100);
+
     closeWindow();
   }
 

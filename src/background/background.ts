@@ -16,10 +16,21 @@ import {
   isLegacyMessage,
 } from './messaging/legacy/legacy-external-message-handler';
 import { rpcMessageHandler } from './messaging/rpc-message-handler';
+import { rpcRequestSchema } from './messaging/rpc-request-utils';
 import { initAddressMonitor } from './monitors/address-monitor';
 
 initContextMenuActions();
 warnUsersAboutDevToolsDangers();
+
+initAddressMonitor().catch(e => {
+  logger.error('Unable to Initialise Address Monitor: ', e);
+});
+
+listenForSessionDurationPort({
+  onSessionEnd(sessionMetadata) {
+    void queueAnalyticsRequest('user_session_complete', sessionMetadata);
+  },
+});
 
 chrome.runtime.onInstalled.addListener(async details => {
   if (details.reason === 'install' && process.env.WALLET_ENVIRONMENT !== 'testing') {
@@ -34,7 +45,7 @@ chrome.runtime.onConnect.addListener(port => {
   if (port.name !== CONTENT_SCRIPT_PORT) return;
 
   port.onMessage.addListener((message: LegacyMessageFromContentScript | RpcRequests, port) => {
-    if (!port.sender?.tab?.id)
+    if (!port.sender || !port.sender?.tab?.id)
       return logger.error('Message reached background script without a corresponding tab');
 
     // Chromium/Firefox discrepancy
@@ -52,24 +63,20 @@ chrome.runtime.onConnect.addListener(port => {
     // TODO:
     // Here we'll handle all messages using the rpc style comm method
     // For now all messages are handled as legacy format
-    void rpcMessageHandler(message, port);
+    void rpcMessageHandler(message, port.sender);
   });
 });
 
 //
 // Events from the extension frames script
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (rpcRequestSchema.safeParse(message).success) {
+    void rpcMessageHandler(message, sender);
+    return true;
+  }
+
   void internalBackgroundMessageHandler(message, sender, sendResponse);
+
   // Listener fn must return `true` to indicate the response will be async
   return true;
-});
-
-initAddressMonitor().catch(e => {
-  logger.error('Unable to Initialise Address Monitor: ', e);
-});
-
-listenForSessionDurationPort({
-  onSessionEnd(sessionMetadata) {
-    void queueAnalyticsRequest('user_session_complete', sessionMetadata);
-  },
 });

@@ -66,10 +66,13 @@ export async function handleLegacyExternalMethodFormat(
     case ExternalMethods.authenticationRequest: {
       void trackLegacyRequestInitiated({ method: ExternalMethods.authenticationRequest });
 
-      const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(port, [
-        ['authRequest', payload],
-        ['flow', ExternalMethods.authenticationRequest],
-      ]);
+      const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(
+        port.sender!,
+        [
+          ['authRequest', payload],
+          ['flow', ExternalMethods.authenticationRequest],
+        ]
+      );
 
       const { id } = await triggerRequestPopupWindowOpen(RouteUrls.ChooseAccount, urlParams);
       listenForPopupClose({
@@ -84,11 +87,14 @@ export async function handleLegacyExternalMethodFormat(
     case ExternalMethods.transactionRequest: {
       void trackLegacyRequestInitiated({ method: ExternalMethods.transactionRequest });
 
-      const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(port, [
-        ['request', payload],
-        ['flow', ExternalMethods.transactionRequest],
-        ...getNetworkParamsFromPayload(payload),
-      ]);
+      const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(
+        port.sender!,
+        [
+          ['request', payload],
+          ['flow', ExternalMethods.transactionRequest],
+          ...getNetworkParamsFromPayload(payload),
+        ]
+      );
 
       const { id } = await triggerRequestPopupWindowOpen(RouteUrls.TransactionRequest, urlParams);
       listenForPopupClose({
@@ -103,12 +109,15 @@ export async function handleLegacyExternalMethodFormat(
     case ExternalMethods.signatureRequest: {
       void trackLegacyRequestInitiated({ method: ExternalMethods.signatureRequest });
 
-      const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(port, [
-        ['request', payload],
-        ['messageType', 'utf8'],
-        ['flow', ExternalMethods.signatureRequest],
-        ...getNetworkParamsFromPayload(payload),
-      ]);
+      const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(
+        port.sender!,
+        [
+          ['request', payload],
+          ['messageType', 'utf8'],
+          ['flow', ExternalMethods.signatureRequest],
+          ...getNetworkParamsFromPayload(payload),
+        ]
+      );
 
       const { id } = await triggerRequestPopupWindowOpen(RouteUrls.SignatureRequest, urlParams);
       listenForPopupClose({
@@ -123,12 +132,15 @@ export async function handleLegacyExternalMethodFormat(
     case ExternalMethods.structuredDataSignatureRequest: {
       void trackLegacyRequestInitiated({ method: ExternalMethods.structuredDataSignatureRequest });
 
-      const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(port, [
-        ['request', payload],
-        ['messageType', 'structured'],
-        ['flow', ExternalMethods.structuredDataSignatureRequest],
-        ...getNetworkParamsFromPayload(payload),
-      ]);
+      const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(
+        port.sender!,
+        [
+          ['request', payload],
+          ['messageType', 'structured'],
+          ['flow', ExternalMethods.structuredDataSignatureRequest],
+          ...getNetworkParamsFromPayload(payload),
+        ]
+      );
 
       const { id } = await triggerRequestPopupWindowOpen(RouteUrls.SignatureRequest, urlParams);
       listenForPopupClose({
@@ -143,9 +155,10 @@ export async function handleLegacyExternalMethodFormat(
     case ExternalMethods.profileUpdateRequest: {
       void trackLegacyRequestInitiated({ method: ExternalMethods.profileUpdateRequest });
 
-      const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(port, [
-        ['request', payload],
-      ]);
+      const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(
+        port.sender!,
+        [['request', payload]]
+      );
 
       const { id } = await triggerRequestPopupWindowOpen(RouteUrls.ProfileUpdateRequest, urlParams);
       listenForPopupClose({
@@ -160,9 +173,10 @@ export async function handleLegacyExternalMethodFormat(
     case ExternalMethods.psbtRequest: {
       void trackLegacyRequestInitiated({ method: ExternalMethods.psbtRequest });
 
-      const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(port, [
-        ['request', payload],
-      ]);
+      const { urlParams, tabId } = await createConnectingAppSearchParamsWithLastKnownAccount(
+        port.sender!,
+        [['request', payload]]
+      );
 
       const { id } = await triggerRequestPopupWindowOpen(RouteUrls.PsbtRequest, urlParams);
       listenForPopupClose({
