@@ -52,10 +52,17 @@ export function listenForSessionDurationPort({ onSessionEnd }: ListenForSessionD
 
       if (!isDefined(startTime) || !frameType) return;
 
+      function capDurationAt10Minutes(duration: number) {
+        return Math.min(duration, 600);
+      }
+
       tabIdSessionStartMap.delete(id);
       onSessionEnd({
         sessionFrame: frameType,
-        durationSeconds: (new Date().valueOf() - startTime) / 1000,
+        // Frames could last days at a time, and users are of unlikely to be
+        // actively using leather for such long durations. This cap is a measure
+        // to prevent unrealistically high session durations
+        durationSeconds: capDurationAt10Minutes((new Date().valueOf() - startTime) / 1000),
       });
     });
   });

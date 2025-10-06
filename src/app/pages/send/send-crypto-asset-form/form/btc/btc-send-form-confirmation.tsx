@@ -168,7 +168,7 @@ export function BtcSendFormConfirmation() {
               mt="space.05"
               px="space.05"
               symbol={symbol}
-              value={Number(transferAmount)}
+              value={transferAmount}
             />
 
             <Stack pb="space.06" px="space.06" width="100%">

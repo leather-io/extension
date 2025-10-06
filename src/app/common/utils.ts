@@ -260,10 +260,6 @@ export function linearInterpolation({ start, end, t }: LinearInterpolation) {
   return (1 - t) * start + t * end;
 }
 
-export function removeTrailingNullCharacters(s: string) {
-  return s.replace(/\0*$/g, '');
-}
-
 export function removeMinusSign(value: string) {
   return value.replace('-', '');
 }

@@ -15,7 +15,7 @@ import { AccountGate } from '@app/routes/account-gate';
 import { BroadcastError } from '../broadcast-error/broadcast-error';
 import { ChooseCryptoAsset } from '../choose-crypto-asset/choose-crypto-asset';
 import { BtcSentSummary } from '../sent-summary/btc-sent-summary';
-import { StxSentSummary } from '../sent-summary/stx-sent-summary';
+import { StacksChainTxSummaryRoute } from '../sent-summary/stacks/stacks-chain-tx-summary.route';
 import { RecipientAccountsSheet } from './components/recipient-accounts-dialog/recipient-accounts-dialog';
 import { SendBitcoinAssetContainer } from './family/bitcoin/components/send-bitcoin-asset-container';
 import { BtcChooseFee } from './form/btc/btc-choose-fee';
@@ -67,6 +67,7 @@ export const sendCryptoAssetFormRoutes = (
       </Route>
       <Route path={RouteUrls.SentBtcTxSummary} element={<BtcSentSummary />} />
     </Route>
+
     <Route
       path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx')}
       element={
@@ -85,6 +86,7 @@ export const sendCryptoAssetFormRoutes = (
     >
       {ledgerStacksTxSigningRoutes}
     </Route>
+
     <Route
       path={RouteUrls.SendSip10Form}
       element={
@@ -100,6 +102,6 @@ export const sendCryptoAssetFormRoutes = (
     <Route path="/send/:symbol/:contractId/confirm" element={<StacksSendFormConfirmation />}>
       {ledgerStacksTxSigningRoutes}
     </Route>
-    <Route path={RouteUrls.SentStxTxSummary} element={<StxSentSummary />} />
+    <Route path={RouteUrls.SentStxTxSummary} element={<StacksChainTxSummaryRoute />} />
   </Route>
 );
