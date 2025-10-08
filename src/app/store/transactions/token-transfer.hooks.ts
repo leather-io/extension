@@ -83,9 +83,8 @@ export function useGenerateFtTokenTransferUnsignedTx(info: Sip10Asset) {
   const account = useCurrentStacksAccount();
   const { data: nextNonce } = useNextNonce(account?.address ?? '');
   const network = useCurrentStacksNetworkState();
-  const { contractId } = info;
-  const { contractAddress, contractAssetName, contractName } =
-    getStacksAssetStringParts(contractId);
+  const { assetId } = info;
+  const { contractAddress, contractAssetName, contractName } = getStacksAssetStringParts(assetId);
   return useCallback(
     async (values?: StacksSendFormValues | StacksTransactionFormValues) => {
       try {
