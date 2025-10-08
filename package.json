@@ -154,7 +154,7 @@
     "@leather.io/provider": "1.5.12",
     "@leather.io/query": "2.42.1",
     "@leather.io/rpc": "2.20.11",
-    "@leather.io/services": "1.33.0",
+    "@leather.io/services": "1.34.2",
     "@leather.io/stacks": "1.16.5",
     "@leather.io/tokens": "0.23.0",
     "@leather.io/ui": "1.85.0",
