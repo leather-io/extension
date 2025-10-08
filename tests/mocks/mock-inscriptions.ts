@@ -1,6 +1,7 @@
-import { type InscriptionResponseHiro, createHiroInscription } from '@leather.io/query';
+import type { Inscription } from '@leather.io/models';
+import { createBestInSlotInscription } from '@leather.io/query';
 
-export const mockInscriptionResponse1: InscriptionResponseHiro = {
+export const mockInscriptionResponse1: Inscription = {
   address: 'bc1pwrmewwprc8k8l2k63x4advg0nx0jk50xzqnee996lm87mcuza7kq6drg2k',
   content_length: 55,
   content_type: 'image/png',
@@ -27,9 +28,9 @@ export const mockInscriptionResponse1: InscriptionResponseHiro = {
   value: '10000',
 };
 
-export const mockInscription1 = createHiroInscription(mockInscriptionResponse1);
+export const mockInscription1 = createBestInSlotInscription(mockInscriptionResponse1);
 
-export const mockInscriptionResponse2: InscriptionResponseHiro = {
+export const mockInscriptionResponse2: Inscription = {
   address: 'bc1pwrmewwprc8k8l2k63x4advg0nx0jk50xzqnee996lm87mcuza7kq6drg2k',
   content_length: 55,
   content_type: 'image/png',
