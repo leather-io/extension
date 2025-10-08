@@ -30,7 +30,7 @@ export function TxStatusBadge({ txid }: { txid: string }) {
     );
 
   if (data?.tx_status === 'abort_by_response' || data?.tx_status === 'abort_by_post_condition')
-    return <Badge variant="error" label={capitalize(data.tx_status.replace('_', ' '))} />;
+    return <Badge variant="error" label={capitalize(data.tx_status.replaceAll('_', ' '))} />;
 
   return <Badge variant="success" label="Confirmed" />;
 }
