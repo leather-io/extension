@@ -107,7 +107,7 @@ export function ConnectLedger(props: ConnectLedgerProps) {
 
       {isWindows && (
         <Callout variant="warning" mb="space.06" mx="space.06" textAlign="left">
-          Ledger devices running newer firmware versions may not work correctly.{' '}
+          Ledger devices running newer firmware versions may not work correctly on Windows computers.{' '}
           <styled.a
             fontSize="inherit"
             border={0}
