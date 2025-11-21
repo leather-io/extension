@@ -1,3 +1,6 @@
+> [!WARNING]  
+> Leather Web Extension has moved to our [monorepo](https://github.com/leather-io/mono). All issues and bug reports should be opened there.
+
 # Leather
 
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/ldinpeekobnhjjdofggfgjlcehhmanlj?label=Chrome%20Web%20Store)](https://chromewebstore.google.com/detail/leather/ldinpeekobnhjjdofggfgjlcehhmanlj)
