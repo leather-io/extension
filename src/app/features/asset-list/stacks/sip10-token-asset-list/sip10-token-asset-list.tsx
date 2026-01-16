@@ -1,8 +1,9 @@
-import { type Dispatch, type SetStateAction, useEffect } from 'react';
+import { type Dispatch, type SetStateAction, useEffect, useMemo } from 'react';
 
 import { Stack } from 'leather-styles/jsx';
 
 import { type AssetFilter } from '@app/common/hooks/use-manage-tokens';
+import { useConfigSbtc } from '@app/query/common/remote-config/remote-config.query';
 import {
   useManagedSip10Tools,
   useSip10AccountBalance,
@@ -30,6 +31,7 @@ export function Sip10TokenAssetList({
     includeHiddenAssets: assetFilter === 'all',
   });
   const { isEnabled } = useManagedSip10Tools(accountIndex);
+  const { isSbtcContract } = useConfigSbtc();
 
   useEffect(() => {
     if (sip10s.value && sip10s.value.sip10s.length > 0 && setHasManageableTokens) {
@@ -37,11 +39,23 @@ export function Sip10TokenAssetList({
     }
   }, [sip10s, setHasManageableTokens]);
 
+  // Sort tokens to prioritize sBTC first (fixes #6270)
+  const sortedSip10s = useMemo(() => {
+    if (!sip10s.value?.sip10s) return [];
+    return [...sip10s.value.sip10s].sort((a, b) => {
+      const aIsSbtc = isSbtcContract(a.asset.contractId);
+      const bIsSbtc = isSbtcContract(b.asset.contractId);
+      if (aIsSbtc && !bIsSbtc) return -1;
+      if (!aIsSbtc && bIsSbtc) return 1;
+      return 0;
+    });
+  }, [sip10s.value?.sip10s, isSbtcContract]);
+
   if (sip10s.state !== 'success' && !sip10s.value) return null;
 
   return (
     <Stack>
-      {sip10s.value.sip10s.map(sip10 => (
+      {sortedSip10s.map(sip10 => (
         <Sip10TokenAssetItem
           key={sip10.asset.assetId}
           assetRightElementVariant={assetRightElementVariant}
