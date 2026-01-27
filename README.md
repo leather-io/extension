@@ -1,5 +1,10 @@
 > [!WARNING]  
-> Leather Web Extension has moved to our [monorepo](https://github.com/leather-io/mono). All issues and bug reports should be opened there.
+> **This repo is now deprecated** Leather Web Extension has moved to our [monorepo](https://github.com/leather-io/mono). All issues and bug reports should be opened there.
+
+<details>
+
+<summary>See old extension <code>README.md</code></summary>
+
 
 # Leather
 
@@ -152,3 +157,6 @@ Please note this email is strictly for reporting security vulnerabilities. For s
 In Q1 2021, Leather partnered with [Least Authority](https://leastauthority.com/), a leading security consultancy with experience in the crypto space, to audit Leather. On April 29th 2021, after addressing the major concerns described in the initial findings, as well as a concluding sign off from the Least Authority team, a final report was delivered.
 
 [Download and read the full report here](https://github.com/leather-io/extension/blob/main/public/docs/least-authority-security-audit-report.pdf)
+
+
+</details>
